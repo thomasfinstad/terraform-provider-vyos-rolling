@@ -13,7 +13,11 @@ wget -O tidy.deb "https://github.com/htacg/tidy-html5/releases/download/5.9.14-n
 sudo apt-get install "./tidy.deb"
 rm -v "./tidy.deb"
 
-rm -rf /var/lib/apt/lists/*
+# Get some completion up in here
+sudo apt-get install bash-completion
+
+# Clean up apt to reduce used space
+sudo rm -rf /var/lib/apt/lists/*
 
 ###
 # Pre-commit / git tools
@@ -26,3 +30,6 @@ register-python-argcomplete cz >> ~/.bashrc
 # Used to improve commits before they are commited
 pipx install pre-commit
 pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+
+# Tooling
+pipx install yq
