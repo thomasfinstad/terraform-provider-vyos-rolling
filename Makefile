@@ -12,42 +12,10 @@ help:
 ###
 # VyOS ISO Upload timestamp
 
-# Fetch the ISO download webpage
-.build/vyos/iso-download-page-hourly-$(TS_HOUR).html: .build/vyos
-	mkdir -p .build/vyos
-
-	find ".build/vyos" -name "iso-download-page-hourly-*.html" -delete;
-
-	curl -s "https://vyos.net/get/nightly-builds/" > .build/vyos/iso-download-page-hourly-$(TS_HOUR).html
-
-	tidy_ret="$$(tidy -indent -ashtml -quiet -modify .build/vyos/iso-download-page-hourly-$(TS_HOUR).html 1>&2; echo $$?)"; \
-	if [ "$$tidy_ret" -eq 1 ]; then \
-		echo "Tidy had warnings"; \
-	elif [ "$$tidy_ret" -eq 2 ]; then \
-		echo "Tidy had errors"; \
-		exit 1; \
-	else \
-		echo "Tidy unkown exit code: '$$tidy_ret'"; \
-		exit 1; \
-	fi
-
-# Extract ISO urls
-.build/vyos/iso-url.txt: .build/vyos/iso-download-page-hourly-$(TS_HOUR).html
-	xmllint \
-		--html \
-		--nowarning \
-		--xpath "/html/body/main/div[@id='content']/div[@id='rolling-current']/ul/*/a/@href" \
-		.build/vyos/iso-download-page-hourly-$(TS_HOUR).html 2>/dev/null \
-		| cut -d'"' -f2 \
-		| grep -v "vyos-rolling-latest.iso" \
-		| sort \
-		| tail -n1 \
-		| tee ".build/vyos/iso-url.txt";
-
 # Fetch and format newest ISO modification timestamp
-data/vyos/rolling-iso-time.txt: .build/vyos/iso-url.txt
+data/vyos/rolling-iso-time.txt:
 	curl -s --location --head \
-		"$(shell cat .build/vyos/iso-url.txt)" \
+		"https://s3-us.vyos.io/rolling/current/vyos-rolling-latest.iso" \
 		> ".build/vyos/iso-headers.txt"
 
 	mkdir -p data/vyos
@@ -57,18 +25,20 @@ data/vyos/rolling-iso-time.txt: .build/vyos/iso-url.txt
 		> "data/vyos/rolling-iso-time.txt"
 
 ###
-# VyOS src repo
-data/vyos/vyos-1x: data/vyos/rolling-iso-time.txt
+# VyOS src repo at correct commit
+data/vyos/vyos-1x/submodule.log: data/vyos/rolling-iso-time.txt
 	git submodule update --init --single-branch -- data/vyos/vyos-1x
 
 	cd data/vyos/vyos-1x && \
-	git checkout "$$(git rev-list --date=iso-strict -n 1 --before="$(shell cat "data/vyos/rolling-iso-time.txt")" current)"
+	commit="$$(git rev-list --date=iso-strict -n 1 --before="$(shell cat "data/vyos/rolling-iso-time.txt")" "current")" && \
+	git checkout "$$commit" && \
+	echo "$$commit" > submodule.log
 
 ###
 # Autogenerate Schemas
 
 # Convert from relaxng to XSD
-.build/vyos/schema/interface-definition.xsd: .build/vyos/vyos-1x
+.build/vyos/schema/interface-definition.xsd: data/vyos/vyos-1x/submodule.log
 	mkdir -p .build/vyos/schema/
 	java -jar scripts/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc .build/vyos/schema/interface-definition.xsd
 
@@ -80,7 +50,7 @@ vyos_api/schema/autogen-interface-definition.go: .build/vyos/schema/interface-de
 # Dump definitions to a more human readable format
 # TODO next
 # Interface definitions
-.build/vyos/vyos-1x/venv: data/vyos/vyos-1x
+.build/vyos/vyos-1x/venv: data/vyos/vyos-1x/submodule.log
 	python -m venv .build/vyos/vyos-1x/venv
 
 	bash -c " \
