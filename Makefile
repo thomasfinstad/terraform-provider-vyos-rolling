@@ -43,8 +43,8 @@ data/vyos/vyos-1x/submodule.log: data/vyos/rolling-iso-time.txt
 	java -jar scripts/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc .build/vyos/schema/interface-definition.xsd
 
 # Generate go structs from XSD
-vyos_api/schema/autogen-interface-definition.go: .build/vyos/schema/interface-definition.xsd
-	go generate vyos_api/schema/interface-definition.go
+internal/provider/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/interface-definition.xsd internal/provider/vyos/schema/interfacedefinition/interface-definition.go
+	go generate internal/provider/vyos/schema/interfacedefinition/interface-definition.go
 
 ###
 # Dump definitions to a more human readable format
@@ -67,3 +67,7 @@ vyos_api/schema/autogen-interface-definition.go: .build/vyos/schema/interface-de
 	"
 
 	mv data/vyos/vyos-1x/interface-definitions .build/vyos/interface-definitions
+
+clean:
+	rm -rfv .build
+	git submodule deinit --all
