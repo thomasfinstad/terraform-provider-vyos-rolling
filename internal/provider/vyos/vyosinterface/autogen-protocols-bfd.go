@@ -8,595 +8,284 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func ProtocolsBfd() interfacedefinition.InterfaceDefinition {
+func protocolsbfd() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/protocols_bfd.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Bidirectional Forwarding Detection (BFD)`},
-										Priority: []string{
-											`820`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Configures BFD peer to listen and talk to`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ipv4-address`,
-																		ArgumentAttr: ``},
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ipv6-address`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4`,
-																Description: `BFD peer IPv4 address`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv6`,
-																Description: `BFD peer IPv6 address`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Bind listener to specified interface/address,
- mandatory for IPv6`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Interface to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `file-path --lookup-path /sys/class/net --directory`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Interface name`}},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Script: []string{
-																									`${vyos_completion_dir}/list_interfaces`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Local address to bind our peer listener to`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``},
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv6-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `Local IPv4 address used to connect to the peer`},
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv6`,
-																								Description: `Local IPv6 address used to connect to the peer`}},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Script: []string{
-																									`${vyos_completion_dir}/list_local_ips.sh --both`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Configure timer intervals`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`300`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Minimum interval of receiving control packets`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `Interval in milliseconds`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`300`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Minimum interval of transmitting control packets`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `Interval in milliseconds`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`3`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Multiplier to determine packet loss`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 2-255`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:2-255`,
-																								Description: `Remote transmission interval will be multiplied by this value`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Echo receive transmission interval`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `The minimal echo receive transmission interval that this system is capable of handling`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Use settings from BFD profile`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `BFD profile name`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`protocols bfd profile`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enables the echo transmission mode`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Do not attempt to start sessions`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable this peer`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Allow this BFD peer to not be directly connected`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`VRF instance name`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `VRF instance name`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`vrf name`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Configure BFD profile used by individual peer`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`[-_a-zA-Z0-9]{1,
-32}`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Name of BFD profile`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Configure timer intervals`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`300`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Minimum interval of receiving control packets`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `Interval in milliseconds`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`300`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Minimum interval of transmitting control packets`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `Interval in milliseconds`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`3`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Multiplier to determine packet loss`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 2-255`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:2-255`,
-																								Description: `Remote transmission interval will be multiplied by this value`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Echo receive transmission interval`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 10-60000`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:10-60000`,
-																								Description: `The minimal echo receive transmission interval that this system is capable of handling`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enables the echo transmission mode`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Do not attempt to start sessions`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable this peer`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "protocols",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "bfd", OwnerAttr: "${vyos_conf_scripts_dir}/protocols_bfd.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName:  xml.Name{Local: "properties"},
+						Help:     []string{"Bidirectional Forwarding Detection (BFD)"},
+						Priority: []string{"820"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "peer",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Configures BFD peer to listen and talk to"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-address"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "BFD peer IPv4 address"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "BFD peer IPv6 address"}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "source",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Bind listener to specified interface/address, mandatory for IPv6"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "interface",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Interface to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Regex:     []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "file-path --lookup-path /sys/class/net --directory"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Interface name"}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Local address to bind our peer listener to"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Local IPv4 address used to connect to the peer"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "Local IPv6 address used to connect to the peer"}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Script:  []string{"${vyos_completion_dir}/list_local_ips.sh --both"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "interval",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Configure timer intervals"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "receive",
+											DefaultValue: []string{"300"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Minimum interval of receiving control packets"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "Interval in milliseconds"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "transmit",
+											DefaultValue: []string{"300"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Minimum interval of transmitting control packets"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "Interval in milliseconds"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "multiplier",
+											DefaultValue: []string{"3"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Multiplier to determine packet loss"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 2-255"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:2-255", Description: "Remote transmission interval will be multiplied by this value"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "echo-interval",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Echo receive transmission interval"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "The minimal echo receive transmission interval that this system is capable of handling"}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "profile",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Use settings from BFD profile"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "BFD profile name"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"protocols bfd profile"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "echo-mode",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enables the echo transmission mode"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "passive",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Do not attempt to start sessions"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "shutdown",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable this peer"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "multihop",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Allow this BFD peer to not be directly connected"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "vrf",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"VRF instance name"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "VRF instance name"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"vrf name"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "profile",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Configure BFD profile used by individual peer"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"[-_a-zA-Z0-9]{1,32}"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Name of BFD profile"}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "interval",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Configure timer intervals"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "receive",
+											DefaultValue: []string{"300"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Minimum interval of receiving control packets"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "Interval in milliseconds"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "transmit",
+											DefaultValue: []string{"300"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Minimum interval of transmitting control packets"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "Interval in milliseconds"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "multiplier",
+											DefaultValue: []string{"3"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Multiplier to determine packet loss"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 2-255"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:2-255", Description: "Remote transmission interval will be multiplied by this value"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "echo-interval",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Echo receive transmission interval"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-60000"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-60000", Description: "The minimal echo receive transmission interval that this system is capable of handling"}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "echo-mode",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enables the echo transmission mode"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "passive",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Do not attempt to start sessions"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "shutdown",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable this peer"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

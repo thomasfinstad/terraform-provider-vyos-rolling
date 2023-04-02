@@ -81,52 +81,19 @@ func main() {
 
 	output := render.AsCode(interfaceDefinition)
 
-	matchers := []*regexp.Regexp{
-		// 1 Line breaks for def start
-		regexp.MustCompile("([A-Za-z]{)"),
-
-		// 2 Line breaks for commas
-		regexp.MustCompile(",([^,]+)"),
-
-		// 3 Turn escaped double quotes into single quotes
-		regexp.MustCompile(`\\"`),
-
-		// 4 Turn remaining double quotes into string litterals to tolerate multi line strings
-		regexp.MustCompile(`"`),
-
-		// 5 Remove lines that creates "nil" values eg:
-		//		Hidden: []*interfacedefinition.Hidden(nil),
-		regexp.MustCompile(".*nil[,)]+\n"),
-
-		// 6 Remove lines that creates "nil" strings eg:
-		//		Space: ``,
-		regexp.MustCompile(".*``[,)]+\n"),
-	}
-
-	replacements := []string{
-		// 1
-		"$1\n",
-
-		// 2
-		",\n$1",
-
-		// 3
-		`\'`,
-
-		// 4
-		"`",
-
-		// 5
-		"",
-
-		// 6
-		"",
-	}
-
 	outputFormatted := []byte(output)
-	for idx, matcher := range matchers {
-		outputFormatted = matcher.ReplaceAll(outputFormatted, []byte(replacements[idx]))
-	}
+
+	// Remove nil values, example:
+	// VersionAttr: (&interfacedefinition.VersionAttr)(nil)}
+	outputFormatted = regexp.MustCompile(`\w+:[^:]+nil\),?`).ReplaceAll(outputFormatted, []byte(""))
+
+	// Remove empty string values, example:
+	// OwnerAttr:"",
+	outputFormatted = regexp.MustCompile(`\w+:\s*"",?`).ReplaceAll(outputFormatted, []byte(""))
+
+	// Add line breaks at each comma, attempt to avoid issues with commas in strings by requering formatting until next : and {
+	// This is very imperfect and some formatter that would be able to split a single line mega struct would be preferable.
+	outputFormatted = regexp.MustCompile(`,([\w\s]+:[^"]+{)`).ReplaceAll(outputFormatted, []byte(",\n$1"))
 
 	file, err := os.Create(outputFile)
 	if err != nil {
@@ -134,7 +101,7 @@ func main() {
 	}
 	defer file.Close()
 
-	funcName := strings.ReplaceAll(cases.Title(language.Norwegian).String(outputBaseName), "-", "")
+	funcName := strings.ReplaceAll(cases.Lower(language.Norwegian).String(outputBaseName), "-", "")
 
 	file.WriteString(
 		fmt.Sprintf(`
@@ -149,14 +116,15 @@ func main() {
 			)
 
 			func %s() interfacedefinition.InterfaceDefinition {
-				return %s
-			}`,
+				return `,
 			thisFilename,
 			pkgName,
 			funcName,
-			string(outputFormatted),
 		),
 	)
+
+	file.Write(outputFormatted)
+	file.WriteString(`}`)
 
 	/*
 		for when we have time to create something more built to purpose

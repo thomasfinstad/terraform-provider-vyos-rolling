@@ -8,208 +8,104 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func ProtocolsIgmp() interfacedefinition.InterfaceDefinition {
+func protocolsigmp() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/protocols_igmp.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Internet Group Management Protocol (IGMP)`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`IGMP interface`},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Script: []string{
-																	`${vyos_completion_dir}/list_interfaces`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IGMP join multicast group`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `Multicast group address`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Source address`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `Source address`}},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IGMP version`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 2-3`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `2`,
-																				Description: `IGMP version 2`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `3`,
-																				Description: `IGMP version 3`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`2 3`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IGMP host query interval`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-1800`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-1800`,
-																				Description: `Query interval in seconds`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IGMP max query response time`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 10-250`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:10-250`,
-																				Description: `Query response value in deci-seconds`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "protocols",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "igmp", OwnerAttr: "${vyos_conf_scripts_dir}/protocols_igmp.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{Local: "properties"},
+						Help:    []string{"Internet Group Management Protocol (IGMP)"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "interface",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"IGMP interface"},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+								}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "join",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IGMP join multicast group"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Multicast group address"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "source",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Source address"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Source address"}},
+												Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "version",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IGMP version"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 2-3"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "2", Description: "IGMP version 2"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "3", Description: "IGMP version 3"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"2 3"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "query-interval",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IGMP host query interval"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-1800"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-1800", Description: "Query interval in seconds"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "query-max-response-time",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IGMP max query response time"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 10-250"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:10-250", Description: "Query response value in deci-seconds"}},
+									}},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

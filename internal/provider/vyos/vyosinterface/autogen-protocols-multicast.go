@@ -8,212 +8,112 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func ProtocolsMulticast() interfacedefinition.InterfaceDefinition {
+func protocolsmulticast() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										Node: []*interfacedefinition.Node{
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												OwnerAttr: `${vyos_conf_scripts_dir}/protocols_static_multicast.py`,
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Multicast static route`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Configure static unicast route into MRIB for multicast RPF lookup`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ip-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4net`,
-																				Description: `Network`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		TagNode: []*interfacedefinition.TagNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `tagNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Nexthop IPv4 address`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `Nexthop IPv4 address`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Distance value for this route`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-255`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `u32:1-255`,
-																												Description: `Distance for this route`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-																		LeafNode: []*interfacedefinition.LeafNode(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Multicast interface based route`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ip-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4net`,
-																				Description: `Network`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		TagNode: []*interfacedefinition.TagNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `tagNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Next-hop interface`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Script: []string{
-																									`${vyos_completion_dir}/list_interfaces`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Distance value for this route`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-255`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `u32:1-255`,
-																												Description: `Distance for this route`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-																		LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-														LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-										LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "protocols",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "static",
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						Node: []*interfacedefinition.Node{{
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "multicast", OwnerAttr: "${vyos_conf_scripts_dir}/protocols_static_multicast.py",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Multicast static route"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "route",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Configure static unicast route into MRIB for multicast RPF lookup"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "Network"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										TagNode: []*interfacedefinition.TagNode{{
+											XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "next-hop",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Nexthop IPv4 address"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Nexthop IPv4 address"}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "distance",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Distance value for this route"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for this route"}},
+													}},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "interface-route",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Multicast interface based route"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "Network"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										TagNode: []*interfacedefinition.TagNode{{
+											XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "next-hop-interface",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Next-hop interface"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "distance",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Distance value for this route"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for this route"}},
+													}},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

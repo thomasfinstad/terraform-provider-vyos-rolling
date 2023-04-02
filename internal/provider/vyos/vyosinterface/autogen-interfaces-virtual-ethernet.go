@@ -8,560 +8,269 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func InterfacesVirtualEthernet() interfacedefinition.InterfaceDefinition {
+func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						TagNode: []*interfacedefinition.TagNode{
-							{
-								XMLName: xml.Name{
-									Local: `tagNode`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/interfaces-virtual-ethernet.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Virtual Ethernet (veth) Interface`},
-										Constraint: []*interfacedefinition.Constraint{
-											{
-												XMLName: xml.Name{
-													Local: `constraint`},
-												Regex: []string{
-													`veth[0-9]+`},
-												Validator: []*interfacedefinition.Validator(nil)}},
-										ValueHelp: []*interfacedefinition.ValueHelp{
-											{
-												XMLName: xml.Name{
-													Local: `valueHelp`},
-												Format:      `vethN`,
-												Description: `Virtual Ethernet interface name`}},
-										ConstraintErrorMessage: []string{
-											`Virutal Ethernet interface must be named vethN`},
-										Priority: []string{
-											`300`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										Node: []*interfacedefinition.Node{
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`DHCP client settings/options`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Identifier used by client to identify itself to the DHCP server`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Override system host-name sent to DHCP server`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Use MTU value from DHCP server - ignore interface setting`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Identify the vendor client type to the DHCP server`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Do not install default route to system`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`210`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Distance for installed default route`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-255`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-255`,
-																				Description: `Distance for the default route from DHCP server`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IP addresses or subnets from which to reject DHCP leases`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``},
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `IPv4 address to match`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4net`,
-																				Description: `IPv4 prefix to match`}},
-																		Multi: []*interfacedefinition.Multi{
-																			{
-																				XMLName: xml.Name{
-																					Local: `multi`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`DHCPv6 client settings/options`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`DHCPv6 prefix delegation interface statement`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--non-negative`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `instance number`,
-																				Description: `Prefix delegation instance (>= 0)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		TagNode: []*interfacedefinition.TagNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `tagNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Delegate IPv6 prefix from provider to this interface`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Script: []string{
-																									`${vyos_completion_dir}/list_interfaces --broadcast`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Local interface address assigned to interface (default: EUI-64)`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--non-negative`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `>0`,
-																												Description: `Used to form IPv6 interface address`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Interface site-Level aggregator (SLA)`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 0-65535`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `u32:0-65535`,
-																												Description: `Decimal integer which fits in the length of SLA IDs`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`64`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Request IPv6 prefix length from peer`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 32-64`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:32-64`,
-																								Description: `Length of delegated prefix`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`DHCP unique identifier (DUID) to be sent by dhcpv6 client`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv6-duid`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `duid`,
-																				Description: `DHCP unique identifier (DUID)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Acquire only config parameters,
- no address`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Wait for immediate reply instead of advertisements`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IPv6 temporary address`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`IP address`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(dhcp|dhcpv6)`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ip-host`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4net`,
-																Description: `IPv4 address and prefix length`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv6net`,
-																Description: `IPv6 address and prefix length`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `dhcp`,
-																Description: `Dynamic Host Configuration Protocol`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `dhcpv6`,
-																Description: `Dynamic Host Configuration Protocol for IPv6`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																List: []string{
-																	`dhcp dhcpv6`},
-																Script: []string(nil)}},
-														Multi: []*interfacedefinition.Multi{
-															{
-																XMLName: xml.Name{
-																	Local: `multi`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Description`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`[[:ascii:]]{0,
-256}`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Description`}},
-														ConstraintErrorMessage: []string{
-															`Description too long (limit 256 characters)`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Administratively disable interface`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`VRF instance name`},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `VRF instance name`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Path: []string{
-																	`vrf name`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Virtual ethernet peer interface name`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`veth[0-9]+`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Name of peer interface`}},
-														ConstraintErrorMessage: []string{
-															`Virutal Ethernet interface must be named vethN`},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Path: []string{
-																	`interfaces virtual-ethernet`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "interfaces",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				TagNode: []*interfacedefinition.TagNode{{
+					XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "virtual-ethernet", OwnerAttr: "${vyos_conf_scripts_dir}/interfaces-virtual-ethernet.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{Local: "properties"},
+						Help:    []string{"Virtual Ethernet (veth) Interface"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{Local: "constraint"},
+							Regex:   []string{"veth[0-9]+"},
+						}},
+						ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "vethN", Description: "Virtual Ethernet interface name"}},
+						ConstraintErrorMessage: []string{"Virutal Ethernet interface must be named vethN"},
+						Priority:               []string{"300"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						Node: []*interfacedefinition.Node{{
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "dhcp-options",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"DHCP client settings/options"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "client-id",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Identifier used by client to identify itself to the DHCP server"},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "host-name",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Override system host-name sent to DHCP server"},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "mtu",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Use MTU value from DHCP server - ignore interface setting"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "vendor-class-id",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Identify the vendor client type to the DHCP server"},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "no-default-route",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Do not install default route to system"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "default-route-distance",
+									DefaultValue: []string{"210"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Distance for installed default route"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for the default route from DHCP server"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "reject",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IP addresses or subnets from which to reject DHCP leases"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "IPv4 address to match"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 prefix to match"}},
+										Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "dhcpv6-options",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"DHCPv6 client settings/options"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "pd",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"DHCPv6 prefix delegation interface statement"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--non-negative"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "instance number", Description: "Prefix delegation instance (>= 0)"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										TagNode: []*interfacedefinition.TagNode{{
+											XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "interface",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Delegate IPv6 prefix from provider to this interface"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Script:  []string{"${vyos_completion_dir}/list_interfaces --broadcast"},
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "address",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Local interface address assigned to interface (default: EUI-64)"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--non-negative"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: ">0", Description: "Used to form IPv6 interface address"}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "sla-id",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Interface site-Level aggregator (SLA)"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-65535"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-65535", Description: "Decimal integer which fits in the length of SLA IDs"}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "length",
+											DefaultValue: []string{"64"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Request IPv6 prefix length from peer"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 32-64"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:32-64", Description: "Length of delegated prefix"}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "duid",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"DHCP unique identifier (DUID) to be sent by dhcpv6 client"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-duid"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "duid", Description: "DHCP unique identifier (DUID)"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "parameters-only",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Acquire only config parameters, no address"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "rapid-commit",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Wait for immediate reply instead of advertisements"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "temporary",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"IPv6 temporary address"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}},
+							}},
+						}},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "address",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"IP address"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Regex:     []string{"(dhcp|dhcpv6)"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-host"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 address and prefix length"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "IPv6 address and prefix length"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "dhcp", Description: "Dynamic Host Configuration Protocol"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "dhcpv6", Description: "Dynamic Host Configuration Protocol for IPv6"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									List:    []string{"dhcp dhcpv6"},
+								}},
+								Multi: []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "description",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Description"}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Administratively disable interface"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "vrf",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"VRF instance name"},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "VRF instance name"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Path:    []string{"vrf name"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "peer-name",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Virtual ethernet peer interface name"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"veth[0-9]+"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Name of peer interface"}},
+								ConstraintErrorMessage: []string{"Virutal Ethernet interface must be named vethN"},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Path:    []string{"interfaces virtual-ethernet"},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

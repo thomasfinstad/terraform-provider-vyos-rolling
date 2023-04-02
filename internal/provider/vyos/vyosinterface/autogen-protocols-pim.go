@@ -8,214 +8,112 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func ProtocolsPim() interfacedefinition.InterfaceDefinition {
+func protocolspim() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/protocols_pim.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Protocol Independent Multicast (PIM)`},
-										Priority: []string{
-											`400`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										Node: []*interfacedefinition.Node{
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Rendezvous Point`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Rendezvous Point address`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `Rendezvous Point address`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Group Address range`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ip-prefix`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4net`,
-																								Description: `Group Address range RFC 3171`}},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Keep alive Timer`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 31-60000`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:31-60000`,
-																				Description: `Keep alive Timer in seconds`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`PIM interface`},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Script: []string{
-																	`${vyos_completion_dir}/list_interfaces`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Designated Router Election Priority`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-4294967295`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-4294967295`,
-																				Description: `Value of the new DR Priority`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Hello Interval`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-180`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-180`,
-																				Description: `Hello Interval in seconds`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "protocols",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "pim", OwnerAttr: "${vyos_conf_scripts_dir}/protocols_pim.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName:  xml.Name{Local: "properties"},
+						Help:     []string{"Protocol Independent Multicast (PIM)"},
+						Priority: []string{"400"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						Node: []*interfacedefinition.Node{{
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "rp",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Rendezvous Point"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "address",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Rendezvous Point address"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Rendezvous Point address"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "group",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Group Address range"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "Group Address range RFC 3171"}},
+												Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "keep-alive-timer",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Keep alive Timer"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 31-60000"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:31-60000", Description: "Keep alive Timer in seconds"}},
+									}},
+								}},
+							}},
+						}},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "interface",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"PIM interface"},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+								}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "dr-priority",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Designated Router Election Priority"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-4294967295"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-4294967295", Description: "Value of the new DR Priority"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "hello",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Hello Interval"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-180"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-180", Description: "Hello Interval in seconds"}},
+									}},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

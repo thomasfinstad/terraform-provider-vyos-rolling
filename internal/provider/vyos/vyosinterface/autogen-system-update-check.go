@@ -8,75 +8,45 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func SystemUpdateCheck() interfacedefinition.InterfaceDefinition {
+func systemupdatecheck() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/system_update_check.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Check available update images`},
-										Priority: []string{
-											`9999`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Enable auto check for new images`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Remote URL`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`^https?:\\/\\/?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)&(\\:[0-9]+)&(\\/.&)?`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `url`,
-																Description: `Remote URL`}},
-														ConstraintErrorMessage: []string{
-															`Incorrect URL format`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "system",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "update-check", OwnerAttr: "${vyos_conf_scripts_dir}/system_update_check.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName:  xml.Name{Local: "properties"},
+						Help:     []string{"Check available update images"},
+						Priority: []string{"9999"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "auto-check",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Enable auto check for new images"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "url",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Remote URL"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"^https?:\\/\\/?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)&(\\:[0-9]+)&(\\/.&)?"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "url", Description: "Remote URL"}},
+								ConstraintErrorMessage: []string{"Incorrect URL format"},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

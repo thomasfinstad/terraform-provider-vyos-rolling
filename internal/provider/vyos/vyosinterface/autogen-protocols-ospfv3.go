@@ -8,1385 +8,699 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func ProtocolsOspfv3() interfacedefinition.InterfaceDefinition {
+func protocolsospfv3() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/protocols_ospfv3.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Open Shortest Path First (OSPF) for IPv6`},
-										Priority: []string{
-											`620`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										Node: []*interfacedefinition.Node{
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Calculate interface cost according to bandwidth`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`100`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Reference bandwidth method to assign cost`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-4294967`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-4294967`,
-																				Description: `Reference bandwidth cost in Mbits/sec`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Default route advertisment settings`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Distribute a default route`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Always advertise a default route`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`OSPF default metric`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 0-16777214`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:0-16777214`,
-																								Description: `Default metric`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`2`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`OSPF metric type for default routes`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 1-2`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:1-2`,
-																								Description: `Set OSPF External Type 1/2 metrics`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Administrative distance`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`OSPFv3 administrative distance`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Distance for external routes`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 1-255`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:1-255`,
-																								Description: `Distance for external routes`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Distance for inter-area routes`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 1-255`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:1-255`,
-																								Description: `Distance for inter-area routes`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Distance for intra-area routes`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 1-255`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:1-255`,
-																								Description: `Distance for intra-area routes`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Administrative distance`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-255`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-255`,
-																				Description: `Administrative distance`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Log adjacency state changes`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Log all state changes`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OSPFv3 specific parameters`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Override default router identifier`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `Router-ID in IP address format`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Redistribute information from another routing protocol`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute BGP routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute connected routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute kernel routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute RIPNG routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute Babel routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Redistribute static routes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Specify route-map name to use`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Regex: []string{
-																									`[-_a-zA-Z0-9.]+`},
-																								Validator: []*interfacedefinition.Validator(nil)}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `Route map name`}},
-																						ConstraintErrorMessage: []string{
-																							`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`policy route-map`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OSPFv3 Area`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `numeric`,
-																		ArgumentAttr: `--range 0-4294967295`},
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ip-address`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `u32`,
-																Description: `Area ID as a decimal value`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4`,
-																Description: `Area ID in IP address forma`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`OSPFv3 Area type`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		Node: []*interfacedefinition.Node{
-																			{
-																				XMLName: xml.Name{
-																					Local: `node`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`NSSA OSPFv3 area`},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Originate Type 7 default into NSSA area`},
-																										Valueless: []*interfacedefinition.Valueless{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueless`}}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Do not inject inter-area routes into the stub`},
-																										Valueless: []*interfacedefinition.Valueless{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueless`}}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `node`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Stub OSPFv3 area`},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Do not inject inter-area routes into the stub`},
-																										Valueless: []*interfacedefinition.Valueless{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueless`}}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-																		LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Specify IPv6 prefix (border routers only)`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv6-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv6net`,
-																				Description: `Specify IPv6 prefix (border routers only)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Advertise this range`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Do not advertise this range`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Name of export-list`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`policy access-list6`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Name of import-list`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`policy access-list6`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Enable routing on an IPv6 interface`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `file-path --lookup-path /sys/class/net --directory`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Interface used for routing information exchange`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Script: []string{
-																	`${vyos_completion_dir}/list_interfaces`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable Bidirectional Forwarding Detection (BFD)`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Use settings from BFD profile`},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `txt`,
-																								Description: `BFD profile name`}},
-																						CompletionHelp: []*interfacedefinition.CompletionHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `completionHelp`},
-																								Path: []string{
-																									`protocols bfd profile`},
-																								Script: []string(nil)}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable OSPF on this interface`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 0-4294967295`},
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ip-address`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32`,
-																				Description: `OSPF area ID as decimal notation`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `OSPF area ID in IP address notation`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`protocols ospfv3 area`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`40`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Interval after which a neighbor is declared dead`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `Neighbor dead interval (seconds)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`10`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Interval between hello packets`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `Hello interval (seconds)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`5`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Interval between retransmitting lost link state advertisements`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `Retransmit interval (seconds)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`1`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Link state transmit delay`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `Link state transmit delay (seconds)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Interface cost`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `OSPF interface cost`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable Maximum Transmission Unit (MTU) mismatch detection`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`1`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Router priority`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 0-255`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:0-255`,
-																				Description: `OSPF router priority cost`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Interface MTU`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-65535`,
-																				Description: `Interface MTU`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`0`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Instance ID`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 0-255`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:0-255`,
-																				Description: `Instance Id`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Network type`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(broadcast|point-to-point)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `broadcast`,
-																				Description: `Broadcast network type`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `point-to-point`,
-																				Description: `Point-to-point network type`}},
-																		ConstraintErrorMessage: []string{
-																			`Must be broadcast or point-to-point`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`broadcast point-to-point`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Configure passive mode for interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Specify route-map name to use`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`[-_a-zA-Z0-9.]+`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Route map name`}},
-														ConstraintErrorMessage: []string{
-															`Name of route-map can only contain alpha-numeric letters,
- hyphen and underscores`},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Path: []string{
-																	`policy route-map`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "protocols",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "ospfv3", OwnerAttr: "${vyos_conf_scripts_dir}/protocols_ospfv3.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName:  xml.Name{Local: "properties"},
+						Help:     []string{"Open Shortest Path First (OSPF) for IPv6"},
+						Priority: []string{"620"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						Node: []*interfacedefinition.Node{{
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "auto-cost",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Calculate interface cost according to bandwidth"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "reference-bandwidth",
+									DefaultValue: []string{"100"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Reference bandwidth method to assign cost"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-4294967"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-4294967", Description: "Reference bandwidth cost in Mbits/sec"}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "default-information",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Default route advertisment settings"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "originate",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Distribute a default route"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "always",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Always advertise a default route"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "metric",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"OSPF default metric"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-16777214"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-16777214", Description: "Default metric"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "metric-type",
+											DefaultValue: []string{"2"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"OSPF metric type for default routes"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-2"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-2", Description: "Set OSPF External Type 1/2 metrics"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "distance",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Administrative distance"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "ospfv3",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"OSPFv3 administrative distance"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "external",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Distance for external routes"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for external routes"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "inter-area",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Distance for inter-area routes"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for inter-area routes"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "intra-area",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Distance for intra-area routes"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Distance for intra-area routes"}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "global",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Administrative distance"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-255"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-255", Description: "Administrative distance"}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "log-adjacency-changes",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Log adjacency state changes"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "detail",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Log all state changes"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "parameters",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OSPFv3 specific parameters"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "router-id",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Override default router identifier"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Router-ID in IP address format"}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "redistribute",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Redistribute information from another routing protocol"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "bgp",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute BGP routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "connected",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute connected routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "kernel",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute kernel routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "ripng",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute RIPNG routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "babel",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute Babel routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "static",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Redistribute static routes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Specify route-map name to use"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{Local: "constraint"},
+													Regex:   []string{"[-_a-zA-Z0-9.]+"},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+												ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"policy route-map"},
+												}},
+											}},
+										}},
+									}},
+								}},
+							}},
+						}},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "area",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OSPFv3 Area"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-4294967295"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-address"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32", Description: "Area ID as a decimal value"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Area ID in IP address forma"}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "area-type",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"OSPFv3 Area type"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{Local: "node"}, NodeNameAttr: "nssa",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"NSSA OSPFv3 area"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "default-information-originate",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName:   xml.Name{Local: "properties"},
+														Help:      []string{"Originate Type 7 default into NSSA area"},
+														Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "no-summary",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName:   xml.Name{Local: "properties"},
+														Help:      []string{"Do not inject inter-area routes into the stub"},
+														Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+													}},
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "node"}, NodeNameAttr: "stub",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Stub OSPFv3 area"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "no-summary",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName:   xml.Name{Local: "properties"},
+														Help:      []string{"Do not inject inter-area routes into the stub"},
+														Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+													}},
+												}},
+											}},
+										}},
+									}},
+								}},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "range",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Specify IPv6 prefix (border routers only)"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "Specify IPv6 prefix (border routers only)"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "advertise",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Advertise this range"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "not-advertise",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Do not advertise this range"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "export-list",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Name of export-list"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"policy access-list6"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "import-list",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Name of import-list"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"policy access-list6"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "interface",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Enable routing on an IPv6 interface"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Regex:     []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "file-path --lookup-path /sys/class/net --directory"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Interface used for routing information exchange"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+								}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "bfd",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Enable Bidirectional Forwarding Detection (BFD)"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "profile",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Use settings from BFD profile"},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "BFD profile name"}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{Local: "completionHelp"},
+													Path:    []string{"protocols bfd profile"},
+												}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "area",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Enable OSPF on this interface"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-4294967295"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-address"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32", Description: "OSPF area ID as decimal notation"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "OSPF area ID in IP address notation"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"protocols ospfv3 area"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "dead-interval",
+									DefaultValue: []string{"40"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Interval after which a neighbor is declared dead"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Neighbor dead interval (seconds)"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "hello-interval",
+									DefaultValue: []string{"10"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Interval between hello packets"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Hello interval (seconds)"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "retransmit-interval",
+									DefaultValue: []string{"5"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Interval between retransmitting lost link state advertisements"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Retransmit interval (seconds)"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "transmit-delay",
+									DefaultValue: []string{"1"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Link state transmit delay"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Link state transmit delay (seconds)"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "cost",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Interface cost"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "OSPF interface cost"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "mtu-ignore",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable Maximum Transmission Unit (MTU) mismatch detection"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "priority",
+									DefaultValue: []string{"1"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Router priority"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-255"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-255", Description: "OSPF router priority cost"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "ifmtu",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Interface MTU"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Interface MTU"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "instance-id",
+									DefaultValue: []string{"0"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Instance ID"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-255"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-255", Description: "Instance Id"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "network",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Network type"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(broadcast|point-to-point)"},
+										}},
+										ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "broadcast", Description: "Broadcast network type"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "point-to-point", Description: "Point-to-point network type"}},
+										ConstraintErrorMessage: []string{"Must be broadcast or point-to-point"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"broadcast point-to-point"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "passive",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Configure passive mode for interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}},
+							}},
+						}},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "route-map",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Specify route-map name to use"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"[-_a-zA-Z0-9.]+"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Route map name"}},
+								ConstraintErrorMessage: []string{"Name of route-map can only contain alpha-numeric letters, hyphen and underscores"},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Path:    []string{"policy route-map"},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

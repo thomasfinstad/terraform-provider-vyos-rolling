@@ -8,2317 +8,1012 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func InterfacesOpenvpn() interfacedefinition.InterfaceDefinition {
+func interfacesopenvpn() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						TagNode: []*interfacedefinition.TagNode{
-							{
-								XMLName: xml.Name{
-									Local: `tagNode`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/interfaces-openvpn.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`OpenVPN Tunnel Interface`},
-										Constraint: []*interfacedefinition.Constraint{
-											{
-												XMLName: xml.Name{
-													Local: `constraint`},
-												Regex: []string{
-													`vtun[0-9]+`},
-												Validator: []*interfacedefinition.Validator(nil)}},
-										ValueHelp: []*interfacedefinition.ValueHelp{
-											{
-												XMLName: xml.Name{
-													Local: `valueHelp`},
-												Format:      `vtunN`,
-												Description: `OpenVPN interface name`}},
-										ConstraintErrorMessage: []string{
-											`OpenVPN tunnel interface must be named vtunN`},
-										Priority: []string{
-											`460`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										Node: []*interfacedefinition.Node{
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Authentication settings`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Username used for authentication`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`[[:ascii:]]{1,
-128}`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Username`}},
-																		ConstraintErrorMessage: []string{
-																			`Username is limited to ASCII characters only,
- with a total length of 128`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Password used for authentication`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`[[:ascii:]]{1,
-128}`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Password`}},
-																		ConstraintErrorMessage: []string{
-																			`Password is limited to ASCII characters only,
- with a total length of 128`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Data Encryption settings`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Standard Data Encryption Algorithm`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(none|des|3des|bf128|bf256|aes128|aes128gcm|aes192|aes192gcm|aes256|aes256gcm)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `none`,
-																				Description: `Disable encryption`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `des`,
-																				Description: `DES algorithm`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `3des`,
-																				Description: `DES algorithm with triple encryption`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `bf128`,
-																				Description: `Blowfish algorithm with 128-bit key`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `bf256`,
-																				Description: `Blowfish algorithm with 256-bit key`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes128`,
-																				Description: `AES algorithm with 128-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes128gcm`,
-																				Description: `AES algorithm with 128-bit key GCM`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes192`,
-																				Description: `AES algorithm with 192-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes192gcm`,
-																				Description: `AES algorithm with 192-bit key GCM`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes256`,
-																				Description: `AES algorithm with 256-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes256gcm`,
-																				Description: `AES algorithm with 256-bit key GCM`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`none des 3des bf128 bf256 aes128 aes128gcm aes192 aes192gcm aes256 aes256gcm`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Cipher negotiation list for use in server or client mode`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(none|des|3des|aes128|aes128gcm|aes192|aes192gcm|aes256|aes256gcm)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `none`,
-																				Description: `Disable encryption`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `des`,
-																				Description: `DES algorithm`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `3des`,
-																				Description: `DES algorithm with triple encryption`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes128`,
-																				Description: `AES algorithm with 128-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes128gcm`,
-																				Description: `AES algorithm with 128-bit key GCM`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes192`,
-																				Description: `AES algorithm with 192-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes192gcm`,
-																				Description: `AES algorithm with 192-bit key GCM`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes256`,
-																				Description: `AES algorithm with 256-bit key CBC`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `aes256gcm`,
-																				Description: `AES algorithm with 256-bit key GCM`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`none des 3des aes128 aes128gcm aes192 aes192gcm aes256 aes256gcm`},
-																				Script: []string(nil)}},
-																		Multi: []*interfacedefinition.Multi{
-																			{
-																				XMLName: xml.Name{
-																					Local: `multi`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`IPv4 routing parameters`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Adjust TCP MSS value`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(clamp-mss-to-pmtu)`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 536-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `clamp-mss-to-pmtu`,
-																				Description: `Automatically sets the MSS to the proper value`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:536-65535`,
-																				Description: `TCP Maximum segment size in bytes`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`clamp-mss-to-pmtu`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`30`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`ARP cache entry timeout in seconds`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-86400`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-86400`,
-																				Description: `ARP cache entry timout in seconds`}},
-																		ConstraintErrorMessage: []string{
-																			`ARP cache entry timeout must be between 1 and 86400 seconds`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable ARP filter on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable IP forwarding on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable directed broadcast forwarding on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable ARP accept on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable ARP announce on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable ARP ignore on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable proxy-arp on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Enable private VLAN proxy ARP on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Source validation by reversed path (RFC3704)`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(strict|loose|disable)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `strict`,
-																				Description: `Enable Strict Reverse Path Forwarding as defined in RFC3704`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `loose`,
-																				Description: `Enable Loose Reverse Path Forwarding as defined in RFC3704`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `disable`,
-																				Description: `No source validation`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`strict loose disable`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`IPv6 routing parameters`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`IPv6 address configuration modes`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Prefix for IPv6 address with MAC-based EUI-64`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv6-eui64-prefix`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `<h:h:h:h:h:h:h:h/64>`,
-																								Description: `IPv6 /64 network`}},
-																						ConstraintErrorMessage: []string{
-																							`EUI64 prefix length must be 64`},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Remove the default link-local address from the interface`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Adjust TCP MSS value`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(clamp-mss-to-pmtu)`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 536-65535`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `clamp-mss-to-pmtu`,
-																				Description: `Automatically sets the MSS to the proper value`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:536-65535`,
-																				Description: `TCP Maximum segment size in bytes`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`clamp-mss-to-pmtu`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Disable IP forwarding on this interface`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Number of NS messages to send while performing DAD (default: 1)`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--non-negative`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:0`,
-																				Description: `Disable Duplicate Address Dectection (DAD)`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-n`,
-																				Description: `Number of NS messages to send while performing DAD`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Mirror ingress/egress packets`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Mirror ingress traffic to destination interface`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Destination interface name`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Script: []string{
-																					`${vyos_completion_dir}/list_interfaces`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Mirror egress traffic to destination interface`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Destination interface name`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Script: []string{
-																					`${vyos_completion_dir}/list_interfaces`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Keepalive helper options`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`60`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Maximum number of keepalive packet failures`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 0-1000`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:0-1000`,
-																				Description: `Maximum number of keepalive packet failures`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`10`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Keepalive packet interval in seconds`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 0-600`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:0-600`,
-																				Description: `Keepalive packet interval (seconds)`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OpenVPN tunnel to be used as the default route`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Tunnel endpoints are on the same subnet`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Server-mode options`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														Node: []*interfacedefinition.Node{
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Pool of client IPv4 addresses`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Disable instance`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`First IP address in the pool`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `IPv4 address`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Last IP address in the pool`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `IPv4 address`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Subnet mask pushed to dynamic clients. If not set the server subnet mask will be used. Only used with topology subnet or device type tap. Not used with bridged interfaces.`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv4-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `IPv4 subnet mask`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Pool of client IPv6 addresses`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Client IPv6 pool base address with optional prefix length`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ipv6`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format: `ipv6net`,
-																								Description: `Client IPv6 pool base address with optional prefix length (defaults: base = server subnet + 0x1000,
- prefix length = server prefix length)`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Disable instance`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `node`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`multi-factor authentication`},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		Node: []*interfacedefinition.Node{
-																			{
-																				XMLName: xml.Name{
-																					Local: `node`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Time-based one-time passwords`},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																				Children: []*interfacedefinition.Children{
-																					{
-																						XMLName: xml.Name{
-																							Local: `children`},
-																						LeafNode: []*interfacedefinition.LeafNode{
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								DefaultValue: []string{
-																									`180`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Maximum allowed clock slop in seconds`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-65535`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `1-65535`,
-																												Description: `Seconds`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								DefaultValue: []string{
-																									`0`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Time drift in seconds`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-65535`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `1-65535`,
-																												Description: `Seconds`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								DefaultValue: []string{
-																									`30`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Step value for totp in seconds`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-65535`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `1-65535`,
-																												Description: `Seconds`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								DefaultValue: []string{
-																									`6`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Number of digits to use for totp hash`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Validator: []*interfacedefinition.Validator{
-																													{
-																														XMLName: xml.Name{
-																															Local: `validator`},
-																														NameAttr:     `numeric`,
-																														ArgumentAttr: `--range 1-65535`}}}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `1-65535`,
-																												Description: `Seconds`}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																							{
-																								XMLName: xml.Name{
-																									Local: `leafNode`},
-																								DefaultValue: []string{
-																									`enable`},
-																								Properties: []*interfacedefinition.Properties{
-																									{
-																										XMLName: xml.Name{
-																											Local: `properties`},
-																										Help: []string{
-																											`Expect password as result of a challenge response protocol`},
-																										Constraint: []*interfacedefinition.Constraint{
-																											{
-																												XMLName: xml.Name{
-																													Local: `constraint`},
-																												Regex: []string{
-																													`(disable|enable)`},
-																												Validator: []*interfacedefinition.Validator(nil)}},
-																										ValueHelp: []*interfacedefinition.ValueHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `disable`,
-																												Description: `Disable challenge-response`},
-																											{
-																												XMLName: xml.Name{
-																													Local: `valueHelp`},
-																												Format:      `enable`,
-																												Description: `Enable chalenge-response`}},
-																										CompletionHelp: []*interfacedefinition.CompletionHelp{
-																											{
-																												XMLName: xml.Name{
-																													Local: `completionHelp`},
-																												List: []string{
-																													`disable enable`},
-																												Script: []string(nil)}},
-																										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-																		LeafNode: []*interfacedefinition.LeafNode(nil)}}}},
-														TagNode: []*interfacedefinition.TagNode{
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Client-specific settings`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `name`,
-																				Description: `Client common-name in the certificate`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Disable instance`},
-																						Valueless: []*interfacedefinition.Valueless{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueless`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`IP address of the client`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ip-address`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4`,
-																								Description: `Client IPv4 address`},
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv6`,
-																								Description: `Client IPv6 address`}},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Route to be pushed to the client`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ip-prefix`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4net`,
-																								Description: `IPv4 network and prefix length`},
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv6net`,
-																								Description: `IPv6 network and prefix length`}},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Subnet belonging to the client (iroute)`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `ip-prefix`,
-																										ArgumentAttr: ``}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv4net`,
-																								Description: `IPv4 network and prefix length belonging to the client`},
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `ipv6net`,
-																								Description: `IPv6 network and prefix length belonging to the client`}},
-																						Multi: []*interfacedefinition.Multi{
-																							{
-																								XMLName: xml.Name{
-																									Local: `multi`}}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-															{
-																XMLName: xml.Name{
-																	Local: `tagNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Route to be pushed to all clients`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ip-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4net`,
-																				Description: `IPv4 network and prefix length`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv6net`,
-																				Description: `IPv6 network and prefix length`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-																Children: []*interfacedefinition.Children{
-																	{
-																		XMLName: xml.Name{
-																			Local: `children`},
-																		LeafNode: []*interfacedefinition.LeafNode{
-																			{
-																				XMLName: xml.Name{
-																					Local: `leafNode`},
-																				DefaultValue: []string{
-																					`0`},
-																				Properties: []*interfacedefinition.Properties{
-																					{
-																						XMLName: xml.Name{
-																							Local: `properties`},
-																						Help: []string{
-																							`Set metric for this route`},
-																						Constraint: []*interfacedefinition.Constraint{
-																							{
-																								XMLName: xml.Name{
-																									Local: `constraint`},
-																								Validator: []*interfacedefinition.Validator{
-																									{
-																										XMLName: xml.Name{
-																											Local: `validator`},
-																										NameAttr:     `numeric`,
-																										ArgumentAttr: `--range 0-4294967295`}}}},
-																						ValueHelp: []*interfacedefinition.ValueHelp{
-																							{
-																								XMLName: xml.Name{
-																									Local: `valueHelp`},
-																								Format:      `u32:0-4294967295`,
-																								Description: `Metric for this route`}},
-																						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`DNS suffix to be pushed to all clients`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Domain Name Server suffix`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Number of maximum client connections`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `numeric`,
-																						ArgumentAttr: `--range 1-4096`}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `u32:1-4096`,
-																				Description: `Number of concurrent clients`}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Domain Name Servers (DNS) addresses`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``},
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv6-address`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4`,
-																				Description: `Domain Name Server (DNS) IPv4 address`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv6`,
-																				Description: `Domain Name Server (DNS) IPv6 address`}},
-																		Multi: []*interfacedefinition.Multi{
-																			{
-																				XMLName: xml.Name{
-																					Local: `multi`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Reject connections from clients that are not explicitly configured`},
-																		Valueless: []*interfacedefinition.Valueless{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueless`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Server-mode subnet (from which client IPs are allocated)`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ip-prefix`,
-																						ArgumentAttr: ``}}}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv4net`,
-																				Description: `IPv4 network and prefix length`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `ipv6net`,
-																				Description: `IPv6 network and prefix length`}},
-																		Multi: []*interfacedefinition.Multi{
-																			{
-																				XMLName: xml.Name{
-																					Local: `multi`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`net30`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Topology for clients`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(subnet|point-to-point|net30)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `net30`,
-																				Description: `net30 topology`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `point-to-point`,
-																				Description: `Point-to-point topology`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `subnet`,
-																				Description: `Subnet topology`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`net30 point-to-point subnet`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}},
-											{
-												XMLName: xml.Name{
-													Local: `node`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Transport Layer Security (TLS) options`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`TLS shared secret key for tls-auth`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`pki openvpn shared-secret`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Certificate in PKI configuration`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Name of certificate in PKI configuration`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`pki certificate`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Certificate Authority chain in PKI configuration`},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `txt`,
-																				Description: `Name of CA in PKI configuration`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`pki ca`},
-																				Script: []string(nil)}},
-																		Multi: []*interfacedefinition.Multi{
-																			{
-																				XMLName: xml.Name{
-																					Local: `multi`}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Diffie Hellman parameters (server only)`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`pki dh`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Static key to use to authenticate control channel`},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				Path: []string{
-																					`pki openvpn shared-secret`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Specify the minimum required TLS version`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(1.0|1.1|1.2|1.3)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `1.0`,
-																				Description: `TLS v1.0`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `1.1`,
-																				Description: `TLS v1.1`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `1.2`,
-																				Description: `TLS v1.2`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `1.3`,
-																				Description: `TLS v1.3`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`1.0 1.1 1.2 1.3`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`TLS negotiation role`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(active|passive)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `active`,
-																				Description: `Initiate TLS negotiation actively`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `passive`,
-																				Description: `Wait for incoming TLS connection`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`active passive`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Local IP address of tunnel (IPv4 or IPv6)`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ip-address`,
-																		ArgumentAttr: ``}}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Subnet-mask for local IP address of tunnel (IPv4 only)`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Validator: []*interfacedefinition.Validator{
-																					{
-																						XMLName: xml.Name{
-																							Local: `validator`},
-																						NameAttr:     `ipv4-address`,
-																						ArgumentAttr: ``}}}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Description`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`[[:ascii:]]{0,
-256}`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Description`}},
-														ConstraintErrorMessage: []string{
-															`Description too long (limit 256 characters)`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												DefaultValue: []string{
-													`tun`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OpenVPN interface device-type`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(tun|tap)`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format: `tun`,
-																Description: `TUN device,
- required for OSI layer 3`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format: `tap`,
-																Description: `TAP device,
- required for OSI layer 2`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																List: []string{
-																	`tun tap`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Administratively disable interface`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Hashing Algorithm`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(md5|sha1|sha256|sha384|sha512)`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `md5`,
-																Description: `MD5 algorithm`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `sha1`,
-																Description: `SHA-1 algorithm`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `sha256`,
-																Description: `SHA-256 algorithm`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `sha384`,
-																Description: `SHA-384 algorithm`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `sha512`,
-																Description: `SHA-512 algorithm`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																List: []string{
-																	`md5 sha1 sha256 sha384 sha512`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Local IP address to accept connections (all if not set)`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ip-address`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4`,
-																Description: `Local IPv4 address`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv6`,
-																Description: `Local IPv6 address`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Local port number to accept connections`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `numeric`,
-																		ArgumentAttr: `--range 1-65535`}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `u32:1-65535`,
-																Description: `Numeric IP port`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OpenVPN mode of operation`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(site-to-site|client|server)`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `site-to-site`,
-																Description: `Site-to-site mode`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `client`,
-																Description: `Client in client-server mode`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `server`,
-																Description: `Server in client-server mode`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																List: []string{
-																	`site-to-site client server`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Additional OpenVPN options. You must use the syntax of openvpn.conf in this text-field. Using this without proper knowledge may result in a crashed OpenVPN server. Check system log to look for errors.`},
-														Multi: []*interfacedefinition.Multi{
-															{
-																XMLName: xml.Name{
-																	Local: `multi`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Do not close and reopen interface (TUN/TAP device) on client restarts`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												DefaultValue: []string{
-													`udp`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`OpenVPN communication protocol`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(udp|tcp-passive|tcp-active)`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `udp`,
-																Description: `UDP`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `tcp-passive`,
-																Description: `TCP and accepts connections passively`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `tcp-active`,
-																Description: `TCP and initiates connections actively`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																List: []string{
-																	`udp tcp-passive tcp-active`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`IP address of remote end of tunnel`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ipv4-address`,
-																		ArgumentAttr: ``},
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `ipv6-address`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4`,
-																Description: `Remote end IPv4 address`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv6`,
-																Description: `Remote end IPv6 address`}},
-														Multi: []*interfacedefinition.Multi{
-															{
-																XMLName: xml.Name{
-																	Local: `multi`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Remote host to connect to (dynamic if not set)`},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv4`,
-																Description: `IPv4 address of remote host`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `ipv6`,
-																Description: `IPv6 address of remote host`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Hostname of remote host`}},
-														Multi: []*interfacedefinition.Multi{
-															{
-																XMLName: xml.Name{
-																	Local: `multi`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Remote port number to connect to`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `numeric`,
-																		ArgumentAttr: `--range 1-65535`}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `u32:1-65535`,
-																Description: `Numeric IP port`}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Secret key shared with remote end of tunnel`},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Path: []string{
-																	`pki openvpn shared-secret`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Use fast LZO compression on this TUN/TAP interface`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Redirect incoming packet to destination`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo`},
-																Validator: []*interfacedefinition.Validator{
-																	{
-																		XMLName: xml.Name{
-																			Local: `validator`},
-																		NameAttr:     `file-path --lookup-path /sys/class/net --directory`,
-																		ArgumentAttr: ``}}}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Destination interface name`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Script: []string{
-																	`${vyos_completion_dir}/list_interfaces`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}},
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`VRF instance name`},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `VRF instance name`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Path: []string{
-																	`vrf name`},
-																Script: []string(nil)}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "interfaces",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				TagNode: []*interfacedefinition.TagNode{{
+					XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "openvpn", OwnerAttr: "${vyos_conf_scripts_dir}/interfaces-openvpn.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{Local: "properties"},
+						Help:    []string{"OpenVPN Tunnel Interface"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{Local: "constraint"},
+							Regex:   []string{"vtun[0-9]+"},
+						}},
+						ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "vtunN", Description: "OpenVPN interface name"}},
+						ConstraintErrorMessage: []string{"OpenVPN tunnel interface must be named vtunN"},
+						Priority:               []string{"460"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						Node: []*interfacedefinition.Node{{
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "authentication",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Authentication settings"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "username",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Username used for authentication"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"[[:ascii:]]{1,128}"},
+										}},
+										ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Username"}},
+										ConstraintErrorMessage: []string{"Username is limited to ASCII characters only, with a total length of 128"},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "password",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Password used for authentication"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"[[:ascii:]]{1,128}"},
+										}},
+										ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Password"}},
+										ConstraintErrorMessage: []string{"Password is limited to ASCII characters only, with a total length of 128"},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "encryption",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Data Encryption settings"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "cipher",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Standard Data Encryption Algorithm"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(none|des|3des|bf128|bf256|aes128|aes128gcm|aes192|aes192gcm|aes256|aes256gcm)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "none", Description: "Disable encryption"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "des", Description: "DES algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "3des", Description: "DES algorithm with triple encryption"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "bf128", Description: "Blowfish algorithm with 128-bit key"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "bf256", Description: "Blowfish algorithm with 256-bit key"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes128", Description: "AES algorithm with 128-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes128gcm", Description: "AES algorithm with 128-bit key GCM"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes192", Description: "AES algorithm with 192-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes192gcm", Description: "AES algorithm with 192-bit key GCM"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes256", Description: "AES algorithm with 256-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes256gcm", Description: "AES algorithm with 256-bit key GCM"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"none des 3des bf128 bf256 aes128 aes128gcm aes192 aes192gcm aes256 aes256gcm"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "ncp-ciphers",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Cipher negotiation list for use in server or client mode"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(none|des|3des|aes128|aes128gcm|aes192|aes192gcm|aes256|aes256gcm)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "none", Description: "Disable encryption"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "des", Description: "DES algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "3des", Description: "DES algorithm with triple encryption"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes128", Description: "AES algorithm with 128-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes128gcm", Description: "AES algorithm with 128-bit key GCM"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes192", Description: "AES algorithm with 192-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes192gcm", Description: "AES algorithm with 192-bit key GCM"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes256", Description: "AES algorithm with 256-bit key CBC"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "aes256gcm", Description: "AES algorithm with 256-bit key GCM"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"none des 3des aes128 aes128gcm aes192 aes192gcm aes256 aes256gcm"},
+										}},
+										Multi: []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "ip",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"IPv4 routing parameters"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "adjust-mss",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Adjust TCP MSS value"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Regex:     []string{"(clamp-mss-to-pmtu)"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 536-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "clamp-mss-to-pmtu", Description: "Automatically sets the MSS to the proper value"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:536-65535", Description: "TCP Maximum segment size in bytes"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"clamp-mss-to-pmtu"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "arp-cache-timeout",
+									DefaultValue: []string{"30"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"ARP cache entry timeout in seconds"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-86400"}},
+										}},
+										ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-86400", Description: "ARP cache entry timout in seconds"}},
+										ConstraintErrorMessage: []string{"ARP cache entry timeout must be between 1 and 86400 seconds"},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable-arp-filter",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable ARP filter on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable-forwarding",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable IP forwarding on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "enable-directed-broadcast",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable directed broadcast forwarding on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "enable-arp-accept",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable ARP accept on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "enable-arp-announce",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable ARP announce on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "enable-arp-ignore",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable ARP ignore on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "enable-proxy-arp",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable proxy-arp on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "proxy-arp-pvlan",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Enable private VLAN proxy ARP on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "source-validation",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Source validation by reversed path (RFC3704)"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(strict|loose|disable)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "strict", Description: "Enable Strict Reverse Path Forwarding as defined in RFC3704"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "loose", Description: "Enable Loose Reverse Path Forwarding as defined in RFC3704"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "disable", Description: "No source validation"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"strict loose disable"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "ipv6",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"IPv6 routing parameters"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "address",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"IPv6 address configuration modes"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "autoconf",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "eui64",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Prefix for IPv6 address with MAC-based EUI-64"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-eui64-prefix"}},
+												}},
+												ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "<h:h:h:h:h:h:h:h/64>", Description: "IPv6 /64 network"}},
+												ConstraintErrorMessage: []string{"EUI64 prefix length must be 64"},
+												Multi:                  []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "no-default-link-local",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Remove the default link-local address from the interface"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "adjust-mss",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Adjust TCP MSS value"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Regex:     []string{"(clamp-mss-to-pmtu)"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 536-65535"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "clamp-mss-to-pmtu", Description: "Automatically sets the MSS to the proper value"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:536-65535", Description: "TCP Maximum segment size in bytes"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"clamp-mss-to-pmtu"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable-forwarding",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Disable IP forwarding on this interface"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "dup-addr-detect-transmits",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Number of NS messages to send while performing DAD (default: 1)"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--non-negative"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0", Description: "Disable Duplicate Address Dectection (DAD)"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-n", Description: "Number of NS messages to send while performing DAD"}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "mirror",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Mirror ingress/egress packets"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "ingress",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Mirror ingress traffic to destination interface"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Destination interface name"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "egress",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Mirror egress traffic to destination interface"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Destination interface name"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "keep-alive",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Keepalive helper options"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "failure-count",
+									DefaultValue: []string{"60"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Maximum number of keepalive packet failures"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-1000"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-1000", Description: "Maximum number of keepalive packet failures"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "interval",
+									DefaultValue: []string{"10"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Keepalive packet interval in seconds"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-600"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-600", Description: "Keepalive packet interval (seconds)"}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "replace-default-route",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OpenVPN tunnel to be used as the default route"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "local",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Tunnel endpoints are on the same subnet"},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "server",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Server-mode options"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "client-ip-pool",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Pool of client IPv4 addresses"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Disable instance"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "start",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"First IP address in the pool"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "IPv4 address"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "stop",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Last IP address in the pool"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "IPv4 address"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "subnet-mask",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Subnet mask pushed to dynamic clients. If not set the server subnet mask will be used. Only used with topology subnet or device type tap. Not used with bridged interfaces."},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "IPv4 subnet mask"}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "client-ipv6-pool",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Pool of client IPv6 addresses"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "base",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Client IPv6 pool base address with optional prefix length"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "Client IPv6 pool base address with optional prefix length (defaults: base = server subnet + 0x1000, prefix length = server prefix length)"}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Disable instance"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "node"}, NodeNameAttr: "mfa",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"multi-factor authentication"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{Local: "node"}, NodeNameAttr: "totp",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Time-based one-time passwords"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{Local: "children"},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "slop",
+													DefaultValue: []string{"180"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Maximum allowed clock slop in seconds"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1-65535", Description: "Seconds"}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "drift",
+													DefaultValue: []string{"0"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Time drift in seconds"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1-65535", Description: "Seconds"}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "step",
+													DefaultValue: []string{"30"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Step value for totp in seconds"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1-65535", Description: "Seconds"}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "digits",
+													DefaultValue: []string{"6"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Number of digits to use for totp hash"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName:   xml.Name{Local: "constraint"},
+															Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1-65535", Description: "Seconds"}},
+													}},
+												}, {
+													XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "challenge",
+													DefaultValue: []string{"enable"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{Local: "properties"},
+														Help:    []string{"Expect password as result of a challenge response protocol"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{Local: "constraint"},
+															Regex:   []string{"(disable|enable)"},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "disable", Description: "Disable challenge-response"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "enable", Description: "Enable chalenge-response"}},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{Local: "completionHelp"},
+															List:    []string{"disable enable"},
+														}},
+													}},
+												}},
+											}},
+										}},
+									}},
+								}},
+								TagNode: []*interfacedefinition.TagNode{{
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "client",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Client-specific settings"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "name", Description: "Client common-name in the certificate"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName:   xml.Name{Local: "properties"},
+												Help:      []string{"Disable instance"},
+												Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "ip",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"IP address of the client"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-address"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Client IPv4 address"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "Client IPv6 address"}},
+												Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "push-route",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Route to be pushed to the client"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 network and prefix length"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "IPv6 network and prefix length"}},
+												Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}, {
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "subnet",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Subnet belonging to the client (iroute)"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 network and prefix length belonging to the client"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "IPv6 network and prefix length belonging to the client"}},
+												Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "push-route",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Route to be pushed to all clients"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 network and prefix length"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "IPv6 network and prefix length"}},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{Local: "children"},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "metric",
+											DefaultValue: []string{"0"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{Local: "properties"},
+												Help:    []string{"Set metric for this route"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName:   xml.Name{Local: "constraint"},
+													Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 0-4294967295"}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:0-4294967295", Description: "Metric for this route"}},
+											}},
+										}},
+									}},
+								}},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "domain-name",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"DNS suffix to be pushed to all clients"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Domain Name Server suffix"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "max-connections",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Number of maximum client connections"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-4096"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-4096", Description: "Number of concurrent clients"}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "name-server",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Domain Name Servers (DNS) addresses"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-address"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Domain Name Server (DNS) IPv4 address"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "Domain Name Server (DNS) IPv6 address"}},
+										Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "reject-unconfigured-clients",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Reject connections from clients that are not explicitly configured"},
+										Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "subnet",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Server-mode subnet (from which client IPs are allocated)"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-prefix"}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4net", Description: "IPv4 network and prefix length"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6net", Description: "IPv6 network and prefix length"}},
+										Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "topology",
+									DefaultValue: []string{"net30"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Topology for clients"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(subnet|point-to-point|net30)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "net30", Description: "net30 topology"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "point-to-point", Description: "Point-to-point topology"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "subnet", Description: "Subnet topology"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"net30 point-to-point subnet"},
+										}},
+									}},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "node"}, NodeNameAttr: "tls",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Transport Layer Security (TLS) options"},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "auth-key",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"TLS shared secret key for tls-auth"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"pki openvpn shared-secret"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "certificate",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Certificate in PKI configuration"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Name of certificate in PKI configuration"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"pki certificate"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "ca-certificate",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName:   xml.Name{Local: "properties"},
+										Help:      []string{"Certificate Authority chain in PKI configuration"},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Name of CA in PKI configuration"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"pki ca"},
+										}},
+										Multi: []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "dh-params",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Diffie Hellman parameters (server only)"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"pki dh"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "crypt-key",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Static key to use to authenticate control channel"},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											Path:    []string{"pki openvpn shared-secret"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "tls-version-min",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Specify the minimum required TLS version"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(1.0|1.1|1.2|1.3)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1.0", Description: "TLS v1.0"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "1.1", Description: "TLS v1.1"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "1.2", Description: "TLS v1.2"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "1.3", Description: "TLS v1.3"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"1.0 1.1 1.2 1.3"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "role",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"TLS negotiation role"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(active|passive)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "active", Description: "Initiate TLS negotiation actively"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "passive", Description: "Wait for incoming TLS connection"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"active passive"},
+										}},
+									}},
+								}},
+							}},
+						}},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "local-address",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Local IP address of tunnel (IPv4 or IPv6)"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-address"}},
+								}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "subnet-mask",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Subnet-mask for local IP address of tunnel (IPv4 only)"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName:   xml.Name{Local: "constraint"},
+											Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}},
+										}},
+									}},
+								}},
+							}},
+						}},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "description",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Description"}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "device-type",
+							DefaultValue: []string{"tun"},
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OpenVPN interface device-type"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"(tun|tap)"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "tun", Description: "TUN device, required for OSI layer 3"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "tap", Description: "TAP device, required for OSI layer 2"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									List:    []string{"tun tap"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "disable",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Administratively disable interface"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "hash",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Hashing Algorithm"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"(md5|sha1|sha256|sha384|sha512)"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "md5", Description: "MD5 algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "sha1", Description: "SHA-1 algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "sha256", Description: "SHA-256 algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "sha384", Description: "SHA-384 algorithm"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "sha512", Description: "SHA-512 algorithm"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									List:    []string{"md5 sha1 sha256 sha384 sha512"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "local-host",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Local IP address to accept connections (all if not set)"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ip-address"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Local IPv4 address"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "Local IPv6 address"}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "local-port",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Local port number to accept connections"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Numeric IP port"}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "mode",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OpenVPN mode of operation"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"(site-to-site|client|server)"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "site-to-site", Description: "Site-to-site mode"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "client", Description: "Client in client-server mode"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "server", Description: "Server in client-server mode"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									List:    []string{"site-to-site client server"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "openvpn-option",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Additional OpenVPN options. You must use the syntax of openvpn.conf in this text-field. Using this without proper knowledge may result in a crashed OpenVPN server. Check system log to look for errors."},
+								Multi:   []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "persistent-tunnel",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Do not close and reopen interface (TUN/TAP device) on client restarts"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "protocol",
+							DefaultValue: []string{"udp"},
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"OpenVPN communication protocol"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"(udp|tcp-passive|tcp-active)"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "udp", Description: "UDP"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "tcp-passive", Description: "TCP and accepts connections passively"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "tcp-active", Description: "TCP and initiates connections actively"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									List:    []string{"udp tcp-passive tcp-active"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "remote-address",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"IP address of remote end of tunnel"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv4-address"}, {XMLName: xml.Name{Local: "validator"}, NameAttr: "ipv6-address"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "Remote end IPv4 address"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "Remote end IPv6 address"}},
+								Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "remote-host",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Remote host to connect to (dynamic if not set)"},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv4", Description: "IPv4 address of remote host"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "ipv6", Description: "IPv6 address of remote host"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Hostname of remote host"}},
+								Multi:     []*interfacedefinition.Multi{{XMLName: xml.Name{Local: "multi"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "remote-port",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Remote port number to connect to"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "numeric", ArgumentAttr: "--range 1-65535"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "u32:1-65535", Description: "Numeric IP port"}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "shared-secret-key",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Secret key shared with remote end of tunnel"},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Path:    []string{"pki openvpn shared-secret"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "use-lzo-compression",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Use fast LZO compression on this TUN/TAP interface"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "redirect",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Redirect incoming packet to destination"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName:   xml.Name{Local: "constraint"},
+									Regex:     []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+									Validator: []*interfacedefinition.Validator{{XMLName: xml.Name{Local: "validator"}, NameAttr: "file-path --lookup-path /sys/class/net --directory"}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Destination interface name"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Script:  []string{"${vyos_completion_dir}/list_interfaces"},
+								}},
+							}},
+						}, {
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "vrf",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"VRF instance name"},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "VRF instance name"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Path:    []string{"vrf name"},
+								}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

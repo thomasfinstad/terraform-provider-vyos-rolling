@@ -8,165 +8,69 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func SystemConsole() interfacedefinition.InterfaceDefinition {
+func systemconsole() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						Node: []*interfacedefinition.Node{
-							{
-								XMLName: xml.Name{
-									Local: `node`},
-								OwnerAttr: `${vyos_conf_scripts_dir}/system_console.py`,
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Serial console configuration`},
-										Priority: []string{
-											`100`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										TagNode: []*interfacedefinition.TagNode{
-											{
-												XMLName: xml.Name{
-													Local: `tagNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Serial console device name`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`(ttyS[0-9]+|hvc[0-9]+|usb[0-9]+b.&)`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format: `ttySN`,
-																Description: `TTY device name,
- regular serial port`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format: `usbNbXpY`,
-																Description: `TTY device name,
- USB based`},
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `hvcN`,
-																Description: `Xen console`}},
-														CompletionHelp: []*interfacedefinition.CompletionHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `completionHelp`},
-																Script: []string{
-																	`ls -1 /dev | grep -e ttyS -e hvc`,
-																	`if [ -d /dev/serial/by-bus ]; then ls -1 /dev/serial/by-bus; fi`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-												Children: []*interfacedefinition.Children{
-													{
-														XMLName: xml.Name{
-															Local: `children`},
-														LeafNode: []*interfacedefinition.LeafNode{
-															{
-																XMLName: xml.Name{
-																	Local: `leafNode`},
-																DefaultValue: []string{
-																	`115200`},
-																Properties: []*interfacedefinition.Properties{
-																	{
-																		XMLName: xml.Name{
-																			Local: `properties`},
-																		Help: []string{
-																			`Console baud rate`},
-																		Constraint: []*interfacedefinition.Constraint{
-																			{
-																				XMLName: xml.Name{
-																					Local: `constraint`},
-																				Regex: []string{
-																					`(1200|2400|4800|9600|19200|38400|57600|115200)`},
-																				Validator: []*interfacedefinition.Validator(nil)}},
-																		ValueHelp: []*interfacedefinition.ValueHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `1200`,
-																				Description: `1200 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `2400`,
-																				Description: `2400 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `4800`,
-																				Description: `4800 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `9600`,
-																				Description: `9600 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `19200`,
-																				Description: `19200 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `38400`,
-																				Description: `38400 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `57600`,
-																				Description: `57600 bps`},
-																			{
-																				XMLName: xml.Name{
-																					Local: `valueHelp`},
-																				Format:      `115200`,
-																				Description: `115200 bps`}},
-																		CompletionHelp: []*interfacedefinition.CompletionHelp{
-																			{
-																				XMLName: xml.Name{
-																					Local: `completionHelp`},
-																				List: []string{
-																					`1200 2400 4800 9600 19200 38400 57600 115200`},
-																				Script: []string(nil)}},
-																		KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Enable screen blank powersaving on VGA console`},
-														Valueless: []*interfacedefinition.Valueless{
-															{
-																XMLName: xml.Name{
-																	Local: `valueless`}}},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "system",
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				Node: []*interfacedefinition.Node{{
+					XMLName: xml.Name{Local: "node"}, NodeNameAttr: "console", OwnerAttr: "${vyos_conf_scripts_dir}/system_console.py",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName:  xml.Name{Local: "properties"},
+						Help:     []string{"Serial console configuration"},
+						Priority: []string{"100"},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						TagNode: []*interfacedefinition.TagNode{{
+							XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "device",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Serial console device name"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"(ttyS[0-9]+|hvc[0-9]+|usb[0-9]+b.&)"},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "ttySN", Description: "TTY device name, regular serial port"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "usbNbXpY", Description: "TTY device name, USB based"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "hvcN", Description: "Xen console"}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{Local: "completionHelp"},
+									Script:  []string{"ls -1 /dev | grep -e ttyS -e hvc", "if [ -d /dev/serial/by-bus ]; then ls -1 /dev/serial/by-bus; fi"},
+								}},
+							}},
+							Children: []*interfacedefinition.Children{{
+								XMLName: xml.Name{Local: "children"},
+								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "speed",
+									DefaultValue: []string{"115200"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{Local: "properties"},
+										Help:    []string{"Console baud rate"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{Local: "constraint"},
+											Regex:   []string{"(1200|2400|4800|9600|19200|38400|57600|115200)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "1200", Description: "1200 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "2400", Description: "2400 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "4800", Description: "4800 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "9600", Description: "9600 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "19200", Description: "19200 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "38400", Description: "38400 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "57600", Description: "57600 bps"}, {XMLName: xml.Name{Local: "valueHelp"}, Format: "115200", Description: "115200 bps"}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{Local: "completionHelp"},
+											List:    []string{"1200 2400 4800 9600 19200 38400 57600 115200"},
+										}},
+									}},
+								}},
+							}},
+						}},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "powersave",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName:   xml.Name{Local: "properties"},
+								Help:      []string{"Enable screen blank powersaving on VGA console"},
+								Valueless: []*interfacedefinition.Valueless{{XMLName: xml.Name{Local: "valueless"}}},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

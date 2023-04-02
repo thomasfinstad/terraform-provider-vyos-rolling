@@ -8,79 +8,47 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func Netns() interfacedefinition.InterfaceDefinition {
+func netns() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		Node: []*interfacedefinition.Node{
-			{
-				XMLName: xml.Name{
-					Local: `node`},
-				OwnerAttr: `${vyos_conf_scripts_dir}/netns.py`,
-				Properties: []*interfacedefinition.Properties{
-					{
-						XMLName: xml.Name{
-							Local: `properties`},
-						Help: []string{
-							`Network namespace`},
-						Priority: []string{
-							`299`},
-						KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-				Children: []*interfacedefinition.Children{
-					{
-						XMLName: xml.Name{
-							Local: `children`},
-						TagNode: []*interfacedefinition.TagNode{
-							{
-								XMLName: xml.Name{
-									Local: `tagNode`},
-								Properties: []*interfacedefinition.Properties{
-									{
-										XMLName: xml.Name{
-											Local: `properties`},
-										Help: []string{
-											`Network namespace name`},
-										Constraint: []*interfacedefinition.Constraint{
-											{
-												XMLName: xml.Name{
-													Local: `constraint`},
-												Regex: []string{
-													`[a-zA-Z0-9-_]{1,
-100}`},
-												Validator: []*interfacedefinition.Validator(nil)}},
-										ConstraintErrorMessage: []string{
-											`Netns name must be alphanumeric and can contain hyphens and underscores.`},
-										KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}},
-								Children: []*interfacedefinition.Children{
-									{
-										XMLName: xml.Name{
-											Local: `children`},
-										LeafNode: []*interfacedefinition.LeafNode{
-											{
-												XMLName: xml.Name{
-													Local: `leafNode`},
-												Properties: []*interfacedefinition.Properties{
-													{
-														XMLName: xml.Name{
-															Local: `properties`},
-														Help: []string{
-															`Description`},
-														Constraint: []*interfacedefinition.Constraint{
-															{
-																XMLName: xml.Name{
-																	Local: `constraint`},
-																Regex: []string{
-																	`[[:ascii:]]{0,
-256}`},
-																Validator: []*interfacedefinition.Validator(nil)}},
-														ValueHelp: []*interfacedefinition.ValueHelp{
-															{
-																XMLName: xml.Name{
-																	Local: `valueHelp`},
-																Format:      `txt`,
-																Description: `Description`}},
-														ConstraintErrorMessage: []string{
-															`Description too long (limit 256 characters)`},
-														KeepChildOrder: []*interfacedefinition.KeepChildOrder(nil)}}}}}}}},
-						LeafNode: []*interfacedefinition.LeafNode(nil)}}}}}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		Node: []*interfacedefinition.Node{{
+			XMLName: xml.Name{Local: "node"}, NodeNameAttr: "netns", OwnerAttr: "${vyos_conf_scripts_dir}/netns.py",
+			Properties: []*interfacedefinition.Properties{{
+				XMLName:  xml.Name{Local: "properties"},
+				Help:     []string{"Network namespace"},
+				Priority: []string{"299"},
+			}},
+			Children: []*interfacedefinition.Children{{
+				XMLName: xml.Name{Local: "children"},
+				TagNode: []*interfacedefinition.TagNode{{
+					XMLName: xml.Name{Local: "tagNode"}, NodeNameAttr: "name",
+					Properties: []*interfacedefinition.Properties{{
+						XMLName: xml.Name{Local: "properties"},
+						Help:    []string{"Network namespace name"},
+						Constraint: []*interfacedefinition.Constraint{{
+							XMLName: xml.Name{Local: "constraint"},
+							Regex:   []string{"[a-zA-Z0-9-_]{1,100}"},
+						}},
+						ConstraintErrorMessage: []string{"Netns name must be alphanumeric and can contain hyphens and underscores."},
+					}},
+					Children: []*interfacedefinition.Children{{
+						XMLName: xml.Name{Local: "children"},
+						LeafNode: []*interfacedefinition.LeafNode{{
+							XMLName: xml.Name{Local: "leafNode"}, NodeNameAttr: "description",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{Local: "properties"},
+								Help:    []string{"Description"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{Local: "constraint"},
+									Regex:   []string{"[[:ascii:]]{0,256}"},
+								}},
+								ValueHelp:              []*interfacedefinition.ValueHelp{{XMLName: xml.Name{Local: "valueHelp"}, Format: "txt", Description: "Description"}},
+								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+							}},
+						}},
+					}},
+				}},
+			}},
+		}},
+	}
 }

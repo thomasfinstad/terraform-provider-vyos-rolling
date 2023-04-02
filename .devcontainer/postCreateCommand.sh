@@ -15,6 +15,7 @@ rm -v "./tidy.deb"
 
 # Get some completion up in here
 sudo apt-get install bash-completion
+npm completion >> ~/.bashrc
 
 # Clean up apt to reduce used space
 sudo rm -rf /var/lib/apt/lists/*
@@ -34,3 +35,6 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre
 # Tooling
 pipx install yq
 go install mvdan.cc/gofumpt@latest
+
+# Doesn't have go support
+#npm install -g --save-dev --save-exact prettier

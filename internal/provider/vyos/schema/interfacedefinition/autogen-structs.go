@@ -22,8 +22,8 @@ type SyntaxVersion struct {
 
 // Node ...
 type Node struct {
-	XMLName      xml.Name `xml:"node"`
-	NodeNameAttr *NodeNameAttr
+	XMLName      xml.Name      `xml:"node"`
+	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	Properties   []*Properties `xml:"properties"`
 	Children     []*Children   `xml:"children"`
@@ -31,8 +31,8 @@ type Node struct {
 
 // TagNode ...
 type TagNode struct {
-	XMLName      xml.Name `xml:"tagNode"`
-	NodeNameAttr *NodeNameAttr
+	XMLName      xml.Name      `xml:"tagNode"`
+	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	DefaultValue []string      `xml:"defaultValue"`
 	Properties   []*Properties `xml:"properties"`
@@ -41,8 +41,8 @@ type TagNode struct {
 
 // LeafNode ...
 type LeafNode struct {
-	XMLName      xml.Name `xml:"leafNode"`
-	NodeNameAttr *NodeNameAttr
+	XMLName      xml.Name      `xml:"leafNode"`
+	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	DefaultValue []string      `xml:"defaultValue"`
 	Properties   []*Properties `xml:"properties"`

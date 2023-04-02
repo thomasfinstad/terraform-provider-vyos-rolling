@@ -8,186 +8,138 @@ import (
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
 )
 
-func XmlComponentVersion() interfacedefinition.InterfaceDefinition {
+func xmlcomponentversion() interfacedefinition.InterfaceDefinition {
 	return interfacedefinition.InterfaceDefinition{
-		XMLName: xml.Name{
-			Local: `interfaceDefinition`},
-		SyntaxVersion: []*interfacedefinition.SyntaxVersion{
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)},
-			{
-				XMLName: xml.Name{
-					Local: `syntaxVersion`},
-				VersionAttr: (&interfacedefinition.VersionAttr)(nil)}},
-		Node: []*interfacedefinition.Node(nil)}
+		XMLName: xml.Name{Local: "interfaceDefinition"},
+		SyntaxVersion: []*interfacedefinition.SyntaxVersion{{
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {
+			XMLName:       xml.Name{Local: "syntaxVersion"},
+			ComponentAttr: nil,
+		}, {XMLName: xml.Name{Local: "syntaxVersion"}, ComponentAttr: nil}},
+	}
 }
