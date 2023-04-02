@@ -24,7 +24,7 @@ type SyntaxVersion struct {
 type Node struct {
 	XMLName      xml.Name `xml:"node"`
 	NodeNameAttr *NodeNameAttr
-	OwnerAttr    interface{}   `xml:"owner,attr,omitempty"`
+	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	Properties   []*Properties `xml:"properties"`
 	Children     []*Children   `xml:"children"`
 }
@@ -33,7 +33,7 @@ type Node struct {
 type TagNode struct {
 	XMLName      xml.Name `xml:"tagNode"`
 	NodeNameAttr *NodeNameAttr
-	OwnerAttr    interface{}   `xml:"owner,attr,omitempty"`
+	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	DefaultValue []string      `xml:"defaultValue"`
 	Properties   []*Properties `xml:"properties"`
 	Children     []*Children   `xml:"children"`
@@ -43,7 +43,7 @@ type TagNode struct {
 type LeafNode struct {
 	XMLName      xml.Name `xml:"leafNode"`
 	NodeNameAttr *NodeNameAttr
-	OwnerAttr    interface{}   `xml:"owner,attr,omitempty"`
+	OwnerAttr    string        `xml:"owner,attr,omitempty"`
 	DefaultValue []string      `xml:"defaultValue"`
 	Properties   []*Properties `xml:"properties"`
 }
@@ -109,26 +109,26 @@ type KeepChildOrder struct {
 
 // ComponentAttr ...
 type ComponentAttr struct {
-	XMLName       xml.Name    `xml:"componentAttr"`
-	ComponentAttr interface{} `xml:"component,attr"`
+	XMLName       xml.Name `xml:"componentAttr"`
+	ComponentAttr string   `xml:"component,attr"`
 }
 
 // VersionAttr ...
 type VersionAttr struct {
-	XMLName     xml.Name    `xml:"versionAttr"`
-	VersionAttr interface{} `xml:"version,attr"`
+	XMLName     xml.Name `xml:"versionAttr"`
+	VersionAttr string   `xml:"version,attr"`
 }
 
 // NodeNameAttr ...
 type NodeNameAttr struct {
-	XMLName  xml.Name    `xml:"nodeNameAttr"`
-	NameAttr interface{} `xml:"name,attr"`
+	XMLName  xml.Name `xml:"nodeNameAttr"`
+	NameAttr string   `xml:"name,attr"`
 }
 
 // OwnerAttr ...
 type OwnerAttr struct {
-	XMLName   xml.Name    `xml:"ownerAttr"`
-	OwnerAttr interface{} `xml:"owner,attr"`
+	XMLName   xml.Name `xml:"ownerAttr"`
+	OwnerAttr string   `xml:"owner,attr"`
 }
 
 // Constraint ...
@@ -150,9 +150,9 @@ type ConstraintGroup struct {
 
 // Validator ...
 type Validator struct {
-	XMLName      xml.Name    `xml:"validator"`
-	NameAttr     interface{} `xml:"name,attr"`
-	ArgumentAttr interface{} `xml:"argument,attr,omitempty"`
+	XMLName      xml.Name `xml:"validator"`
+	NameAttr     string   `xml:"name,attr"`
+	ArgumentAttr string   `xml:"argument,attr,omitempty"`
 }
 
 // Help ...

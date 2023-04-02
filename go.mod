@@ -3,8 +3,10 @@ module github.com/thomasfinstad/terraform-provider-vyos
 go 1.20
 
 require (
+	github.com/gdexlab/go-render v1.0.1
 	github.com/hashicorp/terraform-plugin-docs v0.14.1
 	github.com/xuri/xgen v0.0.0-20230225022412-aec4e71118ac
+	golang.org/x/text v0.8.0
 )
 
 require (
@@ -36,10 +38,11 @@ require (
 	github.com/russross/blackfriday v1.6.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
+	github.com/stretchr/testify v1.8.0 // indirect
 	github.com/zclconf/go-cty v1.13.0 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/mod v0.7.0 // indirect
+	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
-	golang.org/x/text v0.7.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

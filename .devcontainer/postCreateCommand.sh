@@ -33,3 +33,4 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre
 
 # Tooling
 pipx install yq
+go install mvdan.cc/gofumpt@latest

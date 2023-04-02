@@ -97,7 +97,7 @@ repos:
     # Go Mod Tidy
     #
     -   id: go-mod-tidy
-    -   id: go-mod-tidy-repo
+    # -   id: go-mod-tidy-repo
     # #
     # # Go Test
     # #
@@ -146,6 +146,9 @@ repos:
     -   id: go-fmt
     # -   id: go-fmt-repo
     # -   id: go-fumpt        # replaces go-fmt
+    #     args:
+    #       - -w
+    #       - -d=false
     # -   id: go-fumpt-repo   # replaces go-fmt-repo
     # -   id: go-imports      # replaces go-fmt
     # -   id: go-imports-repo # replaces go-fmt-repo
