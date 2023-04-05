@@ -13,7 +13,7 @@ import (
 	// "github.com/gdexlab/go-render/render"
 
 	"github.com/gdexlab/go-render/render"
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schema/interfacedefinition"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	//"https://github.com/arl/gotypes"
@@ -112,7 +112,7 @@ func main() {
 			import (
 				"encoding/xml"
 
-				"github.com/thomasfinstad/terraform-provider-vyos/internal/provider/vyos/schema/interfacedefinition"
+				"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schema/interfacedefinition"
 			)
 
 			func %s() interfacedefinition.InterfaceDefinition {
