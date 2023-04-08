@@ -36,7 +36,8 @@
 		"vscode": {
 			"extensions": [
 				"ms-azuretools.vscode-docker",
-				"redhat.vscode-xml"
+				"redhat.vscode-xml",
+				"Gruntfuggly.todo-tree"
 			]
 		}
 	}
