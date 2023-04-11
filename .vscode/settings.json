@@ -1,0 +1,8 @@
+{
+    "go.formatTool": "gofumpt",
+    "terraform.experimentalFeatures.prefillRequiredFields": true,
+    "editor.suggest.preview": true,
+    "files.associations": {
+        "*.gotmpl": "gotemplate"
+    }
+}

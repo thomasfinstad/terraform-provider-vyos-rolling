@@ -4,54 +4,23 @@ import (
 	"encoding/xml"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"sort"
 	"strings"
 
-	// "github.com/gdexlab/go-render/render"
-
+	"github.com/dave/dst"
+	"github.com/dave/dst/decorator"
+	"github.com/dave/dst/dstutil"
 	"github.com/gdexlab/go-render/render"
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/vyos/schema/interfacedefinition"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
-	//"https://github.com/arl/gotypes"
 )
 
-/*
-	type IfaceDef struct {
-		Name   string
-		Caller string
-		Def    Attr
-	}
-
-	type Attr struct {
-		Kind  string
-		Type  string
-		Name  string
-		Value string
-		Subs  []Attr
-	}
-
-	func (a *Attr) set_defaults() {
-		if a.Kind == "" {
-			a.Kind = "unset"
-		}
-		if a.Type == "" {
-			a.Type = "unset"
-		}
-		if a.Name == "" {
-			a.Name = "unset"
-		}
-		if a.Value == "" {
-			a.Value = "unset"
-		}
-		if a.Subs == nil {
-			a.Subs = []Attr{}
-		}
-	}
-*/
 func main() {
 	args := os.Args[1:]
 	inputXMLFilePath := args[0]
@@ -62,10 +31,6 @@ func main() {
 	if !ok {
 		panic("Did not get path info")
 	}
-	/*
-		interfaceDefinitionPath := filepath.Join(filepath.Dir(thisFilename), "..", "..", ".build", "vyos", "interface-definitions", "lldp.xml")
-		dat, err := ioutil.ReadFile(interfaceDefinitionPath)
-	*/
 
 	outputBaseName := strings.TrimSuffix(filepath.Base(inputXMLFilePath), filepath.Ext(inputXMLFilePath))
 	outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
@@ -75,11 +40,96 @@ func main() {
 	dat, err := os.ReadFile(inputXMLFilePath)
 	die(err)
 
-	interfaceDefinition := interfacedefinition.InterfaceDefinition{}
-	err = xml.Unmarshal(dat, &interfaceDefinition)
+	topLevelInterface := interfacedefinition.InterfaceDefinition{}
+	err = xml.Unmarshal(dat, &topLevelInterface)
 	die(err)
 
-	output := render.AsCode(interfaceDefinition)
+	var dedup func(interfacedefinition.NodeParent)
+	dedup = func(node interfacedefinition.NodeParent) {
+		children := node.GetChildren()
+
+		// Finding duplicate leaf nodes
+		leafIdxToRemove := []int{}
+		for idx1, l1 := range children.LeafNode {
+			for idx2, l2 := range children.LeafNode {
+				if idx1 != idx2 && l1.BaseName() == l2.BaseName() {
+					idx := int(math.Min(float64(idx1), float64(idx2)))
+					if sort.SearchInts(leafIdxToRemove, idx) == len(leafIdxToRemove) {
+						leafIdxToRemove = append(leafIdxToRemove, idx)
+						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", l1.BaseName(), idx)
+					} else {
+						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", l1.BaseName(), idx)
+					}
+				}
+			}
+		}
+
+		// Finding duplicate tag nodes
+		tagIdxToRemove := []int{}
+		for idx1, t1 := range children.TagNode {
+			for idx2, t2 := range children.TagNode {
+				if idx1 != idx2 && t1.BaseName() == t2.BaseName() {
+					idx := int(math.Min(float64(idx1), float64(idx2)))
+					if sort.SearchInts(tagIdxToRemove, idx) == len(tagIdxToRemove) {
+						tagIdxToRemove = append(tagIdxToRemove, idx)
+						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", t1.BaseName(), idx)
+					} else {
+						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", t1.BaseName(), idx)
+					}
+				}
+			}
+		}
+
+		// Finding duplicate leaf nodes
+		nodeIdxToRemove := []int{}
+		for idx1, n1 := range children.Node {
+			for idx2, n2 := range children.Node {
+				if idx1 != idx2 && n1.BaseName() == n2.BaseName() {
+					idx := int(math.Min(float64(idx1), float64(idx2)))
+					if sort.SearchInts(nodeIdxToRemove, idx) == len(nodeIdxToRemove) {
+						nodeIdxToRemove = append(nodeIdxToRemove, idx)
+						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", n1.BaseName(), idx)
+					} else {
+						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", n1.BaseName(), idx)
+					}
+				}
+			}
+		}
+
+		// Removing duplicates
+		sort.Sort(sort.Reverse(sort.IntSlice(leafIdxToRemove)))
+		for _, idx := range leafIdxToRemove {
+			fmt.Printf("[%s] idx: %d Removing leaf...\n", children.LeafNode[idx].BaseName(), idx)
+			children.LeafNode = append(children.LeafNode[:idx], children.LeafNode[idx+1:]...)
+		}
+
+		sort.Sort(sort.Reverse(sort.IntSlice(tagIdxToRemove)))
+		for _, idx := range tagIdxToRemove {
+			fmt.Printf("[%s] idx: %d Removing tag...\n", children.TagNode[idx].BaseName(), idx)
+			children.TagNode = append(children.TagNode[:idx], children.TagNode[idx+1:]...)
+		}
+
+		sort.Sort(sort.Reverse(sort.IntSlice(nodeIdxToRemove)))
+		for _, idx := range nodeIdxToRemove {
+			fmt.Printf("[%s] idx: %d Removing node...\n", children.Node[idx].BaseName(), idx)
+			children.Node = append(children.Node[:idx], children.Node[idx+1:]...)
+		}
+
+		// Recurse
+		for _, t := range children.TagNode {
+			dedup(t)
+		}
+
+		for _, n := range children.Node {
+			dedup(n)
+		}
+	}
+
+	rootNode, err := topLevelInterface.GetRootNode()
+	die(err)
+	dedup(rootNode)
+
+	output := render.AsCode(topLevelInterface)
 
 	outputFormatted := []byte(output)
 
@@ -91,10 +141,6 @@ func main() {
 	// OwnerAttr:"",
 	outputFormatted = regexp.MustCompile(`\w+:\s*"",?`).ReplaceAll(outputFormatted, []byte(""))
 
-	// Add line breaks at each comma, attempt to avoid issues with commas in strings by requering formatting until next : and {
-	// This is very imperfect and some formatter that would be able to split a single line mega struct would be preferable.
-	outputFormatted = regexp.MustCompile(`,([\w\s]+:[^"]+{)`).ReplaceAll(outputFormatted, []byte(",\n$1"))
-
 	file, err := os.Create(outputFile)
 	if err != nil {
 		return
@@ -103,8 +149,7 @@ func main() {
 
 	funcName := strings.ReplaceAll(cases.Lower(language.Norwegian).String(outputBaseName), "-", "")
 
-	file.WriteString(
-		fmt.Sprintf(`
+	outputBase := fmt.Sprintf(`
 			// Code generated by %s. DO NOT EDIT.
 
 			package %s
@@ -116,38 +161,37 @@ func main() {
 			)
 
 			func %s() interfacedefinition.InterfaceDefinition {
-				return `,
-			thisFilename,
-			pkgName,
-			funcName,
-		),
+				return %s
+			}
+			`,
+		thisFilename,
+		pkgName,
+		funcName,
+		outputFormatted,
 	)
 
-	file.Write(outputFormatted)
-	file.WriteString(`}`)
+	// Use DST to add linebreaks in generated code for readability
+	fset, err := decorator.Parse(outputBase)
+	if err != nil {
+		panic(err)
+	}
 
-	/*
-		for when we have time to create something more built to purpose
+	dstutil.Apply(fset, nil, func(c *dstutil.Cursor) bool {
+		n := c.Node()
 
-		attr, _ := subber(interfaceDefinition)
-		def := IfaceDef{
-			Caller: thisFilename,
-			Name:   "llpd",
-			Def:    attr,
+		switch x := n.(type) {
+		case *dst.KeyValueExpr:
+			x.Decorations().Before = dst.NewLine
+
+		case *dst.Package:
+			fmt.Println("Skipping package node")
 		}
 
-		t, err := template.New("template.tmpl").ParseFiles(
-			filepath.Join(filepath.Dir(thisFilename),
-				"template.tmpl",
-			),
-		)
-		die(err)
+		return true
+	})
 
-		err = t.Execute(os.Stdout, def)
-		die(err)
-
-		fmt.Printf("%#v\n", def)
-	*/
+	err = decorator.Fprint(file, fset)
+	die(err)
 }
 
 func die(err error) {
@@ -155,121 +199,3 @@ func die(err error) {
 		log.Fatal(err)
 	}
 }
-
-/*
-for when we have time to create something more built to purpose
-
-func subber(inputVal any) (Attr, bool) {
-	var ret Attr
-	ret.set_defaults()
-	isNil := true
-
-	v := reflect.ValueOf(inputVal)
-
-	switch reflect.TypeOf(inputVal).Kind() {
-	case reflect.Struct:
-		fmt.Println("Struct: Number of fields:", v.NumField())
-
-		for i := 0; i < v.NumField(); i++ {
-			fmt.Printf("Idx:%d name:%s type:%s kind:%s value:%s\n",
-				i,                          // idx
-				v.Type().Field(i).Name,     // name
-				v.Field(i).Type().String(), // type
-				v.Field(i).Kind().String(), // kind
-				v.Field(i).String(),        // value
-			)
-
-			if reflect.ValueOf(v).Kind() == reflect.Struct {
-
-				if s, sIsNil := subber(v.Field(i).Interface()); !sIsNil {
-					isNil = false
-					ret.Subs = append(ret.Subs, s)
-					ret.Kind = v.Field(i).Kind().String()
-					ret.Name = v.Type().Field(i).Name
-					ret.Type = "Struct"
-
-				}
-			} else {
-
-				if !v.Field(i).IsNil() {
-					isNil = false
-					if s, sIsNil := subber(v.Field(i).Interface()); !sIsNil {
-						ret.Subs = append(ret.Subs, s)
-						ret.Kind = v.Field(i).Kind().String()
-						ret.Name = v.Type().Field(i).Name
-						ret.Type = "????"
-					}
-				} else {
-					//fmt.Println("nil")
-				}
-			}
-		}
-
-	case reflect.Slice:
-		fmt.Println("Slice: Number of fields:", v.Len())
-
-		ret.Kind = v.Kind().String()
-		ret.Name = v.Type().Name()
-		ret.Type = "Slice"
-
-		for i := 0; i < v.Len(); i++ {
-			item := v.Index(i)
-
-			if itemRet, itemIsnil := subber(item.Interface()); !itemIsnil {
-				ret.Subs = append(ret.Subs, itemRet)
-				isNil = false
-			} else {
-				//fmt.Printf("Idx:%d | nil\n", i)
-			}
-
-			// if item.Kind() == reflect.Struct {
-			// 	v := reflect.Indirect(item)
-			// 	for j := 0; j < v.NumField(); j++ {
-			// 		fmt.Println(v.Type().Field(j).Name, v.Field(j).Interface())
-			// 	}
-			// }
-		}
-
-	case reflect.String:
-		fmt.Println("String")
-
-		ret.Kind = v.Kind().String()
-		ret.Name = v.Type().Name()
-		ret.Type = "String"
-
-		if v.Interface() != nil && v.Interface() != "" {
-			ret.Value = v.String()
-			isNil = false
-		} else {
-			//fmt.Printf("nil\n")
-		}
-
-	case reflect.Ptr:
-		fmt.Println("Ptr")
-
-		ret.Kind = v.Kind().String()
-		ret.Name = v.Type().Name()
-		ret.Type = "Ptr"
-
-		e := v.Elem()
-		if e.IsValid() {
-			if itemRet, itemIsnil := subber(e.Interface()); !itemIsnil {
-				ret.Subs = append(ret.Subs, itemRet)
-				isNil = false
-			} else {
-				//fmt.Printf("nil\n")
-			}
-		} else {
-			//fmt.Printf("invalid\n")
-		}
-
-	default:
-		panic(fmt.Sprintf("Currently unhandled: %s\n", reflect.ValueOf(inputVal).Kind().String()))
-	}
-
-	if !isNil {
-		fmt.Println(ret.Name, "is", ret.Value, "with", len(ret.Subs), "kids")
-	}
-	return ret, isNil
-}
-*/
