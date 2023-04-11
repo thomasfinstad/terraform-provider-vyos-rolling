@@ -8,16 +8,23 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/defaults"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
+// TODO remove example resource
+
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &ExampleResource{}
-var _ resource.ResourceWithImportState = &ExampleResource{}
+var (
+	_ resource.Resource                = &ExampleResource{}
+	_ resource.ResourceWithImportState = &ExampleResource{}
+)
 
 // NewExampleResource method to return the example resource reference
 func NewExampleResource() resource.Resource {
@@ -34,6 +41,7 @@ type ExampleResourceModel struct {
 	ConfigurableAttribute types.String `tfsdk:"configurable_attribute"`
 	Defaulted             types.String `tfsdk:"defaulted"`
 	ID                    types.String `tfsdk:"id"`
+	TagNode               types.Map    `tfsdk:"tag_node"`
 }
 
 // Metadata method to define the resource type name.
@@ -64,6 +72,39 @@ func (r *ExampleResource) Schema(ctx context.Context, req resource.SchemaRequest
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
+			},
+			"tag_node": schema.MapNestedAttribute{
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"enable": schema.BoolAttribute{
+							CustomType:          basetypes.BoolTypable(nil),
+							Required:            true,
+							Optional:            false,
+							Computed:            false,
+							Sensitive:           false,
+							Description:         "Blah blah",
+							MarkdownDescription: "",
+							DeprecationMessage:  "",
+							Validators:          []validator.Bool(nil),
+							PlanModifiers:       []planmodifier.Bool(nil),
+							Default:             defaults.Bool(nil),
+						},
+					},
+					CustomType:    basetypes.ObjectTypable(nil),
+					Validators:    []validator.Object(nil),
+					PlanModifiers: []planmodifier.Object(nil),
+				},
+				CustomType:          basetypes.MapTypable(nil),
+				Required:            true,
+				Optional:            false,
+				Computed:            false,
+				Sensitive:           false,
+				Description:         "",
+				MarkdownDescription: "",
+				DeprecationMessage:  "",
+				Validators:          []validator.Map(nil),
+				PlanModifiers:       []planmodifier.Map(nil),
+				Default:             defaults.Map(nil),
 			},
 		},
 	}

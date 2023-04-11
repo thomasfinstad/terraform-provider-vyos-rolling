@@ -158,6 +158,10 @@ repos:
     # Style Checkers
     #
     -   id: go-lint
+        exclude: |
+          (?x)(
+            ^internal/terraform/resource/full/auto.*
+          )
     # -   id: go-critic
     # #
     # # GolangCI-Lint

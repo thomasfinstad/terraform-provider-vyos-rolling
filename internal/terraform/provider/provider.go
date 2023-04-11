@@ -70,9 +70,7 @@ func (p *VyosProvider) Configure(ctx context.Context, req provider.ConfigureRequ
 
 // Resources method to define the provider's resources.
 func (p *VyosProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{
-		resourcefull.NewExampleResource,
-	}
+	return resourcefull.GetResources()
 }
 
 // DataSources method to define the provider's data sources.
