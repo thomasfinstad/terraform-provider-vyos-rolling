@@ -42,6 +42,11 @@ func (t *TagNode) BaseNameG() string {
 	return ret
 }
 
+// VyosPath returns the name of the node
+func (t *TagNode) VyosPath() []string {
+	return strings.Split(t.BaseName(), " ")
+}
+
 // BaseNameCG returns a capitalized go friendlier version of BaseName
 func (t *TagNode) BaseNameCG() string {
 	return cases.Title(language.Norwegian).String(t.BaseNameG())
@@ -65,14 +70,58 @@ func (t TagNode) Description() string {
 		}
 
 		if p.ValueHelp != nil {
+			desc += "|  Format  |  Description  |\n"
+			desc += "|----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
 				if vh.Format != "" {
-					desc += fmt.Sprintf("Format: %s\n", vh.Format)
+					desc += fmt.Sprintf("|  %s  |", vh.Format)
+				} else {
+					desc += "|   |"
 				}
 				if vh.Format != "" {
-					desc += fmt.Sprintf("%s\n", vh.Description)
+					desc += fmt.Sprintf("  %s  |\n", vh.Description)
+				} else {
+					desc += "   |\n"
 				}
 			}
+		}
+	}
+
+	return desc
+}
+
+// MutateWithAncestors uses a hacky way to store information about ancestor nodes, letting us keep the autogeneration with less alterations
+func (t *TagNode) MutateWithAncestors(nodes []NodeParent) {
+	if len(t.Children) != 1 {
+		panic(fmt.Sprintf("[%s] Can not add ancestors to node with anything other than 1 child container, node has %d child containers", t.BaseName(), len(t.Children)))
+	}
+
+	var c []*Children
+
+	for _, n := range nodes {
+		switch n := n.(type) {
+		case *Node:
+			c = append(c, &Children{Node: []*Node{n}})
+		case *TagNode:
+			c = append(c, &Children{TagNode: []*TagNode{n}})
+		default:
+			panic(fmt.Sprintf("[%s] Ancestor node type unknown: %T", t.BaseName(), n))
+		}
+	}
+
+	t.Children = append(t.Children, c...)
+}
+
+// AncestorDescription returns the formatted description all ancestor nodes, including help text
+func (t *TagNode) AncestorDescription() string {
+	var desc string
+
+	for _, c := range t.Children[1 : len(t.Children)-1] {
+		for _, n := range c.Node {
+			desc += n.Description()
+		}
+		for _, t := range c.TagNode {
+			desc += t.Description()
 		}
 	}
 

@@ -11,6 +11,7 @@ func die(err error) {
 // NodeBase should match Node, TagNode and LeafNode
 type NodeBase interface {
 	BaseName() string
+	Description() string
 }
 
 // NodeParent should match Node and TagNode

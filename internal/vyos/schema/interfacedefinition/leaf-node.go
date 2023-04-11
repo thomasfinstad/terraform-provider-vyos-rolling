@@ -51,12 +51,18 @@ func (l LeafNode) Description() string {
 		}
 
 		if p.ValueHelp != nil {
+			desc += "|  Format  |  Description  |\n"
+			desc += "|----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
 				if vh.Format != "" {
-					desc += fmt.Sprintf("Format: %s\n", vh.Format)
+					desc += fmt.Sprintf("|  %s  |", vh.Format)
+				} else {
+					desc += "|   |"
 				}
 				if vh.Format != "" {
-					desc += fmt.Sprintf("%s\n", vh.Description)
+					desc += fmt.Sprintf("  %s  |\n", vh.Description)
+				} else {
+					desc += "   |\n"
 				}
 			}
 		}

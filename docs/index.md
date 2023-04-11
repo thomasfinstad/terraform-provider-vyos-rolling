@@ -13,7 +13,7 @@ description: |-
 ## Example Usage
 
 ```terraform
-# TODO: Some example here
+# TODO Improve provider example
 
 terraform {
   required_providers {

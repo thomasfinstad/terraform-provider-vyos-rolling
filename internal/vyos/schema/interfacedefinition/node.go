@@ -50,6 +50,11 @@ func (n *Node) BaseNameCG() string {
 	return cases.Title(language.Norwegian).String(n.BaseNameG())
 }
 
+// VyosPath returns the name of the node
+func (n *Node) VyosPath() []string {
+	return strings.Split(n.BaseName(), " ")
+}
+
 // GetChildren return Children object
 func (n *Node) GetChildren() *Children {
 
@@ -69,12 +74,18 @@ func (n Node) Description() string {
 		}
 
 		if p.ValueHelp != nil {
+			desc += "|  Format  |  Description  |\n"
+			desc += "|----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
 				if vh.Format != "" {
-					desc += fmt.Sprintf("Format: %s\n", vh.Format)
+					desc += fmt.Sprintf("|  %s  |", vh.Format)
+				} else {
+					desc += "|   |"
 				}
 				if vh.Format != "" {
-					desc += fmt.Sprintf("%s\n", vh.Description)
+					desc += fmt.Sprintf("  %s  |\n", vh.Description)
+				} else {
+					desc += "   |\n"
 				}
 			}
 		}
