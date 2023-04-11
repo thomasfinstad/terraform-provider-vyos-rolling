@@ -40,7 +40,7 @@ data/vyos/vyos-1x/submodule.log: data/vyos/rolling-iso-time.txt
 # Convert from relaxng to XSD
 .build/vyos/schema/interface-definition.xsd: data/vyos/vyos-1x/submodule.log
 	mkdir -p .build/vyos/schema/
-	java -jar scripts/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc .build/vyos/schema/interface-definition.xsd
+	java -jar tools/trang-20091111/trang.jar -I rnc -O xsd data/vyos/vyos-1x/schema/interface_definition.rnc .build/vyos/schema/interface-definition.xsd
 
 # Generate go structs from XSD
 internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/interface-definition.xsd internal/vyos/schema/interfacedefinition/interface-definition.go
