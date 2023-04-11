@@ -25,6 +25,7 @@ func main() {
 
 	vyosInterfaces := vyosinterface.GetInterfaces()
 
+	// Compile named TagNode based resources
 	for _, vyosInterface := range vyosInterfaces {
 
 		//rootNode := vyosInterface.GetRootNode()
@@ -43,8 +44,11 @@ func main() {
 				nodeAncestroyNames = append(nodeAncestroyNames, n.BaseName())
 			}
 
+			baseNode.MutateWithAncestors(nodeAncestroy)
+			baseNode.SetBaseName(strings.Join(nodeAncestroyNames, " "))
+
 			// Create output file
-			outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, strings.Join(nodeAncestroyNames, "-"))
+			outputFile := fmt.Sprintf("%s/autogen-resource-%s.go", outputDirectory, strings.ReplaceAll(baseNode.BaseName(), " ", "-"))
 
 			fmt.Printf(" Creating: %s ", outputFile)
 
@@ -54,8 +58,6 @@ func main() {
 			}
 			defer file.Close()
 
-			baseNode.SetBaseName(strings.Join(nodeAncestroyNames, " "))
-
 			// Compile template
 			t, err := template.New("resource_generation").ParseFiles(filepath.Join(thisDir, "template.gotmpl"))
 			if err != nil {
@@ -63,7 +65,7 @@ func main() {
 			}
 
 			// Write package
-			err = t.ExecuteTemplate(file, "package", pkgName)
+			err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": pkgName})
 			if err != nil {
 				die(err)
 			}
@@ -87,7 +89,7 @@ func main() {
 			}
 
 			// Write resource model
-			err = t.ExecuteTemplate(file, "resourcemodel", baseNode)
+			err = t.ExecuteTemplate(file, "tagNodeResourcemodel", baseNode)
 			if err != nil {
 				die(err)
 			}
@@ -105,7 +107,7 @@ func main() {
 			}
 
 			// Write schema
-			err = t.ExecuteTemplate(file, "schema", baseNode)
+			err = t.ExecuteTemplate(file, "tagNodeSchema", baseNode)
 			if err != nil {
 				die(err)
 			}
@@ -119,6 +121,8 @@ func main() {
 			fmt.Println("Done")
 		}
 	}
+
+	// TODO Create Node based global resources
 }
 
 func die(err error) {
