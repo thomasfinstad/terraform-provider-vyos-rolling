@@ -22,3 +22,21 @@ pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre
 
 # Tooling
 go install mvdan.cc/gofumpt@latest
+
+# Local terraform provider
+cat > "$HOME/.terraformrc" <<EOL
+provider_installation {
+
+  dev_overrides {
+      "ex.c/thomasfinstad/vyos" = "/go/bin"
+  }
+
+  # For all other providers, install them directly from their origin provider
+  # registries as normal. If you omit this, Terraform will _only_ use
+  # the dev_overrides block, and so no other providers will be available.
+  direct {}
+}
+EOL
+
+# Default Terraform version
+tfenv use "1.4.4"

@@ -22,7 +22,8 @@
 		},
 		"ghcr.io/devcontainers/features/java:1": {
 			"version" : "17"
-		}
+		},
+		"ghcr.io/mickeahlinder/devcontainer-features/tfenv:1": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -37,7 +38,10 @@
 			"extensions": [
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-xml",
-				"Gruntfuggly.todo-tree"
+				"Gruntfuggly.todo-tree",
+				"hashicorp.terraform",
+				"casualjim.gotemplate",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	}
