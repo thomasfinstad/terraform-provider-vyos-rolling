@@ -26,20 +26,21 @@ type protocols_ospf_area struct {
 
 // protocols_ospf_areaModel describes the resource data model.
 type protocols_ospf_areaModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Range        types.Map `tfsdk:"range"`
-	Virtual_link types.Map `tfsdk:"virtual_link"`
-
-	Area_type types.String `tfsdk:"area_type"`
-
+	// LeafNodes
 	Authentication types.String `tfsdk:"authentication"`
 	Network        types.String `tfsdk:"network"`
 	Shortcut       types.String `tfsdk:"shortcut"`
 	Export_list    types.String `tfsdk:"export_list"`
 	Import_list    types.String `tfsdk:"import_list"`
+
+	// TagNodes
+	Range        types.Map `tfsdk:"range"`
+	Virtual_link types.Map `tfsdk:"virtual_link"`
+
+	// Nodes
+	Area_type types.List `tfsdk:"area_type"`
 }
 
 // Metadata method to define the resource type name.
@@ -76,181 +77,107 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 |  u32  |  OSPF area number in decimal notation  |
 |  ipv4  |  OSPF area number in dotted decimal notation  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"range": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"cost": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Metric for this range
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Metric for this range  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"not_advertise": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Do not advertise this range
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"substitute": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Advertise area range as another prefix
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Advertise area range as another prefix  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Summarize routes matching a prefix (border routers only)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Area range prefix  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"virtual_link": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"dead_interval": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Interval after which a neighbor is declared dead
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Neighbor dead interval (seconds)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`40`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"hello_interval": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Interval between hello packets
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Hello interval (seconds)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`10`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"retransmit_interval": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Retransmit interval (seconds)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`5`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"transmit_delay": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Link state transmit delay
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Link state transmit delay (seconds)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`1`),
 							Computed: true,
@@ -259,24 +186,15 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 						"authentication": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"plaintext_password": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Plain text password
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (8 characters or less)  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
 								"md5": schema.SingleNestedAttribute{
@@ -286,113 +204,52 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 											NestedObject: schema.NestedAttributeObject{
 												Attributes: map[string]schema.Attribute{
 
-													// TODO handle non-string types
 													"md5_key": schema.StringAttribute{
-														// CustomType:          basetypes.StringTypable(nil),
-														// Required:            false,
+
 														Optional: true,
-														// Sensitive:           false,
-														// Description:         "",
 														MarkdownDescription: `MD5 authentication type
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  MD5 Key (16 characters or less)  |
 `,
-														// DeprecationMessage:  "",
-														// TODO Recreate some of vyos validators for use in leafnodes
-														// Validators:          []validator.String(nil),
-														// PlanModifiers:       []planmodifier.String(nil),
-
 													},
-
-													// CustomType:    basetypes.ObjectTypable(nil),
-													// Validators:    []validator.Object(nil),
-													// PlanModifiers: []planmodifier.Object(nil),
 												},
 											},
-											// CustomType:          basetypes.MapTypable(nil),
-											// Required:            false,
 											Optional: true,
-											// Computed:            false,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `MD5 key id
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  MD5 key id  |
 `,
-											// DeprecationMessage:  "",
-											// Validators:          []validator.Map(nil),
-											// PlanModifiers:       []planmodifier.Map(nil),
-											// TODO investigate if tagnode defaults can be handled
-											//Default:             defaults.Map(nil),
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `MD5 key id
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if node defaults can be handled
-									// Default:             defaults.Map(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Authentication
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Virtual link
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  OSPF area in dotted decimal notation  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"authentication": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `OSPF area authentication type
 
 |  Format  |  Description  |
@@ -400,40 +257,22 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 |  plaintext-password  |  Use plain-text authentication  |
 |  md5  |  Use MD5 authentication  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"network": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `OSPF network
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  OSPF network  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"shortcut": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Area shortcut mode
 
 |  Format  |  Description  |
@@ -442,120 +281,66 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 |  disable  |  Disable shortcutting mode  |
 |  enable  |  Enable shortcutting mode  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"export_list": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Set the filter for networks announced to other areas
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access-list number  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"import_list": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Set the filter for networks from other areas announced
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access-list number  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"area_type": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"normal": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Normal OSPF area
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
 					"nssa": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"default_cost": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Summary-default cost of an NSSA area
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Summary default cost  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"no_summary": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Do not inject inter-area routes into stub
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"translate": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Configure NSSA-ABR
 
 |  Format  |  Description  |
@@ -564,101 +349,49 @@ func (r *protocols_ospf_area) Schema(ctx context.Context, req resource.SchemaReq
 |  candidate  |  Translate for election  |
 |  never  |  Never translate LSA types  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
 
 								Default:  stringdefault.StaticString(`candidate`),
 								Computed: true,
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Not-So-Stubby OSPF area
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 
 					"stub": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"default_cost": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Summary-default cost
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Summary default cost  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"no_summary": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Stub OSPF area
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Area type
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

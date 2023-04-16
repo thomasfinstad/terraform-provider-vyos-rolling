@@ -25,14 +25,16 @@ type system_task_scheduler_task struct {
 
 // system_task_scheduler_taskModel describes the resource data model.
 type system_task_scheduler_taskModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Executable types.String `tfsdk:"executable"`
-
+	// LeafNodes
 	Crontab_spec types.String `tfsdk:"crontab_spec"`
 	Interval     types.String `tfsdk:"interval"`
+
+	// TagNodes
+
+	// Nodes
+	Executable types.List `tfsdk:"executable"`
 }
 
 // Metadata method to define the resource type name.
@@ -68,33 +70,19 @@ func (r *system_task_scheduler_task) Schema(ctx context.Context, req resource.Sc
 |----------|---------------|
 |  txt  |  Task name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"crontab_spec": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `UNIX crontab time specification string
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"interval": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Execution interval
 
 |  Format  |  Description  |
@@ -104,64 +92,31 @@ func (r *system_task_scheduler_task) Schema(ctx context.Context, req resource.Sc
 |  <hours>h  |  Execution interval in hours  |
 |  <days>d  |  Execution interval in days  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"executable": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"path": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Path to executable
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"arguments": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Arguments passed to the executable
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Executable path and arguments
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

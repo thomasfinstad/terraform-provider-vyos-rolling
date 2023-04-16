@@ -26,15 +26,9 @@ type service_router_advert_interface struct {
 
 // service_router_advert_interfaceModel describes the resource data model.
 type service_router_advert_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Route  types.Map `tfsdk:"route"`
-	Prefix types.Map `tfsdk:"prefix"`
-
-	Interval types.String `tfsdk:"interval"`
-
+	// LeafNodes
 	Hop_limit            types.String `tfsdk:"hop_limit"`
 	Default_lifetime     types.String `tfsdk:"default_lifetime"`
 	Default_preference   types.String `tfsdk:"default_preference"`
@@ -48,6 +42,13 @@ type service_router_advert_interfaceModel struct {
 	Reachable_time       types.String `tfsdk:"reachable_time"`
 	Retrans_timer        types.String `tfsdk:"retrans_timer"`
 	No_send_advert       types.String `tfsdk:"no_send_advert"`
+
+	// TagNodes
+	Route  types.Map `tfsdk:"route"`
+	Prefix types.Map `tfsdk:"prefix"`
+
+	// Nodes
+	Interval types.List `tfsdk:"interval"`
 }
 
 // Metadata method to define the resource type name.
@@ -80,20 +81,15 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 				MarkdownDescription: `Interface to send RA on
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"route": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"valid_lifetime": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Time in seconds that the route will remain valid
 
 |  Format  |  Description  |
@@ -101,22 +97,14 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:1-4294967295  |  Time in seconds that the route will remain valid  |
 |  infinity  |  Route will remain preferred forever  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`1800`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"route_preference": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Preference associated with the route,
 
 |  Format  |  Description  |
@@ -125,135 +113,68 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  medium  |  Route has medium preference  |
 |  high  |  Route has high preference  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`medium`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"no_remove_route": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Do not announce this route with a zero second lifetime upon shutdown
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IPv6 route to be advertised in Router Advertisements (RAs)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 route to be advertized  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"prefix": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"no_autonomous_flag": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Prefix can not be used for stateless address auto-configuration
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"no_on_link_flag": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Prefix can not be used for on-link determination
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"deprecate_prefix": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"decrement_lifetime": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"preferred_lifetime": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Time in seconds that the prefix will remain preferred
 
 |  Format  |  Description  |
@@ -261,22 +182,14 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32  |  Time in seconds that the prefix will remain preferred  |
 |  infinity  |  Prefix will remain preferred forever  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`14400`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"valid_lifetime": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Time in seconds that the prefix will remain valid
 
 |  Format  |  Description  |
@@ -284,46 +197,24 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:1-4294967295  |  Time in seconds that the prefix will remain valid  |
 |  infinity  |  Prefix will remain preferred forever  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`2592000`),
 							Computed: true,
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IPv6 prefix to be advertised in Router Advertisements (RAs)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 prefix to be advertized  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"hop_limit": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Set Hop Count field of the IP header for outgoing packets
 
 |  Format  |  Description  |
@@ -331,22 +222,14 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:0  |  Unspecified (by this router)  |
 |  u32:1-255  |  Value should represent current diameter of the Internet  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`64`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"default_lifetime": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Lifetime associated with the default router in units of seconds
 
 |  Format  |  Description  |
@@ -354,20 +237,11 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:4-9000  |  Router Lifetime in seconds  |
 |  0  |  Not a default router  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"default_preference": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Preference associated with the default router,
 
 |  Format  |  Description  |
@@ -376,96 +250,52 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  medium  |  Default router has medium preference  |
 |  high  |  Default router has high preference  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`medium`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"dnssl": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `DNS search list
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"link_mtu": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Link MTU value placed in RAs, exluded in RAs if unset
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1280-9000  |  Link MTU value in RAs  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"managed_flag": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"name_server": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"name_server_lifetime": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Maximum duration how long the RDNSS entries are used
 
 |  Format  |  Description  |
@@ -473,57 +303,30 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:0  |  Name-servers should no longer be used  |
 |  u32:1-7200  |  Maximum interval in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"other_config_flag": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"source_address": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Use IPv6 address as source address. Useful with VRRP.
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  IPv6 address to be advertized (must be configured on interface)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"reachable_time": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
 |  Format  |  Description  |
@@ -531,22 +334,14 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:0  |  Reachable Time unspecified by this router  |
 |  u32:1-3600000  |  Reachable Time value in RAs (in milliseconds)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`0`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"retrans_timer": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Time in milliseconds between retransmitted Neighbor Solicitation messages
 
 |  Format  |  Description  |
@@ -554,91 +349,51 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 |  u32:0  |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
 |  u32:1-4294967295  |  Minimum interval in milliseconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`0`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"no_send_advert": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Do not send router adverts
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"interval": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"max": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Maximum interval between unsolicited multicast RAs
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:4-1800  |  Maximum interval in seconds  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`600`),
 						Computed: true,
 					},
 
-					// TODO handle non-string types
 					"min": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Minimum interval between unsolicited multicast RAs
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:3-1350  |  Minimum interval in seconds  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Set interval between unsolicited multicast RAs
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

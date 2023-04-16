@@ -25,12 +25,16 @@ type container_network struct {
 
 // container_networkModel describes the resource data model.
 type container_networkModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Description types.String `tfsdk:"description"`
 	Prefix      types.String `tfsdk:"prefix"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -62,33 +66,19 @@ func (r *container_network) Schema(ctx context.Context, req resource.SchemaReque
 				MarkdownDescription: `Network name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Network description
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"prefix": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Prefix which allocated to that network
 
 |  Format  |  Description  |
@@ -96,11 +86,6 @@ func (r *container_network) Schema(ctx context.Context, req resource.SchemaReque
 |  ipv4net  |  IPv4 network prefix  |
 |  ipv6net  |  IPv6 network prefix  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

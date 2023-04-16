@@ -25,12 +25,16 @@ type protocols_pim_interface struct {
 
 // protocols_pim_interfaceModel describes the resource data model.
 type protocols_pim_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Dr_priority types.String `tfsdk:"dr_priority"`
 	Hello       types.String `tfsdk:"hello"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -63,47 +67,28 @@ func (r *protocols_pim_interface) Schema(ctx context.Context, req resource.Schem
 				MarkdownDescription: `PIM interface
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"dr_priority": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Designated Router Election Priority
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Value of the new DR Priority  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"hello": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Hello Interval
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-180  |  Hello Interval in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

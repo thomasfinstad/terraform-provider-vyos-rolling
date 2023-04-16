@@ -27,6 +27,7 @@ type VyosProvider struct {
 // VyosProviderModel describes the provider data model.
 type VyosProviderModel struct {
 	Endpoint types.String `tfsdk:"endpoint"`
+	Key      types.String `tfsdk:"api_key"`
 }
 
 // Metadata method to define the provider type name for inclusion in each data source and resource type name.
@@ -40,8 +41,12 @@ func (p *VyosProvider) Schema(ctx context.Context, req provider.SchemaRequest, r
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"endpoint": schema.StringAttribute{
-				MarkdownDescription: "Example provider attribute",
-				Optional:            true,
+				MarkdownDescription: "VyOS API Endpoint",
+				Required:            true,
+			},
+			"api_key": schema.StringAttribute{
+				MarkdownDescription: "VyOS API Key",
+				Required:            true,
 			},
 		},
 	}

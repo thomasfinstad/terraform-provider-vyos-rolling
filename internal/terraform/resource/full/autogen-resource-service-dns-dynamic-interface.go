@@ -26,16 +26,17 @@ type service_dns_dynamic_interface struct {
 
 // service_dns_dynamic_interfaceModel describes the resource data model.
 type service_dns_dynamic_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Ipvsix_enable types.String `tfsdk:"ipv6_enable"`
 
-	Rfc____ types.Map `tfsdk:"rfc2136"`
-	Service types.Map `tfsdk:"service"`
+	// TagNodes
+	Rfctwoonethreesix types.Map `tfsdk:"rfc2136"`
+	Service           types.Map `tfsdk:"service"`
 
-	Use_web types.String `tfsdk:"use_web"`
-
-	Ipv__enable types.String `tfsdk:"ipv6_enable"`
+	// Nodes
+	Use_web types.List `tfsdk:"use_web"`
 }
 
 // Metadata method to define the resource type name.
@@ -71,189 +72,99 @@ Dynamic DNS
 				MarkdownDescription: `Interface to send DDNS updates for
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rfc2136": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"key": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `File containing the secret key shared with remote DNS server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  filename  |  File in /config/auth directory  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"record": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Record to be updated
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Server to be updated
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ttl": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Time To Live (default: 600)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  DNS forwarding cache size  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`600`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"zone": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Zone to be updated
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `RFC2136 Update name
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"service": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"host_name": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Hostname registered with DDNS service
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"login": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Login for DDNS service
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"password": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Password for DDNS service
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"protocol": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `ddclient protocol used for DDNS service
 
 |  Format  |  Description  |
@@ -280,20 +191,11 @@ Dynamic DNS
 |  yandex  |  Yandex.DNS protocol  |
 |  zoneedit1  |  Zoneedit protocol  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Remote server to connect to
 
 |  Format  |  Description  |
@@ -301,41 +203,18 @@ Dynamic DNS
 |  ipv4  |  Server IPv4 address  |
 |  hostname  |  Server hostname/FQDN  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"zone": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `DNS zone to update (only available with CloudFlare)
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Service being used for Dynamic DNS
 
 |  Format  |  Description  |
@@ -353,81 +232,39 @@ Dynamic DNS
 |  sitelutions  |  sitelutions.com Services  |
 |  zoneedit  |  zoneedit.com Services  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"ipv6_enable": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Allow explicit IPv6 addresses for Dynamic DNS for this interface
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"use_web": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"skip": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Skip everything before this on the given URL
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"url": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `URL to obtain the current external IP address
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Web check used for obtaining the external IP address
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

@@ -9,6 +9,32 @@ import (
 	"golang.org/x/text/language"
 )
 
+// InformLinage will recursively set the Parent field in all children
+func (t *TagNode) InformLinage() {
+	for _, cn := range t.GetChildren().Node {
+		cn.Parent = t
+		cn.InformLinage()
+	}
+
+	for _, ct := range t.GetChildren().TagNode {
+		ct.Parent = t
+		ct.InformLinage()
+	}
+
+	for _, cl := range t.GetChildren().LeafNode {
+		cl.Parent = t
+	}
+}
+
+// AbsName returns each name in the node hirarchy starting with the root as the first element and this node as the last element
+func (t *TagNode) AbsName() []string {
+	if t.Parent == nil {
+		return []string{t.BaseName()}
+	}
+
+	return append(t.Parent.AbsName(), t.BaseName())
+}
+
 // BaseName returns the name of the node
 func (t *TagNode) BaseName() string {
 	return t.NodeNameAttr
@@ -31,7 +57,18 @@ func (t *TagNode) BaseNameS() string {
 
 // BaseNameG returns a go friendlier version of BaseName
 func (t *TagNode) BaseNameG() string {
-	ret := regexp.MustCompile("[^a-z_]").ReplaceAllString(t.BaseName(), "_")
+	bn := t.BaseName()
+	bn = strings.ReplaceAll(bn, "0", "zero")
+	bn = strings.ReplaceAll(bn, "1", "one")
+	bn = strings.ReplaceAll(bn, "2", "two")
+	bn = strings.ReplaceAll(bn, "3", "three")
+	bn = strings.ReplaceAll(bn, "4", "four")
+	bn = strings.ReplaceAll(bn, "5", "five")
+	bn = strings.ReplaceAll(bn, "6", "six")
+	bn = strings.ReplaceAll(bn, "7", "seven")
+	bn = strings.ReplaceAll(bn, "8", "eight")
+	bn = strings.ReplaceAll(bn, "9", "nine")
+	ret := regexp.MustCompile("[^a-z_]").ReplaceAllString(bn, "_")
 
 	// Special cases
 	switch ret {

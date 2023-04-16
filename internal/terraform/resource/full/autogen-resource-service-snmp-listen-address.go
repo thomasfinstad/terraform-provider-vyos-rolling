@@ -26,11 +26,15 @@ type service_snmp_listen_address struct {
 
 // service_snmp_listen_addressModel describes the resource data model.
 type service_snmp_listen_addressModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Port types.String `tfsdk:"port"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -67,26 +71,17 @@ func (r *service_snmp_listen_address) Schema(ctx context.Context, req resource.S
 |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
 |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`161`),
 				Computed: true,

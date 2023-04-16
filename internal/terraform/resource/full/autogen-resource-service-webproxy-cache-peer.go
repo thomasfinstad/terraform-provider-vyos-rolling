@@ -26,15 +26,19 @@ type service_webproxy_cache_peer struct {
 
 // service_webproxy_cache_peerModel describes the resource data model.
 type service_webproxy_cache_peerModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Address   types.String `tfsdk:"address"`
 	Http_port types.String `tfsdk:"http_port"`
 	Icp_port  types.String `tfsdk:"icp_port"`
 	Options   types.String `tfsdk:"options"`
 	Type      types.String `tfsdk:"type"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -70,16 +74,11 @@ func (r *service_webproxy_cache_peer) Schema(ctx context.Context, req resource.S
 |----------|---------------|
 |  hostname  |  Cache peers FQDN  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"address": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Hostname or IP address of peer
 
 |  Format  |  Description  |
@@ -87,42 +86,25 @@ func (r *service_webproxy_cache_peer) Schema(ctx context.Context, req resource.S
 |  ipv4  |  Squid cache-peer IPv4 address  |
 |  hostname  |  Squid cache-peer hostname  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"http_port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Default Proxy Port
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  Default port number  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`3128`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"icp_port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Cache peer ICP port
 
 |  Format  |  Description  |
@@ -130,44 +112,28 @@ func (r *service_webproxy_cache_peer) Schema(ctx context.Context, req resource.S
 |  u32:0  |  Cache peer disabled  |
 |  u32:1-65535  |  Cache peer ICP port  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`0`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"options": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Cache peer options
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Cache peer options  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`no-query default`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"type": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Squid peer type (default parent)
 
 |  Format  |  Description  |
@@ -176,10 +142,6 @@ func (r *service_webproxy_cache_peer) Schema(ctx context.Context, req resource.S
 |  sibling  |  Peer is a sibling  |
 |  multicast  |  Peer is a member of a multicast group  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`parent`),
 				Computed: true,

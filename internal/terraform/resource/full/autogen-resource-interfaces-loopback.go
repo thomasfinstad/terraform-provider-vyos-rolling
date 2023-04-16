@@ -25,16 +25,18 @@ type interfaces_loopback struct {
 
 // interfaces_loopbackModel describes the resource data model.
 type interfaces_loopbackModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Ip     types.String `tfsdk:"ip"`
-	Mirror types.String `tfsdk:"mirror"`
-
+	// LeafNodes
 	Address     types.String `tfsdk:"address"`
 	Description types.String `tfsdk:"description"`
 	Redirect    types.String `tfsdk:"redirect"`
+
+	// TagNodes
+
+	// Nodes
+	Ip     types.List `tfsdk:"ip"`
+	Mirror types.List `tfsdk:"mirror"`
 }
 
 // Metadata method to define the resource type name.
@@ -67,16 +69,11 @@ func (r *interfaces_loopback) Schema(ctx context.Context, req resource.SchemaReq
 |----------|---------------|
 |  lo  |  Loopback interface  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"address": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -84,63 +81,36 @@ func (r *interfaces_loopback) Schema(ctx context.Context, req resource.SchemaReq
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"redirect": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"ip": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"source_validation": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Source validation by reversed path (RFC3704)
 
 |  Format  |  Description  |
@@ -149,86 +119,43 @@ func (r *interfaces_loopback) Schema(ctx context.Context, req resource.SchemaReq
 |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
 |  disable  |  No source validation  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IPv4 routing parameters
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"mirror": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"ingress": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Mirror ingress traffic to destination interface
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"egress": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Mirror egress traffic to destination interface
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Mirror ingress/egress packets
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

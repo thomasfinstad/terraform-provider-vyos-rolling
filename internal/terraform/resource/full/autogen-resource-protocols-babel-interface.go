@@ -26,10 +26,9 @@ type protocols_babel_interface struct {
 
 // protocols_babel_interfaceModel describes the resource data model.
 type protocols_babel_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Type              types.String `tfsdk:"type"`
 	Split_horizon     types.String `tfsdk:"split_horizon"`
 	Hello_interval    types.String `tfsdk:"hello_interval"`
@@ -41,6 +40,11 @@ type protocols_babel_interfaceModel struct {
 	Max_rtt_penalty   types.String `tfsdk:"max_rtt_penalty"`
 	Enable_timestamps types.String `tfsdk:"enable_timestamps"`
 	Channel           types.String `tfsdk:"channel"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -76,16 +80,11 @@ func (r *protocols_babel_interface) Schema(ctx context.Context, req resource.Sch
 |----------|---------------|
 |  txt  |  Interface name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"type": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interface type
 
 |  Format  |  Description  |
@@ -94,22 +93,14 @@ func (r *protocols_babel_interface) Schema(ctx context.Context, req resource.Sch
 |  wired  |  Wired interface  |
 |  wireless  |  Wireless interface  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`auto`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"split_horizon": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Split horizon parameters
 
 |  Format  |  Description  |
@@ -118,191 +109,117 @@ func (r *protocols_babel_interface) Schema(ctx context.Context, req resource.Sch
 |  enable  |  Enable split horizon processing  |
 |  disable  |  Disable split horizon processing  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`default`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"hello_interval": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Time between scheduled hellos
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:20-655340  |  Milliseconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`4000`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"update_interval": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Time between scheduled updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:20-655340  |  Milliseconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`20000`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"rxcost": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Base receive cost for this interface
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65534  |  Base receive cost  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"rtt_decay": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Decay factor for exponential moving average of RTT samples
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-256  |  Decay factor, in units of 1/256  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`42`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"rtt_min": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Minimum RTT
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Milliseconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`10`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"rtt_max": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Maximum RTT
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Milliseconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`120`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"max_rtt_penalty": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Maximum additional cost due to RTT
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`150`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"enable_timestamps": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Enable timestamps with each Hello and IHU message in order to compute RTT values
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"channel": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Channel number for diversity routing
 
 |  Format  |  Description  |
@@ -311,11 +228,6 @@ func (r *protocols_babel_interface) Schema(ctx context.Context, req resource.Sch
 |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
 |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

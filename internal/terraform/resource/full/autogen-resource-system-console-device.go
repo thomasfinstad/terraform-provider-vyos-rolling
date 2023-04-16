@@ -26,11 +26,15 @@ type system_console_device struct {
 
 // system_console_deviceModel describes the resource data model.
 type system_console_deviceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Speed types.String `tfsdk:"speed"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -68,16 +72,11 @@ func (r *system_console_device) Schema(ctx context.Context, req resource.SchemaR
 |  usbNbXpY  |  TTY device name, USB based  |
 |  hvcN  |  Xen console  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"speed": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Console baud rate
 
 |  Format  |  Description  |
@@ -91,10 +90,6 @@ func (r *system_console_device) Schema(ctx context.Context, req resource.SchemaR
 |  57600  |  57600 bps  |
 |  115200  |  115200 bps  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`115200`),
 				Computed: true,

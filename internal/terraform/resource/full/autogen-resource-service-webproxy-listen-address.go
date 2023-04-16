@@ -25,12 +25,16 @@ type service_webproxy_listen_address struct {
 
 // service_webproxy_listen_addressModel describes the resource data model.
 type service_webproxy_listen_addressModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Port                types.String `tfsdk:"port"`
 	Disable_transparent types.String `tfsdk:"disable_transparent"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,44 +70,25 @@ func (r *service_webproxy_listen_address) Schema(ctx context.Context, req resour
 |----------|---------------|
 |  ipv4  |  IPv4 address listen on  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Default Proxy Port
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  Default port number  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"disable_transparent": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable transparent mode
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

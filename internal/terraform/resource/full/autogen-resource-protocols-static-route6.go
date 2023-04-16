@@ -13,39 +13,40 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &protocols_static_route_{}
+var _ resource.Resource = &protocols_static_routesix{}
 
-// var _ resource.ResourceWithImportState = &protocols_static_route_{}
+// var _ resource.ResourceWithImportState = &protocols_static_routesix{}
 
-// protocols_static_route_ defines the resource implementation.
-type protocols_static_route_ struct {
+// protocols_static_routesix defines the resource implementation.
+type protocols_static_routesix struct {
 	client   *http.Client
 	vyosPath []string
 }
 
-// protocols_static_route_Model describes the resource data model.
-type protocols_static_route_Model struct {
-	ID types.String `tfsdk:"id"`
+// protocols_static_routesixModel describes the resource data model.
+type protocols_static_routesixModel struct {
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Description types.String `tfsdk:"description"`
 
+	// TagNodes
 	Iface    types.Map `tfsdk:"interface"`
 	Next_hop types.Map `tfsdk:"next_hop"`
 
-	Blackhole types.String `tfsdk:"blackhole"`
-	Reject    types.String `tfsdk:"reject"`
-
-	Description types.String `tfsdk:"description"`
+	// Nodes
+	Blackhole types.List `tfsdk:"blackhole"`
+	Reject    types.List `tfsdk:"reject"`
 }
 
 // Metadata method to define the resource type name.
-func (r *protocols_static_route_) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *protocols_static_routesix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_protocols_static_route6"
 }
 
-// protocols_static_route_Resource method to return the example resource reference
-func protocols_static_route_Resource() resource.Resource {
-	return &protocols_static_route_{
+// protocols_static_routesixResource method to return the example resource reference
+func protocols_static_routesixResource() resource.Resource {
+	return &protocols_static_routesix{
 		vyosPath: []string{
 			"protocols",
 			"static",
@@ -55,7 +56,7 @@ func protocols_static_route_Resource() resource.Resource {
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *protocols_static_route_) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *protocols_static_routesix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Routing protocols
@@ -73,343 +74,186 @@ Static Routing
 |----------|---------------|
 |  ipv6net  |  IPv6 static route  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"interface": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"disable": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Disable instance
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"distance": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"vrf": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IPv6 gateway interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"next_hop": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"disable": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Disable instance
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"distance": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"interface": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Gateway interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"vrf": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IPv6 gateway address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Next-hop IPv6 router  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"blackhole": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"distance": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"tag": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Silently discard pkts when matched
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"reject": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"distance": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"tag": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Emit an ICMP unreachable when matched
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *protocols_static_route_) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *protocols_static_route_Model
+func (r *protocols_static_routesix) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data *protocols_static_routesixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -439,8 +283,8 @@ func (r *protocols_static_route_) Create(ctx context.Context, req resource.Creat
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *protocols_static_route_) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data *protocols_static_route_Model
+func (r *protocols_static_routesix) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *protocols_static_routesixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
@@ -462,8 +306,8 @@ func (r *protocols_static_route_) Read(ctx context.Context, req resource.ReadReq
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *protocols_static_route_) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *protocols_static_route_Model
+func (r *protocols_static_routesix) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data *protocols_static_routesixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -485,8 +329,8 @@ func (r *protocols_static_route_) Update(ctx context.Context, req resource.Updat
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *protocols_static_route_) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data *protocols_static_route_Model
+func (r *protocols_static_routesix) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data *protocols_static_routesixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)

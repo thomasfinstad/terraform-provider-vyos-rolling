@@ -25,12 +25,15 @@ type service_event_handler_event struct {
 
 // service_event_handler_eventModel describes the resource data model.
 type service_event_handler_eventModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
 
-	Filter types.String `tfsdk:"filter"`
-	Script types.String `tfsdk:"script"`
+	// TagNodes
+
+	// Nodes
+	Filter types.List `tfsdk:"filter"`
+	Script types.List `tfsdk:"script"`
 }
 
 // Metadata method to define the resource type name.
@@ -63,60 +66,31 @@ func (r *service_event_handler_event) Schema(ctx context.Context, req resource.S
 				MarkdownDescription: `Event handler name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"filter": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"pattern": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Match pattern (regex)
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"syslog_identifier": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Identifier of a process in syslog (string)
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Logs filter settings
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"script": schema.SingleNestedAttribute{
@@ -126,92 +100,41 @@ func (r *service_event_handler_event) Schema(ctx context.Context, req resource.S
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"value": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Environment value
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
-
-								// CustomType:    basetypes.ObjectTypable(nil),
-								// Validators:    []validator.Object(nil),
-								// PlanModifiers: []planmodifier.Object(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Script environment arguments
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if tagnode defaults can be handled
-						//Default:             defaults.Map(nil),
 					},
 
-					// TODO handle non-string types
 					"arguments": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Script arguments
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"path": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Path to the script
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Event handler script file
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

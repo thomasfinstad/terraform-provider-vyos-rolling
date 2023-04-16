@@ -26,19 +26,20 @@ type firewall_zone struct {
 
 // firewall_zoneModel describes the resource data model.
 type firewall_zoneModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	From types.Map `tfsdk:"from"`
-
-	Intra_zone_filtering types.String `tfsdk:"intra_zone_filtering"`
-
+	// LeafNodes
 	Description        types.String `tfsdk:"description"`
 	Enable_default_log types.String `tfsdk:"enable_default_log"`
 	Default_action     types.String `tfsdk:"default_action"`
 	Iface              types.String `tfsdk:"interface"`
 	Local_zone         types.String `tfsdk:"local_zone"`
+
+	// TagNodes
+	From types.Map `tfsdk:"from"`
+
+	// Nodes
+	Intra_zone_filtering types.List `tfsdk:"intra_zone_filtering"`
 }
 
 // Metadata method to define the resource type name.
@@ -73,7 +74,6 @@ func (r *firewall_zone) Schema(ctx context.Context, req resource.SchemaRequest, 
 |----------|---------------|
 |  txt  |  Zone name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"from": schema.MapNestedAttribute{
@@ -83,121 +83,57 @@ func (r *firewall_zone) Schema(ctx context.Context, req resource.SchemaRequest, 
 						"firewall": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"ipv6_name": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `IPv6 firewall ruleset
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"name": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `IPv4 firewall ruleset
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Firewall options
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Zone from which to filter traffic
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"enable_default_log": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Log packets hitting default-action
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"default_action": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Default-action for traffic coming into this zone
 
 |  Format  |  Description  |
@@ -205,62 +141,36 @@ func (r *firewall_zone) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  drop  |  Drop silently  |
 |  reject  |  Drop and notify source  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`drop`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"interface": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interface associated with zone
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface associated with zone  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"local_zone": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Zone to be local-zone
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"intra_zone_filtering": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"action": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Action for intra-zone traffic
 
 |  Format  |  Description  |
@@ -268,80 +178,37 @@ func (r *firewall_zone) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  accept  |  Accept traffic  |
 |  drop  |  Drop silently  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
 					"firewall": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"ipv6_name": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `IPv6 firewall ruleset
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"name": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `IPv4 firewall ruleset
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Use the specified firewall chain
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Intra-zone filtering
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

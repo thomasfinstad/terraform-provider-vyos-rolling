@@ -25,13 +25,16 @@ type policy_community_list struct {
 
 // policy_community_listModel describes the resource data model.
 type policy_community_listModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Description types.String `tfsdk:"description"`
 
+	// TagNodes
 	Rule types.Map `tfsdk:"rule"`
 
-	Description types.String `tfsdk:"description"`
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,20 +69,15 @@ func (r *policy_community_list) Schema(ctx context.Context, req resource.SchemaR
 |----------|---------------|
 |  txt  |  BGP community-list name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rule": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"action": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -87,40 +85,22 @@ func (r *policy_community_list) Schema(ctx context.Context, req resource.SchemaR
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"regex": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Regular expression to match against a community-list
 
 |  Format  |  Description  |
@@ -132,55 +112,27 @@ func (r *policy_community_list) Schema(ctx context.Context, req resource.SchemaR
 |  internet  |  Well-known communities value 0  |
 |  additive  |  New value is appended to the existing value  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Rule for this BGP community list
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Community-list rule number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

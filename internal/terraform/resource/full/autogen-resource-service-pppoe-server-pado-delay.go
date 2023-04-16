@@ -25,11 +25,15 @@ type service_pppoe_server_pado_delay struct {
 
 // service_pppoe_server_pado_delayModel describes the resource data model.
 type service_pppoe_server_pado_delayModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Sessions types.String `tfsdk:"sessions"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -65,27 +69,17 @@ func (r *service_pppoe_server_pado_delay) Schema(ctx context.Context, req resour
 |----------|---------------|
 |  u32:1-999999  |  Number in ms  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"sessions": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Number of sessions
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number of sessions  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

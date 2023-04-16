@@ -25,13 +25,16 @@ type policy_access_list struct {
 
 // policy_access_listModel describes the resource data model.
 type policy_access_listModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Description types.String `tfsdk:"description"`
 
+	// TagNodes
 	Rule types.Map `tfsdk:"rule"`
 
-	Description types.String `tfsdk:"description"`
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -69,20 +72,15 @@ func (r *policy_access_list) Schema(ctx context.Context, req resource.SchemaRequ
 |  u32:1300-1999  |  IP standard access list (expanded range)  |
 |  u32:2000-2699  |  IP extended access list (expanded range)  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rule": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"action": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -90,267 +88,138 @@ func (r *policy_access_list) Schema(ctx context.Context, req resource.SchemaRequ
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"destination": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"any": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Any IP address to match
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"host": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Single host IP address to match
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Host address to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"inverse_mask": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Network/netmask to match (requires network be defined)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Inverse-mask to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"network": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Inverse-mask to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Destination network or address
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"source": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"any": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Any IP address to match
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"host": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Single host IP address to match
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Host address to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"inverse_mask": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Network/netmask to match (requires network be defined)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Inverse-mask to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"network": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Inverse-mask to match  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Source network or address to match
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Rule for this access-list
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list rule number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

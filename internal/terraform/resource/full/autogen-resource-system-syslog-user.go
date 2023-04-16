@@ -25,11 +25,15 @@ type system_syslog_user struct {
 
 // system_syslog_userModel describes the resource data model.
 type system_syslog_userModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
 
+	// TagNodes
 	Facility types.Map `tfsdk:"facility"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -65,20 +69,15 @@ func (r *system_syslog_user) Schema(ctx context.Context, req resource.SchemaRequ
 |----------|---------------|
 |  username  |  user login name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"facility": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"level": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Logging level
 
 |  Format  |  Description  |
@@ -93,24 +92,10 @@ func (r *system_syslog_user) Schema(ctx context.Context, req resource.SchemaRequ
 |  debug  |  Debug messages  |
 |  all  |  Log everything  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Facility for logging
 
 |  Format  |  Description  |
@@ -139,11 +124,6 @@ func (r *system_syslog_user) Schema(ctx context.Context, req resource.SchemaRequ
 |  local6  |  Local facility 6  |
 |  local7  |  Local facility 7  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 		},
 	}

@@ -25,12 +25,16 @@ type qos_interface struct {
 
 // qos_interfaceModel describes the resource data model.
 type qos_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Ingress types.String `tfsdk:"ingress"`
 	Egress  types.String `tfsdk:"egress"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -65,47 +69,28 @@ func (r *qos_interface) Schema(ctx context.Context, req resource.SchemaRequest, 
 |----------|---------------|
 |  txt  |  Interface name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"ingress": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interface ingress traffic policy
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  QoS policy to use  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"egress": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interface egress traffic policy
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  QoS policy to use  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

@@ -25,11 +25,15 @@ type protocols_static_multicast_route struct {
 
 // protocols_static_multicast_routeModel describes the resource data model.
 type protocols_static_multicast_routeModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
 
+	// TagNodes
 	Next_hop types.Map `tfsdk:"next_hop"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,55 +70,31 @@ func (r *protocols_static_multicast_route) Schema(ctx context.Context, req resou
 |----------|---------------|
 |  ipv4net  |  Network  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"next_hop": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"distance": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Distance value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Nexthop IPv4 address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Nexthop IPv4 address  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 		},
 	}

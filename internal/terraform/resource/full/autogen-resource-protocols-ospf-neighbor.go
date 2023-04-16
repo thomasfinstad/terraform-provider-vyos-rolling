@@ -26,12 +26,16 @@ type protocols_ospf_neighbor struct {
 
 // protocols_ospf_neighborModel describes the resource data model.
 type protocols_ospf_neighborModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Poll_interval types.String `tfsdk:"poll_interval"`
 	Priority      types.String `tfsdk:"priority"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -67,48 +71,31 @@ func (r *protocols_ospf_neighbor) Schema(ctx context.Context, req resource.Schem
 |----------|---------------|
 |  ipv4  |  Neighbor IP address  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"poll_interval": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Dead neighbor polling interval
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`60`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"priority": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Neighbor priority in seconds
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Neighbor priority  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`0`),
 				Computed: true,

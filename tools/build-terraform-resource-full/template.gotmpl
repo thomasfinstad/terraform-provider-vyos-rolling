@@ -34,19 +34,20 @@ type {{.BaseNameG}} struct {
 {{define "tagNodeResourcemodel"}}
 // {{.BaseNameG}}Model describes the resource data model.
 type {{.BaseNameG}}Model struct {
-	ID         types.String `tfsdk:"id"`
-
-	Identifier types.String `tfsdk:"identifier"`
+	ID         types.String `tfsdk:"identifier"`
 
 	{{with .GetChildren }}
+		// LeafNodes
+		{{range .LeafNodes -}}
+			{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}"`
+		{{end}}
+		// TagNodes
 		{{range .TagNodes -}}
 			{{.BaseNameCG}} types.Map `tfsdk:"{{.BaseNameS}}"`
 		{{end}}
+		// Nodes
 		{{range .Nodes -}}
-			{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}"`
-		{{end}}
-		{{range .LeafNodes -}}
-			{{.BaseNameCG}} types.String `tfsdk:"{{.BaseNameS}}"`
+			{{.BaseNameCG}} types.List `tfsdk:"{{.BaseNameS}}"`
 		{{end}}
 	{{end}}
 }
@@ -72,6 +73,8 @@ func {{.BaseNameG}}Resource() resource.Resource {
 }
 {{end}}
 
+// TODO Add validators for map key
+// Validators:          []validator.String(nil),
 {{define "tagNodeSchema"}}
 // Schema method to define the schema for any resource configuration, plan, and state data.
 func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
@@ -83,7 +86,7 @@ func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest,
 			"identifier": schema.StringAttribute{
 			Required:            true,
 			MarkdownDescription: `{{.Description}}`,
-			// Validators:          []validator.String(nil),
+
 		},
 
 			{{with .GetChildren }}
@@ -96,19 +99,19 @@ func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest,
 }
 {{end}}
 
-{{define "leafnode"}}
 // TODO handle non-string types
+// TODO Recreate some of vyos validators for use in leafnodes
+{{define "leafnode"}}
 "{{.BaseNameS}}": schema.StringAttribute{
-	// CustomType:          basetypes.StringTypable(nil),
-	// Required:            false,
+	{{/* CustomType: CustomStringAttribute{
+		VyosPath: []string{
+		{{range .AbsName }}
+			"{{- . -}}",
+		{{end}}
+		},
+	}, */}}
 	Optional:            true,
-	// Sensitive:           false,
-	// Description:         "",
 	MarkdownDescription: `{{.Description}}`,
-	// DeprecationMessage:  "",
-	// TODO Recreate some of vyos validators for use in leafnodes
-	// Validators:          []validator.String(nil),
-	// PlanModifiers:       []planmodifier.String(nil),
 	{{if .Default }}
 	Default:             stringdefault.StaticString({{.Default}}),
 	Computed:            true,
@@ -116,6 +119,7 @@ func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest,
 },
 {{end}}
 
+// TODO investigate if tagnode defaults can be handled
 {{define "tagnode"}}
 "{{.BaseNameS}}": schema.MapNestedAttribute{
 	NestedObject: schema.NestedAttributeObject{
@@ -125,26 +129,14 @@ func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest,
 				{{range .LeafNodes }} {{template "leafnode" . }} {{end}}
 				{{range .Nodes }} {{template "node" . }} {{end}}
 			{{end}}
-			// CustomType:    basetypes.ObjectTypable(nil),
-			// Validators:    []validator.Object(nil),
-			// PlanModifiers: []planmodifier.Object(nil),
 		},
 	},
-	// CustomType:          basetypes.MapTypable(nil),
-	// Required:            false,
 	Optional:            true,
-	// Computed:            false,
-	// Sensitive:           false,
-	// Description:         "",
 	MarkdownDescription: `{{.Description}}`,
-	// DeprecationMessage:  "",
-	// Validators:          []validator.Map(nil),
-	// PlanModifiers:       []planmodifier.Map(nil),
-	// TODO investigate if tagnode defaults can be handled
-	//Default:             defaults.Map(nil),
 },
 {{end}}
 
+// TODO investigate if node defaults can be handled
 {{define "node"}}
 "{{.BaseNameS}}": schema.SingleNestedAttribute{
 	Attributes: map[string]schema.Attribute{
@@ -154,18 +146,8 @@ func (r *{{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest,
 			{{range .Nodes }} {{template "node" . }} {{end}}
 		{{end}}
 	},
-	// CustomType:          basetypes.MapTypable(nil),
-	// Required:            false,
 	Optional:            true,
-	// Computed:            false,
-	// Sensitive:           false,
-	// Description:         "",
 	MarkdownDescription: `{{.Description}}`,
-	// DeprecationMessage:  "",
-	// Validators:          []validator.Map(nil),
-	// PlanModifiers:       []planmodifier.Map(nil),
-	// TODO investigate if node defaults can be handled
-	// Default:             defaults.Map(nil),
 },
 {{end}}
 

@@ -25,13 +25,16 @@ type protocols_rip_interface struct {
 
 // protocols_rip_interfaceModel describes the resource data model.
 type protocols_rip_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
 
-	Authentication types.String `tfsdk:"authentication"`
-	Receive        types.String `tfsdk:"receive"`
-	Send           types.String `tfsdk:"send"`
+	// TagNodes
+
+	// Nodes
+	Authentication types.List `tfsdk:"authentication"`
+	Receive        types.List `tfsdk:"receive"`
+	Send           types.List `tfsdk:"send"`
 }
 
 // Metadata method to define the resource type name.
@@ -62,7 +65,6 @@ func (r *protocols_rip_interface) Schema(ctx context.Context, req resource.Schem
 			"identifier": schema.StringAttribute{
 				Required:            true,
 				MarkdownDescription: ``,
-				// Validators:          []validator.String(nil),
 			},
 
 			"authentication": schema.SingleNestedAttribute{
@@ -72,96 +74,50 @@ func (r *protocols_rip_interface) Schema(ctx context.Context, req resource.Schem
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"password": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Authentication password
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  MD5 Key (16 characters or less)  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
-
-								// CustomType:    basetypes.ObjectTypable(nil),
-								// Validators:    []validator.Object(nil),
-								// PlanModifiers: []planmodifier.Object(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `MD5 key id
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  OSPF key id  |
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if tagnode defaults can be handled
-						//Default:             defaults.Map(nil),
 					},
 
-					// TODO handle non-string types
 					"plaintext_password": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Plain text password
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (16 characters or less)  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Authentication
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"receive": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"version": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Limit RIP protocol version
 
 |  Format  |  Description  |
@@ -169,39 +125,20 @@ func (r *protocols_rip_interface) Schema(ctx context.Context, req resource.Schem
 |  1  |  Allow RIPv1 only  |
 |  2  |  Allow RIPv2 only  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Advertisement reception
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"send": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"version": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Limit RIP protocol version
 
 |  Format  |  Description  |
@@ -209,27 +146,12 @@ func (r *protocols_rip_interface) Schema(ctx context.Context, req resource.Schem
 |  1  |  Allow RIPv1 only  |
 |  2  |  Allow RIPv2 only  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Advertisement transmission
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

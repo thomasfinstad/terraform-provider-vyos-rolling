@@ -25,14 +25,17 @@ type protocols_static_table struct {
 
 // protocols_static_tableModel describes the resource data model.
 type protocols_static_tableModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Route  types.Map `tfsdk:"route"`
-	Route_ types.Map `tfsdk:"route6"`
-
+	// LeafNodes
 	Description types.String `tfsdk:"description"`
+
+	// TagNodes
+	Route    types.Map `tfsdk:"route"`
+	Routesix types.Map `tfsdk:"route6"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -70,7 +73,6 @@ Static Routing
 |----------|---------------|
 |  u32:1-200  |  Policy route table number  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"route": schema.MapNestedAttribute{
@@ -81,372 +83,193 @@ Static Routing
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"disable": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable instance
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"distance": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"vrf": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Next-hop IPv4 router interface
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
 						"next_hop": schema.MapNestedAttribute{
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"disable": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable instance
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"distance": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"interface": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Gateway interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"vrf": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Next-hop IPv4 router address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Next-hop router address  |
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
-						// TODO handle non-string types
 						"dhcp_interface": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `DHCP interface supplying next-hop IP address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  DHCP interface name  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"blackhole": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"distance": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"tag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Silently discard pkts when matched
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"reject": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"distance": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"tag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Emit an ICMP unreachable when matched
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Static IPv4 route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 static route  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"route6": schema.MapNestedAttribute{
@@ -457,372 +280,193 @@ Static Routing
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"disable": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable instance
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"distance": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"vrf": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IPv6 gateway interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
 						"next_hop": schema.MapNestedAttribute{
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"disable": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable instance
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"distance": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"interface": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Gateway interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"vrf": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IPv6 gateway address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Next-hop IPv6 router  |
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"blackhole": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"distance": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"tag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Silently discard pkts when matched
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"reject": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"distance": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"tag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Emit an ICMP unreachable when matched
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Static IPv6 route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 static route  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

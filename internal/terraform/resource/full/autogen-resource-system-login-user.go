@@ -26,14 +26,16 @@ type system_login_user struct {
 
 // system_login_userModel describes the resource data model.
 type system_login_userModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Authentication types.String `tfsdk:"authentication"`
-
+	// LeafNodes
 	Full_name      types.String `tfsdk:"full_name"`
 	Home_directory types.String `tfsdk:"home_directory"`
+
+	// TagNodes
+
+	// Nodes
+	Authentication types.List `tfsdk:"authentication"`
 }
 
 // Metadata method to define the resource type name.
@@ -66,41 +68,22 @@ func (r *system_login_user) Schema(ctx context.Context, req resource.SchemaReque
 				MarkdownDescription: `Local user account information
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"full_name": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Full name of the user (use quotes for names with spaces)
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"home_directory": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Home directory
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"authentication": schema.SingleNestedAttribute{
@@ -110,47 +93,25 @@ func (r *system_login_user) Schema(ctx context.Context, req resource.SchemaReque
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"key": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Public key value (Base64 encoded)
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"options": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Optional public key options
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"type": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `SSH public key type
 
 |  Format  |  Description  |
@@ -164,192 +125,103 @@ func (r *system_login_user) Schema(ctx context.Context, req resource.SchemaReque
 |  sk-ecdsa-sha2-nistp256@openssh.com  |  Elliptic Curve DSA security key  |
 |  sk-ssh-ed25519@openssh.com  |  Elliptic curve 25519 security key  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
-
-								// CustomType:    basetypes.ObjectTypable(nil),
-								// Validators:    []validator.Object(nil),
-								// PlanModifiers: []planmodifier.Object(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Remote access public keys
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if tagnode defaults can be handled
-						//Default:             defaults.Map(nil),
 					},
 
-					// TODO handle non-string types
 					"encrypted_password": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Encrypted password
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`!`),
 						Computed: true,
 					},
 
-					// TODO handle non-string types
 					"plaintext_password": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Plaintext password used for encryption
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
 					"otp": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"rate_limit": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of attempts  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
 
 								Default:  stringdefault.StaticString(`3`),
 								Computed: true,
 							},
 
-							// TODO handle non-string types
 							"rate_time": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:15-600  |  Time interval  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
 
 								Default:  stringdefault.StaticString(`30`),
 								Computed: true,
 							},
 
-							// TODO handle non-string types
 							"window_size": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Set window of concurrently valid codes
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-21  |  Window size  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
 
 								Default:  stringdefault.StaticString(`3`),
 								Computed: true,
 							},
 
-							// TODO handle non-string types
 							"key": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Key/secret the token algorithm (see RFC4226)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Base32 encoded key/token  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `One-Time-Pad (two-factor) authentication parameters
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Authentication settings
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

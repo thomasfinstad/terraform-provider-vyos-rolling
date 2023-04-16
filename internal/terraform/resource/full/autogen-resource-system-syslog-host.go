@@ -25,15 +25,16 @@ type system_syslog_host struct {
 
 // system_syslog_hostModel describes the resource data model.
 type system_syslog_hostModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Port types.String `tfsdk:"port"`
 
+	// TagNodes
 	Facility types.Map `tfsdk:"facility"`
 
-	Format types.String `tfsdk:"format"`
-
-	Port types.String `tfsdk:"port"`
+	// Nodes
+	Format types.List `tfsdk:"format"`
 }
 
 // Metadata method to define the resource type name.
@@ -70,20 +71,15 @@ func (r *system_syslog_host) Schema(ctx context.Context, req resource.SchemaRequ
 |  ipv4  |  Remote syslog server IPv4 address  |
 |  hostname  |  Remote syslog server FQDN  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"facility": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"protocol": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `syslog communication protocol
 
 |  Format  |  Description  |
@@ -91,20 +87,11 @@ func (r *system_syslog_host) Schema(ctx context.Context, req resource.SchemaRequ
 |  udp  |  send log messages to remote syslog server over udp  |
 |  tcp  |  send log messages to remote syslog server over tcp  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"level": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Logging level
 
 |  Format  |  Description  |
@@ -119,24 +106,10 @@ func (r *system_syslog_host) Schema(ctx context.Context, req resource.SchemaRequ
 |  debug  |  Debug messages  |
 |  all  |  Log everything  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Facility for logging
 
 |  Format  |  Description  |
@@ -165,67 +138,34 @@ func (r *system_syslog_host) Schema(ctx context.Context, req resource.SchemaRequ
 |  local6  |  Local facility 6  |
 |  local7  |  Local facility 7  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"format": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"octet_counted": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Allows for the transmission of all characters inside a syslog message
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Logging format
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

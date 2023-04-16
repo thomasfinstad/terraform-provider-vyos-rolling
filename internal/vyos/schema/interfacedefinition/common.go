@@ -10,6 +10,7 @@ func die(err error) {
 
 // NodeBase should match Node, TagNode and LeafNode
 type NodeBase interface {
+	AbsName() []string
 	BaseName() string
 	Description() string
 }
@@ -17,6 +18,7 @@ type NodeBase interface {
 // NodeParent should match Node and TagNode
 type NodeParent interface {
 	NodeBase
+	InformLinage()
 	GetChildren() *Children
 	SetBaseName(string)
 }

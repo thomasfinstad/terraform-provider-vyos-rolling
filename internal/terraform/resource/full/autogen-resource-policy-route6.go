@@ -14,37 +14,40 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &policy_route_{}
+var _ resource.Resource = &policy_routesix{}
 
-// var _ resource.ResourceWithImportState = &policy_route_{}
+// var _ resource.ResourceWithImportState = &policy_routesix{}
 
-// policy_route_ defines the resource implementation.
-type policy_route_ struct {
+// policy_routesix defines the resource implementation.
+type policy_routesix struct {
 	client   *http.Client
 	vyosPath []string
 }
 
-// policy_route_Model describes the resource data model.
-type policy_route_Model struct {
-	ID types.String `tfsdk:"id"`
+// policy_routesixModel describes the resource data model.
+type policy_routesixModel struct {
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Rule types.Map `tfsdk:"rule"`
-
+	// LeafNodes
 	Description        types.String `tfsdk:"description"`
 	Iface              types.String `tfsdk:"interface"`
 	Enable_default_log types.String `tfsdk:"enable_default_log"`
+
+	// TagNodes
+	Rule types.Map `tfsdk:"rule"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
-func (r *policy_route_) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *policy_routesix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_policy_route6"
 }
 
-// policy_route_Resource method to return the example resource reference
-func policy_route_Resource() resource.Resource {
-	return &policy_route_{
+// policy_routesixResource method to return the example resource reference
+func policy_routesixResource() resource.Resource {
+	return &policy_routesix{
 		vyosPath: []string{
 			"policy",
 			"route6",
@@ -53,7 +56,7 @@ func policy_route_Resource() resource.Resource {
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *policy_routesix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: ``,
@@ -64,20 +67,15 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 				MarkdownDescription: `Policy route rule set name for IPv6
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rule": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"action": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Rule action
 
 |  Format  |  Description  |
@@ -87,57 +85,30 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  return  |  Return from the current chain and continue at the next rule of the last chain  |
 |  drop  |  Drop matching entries  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"disable": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Option to disable firewall rule
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"log": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Option to log packets matching rule
 
 |  Format  |  Description  |
@@ -145,20 +116,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  enable  |  Enable log  |
 |  disable  |  Disable log  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"protocol": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
 |  Format  |  Description  |
@@ -168,22 +130,14 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  0-255  |  IP protocol number  |
 |  !<protocol>  |  IP protocol number  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`all`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"dscp": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `DSCP value
 
 |  Format  |  Description  |
@@ -191,20 +145,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:0-63  |  DSCP value to match  |
 |  <start-end>  |  DSCP range to match  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"dscp_exclude": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `DSCP value not to match
 
 |  Format  |  Description  |
@@ -212,20 +157,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:0-63  |  DSCP value not to match  |
 |  <start-end>  |  DSCP range not to match  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"packet_length": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Payload size in bytes, including header and data to match
 
 |  Format  |  Description  |
@@ -233,20 +169,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:1-65535  |  Packet length to match  |
 |  <start-end>  |  Packet length range to match  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"packet_length_exclude": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Payload size in bytes, including header and data not to match
 
 |  Format  |  Description  |
@@ -254,20 +181,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:1-65535  |  Packet length not to match  |
 |  <start-end>  |  Packet length range not to match  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"packet_type": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Packet type
 
 |  Format  |  Description  |
@@ -277,43 +195,25 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  multicast  |  Match multicast packet type  |
 |  other  |  Match packet addressed to another host  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"connection_mark": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Connection mark
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  Connection-mark to match  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"destination": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"address": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -325,20 +225,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  !ipv6net  |  Match everything except the specified prefix  |
 |  !ipv6range  |  Match everything except the specified range  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"port": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Port
 
 |  Format  |  Description  |
@@ -348,427 +239,214 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
 |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
 								"group": schema.SingleNestedAttribute{
 									Attributes: map[string]schema.Attribute{
 
-										// TODO handle non-string types
 										"address_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of addresses
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"domain_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of domains
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"mac_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of MAC addresses
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"network_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of networks
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"port_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of ports
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Group
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if node defaults can be handled
-									// Default:             defaults.Map(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Destination parameters
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"fragment": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"match_frag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Second and further fragments of fragmented packets
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"match_non_frag": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Head fragments or unfragmented packets
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP fragment match
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"ipsec": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"match_ipsec": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Inbound IPsec packets
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"match_none": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Inbound non-IPsec packets
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Inbound IPsec packets
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"limit": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"burst": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"rate": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Maximum average matching rate
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Maximum average matching rate  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Rate limit using a token bucket filter
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"recent": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"count": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Source addresses seen more than N times
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Source addresses seen more than N times  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"time": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Source addresses seen in the last N seconds
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Source addresses seen in the last N seconds  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Parameters for matching recently seen sources
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"set": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"connection_mark": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Connection marking
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  Connection marking  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"dscp": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Packet Differentiated Services Codepoint (DSCP)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-63  |  DSCP number  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"mark": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Packet marking
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Packet marking  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"table": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Routing table to forward packet with
 
 |  Format  |  Description  |
@@ -776,59 +454,31 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:1-200  |  Table number  |
 |  main  |  Main table  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"tcp_mss": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `TCP Maximum Segment Size
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:500-1460  |  Explicitly set TCP MSS value  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Packet modifications
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"state": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"established": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Established state
 
 |  Format  |  Description  |
@@ -836,20 +486,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  enable  |  Enable  |
 |  disable  |  Disable  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"invalid": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Invalid state
 
 |  Format  |  Description  |
@@ -857,20 +498,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  enable  |  Enable  |
 |  disable  |  Disable  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"new": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `New state
 
 |  Format  |  Description  |
@@ -878,20 +510,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  enable  |  Enable  |
 |  disable  |  Disable  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"related": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Related state
 
 |  Format  |  Description  |
@@ -899,39 +522,20 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  enable  |  Enable  |
 |  disable  |  Disable  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Session state
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"tcp": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"mss": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Maximum segment size (MSS)
 
 |  Format  |  Description  |
@@ -939,487 +543,231 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  u32:1-16384  |  Maximum segment size  |
 |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
 								"flags": schema.SingleNestedAttribute{
 									Attributes: map[string]schema.Attribute{
 
-										// TODO handle non-string types
 										"syn": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Synchronise flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"ack": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Acknowledge flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"fin": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Finish flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"rst": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Reset flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"urg": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Urgent flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"psh": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Push flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"ecn": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"cwr": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Congestion Window Reduced flag
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
 										"not": schema.SingleNestedAttribute{
 											Attributes: map[string]schema.Attribute{
 
-												// TODO handle non-string types
 												"syn": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Synchronise flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"ack": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Acknowledge flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"fin": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Finish flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"rst": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Reset flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"urg": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Urgent flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"psh": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Push flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"ecn": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 
-												// TODO handle non-string types
 												"cwr": schema.StringAttribute{
-													// CustomType:          basetypes.StringTypable(nil),
-													// Required:            false,
+
 													Optional: true,
-													// Sensitive:           false,
-													// Description:         "",
 													MarkdownDescription: `Congestion Window Reduced flag
 
 `,
-													// DeprecationMessage:  "",
-													// TODO Recreate some of vyos validators for use in leafnodes
-													// Validators:          []validator.String(nil),
-													// PlanModifiers:       []planmodifier.String(nil),
-
 												},
 											},
-											// CustomType:          basetypes.MapTypable(nil),
-											// Required:            false,
 											Optional: true,
-											// Computed:            false,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Match flags not set
 
 `,
-											// DeprecationMessage:  "",
-											// Validators:          []validator.Map(nil),
-											// PlanModifiers:       []planmodifier.Map(nil),
-											// TODO investigate if node defaults can be handled
-											// Default:             defaults.Map(nil),
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `TCP flags to match
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if node defaults can be handled
-									// Default:             defaults.Map(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `TCP flags to match
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"time": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"monthdays": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Monthdays to match rule on
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"startdate": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Date to start matching rule
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"starttime": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Time of day to start matching rule
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"stopdate": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Date to stop matching rule
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"stoptime": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Time of day to stop matching rule
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"utc": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Interpret times for startdate, stopdate, starttime and stoptime to be UTC
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"weekdays": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Weekdays to match rule on
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Time to match rule
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"source": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"address": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -1431,20 +779,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  !ipv6net  |  Match everything except the specified prefix  |
 |  !ipv6range  |  Match everything except the specified range  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"mac_address": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `MAC address
 
 |  Format  |  Description  |
@@ -1452,20 +791,11 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  macaddr  |  MAC address to match  |
 |  !macaddr  |  Match everything except the specified MAC address  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"port": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Port
 
 |  Format  |  Description  |
@@ -1475,143 +805,69 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
 |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
 								"group": schema.SingleNestedAttribute{
 									Attributes: map[string]schema.Attribute{
 
-										// TODO handle non-string types
 										"address_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of addresses
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"domain_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of domains
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"mac_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of MAC addresses
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"network_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of networks
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 
-										// TODO handle non-string types
 										"port_group": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Group of ports
 
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Group
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if node defaults can be handled
-									// Default:             defaults.Map(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Source parameters
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"icmpv6": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"type": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `ICMP type-name
 
 |  Format  |  Description  |
@@ -1658,195 +914,102 @@ func (r *policy_route_) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  address-mask-reply  |  ICMP type/code name  |
 |  packet-too-big  |  ICMP type/code name  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `ICMPv6 type and code information
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
 
 						"hop_limit": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"eq": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Match on equal value
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Equal to value  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"gt": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Match on greater then value
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Greater then value  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"lt": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Match on less then value
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Less then value  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Hop limit
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Policy rule number
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number of policy rule  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"interface": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"enable_default_log": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Log packets hitting default-action
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *policy_route_) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *policy_route_Model
+func (r *policy_routesix) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data *policy_routesixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -1876,8 +1039,8 @@ func (r *policy_route_) Create(ctx context.Context, req resource.CreateRequest, 
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *policy_route_) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data *policy_route_Model
+func (r *policy_routesix) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *policy_routesixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
@@ -1899,8 +1062,8 @@ func (r *policy_route_) Read(ctx context.Context, req resource.ReadRequest, resp
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *policy_route_) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *policy_route_Model
+func (r *policy_routesix) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data *policy_routesixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -1922,8 +1085,8 @@ func (r *policy_route_) Update(ctx context.Context, req resource.UpdateRequest, 
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *policy_route_) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data *policy_route_Model
+func (r *policy_routesix) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data *policy_routesixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)

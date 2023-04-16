@@ -25,15 +25,19 @@ type service_upnp_rule struct {
 
 // service_upnp_ruleModel describes the resource data model.
 type service_upnp_ruleModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Disable             types.String `tfsdk:"disable"`
 	External_port_range types.String `tfsdk:"external_port_range"`
 	Internal_port_range types.String `tfsdk:"internal_port_range"`
 	Ip                  types.String `tfsdk:"ip"`
 	Action              types.String `tfsdk:"action"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -69,33 +73,19 @@ func (r *service_upnp_rule) Schema(ctx context.Context, req resource.SchemaReque
 |----------|---------------|
 |  u32:0-65535  |  Rule number  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"disable": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable instance
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"external_port_range": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Port range (REQUIRE)
 
 |  Format  |  Description  |
@@ -103,20 +93,11 @@ func (r *service_upnp_rule) Schema(ctx context.Context, req resource.SchemaReque
 |  <port>  |  single port  |
 |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"internal_port_range": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Port range (REQUIRE)
 
 |  Format  |  Description  |
@@ -124,20 +105,11 @@ func (r *service_upnp_rule) Schema(ctx context.Context, req resource.SchemaReque
 |  <port>  |  single port  |
 |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"ip": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `The IP to which this rule applies (REQUIRE)
 
 |  Format  |  Description  |
@@ -145,28 +117,14 @@ func (r *service_upnp_rule) Schema(ctx context.Context, req resource.SchemaReque
 |  ipv4  |  The IPv4 address to which this rule applies  |
 |  ipv4net  |  The IPv4 to which this rule applies  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"action": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Actions against the rule (REQUIRE)
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

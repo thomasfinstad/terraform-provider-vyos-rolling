@@ -25,13 +25,17 @@ type service_dns_forwarding_domain struct {
 
 // service_dns_forwarding_domainModel describes the resource data model.
 type service_dns_forwarding_domainModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Server            types.String `tfsdk:"server"`
 	Addnta            types.String `tfsdk:"addnta"`
 	Recursion_desired types.String `tfsdk:"recursion_desired"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -67,16 +71,11 @@ DNS forwarding
 				MarkdownDescription: `Domain to forward to a custom DNS server
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"server": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Domain Name Server (DNS) to forward queries to
 
 |  Format  |  Description  |
@@ -84,45 +83,22 @@ DNS forwarding
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"addnta": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Add NTA (negative trust anchor) for this domain (must be set if the domain does not support DNSSEC)
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"recursion_desired": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Set the "recursion desired" bit in requests to the upstream nameserver
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

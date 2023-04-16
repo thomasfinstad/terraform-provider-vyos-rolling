@@ -53,12 +53,12 @@ func main() {
 		for idx1, l1 := range children.LeafNode {
 			for idx2, l2 := range children.LeafNode {
 				if idx1 != idx2 && l1.BaseName() == l2.BaseName() {
-					idx := int(math.Min(float64(idx1), float64(idx2)))
+					idx := int(math.Max(float64(idx1), float64(idx2)))
 					if sort.SearchInts(leafIdxToRemove, idx) == len(leafIdxToRemove) {
 						leafIdxToRemove = append(leafIdxToRemove, idx)
-						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", l1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", l1.BaseName(), idx)
 					} else {
-						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", l1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", l1.BaseName(), idx)
 					}
 				}
 			}
@@ -72,9 +72,9 @@ func main() {
 					idx := int(math.Min(float64(idx1), float64(idx2)))
 					if sort.SearchInts(tagIdxToRemove, idx) == len(tagIdxToRemove) {
 						tagIdxToRemove = append(tagIdxToRemove, idx)
-						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", t1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", t1.BaseName(), idx)
 					} else {
-						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", t1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", t1.BaseName(), idx)
 					}
 				}
 			}
@@ -88,9 +88,9 @@ func main() {
 					idx := int(math.Min(float64(idx1), float64(idx2)))
 					if sort.SearchInts(nodeIdxToRemove, idx) == len(nodeIdxToRemove) {
 						nodeIdxToRemove = append(nodeIdxToRemove, idx)
-						fmt.Printf("[%s] Has duplicate, marking idx: %d for removal\n", n1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", n1.BaseName(), idx)
 					} else {
-						fmt.Printf("[%s] Has duplicate, idx: %d already marked for removal\n", n1.BaseName(), idx)
+						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", n1.BaseName(), idx)
 					}
 				}
 			}
@@ -99,19 +99,19 @@ func main() {
 		// Removing duplicates
 		sort.Sort(sort.Reverse(sort.IntSlice(leafIdxToRemove)))
 		for _, idx := range leafIdxToRemove {
-			fmt.Printf("[%s] idx: %d Removing leaf...\n", children.LeafNode[idx].BaseName(), idx)
+			fmt.Printf("\nWARNING: [%s] idx: %d Removing leaf...\n", children.LeafNode[idx].BaseName(), idx)
 			children.LeafNode = append(children.LeafNode[:idx], children.LeafNode[idx+1:]...)
 		}
 
 		sort.Sort(sort.Reverse(sort.IntSlice(tagIdxToRemove)))
 		for _, idx := range tagIdxToRemove {
-			fmt.Printf("[%s] idx: %d Removing tag...\n", children.TagNode[idx].BaseName(), idx)
+			fmt.Printf("\nWARNING: [%s] idx: %d Removing tag...\n", children.TagNode[idx].BaseName(), idx)
 			children.TagNode = append(children.TagNode[:idx], children.TagNode[idx+1:]...)
 		}
 
 		sort.Sort(sort.Reverse(sort.IntSlice(nodeIdxToRemove)))
 		for _, idx := range nodeIdxToRemove {
-			fmt.Printf("[%s] idx: %d Removing node...\n", children.Node[idx].BaseName(), idx)
+			fmt.Printf("\nWARNING: [%s] idx: %d Removing node...\n", children.Node[idx].BaseName(), idx)
 			children.Node = append(children.Node[:idx], children.Node[idx+1:]...)
 		}
 

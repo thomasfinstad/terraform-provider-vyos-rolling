@@ -25,15 +25,18 @@ type load_balancing_wan_interface_health struct {
 
 // load_balancing_wan_interface_healthModel describes the resource data model.
 type load_balancing_wan_interface_healthModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Test types.Map `tfsdk:"test"`
-
+	// LeafNodes
 	Failure_count types.String `tfsdk:"failure_count"`
 	Nexthop       types.String `tfsdk:"nexthop"`
 	Success_count types.String `tfsdk:"success_count"`
+
+	// TagNodes
+	Test types.Map `tfsdk:"test"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -68,100 +71,59 @@ Configure Wide Area Network (WAN) load-balancing
 				MarkdownDescription: `Interface name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"test": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"resp_time": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Ping response time (seconds)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-30  |  Response time (seconds)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"target": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Health target address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Health target address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"test_script": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Path to user-defined script
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Script in /config/scripts  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ttl_limit": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `TTL limit (hop count)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-254  |  Number of hops  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"type": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `WLB test type
 
 |  Format  |  Description  |
@@ -170,64 +132,32 @@ Configure Wide Area Network (WAN) load-balancing
 |  ttl  |  Test with UDP TTL expired response  |
 |  user-defined  |  User-defined test script  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Rule number
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Rule number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"failure_count": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Failure count
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Failure count  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"nexthop": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Outbound interface nexthop address. Can be 'DHCP or IPv4 address' [REQUIRED]
 
 |  Format  |  Description  |
@@ -235,31 +165,17 @@ Configure Wide Area Network (WAN) load-balancing
 |  ipv4  |  Nexthop IP address  |
 |  dhcp  |  Set the nexthop via DHCP  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"success_count": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Success count
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Success count  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

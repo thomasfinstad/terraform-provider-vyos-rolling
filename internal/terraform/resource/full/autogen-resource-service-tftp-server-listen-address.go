@@ -25,11 +25,15 @@ type service_tftp_server_listen_address struct {
 
 // service_tftp_server_listen_addressModel describes the resource data model.
 type service_tftp_server_listen_addressModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Vrf types.String `tfsdk:"vrf"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,27 +70,17 @@ func (r *service_tftp_server_listen_address) Schema(ctx context.Context, req res
 |  ipv4  |  IPv4 address to listen for incoming connections  |
 |  ipv6  |  IPv6 address to listen for incoming connections  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"vrf": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

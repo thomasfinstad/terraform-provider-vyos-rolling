@@ -25,11 +25,15 @@ type protocols_ospf_access_list struct {
 
 // protocols_ospf_access_listModel describes the resource data model.
 type protocols_ospf_access_listModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Export types.String `tfsdk:"export"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -65,16 +69,11 @@ func (r *protocols_ospf_access_list) Schema(ctx context.Context, req resource.Sc
 |----------|---------------|
 |  u32  |  Access-list number  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"export": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Filter for outgoing routing update
 
 |  Format  |  Description  |
@@ -86,11 +85,6 @@ func (r *protocols_ospf_access_list) Schema(ctx context.Context, req resource.Sc
 |  rip  |  Filter RIP routes  |
 |  static  |  Filter static routes  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

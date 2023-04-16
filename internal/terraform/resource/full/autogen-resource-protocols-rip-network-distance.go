@@ -25,12 +25,16 @@ type protocols_rip_network_distance struct {
 
 // protocols_rip_network_distanceModel describes the resource data model.
 type protocols_rip_network_distanceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Access_list types.String `tfsdk:"access_list"`
 	Distance    types.String `tfsdk:"distance"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,47 +70,28 @@ func (r *protocols_rip_network_distance) Schema(ctx context.Context, req resourc
 |----------|---------------|
 |  ipv4net  |  Source network  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"access_list": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Access list
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Access list  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"distance": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

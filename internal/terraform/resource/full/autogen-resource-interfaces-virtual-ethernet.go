@@ -26,18 +26,20 @@ type interfaces_virtual_ethernet struct {
 
 // interfaces_virtual_ethernetModel describes the resource data model.
 type interfaces_virtual_ethernetModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Dhcp_options   types.String `tfsdk:"dhcp_options"`
-	Dhcpv__options types.String `tfsdk:"dhcpv6_options"`
-
+	// LeafNodes
 	Address     types.String `tfsdk:"address"`
 	Description types.String `tfsdk:"description"`
 	Disable     types.String `tfsdk:"disable"`
 	Vrf         types.String `tfsdk:"vrf"`
 	Peer_name   types.String `tfsdk:"peer_name"`
+
+	// TagNodes
+
+	// Nodes
+	Dhcp_options     types.List `tfsdk:"dhcp_options"`
+	Dhcpvsix_options types.List `tfsdk:"dhcpv6_options"`
 }
 
 // Metadata method to define the resource type name.
@@ -70,16 +72,11 @@ func (r *interfaces_virtual_ethernet) Schema(ctx context.Context, req resource.S
 |----------|---------------|
 |  vethN  |  Virtual Ethernet interface name  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"address": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -89,207 +86,109 @@ func (r *interfaces_virtual_ethernet) Schema(ctx context.Context, req resource.S
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"disable": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Administratively disable interface
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"vrf": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"peer_name": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Virtual ethernet peer interface name
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of peer interface  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"dhcp_options": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"client_id": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Identifier used by client to identify itself to the DHCP server
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"host_name": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Override system host-name sent to DHCP server
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"mtu": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Use MTU value from DHCP server - ignore interface setting
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"vendor_class_id": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Identify the vendor client type to the DHCP server
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"no_default_route": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Do not install default route to system
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"default_route_distance": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Distance for installed default route
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for the default route from DHCP server  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`210`),
 						Computed: true,
 					},
 
-					// TODO handle non-string types
 					"reject": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `IP addresses or subnets from which to reject DHCP leases
 
 |  Format  |  Description  |
@@ -297,27 +196,12 @@ func (r *interfaces_virtual_ethernet) Schema(ctx context.Context, req resource.S
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `DHCP client settings/options
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"dhcpv6_options": schema.SingleNestedAttribute{
@@ -331,198 +215,98 @@ func (r *interfaces_virtual_ethernet) Schema(ctx context.Context, req resource.S
 									NestedObject: schema.NestedAttributeObject{
 										Attributes: map[string]schema.Attribute{
 
-											// TODO handle non-string types
 											"address": schema.StringAttribute{
-												// CustomType:          basetypes.StringTypable(nil),
-												// Required:            false,
+
 												Optional: true,
-												// Sensitive:           false,
-												// Description:         "",
 												MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  >0  |  Used to form IPv6 interface address  |
 `,
-												// DeprecationMessage:  "",
-												// TODO Recreate some of vyos validators for use in leafnodes
-												// Validators:          []validator.String(nil),
-												// PlanModifiers:       []planmodifier.String(nil),
-
 											},
 
-											// TODO handle non-string types
 											"sla_id": schema.StringAttribute{
-												// CustomType:          basetypes.StringTypable(nil),
-												// Required:            false,
+
 												Optional: true,
-												// Sensitive:           false,
-												// Description:         "",
 												MarkdownDescription: `Interface site-Level aggregator (SLA)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
 `,
-												// DeprecationMessage:  "",
-												// TODO Recreate some of vyos validators for use in leafnodes
-												// Validators:          []validator.String(nil),
-												// PlanModifiers:       []planmodifier.String(nil),
-
 											},
-
-											// CustomType:    basetypes.ObjectTypable(nil),
-											// Validators:    []validator.Object(nil),
-											// PlanModifiers: []planmodifier.Object(nil),
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Delegate IPv6 prefix from provider to this interface
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if tagnode defaults can be handled
-									//Default:             defaults.Map(nil),
 								},
 
-								// TODO handle non-string types
 								"length": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Request IPv6 prefix length from peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Length of delegated prefix  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
 
 									Default:  stringdefault.StaticString(`64`),
 									Computed: true,
 								},
-
-								// CustomType:    basetypes.ObjectTypable(nil),
-								// Validators:    []validator.Object(nil),
-								// PlanModifiers: []planmodifier.Object(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `DHCPv6 prefix delegation interface statement
 
 |  Format  |  Description  |
 |----------|---------------|
 |  instance number  |  Prefix delegation instance (>= 0)  |
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if tagnode defaults can be handled
-						//Default:             defaults.Map(nil),
 					},
 
-					// TODO handle non-string types
 					"duid": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
 |  Format  |  Description  |
 |----------|---------------|
 |  duid  |  DHCP unique identifier (DUID)  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"parameters_only": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Acquire only config parameters, no address
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"rapid_commit": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"temporary": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `IPv6 temporary address
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `DHCPv6 client settings/options
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

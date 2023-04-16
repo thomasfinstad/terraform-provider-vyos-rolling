@@ -26,18 +26,21 @@ type vpn_ipsec_esp_group struct {
 
 // vpn_ipsec_esp_groupModel describes the resource data model.
 type vpn_ipsec_esp_groupModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Proposal types.Map `tfsdk:"proposal"`
-
+	// LeafNodes
 	Compression  types.String `tfsdk:"compression"`
 	Lifetime     types.String `tfsdk:"lifetime"`
 	Life_bytes   types.String `tfsdk:"life_bytes"`
 	Life_packets types.String `tfsdk:"life_packets"`
 	Mode         types.String `tfsdk:"mode"`
 	Pfs          types.String `tfsdk:"pfs"`
+
+	// TagNodes
+	Proposal types.Map `tfsdk:"proposal"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -72,20 +75,15 @@ VPN IP security (IPsec) parameters
 				MarkdownDescription: `Encapsulating Security Payload (ESP) group name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"proposal": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"encryption": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Encryption algorithm
 
 |  Format  |  Description  |
@@ -146,22 +144,14 @@ VPN IP security (IPsec) parameters
 |  cast128  |  128 bit CAST-CBC  |
 |  chacha20poly1305  |  256 bit ChaCha20/Poly1305 with 128 bit ICV  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`aes128`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"hash": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Hash algorithm
 
 |  Format  |  Description  |
@@ -180,125 +170,68 @@ VPN IP security (IPsec) parameters
 |  aes192gmac  |  192-bit AES-GMAC  |
 |  aes256gmac  |  256-bit AES-GMAC  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`sha1`),
 							Computed: true,
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `ESP group proposal
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  ESP group proposal number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"compression": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Enable ESP compression
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"lifetime": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Security Association time to expire
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:30-86400  |  SA lifetime in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`3600`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"life_bytes": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Security Association byte count to expire
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1024-26843545600000  |  SA life in bytes  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"life_packets": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Security Association packet count to expire
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1000-26843545600000  |  SA life in packets  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"mode": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `ESP mode
 
 |  Format  |  Description  |
@@ -306,22 +239,14 @@ VPN IP security (IPsec) parameters
 |  tunnel  |  Tunnel mode  |
 |  transport  |  Transport mode  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`tunnel`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"pfs": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `ESP Perfect Forward Secrecy
 
 |  Format  |  Description  |
@@ -351,10 +276,6 @@ VPN IP security (IPsec) parameters
 |  dh-group32  |  Use Diffie-Hellman group 32 (curve448)  |
 |  disable  |  Disable PFS  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`enable`),
 				Computed: true,

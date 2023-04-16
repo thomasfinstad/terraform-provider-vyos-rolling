@@ -44,10 +44,23 @@ data/vyos/vyos-1x/submodule.log: data/vyos/rolling-iso-time.txt
 
 # Generate go structs from XSD
 internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/interface-definition.xsd internal/vyos/schema/interfacedefinition/interface-definition.go
+
+	@rm -v internal/vyos/schema/interfacedefinition/autogen-structs.go
+
+	# Generate structs from schema
 	go run github.com/xuri/xgen/cmd/xgen -p interfacedefinition -i .build/vyos/schema/interface-definition.xsd -o internal/vyos/schema/interfacedefinition/autogen-structs.go -l Go
+
+	# Ensure the nodes name atter will be properly unmarshaled from xml
 	sed -i 's|\*NodeNameAttr.*|string `xml:"name,attr,omitempty"`|' internal/vyos/schema/interfacedefinition/autogen-structs.go
+
+	# Convert any undefined value as string type to stop unmarshaling from breaking
 	sed -i 's|interface{}|string|' internal/vyos/schema/interfacedefinition/autogen-structs.go
-	go fmt ./internal/vyos/schema/interfacedefinition/
+
+	# Add a parent value to node structs
+	sed -i 's|\(type [A-Za-z]*Node struct {\)|\1\nParent NodeParent|' internal/vyos/schema/interfacedefinition/autogen-structs.go
+
+	# Format output
+	gofumpt -l -w ./internal/vyos/schema/interfacedefinition/
 
 
 ###
@@ -101,7 +114,10 @@ tf-resources:
 	@rm -fv internal/terraform/resource/full/autogen-package.go
 	@rm -fv internal/terraform/resource/full/autogen-*.go
 
-	go run tools/build-terraform-resource-full/main.go internal/terraform/resource/full resourcefull
+	go run tools/build-terraform-resource-full/main.go \
+		internal/terraform/resource/full \
+		resourcefull \
+		"system-conntrack-timeout-custom-rule"
 
 	gofumpt -w -l internal/terraform/resource/full/
 
@@ -122,6 +138,9 @@ tf-resources:
 	goimports -l -w "./internal/terraform/resource/full"
 
 	go generate main.go
+
+install:
+	go install .
 
 .PHONY: clean
 clean:

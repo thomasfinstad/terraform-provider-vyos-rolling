@@ -25,15 +25,18 @@ type protocols_igmp_interface struct {
 
 // protocols_igmp_interfaceModel describes the resource data model.
 type protocols_igmp_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Join types.Map `tfsdk:"join"`
-
+	// LeafNodes
 	Version                 types.String `tfsdk:"version"`
 	Query_interval          types.String `tfsdk:"query_interval"`
 	Query_max_response_time types.String `tfsdk:"query_max_response_time"`
+
+	// TagNodes
+	Join types.Map `tfsdk:"join"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,64 +69,36 @@ func (r *protocols_igmp_interface) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: `IGMP interface
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"join": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"source": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Source address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Source address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IGMP join multicast group
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Multicast group address  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"version": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IGMP version
 
 |  Format  |  Description  |
@@ -131,51 +106,28 @@ func (r *protocols_igmp_interface) Schema(ctx context.Context, req resource.Sche
 |  2  |  IGMP version 2  |
 |  3  |  IGMP version 3  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"query_interval": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IGMP host query interval
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-1800  |  Query interval in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"query_max_response_time": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IGMP max query response time
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-250  |  Query response value in deci-seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

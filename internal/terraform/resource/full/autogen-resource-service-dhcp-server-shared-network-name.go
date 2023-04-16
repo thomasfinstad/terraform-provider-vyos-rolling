@@ -26,12 +26,9 @@ type service_dhcp_server_shared_network_name struct {
 
 // service_dhcp_server_shared_network_nameModel describes the resource data model.
 type service_dhcp_server_shared_network_nameModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Subnet types.Map `tfsdk:"subnet"`
-
+	// LeafNodes
 	Authoritative             types.String `tfsdk:"authoritative"`
 	Domain_name               types.String `tfsdk:"domain_name"`
 	Domain_search             types.String `tfsdk:"domain_search"`
@@ -41,6 +38,12 @@ type service_dhcp_server_shared_network_nameModel struct {
 	Disable                   types.String `tfsdk:"disable"`
 	Name_server               types.String `tfsdk:"name_server"`
 	Shared_network_parameters types.String `tfsdk:"shared_network_parameters"`
+
+	// TagNodes
+	Subnet types.Map `tfsdk:"subnet"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -73,7 +76,6 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 				MarkdownDescription: `Name of DHCP shared network
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"subnet": schema.MapNestedAttribute{
@@ -84,238 +86,120 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"start": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `First IP address for DHCP lease range
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 start address of pool  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"stop": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Last IP address for DHCP lease range
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 end address of pool  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `DHCP lease range
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
 						"static_mapping": schema.MapNestedAttribute{
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"disable": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable instance
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"ip_address": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Fixed IP address of static mapping
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address used in static mapping  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"mac_address": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"static_mapping_parameters": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Additional static-mapping parameters for DHCP server. Will be placed inside the "host" block of the mapping. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Name of static mapping
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
 						"static_route": schema.MapNestedAttribute{
 							NestedObject: schema.NestedAttributeObject{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"next_hop": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `IP address of router to be used to reach the destination subnet
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address of router  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
-
-									// CustomType:    basetypes.ObjectTypable(nil),
-									// Validators:    []validator.Object(nil),
-									// PlanModifiers: []planmodifier.Object(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Classless static route destination subnet
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if tagnode defaults can be handled
-							//Default:             defaults.Map(nil),
 						},
 
-						// TODO handle non-string types
 						"bootfile_name": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Bootstrap file name
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"bootfile_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Server from which the initial boot file is to be loaded
 
 |  Format  |  Description  |
@@ -323,364 +207,194 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 |  ipv4  |  Bootfile server IPv4 address  |
 |  hostname  |  Bootfile server FQDN  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"bootfile_size": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Bootstrap file size
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-16  |  Bootstrap file size in 512 byte blocks  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"client_prefix_length": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Specifies the clients subnet mask as per RFC 950. If unset, subnet declaration is used.
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-32  |  DHCP client prefix length must be 0 to 32  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"default_router": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address of default router
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Default router IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"domain_name": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Client Domain Name
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"domain_search": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Client Domain Name search list
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"name_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"enable_failover": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Enable DHCP failover support for this subnet
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"exclude": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address to exclude from DHCP lease range
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address to exclude from lease range  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ip_forwarding": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Enable IP forwarding on client
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"lease": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Lease timeout in seconds
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  DHCP lease time in seconds  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`86400`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"ntp_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address of NTP server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  NTP server IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ping_check": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Sends ICMP Echo request to the address being assigned
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"pop_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address of POP3 server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  POP3 server IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"server_identifier": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Address for DHCP server identifier
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  DHCP server identifier IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"smtp_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address of SMTP server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  SMTP server IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ipv6_only_preferred": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Disable IPv4 on IPv6 only hosts (RFC 8925)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Seconds  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"subnet_parameters": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Additional subnet parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"tftp_server_name": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `TFTP server name
 
 |  Format  |  Description  |
@@ -688,88 +402,47 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 |  ipv4  |  TFTP server IPv4 address  |
 |  hostname  |  TFTP server FQDN  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"time_offset": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Client subnet offset in seconds from Coordinated Universal Time (UTC)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  [-]N  |  Time offset (number, may be negative)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"time_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address of time server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Time server IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"wins_server": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `IP address for Windows Internet Name Service (WINS) server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  WINS server IPv4 address  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"wpad_url": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Web Proxy Autodiscovery (WPAD) URL
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"vendor_option": schema.SingleNestedAttribute{
@@ -778,242 +451,118 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 								"ubiquiti": schema.SingleNestedAttribute{
 									Attributes: map[string]schema.Attribute{
 
-										// TODO handle non-string types
 										"unifi_controller": schema.StringAttribute{
-											// CustomType:          basetypes.StringTypable(nil),
-											// Required:            false,
+
 											Optional: true,
-											// Sensitive:           false,
-											// Description:         "",
 											MarkdownDescription: `Address of UniFi controller
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address of UniFi controller  |
 `,
-											// DeprecationMessage:  "",
-											// TODO Recreate some of vyos validators for use in leafnodes
-											// Validators:          []validator.String(nil),
-											// PlanModifiers:       []planmodifier.String(nil),
-
 										},
 									},
-									// CustomType:          basetypes.MapTypable(nil),
-									// Required:            false,
 									Optional: true,
-									// Computed:            false,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Ubiquiti specific parameters
 
 `,
-									// DeprecationMessage:  "",
-									// Validators:          []validator.Map(nil),
-									// PlanModifiers:       []planmodifier.Map(nil),
-									// TODO investigate if node defaults can be handled
-									// Default:             defaults.Map(nil),
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Vendor Specific Options
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `DHCP subnet for shared network
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"authoritative": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Option to make DHCP server authoritative for this physical network
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"domain_name": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Client Domain Name
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"domain_search": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Client Domain Name search list
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"ntp_server": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IP address of NTP server
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  NTP server IPv4 address  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"ping_check": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Sends ICMP Echo request to the address being assigned
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"disable": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable instance
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"name_server": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"shared_network_parameters": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Additional shared-network parameters for DHCP server. You must use the syntax of dhcpd.conf in this text-field. Using this without proper knowledge may result in a crashed DHCP server. Check system log to look for errors.
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

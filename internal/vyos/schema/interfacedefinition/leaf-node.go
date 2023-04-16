@@ -9,6 +9,15 @@ import (
 	"golang.org/x/text/language"
 )
 
+// AbsName returns each name in the node hirarchy starting with the root as the first element and this node as the last element
+func (l *LeafNode) AbsName() []string {
+	if l.Parent == nil {
+		return []string{l.BaseName()}
+	}
+
+	return append(l.Parent.AbsName(), l.BaseName())
+}
+
 // BaseName returns the name of the node
 func (l *LeafNode) BaseName() string {
 	return l.NodeNameAttr
@@ -26,7 +35,18 @@ func (l *LeafNode) BaseNameS() string {
 
 // BaseNameG returns a go friendlier version of BaseName
 func (l *LeafNode) BaseNameG() string {
-	ret := regexp.MustCompile("[^a-z_]").ReplaceAllString(l.BaseName(), "_")
+	bn := l.BaseName()
+	bn = strings.ReplaceAll(bn, "0", "zero")
+	bn = strings.ReplaceAll(bn, "1", "one")
+	bn = strings.ReplaceAll(bn, "2", "two")
+	bn = strings.ReplaceAll(bn, "3", "three")
+	bn = strings.ReplaceAll(bn, "4", "four")
+	bn = strings.ReplaceAll(bn, "5", "five")
+	bn = strings.ReplaceAll(bn, "6", "six")
+	bn = strings.ReplaceAll(bn, "7", "seven")
+	bn = strings.ReplaceAll(bn, "8", "eight")
+	bn = strings.ReplaceAll(bn, "9", "nine")
+	ret := regexp.MustCompile("[^a-z_]").ReplaceAllString(bn, "_")
 
 	// Special cases
 	switch ret {

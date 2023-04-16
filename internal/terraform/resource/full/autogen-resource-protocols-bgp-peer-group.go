@@ -25,18 +25,9 @@ type protocols_bgp_peer_group struct {
 
 // protocols_bgp_peer_groupModel describes the resource data model.
 type protocols_bgp_peer_groupModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Local_as   types.Map `tfsdk:"local_as"`
-	Local_role types.Map `tfsdk:"local_role"`
-
-	Address_family types.String `tfsdk:"address_family"`
-	Bfd            types.String `tfsdk:"bfd"`
-	Capability     types.String `tfsdk:"capability"`
-	Ttl_security   types.String `tfsdk:"ttl_security"`
-
+	// LeafNodes
 	Description                    types.String `tfsdk:"description"`
 	Disable_capability_negotiation types.String `tfsdk:"disable_capability_negotiation"`
 	Disable_connected_check        types.String `tfsdk:"disable_connected_check"`
@@ -48,6 +39,16 @@ type protocols_bgp_peer_groupModel struct {
 	Remote_as                      types.String `tfsdk:"remote_as"`
 	Shutdown                       types.String `tfsdk:"shutdown"`
 	Update_source                  types.String `tfsdk:"update_source"`
+
+	// TagNodes
+	Local_as   types.Map `tfsdk:"local_as"`
+	Local_role types.Map `tfsdk:"local_role"`
+
+	// Nodes
+	Address_family types.List `tfsdk:"address_family"`
+	Bfd            types.List `tfsdk:"bfd"`
+	Capability     types.List `tfsdk:"capability"`
+	Ttl_security   types.List `tfsdk:"ttl_security"`
 }
 
 // Metadata method to define the resource type name.
@@ -80,7 +81,6 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 				MarkdownDescription: `Name of peer-group
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"local_as": schema.MapNestedAttribute{
@@ -90,95 +90,44 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 						"no_prepend": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"replace_as": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Prepend only local-as from/to updates for eBGP peers
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Disable prepending local-as from/to updates for eBGP peers
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Specify alternate ASN for this BGP process
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
 			"local_role": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"strict": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
 
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Local role for BGP neighbor (RFC9234)
 
 |  Format  |  Description  |
@@ -189,94 +138,49 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 |  rs-client  |  RS Client  |
 |  rs-server  |  Route Server  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"disable_capability_negotiation": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable capability negotiation with this neighbor
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"disable_connected_check": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable check to see if eBGP peer address is a connected route
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"ebgp_multihop": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Number of hops  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"graceful_restart": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `BGP graceful restart functionality
 
 |  Format  |  Description  |
@@ -285,71 +189,35 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 |  disable  |  Disable BGP graceful restart at peer level  |
 |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"override_capability": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Ignore capability negotiation with specified neighbor
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"passive": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Do not initiate a session with this neighbor
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"password": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `BGP MD5 password
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"remote_as": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Neighbor BGP AS number
 
 |  Format  |  Description  |
@@ -358,37 +226,19 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 |  external  |  Any AS different from the local AS  |
 |  internal  |  Neighbor AS number  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"shutdown": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Administratively shutdown this neighbor
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"update_source": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Source IP of routing updates
 
 |  Format  |  Description  |
@@ -397,11 +247,6 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 |  ipv6  |  IPv6 address of route source  |
 |  txt  |  Interface as route source  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"address_family": schema.SingleNestedAttribute{
@@ -410,186 +255,96 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 					"ipv4_unicast": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"addpath_tx_all": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use addpath to advertise all paths to a neighbor
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"addpath_tx_per_as": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"as_override": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"maximum_prefix": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"maximum_prefix_out": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"remove_private_as": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"route_reflector_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route reflector client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"route_server_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route server client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"unsuppress_map": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"weight": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Default weight for routes from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Default weight  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
 							"capability": schema.SingleNestedAttribute{
@@ -601,869 +356,431 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 											"prefix_list": schema.SingleNestedAttribute{
 												Attributes: map[string]schema.Attribute{
 
-													// TODO handle non-string types
 													"receive": schema.StringAttribute{
-														// CustomType:          basetypes.StringTypable(nil),
-														// Required:            false,
+
 														Optional: true,
-														// Sensitive:           false,
-														// Description:         "",
 														MarkdownDescription: `Capability to receive the ORF
 
 `,
-														// DeprecationMessage:  "",
-														// TODO Recreate some of vyos validators for use in leafnodes
-														// Validators:          []validator.String(nil),
-														// PlanModifiers:       []planmodifier.String(nil),
-
 													},
 
-													// TODO handle non-string types
 													"send": schema.StringAttribute{
-														// CustomType:          basetypes.StringTypable(nil),
-														// Required:            false,
+
 														Optional: true,
-														// Sensitive:           false,
-														// Description:         "",
 														MarkdownDescription: `Capability to send the ORF
 
 `,
-														// DeprecationMessage:  "",
-														// TODO Recreate some of vyos validators for use in leafnodes
-														// Validators:          []validator.String(nil),
-														// PlanModifiers:       []planmodifier.String(nil),
-
 													},
 												},
-												// CustomType:          basetypes.MapTypable(nil),
-												// Required:            false,
 												Optional: true,
-												// Computed:            false,
-												// Sensitive:           false,
-												// Description:         "",
 												MarkdownDescription: `Advertise prefix-list ORF capability to this peer
 
 `,
-												// DeprecationMessage:  "",
-												// Validators:          []validator.Map(nil),
-												// PlanModifiers:       []planmodifier.Map(nil),
-												// TODO investigate if node defaults can be handled
-												// Default:             defaults.Map(nil),
 											},
 										},
-										// CustomType:          basetypes.MapTypable(nil),
-										// Required:            false,
 										Optional: true,
-										// Computed:            false,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise ORF capability to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// Validators:          []validator.Map(nil),
-										// PlanModifiers:       []planmodifier.Map(nil),
-										// TODO investigate if node defaults can be handled
-										// Default:             defaults.Map(nil),
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Advertise capabilities to this neighbor (IPv4)
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"prefix_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `IPv4-Prefix-list to filter outgoing route updates to this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `IPv4-Prefix-list to filter incoming route updates from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"conditionally_advertise": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"advertise_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to conditionally advertise routes
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"exist_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"non_exist_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use route-map to conditionally advertise routes
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"allowas_in": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"number": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Number of occurrences of AS number
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of times AS is allowed in path  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Accept route that contains the local-as in the as-path
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"attribute_unchanged": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"as_path": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send AS path unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"med": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"next_hop": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send nexthop unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `BGP attributes are sent unchanged
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"disable_send_community": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"extended": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"standard": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Disable sending community attributes to this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"distribute_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"filter_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `As-path-list to filter outgoing route updates to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `As-path-list to filter incoming route updates from this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"nexthop_self": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"force": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Disable the next hop calculation for this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"route_map": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"soft_reconfiguration": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"inbound": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Soft reconfiguration for peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"default_originate": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"route_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Originate default route to this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `IPv4 BGP neighbor parameters
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 
 					"ipv6_unicast": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"addpath_tx_all": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use addpath to advertise all paths to a neighbor
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"addpath_tx_per_as": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"as_override": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"maximum_prefix": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"maximum_prefix_out": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"remove_private_as": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"route_reflector_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route reflector client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"route_server_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route server client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"unsuppress_map": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"weight": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Default weight for routes from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Default weight  |
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
 							"capability": schema.SingleNestedAttribute{
@@ -1475,1177 +792,575 @@ func (r *protocols_bgp_peer_group) Schema(ctx context.Context, req resource.Sche
 											"prefix_list": schema.SingleNestedAttribute{
 												Attributes: map[string]schema.Attribute{
 
-													// TODO handle non-string types
 													"receive": schema.StringAttribute{
-														// CustomType:          basetypes.StringTypable(nil),
-														// Required:            false,
+
 														Optional: true,
-														// Sensitive:           false,
-														// Description:         "",
 														MarkdownDescription: `Capability to receive the ORF
 
 `,
-														// DeprecationMessage:  "",
-														// TODO Recreate some of vyos validators for use in leafnodes
-														// Validators:          []validator.String(nil),
-														// PlanModifiers:       []planmodifier.String(nil),
-
 													},
 
-													// TODO handle non-string types
 													"send": schema.StringAttribute{
-														// CustomType:          basetypes.StringTypable(nil),
-														// Required:            false,
+
 														Optional: true,
-														// Sensitive:           false,
-														// Description:         "",
 														MarkdownDescription: `Capability to send the ORF
 
 `,
-														// DeprecationMessage:  "",
-														// TODO Recreate some of vyos validators for use in leafnodes
-														// Validators:          []validator.String(nil),
-														// PlanModifiers:       []planmodifier.String(nil),
-
 													},
 												},
-												// CustomType:          basetypes.MapTypable(nil),
-												// Required:            false,
 												Optional: true,
-												// Computed:            false,
-												// Sensitive:           false,
-												// Description:         "",
 												MarkdownDescription: `Advertise prefix-list ORF capability to this peer
 
 `,
-												// DeprecationMessage:  "",
-												// Validators:          []validator.Map(nil),
-												// PlanModifiers:       []planmodifier.Map(nil),
-												// TODO investigate if node defaults can be handled
-												// Default:             defaults.Map(nil),
 											},
 										},
-										// CustomType:          basetypes.MapTypable(nil),
-										// Required:            false,
 										Optional: true,
-										// Computed:            false,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise ORF capability to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// Validators:          []validator.Map(nil),
-										// PlanModifiers:       []planmodifier.Map(nil),
-										// TODO investigate if node defaults can be handled
-										// Default:             defaults.Map(nil),
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Advertise capabilities to this neighbor (IPv6)
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"nexthop_local": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"unchanged": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Leave link-local nexthop unchanged for this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Nexthop attributes
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"prefix_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Prefix-list to filter outgoing route updates to this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Prefix-list to filter incoming route updates from this peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Prefix-list to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"conditionally_advertise": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"advertise_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to conditionally advertise routes
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"exist_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"non_exist_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Use route-map to conditionally advertise routes
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"allowas_in": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"number": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Number of occurrences of AS number
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of times AS is allowed in path  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Accept route that contains the local-as in the as-path
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"attribute_unchanged": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"as_path": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send AS path unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"med": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"next_hop": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send nexthop unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `BGP attributes are sent unchanged
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"disable_send_community": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"extended": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"standard": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Disable sending community attributes to this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"distribute_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Access-list to filter outgoing route updates to this peer-group
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Access-list to filter incoming route updates from this peer-group
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"filter_list": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `As-path-list to filter outgoing route updates to this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `As-path-list to filter incoming route updates from this peer
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"nexthop_self": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"force": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Disable the next hop calculation for this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"route_map": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"soft_reconfiguration": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"inbound": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Soft reconfiguration for peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"default_originate": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"route_map": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Originate default route to this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `IPv6 BGP neighbor parameters
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 
 					"l2vpn_evpn": schema.SingleNestedAttribute{
 						Attributes: map[string]schema.Attribute{
 
-							// TODO handle non-string types
 							"route_reflector_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route reflector client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
-							// TODO handle non-string types
 							"route_server_client": schema.StringAttribute{
-								// CustomType:          basetypes.StringTypable(nil),
-								// Required:            false,
+
 								Optional: true,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Peer is a route server client
 
 `,
-								// DeprecationMessage:  "",
-								// TODO Recreate some of vyos validators for use in leafnodes
-								// Validators:          []validator.String(nil),
-								// PlanModifiers:       []planmodifier.String(nil),
-
 							},
 
 							"allowas_in": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"number": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Number of occurrences of AS number
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of times AS is allowed in path  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Accept route that contains the local-as in the as-path
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"attribute_unchanged": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"as_path": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send AS path unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"med": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"next_hop": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Send nexthop unchanged
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `BGP attributes are sent unchanged
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"nexthop_self": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"force": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Disable the next hop calculation for this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"route_map": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"export": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 
-									// TODO handle non-string types
 									"import": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Route-map to filter route updates to/from this peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 
 							"soft_reconfiguration": schema.SingleNestedAttribute{
 								Attributes: map[string]schema.Attribute{
 
-									// TODO handle non-string types
 									"inbound": schema.StringAttribute{
-										// CustomType:          basetypes.StringTypable(nil),
-										// Required:            false,
+
 										Optional: true,
-										// Sensitive:           false,
-										// Description:         "",
 										MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,
-										// DeprecationMessage:  "",
-										// TODO Recreate some of vyos validators for use in leafnodes
-										// Validators:          []validator.String(nil),
-										// PlanModifiers:       []planmodifier.String(nil),
-
 									},
 								},
-								// CustomType:          basetypes.MapTypable(nil),
-								// Required:            false,
 								Optional: true,
-								// Computed:            false,
-								// Sensitive:           false,
-								// Description:         "",
 								MarkdownDescription: `Soft reconfiguration for peer
 
 `,
-								// DeprecationMessage:  "",
-								// Validators:          []validator.Map(nil),
-								// PlanModifiers:       []planmodifier.Map(nil),
-								// TODO investigate if node defaults can be handled
-								// Default:             defaults.Map(nil),
 							},
 						},
-						// CustomType:          basetypes.MapTypable(nil),
-						// Required:            false,
 						Optional: true,
-						// Computed:            false,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `L2VPN EVPN BGP settings
 
 `,
-						// DeprecationMessage:  "",
-						// Validators:          []validator.Map(nil),
-						// PlanModifiers:       []planmodifier.Map(nil),
-						// TODO investigate if node defaults can be handled
-						// Default:             defaults.Map(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Address-family parameters
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"bfd": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"profile": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Use settings from BFD profile
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"check_control_plane_failure": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD) support
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"capability": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"dynamic": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Advertise dynamic capability to this neighbor
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"extended_nexthop": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
 
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Advertise capabilities to this peer-group
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 
 			"ttl_security": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"hops": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Number of the maximum number of hops to the BGP peer
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-254  |  Number of hops  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Ttl security mechanism
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

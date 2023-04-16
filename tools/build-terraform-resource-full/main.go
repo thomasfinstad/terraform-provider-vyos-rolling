@@ -16,6 +16,7 @@ func main() {
 	args := os.Args[1:]
 	outputDirectory := args[0]
 	pkgName := args[1]
+	skipFileBaseNames := strings.Split(args[2], ",")
 
 	_, thisFilename, _, ok := runtime.Caller(0)
 	if !ok {
@@ -29,13 +30,13 @@ func main() {
 	for _, vyosInterface := range vyosInterfaces {
 
 		//rootNode := vyosInterface.GetRootNode()
-		baseNodes := vyosInterface.BaseTagNodes()
-		if baseNodes == nil {
+		baseNodes, ok := vyosInterface.BaseTagNodes()
+		if !ok {
 			continue
 		}
 
 		for _, baseNode := range baseNodes {
-			fmt.Printf("BaseTagNode: %s", baseNode.BaseName())
+			fmt.Printf("BaseTagNode: %s", baseNode.AbsName())
 
 			nodeAncestroy := vyosInterface.GetAncestory(baseNode)
 			var nodeAncestroyNames []string
@@ -47,8 +48,21 @@ func main() {
 			baseNode.MutateWithAncestors(nodeAncestroy)
 			baseNode.SetBaseName(strings.Join(nodeAncestroyNames, " "))
 
+			fileBaseName := strings.ReplaceAll(baseNode.BaseName(), " ", "-")
+			shouldSkip := false
+			for _, skipFileBaseName := range skipFileBaseNames {
+				if fileBaseName == skipFileBaseName {
+					shouldSkip = true
+					break
+				}
+			}
+			if shouldSkip {
+				fmt.Printf("\nWARNING: [%s] Has been marked for skipping\n", baseNode.AbsName())
+				continue
+			}
+
 			// Create output file
-			outputFile := fmt.Sprintf("%s/autogen-resource-%s.go", outputDirectory, strings.ReplaceAll(baseNode.BaseName(), " ", "-"))
+			outputFile := fmt.Sprintf("%s/autogen-resource-%s.go", outputDirectory, fileBaseName)
 
 			fmt.Printf(" Creating: %s ", outputFile)
 

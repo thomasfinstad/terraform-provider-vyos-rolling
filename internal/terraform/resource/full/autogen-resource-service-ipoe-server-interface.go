@@ -26,16 +26,18 @@ type service_ipoe_server_interface struct {
 
 // service_ipoe_server_interfaceModel describes the resource data model.
 type service_ipoe_server_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	External_dhcp types.String `tfsdk:"external_dhcp"`
-
+	// LeafNodes
 	Mode          types.String `tfsdk:"mode"`
 	Network       types.String `tfsdk:"network"`
 	Client_subnet types.String `tfsdk:"client_subnet"`
 	Vlan          types.String `tfsdk:"vlan"`
+
+	// TagNodes
+
+	// Nodes
+	External_dhcp types.List `tfsdk:"external_dhcp"`
 }
 
 // Metadata method to define the resource type name.
@@ -68,16 +70,11 @@ func (r *service_ipoe_server_interface) Schema(ctx context.Context, req resource
 				MarkdownDescription: `Interface to listen dhcp or unclassified packets
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"mode": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Client connectivity mode
 
 |  Format  |  Description  |
@@ -85,22 +82,14 @@ func (r *service_ipoe_server_interface) Schema(ctx context.Context, req resource
 |  l2  |  Client located on same interface as server  |
 |  l3  |  Client located behind a router  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`l2`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"network": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Enables clients to share the same network or each client has its own vlan
 
 |  Format  |  Description  |
@@ -108,42 +97,25 @@ func (r *service_ipoe_server_interface) Schema(ctx context.Context, req resource
 |  shared  |  Multiple clients share the same network  |
 |  vlan  |  One VLAN per client  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`shared`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"client_subnet": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Client address pool
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"vlan": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
 |  Format  |  Description  |
@@ -151,70 +123,37 @@ func (r *service_ipoe_server_interface) Schema(ctx context.Context, req resource
 |  u32:1-4094  |  VLAN for automatic creation  |
 |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
 			"external_dhcp": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"dhcp_relay": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `DHCP Server the request will be redirected to.
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address of the DHCP Server  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 
-					// TODO handle non-string types
 					"giaddr": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Relay Agent IPv4 Address
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Gateway IP address  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
-
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `DHCP requests will be forwarded
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}

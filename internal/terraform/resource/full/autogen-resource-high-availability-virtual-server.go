@@ -26,12 +26,9 @@ type high_availability_virtual_server struct {
 
 // high_availability_virtual_serverModel describes the resource data model.
 type high_availability_virtual_serverModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Real_server types.Map `tfsdk:"real_server"`
-
+	// LeafNodes
 	Algorithm           types.String `tfsdk:"algorithm"`
 	Delay_loop          types.String `tfsdk:"delay_loop"`
 	Forward_method      types.String `tfsdk:"forward_method"`
@@ -39,6 +36,12 @@ type high_availability_virtual_serverModel struct {
 	Port                types.String `tfsdk:"port"`
 	Persistence_timeout types.String `tfsdk:"persistence_timeout"`
 	Protocol            types.String `tfsdk:"protocol"`
+
+	// TagNodes
+	Real_server types.Map `tfsdk:"real_server"`
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -70,117 +73,61 @@ func (r *high_availability_virtual_server) Schema(ctx context.Context, req resou
 				MarkdownDescription: `Load-balancing virtual server address
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"real_server": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"port": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Numeric IP port  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"connection_timeout": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Server connection timeout
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  Connection timeout to remote server  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"health_check": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"script": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Health check script file
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Health check script
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Real server address
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"algorithm": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Schedule algorithm (default - least-connection)
 
 |  Format  |  Description  |
@@ -193,44 +140,28 @@ func (r *high_availability_virtual_server) Schema(ctx context.Context, req resou
 |  destination-hashing  |  Destination hashing  |
 |  locality-based-least-connection  |  Locality-Based least connection  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`least-connection`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"delay_loop": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Interval between health-checks (in seconds)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-600  |  Interval in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`10`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"forward_method": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Forwarding method
 
 |  Format  |  Description  |
@@ -239,84 +170,50 @@ func (r *high_availability_virtual_server) Schema(ctx context.Context, req resou
 |  nat  |  NAT  |
 |  tunnel  |  Tunneling  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`nat`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"fwmark": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Match fwmark value
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Match firewall mark value  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"port": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Numeric IP port  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"persistence_timeout": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Timeout for persistent connections
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  Timeout for persistent connections  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`300`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"protocol": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Protocol for port checks
 
 |  Format  |  Description  |
@@ -324,10 +221,6 @@ func (r *high_availability_virtual_server) Schema(ctx context.Context, req resou
 |  tcp  |  TCP  |
 |  udp  |  UDP  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`tcp`),
 				Computed: true,

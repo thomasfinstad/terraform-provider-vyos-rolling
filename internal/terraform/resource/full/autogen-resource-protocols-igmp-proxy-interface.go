@@ -26,14 +26,18 @@ type protocols_igmp_proxy_interface struct {
 
 // protocols_igmp_proxy_interfaceModel describes the resource data model.
 type protocols_igmp_proxy_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Alt_subnet types.String `tfsdk:"alt_subnet"`
 	Role       types.String `tfsdk:"role"`
 	Threshold  types.String `tfsdk:"threshold"`
 	Whitelist  types.String `tfsdk:"whitelist"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -66,36 +70,22 @@ func (r *protocols_igmp_proxy_interface) Schema(ctx context.Context, req resourc
 				MarkdownDescription: `Interface for IGMP proxy
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"alt_subnet": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Unicast source networks allowed for multicast traffic to be proxyed
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 network  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"role": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IGMP interface role
 
 |  Format  |  Description  |
@@ -104,55 +94,34 @@ func (r *protocols_igmp_proxy_interface) Schema(ctx context.Context, req resourc
 |  downstream  |  Downstream interface(s)  |
 |  disabled  |  Disabled interface  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`downstream`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"threshold": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `TTL threshold
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  TTL threshold for the interfaces  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`1`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"whitelist": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Group to whitelist
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 network  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

@@ -13,35 +13,38 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &policy_access_list_{}
+var _ resource.Resource = &policy_access_listsix{}
 
-// var _ resource.ResourceWithImportState = &policy_access_list_{}
+// var _ resource.ResourceWithImportState = &policy_access_listsix{}
 
-// policy_access_list_ defines the resource implementation.
-type policy_access_list_ struct {
+// policy_access_listsix defines the resource implementation.
+type policy_access_listsix struct {
 	client   *http.Client
 	vyosPath []string
 }
 
-// policy_access_list_Model describes the resource data model.
-type policy_access_list_Model struct {
-	ID types.String `tfsdk:"id"`
+// policy_access_listsixModel describes the resource data model.
+type policy_access_listsixModel struct {
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Description types.String `tfsdk:"description"`
 
+	// TagNodes
 	Rule types.Map `tfsdk:"rule"`
 
-	Description types.String `tfsdk:"description"`
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
-func (r *policy_access_list_) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *policy_access_listsix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_policy_access_list6"
 }
 
-// policy_access_list_Resource method to return the example resource reference
-func policy_access_list_Resource() resource.Resource {
-	return &policy_access_list_{
+// policy_access_listsixResource method to return the example resource reference
+func policy_access_listsixResource() resource.Resource {
+	return &policy_access_listsix{
 		vyosPath: []string{
 			"policy",
 			"access-list6",
@@ -50,7 +53,7 @@ func policy_access_list_Resource() resource.Resource {
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *policy_access_list_) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *policy_access_listsix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Routing policy
@@ -66,20 +69,15 @@ func (r *policy_access_list_) Schema(ctx context.Context, req resource.SchemaReq
 |----------|---------------|
 |  txt  |  Name of IPv6 access-list  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rule": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"action": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -87,156 +85,82 @@ func (r *policy_access_list_) Schema(ctx context.Context, req resource.SchemaReq
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
 						"source": schema.SingleNestedAttribute{
 							Attributes: map[string]schema.Attribute{
 
-								// TODO handle non-string types
 								"any": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Any IP address to match
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"exact_match": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Exact match of the network prefixes
 
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 
-								// TODO handle non-string types
 								"network": schema.StringAttribute{
-									// CustomType:          basetypes.StringTypable(nil),
-									// Required:            false,
+
 									Optional: true,
-									// Sensitive:           false,
-									// Description:         "",
 									MarkdownDescription: `Network/netmask to match
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 address and prefix length  |
 `,
-									// DeprecationMessage:  "",
-									// TODO Recreate some of vyos validators for use in leafnodes
-									// Validators:          []validator.String(nil),
-									// PlanModifiers:       []planmodifier.String(nil),
-
 								},
 							},
-							// CustomType:          basetypes.MapTypable(nil),
-							// Required:            false,
 							Optional: true,
-							// Computed:            false,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Source IPv6 network to match
 
 `,
-							// DeprecationMessage:  "",
-							// Validators:          []validator.Map(nil),
-							// PlanModifiers:       []planmodifier.Map(nil),
-							// TODO investigate if node defaults can be handled
-							// Default:             defaults.Map(nil),
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Rule for this access-list6
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list6 rule number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *policy_access_list_) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *policy_access_list_Model
+func (r *policy_access_listsix) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data *policy_access_listsixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -266,8 +190,8 @@ func (r *policy_access_list_) Create(ctx context.Context, req resource.CreateReq
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *policy_access_list_) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data *policy_access_list_Model
+func (r *policy_access_listsix) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *policy_access_listsixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
@@ -289,8 +213,8 @@ func (r *policy_access_list_) Read(ctx context.Context, req resource.ReadRequest
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *policy_access_list_) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *policy_access_list_Model
+func (r *policy_access_listsix) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data *policy_access_listsixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -312,8 +236,8 @@ func (r *policy_access_list_) Update(ctx context.Context, req resource.UpdateReq
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *policy_access_list_) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data *policy_access_list_Model
+func (r *policy_access_listsix) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data *policy_access_listsixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)

@@ -13,35 +13,38 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
-var _ resource.Resource = &policy_prefix_list_{}
+var _ resource.Resource = &policy_prefix_listsix{}
 
-// var _ resource.ResourceWithImportState = &policy_prefix_list_{}
+// var _ resource.ResourceWithImportState = &policy_prefix_listsix{}
 
-// policy_prefix_list_ defines the resource implementation.
-type policy_prefix_list_ struct {
+// policy_prefix_listsix defines the resource implementation.
+type policy_prefix_listsix struct {
 	client   *http.Client
 	vyosPath []string
 }
 
-// policy_prefix_list_Model describes the resource data model.
-type policy_prefix_list_Model struct {
-	ID types.String `tfsdk:"id"`
+// policy_prefix_listsixModel describes the resource data model.
+type policy_prefix_listsixModel struct {
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
+	// LeafNodes
+	Description types.String `tfsdk:"description"`
 
+	// TagNodes
 	Rule types.Map `tfsdk:"rule"`
 
-	Description types.String `tfsdk:"description"`
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
-func (r *policy_prefix_list_) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+func (r *policy_prefix_listsix) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_policy_prefix_list6"
 }
 
-// policy_prefix_list_Resource method to return the example resource reference
-func policy_prefix_list_Resource() resource.Resource {
-	return &policy_prefix_list_{
+// policy_prefix_listsixResource method to return the example resource reference
+func policy_prefix_listsixResource() resource.Resource {
+	return &policy_prefix_listsix{
 		vyosPath: []string{
 			"policy",
 			"prefix-list6",
@@ -50,7 +53,7 @@ func policy_prefix_list_Resource() resource.Resource {
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *policy_prefix_list_) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r *policy_prefix_listsix) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Routing policy
@@ -66,20 +69,15 @@ func (r *policy_prefix_list_) Schema(ctx context.Context, req resource.SchemaReq
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"rule": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"action": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -87,143 +85,79 @@ func (r *policy_prefix_list_) Schema(ctx context.Context, req resource.SchemaReq
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"description": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"ge": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Prefix length to match a netmask greater than or equal to it
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-128  |  Netmask greater than length  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"le": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Prefix length to match a netmask less than or equal to it
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-128  |  Netmask less than length  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"prefix": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Prefix to match
 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 prefix  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Rule for this prefix-list6
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Prefix-list rule number  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"description": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Description
 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *policy_prefix_list_) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *policy_prefix_list_Model
+func (r *policy_prefix_listsix) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	var data *policy_prefix_listsixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -253,8 +187,8 @@ func (r *policy_prefix_list_) Create(ctx context.Context, req resource.CreateReq
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *policy_prefix_list_) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var data *policy_prefix_list_Model
+func (r *policy_prefix_listsix) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *policy_prefix_listsixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
@@ -276,8 +210,8 @@ func (r *policy_prefix_list_) Read(ctx context.Context, req resource.ReadRequest
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *policy_prefix_list_) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *policy_prefix_list_Model
+func (r *policy_prefix_listsix) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	var data *policy_prefix_listsixModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -299,8 +233,8 @@ func (r *policy_prefix_list_) Update(ctx context.Context, req resource.UpdateReq
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *policy_prefix_list_) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var data *policy_prefix_list_Model
+func (r *policy_prefix_listsix) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var data *policy_prefix_listsixModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)

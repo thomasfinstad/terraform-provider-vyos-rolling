@@ -26,13 +26,17 @@ type service_snmp_community struct {
 
 // service_snmp_communityModel describes the resource data model.
 type service_snmp_communityModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Authorization types.String `tfsdk:"authorization"`
 	Client        types.String `tfsdk:"client"`
 	Network       types.String `tfsdk:"network"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -65,16 +69,11 @@ func (r *service_snmp_community) Schema(ctx context.Context, req resource.Schema
 				MarkdownDescription: `Community name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"authorization": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Authorization type
 
 |  Format  |  Description  |
@@ -82,39 +81,22 @@ func (r *service_snmp_community) Schema(ctx context.Context, req resource.Schema
 |  ro  |  Read-Only  |
 |  rw  |  Read-Write  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`ro`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"client": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IP address of SNMP client allowed to contact system
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"network": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Subnet of SNMP client(s) allowed to contact system
 
 |  Format  |  Description  |
@@ -122,10 +104,6 @@ func (r *service_snmp_community) Schema(ctx context.Context, req resource.Schema
 |  ipv4net  |  IP address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`0.0.0.0/0 ::/0`),
 				Computed: true,

@@ -25,11 +25,15 @@ type service_pppoe_server_interface struct {
 
 // service_pppoe_server_interfaceModel describes the resource data model.
 type service_pppoe_server_interfaceModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
+	// LeafNodes
 	Vlan types.String `tfsdk:"vlan"`
+
+	// TagNodes
+
+	// Nodes
+
 }
 
 // Metadata method to define the resource type name.
@@ -62,16 +66,11 @@ func (r *service_pppoe_server_interface) Schema(ctx context.Context, req resourc
 				MarkdownDescription: `interface(s) to listen on
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
-			// TODO handle non-string types
 			"vlan": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
 |  Format  |  Description  |
@@ -79,11 +78,6 @@ func (r *service_pppoe_server_interface) Schema(ctx context.Context, req resourc
 |  u32:1-4094  |  VLAN for automatic creation  |
 |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 		},
 	}

@@ -26,20 +26,21 @@ type vpn_ipsec_ike_group struct {
 
 // vpn_ipsec_ike_groupModel describes the resource data model.
 type vpn_ipsec_ike_groupModel struct {
-	ID types.String `tfsdk:"id"`
+	ID types.String `tfsdk:"identifier"`
 
-	Identifier types.String `tfsdk:"identifier"`
-
-	Proposal types.Map `tfsdk:"proposal"`
-
-	Dead_peer_detection types.String `tfsdk:"dead_peer_detection"`
-
+	// LeafNodes
 	Close_action   types.String `tfsdk:"close_action"`
-	Ikev__reauth   types.String `tfsdk:"ikev2_reauth"`
+	Ikevtwo_reauth types.String `tfsdk:"ikev2_reauth"`
 	Key_exchange   types.String `tfsdk:"key_exchange"`
 	Lifetime       types.String `tfsdk:"lifetime"`
 	Disable_mobike types.String `tfsdk:"disable_mobike"`
 	Mode           types.String `tfsdk:"mode"`
+
+	// TagNodes
+	Proposal types.Map `tfsdk:"proposal"`
+
+	// Nodes
+	Dead_peer_detection types.List `tfsdk:"dead_peer_detection"`
 }
 
 // Metadata method to define the resource type name.
@@ -74,20 +75,15 @@ VPN IP security (IPsec) parameters
 				MarkdownDescription: `Internet Key Exchange (IKE) group name
 
 `,
-				// Validators:          []validator.String(nil),
 			},
 
 			"proposal": schema.MapNestedAttribute{
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 
-						// TODO handle non-string types
 						"dh_group": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `dh-grouphelp
 
 |  Format  |  Description  |
@@ -115,22 +111,14 @@ VPN IP security (IPsec) parameters
 |  31  |  Diffie-Hellman group 31 (curve25519)  |
 |  32  |  Diffie-Hellman group 32 (curve448)  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`2`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"prf": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Pseudo-Random Functions
 
 |  Format  |  Description  |
@@ -143,20 +131,11 @@ VPN IP security (IPsec) parameters
 |  prfsha384  |  SHA2_384 PRF  |
 |  prfsha512  |  SHA2_512 PRF  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
-
 						},
 
-						// TODO handle non-string types
 						"encryption": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Encryption algorithm
 
 |  Format  |  Description  |
@@ -217,22 +196,14 @@ VPN IP security (IPsec) parameters
 |  cast128  |  128 bit CAST-CBC  |
 |  chacha20poly1305  |  256 bit ChaCha20/Poly1305 with 128 bit ICV  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`aes128`),
 							Computed: true,
 						},
 
-						// TODO handle non-string types
 						"hash": schema.StringAttribute{
-							// CustomType:          basetypes.StringTypable(nil),
-							// Required:            false,
+
 							Optional: true,
-							// Sensitive:           false,
-							// Description:         "",
 							MarkdownDescription: `Hash algorithm
 
 |  Format  |  Description  |
@@ -251,46 +222,24 @@ VPN IP security (IPsec) parameters
 |  aes192gmac  |  192-bit AES-GMAC  |
 |  aes256gmac  |  256-bit AES-GMAC  |
 `,
-							// DeprecationMessage:  "",
-							// TODO Recreate some of vyos validators for use in leafnodes
-							// Validators:          []validator.String(nil),
-							// PlanModifiers:       []planmodifier.String(nil),
 
 							Default:  stringdefault.StaticString(`sha1`),
 							Computed: true,
 						},
-
-						// CustomType:    basetypes.ObjectTypable(nil),
-						// Validators:    []validator.Object(nil),
-						// PlanModifiers: []planmodifier.Object(nil),
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IKE proposal
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  IKE group proposal  |
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if tagnode defaults can be handled
-				//Default:             defaults.Map(nil),
 			},
 
-			// TODO handle non-string types
 			"close_action": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Action to take if a child SA is unexpectedly closed
 
 |  Format  |  Description  |
@@ -299,39 +248,22 @@ VPN IP security (IPsec) parameters
 |  hold  |  Attempt to re-negotiate when matching traffic is seen  |
 |  restart  |  Attempt to re-negotiate the connection immediately  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`none`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"ikev2_reauth": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"key_exchange": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IKE version
 
 |  Format  |  Description  |
@@ -339,59 +271,33 @@ VPN IP security (IPsec) parameters
 |  ikev1  |  Use IKEv1 for key exchange  |
 |  ikev2  |  Use IKEv2 for key exchange  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"lifetime": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IKE lifetime
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:30-86400  |  IKE lifetime in seconds  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`28800`),
 				Computed: true,
 			},
 
-			// TODO handle non-string types
 			"disable_mobike": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Disable MOBIKE Support (IKEv2 only)
 
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
-
 			},
 
-			// TODO handle non-string types
 			"mode": schema.StringAttribute{
-				// CustomType:          basetypes.StringTypable(nil),
-				// Required:            false,
+
 				Optional: true,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `IKEv1 phase 1 mode
 
 |  Format  |  Description  |
@@ -399,10 +305,6 @@ VPN IP security (IPsec) parameters
 |  main  |  Use the main mode (recommended)  |
 |  aggressive  |  Use the aggressive mode (insecure, not recommended)  |
 `,
-				// DeprecationMessage:  "",
-				// TODO Recreate some of vyos validators for use in leafnodes
-				// Validators:          []validator.String(nil),
-				// PlanModifiers:       []planmodifier.String(nil),
 
 				Default:  stringdefault.StaticString(`main`),
 				Computed: true,
@@ -411,13 +313,9 @@ VPN IP security (IPsec) parameters
 			"dead_peer_detection": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 
-					// TODO handle non-string types
 					"action": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Keep-alive failure action
 
 |  Format  |  Description  |
@@ -426,73 +324,43 @@ VPN IP security (IPsec) parameters
 |  clear  |  Remove the connection immediately  |
 |  restart  |  Attempt to re-negotiate the connection immediately  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`clear`),
 						Computed: true,
 					},
 
-					// TODO handle non-string types
 					"interval": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Keep-alive interval
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-86400  |  Keep-alive interval in seconds  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`30`),
 						Computed: true,
 					},
 
-					// TODO handle non-string types
 					"timeout": schema.StringAttribute{
-						// CustomType:          basetypes.StringTypable(nil),
-						// Required:            false,
+
 						Optional: true,
-						// Sensitive:           false,
-						// Description:         "",
 						MarkdownDescription: `Dead Peer Detection keep-alive timeout (IKEv1 only)
 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-86400  |  Keep-alive timeout in seconds  |
 `,
-						// DeprecationMessage:  "",
-						// TODO Recreate some of vyos validators for use in leafnodes
-						// Validators:          []validator.String(nil),
-						// PlanModifiers:       []planmodifier.String(nil),
 
 						Default:  stringdefault.StaticString(`120`),
 						Computed: true,
 					},
 				},
-				// CustomType:          basetypes.MapTypable(nil),
-				// Required:            false,
 				Optional: true,
-				// Computed:            false,
-				// Sensitive:           false,
-				// Description:         "",
 				MarkdownDescription: `Dead Peer Detection (DPD)
 
 `,
-				// DeprecationMessage:  "",
-				// Validators:          []validator.Map(nil),
-				// PlanModifiers:       []planmodifier.Map(nil),
-				// TODO investigate if node defaults can be handled
-				// Default:             defaults.Map(nil),
 			},
 		},
 	}
