@@ -24,8 +24,15 @@ terraform {
 }
 
 provider "vyos" {
+  // TODO replace dev instance endpoint with generic 192.168.0.1 address
   endpoint = "https://192.168.2.252"
-  api_key  = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
+
+  // TODO replace dev instance api key with elipsis
+  api_key = "FoFeMcws4XpbKk4TDceQWzUdDsHptAr7FcuApxiHUV"
+
+  certificate = {
+    disable_verify = true
+  }
 }
 
 resource "vyos_firewall_name" "test" {
@@ -46,3 +53,14 @@ resource "vyos_firewall_name" "test" {
 
 - `api_key` (String) VyOS API Key
 - `endpoint` (String) VyOS API Endpoint
+
+### Optional
+
+- `certificate` (Attributes) (see [below for nested schema](#nestedatt--certificate))
+
+<a id="nestedatt--certificate"></a>
+### Nested Schema for `certificate`
+
+Optional:
+
+- `disable_verify` (Boolean) Disable remote certificate verification, useful for selfsigned certs.

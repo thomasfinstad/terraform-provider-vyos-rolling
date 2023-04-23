@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &interfaces_ethernet{}
 
 // interfaces_ethernet defines the resource implementation.
 type interfaces_ethernet struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *interfaces_ethernet) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // interfaces_ethernetModel describes the resource data model.
@@ -58,23 +82,63 @@ type interfaces_ethernetModel struct {
 	Ring_buffer      types.List `tfsdk:"ring_buffer"`
 }
 
+func (m interfaces_ethernetModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"interfaces",
+		"ethernet",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"address":              m.Address,
+		"description":          m.Description,
+		"disable_flow_control": m.Disable_flow_control,
+		"disable_link_detect":  m.Disable_link_detect,
+		"disable":              m.Disable,
+		"duplex":               m.Duplex,
+		"hw_id":                m.Hw_id,
+		"mac":                  m.Mac,
+		"mtu":                  m.Mtu,
+		"speed":                m.Speed,
+		"redirect":             m.Redirect,
+		"vrf":                  m.Vrf,
+		"xdp":                  m.Xdp,
+
+		// TagNodes
+		"vif_s": m.Vif_s,
+		"vif":   m.Vif,
+
+		// Nodes
+		"dhcp_options":   m.Dhcp_options,
+		"dhcpv6_options": m.Dhcpvsix_options,
+		"eapol":          m.Eapol,
+		"ip":             m.Ip,
+		"ipv6":           m.Ipvsix,
+		"mirror":         m.Mirror,
+		"offload":        m.Offload,
+		"ring_buffer":    m.Ring_buffer,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *interfaces_ethernet) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_interfaces_ethernet"
+func (r interfaces_ethernet) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_interfaces_ethernet"
+	resp.TypeName = r.ResourceName
 }
 
 // interfaces_ethernetResource method to return the example resource reference
 func interfaces_ethernetResource() resource.Resource {
-	return &interfaces_ethernet{
-		vyosPath: []string{
-			"interfaces",
-			"ethernet",
-		},
-	}
+	return &interfaces_ethernet{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *interfaces_ethernet) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r interfaces_ethernet) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Network interfaces
@@ -2329,8 +2393,11 @@ func (r *interfaces_ethernet) Schema(ctx context.Context, req resource.SchemaReq
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *interfaces_ethernet) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *interfaces_ethernetModel
+func (r interfaces_ethernet) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -2339,17 +2406,26 @@ func (r *interfaces_ethernet) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -2360,7 +2436,7 @@ func (r *interfaces_ethernet) Create(ctx context.Context, req resource.CreateReq
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *interfaces_ethernet) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r interfaces_ethernet) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *interfaces_ethernetModel
 
 	// Read Terraform prior state data into the model
@@ -2383,7 +2459,7 @@ func (r *interfaces_ethernet) Read(ctx context.Context, req resource.ReadRequest
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *interfaces_ethernet) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r interfaces_ethernet) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *interfaces_ethernetModel
 
 	// Read Terraform plan data into the model
@@ -2406,7 +2482,7 @@ func (r *interfaces_ethernet) Update(ctx context.Context, req resource.UpdateReq
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *interfaces_ethernet) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r interfaces_ethernet) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *interfaces_ethernetModel
 
 	// Read Terraform prior state data into the model

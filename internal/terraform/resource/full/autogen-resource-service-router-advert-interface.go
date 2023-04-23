@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &service_router_advert_interface{}
 
 // service_router_advert_interface defines the resource implementation.
 type service_router_advert_interface struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *service_router_advert_interface) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // service_router_advert_interfaceModel describes the resource data model.
@@ -51,24 +75,57 @@ type service_router_advert_interfaceModel struct {
 	Interval types.List `tfsdk:"interval"`
 }
 
+func (m service_router_advert_interfaceModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"service",
+		"router-advert",
+		"interface",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"hop_limit":            m.Hop_limit,
+		"default_lifetime":     m.Default_lifetime,
+		"default_preference":   m.Default_preference,
+		"dnssl":                m.Dnssl,
+		"link_mtu":             m.Link_mtu,
+		"managed_flag":         m.Managed_flag,
+		"name_server":          m.Name_server,
+		"name_server_lifetime": m.Name_server_lifetime,
+		"other_config_flag":    m.Other_config_flag,
+		"source_address":       m.Source_address,
+		"reachable_time":       m.Reachable_time,
+		"retrans_timer":        m.Retrans_timer,
+		"no_send_advert":       m.No_send_advert,
+
+		// TagNodes
+		"route":  m.Route,
+		"prefix": m.Prefix,
+
+		// Nodes
+		"interval": m.Interval,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *service_router_advert_interface) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_service_router_advert_interface"
+func (r service_router_advert_interface) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_service_router_advert_interface"
+	resp.TypeName = r.ResourceName
 }
 
 // service_router_advert_interfaceResource method to return the example resource reference
 func service_router_advert_interfaceResource() resource.Resource {
-	return &service_router_advert_interface{
-		vyosPath: []string{
-			"service",
-			"router-advert",
-			"interface",
-		},
-	}
+	return &service_router_advert_interface{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *service_router_advert_interface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r service_router_advert_interface) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `IPv6 Router Advertisements (RAs) service
@@ -400,8 +457,11 @@ func (r *service_router_advert_interface) Schema(ctx context.Context, req resour
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *service_router_advert_interface) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *service_router_advert_interfaceModel
+func (r service_router_advert_interface) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -410,17 +470,26 @@ func (r *service_router_advert_interface) Create(ctx context.Context, req resour
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -431,7 +500,7 @@ func (r *service_router_advert_interface) Create(ctx context.Context, req resour
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *service_router_advert_interface) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r service_router_advert_interface) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *service_router_advert_interfaceModel
 
 	// Read Terraform prior state data into the model
@@ -454,7 +523,7 @@ func (r *service_router_advert_interface) Read(ctx context.Context, req resource
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *service_router_advert_interface) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r service_router_advert_interface) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *service_router_advert_interfaceModel
 
 	// Read Terraform plan data into the model
@@ -477,7 +546,7 @@ func (r *service_router_advert_interface) Update(ctx context.Context, req resour
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *service_router_advert_interface) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r service_router_advert_interface) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *service_router_advert_interfaceModel
 
 	// Read Terraform prior state data into the model

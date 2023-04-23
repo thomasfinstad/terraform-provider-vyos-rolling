@@ -4,12 +4,16 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -19,8 +23,28 @@ var _ resource.Resource = &service_webproxy_url_filtering_squidguard_source_grou
 
 // service_webproxy_url_filtering_squidguard_source_group defines the resource implementation.
 type service_webproxy_url_filtering_squidguard_source_group struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *service_webproxy_url_filtering_squidguard_source_group) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // service_webproxy_url_filtering_squidguard_source_groupModel describes the resource data model.
@@ -41,26 +65,50 @@ type service_webproxy_url_filtering_squidguard_source_groupModel struct {
 
 }
 
+func (m service_webproxy_url_filtering_squidguard_source_groupModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"service",
+		"webproxy",
+		"url-filtering",
+		"squidguard",
+		"source-group",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"address":          m.Address,
+		"description":      m.Description,
+		"domain":           m.Domain,
+		"ldap_ip_search":   m.Ldap_ip_search,
+		"ldap_user_search": m.Ldap_user_search,
+		"user":             m.User,
+
+		// TagNodes
+
+		// Nodes
+
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_service_webproxy_url_filtering_squidguard_source_group"
+func (r service_webproxy_url_filtering_squidguard_source_group) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_service_webproxy_url_filtering_squidguard_source_group"
+	resp.TypeName = r.ResourceName
 }
 
 // service_webproxy_url_filtering_squidguard_source_groupResource method to return the example resource reference
 func service_webproxy_url_filtering_squidguard_source_groupResource() resource.Resource {
-	return &service_webproxy_url_filtering_squidguard_source_group{
-		vyosPath: []string{
-			"service",
-			"webproxy",
-			"url-filtering",
-			"squidguard",
-			"source-group",
-		},
-	}
+	return &service_webproxy_url_filtering_squidguard_source_group{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r service_webproxy_url_filtering_squidguard_source_group) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Webproxy service settings
@@ -142,8 +190,11 @@ URL filtering via squidGuard redirector
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *service_webproxy_url_filtering_squidguard_source_groupModel
+func (r service_webproxy_url_filtering_squidguard_source_group) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -152,17 +203,26 @@ func (r *service_webproxy_url_filtering_squidguard_source_group) Create(ctx cont
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -173,7 +233,7 @@ func (r *service_webproxy_url_filtering_squidguard_source_group) Create(ctx cont
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r service_webproxy_url_filtering_squidguard_source_group) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *service_webproxy_url_filtering_squidguard_source_groupModel
 
 	// Read Terraform prior state data into the model
@@ -196,7 +256,7 @@ func (r *service_webproxy_url_filtering_squidguard_source_group) Read(ctx contex
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r service_webproxy_url_filtering_squidguard_source_group) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *service_webproxy_url_filtering_squidguard_source_groupModel
 
 	// Read Terraform plan data into the model
@@ -219,7 +279,7 @@ func (r *service_webproxy_url_filtering_squidguard_source_group) Update(ctx cont
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *service_webproxy_url_filtering_squidguard_source_group) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r service_webproxy_url_filtering_squidguard_source_group) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *service_webproxy_url_filtering_squidguard_source_groupModel
 
 	// Read Terraform prior state data into the model

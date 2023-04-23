@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &interfaces_openvpn{}
 
 // interfaces_openvpn defines the resource implementation.
 type interfaces_openvpn struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *interfaces_openvpn) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // interfaces_openvpnModel describes the resource data model.
@@ -62,23 +86,67 @@ type interfaces_openvpnModel struct {
 	Tls                   types.List `tfsdk:"tls"`
 }
 
+func (m interfaces_openvpnModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"interfaces",
+		"openvpn",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"description":         m.Description,
+		"device_type":         m.Device_type,
+		"disable":             m.Disable,
+		"hash":                m.Hash,
+		"local_host":          m.Local_host,
+		"local_port":          m.Local_port,
+		"mode":                m.Mode,
+		"openvpn_option":      m.Openvpn_option,
+		"persistent_tunnel":   m.Persistent_tunnel,
+		"protocol":            m.Protocol,
+		"remote_address":      m.Remote_address,
+		"remote_host":         m.Remote_host,
+		"remote_port":         m.Remote_port,
+		"shared_secret_key":   m.Shared_secret_key,
+		"use_lzo_compression": m.Use_lzo_compression,
+		"redirect":            m.Redirect,
+		"vrf":                 m.Vrf,
+
+		// TagNodes
+		"local_address": m.Local_address,
+
+		// Nodes
+		"authentication":        m.Authentication,
+		"encryption":            m.Encryption,
+		"ip":                    m.Ip,
+		"ipv6":                  m.Ipvsix,
+		"mirror":                m.Mirror,
+		"keep_alive":            m.Keep_alive,
+		"replace_default_route": m.Replace_default_route,
+		"server":                m.Server,
+		"tls":                   m.Tls,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *interfaces_openvpn) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_interfaces_openvpn"
+func (r interfaces_openvpn) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_interfaces_openvpn"
+	resp.TypeName = r.ResourceName
 }
 
 // interfaces_openvpnResource method to return the example resource reference
 func interfaces_openvpnResource() resource.Resource {
-	return &interfaces_openvpn{
-		vyosPath: []string{
-			"interfaces",
-			"openvpn",
-		},
-	}
+	return &interfaces_openvpn{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *interfaces_openvpn) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r interfaces_openvpn) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: ``,
@@ -1076,8 +1144,11 @@ func (r *interfaces_openvpn) Schema(ctx context.Context, req resource.SchemaRequ
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *interfaces_openvpn) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *interfaces_openvpnModel
+func (r interfaces_openvpn) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -1086,17 +1157,26 @@ func (r *interfaces_openvpn) Create(ctx context.Context, req resource.CreateRequ
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -1107,7 +1187,7 @@ func (r *interfaces_openvpn) Create(ctx context.Context, req resource.CreateRequ
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *interfaces_openvpn) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r interfaces_openvpn) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *interfaces_openvpnModel
 
 	// Read Terraform prior state data into the model
@@ -1130,7 +1210,7 @@ func (r *interfaces_openvpn) Read(ctx context.Context, req resource.ReadRequest,
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *interfaces_openvpn) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r interfaces_openvpn) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *interfaces_openvpnModel
 
 	// Read Terraform plan data into the model
@@ -1153,7 +1233,7 @@ func (r *interfaces_openvpn) Update(ctx context.Context, req resource.UpdateRequ
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *interfaces_openvpn) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r interfaces_openvpn) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *interfaces_openvpnModel
 
 	// Read Terraform prior state data into the model

@@ -52,7 +52,7 @@ func (t *TagNode) BaseNameC() string {
 
 // BaseNameS returns the terraform schema friendly version of BaseName
 func (t *TagNode) BaseNameS() string {
-	return regexp.MustCompile("[^0-9a-z_]").ReplaceAllString(t.BaseName(), "_")
+	return regexp.MustCompile("[ -]").ReplaceAllString(t.BaseName(), "_")
 }
 
 // BaseNameG returns a go friendlier version of BaseName

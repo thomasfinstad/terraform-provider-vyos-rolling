@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &service_dhcp_server_shared_network_name{}
 
 // service_dhcp_server_shared_network_name defines the resource implementation.
 type service_dhcp_server_shared_network_name struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *service_dhcp_server_shared_network_name) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // service_dhcp_server_shared_network_nameModel describes the resource data model.
@@ -46,24 +70,52 @@ type service_dhcp_server_shared_network_nameModel struct {
 
 }
 
+func (m service_dhcp_server_shared_network_nameModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"service",
+		"dhcp-server",
+		"shared-network-name",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"authoritative":             m.Authoritative,
+		"domain_name":               m.Domain_name,
+		"domain_search":             m.Domain_search,
+		"ntp_server":                m.Ntp_server,
+		"ping_check":                m.Ping_check,
+		"description":               m.Description,
+		"disable":                   m.Disable,
+		"name_server":               m.Name_server,
+		"shared_network_parameters": m.Shared_network_parameters,
+
+		// TagNodes
+		"subnet": m.Subnet,
+
+		// Nodes
+
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *service_dhcp_server_shared_network_name) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_service_dhcp_server_shared_network_name"
+func (r service_dhcp_server_shared_network_name) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_service_dhcp_server_shared_network_name"
+	resp.TypeName = r.ResourceName
 }
 
 // service_dhcp_server_shared_network_nameResource method to return the example resource reference
 func service_dhcp_server_shared_network_nameResource() resource.Resource {
-	return &service_dhcp_server_shared_network_name{
-		vyosPath: []string{
-			"service",
-			"dhcp-server",
-			"shared-network-name",
-		},
-	}
+	return &service_dhcp_server_shared_network_name{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r service_dhcp_server_shared_network_name) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Dynamic Host Configuration Protocol (DHCP) for DHCP server
@@ -569,8 +621,11 @@ func (r *service_dhcp_server_shared_network_name) Schema(ctx context.Context, re
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *service_dhcp_server_shared_network_name) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *service_dhcp_server_shared_network_nameModel
+func (r service_dhcp_server_shared_network_name) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -579,17 +634,26 @@ func (r *service_dhcp_server_shared_network_name) Create(ctx context.Context, re
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -600,7 +664,7 @@ func (r *service_dhcp_server_shared_network_name) Create(ctx context.Context, re
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *service_dhcp_server_shared_network_name) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r service_dhcp_server_shared_network_name) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *service_dhcp_server_shared_network_nameModel
 
 	// Read Terraform prior state data into the model
@@ -623,7 +687,7 @@ func (r *service_dhcp_server_shared_network_name) Read(ctx context.Context, req 
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *service_dhcp_server_shared_network_name) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r service_dhcp_server_shared_network_name) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *service_dhcp_server_shared_network_nameModel
 
 	// Read Terraform plan data into the model
@@ -646,7 +710,7 @@ func (r *service_dhcp_server_shared_network_name) Update(ctx context.Context, re
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *service_dhcp_server_shared_network_name) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r service_dhcp_server_shared_network_name) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *service_dhcp_server_shared_network_nameModel
 
 	// Read Terraform prior state data into the model

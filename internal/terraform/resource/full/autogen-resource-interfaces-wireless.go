@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &interfaces_wireless{}
 
 // interfaces_wireless defines the resource implementation.
 type interfaces_wireless struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *interfaces_wireless) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // interfaces_wirelessModel describes the resource data model.
@@ -64,23 +88,69 @@ type interfaces_wirelessModel struct {
 	Security         types.List `tfsdk:"security"`
 }
 
+func (m interfaces_wirelessModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"interfaces",
+		"wireless",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"address":                  m.Address,
+		"channel":                  m.Channel,
+		"country_code":             m.Country_code,
+		"description":              m.Description,
+		"disable_broadcast_ssid":   m.Disable_broadcast_ssid,
+		"disable_link_detect":      m.Disable_link_detect,
+		"disable":                  m.Disable,
+		"vrf":                      m.Vrf,
+		"expunge_failing_stations": m.Expunge_failing_stations,
+		"hw_id":                    m.Hw_id,
+		"isolate_stations":         m.Isolate_stations,
+		"mac":                      m.Mac,
+		"max_stations":             m.Max_stations,
+		"mgmt_frame_protection":    m.Mgmt_frame_protection,
+		"mode":                     m.Mode,
+		"physical_device":          m.Physical_device,
+		"reduce_transmit_power":    m.Reduce_transmit_power,
+		"ssid":                     m.Ssid,
+		"type":                     m.Type,
+		"redirect":                 m.Redirect,
+
+		// TagNodes
+		"vif":   m.Vif,
+		"vif_s": m.Vif_s,
+
+		// Nodes
+		"capabilities":   m.Capabilities,
+		"dhcp_options":   m.Dhcp_options,
+		"dhcpv6_options": m.Dhcpvsix_options,
+		"ip":             m.Ip,
+		"ipv6":           m.Ipvsix,
+		"mirror":         m.Mirror,
+		"security":       m.Security,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *interfaces_wireless) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_interfaces_wireless"
+func (r interfaces_wireless) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_interfaces_wireless"
+	resp.TypeName = r.ResourceName
 }
 
 // interfaces_wirelessResource method to return the example resource reference
 func interfaces_wirelessResource() resource.Resource {
-	return &interfaces_wireless{
-		vyosPath: []string{
-			"interfaces",
-			"wireless",
-		},
-	}
+	return &interfaces_wireless{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *interfaces_wireless) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r interfaces_wireless) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: ``,
@@ -2739,8 +2809,11 @@ func (r *interfaces_wireless) Schema(ctx context.Context, req resource.SchemaReq
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *interfaces_wireless) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *interfaces_wirelessModel
+func (r interfaces_wireless) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -2749,17 +2822,26 @@ func (r *interfaces_wireless) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -2770,7 +2852,7 @@ func (r *interfaces_wireless) Create(ctx context.Context, req resource.CreateReq
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *interfaces_wireless) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r interfaces_wireless) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *interfaces_wirelessModel
 
 	// Read Terraform prior state data into the model
@@ -2793,7 +2875,7 @@ func (r *interfaces_wireless) Read(ctx context.Context, req resource.ReadRequest
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *interfaces_wireless) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r interfaces_wireless) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *interfaces_wirelessModel
 
 	// Read Terraform plan data into the model
@@ -2816,7 +2898,7 @@ func (r *interfaces_wireless) Update(ctx context.Context, req resource.UpdateReq
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *interfaces_wireless) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r interfaces_wireless) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *interfaces_wirelessModel
 
 	// Read Terraform prior state data into the model

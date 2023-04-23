@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &vpn_ipsec_remote_access_connection{}
 
 // vpn_ipsec_remote_access_connection defines the resource implementation.
 type vpn_ipsec_remote_access_connection struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *vpn_ipsec_remote_access_connection) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // vpn_ipsec_remote_access_connectionModel describes the resource data model.
@@ -45,25 +69,52 @@ type vpn_ipsec_remote_access_connectionModel struct {
 	Local          types.List `tfsdk:"local"`
 }
 
+func (m vpn_ipsec_remote_access_connectionModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"vpn",
+		"ipsec",
+		"remote-access",
+		"connection",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"description":   m.Description,
+		"disable":       m.Disable,
+		"esp_group":     m.Esp_group,
+		"ike_group":     m.Ike_group,
+		"local_address": m.Local_address,
+		"timeout":       m.Timeout,
+		"pool":          m.Pool,
+		"unique":        m.Unique,
+
+		// TagNodes
+
+		// Nodes
+		"authentication": m.Authentication,
+		"local":          m.Local,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *vpn_ipsec_remote_access_connection) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_vpn_ipsec_remote_access_connection"
+func (r vpn_ipsec_remote_access_connection) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_vpn_ipsec_remote_access_connection"
+	resp.TypeName = r.ResourceName
 }
 
 // vpn_ipsec_remote_access_connectionResource method to return the example resource reference
 func vpn_ipsec_remote_access_connectionResource() resource.Resource {
-	return &vpn_ipsec_remote_access_connection{
-		vyosPath: []string{
-			"vpn",
-			"ipsec",
-			"remote-access",
-			"connection",
-		},
-	}
+	return &vpn_ipsec_remote_access_connection{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *vpn_ipsec_remote_access_connection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r vpn_ipsec_remote_access_connection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `Virtual Private Network (VPN)
@@ -353,8 +404,11 @@ IKEv2 remote access VPN
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *vpn_ipsec_remote_access_connection) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *vpn_ipsec_remote_access_connectionModel
+func (r vpn_ipsec_remote_access_connection) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -363,17 +417,26 @@ func (r *vpn_ipsec_remote_access_connection) Create(ctx context.Context, req res
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -384,7 +447,7 @@ func (r *vpn_ipsec_remote_access_connection) Create(ctx context.Context, req res
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *vpn_ipsec_remote_access_connection) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r vpn_ipsec_remote_access_connection) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *vpn_ipsec_remote_access_connectionModel
 
 	// Read Terraform prior state data into the model
@@ -407,7 +470,7 @@ func (r *vpn_ipsec_remote_access_connection) Read(ctx context.Context, req resou
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *vpn_ipsec_remote_access_connection) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r vpn_ipsec_remote_access_connection) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *vpn_ipsec_remote_access_connectionModel
 
 	// Read Terraform plan data into the model
@@ -430,7 +493,7 @@ func (r *vpn_ipsec_remote_access_connection) Update(ctx context.Context, req res
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *vpn_ipsec_remote_access_connection) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r vpn_ipsec_remote_access_connection) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *vpn_ipsec_remote_access_connectionModel
 
 	// Read Terraform prior state data into the model

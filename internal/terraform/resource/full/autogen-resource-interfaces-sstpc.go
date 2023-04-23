@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &interfaces_sstpc{}
 
 // interfaces_sstpc defines the resource implementation.
 type interfaces_sstpc struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *interfaces_sstpc) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // interfaces_sstpcModel describes the resource data model.
@@ -46,23 +70,51 @@ type interfaces_sstpcModel struct {
 	Ssl            types.List `tfsdk:"ssl"`
 }
 
+func (m interfaces_sstpcModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"interfaces",
+		"sstpc",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"description":            m.Description,
+		"disable":                m.Disable,
+		"no_default_route":       m.No_default_route,
+		"default_route_distance": m.Default_route_distance,
+		"no_peer_dns":            m.No_peer_dns,
+		"mtu":                    m.Mtu,
+		"server":                 m.Server,
+		"port":                   m.Port,
+		"vrf":                    m.Vrf,
+
+		// TagNodes
+
+		// Nodes
+		"authentication": m.Authentication,
+		"ssl":            m.Ssl,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *interfaces_sstpc) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_interfaces_sstpc"
+func (r interfaces_sstpc) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_interfaces_sstpc"
+	resp.TypeName = r.ResourceName
 }
 
 // interfaces_sstpcResource method to return the example resource reference
 func interfaces_sstpcResource() resource.Resource {
-	return &interfaces_sstpc{
-		vyosPath: []string{
-			"interfaces",
-			"sstpc",
-		},
-	}
+	return &interfaces_sstpc{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *interfaces_sstpc) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r interfaces_sstpc) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: ``,
@@ -233,8 +285,11 @@ func (r *interfaces_sstpc) Schema(ctx context.Context, req resource.SchemaReques
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *interfaces_sstpc) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *interfaces_sstpcModel
+func (r interfaces_sstpc) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -243,17 +298,26 @@ func (r *interfaces_sstpc) Create(ctx context.Context, req resource.CreateReques
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -264,7 +328,7 @@ func (r *interfaces_sstpc) Create(ctx context.Context, req resource.CreateReques
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *interfaces_sstpc) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r interfaces_sstpc) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *interfaces_sstpcModel
 
 	// Read Terraform prior state data into the model
@@ -287,7 +351,7 @@ func (r *interfaces_sstpc) Read(ctx context.Context, req resource.ReadRequest, r
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *interfaces_sstpc) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r interfaces_sstpc) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *interfaces_sstpcModel
 
 	// Read Terraform plan data into the model
@@ -310,7 +374,7 @@ func (r *interfaces_sstpc) Update(ctx context.Context, req resource.UpdateReques
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *interfaces_sstpc) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r interfaces_sstpc) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *interfaces_sstpcModel
 
 	// Read Terraform prior state data into the model

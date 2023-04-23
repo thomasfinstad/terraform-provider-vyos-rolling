@@ -4,13 +4,17 @@ package resourcefull
 
 import (
 	"context"
-	"net/http"
+	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringdefault"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -20,8 +24,28 @@ var _ resource.Resource = &interfaces_bridge{}
 
 // interfaces_bridge defines the resource implementation.
 type interfaces_bridge struct {
-	client   *http.Client
-	vyosPath []string
+	ResourceName string
+	client       *client.Client
+}
+
+func (r *interfaces_bridge) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
+	// Prevent panic if the provider has not been configured.
+	if req.ProviderData == nil {
+		return
+	}
+
+	client, ok := req.ProviderData.(*client.Client)
+
+	if !ok {
+		resp.Diagnostics.AddError(
+			"Unexpected Resource Configure Type",
+			fmt.Sprintf("Expected *client.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+		)
+
+		return
+	}
+
+	r.client = client
 }
 
 // interfaces_bridgeModel describes the resource data model.
@@ -58,23 +82,63 @@ type interfaces_bridgeModel struct {
 	Member           types.List `tfsdk:"member"`
 }
 
+func (m interfaces_bridgeModel) GetValues() (vyosPath []string, values map[string]attr.Value) {
+
+	vyosPath = []string{
+		"interfaces",
+		"bridge",
+
+		m.ID.ValueString(),
+	}
+
+	values = map[string]attr.Value{
+
+		// LeafNodes
+		"address":             m.Address,
+		"aging":               m.Aging,
+		"description":         m.Description,
+		"disable_link_detect": m.Disable_link_detect,
+		"disable":             m.Disable,
+		"vrf":                 m.Vrf,
+		"mtu":                 m.Mtu,
+		"forwarding_delay":    m.Forwarding_delay,
+		"hello_time":          m.Hello_time,
+		"mac":                 m.Mac,
+		"enable_vlan":         m.Enable_vlan,
+		"max_age":             m.Max_age,
+		"priority":            m.Priority,
+		"stp":                 m.Stp,
+		"redirect":            m.Redirect,
+
+		// TagNodes
+		"vif": m.Vif,
+
+		// Nodes
+		"dhcp_options":   m.Dhcp_options,
+		"dhcpv6_options": m.Dhcpvsix_options,
+		"igmp":           m.Igmp,
+		"ip":             m.Ip,
+		"ipv6":           m.Ipvsix,
+		"mirror":         m.Mirror,
+		"member":         m.Member,
+	}
+
+	return vyosPath, values
+}
+
 // Metadata method to define the resource type name.
-func (r *interfaces_bridge) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_interfaces_bridge"
+func (r interfaces_bridge) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	r.ResourceName = req.ProviderTypeName + "_interfaces_bridge"
+	resp.TypeName = r.ResourceName
 }
 
 // interfaces_bridgeResource method to return the example resource reference
 func interfaces_bridgeResource() resource.Resource {
-	return &interfaces_bridge{
-		vyosPath: []string{
-			"interfaces",
-			"bridge",
-		},
-	}
+	return &interfaces_bridge{}
 }
 
 // Schema method to define the schema for any resource configuration, plan, and state data.
-func (r *interfaces_bridge) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+func (r interfaces_bridge) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: ``,
@@ -1297,8 +1361,11 @@ func (r *interfaces_bridge) Schema(ctx context.Context, req resource.SchemaReque
 }
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r *interfaces_bridge) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var data *interfaces_bridgeModel
+func (r interfaces_bridge) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+
+	ctx = context.WithValue(ctx, "crud_func", "Create")
+
+	var data *firewall_nameModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
@@ -1307,17 +1374,26 @@ func (r *interfaces_bridge) Create(ctx context.Context, req resource.CreateReque
 		return
 	}
 
+	// Create vyos api ops
+	vyosOps := helpers.FromTerraformToVyos(ctx, data)
+	for _, ops := range vyosOps {
+		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
+	}
+
 	// If applicable, this is a great opportunity to initialize any necessary
 	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create example, got error: %s", err))
-	//     return
-	// }
+	r.client.StageSet(ctx, vyosOps)
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
 
-	// For the purposes of this example code, hardcoding a response value to
-	// save into the Terraform state.
-	data.ID = types.StringValue("example-id")
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
@@ -1328,7 +1404,7 @@ func (r *interfaces_bridge) Create(ctx context.Context, req resource.CreateReque
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
-func (r *interfaces_bridge) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+func (r interfaces_bridge) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *interfaces_bridgeModel
 
 	// Read Terraform prior state data into the model
@@ -1351,7 +1427,7 @@ func (r *interfaces_bridge) Read(ctx context.Context, req resource.ReadRequest, 
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r *interfaces_bridge) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+func (r interfaces_bridge) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var data *interfaces_bridgeModel
 
 	// Read Terraform plan data into the model
@@ -1374,7 +1450,7 @@ func (r *interfaces_bridge) Update(ctx context.Context, req resource.UpdateReque
 }
 
 // Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r *interfaces_bridge) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+func (r interfaces_bridge) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	var data *interfaces_bridgeModel
 
 	// Read Terraform prior state data into the model
