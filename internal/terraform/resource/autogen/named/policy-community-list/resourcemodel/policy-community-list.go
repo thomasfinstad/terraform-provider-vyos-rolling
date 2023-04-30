@@ -32,6 +32,7 @@ func (o PolicyCommunityList) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o PolicyCommunityList) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Community-list rule number  |
+
 `,
 		},
 

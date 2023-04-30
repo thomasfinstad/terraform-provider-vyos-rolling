@@ -33,6 +33,7 @@ func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-65535  |  Source host port  |
 |  start-end  |  Source host port range (e.g. 10025-10030)  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-65535  |  Destination container port  |
 |  start-end  |  Destination container port range (e.g. 10025-10030)  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  tcp  |  Use Transmission Control Protocol for given port  |
 |  udp  |  Use User Datagram Protocol for given port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`tcp`),

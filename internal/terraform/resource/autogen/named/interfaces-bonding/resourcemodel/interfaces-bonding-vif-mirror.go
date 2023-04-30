@@ -31,6 +31,7 @@ func (o InterfacesBondingVifMirror) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesBondingVifMirror) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 

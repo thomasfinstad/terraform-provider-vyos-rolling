@@ -31,6 +31,7 @@ func (o ServiceConntrackSyncInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address to listen for incoming connections  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ServiceConntrackSyncInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

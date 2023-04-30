@@ -39,6 +39,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

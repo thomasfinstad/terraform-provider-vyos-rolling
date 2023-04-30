@@ -46,6 +46,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%  |  Percentage of interface link speed  |
+
 `,
 		},
 
@@ -58,6 +59,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  <number>  |  Bytes  |
 |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`15k`),
@@ -77,6 +79,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
 |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
 |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+
 `,
 		},
 
@@ -88,6 +91,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1514`),
@@ -102,6 +106,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65536  |  Number of flows  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1024`),
@@ -116,6 +121,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -130,6 +136,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-7  |  Priority order for bandwidth pool  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`20`),
@@ -144,6 +151,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Queue size in packets  |
+
 `,
 		},
 
@@ -159,6 +167,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  fq-codel  |  Fair Queue Codel  |
 |  priority  |  Priority queuing  |
 |  random-detect  |  Random Early Detection (RED)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`fq-codel`),
@@ -204,6 +213,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  CS6  |  Network control  |
 |  CS7  |    |
 |  EF  |  Expedited Forwarding  |
+
 `,
 		},
 
@@ -215,6 +225,7 @@ func (o QosPolicyShaperDefault) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Queue delay in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

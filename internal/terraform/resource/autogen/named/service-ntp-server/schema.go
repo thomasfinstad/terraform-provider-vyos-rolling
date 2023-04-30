@@ -21,6 +21,7 @@ Network Time Protocol (NTP) server
 |  ipv4  |  IP address of NTP server  |
 |  ipv6  |  IPv6 address of NTP server  |
 |  hostname  |  Fully qualified domain name of NTP server  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

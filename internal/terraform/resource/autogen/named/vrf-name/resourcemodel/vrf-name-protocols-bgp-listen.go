@@ -32,6 +32,7 @@ func (o VrfNameProtocolsBgpListen) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-5000  |  BGP neighbor limit  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o VrfNameProtocolsBgpListen) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4net  |  IPv4 dynamic neighbors listen range  |
 |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+
 `,
 		},
 

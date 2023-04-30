@@ -30,6 +30,7 @@ func (o ProtocolsNhrpTunnelDynamicMap) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  <fqdn>  |  Set the external HUB fqdn  |
+
 `,
 		},
 

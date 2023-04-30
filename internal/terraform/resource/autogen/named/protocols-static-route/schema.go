@@ -21,6 +21,7 @@ Static IPv4 route
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 static route  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -22,6 +22,7 @@ RADIUS server configuration
 |----------|---------------|
 |  ipv4  |  RADIUS server IPv4 address  |
 |  ipv6  |  RADIUS server IPv6 address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

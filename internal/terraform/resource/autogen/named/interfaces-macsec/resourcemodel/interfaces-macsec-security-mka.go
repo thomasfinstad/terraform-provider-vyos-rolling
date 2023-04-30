@@ -32,6 +32,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  16-byte (128-bit) hex-string (32 hex-digits) for gcm-aes-128 or 32-byte (256-bit) hex-string (64 hex-digits) for gcm-aes-256  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  1..32-bytes (8..256 bit) hex-string (2..64 hex-digits)  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  MACsec Key Agreement protocol (MKA) priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`255`),

@@ -31,6 +31,7 @@ func (o FirewallIPvsixNameRuleRecent) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Source addresses seen more than N times  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o FirewallIPvsixNameRuleRecent) ResourceAttributes() map[string]schema.Att
 |  second  |  Source addresses seen COUNT times in the last second  |
 |  minute  |  Source addresses seen COUNT times in the last minute  |
 |  hour  |  Source addresses seen COUNT times in the last hour  |
+
 `,
 		},
 

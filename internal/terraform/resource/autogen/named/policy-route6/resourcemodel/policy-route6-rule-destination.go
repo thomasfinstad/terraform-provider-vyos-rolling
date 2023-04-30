@@ -38,6 +38,7 @@ func (o PolicyRoutesixRuleDestination) ResourceAttributes() map[string]schema.At
 |  !ipv6  |  Match everything except the specified address  |
 |  !ipv6net  |  Match everything except the specified prefix  |
 |  !ipv6range  |  Match everything except the specified range  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o PolicyRoutesixRuleDestination) ResourceAttributes() map[string]schema.At
 |  u32:1-65535  |  Numbered port  |
 |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
 |     |  \n\n  Multiple destination ports can be specified as a comma-separated list.\n  For example: 'telnet,http,123,1001-1005'  |
+
 `,
 		},
 

@@ -68,6 +68,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceAttributes() map[string]sche
 |----------|---------------|
 |  u32  |  Time in seconds that the prefix will remain preferred  |
 |  infinity  |  Prefix will remain preferred forever  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`14400`),
@@ -83,6 +84,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceAttributes() map[string]sche
 |----------|---------------|
 |  u32:1-4294967295  |  Time in seconds that the prefix will remain valid  |
 |  infinity  |  Prefix will remain preferred forever  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`2592000`),

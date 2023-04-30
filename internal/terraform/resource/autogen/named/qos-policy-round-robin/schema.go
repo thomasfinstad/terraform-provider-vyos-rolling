@@ -21,6 +21,7 @@ Deficit Round Robin Scheduler
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

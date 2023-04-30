@@ -40,6 +40,7 @@ func (o ProtocolsNhrpTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Pass phrase for cisco authentication  |
+
 `,
 		},
 
@@ -103,6 +104,7 @@ func (o ProtocolsNhrpTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Set the IP address and prefix length  |
+
 `,
 		},
 

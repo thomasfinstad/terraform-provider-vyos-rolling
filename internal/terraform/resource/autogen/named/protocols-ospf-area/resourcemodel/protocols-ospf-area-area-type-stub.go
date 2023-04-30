@@ -31,6 +31,7 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Summary default cost  |
+
 `,
 		},
 

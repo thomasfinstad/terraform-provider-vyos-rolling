@@ -40,6 +40,7 @@ func (o ProtocolsStaticRoutesixInterface) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o ProtocolsStaticRoutesixInterface) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
+
 `,
 		},
 

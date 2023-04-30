@@ -19,6 +19,7 @@ UPnP Rule
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Rule number  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -50,6 +50,7 @@ func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1812`),
@@ -64,6 +65,7 @@ func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-30  |  Session timeout in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`2`),
@@ -78,6 +80,7 @@ func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Server priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`255`),

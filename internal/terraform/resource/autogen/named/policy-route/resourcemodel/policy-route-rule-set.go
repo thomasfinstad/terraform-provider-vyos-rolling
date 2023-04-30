@@ -34,6 +34,7 @@ func (o PolicyRouteRuleSet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  Connection marking  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o PolicyRouteRuleSet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-63  |  DSCP number  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o PolicyRouteRuleSet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Packet marking  |
+
 `,
 		},
 
@@ -68,6 +71,7 @@ func (o PolicyRouteRuleSet) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-200  |  Table number  |
 |  main  |  Main table  |
+
 `,
 		},
 
@@ -79,6 +83,7 @@ func (o PolicyRouteRuleSet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:500-1460  |  Explicitly set TCP MSS value  |
+
 `,
 		},
 

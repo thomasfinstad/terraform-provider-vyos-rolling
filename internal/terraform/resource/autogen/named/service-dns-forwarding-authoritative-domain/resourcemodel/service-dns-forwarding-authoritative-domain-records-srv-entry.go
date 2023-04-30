@@ -33,6 +33,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  name.example.com  |  An absolute DNS name  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  TCP/UDP port number  |
+
 `,
 		},
 
@@ -55,6 +57,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Entry priority (lower numbers are higher priority)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -69,6 +72,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSrvEntry) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Entry weight  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

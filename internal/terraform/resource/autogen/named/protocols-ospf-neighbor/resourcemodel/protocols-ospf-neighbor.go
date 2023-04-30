@@ -31,6 +31,7 @@ func (o ProtocolsOspfNeighbor) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`60`),
@@ -45,6 +46,7 @@ func (o ProtocolsOspfNeighbor) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Neighbor priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

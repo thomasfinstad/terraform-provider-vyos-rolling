@@ -50,6 +50,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceAttributes() map[string
 |  Format  |  Description  |
 |----------|---------------|
 |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+
 `,
 		},
 

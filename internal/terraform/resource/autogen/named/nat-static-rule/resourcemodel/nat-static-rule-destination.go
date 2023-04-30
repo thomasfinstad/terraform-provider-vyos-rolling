@@ -31,6 +31,7 @@ func (o NatStaticRuleDestination) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
+
 `,
 		},
 

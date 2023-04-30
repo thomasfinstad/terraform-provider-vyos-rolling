@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Peer-group name  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o VrfNameProtocolsBgpNeighborInterfaceVsixonly) ResourceAttributes() map[s
 |  u32:1-4294967294  |  Neighbor AS number  |
 |  external  |  Any AS different from the local AS  |
 |  internal  |  Neighbor AS number  |
+
 `,
 		},
 

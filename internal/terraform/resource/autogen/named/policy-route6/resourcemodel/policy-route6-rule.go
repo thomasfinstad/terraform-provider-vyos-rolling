@@ -56,6 +56,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |  reject  |  Reject matching entries  |
 |  return  |  Return from the current chain and continue at the next rule of the last chain  |
 |  drop  |  Drop matching entries  |
+
 `,
 		},
 
@@ -67,6 +68,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -87,6 +89,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  enable  |  Enable log  |
 |  disable  |  Disable log  |
+
 `,
 		},
 
@@ -101,6 +104,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |  tcp_udp  |  Both TCP and UDP  |
 |  0-255  |  IP protocol number  |
 |  !<protocol>  |  IP protocol number  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`all`),
@@ -116,6 +120,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0-63  |  DSCP value to match  |
 |  <start-end>  |  DSCP range to match  |
+
 `,
 		},
 
@@ -128,6 +133,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0-63  |  DSCP value not to match  |
 |  <start-end>  |  DSCP range not to match  |
+
 `,
 		},
 
@@ -140,6 +146,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-65535  |  Packet length to match  |
 |  <start-end>  |  Packet length range to match  |
+
 `,
 		},
 
@@ -152,6 +159,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-65535  |  Packet length not to match  |
 |  <start-end>  |  Packet length range not to match  |
+
 `,
 		},
 
@@ -166,6 +174,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |  host  |  Match host packet type, addressed to local host  |
 |  multicast  |  Match multicast packet type  |
 |  other  |  Match packet addressed to another host  |
+
 `,
 		},
 
@@ -177,6 +186,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  Connection-mark to match  |
+
 `,
 		},
 

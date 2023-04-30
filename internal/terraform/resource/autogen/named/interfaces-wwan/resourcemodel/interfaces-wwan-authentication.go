@@ -31,6 +31,7 @@ func (o InterfacesWwanAuthentication) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesWwanAuthentication) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Password  |
+
 `,
 		},
 

@@ -31,6 +31,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixConnectedLevelOne) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Default metric value  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsixConnectedLevelOne) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

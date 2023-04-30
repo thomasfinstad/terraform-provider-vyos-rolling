@@ -62,6 +62,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  level-1  |  Act as a station router  |
 |  level-1-2  |  Act as both a station and an area router  |
 |  level-2  |  Act as an area router  |
+
 `,
 		},
 
@@ -81,6 +82,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-120  |  Minimum interval in seconds  |
+
 `,
 		},
 
@@ -92,6 +94,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:128-4352  |  Maximum size of generated LSPs  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1497`),
@@ -106,6 +109,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65235  |  LSP refresh interval in seconds  |
+
 `,
 		},
 
@@ -117,6 +121,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:350-65535  |  LSP lifetime in seconds  |
+
 `,
 		},
 
@@ -130,6 +135,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  narrow  |  Use old style of TLVs with narrow metric  |
 |  transition  |  Send and accept both styles of TLVs during transition  |
 |  wide  |  Use new style of TLVs to carry wider metric  |
+
 `,
 		},
 
@@ -141,6 +147,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
+
 `,
 		},
 
@@ -176,6 +183,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-120  |  Interval in seconds  |
+
 `,
 		},
 
@@ -187,6 +195,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

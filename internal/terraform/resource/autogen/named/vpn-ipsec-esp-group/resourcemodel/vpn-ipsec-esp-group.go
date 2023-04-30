@@ -45,6 +45,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:30-86400  |  SA lifetime in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`3600`),
@@ -59,6 +60,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1024-26843545600000  |  SA life in bytes  |
+
 `,
 		},
 
@@ -70,6 +72,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1000-26843545600000  |  SA life in packets  |
+
 `,
 		},
 
@@ -82,6 +85,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  tunnel  |  Tunnel mode  |
 |  transport  |  Transport mode  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`tunnel`),
@@ -119,6 +123,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |  dh-group31  |  Use Diffie-Hellman group 31 (curve25519)  |
 |  dh-group32  |  Use Diffie-Hellman group 32 (curve448)  |
 |  disable  |  Disable PFS  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),
@@ -137,6 +142,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  ESP group proposal number  |
+
 `,
 		},
 

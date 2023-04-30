@@ -40,6 +40,7 @@ func (o InterfacesVirtualEthernet) ResourceAttributes() map[string]schema.Attrib
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o InterfacesVirtualEthernet) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -70,6 +72,7 @@ func (o InterfacesVirtualEthernet) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -81,6 +84,7 @@ func (o InterfacesVirtualEthernet) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of peer interface  |
+
 `,
 		},
 

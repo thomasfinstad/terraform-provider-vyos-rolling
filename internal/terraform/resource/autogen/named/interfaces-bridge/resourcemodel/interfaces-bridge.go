@@ -56,6 +56,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -68,6 +69,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0  |  Disable MAC address learning (always flood)  |
 |  u32:10-1000000  |  MAC address aging time in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -82,6 +84,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -109,6 +112,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -120,6 +124,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -134,6 +139,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-200  |  Spanning Tree Protocol forwarding delay in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`14`),
@@ -148,6 +154,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Spanning Tree Protocol hello advertisement interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`2`),
@@ -162,6 +169,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -181,6 +189,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-40  |  Bridge maximum aging time in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`20`),
@@ -195,6 +204,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Bridge priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`32768`),
@@ -217,6 +227,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -232,6 +243,7 @@ func (o InterfacesBrIDge) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 

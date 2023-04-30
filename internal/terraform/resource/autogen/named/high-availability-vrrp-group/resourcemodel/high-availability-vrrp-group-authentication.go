@@ -31,6 +31,7 @@ func (o HighAvailabilityVrrpGroupAuthentication) ResourceAttributes() map[string
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Password string (up to 8 characters)  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o HighAvailabilityVrrpGroupAuthentication) ResourceAttributes() map[string
 |----------|---------------|
 |  plaintext-password  |  Simple password string  |
 |  ah  |  AH - IPSEC (not recommended)  |
+
 `,
 		},
 

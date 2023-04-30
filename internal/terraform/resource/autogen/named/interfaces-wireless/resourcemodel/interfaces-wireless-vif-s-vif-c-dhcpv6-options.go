@@ -35,6 +35,7 @@ func (o InterfacesWirelessVifSVifCDhcpvsixOptions) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  duid  |  DHCP unique identifier (DUID)  |
+
 `,
 		},
 
@@ -74,6 +75,7 @@ func (o InterfacesWirelessVifSVifCDhcpvsixOptions) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  instance number  |  Prefix delegation instance (>= 0)  |
+
 `,
 		},
 

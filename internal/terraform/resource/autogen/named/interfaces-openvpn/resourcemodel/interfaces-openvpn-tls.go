@@ -44,6 +44,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of certificate in PKI configuration  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of CA in PKI configuration  |
+
 `,
 		},
 
@@ -85,6 +87,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 |  1.1  |  TLS v1.1  |
 |  1.2  |  TLS v1.2  |
 |  1.3  |  TLS v1.3  |
+
 `,
 		},
 
@@ -97,6 +100,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  active  |  Initiate TLS negotiation actively  |
 |  passive  |  Wait for incoming TLS connection  |
+
 `,
 		},
 

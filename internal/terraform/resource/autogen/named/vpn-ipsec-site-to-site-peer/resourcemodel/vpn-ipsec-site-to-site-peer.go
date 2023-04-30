@@ -54,6 +54,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  initiate  |  Bring the connection up immediately  |
 |  respond  |  Wait for the peer to initiate the connection  |
 |  none  |  Load the connection only  |
+
 `,
 		},
 
@@ -73,6 +74,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -84,6 +86,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  DHCP interface name  |
+
 `,
 		},
 
@@ -113,6 +116,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  yes  |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
 |  no  |  Disable remote host re-authenticaton during an IKE re-key.  |
 |  inherit  |  Inherit the reauth configuration form your IKE-group  |
+
 `,
 		},
 
@@ -126,6 +130,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  ipv4  |  IPv4 address of a local interface for VPN  |
 |  ipv6  |  IPv6 address of a local interface for VPN  |
 |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+
 `,
 		},
 
@@ -140,6 +145,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  ipv6  |  IPv6 address of the remote peer  |
 |  hostname  |  Fully qualified domain name of the remote peer  |
 |  any  |  Allow any IP address of the remote peer  |
+
 `,
 		},
 
@@ -152,6 +158,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  ipv4  |  Request IPv4 address from peer  |
 |  ipv6  |  Request IPv6 address from peer  |
+
 `,
 		},
 
@@ -167,6 +174,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Peer tunnel  |
+
 `,
 		},
 

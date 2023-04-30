@@ -19,6 +19,7 @@ Failover IPv4 route
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 failover route  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

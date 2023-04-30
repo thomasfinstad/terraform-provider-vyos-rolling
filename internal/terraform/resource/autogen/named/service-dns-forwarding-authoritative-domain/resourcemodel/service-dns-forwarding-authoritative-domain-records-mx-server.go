@@ -30,6 +30,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999  |  Server priority (lower numbers are higher priority)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),

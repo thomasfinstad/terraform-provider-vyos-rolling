@@ -32,6 +32,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceAtt
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceAtt
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceAtt
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 

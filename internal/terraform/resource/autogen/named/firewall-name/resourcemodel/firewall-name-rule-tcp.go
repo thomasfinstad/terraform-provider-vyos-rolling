@@ -33,6 +33,7 @@ func (o FirewallNameRuleTCP) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:1-16384  |  Maximum segment size  |
 |  <min>-<max>  |  TCP MSS range (use '-' as delimiter)  |
+
 `,
 		},
 

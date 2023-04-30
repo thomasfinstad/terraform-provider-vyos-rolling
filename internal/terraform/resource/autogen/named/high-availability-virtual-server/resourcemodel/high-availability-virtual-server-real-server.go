@@ -33,6 +33,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceAttributes() map[string
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceAttributes() map[string
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  Connection timeout to remote server  |
+
 `,
 		},
 

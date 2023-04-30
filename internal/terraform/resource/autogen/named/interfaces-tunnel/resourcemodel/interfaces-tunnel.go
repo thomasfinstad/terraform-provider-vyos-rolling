@@ -48,6 +48,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -60,6 +61,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -87,6 +89,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:64-8024  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1476`),
@@ -102,6 +105,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  IPv4 source address  |
 |  ipv6  |  IPv6 source address  |
+
 `,
 		},
 
@@ -114,6 +118,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Tunnel remote IPv4 address  |
 |  ipv6  |  Tunnel remote IPv6 address  |
+
 `,
 		},
 
@@ -125,6 +130,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  interface  |  Interface name  |
+
 `,
 		},
 
@@ -136,6 +142,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -147,6 +154,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 prefix of interface for 6rd  |
+
 `,
 		},
 
@@ -167,6 +175,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  ipip  |  IPv4 in IPv4 encapsulation  |
 |  ipip6  |  IPv4 in IP6 encapsulation  |
 |  sit  |  Simple Internet Transition (IPv6 in IPv4)  |
+
 `,
 		},
 
@@ -186,6 +195,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -197,6 +207,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 

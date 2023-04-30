@@ -37,6 +37,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]s
 |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
 |  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
 |  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+
 `,
 		},
 

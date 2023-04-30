@@ -40,6 +40,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:5-100  |  Time (seconds) to advertise self as stub-router  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:5-86400  |  Time (seconds) to advertise self as stub-router  |
+
 `,
 		},
 

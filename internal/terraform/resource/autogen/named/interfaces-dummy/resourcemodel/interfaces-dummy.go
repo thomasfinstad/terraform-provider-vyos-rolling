@@ -41,6 +41,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -71,6 +73,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -85,6 +88,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  text  |  Network namespace name  |
+
 `,
 		},
 
@@ -96,6 +100,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -107,6 +112,7 @@ func (o InterfacesDummy) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

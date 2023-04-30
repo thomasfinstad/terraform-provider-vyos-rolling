@@ -35,6 +35,7 @@ func (o InterfacesMacsecSecURIty) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  gcm-aes-128  |  Galois/Counter Mode of AES cipher with 128-bit key  |
 |  gcm-aes-256  |  Galois/Counter Mode of AES cipher with 256-bit key  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o InterfacesMacsecSecURIty) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  u32:0  |  No replay window, strict check  |
 |  u32:1-4294967295  |  Number of packets that could be misordered  |
+
 `,
 		},
 

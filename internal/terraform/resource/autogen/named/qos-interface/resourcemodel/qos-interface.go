@@ -31,6 +31,7 @@ func (o QosInterface) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  QoS policy to use  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o QosInterface) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  QoS policy to use  |
+
 `,
 		},
 

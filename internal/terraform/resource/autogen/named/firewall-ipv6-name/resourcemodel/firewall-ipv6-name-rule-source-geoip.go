@@ -31,6 +31,7 @@ func (o FirewallIPvsixNameRuleSourceGeoIP) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  <country>  |  Country code (2 characters)  |
+
 `,
 		},
 

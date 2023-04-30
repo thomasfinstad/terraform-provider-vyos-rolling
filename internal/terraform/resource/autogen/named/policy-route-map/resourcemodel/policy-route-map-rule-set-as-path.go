@@ -32,6 +32,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  AS number  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  AS number  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of times to insert  |
+
 `,
 		},
 

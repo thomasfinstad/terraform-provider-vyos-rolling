@@ -34,6 +34,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schem
 |  hold  |  Attempt to re-negotiate the connection when matching traffic is seen  |
 |  clear  |  Remove the connection immediately  |
 |  restart  |  Attempt to re-negotiate the connection immediately  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`clear`),
@@ -48,6 +49,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-86400  |  Keep-alive interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`30`),
@@ -62,6 +64,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-86400  |  Keep-alive timeout in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`120`),

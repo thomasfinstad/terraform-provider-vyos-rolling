@@ -32,6 +32,7 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Summary default cost  |
+
 `,
 		},
 
@@ -53,6 +54,7 @@ func (o ProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]schema.At
 |  always  |  Always translate LSA types  |
 |  candidate  |  Translate for election  |
 |  never  |  Never translate LSA types  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`candidate`),

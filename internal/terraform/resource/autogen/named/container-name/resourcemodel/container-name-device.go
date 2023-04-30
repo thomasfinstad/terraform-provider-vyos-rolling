@@ -31,6 +31,7 @@ func (o ContainerNameDevice) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Source device  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ContainerNameDevice) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination container device  |
+
 `,
 		},
 

@@ -30,6 +30,7 @@ func (o ServicePppoeServerPadoDelay) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number of sessions  |
+
 `,
 		},
 

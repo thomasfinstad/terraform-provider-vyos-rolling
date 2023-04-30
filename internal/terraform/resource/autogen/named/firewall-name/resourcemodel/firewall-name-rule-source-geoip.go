@@ -31,6 +31,7 @@ func (o FirewallNameRuleSourceGeoIP) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  <country>  |  Country code (2 characters)  |
+
 `,
 		},
 

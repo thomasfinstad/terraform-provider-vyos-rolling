@@ -20,6 +20,7 @@ sFlow destination server
 |----------|---------------|
 |  ipv4  |  IPv4 server to export sFlow  |
 |  ipv6  |  IPv6 server to export sFlow  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

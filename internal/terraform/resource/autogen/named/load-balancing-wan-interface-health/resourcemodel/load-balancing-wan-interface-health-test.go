@@ -34,6 +34,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-30  |  Response time (seconds)  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Health target address  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Script in /config/scripts  |
+
 `,
 		},
 
@@ -67,6 +70,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-254  |  Number of hops  |
+
 `,
 		},
 
@@ -80,6 +84,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 |  ping  |  Test with ICMP echo response  |
 |  ttl  |  Test with UDP TTL expired response  |
 |  user-defined  |  User-defined test script  |
+
 `,
 		},
 

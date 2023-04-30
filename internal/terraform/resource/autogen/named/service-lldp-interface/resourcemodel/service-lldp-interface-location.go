@@ -32,6 +32,7 @@ func (o ServiceLldpInterfaceLocation) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-9999999999  |  Emergency Call Service ELIN number (between 10-25 numbers)  |
+
 `,
 		},
 

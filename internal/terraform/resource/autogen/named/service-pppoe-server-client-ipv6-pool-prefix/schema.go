@@ -21,6 +21,7 @@ Pool of addresses used to assign to clients
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

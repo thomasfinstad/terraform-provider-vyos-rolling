@@ -37,6 +37,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%  |  Percentage of interface link speed  |
+
 `,
 		},
 
@@ -65,6 +67,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Time in milliseconds  |
+
 `,
 		},
 
@@ -76,6 +79,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Percentage of packets affected  |
+
 `,
 		},
 
@@ -87,6 +91,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Percentage of packets affected  |
+
 `,
 		},
 
@@ -98,6 +103,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Percentage of packets affected  |
+
 `,
 		},
 
@@ -109,6 +115,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Percentage of packets affected  |
+
 `,
 		},
 
@@ -120,6 +127,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Queue size in packets  |
+
 `,
 		},
 

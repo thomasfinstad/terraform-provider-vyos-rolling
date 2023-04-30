@@ -32,6 +32,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Time in milliseconds  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema
 |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
 |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
 |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100%%`),
@@ -67,6 +69,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema
 |  <number>ibit  |  kibit(1024), mibit(1024^2), gibit(1024^3), tbit(1024^4)  |
 |  <number>ibps  |  kibps(1024&8), mibps(1024^2&8), gibps, tibps - Byte/sec  |
 |  <number>bps  |  bps(8),kbps(8&10^3),mbps(8&10^6), gbps, tbps - Byte/sec  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100%%`),

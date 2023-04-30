@@ -21,6 +21,7 @@ Weighted Random Early Detect policy
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

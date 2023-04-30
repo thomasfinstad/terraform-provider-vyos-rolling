@@ -30,6 +30,7 @@ func (o ServiceSnmpListenAddress) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`161`),

@@ -17,6 +17,7 @@ func (r interfacesLoopback) Schema(ctx context.Context, req resource.SchemaReque
 |  Format  |  Description  |
 |----------|---------------|
 |  lo  |  Loopback interface  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

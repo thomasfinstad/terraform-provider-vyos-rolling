@@ -41,6 +41,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 subnet mask  |
+
 `,
 		},
 

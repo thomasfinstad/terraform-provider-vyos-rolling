@@ -30,6 +30,7 @@ func (o InterfacesWirelessSecURItyWep) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Wired Equivalent Privacy key  |
+
 `,
 		},
 

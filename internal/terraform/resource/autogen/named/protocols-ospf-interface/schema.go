@@ -19,6 +19,7 @@ Interface configuration
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

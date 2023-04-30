@@ -30,6 +30,7 @@ func (o PolicyLocalRouteRuleSet) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-200  |  Table number  |
+
 `,
 		},
 

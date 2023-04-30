@@ -33,6 +33,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of attempts  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`3`),
@@ -47,6 +48,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:15-600  |  Time interval  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`30`),
@@ -61,6 +63,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-21  |  Window size  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`3`),
@@ -75,6 +78,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Base32 encoded key/token  |
+
 `,
 		},
 

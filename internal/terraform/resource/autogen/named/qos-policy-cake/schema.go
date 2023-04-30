@@ -21,6 +21,7 @@ Common Applications Kept Enhanced (CAKE)
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

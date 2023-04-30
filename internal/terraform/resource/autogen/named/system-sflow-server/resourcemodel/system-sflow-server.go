@@ -30,6 +30,7 @@ func (o SystemSflowServer) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`6343`),

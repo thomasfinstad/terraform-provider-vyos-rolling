@@ -35,6 +35,7 @@ func (o InterfacesPseudoEthernetVifDhcpvsixOptions) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  duid  |  DHCP unique identifier (DUID)  |
+
 `,
 		},
 
@@ -74,6 +75,7 @@ func (o InterfacesPseudoEthernetVifDhcpvsixOptions) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  instance number  |  Prefix delegation instance (>= 0)  |
+
 `,
 		},
 

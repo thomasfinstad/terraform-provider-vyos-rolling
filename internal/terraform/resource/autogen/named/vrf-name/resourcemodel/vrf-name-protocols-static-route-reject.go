@@ -31,6 +31,7 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsStaticRouteReject) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Tag value for this route  |
+
 `,
 		},
 

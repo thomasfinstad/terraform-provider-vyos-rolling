@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastDefaultOriginate)
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

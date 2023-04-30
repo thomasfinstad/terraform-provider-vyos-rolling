@@ -30,6 +30,7 @@ func (o InterfacesSstpcSsl) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of CA in PKI configuration  |
+
 `,
 		},
 

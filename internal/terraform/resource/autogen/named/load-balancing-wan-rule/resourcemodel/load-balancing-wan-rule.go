@@ -40,6 +40,7 @@ func (o LoadBalancingWanRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description for this rule  |
+
 `,
 		},
 
@@ -87,6 +88,7 @@ func (o LoadBalancingWanRule) ResourceAttributes() map[string]schema.Attribute {
 |  u32:0-255  |  IP protocol number  |
 |  <protocol>  |  IP protocol name  |
 |  !<protocol>  |  IP protocol name  |
+
 `,
 		},
 

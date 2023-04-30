@@ -37,9 +37,9 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 |  drop  |  Drop if no prior rules are hit  |
 |  jump  |  Jump to another chain if no prior rules are hit  |
 |  reject  |  Drop and notify source if no prior rules are hit  |
-|  return  |  Return from the current chain and continue at the next rule of the last
-                  chain  |
+|  return  |  Return from the current chain and continue at the next rule of the last                   chain  |
 |  accept  |  Accept if no prior rules are hit  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`drop`),
@@ -62,6 +62,7 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -86,6 +87,7 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number for this Firewall rule  |
+
 `,
 		},
 

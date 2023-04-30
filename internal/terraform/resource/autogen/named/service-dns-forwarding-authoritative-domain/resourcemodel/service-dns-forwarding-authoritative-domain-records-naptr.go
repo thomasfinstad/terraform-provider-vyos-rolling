@@ -33,6 +33,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  TTL in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -59,6 +60,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Rule number  |
+
 `,
 		},
 

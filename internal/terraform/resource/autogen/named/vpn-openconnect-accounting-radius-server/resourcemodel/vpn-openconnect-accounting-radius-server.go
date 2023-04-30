@@ -48,6 +48,7 @@ func (o VpnOpenconnectAccountingRadiusServer) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1813`),

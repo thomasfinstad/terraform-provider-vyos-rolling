@@ -35,6 +35,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-128  |  Netmask greater than length  |
+
 `,
 		},
 
@@ -68,6 +71,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-128  |  Netmask less than length  |
+
 `,
 		},
 
@@ -79,6 +83,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 prefix  |
+
 `,
 		},
 

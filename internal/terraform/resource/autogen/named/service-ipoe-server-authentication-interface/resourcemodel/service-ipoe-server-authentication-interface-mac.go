@@ -32,6 +32,7 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4094  |  Client VLAN id  |
+
 `,
 		},
 

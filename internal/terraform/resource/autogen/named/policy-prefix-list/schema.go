@@ -19,6 +19,7 @@ IP prefix-list filter
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

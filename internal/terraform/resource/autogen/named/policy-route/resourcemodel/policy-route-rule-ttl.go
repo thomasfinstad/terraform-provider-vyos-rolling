@@ -32,6 +32,7 @@ func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Equal to value  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Greater then value  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Less then value  |
+
 `,
 		},
 

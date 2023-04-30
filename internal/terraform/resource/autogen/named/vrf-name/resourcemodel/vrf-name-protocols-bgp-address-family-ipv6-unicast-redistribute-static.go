@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic) Resourc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Metric for redistributed routes  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeStatic) Resourc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

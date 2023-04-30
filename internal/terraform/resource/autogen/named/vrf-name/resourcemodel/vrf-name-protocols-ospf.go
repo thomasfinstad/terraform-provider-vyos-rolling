@@ -49,6 +49,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  Metric of redistributed routes  |
+
 `,
 		},
 
@@ -60,6 +61,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-64  |  Maximum multiple paths (ECMP)  |
+
 `,
 		},
 
@@ -71,6 +73,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  default  |  Default to suppress routing updates on all interfaces  |
+
 `,
 		},
 
@@ -82,6 +85,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -97,6 +101,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access-list number  |
+
 `,
 		},
 
@@ -111,6 +116,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32  |  OSPF area number in decimal notation  |
 |  ipv4  |  OSPF area number in dotted decimal notation  |
+
 `,
 		},
 
@@ -124,6 +130,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -137,6 +144,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Neighbor IP address  |
+
 `,
 		},
 

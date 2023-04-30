@@ -31,6 +31,7 @@ func (o ProtocolsBfdPeerSource) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ProtocolsBfdPeerSource) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  ipv4  |  Local IPv4 address used to connect to the peer  |
 |  ipv6  |  Local IPv6 address used to connect to the peer  |
+
 `,
 		},
 

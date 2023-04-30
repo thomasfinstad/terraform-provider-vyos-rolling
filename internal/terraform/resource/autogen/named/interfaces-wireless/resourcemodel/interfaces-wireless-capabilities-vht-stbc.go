@@ -31,6 +31,7 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  [1-4]+  |  Number of spacial streams that can use RX STBC  |
+
 `,
 		},
 

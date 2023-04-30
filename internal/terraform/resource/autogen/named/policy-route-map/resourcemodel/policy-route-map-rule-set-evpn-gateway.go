@@ -31,6 +31,7 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Gateway IPv4 address  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Gateway IPv6 address  |
+
 `,
 		},
 

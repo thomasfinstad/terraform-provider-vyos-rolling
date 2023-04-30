@@ -34,6 +34,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 |----------|---------------|
 |  0  |  No altitude  |
 |  [+-]<meters>  |  Altitude in meters  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -50,6 +51,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 |  WGS84  |  WGS84  |
 |  NAD83  |  NAD83  |
 |  MLLW  |  NAD83/MLLW  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`WGS84`),
@@ -64,6 +66,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  <latitude>  |  Latitude (example "37.524449N")  |
+
 `,
 		},
 
@@ -75,6 +78,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  <longitude>  |  Longitude (example "122.267255W")  |
+
 `,
 		},
 

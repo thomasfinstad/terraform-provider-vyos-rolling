@@ -50,6 +50,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -61,6 +62,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -97,6 +99,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Multicast IPv4 group address  |
 |  ipv6  |  Multicast IPv6 group address  |
+
 `,
 		},
 
@@ -108,6 +111,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -119,6 +123,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1200-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1450`),
@@ -133,6 +138,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`8472`),
@@ -148,6 +154,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  IPv4 source address  |
 |  ipv6  |  IPv6 source address  |
+
 `,
 		},
 
@@ -159,6 +166,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  interface  |  Interface name  |
+
 `,
 		},
 
@@ -171,6 +179,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Tunnel remote IPv4 address  |
 |  ipv6  |  Tunnel remote IPv6 address  |
+
 `,
 		},
 
@@ -182,6 +191,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -193,6 +203,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -204,6 +215,7 @@ func (o InterfacesVxlan) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  VXLAN virtual network identifier  |
+
 `,
 		},
 

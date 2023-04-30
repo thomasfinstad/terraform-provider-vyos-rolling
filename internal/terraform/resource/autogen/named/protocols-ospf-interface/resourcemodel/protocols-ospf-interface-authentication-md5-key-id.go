@@ -30,6 +30,7 @@ func (o ProtocolsOspfInterfaceAuthenticationMdfiveKeyID) ResourceAttributes() ma
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  MD5 Key (16 characters or less)  |
+
 `,
 		},
 

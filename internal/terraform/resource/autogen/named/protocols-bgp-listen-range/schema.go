@@ -22,6 +22,7 @@ BGP dynamic neighbors listen range
 |----------|---------------|
 |  ipv4net  |  IPv4 dynamic neighbors listen range  |
 |  ipv6net  |  IPv6 dynamic neighbors listen range  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

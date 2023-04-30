@@ -34,6 +34,7 @@ func (o InterfacesPppoeIPvsix) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
 |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+
 `,
 		},
 

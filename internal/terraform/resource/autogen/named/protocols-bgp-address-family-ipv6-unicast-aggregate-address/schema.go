@@ -23,6 +23,7 @@ BGP aggregate network
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Aggregate network  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

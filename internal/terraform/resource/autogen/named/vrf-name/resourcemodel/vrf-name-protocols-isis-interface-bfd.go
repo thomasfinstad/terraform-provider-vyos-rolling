@@ -30,6 +30,7 @@ func (o VrfNameProtocolsIsisInterfaceBfd) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

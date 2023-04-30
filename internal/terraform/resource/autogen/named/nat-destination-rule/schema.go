@@ -21,6 +21,7 @@ Rule number for NAT
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number of NAT rule  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

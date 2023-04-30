@@ -39,6 +39,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  plaintext-password  |  Use plain-text authentication  |
 |  md5  |  Use MD5 authentication  |
+
 `,
 		},
 
@@ -50,6 +51,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  OSPF network  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  default  |  Set default  |
 |  disable  |  Disable shortcutting mode  |
 |  enable  |  Enable shortcutting mode  |
+
 `,
 		},
 
@@ -74,6 +77,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access-list number  |
+
 `,
 		},
 
@@ -85,6 +89,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access-list number  |
+
 `,
 		},
 
@@ -100,6 +105,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Area range prefix  |
+
 `,
 		},
 
@@ -113,6 +119,7 @@ func (o VrfNameProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  OSPF area in dotted decimal notation  |
+
 `,
 		},
 

@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Confederation AS id  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Peer AS number  |
+
 `,
 		},
 

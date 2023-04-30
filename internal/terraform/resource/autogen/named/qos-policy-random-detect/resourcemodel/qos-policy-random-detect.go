@@ -33,6 +33,7 @@ func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute 
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%%  |  Percentage of interface link speed  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -69,6 +71,7 @@ func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-7  |  IP precedence value  |
+
 `,
 		},
 

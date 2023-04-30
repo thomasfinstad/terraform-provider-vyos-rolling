@@ -33,6 +33,7 @@ func (o ProtocolsStaticMulticastRoute) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Nexthop IPv4 address  |
+
 `,
 		},
 

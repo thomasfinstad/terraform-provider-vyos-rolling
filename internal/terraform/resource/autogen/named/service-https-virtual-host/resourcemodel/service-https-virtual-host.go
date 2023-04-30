@@ -34,6 +34,7 @@ func (o ServiceHTTPSVirtualHost) ResourceAttributes() map[string]schema.Attribut
 |  ipv4  |  HTTPS IPv4 address  |
 |  ipv6  |  HTTPS IPv6 address  |
 |  '&'  |  any  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o ServiceHTTPSVirtualHost) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

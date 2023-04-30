@@ -32,6 +32,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of certificate in PKI configuration  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Passphrase to decrypt the private key  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of CA in PKI configuration  |
+
 `,
 		},
 

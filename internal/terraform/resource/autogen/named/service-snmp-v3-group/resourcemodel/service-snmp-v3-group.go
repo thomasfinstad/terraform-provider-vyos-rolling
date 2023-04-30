@@ -33,6 +33,7 @@ func (o ServiceSnmpVthreeGroup) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  ro  |  Read-Only  |
 |  rw  |  read write  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`ro`),
@@ -49,6 +50,7 @@ func (o ServiceSnmpVthreeGroup) ResourceAttributes() map[string]schema.Attribute
 |  noauth  |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
 |  auth  |  Messages are authenticated but not encrypted (authNoPriv)  |
 |  priv  |  Messages are authenticated and encrypted (authPriv)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auth`),

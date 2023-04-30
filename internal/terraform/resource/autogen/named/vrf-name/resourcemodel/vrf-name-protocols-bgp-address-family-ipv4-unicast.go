@@ -43,6 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  BGP aggregate network  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  BGP network  |
+
 `,
 		},
 

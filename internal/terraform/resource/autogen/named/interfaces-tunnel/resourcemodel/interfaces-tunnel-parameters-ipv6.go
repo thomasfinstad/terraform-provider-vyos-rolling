@@ -34,6 +34,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  u32:0-255  |  Encapsulation limit  |
 |  none  |  Disable encapsulation limit  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`4`),
@@ -49,6 +50,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  inherit  |  Copy field from original header  |
 |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+
 `,
 		},
 
@@ -60,6 +62,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Hop limit  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),
@@ -74,6 +77,7 @@ func (o InterfacesTunnelParametersIPvsix) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  0x0-0x0fffff  |  Traffic class, 'inherit' or hex value  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`inherit`),

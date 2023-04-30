@@ -34,6 +34,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 |----------|---------------|
 |  <id>  |  VLAN id allowed to pass this interface  |
 |  <idN>-<idM>  |  VLAN id range allowed on this interface (use '-' as delimiter)  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Path cost value for Spanning Tree Protocol  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -71,6 +74,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-63  |  Bridge port priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`32`),

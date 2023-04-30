@@ -34,6 +34,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Queue size in packets  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:16-10240  |  Average packet size in bytes  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1024`),
@@ -59,6 +61,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Numeric value (1/N)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -73,6 +76,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4096  |  Maximum Threshold in packets  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`18`),
@@ -87,6 +91,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4096  |  Maximum Threshold in packets  |
+
 `,
 		},
 

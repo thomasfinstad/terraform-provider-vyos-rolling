@@ -35,6 +35,7 @@ func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

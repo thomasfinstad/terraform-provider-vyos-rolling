@@ -67,6 +67,7 @@ func (o QosPolicyShaperClassMatchIPvsix) ResourceAttributes() map[string]schema.
 |  CS6  |  Network control  |
 |  CS7  |    |
 |  EF  |  Expedited Forwarding  |
+
 `,
 		},
 
@@ -78,6 +79,7 @@ func (o QosPolicyShaperClassMatchIPvsix) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Maximum packet/payload length  |
+
 `,
 		},
 
@@ -89,6 +91,7 @@ func (o QosPolicyShaperClassMatchIPvsix) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Protocol name  |
+
 `,
 		},
 

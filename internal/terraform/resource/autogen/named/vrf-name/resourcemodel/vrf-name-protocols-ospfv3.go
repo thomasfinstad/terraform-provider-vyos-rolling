@@ -39,6 +39,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  u32  |  Area ID as a decimal value  |
 |  ipv4  |  Area ID in IP address forma  |
+
 `,
 		},
 
@@ -68,6 +70,7 @@ func (o VrfNameProtocolsOspfvthree) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface used for routing information exchange  |
+
 `,
 		},
 

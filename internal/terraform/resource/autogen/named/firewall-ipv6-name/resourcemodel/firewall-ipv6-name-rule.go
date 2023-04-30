@@ -61,10 +61,10 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  accept  |  Accept matching entries  |
 |  jump  |  Jump to another chain  |
 |  reject  |  Reject matching entries  |
-|  return  |  Return from the current chain and continue at the next rule of the
-                      last chain  |
+|  return  |  Return from the current chain and continue at the next rule of the                       last chain  |
 |  drop  |  Drop matching entries  |
 |  queue  |  Enqueue packet to userspace  |
+
 `,
 		},
 
@@ -76,6 +76,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -96,6 +97,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  enable  |  Enable log  |
 |  disable  |  Disable log  |
+
 `,
 		},
 
@@ -114,6 +116,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  notice  |  Notice log level  |
 |  info  |  Info log level  |
 |  debug  |  Debug log level  |
+
 `,
 		},
 
@@ -129,6 +132,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  u32:0-255  |  IP protocol number  |
 |  <protocol>  |  IP protocol name  |
 |  !<protocol>  |  IP protocol name  |
+
 `,
 		},
 
@@ -141,6 +145,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  u32:0-63  |  DSCP value to match  |
 |  <start-end>  |  DSCP range to match  |
+
 `,
 		},
 
@@ -153,6 +158,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  u32:0-63  |  DSCP value not to match  |
 |  <start-end>  |  DSCP range not to match  |
+
 `,
 		},
 
@@ -165,6 +171,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  u32:1-65535  |  Packet length to match  |
 |  <start-end>  |  Packet length range to match  |
+
 `,
 		},
 
@@ -177,6 +184,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  u32:1-65535  |  Packet length not to match  |
 |  <start-end>  |  Packet length range not to match  |
+
 `,
 		},
 
@@ -191,6 +199,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  host  |  Match host packet type, addressed to local host  |
 |  multicast  |  Match multicast packet type  |
 |  other  |  Match packet addressed to another host  |
+
 `,
 		},
 
@@ -202,6 +211,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  Connection-mark to match  |
+
 `,
 		},
 
@@ -221,6 +231,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Queue target  |
+
 `,
 		},
 
@@ -234,6 +245,7 @@ func (o FirewallIPvsixNameRule) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  bypass  |  Let packets go through if userspace application cannot back off  |
 |  fanout  |  Distribute packets between several queues  |
+
 `,
 		},
 

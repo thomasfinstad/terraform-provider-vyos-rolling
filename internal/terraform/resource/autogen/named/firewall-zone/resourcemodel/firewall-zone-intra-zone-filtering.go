@@ -33,6 +33,7 @@ func (o FirewallZoneIntraZoneFiltering) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  accept  |  Accept traffic  |
 |  drop  |  Drop silently  |
+
 `,
 		},
 

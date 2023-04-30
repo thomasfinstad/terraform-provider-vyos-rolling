@@ -32,6 +32,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Administrative distance for external BGP routes  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Administrative distance for internal BGP routes  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Administrative distance for internal BGP routes  |
+
 `,
 		},
 

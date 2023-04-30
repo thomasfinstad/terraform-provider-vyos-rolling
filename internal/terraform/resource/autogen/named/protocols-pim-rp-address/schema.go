@@ -21,6 +21,7 @@ Rendezvous Point address
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Rendezvous Point address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

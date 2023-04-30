@@ -32,6 +32,7 @@ func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  IPV6 access list name  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-128  |  Prefix length  |
+
 `,
 		},
 

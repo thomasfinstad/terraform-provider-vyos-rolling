@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceAttr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-256  |  Number of paths to consider  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceAttr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-256  |  Number of paths to consider  |
+
 `,
 		},
 

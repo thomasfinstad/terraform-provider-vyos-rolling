@@ -19,6 +19,7 @@ Specify neighbor router
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Neighbor IP address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

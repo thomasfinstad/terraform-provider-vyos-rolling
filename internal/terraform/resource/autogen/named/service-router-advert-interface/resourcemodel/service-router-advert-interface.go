@@ -47,6 +47,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Unspecified (by this router)  |
 |  u32:1-255  |  Value should represent current diameter of the Internet  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),
@@ -62,6 +63,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:4-9000  |  Router Lifetime in seconds  |
 |  0  |  Not a default router  |
+
 `,
 		},
 
@@ -75,6 +77,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  low  |  Default router has low preference  |
 |  medium  |  Default router has medium preference  |
 |  high  |  Default router has high preference  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`medium`),
@@ -97,6 +100,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1280-9000  |  Link MTU value in RAs  |
+
 `,
 		},
 
@@ -116,6 +120,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+
 `,
 		},
 
@@ -128,6 +133,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Name-servers should no longer be used  |
 |  u32:1-7200  |  Maximum interval in seconds  |
+
 `,
 		},
 
@@ -147,6 +153,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  IPv6 address to be advertized (must be configured on interface)  |
+
 `,
 		},
 
@@ -159,6 +166,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Reachable Time unspecified by this router  |
 |  u32:1-3600000  |  Reachable Time value in RAs (in milliseconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -174,6 +182,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Time, in milliseconds, between retransmitted Neighbor Solicitation messages  |
 |  u32:1-4294967295  |  Minimum interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -200,6 +209,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 route to be advertized  |
+
 `,
 		},
 
@@ -213,6 +223,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 prefix to be advertized  |
+
 `,
 		},
 

@@ -33,6 +33,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  OTP key in hex-encoded format  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:6-8  |  Number of digits in OTP code  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`6`),
@@ -58,6 +60,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:5-86400  |  Time tokens interval in seconds.  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`30`),
@@ -73,6 +76,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 |----------|---------------|
 |  hotp-time  |  Time-based OTP algorithm  |
 |  hotp-event  |  Event-based OTP algorithm  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`hotp-time`),

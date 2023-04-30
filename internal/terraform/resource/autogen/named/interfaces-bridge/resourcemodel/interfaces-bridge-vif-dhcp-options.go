@@ -76,6 +76,7 @@ func (o InterfacesBrIDgeVifDhcpOptions) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for the default route from DHCP server  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`210`),
@@ -91,6 +92,7 @@ func (o InterfacesBrIDgeVifDhcpOptions) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
+
 `,
 		},
 

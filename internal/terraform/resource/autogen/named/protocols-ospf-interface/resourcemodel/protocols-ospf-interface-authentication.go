@@ -32,6 +32,7 @@ func (o ProtocolsOspfInterfaceAuthentication) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (8 characters or less)  |
+
 `,
 		},
 

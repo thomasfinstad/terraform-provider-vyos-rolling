@@ -32,6 +32,7 @@ func (o QosPolicyPriorityQueueClassMatchIPSource) ResourceAttributes() map[strin
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
 |  ipv4net  |  IPv4 prefix  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o QosPolicyPriorityQueueClassMatchIPSource) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

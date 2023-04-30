@@ -32,6 +32,7 @@ func (o QosPolicyLimiterClassMatchEther) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  MAC address to match  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o QosPolicyLimiterClassMatchEther) ResourceAttributes() map[string]schema.
 |  atalk  |  Appletalk  |
 |  ipx  |  Novell Internet Packet Exchange  |
 |  802.1Q  |  802.1Q VLAN tag  |
+
 `,
 		},
 
@@ -62,6 +64,7 @@ func (o QosPolicyLimiterClassMatchEther) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  MAC address to match  |
+
 `,
 		},
 

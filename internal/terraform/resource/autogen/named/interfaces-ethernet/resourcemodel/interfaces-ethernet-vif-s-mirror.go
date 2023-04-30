@@ -31,6 +31,7 @@ func (o InterfacesEthernetVifSMirror) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesEthernetVifSMirror) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 

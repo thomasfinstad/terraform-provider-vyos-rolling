@@ -75,6 +75,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
+
 `,
 		},
 
@@ -86,6 +87,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
+
 `,
 		},
 
@@ -121,6 +123,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -132,6 +135,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixVpn) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Default weight  |
+
 `,
 		},
 

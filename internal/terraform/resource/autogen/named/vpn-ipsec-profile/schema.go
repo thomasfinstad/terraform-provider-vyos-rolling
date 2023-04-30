@@ -21,6 +21,7 @@ VPN IPsec profile
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Profile name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

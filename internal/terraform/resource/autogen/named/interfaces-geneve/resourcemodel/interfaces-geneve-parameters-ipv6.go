@@ -31,6 +31,7 @@ func (o InterfacesGeneveParametersIPvsix) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  inherit  |  Copy field from original header  |
 |  0x0-0x0fffff  |  Tunnel key, or hex value  |
+
 `,
 		},
 

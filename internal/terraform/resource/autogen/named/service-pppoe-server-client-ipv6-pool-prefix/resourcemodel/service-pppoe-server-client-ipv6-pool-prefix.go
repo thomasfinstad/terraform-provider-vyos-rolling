@@ -30,6 +30,7 @@ func (o ServicePppoeServerClientIPvsixPoolPrefix) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:48-128  |  Client prefix length  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),

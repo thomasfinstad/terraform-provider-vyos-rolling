@@ -19,6 +19,7 @@ IPv6 access-list filter
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 access-list  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

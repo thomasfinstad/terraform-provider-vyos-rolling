@@ -32,6 +32,7 @@ func (o FirewallGroupMacGroup) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o FirewallGroupMacGroup) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  MAC address to match  |
+
 `,
 		},
 

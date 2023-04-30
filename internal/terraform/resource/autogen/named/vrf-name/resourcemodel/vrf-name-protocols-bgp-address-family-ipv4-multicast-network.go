@@ -39,6 +39,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

@@ -31,6 +31,7 @@ func (o ProtocolsBgpPeerGroupBfd) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

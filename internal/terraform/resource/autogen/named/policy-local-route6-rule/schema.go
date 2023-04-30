@@ -19,6 +19,7 @@ IPv6 policy local-route rule set number
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-32765  |  Local-route rule number (1-32765)  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Metric for this range  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Advertise area range as another prefix  |
+
 `,
 		},
 

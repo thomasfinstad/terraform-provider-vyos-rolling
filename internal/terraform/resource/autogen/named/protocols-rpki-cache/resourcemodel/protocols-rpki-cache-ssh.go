@@ -57,6 +57,7 @@ func (o ProtocolsRpkiCacheTCP) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username  |
+
 `,
 		},
 

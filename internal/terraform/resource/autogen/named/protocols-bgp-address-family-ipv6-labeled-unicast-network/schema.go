@@ -23,6 +23,7 @@ Import BGP network/prefix into labeled unicast IPv6 RIB
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

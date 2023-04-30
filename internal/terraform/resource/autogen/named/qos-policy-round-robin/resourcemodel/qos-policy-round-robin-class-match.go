@@ -37,6 +37,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -59,6 +61,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  FW mark to match  |
+
 `,
 		},
 
@@ -70,6 +73,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4095  |  Virtual Local Area Network (VLAN) tag   |
+
 `,
 		},
 

@@ -21,6 +21,7 @@ Rule number
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number of conntrack ignore rule  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

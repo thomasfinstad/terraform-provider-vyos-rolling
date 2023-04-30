@@ -33,6 +33,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Burst limit for matching packets  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 |  hour  |  hour  |
 |  minute  |  minute  |
 |  second  |  second  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Number of packets used for rate limit  |
+
 `,
 		},
 
@@ -69,6 +72,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  above  |  Above limit  |
 |  below  |  Below limit  |
+
 `,
 		},
 

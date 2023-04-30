@@ -23,6 +23,7 @@ Source group name
 |  Format  |  Description  |
 |----------|---------------|
 |  name  |  Name of source group  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

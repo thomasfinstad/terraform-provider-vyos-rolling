@@ -62,6 +62,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Route-reflector cluster-id  |
+
 `,
 		},
 
@@ -113,6 +114,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Minimum holdtime in seconds  |
+
 `,
 		},
 
@@ -188,6 +190,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Router-ID in IP address format  |
+
 `,
 		},
 

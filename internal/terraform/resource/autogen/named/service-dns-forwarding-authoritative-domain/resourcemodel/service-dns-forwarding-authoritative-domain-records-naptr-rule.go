@@ -38,6 +38,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Rule order (lower order is evaluated first)  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Rule preference  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -111,6 +113,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  name.example.com  |  An absolute DNS name  |
+
 `,
 		},
 

@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpListenRange) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Peer-group name  |
+
 `,
 		},
 

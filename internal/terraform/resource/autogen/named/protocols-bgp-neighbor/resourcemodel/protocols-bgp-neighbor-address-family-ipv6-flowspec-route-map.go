@@ -31,6 +31,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

@@ -36,6 +36,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Local ID used for peer authentication  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceAttributes() map[s
 |  eap-tls  |  Use EAP-TLS authentication  |
 |  eap-mschapv2  |  Use EAP-MSCHAPv2 authentication  |
 |  eap-radius  |  Use EAP-RADIUS authentication  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`eap-mschapv2`),
@@ -64,6 +66,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceAttributes() map[s
 |----------|---------------|
 |  pre-shared-secret  |  Use a pre-shared secret key  |
 |  x509  |  Use x.509 certificate  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`x509`),
@@ -78,6 +81,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Pre-shared secret key  |
+
 `,
 		},
 

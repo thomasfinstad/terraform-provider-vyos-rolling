@@ -33,6 +33,7 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  <GA:LDP1:LDP2>  |  Community in format <0-4294967295:0-4294967295:0-4294967295>  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Community-list  |
+
 `,
 		},
 

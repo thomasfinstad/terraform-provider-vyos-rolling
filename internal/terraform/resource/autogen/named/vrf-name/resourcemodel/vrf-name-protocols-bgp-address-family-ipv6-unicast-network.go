@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceAttributes
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  AS path hop count limit  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork) ResourceAttributes
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

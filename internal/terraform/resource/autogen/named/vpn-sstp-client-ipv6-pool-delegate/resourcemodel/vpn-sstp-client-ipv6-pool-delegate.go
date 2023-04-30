@@ -30,6 +30,7 @@ func (o VpnSstpClientIPvsixPoolDelegate) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Delegated prefix length  |
+
 `,
 		},
 

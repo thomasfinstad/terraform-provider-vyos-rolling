@@ -34,6 +34,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-60000  |  Delay used while in QUIET state (in ms)  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-60000  |  Delay used while in LONG_WAIT state in ms  |
+
 `,
 		},
 
@@ -67,6 +70,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
+
 `,
 		},
 
@@ -78,6 +82,7 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
+
 `,
 		},
 

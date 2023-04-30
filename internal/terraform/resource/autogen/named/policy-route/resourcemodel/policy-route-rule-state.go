@@ -34,6 +34,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  enable  |  Enable  |
 |  disable  |  Disable  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  enable  |  Enable  |
 |  disable  |  Disable  |
+
 `,
 		},
 
@@ -58,6 +60,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  enable  |  Enable  |
 |  disable  |  Disable  |
+
 `,
 		},
 
@@ -70,6 +73,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  enable  |  Enable  |
 |  disable  |  Disable  |
+
 `,
 		},
 

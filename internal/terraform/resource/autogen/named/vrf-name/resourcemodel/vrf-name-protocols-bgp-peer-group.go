@@ -47,6 +47,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -74,6 +75,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Number of hops  |
+
 `,
 		},
 
@@ -87,6 +89,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  enable  |  Enable BGP graceful restart at peer level  |
 |  disable  |  Disable BGP graceful restart at peer level  |
 |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
+
 `,
 		},
 
@@ -124,6 +127,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  u32:1-4294967294  |  Neighbor AS number  |
 |  external  |  Any AS different from the local AS  |
 |  internal  |  Neighbor AS number  |
+
 `,
 		},
 
@@ -145,6 +149,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  ipv4  |  IPv4 address of route source  |
 |  ipv6  |  IPv6 address of route source  |
 |  txt  |  Interface as route source  |
+
 `,
 		},
 
@@ -160,6 +165,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+
 `,
 		},
 
@@ -177,6 +183,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 |  provider  |  Providing Transit  |
 |  rs-client  |  RS Client  |
 |  rs-server  |  Route Server  |
+
 `,
 		},
 

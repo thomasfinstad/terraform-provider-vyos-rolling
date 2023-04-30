@@ -69,6 +69,7 @@ func (o InterfacesWireguardPeer) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv4  |  IPv4 address of remote tunnel endpoint  |
 |  ipv6  |  IPv6 address of remote tunnel endpoint  |
+
 `,
 		},
 
@@ -80,6 +81,7 @@ func (o InterfacesWireguardPeer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -91,6 +93,7 @@ func (o InterfacesWireguardPeer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Interval in seconds  |
+
 `,
 		},
 

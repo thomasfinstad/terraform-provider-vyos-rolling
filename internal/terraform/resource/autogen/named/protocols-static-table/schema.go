@@ -21,6 +21,7 @@ Policy route table number
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-200  |  Policy route table number  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

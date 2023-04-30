@@ -23,6 +23,7 @@ Import BGP network/prefix into unicast VPN IPv4 RIB
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -32,6 +32,7 @@ func (o SystemSyslogHostFacility) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  udp  |  send log messages to remote syslog server over udp  |
 |  tcp  |  send log messages to remote syslog server over tcp  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o SystemSyslogHostFacility) ResourceAttributes() map[string]schema.Attribu
 |  info  |  Informational messages  |
 |  debug  |  Debug messages  |
 |  all  |  Log everything  |
+
 `,
 		},
 

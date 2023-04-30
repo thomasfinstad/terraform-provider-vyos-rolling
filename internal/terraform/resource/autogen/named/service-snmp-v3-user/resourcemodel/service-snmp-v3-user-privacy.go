@@ -49,6 +49,7 @@ func (o ServiceSnmpVthreeUserPrivacy) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  des  |  Data Encryption Standard  |
 |  aes  |  Advanced Encryption Standard  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`des`),

@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) Resour
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) Resour
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
+
 `,
 		},
 

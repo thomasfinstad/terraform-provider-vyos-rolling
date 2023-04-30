@@ -23,6 +23,7 @@ Username used for authentication
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username used for authentication  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

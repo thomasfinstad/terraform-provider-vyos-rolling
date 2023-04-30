@@ -34,6 +34,7 @@ func (o VrfNameProtocolsStatic) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 static route  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o VrfNameProtocolsStatic) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 static route  |
+
 `,
 		},
 

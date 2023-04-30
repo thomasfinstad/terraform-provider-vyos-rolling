@@ -60,6 +60,7 @@ func (o ContainerName) ResourceAttributes() map[string]schema.Attribute {
 |  setpcap  |  Capability sets (from bounded or inherited set)  |
 |  sys-admin  |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
 |  sys-time  |  Permission to set system clock  |
+
 `,
 		},
 
@@ -71,6 +72,7 @@ func (o ContainerName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -131,6 +133,7 @@ func (o ContainerName) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0  |  Unlimited  |
 |  u32:1-16384  |  Container memory in megabytes (MB)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`512`),
@@ -146,6 +149,7 @@ func (o ContainerName) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0  |  Unlimited  |
 |  u32:1-8192  |  Container memory in megabytes (MB)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),
@@ -162,6 +166,7 @@ func (o ContainerName) ResourceAttributes() map[string]schema.Attribute {
 |  no  |  Do not restart containers on exit  |
 |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
 |  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`on-failure`),

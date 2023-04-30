@@ -31,6 +31,7 @@ func (o ProtocolsPimInterface) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Value of the new DR Priority  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsPimInterface) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-180  |  Hello Interval in seconds  |
+
 `,
 		},
 

@@ -33,6 +33,7 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Nexthop IPv6 address  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  IPV6 access list name  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  blackhole  |  Blackhole  |
+
 `,
 		},
 

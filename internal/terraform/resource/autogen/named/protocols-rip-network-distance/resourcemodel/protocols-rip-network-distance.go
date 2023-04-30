@@ -31,6 +31,7 @@ func (o ProtocolsRIPNetworkDistance) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Access list  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsRIPNetworkDistance) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 

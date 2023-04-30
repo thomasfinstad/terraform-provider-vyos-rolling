@@ -33,6 +33,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 network  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 |  upstream  |  Upstream interface (only 1 allowed)  |
 |  downstream  |  Downstream interface(s)  |
 |  disabled  |  Disabled interface  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`downstream`),
@@ -60,6 +62,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  TTL threshold for the interfaces  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -74,6 +77,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 network  |
+
 `,
 		},
 

@@ -30,6 +30,7 @@ func (o ProtocolsStaticMulticastRouteNextHop) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 

@@ -21,6 +21,7 @@ LDP neighbor parameters
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Neighbor IPv4 address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

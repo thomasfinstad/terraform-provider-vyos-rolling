@@ -37,6 +37,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceAttributes() m
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
 |  ipv4range  |  IPv4 address range to match  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceAttributes() m
 |  Format  |  Description  |
 |----------|---------------|
 |  domain  |  Domain name for the source-group  |
+
 `,
 		},
 

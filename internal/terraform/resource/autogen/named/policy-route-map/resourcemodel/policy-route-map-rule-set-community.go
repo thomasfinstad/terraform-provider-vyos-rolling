@@ -48,6 +48,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.A
 |  accept-own-nexthop  |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
 |  blackhole  |  Well-known communities value BLACKHOLE 0xFFFF029A  |
 |  no-peer  |  Well-known communities value NOPEER 0xFFFFFF04  |
+
 `,
 		},
 
@@ -74,6 +75,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.A
 |  accept-own-nexthop  |  Well-known communities value accept-own-nexthop 0xFFFF0008  |
 |  blackhole  |  Well-known communities value BLACKHOLE 0xFFFF029A  |
 |  no-peer  |  Well-known communities value NOPEER 0xFFFFFF04  |
+
 `,
 		},
 
@@ -93,6 +95,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Community-list  |
+
 `,
 		},
 

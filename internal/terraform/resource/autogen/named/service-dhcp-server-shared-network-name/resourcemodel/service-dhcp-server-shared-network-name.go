@@ -64,6 +64,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  NTP server IPv4 address  |
+
 `,
 		},
 
@@ -83,6 +84,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -102,6 +104,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+
 `,
 		},
 
@@ -125,6 +128,7 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
+
 `,
 		},
 

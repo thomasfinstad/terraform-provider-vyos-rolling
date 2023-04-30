@@ -41,6 +41,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -68,6 +69,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for the default route from DHCP server  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`210`),
@@ -90,6 +92,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1452`),
@@ -105,6 +108,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Server IPv4 address  |
 |  hostname  |  Server hostname/FQDN  |
+
 `,
 		},
 
@@ -116,6 +120,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`443`),
@@ -130,6 +135,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

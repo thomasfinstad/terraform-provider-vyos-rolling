@@ -41,6 +41,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceAttributes() map[string]schema.Attr
 |  macip  |  mac-ip route  |
 |  multicast  |  IMET route  |
 |  prefix  |  Prefix route  |
+
 `,
 		},
 
@@ -65,6 +67,7 @@ func (o PolicyRouteMapRuleMatchEvpn) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  VXLAN virtual network identifier  |
+
 `,
 		},
 

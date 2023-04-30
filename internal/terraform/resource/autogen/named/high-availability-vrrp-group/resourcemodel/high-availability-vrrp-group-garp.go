@@ -34,6 +34,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -48,6 +49,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-1000  |  Delay in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -63,6 +65,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  u32:0  |  No refresh  |
 |  u32:1-255  |  Interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -77,6 +80,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Number of gratuitous ARP messages  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -91,6 +95,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Number of gratuitous ARP messages  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

@@ -31,6 +31,7 @@ func (o FirewallNameRuleDestinationGeoIP) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  <country>  |  Country code (2 characters)  |
+
 `,
 		},
 

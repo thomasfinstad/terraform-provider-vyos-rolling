@@ -31,6 +31,7 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:4-1800  |  Maximum interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`600`),
@@ -45,6 +46,7 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:3-1350  |  Minimum interval in seconds  |
+
 `,
 		},
 

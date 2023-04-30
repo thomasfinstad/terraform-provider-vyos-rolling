@@ -56,6 +56,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -67,6 +68,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -104,6 +106,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  auto  |  Auto negotiation  |
 |  half  |  Half duplex  |
 |  full  |  Full duplex  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -118,6 +121,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -129,6 +133,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -140,6 +145,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -164,6 +170,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  40000  |  40 Gbit/sec  |
 |  50000  |  50 Gbit/sec  |
 |  100000  |  100 Gbit/sec  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -178,6 +185,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -189,6 +197,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -212,6 +221,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 
@@ -225,6 +235,7 @@ func (o InterfacesEthernet) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 

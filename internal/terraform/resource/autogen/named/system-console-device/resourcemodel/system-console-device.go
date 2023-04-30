@@ -37,6 +37,7 @@ func (o SystemConsoleDevice) ResourceAttributes() map[string]schema.Attribute {
 |  38400  |  38400 bps  |
 |  57600  |  57600 bps  |
 |  115200  |  115200 bps  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`115200`),

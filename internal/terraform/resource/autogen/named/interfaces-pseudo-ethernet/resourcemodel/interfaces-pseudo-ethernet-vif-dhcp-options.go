@@ -76,6 +76,7 @@ func (o InterfacesPseudoEthernetVifDhcpOptions) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for the default route from DHCP server  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`210`),
@@ -91,6 +92,7 @@ func (o InterfacesPseudoEthernetVifDhcpOptions) ResourceAttributes() map[string]
 |----------|---------------|
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
+
 `,
 		},
 

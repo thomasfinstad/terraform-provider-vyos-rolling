@@ -30,6 +30,7 @@ func (o HighAvailabilityVrrpGroupAddress) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 

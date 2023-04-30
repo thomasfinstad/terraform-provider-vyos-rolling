@@ -38,6 +38,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Autonomous System Number  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -66,6 +68,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 |  ipv4  |  BGP neighbor IP address  |
 |  ipv6  |  BGP neighbor IPv6 address  |
 |  txt  |  Interface name  |
+
 `,
 		},
 

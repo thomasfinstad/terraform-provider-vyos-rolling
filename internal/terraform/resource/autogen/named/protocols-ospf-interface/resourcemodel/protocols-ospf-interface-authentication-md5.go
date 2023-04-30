@@ -33,6 +33,7 @@ func (o ProtocolsOspfInterfaceAuthenticationMdfive) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  MD5 key id  |
+
 `,
 		},
 

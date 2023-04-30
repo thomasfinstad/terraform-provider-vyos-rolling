@@ -31,6 +31,7 @@ func (o ProtocolsBgpNeighborBfd) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

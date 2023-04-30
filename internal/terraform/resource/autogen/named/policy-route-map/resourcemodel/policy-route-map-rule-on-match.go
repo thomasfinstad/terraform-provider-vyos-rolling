@@ -31,6 +31,7 @@ func (o PolicyRouteMapRuleOnMatch) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Rule number  |
+
 `,
 		},
 

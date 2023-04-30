@@ -33,6 +33,7 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  u32:1-4294967295  |  Time in seconds that the route will remain valid  |
 |  infinity  |  Route will remain preferred forever  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1800`),
@@ -49,6 +50,7 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceAttributes() map[string]schem
 |  low  |  Route has low preference  |
 |  medium  |  Route has medium preference  |
 |  high  |  Route has high preference  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`medium`),

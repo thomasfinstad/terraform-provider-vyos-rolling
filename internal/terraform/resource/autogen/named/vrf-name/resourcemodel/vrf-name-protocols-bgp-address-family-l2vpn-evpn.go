@@ -64,6 +64,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+
 `,
 		},
 
@@ -75,6 +76,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address  |
+
 `,
 		},
 
@@ -98,6 +100,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-16777215  |  VNI number  |
+
 `,
 		},
 

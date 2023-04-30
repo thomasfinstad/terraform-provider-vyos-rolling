@@ -33,6 +33,7 @@ func (o InterfacesDummyIP) ResourceAttributes() map[string]schema.Attribute {
 |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
 |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
 |  disable  |  No source validation  |
+
 `,
 		},
 

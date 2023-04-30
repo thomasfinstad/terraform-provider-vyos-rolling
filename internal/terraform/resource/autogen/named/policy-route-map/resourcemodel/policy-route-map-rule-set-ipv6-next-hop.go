@@ -33,6 +33,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  IPv6 address and prefix length  |
+
 `,
 		},
 

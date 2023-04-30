@@ -43,6 +43,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  <port>  |  single port  |
 |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  <port>  |  single port  |
 |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+
 `,
 		},
 
@@ -67,6 +69,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  The IPv4 address to which this rule applies  |
 |  ipv4net  |  The IPv4 to which this rule applies  |
+
 `,
 		},
 

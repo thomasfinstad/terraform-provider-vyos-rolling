@@ -70,6 +70,7 @@ func (o PolicyRoutesixRuleIcmpvsix) ResourceAttributes() map[string]schema.Attri
 |  address-mask-request  |  ICMP type/code name  |
 |  address-mask-reply  |  ICMP type/code name  |
 |  packet-too-big  |  ICMP type/code name  |
+
 `,
 		},
 

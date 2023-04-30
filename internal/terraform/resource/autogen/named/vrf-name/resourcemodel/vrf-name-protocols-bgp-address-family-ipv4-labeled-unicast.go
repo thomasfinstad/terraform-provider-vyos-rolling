@@ -34,6 +34,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceAttribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  BGP aggregate network/prefix  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicast) ResourceAttribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Labeled Unicast IPv4 BGP network/prefix  |
+
 `,
 		},
 

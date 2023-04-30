@@ -40,6 +40,7 @@ func (o SystemStaticHostMappingHostName) ResourceAttributes() map[string]schema.
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
 |  ipv6  |  IPv6 address  |
+
 `,
 		},
 

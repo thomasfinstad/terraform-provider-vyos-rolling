@@ -32,6 +32,7 @@ func (o InterfacesWwanDhcpvsixOptionsPd) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Length of delegated prefix  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),

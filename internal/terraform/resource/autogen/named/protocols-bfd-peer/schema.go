@@ -20,6 +20,7 @@ Configures BFD peer to listen and talk to
 |----------|---------------|
 |  ipv4  |  BFD peer IPv4 address  |
 |  ipv6  |  BFD peer IPv6 address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

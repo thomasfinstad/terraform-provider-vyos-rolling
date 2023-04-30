@@ -30,6 +30,7 @@ func (o InterfacesBondingMember) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 

@@ -43,6 +43,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-8  |  Number of antennas for this card  |
+
 `,
 		},
 
@@ -65,6 +66,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |  single-user-beamformee  |  Support for operation as single user beamformee  |
 |  multi-user-beamformer  |  Support for operation as multi user beamformer  |
 |  multi-user-beamformee  |  Support for operation as multi user beamformee  |
+
 `,
 		},
 
@@ -79,6 +81,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |  1  |  80 MHz channel width  |
 |  2  |  160 MHz channel width  |
 |  3  |  80+80 MHz channel width  |
+
 `,
 		},
 
@@ -99,6 +102,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  unsolicited  |  Station provides only unsolicited VHT MFB  |
 |  both  |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
+
 `,
 		},
 
@@ -110,6 +114,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
+
 `,
 		},
 
@@ -122,6 +127,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  7991  |  ncrease Maximum MPDU length to 7991 octets  |
 |  11454  |  ncrease Maximum MPDU length to 11454 octets  |
+
 `,
 		},
 
@@ -134,6 +140,7 @@ func (o InterfacesWirelessCapabilitiesVht) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  80  |  Short GI for 80 MHz  |
 |  160  |  Short GI for 160 MHz  |
+
 `,
 		},
 

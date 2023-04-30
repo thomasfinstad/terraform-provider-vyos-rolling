@@ -17,6 +17,7 @@ func (r interfacesTunnel) Schema(ctx context.Context, req resource.SchemaRequest
 |  Format  |  Description  |
 |----------|---------------|
 |  tunN  |  Tunnel interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

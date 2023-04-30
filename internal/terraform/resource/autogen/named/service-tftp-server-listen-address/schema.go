@@ -20,6 +20,7 @@ Local IP addresses to listen on
 |----------|---------------|
 |  ipv4  |  IPv4 address to listen for incoming connections  |
 |  ipv6  |  IPv6 address to listen for incoming connections  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

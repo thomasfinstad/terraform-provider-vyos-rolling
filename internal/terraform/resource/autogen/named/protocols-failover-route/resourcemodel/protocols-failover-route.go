@@ -33,6 +33,7 @@ func (o ProtocolsFailoverRoute) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Next-hop router address  |
+
 `,
 		},
 

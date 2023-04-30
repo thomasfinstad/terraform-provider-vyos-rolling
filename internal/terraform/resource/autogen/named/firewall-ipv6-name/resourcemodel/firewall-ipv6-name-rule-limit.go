@@ -31,6 +31,7 @@ func (o FirewallIPvsixNameRuleLimit) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o FirewallIPvsixNameRuleLimit) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  integer/unit (Example: 5/minute)  |
+
 `,
 		},
 

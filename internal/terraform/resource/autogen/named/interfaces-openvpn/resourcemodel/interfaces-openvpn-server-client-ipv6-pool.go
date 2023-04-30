@@ -31,6 +31,7 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceAttributes() map[string
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Client IPv6 pool base address with optional prefix length (defaults: base = server subnet + 0x1000, prefix length = server prefix length)  |
+
 `,
 		},
 

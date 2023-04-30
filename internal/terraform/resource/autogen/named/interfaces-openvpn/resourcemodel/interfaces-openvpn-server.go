@@ -41,6 +41,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Domain Name Server suffix  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4096  |  Number of concurrent clients  |
+
 `,
 		},
 
@@ -64,6 +66,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+
 `,
 		},
 
@@ -84,6 +87,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv4net  |  IPv4 network and prefix length  |
 |  ipv6net  |  IPv6 network and prefix length  |
+
 `,
 		},
 
@@ -97,6 +101,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |  net30  |  net30 topology  |
 |  point-to-point  |  Point-to-point topology  |
 |  subnet  |  Subnet topology  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`net30`),
@@ -115,6 +120,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  name  |  Client common-name in the certificate  |
+
 `,
 		},
 
@@ -129,6 +135,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv4net  |  IPv4 network and prefix length  |
 |  ipv6net  |  IPv6 network and prefix length  |
+
 `,
 		},
 

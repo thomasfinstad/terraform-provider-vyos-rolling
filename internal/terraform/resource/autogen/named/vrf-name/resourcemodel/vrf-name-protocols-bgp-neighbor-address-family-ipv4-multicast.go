@@ -76,6 +76,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
+
 `,
 		},
 
@@ -87,6 +88,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Prefix limit  |
+
 `,
 		},
 
@@ -122,6 +124,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -133,6 +136,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Default weight  |
+
 `,
 		},
 

@@ -40,6 +40,7 @@ func (o InterfacesMacsecIPvsixAddress) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+
 `,
 		},
 

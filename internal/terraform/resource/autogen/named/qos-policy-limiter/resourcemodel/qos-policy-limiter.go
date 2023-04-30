@@ -33,6 +33,7 @@ func (o QosPolicyLimiter) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o QosPolicyLimiter) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4090  |  Class Identifier  |
+
 `,
 		},
 

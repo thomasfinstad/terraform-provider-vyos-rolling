@@ -32,6 +32,7 @@ func (o ProtocolsOspfRedistributeTable) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  Default metric  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ProtocolsOspfRedistributeTable) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`2`),
@@ -57,6 +59,7 @@ func (o ProtocolsOspfRedistributeTable) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

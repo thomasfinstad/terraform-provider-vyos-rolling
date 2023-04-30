@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList) Resou
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList) Resou
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
+
 `,
 		},
 

@@ -33,6 +33,7 @@ func (o FirewallGroupAddressGroup) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4  |  IPv4 address to match  |
 |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o FirewallGroupAddressGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

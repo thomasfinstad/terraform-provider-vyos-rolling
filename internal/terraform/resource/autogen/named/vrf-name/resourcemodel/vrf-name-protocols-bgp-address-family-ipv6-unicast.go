@@ -43,6 +43,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Aggregate network  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Aggregate network  |
+
 `,
 		},
 

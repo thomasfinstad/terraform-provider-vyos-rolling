@@ -38,6 +38,7 @@ func (o NatSourceRuleSource) ResourceAttributes() map[string]schema.Attribute {
 |  !ipv4  |  Match everything except the specified address  |
 |  !ipv4net  |  Match everything except the specified prefix  |
 |  !ipv4range  |  Match everything except the specified range  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o NatSourceRuleSource) ResourceAttributes() map[string]schema.Attribute {
 |  u32:1-65535  |  Numeric IP port  |
 |  start-end  |  Numbered port range (e.g. 1001-1005)  |
 |   |   |
+
 `,
 		},
 

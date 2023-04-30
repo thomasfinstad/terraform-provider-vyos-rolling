@@ -31,6 +31,7 @@ func (o ServicePppoeServerInterface) ResourceAttributes() map[string]schema.Attr
 |----------|---------------|
 |  u32:1-4094  |  VLAN for automatic creation  |
 |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+
 `,
 		},
 

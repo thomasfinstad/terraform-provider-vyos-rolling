@@ -34,6 +34,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  1-65535  |  Seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`180`),
@@ -48,6 +49,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  1-65535  |  Seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -62,6 +64,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  1-65535  |  Seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`30`),
@@ -76,6 +79,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  1-65535  |  Seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`6`),
@@ -91,6 +95,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  disable  |  Disable challenge-response  |
 |  enable  |  Enable chalenge-response  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`enable`),

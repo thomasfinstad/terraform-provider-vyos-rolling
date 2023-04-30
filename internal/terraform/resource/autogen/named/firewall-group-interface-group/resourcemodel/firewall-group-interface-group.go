@@ -48,6 +48,7 @@ func (o FirewallGroupInterfaceGroup) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

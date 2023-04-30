@@ -19,6 +19,7 @@ IPv4 listen-address for WebProxy
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address listen on  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

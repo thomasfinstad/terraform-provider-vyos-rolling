@@ -31,6 +31,7 @@ func (o ContainerRegistryAuthentication) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ContainerRegistryAuthentication) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Password  |
+
 `,
 		},
 

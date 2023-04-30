@@ -68,6 +68,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |----------|---------------|
 |  ipv4  |  Bootfile server IPv4 address  |
 |  hostname  |  Bootfile server FQDN  |
+
 `,
 		},
 
@@ -79,6 +80,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-16  |  Bootstrap file size in 512 byte blocks  |
+
 `,
 		},
 
@@ -90,6 +92,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-32  |  DHCP client prefix length must be 0 to 32  |
+
 `,
 		},
 
@@ -101,6 +104,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Default router IPv4 address  |
+
 `,
 		},
 
@@ -128,6 +132,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -139,6 +144,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+
 `,
 		},
 
@@ -158,6 +164,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address to exclude from lease range  |
+
 `,
 		},
 
@@ -177,6 +184,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  DHCP lease time in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`86400`),
@@ -191,6 +199,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  NTP server IPv4 address  |
+
 `,
 		},
 
@@ -210,6 +219,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  POP3 server IPv4 address  |
+
 `,
 		},
 
@@ -221,6 +231,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  DHCP server identifier IPv4 address  |
+
 `,
 		},
 
@@ -232,6 +243,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  SMTP server IPv4 address  |
+
 `,
 		},
 
@@ -243,6 +255,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Seconds  |
+
 `,
 		},
 
@@ -263,6 +276,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |----------|---------------|
 |  ipv4  |  TFTP server IPv4 address  |
 |  hostname  |  TFTP server FQDN  |
+
 `,
 		},
 
@@ -274,6 +288,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  [-]N  |  Time offset (number, may be negative)  |
+
 `,
 		},
 
@@ -285,6 +300,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Time server IPv4 address  |
+
 `,
 		},
 
@@ -296,6 +312,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  WINS server IPv4 address  |
+
 `,
 		},
 
@@ -339,6 +356,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnet) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
+
 `,
 		},
 

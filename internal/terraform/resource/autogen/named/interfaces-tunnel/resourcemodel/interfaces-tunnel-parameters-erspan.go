@@ -34,6 +34,7 @@ func (o InterfacesTunnelParametersErspan) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  ingress  |  Mirror ingress traffic  |
 |  egress  |  Mirror egress traffic  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o InterfacesTunnelParametersErspan) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1048575  |  Unique identifier of an ERSPAN engine  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o InterfacesTunnelParametersErspan) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-63  |  Platform-depedent field for specifying port number and direction  |
+
 `,
 		},
 
@@ -68,6 +71,7 @@ func (o InterfacesTunnelParametersErspan) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  1  |  ERSPAN Type II  |
 |  2  |  ERSPAN Type III  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),

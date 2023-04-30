@@ -37,6 +37,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:100-65535  |  Routing table ID  |
+
 `,
 		},
 
@@ -67,6 +69,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  VXLAN virtual network identifier  |
+
 `,
 		},
 

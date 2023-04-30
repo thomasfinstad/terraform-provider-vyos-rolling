@@ -40,6 +40,7 @@ func (o InterfacesEthernetVifSIPvsixAddress) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+
 `,
 		},
 

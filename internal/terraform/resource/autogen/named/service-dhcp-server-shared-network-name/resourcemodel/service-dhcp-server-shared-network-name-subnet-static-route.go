@@ -30,6 +30,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address of router  |
+
 `,
 		},
 

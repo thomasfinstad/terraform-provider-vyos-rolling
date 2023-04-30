@@ -43,6 +43,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -57,6 +58,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -84,6 +86,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -95,6 +98,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -109,6 +113,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -120,6 +125,7 @@ func (o InterfacesWirelessVifSVifC) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

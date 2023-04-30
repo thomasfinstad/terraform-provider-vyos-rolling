@@ -31,6 +31,7 @@ func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  >0  |  Used to form IPv6 interface address  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
+
 `,
 		},
 

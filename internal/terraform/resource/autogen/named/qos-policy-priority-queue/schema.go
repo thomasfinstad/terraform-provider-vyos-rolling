@@ -21,6 +21,7 @@ Priority queuing based policy
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

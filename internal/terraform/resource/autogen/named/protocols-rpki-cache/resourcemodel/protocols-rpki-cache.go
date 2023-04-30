@@ -33,6 +33,7 @@ func (o ProtocolsRpkiCache) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o ProtocolsRpkiCache) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Preference of the cache server  |
+
 `,
 		},
 

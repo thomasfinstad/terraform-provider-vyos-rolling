@@ -21,6 +21,7 @@ Domain to host authoritative records for
 |  Format  |  Description  |
 |----------|---------------|
 |  text  |  An absolute DNS name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -31,6 +31,7 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 

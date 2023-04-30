@@ -35,6 +35,7 @@ func (o PolicyPrefixListRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o PolicyPrefixListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o PolicyPrefixListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-32  |  Netmask greater than length  |
+
 `,
 		},
 
@@ -68,6 +71,7 @@ func (o PolicyPrefixListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-32  |  Netmask less than length  |
+
 `,
 		},
 
@@ -79,6 +83,7 @@ func (o PolicyPrefixListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Prefix to match against  |
+
 `,
 		},
 

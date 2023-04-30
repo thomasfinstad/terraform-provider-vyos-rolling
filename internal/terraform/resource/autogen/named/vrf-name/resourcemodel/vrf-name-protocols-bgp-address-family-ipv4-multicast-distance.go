@@ -34,6 +34,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  eBGP routes administrative distance  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  iBGP routes administrative distance  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Locally originated BGP routes administrative distance  |
+
 `,
 		},
 
@@ -71,6 +74,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+
 `,
 		},
 

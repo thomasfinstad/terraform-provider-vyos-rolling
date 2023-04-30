@@ -32,6 +32,7 @@ func (o InterfacesBrIDgeVifDhcpvsixOptionsPd) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Length of delegated prefix  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),

@@ -35,6 +35,7 @@ func (o PolicyLocalRouteRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Address to match against  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o PolicyLocalRouteRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Address to match against  |
 |  ipv4net  |  Prefix to match against  |
+
 `,
 		},
 
@@ -59,6 +61,7 @@ func (o PolicyLocalRouteRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Address to match against  |
 |  ipv4net  |  Prefix to match against  |
+
 `,
 		},
 

@@ -35,6 +35,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Address to match against  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv6  |  Address to match against  |
 |  ipv6net  |  Prefix to match against  |
+
 `,
 		},
 
@@ -59,6 +61,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv6  |  Address to match against  |
 |  ipv6net  |  Prefix to match against  |
+
 `,
 		},
 

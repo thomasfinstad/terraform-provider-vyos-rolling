@@ -35,6 +35,7 @@ func (o ProtocolsOspfAccessList) ResourceAttributes() map[string]schema.Attribut
 |  kernel  |  Filter Kernel routes  |
 |  rip  |  Filter RIP routes  |
 |  static  |  Filter static routes  |
+
 `,
 		},
 

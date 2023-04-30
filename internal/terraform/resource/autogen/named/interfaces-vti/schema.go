@@ -17,6 +17,7 @@ func (r interfacesVti) Schema(ctx context.Context, req resource.SchemaRequest, r
 |  Format  |  Description  |
 |----------|---------------|
 |  vtiN  |  VTI interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

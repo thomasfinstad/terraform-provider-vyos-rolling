@@ -31,6 +31,7 @@ func (o InterfacesOpenvpnKeepAlive) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1000  |  Maximum number of keepalive packet failures  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`60`),
@@ -45,6 +46,7 @@ func (o InterfacesOpenvpnKeepAlive) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600  |  Keepalive packet interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),

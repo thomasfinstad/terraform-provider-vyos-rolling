@@ -41,6 +41,7 @@ func (o InterfacesOpenvpnEncryption) ResourceAttributes() map[string]schema.Attr
 |  aes192gcm  |  AES algorithm with 192-bit key GCM  |
 |  aes256  |  AES algorithm with 256-bit key CBC  |
 |  aes256gcm  |  AES algorithm with 256-bit key GCM  |
+
 `,
 		},
 
@@ -60,6 +61,7 @@ func (o InterfacesOpenvpnEncryption) ResourceAttributes() map[string]schema.Attr
 |  aes192gcm  |  AES algorithm with 192-bit key GCM  |
 |  aes256  |  AES algorithm with 256-bit key CBC  |
 |  aes256gcm  |  AES algorithm with 256-bit key GCM  |
+
 `,
 		},
 

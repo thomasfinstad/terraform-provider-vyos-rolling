@@ -32,6 +32,7 @@ func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0  |  No perturbation  |
 |  u32:1-127  |  Interval in seconds for queue algorithm perturbation (advised: 10)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -58,6 +60,7 @@ func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-127  |  Queue size in packets  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`127`),

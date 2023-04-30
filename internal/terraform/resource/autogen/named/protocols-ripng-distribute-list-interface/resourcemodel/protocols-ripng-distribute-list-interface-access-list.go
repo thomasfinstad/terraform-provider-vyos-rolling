@@ -31,6 +31,7 @@ func (o ProtocolsRIPngDistributeListInterfaceAccessList) ResourceAttributes() ma
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access list to apply to input packets  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsRIPngDistributeListInterfaceAccessList) ResourceAttributes() ma
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Access list to apply to output packets  |
+
 `,
 		},
 

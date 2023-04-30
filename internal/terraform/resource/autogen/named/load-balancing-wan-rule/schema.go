@@ -21,6 +21,7 @@ Rule number (1-9999)
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-9999  |  Rule number  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

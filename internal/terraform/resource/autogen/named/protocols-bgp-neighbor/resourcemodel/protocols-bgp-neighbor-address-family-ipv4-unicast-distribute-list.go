@@ -31,6 +31,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastDistributeList) ResourceA
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastDistributeList) ResourceA
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
+
 `,
 		},
 

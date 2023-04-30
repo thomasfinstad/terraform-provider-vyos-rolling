@@ -19,6 +19,7 @@ Source network
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Source network  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

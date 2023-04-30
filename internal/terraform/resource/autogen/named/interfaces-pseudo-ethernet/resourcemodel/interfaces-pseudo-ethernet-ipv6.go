@@ -35,6 +35,7 @@ func (o InterfacesPseudoEthernetIPvsix) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
 |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o InterfacesPseudoEthernetIPvsix) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
 |  u32:1-n  |  Number of NS messages to send while performing DAD  |
+
 `,
 		},
 

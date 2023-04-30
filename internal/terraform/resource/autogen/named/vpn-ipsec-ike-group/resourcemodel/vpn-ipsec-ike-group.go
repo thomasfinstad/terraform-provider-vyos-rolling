@@ -40,6 +40,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 |  none  |  Do nothing  |
 |  hold  |  Attempt to re-negotiate when matching traffic is seen  |
 |  restart  |  Attempt to re-negotiate the connection immediately  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`none`),
@@ -63,6 +64,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ikev1  |  Use IKEv1 for key exchange  |
 |  ikev2  |  Use IKEv2 for key exchange  |
+
 `,
 		},
 
@@ -74,6 +76,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:30-86400  |  IKE lifetime in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`28800`),
@@ -97,6 +100,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  main  |  Use the main mode (recommended)  |
 |  aggressive  |  Use the aggressive mode (insecure, not recommended)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`main`),
@@ -115,6 +119,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  IKE group proposal  |
+
 `,
 		},
 

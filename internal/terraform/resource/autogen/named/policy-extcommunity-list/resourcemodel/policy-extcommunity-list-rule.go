@@ -33,6 +33,7 @@ func (o PolicyExtcommunityListRule) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyExtcommunityListRule) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o PolicyExtcommunityListRule) ResourceAttributes() map[string]schema.Attri
 |  <aa:nn:nn>  |  Extended community list regular expression  |
 |  <rt aa:nn:nn>  |  Route Target regular expression  |
 |  <soo aa:nn:nn>  |  Site of Origin regular expression  |
+
 `,
 		},
 

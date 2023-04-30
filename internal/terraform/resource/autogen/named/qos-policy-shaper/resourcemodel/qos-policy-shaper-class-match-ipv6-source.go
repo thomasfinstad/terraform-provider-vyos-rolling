@@ -31,6 +31,7 @@ func (o QosPolicyShaperClassMatchIPvsixSource) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o QosPolicyShaperClassMatchIPvsixSource) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpParametersConditionalAdvertisement) ResourceAttribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:5-240  |  Period to rerun the conditional advertisement scanner process  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`60`),

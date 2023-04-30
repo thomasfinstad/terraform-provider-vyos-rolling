@@ -33,6 +33,7 @@ func (o QosPolicyRateControl) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -50,6 +51,7 @@ func (o QosPolicyRateControl) ResourceAttributes() map[string]schema.Attribute {
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%  |  Percentage of interface link speed  |
+
 `,
 		},
 
@@ -62,6 +64,7 @@ func (o QosPolicyRateControl) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  <number>  |  Bytes  |
 |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`15k`),
@@ -76,6 +79,7 @@ func (o QosPolicyRateControl) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  <number>  |  Time in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`50`),

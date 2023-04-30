@@ -20,6 +20,7 @@ OSPF area settings
 |----------|---------------|
 |  u32  |  OSPF area number in decimal notation  |
 |  ipv4  |  OSPF area number in dotted decimal notation  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

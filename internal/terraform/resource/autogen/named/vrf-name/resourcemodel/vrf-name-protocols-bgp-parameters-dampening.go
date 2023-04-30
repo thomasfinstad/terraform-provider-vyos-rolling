@@ -33,6 +33,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-45  |  Half-life penalty in minutes  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Maximum suppress duration in minutes  |
+
 `,
 		},
 
@@ -55,6 +57,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-20000  |  Re-use penalty points  |
+
 `,
 		},
 
@@ -66,6 +69,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-20000  |  Start-suppress penalty points  |
+
 `,
 		},
 

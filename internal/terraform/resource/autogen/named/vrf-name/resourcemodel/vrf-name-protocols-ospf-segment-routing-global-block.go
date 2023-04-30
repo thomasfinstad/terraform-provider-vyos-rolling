@@ -31,6 +31,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingGlobalBlock) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingGlobalBlock) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:16-1048575  |  Label value  |
+
 `,
 		},
 

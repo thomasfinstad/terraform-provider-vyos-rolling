@@ -33,6 +33,7 @@ func (o PolicyLargeCommunityListRule) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyLargeCommunityListRule) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o PolicyLargeCommunityListRule) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  ASN:NN:NN  |  BGP large-community-list filter  |
 |  IP:NN:NN  |  BGP large-community-list filter (IPv4 address format)  |
+
 `,
 		},
 

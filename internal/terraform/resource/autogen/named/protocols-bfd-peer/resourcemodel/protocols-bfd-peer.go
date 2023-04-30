@@ -38,6 +38,7 @@ func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 
@@ -81,6 +82,7 @@ func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

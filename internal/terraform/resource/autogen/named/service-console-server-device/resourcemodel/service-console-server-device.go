@@ -37,6 +37,7 @@ func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

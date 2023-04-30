@@ -33,6 +33,7 @@ func (o SystemSyslogHost) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -70,6 +71,7 @@ func (o SystemSyslogHost) ResourceAttributes() map[string]schema.Attribute {
 |  local5  |  Local facility 5  |
 |  local6  |  Local facility 6  |
 |  local7  |  Local facility 7  |
+
 `,
 		},
 

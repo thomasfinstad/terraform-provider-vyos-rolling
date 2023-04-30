@@ -31,6 +31,7 @@ func (o InterfacesDummyIPvsixAddress) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+
 `,
 		},
 

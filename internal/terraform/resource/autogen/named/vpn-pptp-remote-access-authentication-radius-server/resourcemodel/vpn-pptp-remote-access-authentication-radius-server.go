@@ -51,6 +51,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1812`),
@@ -65,6 +66,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1813`),
@@ -87,6 +89,7 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600  |  Fail time penalty  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

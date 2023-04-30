@@ -33,6 +33,7 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  u32:1-65535  |  Connect timer in seconds  |
 |  0  |  Disable connect timer  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  u32:1-65535  |  Hold timer in seconds  |
 |  0  |  Hold timer disabled  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Keepalive interval in seconds  |
+
 `,
 		},
 

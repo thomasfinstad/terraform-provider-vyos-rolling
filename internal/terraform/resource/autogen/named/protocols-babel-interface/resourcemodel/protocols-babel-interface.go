@@ -42,6 +42,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  auto  |  Automatically detect interface type  |
 |  wired  |  Wired interface  |
 |  wireless  |  Wireless interface  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -58,6 +59,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  default  |  Enable on wired interfaces, and disable on wireless interfaces  |
 |  enable  |  Enable split horizon processing  |
 |  disable  |  Disable split horizon processing  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`default`),
@@ -72,6 +74,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:20-655340  |  Milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`4000`),
@@ -86,6 +89,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:20-655340  |  Milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`20000`),
@@ -100,6 +104,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65534  |  Base receive cost  |
+
 `,
 		},
 
@@ -111,6 +116,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-256  |  Decay factor, in units of 1/256  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`42`),
@@ -125,6 +131,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -139,6 +146,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`120`),
@@ -153,6 +161,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`150`),
@@ -177,6 +186,7 @@ func (o ProtocolsBabelInterface) ResourceAttributes() map[string]schema.Attribut
 |  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
 |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
 |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
+
 `,
 		},
 

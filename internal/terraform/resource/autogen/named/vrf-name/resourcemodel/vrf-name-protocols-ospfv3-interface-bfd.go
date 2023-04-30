@@ -30,6 +30,7 @@ func (o VrfNameProtocolsOspfvthreeInterfaceBfd) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

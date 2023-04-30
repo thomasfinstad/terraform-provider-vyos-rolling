@@ -32,6 +32,7 @@ func (o FirewallGroupNetworkGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o FirewallGroupNetworkGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 Subnet to match  |
+
 `,
 		},
 

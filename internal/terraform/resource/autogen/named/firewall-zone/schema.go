@@ -19,6 +19,7 @@ Zone-policy
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Zone name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -35,6 +35,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) ResourceAttributes() ma
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  BGP aggregate network/prefix  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) ResourceAttributes() ma
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+
 `,
 		},
 

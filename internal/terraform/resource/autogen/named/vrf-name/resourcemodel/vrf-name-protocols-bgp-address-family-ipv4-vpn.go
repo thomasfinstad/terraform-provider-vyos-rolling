@@ -33,6 +33,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourVpn) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+
 `,
 		},
 

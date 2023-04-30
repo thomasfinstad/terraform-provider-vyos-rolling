@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600000  |  Delay in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`200`),
@@ -46,6 +47,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600000  |  Initial hold time in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1000`),
@@ -60,6 +62,7 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600000  |  Max hold time in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10000`),

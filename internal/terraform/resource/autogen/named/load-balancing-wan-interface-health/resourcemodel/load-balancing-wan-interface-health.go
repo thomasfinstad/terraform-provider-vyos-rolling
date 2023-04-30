@@ -34,6 +34,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Failure count  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 |----------|---------------|
 |  ipv4  |  Nexthop IP address  |
 |  dhcp  |  Set the nexthop via DHCP  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Success count  |
+
 `,
 		},
 
@@ -72,6 +75,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Rule number  |
+
 `,
 		},
 

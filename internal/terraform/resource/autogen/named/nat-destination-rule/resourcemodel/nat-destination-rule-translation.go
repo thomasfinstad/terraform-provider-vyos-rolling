@@ -35,6 +35,7 @@ func (o NatDestinationRuleTranSLAtion) ResourceAttributes() map[string]schema.At
 |  ipv4  |  IPv4 address to match  |
 |  ipv4net  |  IPv4 prefix to match  |
 |  ipv4range  |  IPv4 address range to match  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o NatDestinationRuleTranSLAtion) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
 |  range  |  Numbered port range (e.g., 1001-1005)  |
+
 `,
 		},
 

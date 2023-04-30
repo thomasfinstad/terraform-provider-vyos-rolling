@@ -21,6 +21,7 @@ BGP neighbor
 |  ipv4  |  BGP neighbor IP address  |
 |  ipv6  |  BGP neighbor IPv6 address  |
 |  txt  |  Interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

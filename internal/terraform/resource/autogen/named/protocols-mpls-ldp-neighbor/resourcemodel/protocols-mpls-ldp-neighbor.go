@@ -41,6 +41,7 @@ func (o ProtocolsMplsLdpNeighbor) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  u32:1-254  |  TTL  |
 |  disable  |  Disable neighbor TTL security  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o ProtocolsMplsLdpNeighbor) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:15-65535  |  Time in seconds  |
+
 `,
 		},
 

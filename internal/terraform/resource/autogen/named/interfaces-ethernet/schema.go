@@ -19,6 +19,7 @@ Ethernet Interface
 |  Format  |  Description  |
 |----------|---------------|
 |  ethN  |  Ethernet interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

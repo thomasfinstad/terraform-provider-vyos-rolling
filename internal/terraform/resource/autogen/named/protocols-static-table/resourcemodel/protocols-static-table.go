@@ -33,6 +33,7 @@ func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 static route  |
+
 `,
 		},
 
@@ -61,6 +63,7 @@ func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 static route  |
+
 `,
 		},
 

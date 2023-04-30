@@ -31,6 +31,7 @@ func (o VrfNameProtocolsIsisAreaPassword) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Circuit password  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VrfNameProtocolsIsisAreaPassword) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Level-wide password  |
+
 `,
 		},
 

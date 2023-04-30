@@ -32,6 +32,7 @@ func (o ContainerNameVolume) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Source host directory  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ContainerNameVolume) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination container directory  |
+
 `,
 		},
 
@@ -55,6 +57,7 @@ func (o ContainerNameVolume) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ro  |  Volume mounted into the container as read-only  |
 |  rw  |  Volume mounted into the container as read-write  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`rw`),

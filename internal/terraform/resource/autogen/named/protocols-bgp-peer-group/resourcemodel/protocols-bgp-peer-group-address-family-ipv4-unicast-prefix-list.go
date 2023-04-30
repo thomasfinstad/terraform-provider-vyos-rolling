@@ -31,6 +31,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastPrefixList) ResourceAttr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastPrefixList) ResourceAttr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv4 prefix-list  |
+
 `,
 		},
 

@@ -19,6 +19,7 @@ IPv6 prefix-list filter
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IPv6 prefix-list  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

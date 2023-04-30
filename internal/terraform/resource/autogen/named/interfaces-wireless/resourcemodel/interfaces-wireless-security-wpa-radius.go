@@ -32,6 +32,7 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 source address  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  RADIUS server IPv4 address  |
+
 `,
 		},
 

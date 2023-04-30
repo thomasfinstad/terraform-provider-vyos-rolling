@@ -30,6 +30,7 @@ func (o ProtocolsBgpPeerGroupTTLSecURIty) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-254  |  Number of hops  |
+
 `,
 		},
 

@@ -19,6 +19,7 @@ Multicast interface based route
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Network  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

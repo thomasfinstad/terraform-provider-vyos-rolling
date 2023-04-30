@@ -36,6 +36,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -58,6 +60,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 

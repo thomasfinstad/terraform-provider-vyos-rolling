@@ -42,6 +42,7 @@ func (o ServiceBroadcastRelayID) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Optional source address for forwarded packets  |
+
 `,
 		},
 
@@ -61,6 +62,7 @@ func (o ServiceBroadcastRelayID) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -72,6 +74,7 @@ func (o ServiceBroadcastRelayID) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

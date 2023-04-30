@@ -44,6 +44,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |----------|---------------|
 |  u32  |  OSPF area ID as decimal notation  |
 |  ipv4  |  OSPF area ID in IP address notation  |
+
 `,
 		},
 
@@ -55,6 +56,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`40`),
@@ -69,6 +71,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Hello interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -83,6 +86,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Retransmit interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -97,6 +101,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Link state transmit delay (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -111,6 +116,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  OSPF interface cost  |
+
 `,
 		},
 
@@ -130,6 +136,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  OSPF router priority cost  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -144,6 +151,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Interface MTU  |
+
 `,
 		},
 
@@ -155,6 +163,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Instance Id  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -170,6 +179,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 |----------|---------------|
 |  broadcast  |  Broadcast network type  |
 |  point-to-point  |  Point-to-point network type  |
+
 `,
 		},
 

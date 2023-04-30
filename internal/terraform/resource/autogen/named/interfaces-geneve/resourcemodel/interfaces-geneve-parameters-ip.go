@@ -34,6 +34,7 @@ func (o InterfacesGeneveParametersIP) ResourceAttributes() map[string]schema.Att
 |  set  |  Always set DF (don't fragment) bit  |
 |  unset  |  Always unset DF (don't fragment) bit  |
 |  inherit  |  Copy from the original IP header  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`unset`),
@@ -48,6 +49,7 @@ func (o InterfacesGeneveParametersIP) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-99  |  Type of Service (TOS)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`inherit`),
@@ -63,6 +65,7 @@ func (o InterfacesGeneveParametersIP) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Inherit - copy value from original IP header  |
 |  u32:1-255  |  Time to Live  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

@@ -31,6 +31,7 @@ func (o QosPolicyDropTail) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o QosPolicyDropTail) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Queue size in packets  |
+
 `,
 		},
 

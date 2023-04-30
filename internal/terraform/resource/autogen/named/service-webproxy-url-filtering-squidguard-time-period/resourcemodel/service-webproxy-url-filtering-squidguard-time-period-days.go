@@ -30,6 +30,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  <hh:mm - hh:mm>  |  Time range in 24hr time  |
+
 `,
 		},
 

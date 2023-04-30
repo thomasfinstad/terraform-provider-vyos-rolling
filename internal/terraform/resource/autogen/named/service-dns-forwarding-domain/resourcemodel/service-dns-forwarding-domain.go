@@ -33,6 +33,7 @@ func (o ServiceDNSForwardingDomain) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+
 `,
 		},
 

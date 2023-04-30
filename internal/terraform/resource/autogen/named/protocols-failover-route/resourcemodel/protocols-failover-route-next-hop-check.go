@@ -33,6 +33,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Address to check  |
+
 `,
 		},
 
@@ -55,6 +57,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-300  |  Timeout in seconds between checks  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -71,6 +74,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 |  arp  |  Check target by ARP  |
 |  icmp  |  Check target by ICMP  |
 |  tcp  |  Check target by TCP  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`icmp`),

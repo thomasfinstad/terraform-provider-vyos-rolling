@@ -43,6 +43,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -73,6 +75,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -84,6 +87,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1450-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -98,6 +102,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -110,6 +115,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Tunnel remote IPv4 address  |
 |  ipv6  |  Tunnel remote IPv6 address  |
+
 `,
 		},
 
@@ -121,6 +127,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777214  |  VXLAN virtual network identifier  |
+
 `,
 		},
 

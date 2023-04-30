@@ -35,6 +35,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1514`),
@@ -60,6 +62,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65536  |  Number of flows  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1024`),
@@ -74,6 +77,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -88,6 +92,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-10999  |  Queue size in packets  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10240`),
@@ -102,6 +107,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Queue delay in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

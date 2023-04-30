@@ -60,6 +60,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -71,6 +72,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Local Preference  |
+
 `,
 		},
 
@@ -82,6 +84,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Route metric  |
+
 `,
 		},
 
@@ -95,6 +98,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  egp  |  Exterior gateway protocol origin  |
 |  igp  |  Interior gateway protocol origin  |
 |  incomplete  |  Incomplete origin  |
+
 `,
 		},
 
@@ -107,6 +111,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  ipv4  |  Peer IP address  |
 |  ipv6  |  Peer IPv6 address  |
+
 `,
 		},
 
@@ -120,6 +125,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  invalid  |  Match invalid entries  |
 |  notfound  |  Match notfound entries  |
 |  valid  |  Match valid entries  |
+
 `,
 		},
 
@@ -131,6 +137,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Route tag  |
+
 `,
 		},
 

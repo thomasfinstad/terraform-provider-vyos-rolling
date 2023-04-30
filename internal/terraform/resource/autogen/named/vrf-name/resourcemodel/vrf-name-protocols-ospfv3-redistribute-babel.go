@@ -30,6 +30,7 @@ func (o VrfNameProtocolsOspfvthreeRedistributeBabel) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

@@ -20,6 +20,7 @@ Logging to a remote host
 |----------|---------------|
 |  ipv4  |  Remote syslog server IPv4 address  |
 |  hostname  |  Remote syslog server FQDN  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

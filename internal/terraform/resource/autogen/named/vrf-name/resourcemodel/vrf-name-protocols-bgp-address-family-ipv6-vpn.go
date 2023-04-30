@@ -33,6 +33,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixVpn) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  |
+
 `,
 		},
 

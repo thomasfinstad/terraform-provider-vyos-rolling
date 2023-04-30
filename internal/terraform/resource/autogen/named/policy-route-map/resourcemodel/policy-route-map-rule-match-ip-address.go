@@ -35,6 +35,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceAttributes() map[string]schema
 |  u32:100-199  |  IP extended access list  |
 |  u32:1300-1999  |  IP standard access list (expanded range)  |
 |  u32:2000-2699  |  IP extended access list (expanded range)  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o PolicyRouteMapRuleMatchIPAddress) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-32  |  Prefix length  |
+
 `,
 		},
 

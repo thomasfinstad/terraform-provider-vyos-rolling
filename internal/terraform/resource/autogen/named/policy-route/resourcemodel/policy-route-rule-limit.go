@@ -31,6 +31,7 @@ func (o PolicyRouteRuleLimit) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Maximum number of packets to allow in excess of rate  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o PolicyRouteRuleLimit) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Maximum average matching rate  |
+
 `,
 		},
 

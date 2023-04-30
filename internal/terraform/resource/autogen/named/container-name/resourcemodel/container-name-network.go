@@ -30,6 +30,7 @@ func (o ContainerNameNetwork) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
+
 `,
 		},
 

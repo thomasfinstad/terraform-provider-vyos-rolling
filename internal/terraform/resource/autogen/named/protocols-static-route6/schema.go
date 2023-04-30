@@ -21,6 +21,7 @@ Static IPv6 route
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 static route  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

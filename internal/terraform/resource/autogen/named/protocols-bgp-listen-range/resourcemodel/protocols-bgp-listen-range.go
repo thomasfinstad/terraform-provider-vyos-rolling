@@ -30,6 +30,7 @@ func (o ProtocolsBgpListenRange) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Peer-group name  |
+
 `,
 		},
 

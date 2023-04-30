@@ -35,6 +35,7 @@ func (o VrfNameProtocolsOspfAccessList) ResourceAttributes() map[string]schema.A
 |  kernel  |  Filter Kernel routes  |
 |  rip  |  Filter RIP routes  |
 |  static  |  Filter static routes  |
+
 `,
 		},
 

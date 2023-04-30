@@ -36,6 +36,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Local ID used for peer authentication  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceAttributes() map[string]sc
 |  pre-shared-secret  |  Use pre-shared secret key  |
 |  rsa  |  Use RSA key  |
 |  x509  |  Use x.509 certificate  |
+
 `,
 		},
 
@@ -60,6 +62,7 @@ func (o VpnIPsecSiteToSitePeerAuthentication) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  ID used for peer authentication  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`%any`),

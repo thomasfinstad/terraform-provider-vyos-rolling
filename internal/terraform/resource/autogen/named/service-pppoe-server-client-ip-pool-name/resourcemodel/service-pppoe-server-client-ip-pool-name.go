@@ -31,6 +31,7 @@ func (o ServicePppoeServerClientIPPoolName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Default Gateway send to the client  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ServicePppoeServerClientIPPoolName) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
+
 `,
 		},
 

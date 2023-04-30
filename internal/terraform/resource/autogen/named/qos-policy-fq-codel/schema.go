@@ -21,6 +21,7 @@ Fair Queuing (FQ) with Controlled Delay (CoDel)
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

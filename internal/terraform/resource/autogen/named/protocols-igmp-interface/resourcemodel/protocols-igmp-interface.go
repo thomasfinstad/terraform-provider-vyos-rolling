@@ -35,6 +35,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  2  |  IGMP version 2  |
 |  3  |  IGMP version 3  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-1800  |  Query interval in seconds  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-250  |  Query response value in deci-seconds  |
+
 `,
 		},
 
@@ -72,6 +75,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Multicast group address  |
+
 `,
 		},
 

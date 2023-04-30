@@ -19,6 +19,7 @@ Logging to specific terminal of given user
 |  Format  |  Description  |
 |----------|---------------|
 |  username  |  user login name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

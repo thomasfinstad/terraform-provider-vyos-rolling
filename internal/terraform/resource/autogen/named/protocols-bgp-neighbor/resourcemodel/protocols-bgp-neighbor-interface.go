@@ -34,6 +34,7 @@ func (o ProtocolsBgpNeighborInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Peer-group name  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o ProtocolsBgpNeighborInterface) ResourceAttributes() map[string]schema.At
 |  u32:1-4294967294  |  Neighbor AS number  |
 |  external  |  Any AS different from the local AS  |
 |  internal  |  Neighbor AS number  |
+
 `,
 		},
 
@@ -58,6 +60,7 @@ func (o ProtocolsBgpNeighborInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  interface  |  Interface name  |
+
 `,
 		},
 

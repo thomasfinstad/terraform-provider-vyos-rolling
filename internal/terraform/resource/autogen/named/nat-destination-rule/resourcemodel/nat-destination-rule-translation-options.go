@@ -32,6 +32,7 @@ func (o NatDestinationRuleTranSLAtionOptions) ResourceAttributes() map[string]sc
 |----------|---------------|
 |  persistent  |  Gives a client the same source or destination-address for each connection  |
 |  random  |  Random source or destination address allocation for each connection  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`random`),
@@ -48,6 +49,7 @@ func (o NatDestinationRuleTranSLAtionOptions) ResourceAttributes() map[string]sc
 |  random  |  Randomize source port mapping  |
 |  fully-random  |  Full port randomization  |
 |  none  |  Do not apply port randomization  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`none`),

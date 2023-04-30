@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabelVpn) ResourceAttribute
 |----------|---------------|
 |  auto  |  Automatically assign a label  |
 |  u32:0-1048575  |  Label Value  |
+
 `,
 		},
 

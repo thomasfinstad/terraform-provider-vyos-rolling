@@ -33,6 +33,7 @@ func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -55,6 +57,7 @@ func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  AS path regular expression (ex: "64501 64502")  |
+
 `,
 		},
 

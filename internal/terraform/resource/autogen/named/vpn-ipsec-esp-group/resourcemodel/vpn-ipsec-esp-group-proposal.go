@@ -85,6 +85,7 @@ func (o VpnIPsecEspGroupProposal) ResourceAttributes() map[string]schema.Attribu
 |  twofish256  |  256 bit Twofish-CBC  |
 |  cast128  |  128 bit CAST-CBC  |
 |  chacha20poly1305  |  256 bit ChaCha20/Poly1305 with 128 bit ICV  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`aes128`),
@@ -111,6 +112,7 @@ func (o VpnIPsecEspGroupProposal) ResourceAttributes() map[string]schema.Attribu
 |  aes128gmac  |  128-bit AES-GMAC  |
 |  aes192gmac  |  192-bit AES-GMAC  |
 |  aes256gmac  |  256-bit AES-GMAC  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`sha1`),

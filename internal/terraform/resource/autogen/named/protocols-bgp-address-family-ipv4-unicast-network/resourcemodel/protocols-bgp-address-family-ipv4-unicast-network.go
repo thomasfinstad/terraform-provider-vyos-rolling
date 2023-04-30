@@ -39,6 +39,7 @@ func (o ProtocolsBgpAddressFamilyIPvfourUnicastNetwork) ResourceAttributes() map
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

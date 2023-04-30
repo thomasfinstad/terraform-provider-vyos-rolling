@@ -30,6 +30,7 @@ func (o ProtocolsIgmpInterfaceJoin) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Source address  |
+
 `,
 		},
 

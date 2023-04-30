@@ -50,6 +50,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -61,6 +62,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -88,6 +90,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -99,6 +102,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  interface  |  Physical interface used for traffic forwarding  |
+
 `,
 		},
 
@@ -110,6 +114,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -124,6 +129,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  vepa  |  Virtual Ethernet Port Aggregator reflective relay  |
 |  bridge  |  Simple bridge between pseudo-devices  |
 |  passthru  |  Promicious mode passthrough of underlying device  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`private`),
@@ -138,6 +144,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -152,6 +159,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -167,6 +175,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 
@@ -180,6 +189,7 @@ func (o InterfacesPseudoEthernet) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 

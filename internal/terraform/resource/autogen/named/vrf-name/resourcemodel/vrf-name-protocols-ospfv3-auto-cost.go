@@ -30,6 +30,7 @@ func (o VrfNameProtocolsOspfvthreeAutoCost) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),

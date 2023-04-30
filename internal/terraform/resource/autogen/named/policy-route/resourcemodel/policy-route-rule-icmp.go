@@ -32,6 +32,7 @@ func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  ICMP code (0-255)  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  ICMP type (0-255)  |
+
 `,
 		},
 
@@ -68,6 +70,7 @@ func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
 |  info-reply  |  ICMP type 16: info-reply  |
 |  address-mask-request  |  ICMP type 17: address-mask-request  |
 |  address-mask-reply  |  ICMP type 18: address-mask-reply  |
+
 `,
 		},
 

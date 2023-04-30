@@ -23,6 +23,7 @@ BGP aggregate network/prefix
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  BGP aggregate network/prefix  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -31,6 +31,7 @@ func (o InterfacesEthernetRingBuffer) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:80-16384  |  ring buffer size  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesEthernetRingBuffer) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:80-16384  |  ring buffer size  |
+
 `,
 		},
 

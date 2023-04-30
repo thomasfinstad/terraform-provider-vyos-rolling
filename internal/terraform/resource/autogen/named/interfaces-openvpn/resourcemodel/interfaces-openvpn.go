@@ -57,6 +57,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -69,6 +70,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  tun  |  TUN device, required for OSI layer 3  |
 |  tap  |  TAP device, required for OSI layer 2  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`tun`),
@@ -95,6 +97,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  sha256  |  SHA-256 algorithm  |
 |  sha384  |  SHA-384 algorithm  |
 |  sha512  |  SHA-512 algorithm  |
+
 `,
 		},
 
@@ -107,6 +110,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Local IPv4 address  |
 |  ipv6  |  Local IPv6 address  |
+
 `,
 		},
 
@@ -118,6 +122,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -131,6 +136,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  site-to-site  |  Site-to-site mode  |
 |  client  |  Client in client-server mode  |
 |  server  |  Server in client-server mode  |
+
 `,
 		},
 
@@ -160,6 +166,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  udp  |  UDP  |
 |  tcp-passive  |  TCP and accepts connections passively  |
 |  tcp-active  |  TCP and initiates connections actively  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`udp`),
@@ -175,6 +182,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4  |  Remote end IPv4 address  |
 |  ipv6  |  Remote end IPv6 address  |
+
 `,
 		},
 
@@ -188,6 +196,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  ipv4  |  IPv4 address of remote host  |
 |  ipv6  |  IPv6 address of remote host  |
 |  txt  |  Hostname of remote host  |
+
 `,
 		},
 
@@ -199,6 +208,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -226,6 +236,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -237,6 +248,7 @@ func (o InterfacesOpenvpn) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

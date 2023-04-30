@@ -49,6 +49,7 @@ func (o ServiceSnmpVthreeTrapTargetAuth) ResourceAttributes() map[string]schema.
 |----------|---------------|
 |  md5  |  Message Digest 5  |
 |  sha  |  Secure Hash Algorithm  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`md5`),

@@ -39,6 +39,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceAttributes() map[string]schema.At
 |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
 |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
 |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceAttributes() map[string]schema.At
 |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
 |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
 |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+
 `,
 		},
 
@@ -67,6 +69,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceAttributes() map[string]schema.At
 |  wpa  |  WPA (IEEE 802.11i/D3.0)  |
 |  wpa2  |  WPA2 (full IEEE 802.11i/RSN)  |
 |  wpa+wpa2  |  Allow both WPA and WPA2  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`wpa+wpa2`),
@@ -81,6 +84,7 @@ func (o InterfacesWirelessSecURItyWpa) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Passphrase of at least 8 but not more than 63 printable characters  |
+
 `,
 		},
 

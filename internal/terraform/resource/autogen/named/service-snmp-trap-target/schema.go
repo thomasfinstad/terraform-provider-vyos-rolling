@@ -20,6 +20,7 @@ Address of trap target
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
 |  ipv6  |  IPv6 address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

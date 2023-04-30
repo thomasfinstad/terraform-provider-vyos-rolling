@@ -79,6 +79,7 @@ func (o ServiceDNSDynamicInterfaceService) ResourceAttributes() map[string]schem
 |  woima  |  WOIMA protocol  |
 |  yandex  |  Yandex.DNS protocol  |
 |  zoneedit1  |  Zoneedit protocol  |
+
 `,
 		},
 
@@ -91,6 +92,7 @@ func (o ServiceDNSDynamicInterfaceService) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  ipv4  |  Server IPv4 address  |
 |  hostname  |  Server hostname/FQDN  |
+
 `,
 		},
 

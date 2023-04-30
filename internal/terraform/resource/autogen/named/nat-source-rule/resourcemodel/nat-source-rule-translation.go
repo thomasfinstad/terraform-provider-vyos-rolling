@@ -36,6 +36,7 @@ func (o NatSourceRuleTranSLAtion) ResourceAttributes() map[string]schema.Attribu
 |  ipv4net  |  IPv4 prefix to match  |
 |  ipv4range  |  IPv4 address range to match  |
 |  masquerade  |  NAT to the primary address of outbound-interface  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o NatSourceRuleTranSLAtion) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
 |  range  |  Numbered port range (e.g., 1001-1005)  |
+
 `,
 		},
 

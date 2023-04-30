@@ -32,6 +32,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  text  |  Record contents  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  TTL in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),

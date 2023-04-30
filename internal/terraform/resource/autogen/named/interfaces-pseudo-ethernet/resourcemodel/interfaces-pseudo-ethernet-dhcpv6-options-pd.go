@@ -32,6 +32,7 @@ func (o InterfacesPseudoEthernetDhcpvsixOptionsPd) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Length of delegated prefix  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),

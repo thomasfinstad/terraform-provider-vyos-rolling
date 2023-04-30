@@ -35,6 +35,7 @@ func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Protocol name  |
+
 `,
 		},
 

@@ -17,6 +17,7 @@ func (r interfacesWireless) Schema(ctx context.Context, req resource.SchemaReque
 |  Format  |  Description  |
 |----------|---------------|
 |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

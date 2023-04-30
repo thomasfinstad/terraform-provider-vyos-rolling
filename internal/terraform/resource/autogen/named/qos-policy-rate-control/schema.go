@@ -21,6 +21,7 @@ Rate limiting policy (Token Bucket Filter)
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Policy name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

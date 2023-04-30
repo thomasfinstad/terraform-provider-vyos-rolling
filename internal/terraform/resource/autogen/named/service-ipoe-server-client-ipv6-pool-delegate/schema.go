@@ -21,6 +21,7 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

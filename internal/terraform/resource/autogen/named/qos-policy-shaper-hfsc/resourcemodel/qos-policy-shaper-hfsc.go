@@ -34,6 +34,7 @@ func (o QosPolicyShaperHfsc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o QosPolicyShaperHfsc) ResourceAttributes() map[string]schema.Attribute {
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%%  |  Percentage of interface link speed  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`auto`),
@@ -70,6 +72,7 @@ func (o QosPolicyShaperHfsc) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4095  |  Class Identifier  |
+
 `,
 		},
 

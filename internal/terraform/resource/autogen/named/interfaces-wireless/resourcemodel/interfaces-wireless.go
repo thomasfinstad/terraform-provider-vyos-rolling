@@ -62,6 +62,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -75,6 +76,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  0  |  Automatic Channel Selection (ACS)  |
 |  u32:1-14  |  2.4Ghz (802.11 b/g/n) Channel  |
 |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -89,6 +91,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  ISO/IEC 3166-1 Country Code  |
+
 `,
 		},
 
@@ -100,6 +103,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -135,6 +139,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -154,6 +159,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -173,6 +179,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -184,6 +191,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2007  |  Number of allowed stations  |
+
 `,
 		},
 
@@ -197,6 +205,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  disabled  |  no MFP  |
 |  optional  |  MFP optional  |
 |  required  |  MFP enforced  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`disabled`),
@@ -215,6 +224,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  g  |  802.11g - 54 Mbits/sec  |
 |  n  |  802.11n - 600 Mbits/sec  |
 |  ac  |  802.11ac - 1300 Mbits/sec  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`g`),
@@ -240,6 +250,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  TX power reduction in dBm  |
+
 `,
 		},
 
@@ -261,6 +272,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  access-point  |  Access-point forwards packets between other nodes  |
 |  station  |  Connects to another access point  |
 |  monitor  |  Passively monitor all packets on the frequency/channel  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`monitor`),
@@ -275,6 +287,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -290,6 +303,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 
@@ -303,6 +317,7 @@ func (o InterfacesWireless) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 

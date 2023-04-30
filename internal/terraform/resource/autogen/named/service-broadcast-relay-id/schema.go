@@ -19,6 +19,7 @@ Unique ID for each UDP port to forward
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-99  |  Broadcast relay instance ID  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

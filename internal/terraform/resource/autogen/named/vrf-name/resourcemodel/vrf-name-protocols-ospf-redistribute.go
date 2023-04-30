@@ -40,6 +40,7 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-200  |  Policy route table number  |
+
 `,
 		},
 

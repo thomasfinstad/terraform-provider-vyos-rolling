@@ -21,6 +21,7 @@ Sysctl key name
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Sysctl key name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

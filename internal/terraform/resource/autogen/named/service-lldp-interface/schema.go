@@ -20,6 +20,7 @@ Location data for interface
 |----------|---------------|
 |  all  |  Location data all interfaces  |
 |  txt  |  Location data for a specific interface  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

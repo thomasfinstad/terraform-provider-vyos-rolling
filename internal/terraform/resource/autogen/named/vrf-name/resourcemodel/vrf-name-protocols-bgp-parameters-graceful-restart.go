@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpParametersGracefulRestart) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-3600  |  Hold time in seconds  |
+
 `,
 		},
 

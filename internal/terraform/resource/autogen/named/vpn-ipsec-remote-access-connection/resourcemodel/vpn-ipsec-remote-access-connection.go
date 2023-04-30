@@ -40,6 +40,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -77,6 +78,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceAttributes() map[string]schema.A
 |  ipv4  |  IPv4 address of a local interface for VPN  |
 |  ipv6  |  IPv6 address of a local interface for VPN  |
 |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+
 `,
 		},
 
@@ -89,6 +91,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceAttributes() map[string]schema.A
 |----------|---------------|
 |  u32:0  |  Disable inactivity checks  |
 |  u32:1-86400  |  Timeout in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`28800`),
@@ -105,6 +108,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceAttributes() map[string]schema.A
 |  txt  |  Predefined IP pool name  |
 |  dhcp  |  Forward requests for virtual IP addresses to a DHCP server  |
 |  radius  |  Forward requests for virtual IP addresses to a RADIUS server  |
+
 `,
 		},
 
@@ -118,6 +122,7 @@ func (o VpnIPsecRemoteAccessConnection) ResourceAttributes() map[string]schema.A
 |  never  |  Never enforce connection uniqueness  |
 |  keep  |  Reject new connection attempts if the same user already has an active connection  |
 |  replace  |  Delete any existing connection if a new one for the same user gets established  |
+
 `,
 		},
 

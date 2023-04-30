@@ -17,6 +17,7 @@ func (r interfacesDummy) Schema(ctx context.Context, req resource.SchemaRequest,
 |  Format  |  Description  |
 |----------|---------------|
 |  dumN  |  Dummy interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

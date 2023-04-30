@@ -34,6 +34,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Enter date using following notation - YYYY-MM-DD  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Enter time using using 24 hour notation - hh:mm:ss  |
+
 `,
 		},
 
@@ -56,6 +58,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Enter date using following notation - YYYY-MM-DD  |
+
 `,
 		},
 
@@ -67,6 +70,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Enter time using using 24 hour notation - hh:mm:ss  |
+
 `,
 		},
 
@@ -77,9 +81,9 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 
 |  Format  |  Description  |
 |----------|---------------|
-|  txt  |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,
-                          Saturday, Sunday)  |
+|  txt  |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,                           Saturday, Sunday)  |
 |  u32:0-6  |  Day number (0 = Sunday ... 6 = Saturday)  |
+
 `,
 		},
 

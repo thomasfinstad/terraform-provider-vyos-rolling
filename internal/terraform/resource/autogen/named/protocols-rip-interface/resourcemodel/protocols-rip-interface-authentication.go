@@ -32,6 +32,7 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (16 characters or less)  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  OSPF key id  |
+
 `,
 		},
 

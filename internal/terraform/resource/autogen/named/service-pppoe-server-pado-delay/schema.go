@@ -19,6 +19,7 @@ PADO delays
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-999999  |  Number in ms  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

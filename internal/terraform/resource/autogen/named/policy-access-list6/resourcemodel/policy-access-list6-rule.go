@@ -34,6 +34,7 @@ func (o PolicyAccessListsixRule) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o PolicyAccessListsixRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

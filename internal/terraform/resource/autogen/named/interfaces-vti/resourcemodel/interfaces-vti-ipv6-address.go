@@ -40,6 +40,7 @@ func (o InterfacesVtiIPvsixAddress) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+
 `,
 		},
 

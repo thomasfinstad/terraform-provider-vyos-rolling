@@ -30,6 +30,7 @@ func (o VrfNameProtocolsOspfvthreeParameters) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Router-ID in IP address format  |
+
 `,
 		},
 

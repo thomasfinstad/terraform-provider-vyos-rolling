@@ -35,6 +35,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() m
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  BGP aggregate network/prefix  |
+
 `,
 		},
 
@@ -48,6 +49,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() m
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Multicast IPv4 BGP network/prefix  |
+
 `,
 		},
 

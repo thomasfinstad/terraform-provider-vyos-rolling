@@ -20,6 +20,7 @@ System serial interface name (ttyS or ttyUSB)
 |----------|---------------|
 |  ttySxxx  |  Regular serial interface  |
 |  usbxbxpx  |  USB based serial interface  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

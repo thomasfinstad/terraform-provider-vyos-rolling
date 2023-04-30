@@ -33,6 +33,7 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceAttributes() map[string]schema.
 |----------|---------------|
 |  ipv6  |  IPv6 address to match  |
 |  ipv6range  |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

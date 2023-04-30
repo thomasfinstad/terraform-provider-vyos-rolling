@@ -21,6 +21,7 @@ Static IPv4 prefix segment/label mapping
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 prefix segment  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

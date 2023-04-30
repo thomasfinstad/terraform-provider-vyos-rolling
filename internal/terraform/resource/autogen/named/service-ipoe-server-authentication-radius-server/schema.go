@@ -21,6 +21,7 @@ RADIUS server configuration
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  RADIUS server IPv4 address  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

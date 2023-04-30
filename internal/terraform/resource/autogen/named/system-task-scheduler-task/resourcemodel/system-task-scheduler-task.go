@@ -44,6 +44,7 @@ func (o SystemTaskSchedulerTask) ResourceAttributes() map[string]schema.Attribut
 |  <minutes>m  |  Execution interval in minutes  |
 |  <hours>h  |  Execution interval in hours  |
 |  <days>d  |  Execution interval in days  |
+
 `,
 		},
 

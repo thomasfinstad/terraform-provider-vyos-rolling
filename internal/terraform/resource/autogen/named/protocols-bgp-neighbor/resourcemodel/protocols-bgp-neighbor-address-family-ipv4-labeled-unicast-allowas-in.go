@@ -30,6 +30,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastAllowasIn) Resourc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of times AS is allowed in path  |
+
 `,
 		},
 

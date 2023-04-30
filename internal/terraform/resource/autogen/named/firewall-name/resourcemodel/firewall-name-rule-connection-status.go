@@ -31,6 +31,7 @@ func (o FirewallNameRuleConnectionStatus) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  destination  |  Match connections that are subject to destination NAT  |
 |  source  |  Match connections that are subject to source NAT  |
+
 `,
 		},
 

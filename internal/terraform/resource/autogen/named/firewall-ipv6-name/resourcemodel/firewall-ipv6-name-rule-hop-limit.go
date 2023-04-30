@@ -32,6 +32,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Equal to value  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Greater then value  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Less then value  |
+
 `,
 		},
 

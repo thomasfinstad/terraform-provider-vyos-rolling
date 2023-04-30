@@ -31,6 +31,7 @@ func (o VpnIPsecSiteToSitePeerTunnelLocal) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VpnIPsecSiteToSitePeerTunnelLocal) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  ipv4net  |  Local IPv4 prefix  |
 |  ipv6net  |  Local IPv6 prefix  |
+
 `,
 		},
 

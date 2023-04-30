@@ -17,6 +17,7 @@ func (r interfacesVirtualEthernet) Schema(ctx context.Context, req resource.Sche
 |  Format  |  Description  |
 |----------|---------------|
 |  vethN  |  Virtual Ethernet interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

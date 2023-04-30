@@ -31,6 +31,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixVpnNetwork) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1048575  |  MPLS label value  |
+
 `,
 		},
 

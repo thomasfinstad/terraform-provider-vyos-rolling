@@ -57,6 +57,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  ipv6net  |  IPv6 address and prefix length  |
 |  dhcp  |  Dynamic Host Configuration Protocol  |
 |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+
 `,
 		},
 
@@ -68,6 +69,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -95,6 +97,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 
@@ -110,6 +113,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  layer3+4  |  combine IP address and port to make hash  |
 |  encap2+3  |  combine encapsulated MAC address and IP address to make hash  |
 |  encap3+4  |  combine encapsulated IP address and port to make hash  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`layer2`),
@@ -124,6 +128,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 
@@ -136,6 +141,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  u32:0  |  Disable MII link monitoring  |
 |  u32:50-1000  |  MII link monitoring frequency in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -150,6 +156,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16  |  Minimum number of member interfaces required up before enabling bond  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -165,6 +172,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  slow  |  Request partner to transmit LACPDUs every 30 seconds  |
 |  fast  |  Request partner to transmit LACPDUs every 1 second  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`slow`),
@@ -185,6 +193,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  transmit-load-balance  |  Load balance: adapts based on transmit load and speed  |
 |  adaptive-load-balance  |  Load balance: adapts based on transmit and receive plus ARP  |
 |  xor-hash  |  Distribute based on MAC address  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`802.3ad`),
@@ -199,6 +208,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-16000  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1500`),
@@ -213,6 +223,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -224,6 +235,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -247,6 +259,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 
@@ -260,6 +273,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  |
+
 `,
 		},
 

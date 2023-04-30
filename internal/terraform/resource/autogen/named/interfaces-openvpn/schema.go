@@ -17,6 +17,7 @@ func (r interfacesOpenvpn) Schema(ctx context.Context, req resource.SchemaReques
 |  Format  |  Description  |
 |----------|---------------|
 |  vtunN  |  OpenVPN interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

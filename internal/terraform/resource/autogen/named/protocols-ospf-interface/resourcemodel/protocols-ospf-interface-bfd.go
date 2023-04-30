@@ -30,6 +30,7 @@ func (o ProtocolsOspfInterfaceBfd) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

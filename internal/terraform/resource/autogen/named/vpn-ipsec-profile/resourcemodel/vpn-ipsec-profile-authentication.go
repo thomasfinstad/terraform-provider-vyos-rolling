@@ -31,6 +31,7 @@ func (o VpnIPsecProfileAuthentication) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  pre-shared-secret  |  Use a pre-shared secret key  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o VpnIPsecProfileAuthentication) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Pre-shared secret key  |
+
 `,
 		},
 

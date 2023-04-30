@@ -33,6 +33,7 @@ func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribut
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -44,6 +45,7 @@ func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -60,6 +62,7 @@ func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribut
 |  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
 |  internet  |  Well-known communities value 0  |
 |  additive  |  New value is appended to the existing value  |
+
 `,
 		},
 

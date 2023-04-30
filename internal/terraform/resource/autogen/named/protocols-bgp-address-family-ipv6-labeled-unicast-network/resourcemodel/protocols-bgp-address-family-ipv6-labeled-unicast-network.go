@@ -39,6 +39,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork) ResourceAttributes
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

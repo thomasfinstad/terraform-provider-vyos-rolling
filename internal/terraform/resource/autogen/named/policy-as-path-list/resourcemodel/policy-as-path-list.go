@@ -32,6 +32,7 @@ func (o PolicyAsPathList) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o PolicyAsPathList) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  AS path list rule number  |
+
 `,
 		},
 

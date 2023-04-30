@@ -20,6 +20,7 @@ IP address to listen for incoming SNMP requests
 |----------|---------------|
 |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
 |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -30,6 +30,7 @@ func (o InterfacesOpenvpnServerPushRoute) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Metric for this route  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),

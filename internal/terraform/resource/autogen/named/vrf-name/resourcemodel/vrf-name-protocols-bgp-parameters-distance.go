@@ -34,6 +34,7 @@ func (o VrfNameProtocolsBgpParametersDistance) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Administrative distance for a specific BGP prefix  |
+
 `,
 		},
 

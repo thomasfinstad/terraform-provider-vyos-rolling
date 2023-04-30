@@ -32,6 +32,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute) ResourceAttributes() m
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:16-1048575  |  The absolute segment/label ID value  |
+
 `,
 		},
 

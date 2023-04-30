@@ -31,6 +31,7 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address of the DHCP Server  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Gateway IP address  |
+
 `,
 		},
 

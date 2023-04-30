@@ -19,6 +19,7 @@ Interface to apply QoS policy
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

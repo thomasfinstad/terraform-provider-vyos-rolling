@@ -31,6 +31,7 @@ func (o ProtocolsRIPDistributeListInterfacePrefixList) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Prefix-list to apply to input packets  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ProtocolsRIPDistributeListInterfacePrefixList) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Prefix-list to apply to output packets  |
+
 `,
 		},
 

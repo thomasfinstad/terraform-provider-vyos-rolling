@@ -23,6 +23,7 @@ VXLAN Network Identifier
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-16777215  |  VNI number  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

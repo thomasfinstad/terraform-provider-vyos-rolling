@@ -30,6 +30,7 @@ func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  MD5 Key (16 characters or less)  |
+
 `,
 		},
 

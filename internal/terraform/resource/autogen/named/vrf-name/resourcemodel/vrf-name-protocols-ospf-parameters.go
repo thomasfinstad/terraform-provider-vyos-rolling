@@ -36,6 +36,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceAttributes() map[string]schema.A
 |  ibm  |  IBM ABR type  |
 |  shortcut  |  Shortcut ABR type  |
 |  standard  |  Standard ABR type  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`cisco`),
@@ -66,6 +67,7 @@ func (o VrfNameProtocolsOspfParameters) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Router-ID in IP address format  |
+
 `,
 		},
 

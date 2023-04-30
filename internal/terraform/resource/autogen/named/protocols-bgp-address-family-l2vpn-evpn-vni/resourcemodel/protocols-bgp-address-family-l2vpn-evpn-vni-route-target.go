@@ -32,6 +32,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes()
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes()
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes()
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+
 `,
 		},
 

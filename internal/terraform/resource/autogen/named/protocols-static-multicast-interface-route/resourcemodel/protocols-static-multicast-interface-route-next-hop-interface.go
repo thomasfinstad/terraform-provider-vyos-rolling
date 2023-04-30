@@ -30,6 +30,7 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 

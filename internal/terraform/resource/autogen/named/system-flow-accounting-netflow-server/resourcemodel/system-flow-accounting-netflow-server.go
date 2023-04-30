@@ -30,6 +30,7 @@ func (o SystemFlowAccountingNetflowServer) ResourceAttributes() map[string]schem
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  NetFlow port number  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`2055`),

@@ -31,6 +31,7 @@ func (o ProtocolsRIPInterfaceSend) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  1  |  Allow RIPv1 only  |
 |  2  |  Allow RIPv2 only  |
+
 `,
 		},
 

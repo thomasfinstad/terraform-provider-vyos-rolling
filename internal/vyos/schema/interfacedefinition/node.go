@@ -150,16 +150,18 @@ func (o Node) Description() string {
 			desc += "|----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
 				if vh.Format != "" {
-					desc += fmt.Sprintf("|  %s  |", vh.Format)
+					desc += fmt.Sprintf("|  %s  |", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Format, " "))
 				} else {
 					desc += "|   |"
 				}
 				if vh.Format != "" {
-					desc += fmt.Sprintf("  %s  |\n", vh.Description)
+					desc += fmt.Sprintf("  %s  |\n", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Description, " "))
 				} else {
 					desc += "   |\n"
 				}
 			}
+
+			desc += "\n"
 		}
 	}
 

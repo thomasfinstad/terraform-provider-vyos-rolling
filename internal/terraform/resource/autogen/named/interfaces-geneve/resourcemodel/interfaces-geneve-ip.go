@@ -41,6 +41,7 @@ func (o InterfacesGeneveIP) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
 |  u32:536-65535  |  TCP Maximum segment size in bytes  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o InterfacesGeneveIP) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  ARP cache entry timout in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`30`),
@@ -132,6 +134,7 @@ func (o InterfacesGeneveIP) ResourceAttributes() map[string]schema.Attribute {
 |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
 |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
 |  disable  |  No source validation  |
+
 `,
 		},
 

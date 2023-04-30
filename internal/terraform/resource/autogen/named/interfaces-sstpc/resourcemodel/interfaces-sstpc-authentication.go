@@ -31,6 +31,7 @@ func (o InterfacesSstpcAuthentication) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesSstpcAuthentication) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Password  |
+
 `,
 		},
 

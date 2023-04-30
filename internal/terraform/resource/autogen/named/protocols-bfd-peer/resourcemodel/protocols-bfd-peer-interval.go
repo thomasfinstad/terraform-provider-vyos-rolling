@@ -33,6 +33,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-60000  |  Interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -47,6 +48,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-60000  |  Interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -61,6 +63,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`3`),
@@ -75,6 +78,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
+
 `,
 		},
 

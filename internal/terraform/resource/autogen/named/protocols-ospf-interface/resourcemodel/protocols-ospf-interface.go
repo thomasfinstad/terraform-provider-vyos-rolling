@@ -45,6 +45,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |----------|---------------|
 |  u32  |  OSPF area ID as decimal notation  |
 |  ipv4  |  OSPF area ID in IP address notation  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`40`),
@@ -70,6 +72,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Hello interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -84,6 +87,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Retransmit interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -98,6 +102,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Link state transmit delay (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -112,6 +117,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  OSPF interface cost  |
+
 `,
 		},
 
@@ -131,6 +137,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  OSPF router priority cost  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -145,6 +152,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
+
 `,
 		},
 
@@ -156,6 +164,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-10  |  Number of Hellos to send each second  |
+
 `,
 		},
 
@@ -170,6 +179,7 @@ func (o ProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute
 |  non-broadcast  |  Non-broadcast network type  |
 |  point-to-multipoint  |  Point-to-multipoint network type  |
 |  point-to-point  |  Point-to-point network type  |
+
 `,
 		},
 

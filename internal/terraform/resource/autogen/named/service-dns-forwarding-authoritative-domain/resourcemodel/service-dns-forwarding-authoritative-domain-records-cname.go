@@ -32,6 +32,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  name.example.com  |  An absolute DNS name  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceAttributes(
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-2147483647  |  TTL in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),

@@ -32,6 +32,7 @@ func (o ProtocolsOspfAreaVirtualLinkAuthentication) ResourceAttributes() map[str
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (8 characters or less)  |
+
 `,
 		},
 

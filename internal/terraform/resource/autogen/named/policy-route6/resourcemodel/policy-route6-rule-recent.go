@@ -31,6 +31,7 @@ func (o PolicyRoutesixRuleRecent) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Source addresses seen more than N times  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o PolicyRoutesixRuleRecent) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Source addresses seen in the last N seconds  |
+
 `,
 		},
 

@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefixIndex) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  The index segment/label ID value  |
+
 `,
 		},
 

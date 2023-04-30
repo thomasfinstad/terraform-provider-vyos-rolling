@@ -43,6 +43,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
 |  any  |  Wildcard record (any subdomain)  |
+
 `,
 		},
 
@@ -58,6 +59,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
 |  any  |  Wildcard record (any subdomain)  |
+
 `,
 		},
 
@@ -72,6 +74,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -86,6 +89,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -100,6 +104,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -114,6 +119,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -128,6 +134,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -142,6 +149,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 
@@ -156,6 +164,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 |----------|---------------|
 |  text  |  A DNS name relative to the root record  |
 |  @  |  Root record  |
+
 `,
 		},
 

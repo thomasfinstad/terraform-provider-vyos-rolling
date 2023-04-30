@@ -30,6 +30,7 @@ func (o SystemFlowAccountingSflowServer) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  sFlow port number  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`6343`),

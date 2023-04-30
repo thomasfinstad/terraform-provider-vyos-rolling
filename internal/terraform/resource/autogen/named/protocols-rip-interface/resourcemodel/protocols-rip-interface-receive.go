@@ -31,6 +31,7 @@ func (o ProtocolsRIPInterfaceReceive) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  1  |  Allow RIPv1 only  |
 |  2  |  Allow RIPv2 only  |
+
 `,
 		},
 

@@ -33,6 +33,7 @@ func (o ServiceIPoeServerAuthenticationInterface) ResourceAttributes() map[strin
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 

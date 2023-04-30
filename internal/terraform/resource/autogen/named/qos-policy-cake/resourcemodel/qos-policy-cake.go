@@ -34,6 +34,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -51,6 +52,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%  |  Percentage of interface link speed  |
+
 `,
 		},
 
@@ -62,6 +64,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-3600000  |  RTT in ms  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),

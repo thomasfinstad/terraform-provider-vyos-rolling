@@ -49,6 +49,7 @@ func (o InterfacesWirelessSecURItyWpaRadiusServer) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1812`),

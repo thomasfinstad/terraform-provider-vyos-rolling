@@ -40,6 +40,7 @@ func (o InterfacesOpenvpnIPvsixAddress) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+
 `,
 		},
 

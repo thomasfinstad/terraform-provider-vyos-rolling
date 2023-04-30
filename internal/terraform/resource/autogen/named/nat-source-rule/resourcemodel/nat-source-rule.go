@@ -40,6 +40,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -78,6 +79,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 |  host  |  Match host packet type, addressed to local host  |
 |  multicast  |  Match multicast packet type  |
 |  other  |  Match packet addressed to another host  |
+
 `,
 		},
 
@@ -147,6 +149,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 |  wesp  |  Wrapped Encapsulating Security Payload  |
 |  rohc  |  Robust Header Compression  |
 |  u32:0-255  |  IP protocol number  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`all`),

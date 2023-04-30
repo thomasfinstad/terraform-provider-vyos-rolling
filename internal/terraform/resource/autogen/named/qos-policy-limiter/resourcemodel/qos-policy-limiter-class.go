@@ -37,6 +37,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |  <number>gbit  |  Gigabits per second  |
 |  <number>tbit  |  Terabits per second  |
 |  <number>%  |  Percentage of interface link speed  |
+
 `,
 		},
 
@@ -66,6 +68,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  <number>  |  Bytes  |
 |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`15k`),
@@ -84,6 +87,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |  ok  |  Accept the packet  |
 |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
 |  pipe  |  Pass the packet to the next action in line  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`drop`),
@@ -102,6 +106,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |  ok  |  Accept the packet  |
 |  reclassify  |  Treat the packet as non-matching to the filter this action is attached to and continue with the next filter in line (if any)  |
 |  pipe  |  Pass the packet to the next action in line  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`ok`),
@@ -116,6 +121,7 @@ func (o QosPolicyLimiterClass) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-20  |  Priority for match rule evaluation  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`20`),

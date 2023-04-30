@@ -19,6 +19,7 @@ Tunnel for NHRP
 |  Format  |  Description  |
 |----------|---------------|
 |  tunN  |  NHRP tunnel name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

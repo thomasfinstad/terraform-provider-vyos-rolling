@@ -36,6 +36,7 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceAttributes() map[string]schem
 |  u32:1-25600  |  Bandwidth value in Mbps  |
 |  cumulative  |  Cumulative bandwidth of all multipaths (outbound-only)  |
 |  num-multipaths  |  Internally computed bandwidth based on number of multipaths (outbound-only)  |
+
 `,
 		},
 
@@ -56,6 +57,7 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
 |  IP:NN  |  Based on a router-id IP address in format <IP:0-65535>  |
+
 `,
 		},
 
@@ -68,6 +70,7 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceAttributes() map[string]schem
 |----------|---------------|
 |  ASN:NN  |  based on autonomous system number in format <0-65535:0-4294967295>  |
 |  IP:NN  |  Based on a router-id IP address in format <IP:0-65535>  |
+
 `,
 		},
 

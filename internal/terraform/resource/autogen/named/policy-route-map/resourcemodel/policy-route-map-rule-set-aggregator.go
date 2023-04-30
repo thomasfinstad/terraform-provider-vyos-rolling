@@ -31,6 +31,7 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Rule number  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address  |
+
 `,
 		},
 

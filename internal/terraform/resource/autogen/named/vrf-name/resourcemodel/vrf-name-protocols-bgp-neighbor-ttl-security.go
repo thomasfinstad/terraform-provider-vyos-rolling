@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpNeighborTTLSecURIty) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-254  |  Number of hops  |
+
 `,
 		},
 

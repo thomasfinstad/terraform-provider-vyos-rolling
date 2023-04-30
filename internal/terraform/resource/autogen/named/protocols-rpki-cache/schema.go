@@ -21,6 +21,7 @@ RPKI cache server address
 |  ipv4  |  IP address of RPKI server  |
 |  ipv6  |  IPv6 address of RPKI server  |
 |  hostname  |  Fully qualified domain name of RPKI server  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -38,6 +38,7 @@ func (o SystemSyslogConsoleFacility) ResourceAttributes() map[string]schema.Attr
 |  info  |  Informational messages  |
 |  debug  |  Debug messages  |
 |  all  |  Log everything  |
+
 `,
 		},
 

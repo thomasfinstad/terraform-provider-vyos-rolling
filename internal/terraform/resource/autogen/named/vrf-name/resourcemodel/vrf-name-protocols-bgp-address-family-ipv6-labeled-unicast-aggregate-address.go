@@ -40,6 +40,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) Re
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

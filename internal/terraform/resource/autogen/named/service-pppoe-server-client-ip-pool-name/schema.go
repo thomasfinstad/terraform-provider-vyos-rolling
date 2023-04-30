@@ -21,6 +21,7 @@ Pool name
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of IP pool  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

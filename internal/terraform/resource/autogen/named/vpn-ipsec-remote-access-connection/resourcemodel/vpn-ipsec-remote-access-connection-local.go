@@ -31,6 +31,7 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VpnIPsecRemoteAccessConnectionLocal) ResourceAttributes() map[string]sch
 |----------|---------------|
 |  ipv4net  |  Local IPv4 prefix  |
 |  ipv6net  |  Local IPv6 prefix  |
+
 `,
 		},
 

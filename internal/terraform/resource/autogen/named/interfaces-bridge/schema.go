@@ -17,6 +17,7 @@ func (r interfacesBrIDge) Schema(ctx context.Context, req resource.SchemaRequest
 |  Format  |  Description  |
 |----------|---------------|
 |  brN  |  Bridge interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

@@ -35,6 +35,7 @@ func (o ProtocolsStaticTableRoutesix) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -50,6 +51,7 @@ func (o ProtocolsStaticTableRoutesix) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o ProtocolsStaticTableRoutesix) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6  |  Next-hop IPv6 router  |
+
 `,
 		},
 

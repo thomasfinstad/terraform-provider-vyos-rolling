@@ -48,6 +48,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 
@@ -59,6 +60,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Advertise interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),
@@ -73,6 +75,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -93,6 +96,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4  |  IPv4 hello source address  |
 |  ipv6  |  IPv6 hello source address  |
+
 `,
 		},
 
@@ -105,6 +109,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4  |  IPv4 unicast peer address  |
 |  ipv6  |  IPv6 unicast peer address  |
+
 `,
 		},
 
@@ -124,6 +129,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1000  |  preempt delay  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -138,6 +144,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Router priority  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -161,6 +168,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4  |  IP address  |
 |  ipv6  |  IPv6 address  |
+
 `,
 		},
 
@@ -172,6 +180,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Virtual router identifier  |
+
 `,
 		},
 
@@ -188,6 +197,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 

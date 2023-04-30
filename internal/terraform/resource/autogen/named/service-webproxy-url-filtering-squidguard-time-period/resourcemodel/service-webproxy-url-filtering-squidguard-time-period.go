@@ -53,6 +53,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriod) ResourceAttributes() ma
 |  weekdays  |  Monday through Friday  |
 |  weekend  |  Saturday and Sunday  |
 |  all  |  All days of the week  |
+
 `,
 		},
 

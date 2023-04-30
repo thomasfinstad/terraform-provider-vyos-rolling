@@ -17,6 +17,7 @@ func (r interfacesPseudoEthernet) Schema(ctx context.Context, req resource.Schem
 |  Format  |  Description  |
 |----------|---------------|
 |  pethN  |  Pseudo Ethernet interface name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

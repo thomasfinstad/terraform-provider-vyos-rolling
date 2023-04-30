@@ -30,6 +30,7 @@ func (o VrfNameProtocolsOspfRefresh) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:10-1800  |  Timer value in seconds  |
+
 `,
 		},
 

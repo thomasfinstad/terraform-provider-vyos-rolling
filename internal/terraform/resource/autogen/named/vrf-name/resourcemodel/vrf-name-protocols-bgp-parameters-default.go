@@ -30,6 +30,7 @@ func (o VrfNameProtocolsBgpParametersDefault) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Local preference  |
+
 `,
 		},
 

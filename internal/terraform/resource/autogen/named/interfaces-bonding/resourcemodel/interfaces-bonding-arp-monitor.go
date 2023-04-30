@@ -31,6 +31,7 @@ func (o InterfacesBondingArpMonitor) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Specifies the ARP link monitoring frequency in milliseconds  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesBondingArpMonitor) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Specify IPv4 address of ARP requests when interval is enabled  |
+
 `,
 		},
 

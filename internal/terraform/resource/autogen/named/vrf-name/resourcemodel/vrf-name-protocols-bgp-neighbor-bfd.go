@@ -31,6 +31,7 @@ func (o VrfNameProtocolsBgpNeighborBfd) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

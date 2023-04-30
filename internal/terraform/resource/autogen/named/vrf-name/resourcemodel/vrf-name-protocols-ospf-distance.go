@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfDistance) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Administrative distance  |
+
 `,
 		},
 

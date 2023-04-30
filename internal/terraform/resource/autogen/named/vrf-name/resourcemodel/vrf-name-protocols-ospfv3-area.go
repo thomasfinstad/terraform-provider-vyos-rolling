@@ -54,6 +54,7 @@ func (o VrfNameProtocolsOspfvthreeArea) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Specify IPv6 prefix (border routers only)  |
+
 `,
 		},
 

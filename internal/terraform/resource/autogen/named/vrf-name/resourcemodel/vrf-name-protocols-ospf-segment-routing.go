@@ -34,6 +34,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-16  |  MPLS label depth  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 prefix segment  |
+
 `,
 		},
 

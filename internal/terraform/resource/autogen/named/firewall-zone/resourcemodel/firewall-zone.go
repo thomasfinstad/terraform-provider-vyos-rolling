@@ -37,6 +37,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -57,6 +58,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  drop  |  Drop silently  |
 |  reject  |  Drop and notify source  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`drop`),
@@ -71,6 +73,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface associated with zone  |
+
 `,
 		},
 

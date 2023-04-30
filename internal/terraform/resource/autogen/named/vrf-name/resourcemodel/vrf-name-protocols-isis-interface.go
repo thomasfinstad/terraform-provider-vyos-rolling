@@ -44,6 +44,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  level-1  |  Level-1 only adjacencies are formed  |
 |  level-1-2  |  Level-1-2 adjacencies are formed  |
 |  level-2-only  |  Level-2 only adjacencies are formed  |
+
 `,
 		},
 
@@ -63,6 +64,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-600  |  Set Hello interval  |
+
 `,
 		},
 
@@ -74,6 +76,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:2-100  |  Set multiplier for Hello holding time  |
+
 `,
 		},
 
@@ -85,6 +88,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Default metric value  |
+
 `,
 		},
 
@@ -104,6 +108,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-127  |  Priority value  |
+
 `,
 		},
 
@@ -115,6 +120,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-127  |  PSNP interval in seconds  |
+
 `,
 		},
 

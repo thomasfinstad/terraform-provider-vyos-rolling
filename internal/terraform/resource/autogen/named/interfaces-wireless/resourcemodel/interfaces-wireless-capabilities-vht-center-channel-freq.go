@@ -31,6 +31,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceAttributes()
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceAttributes()
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
+
 `,
 		},
 

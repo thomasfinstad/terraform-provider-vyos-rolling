@@ -39,6 +39,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -50,6 +51,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1514`),
@@ -64,6 +66,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65536  |  Number of flows  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1024`),
@@ -78,6 +81,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Interval in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`100`),
@@ -92,6 +96,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Packet scheduling quantum (bytes)  |
+
 `,
 		},
 
@@ -103,6 +108,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967295  |  Queue size in packets  |
+
 `,
 		},
 
@@ -118,6 +124,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  fq-codel  |  Fair Queue Codel  |
 |  priority  |  Priority queuing  |
 |  random-detect  |  Random Early Detection (RED)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`drop-tail`),
@@ -132,6 +139,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Queue delay in milliseconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),

@@ -19,6 +19,7 @@ Scheduled task
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Task name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

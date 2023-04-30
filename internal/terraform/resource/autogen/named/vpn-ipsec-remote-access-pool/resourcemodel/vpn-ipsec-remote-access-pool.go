@@ -33,6 +33,7 @@ func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  ipv4net  |  Local IPv4 pool prefix exclusion  |
 |  ipv6net  |  Local IPv6 pool prefix exclusion  |
+
 `,
 		},
 
@@ -45,6 +46,7 @@ func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  ipv4net  |  Local IPv4 pool prefix  |
 |  ipv6net  |  Local IPv6 pool prefix  |
+
 `,
 		},
 
@@ -57,6 +59,7 @@ func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
 |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+
 `,
 		},
 

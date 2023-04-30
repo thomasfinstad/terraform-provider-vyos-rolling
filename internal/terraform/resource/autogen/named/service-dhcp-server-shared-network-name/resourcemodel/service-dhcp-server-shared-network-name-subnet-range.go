@@ -31,6 +31,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 start address of pool  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceAttributes() map[
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 end address of pool  |
+
 `,
 		},
 

@@ -49,6 +49,7 @@ func (o VpnIPsecRemoteAccessRadiusServer) ResourceAttributes() map[string]schema
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1812`),

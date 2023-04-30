@@ -30,6 +30,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) ResourceAt
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address of UniFi controller  |
+
 `,
 		},
 

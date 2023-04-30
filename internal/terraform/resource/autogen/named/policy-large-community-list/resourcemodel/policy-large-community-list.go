@@ -32,6 +32,7 @@ func (o PolicyLargeCommunityList) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o PolicyLargeCommunityList) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Large community-list rule number  |
+
 `,
 		},
 

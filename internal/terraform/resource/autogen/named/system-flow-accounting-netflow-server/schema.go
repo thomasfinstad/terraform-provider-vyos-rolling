@@ -22,6 +22,7 @@ NetFlow destination server
 |----------|---------------|
 |  ipv4  |  IPv4 server to export NetFlow  |
 |  ipv6  |  IPv6 server to export NetFlow  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

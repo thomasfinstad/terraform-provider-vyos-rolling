@@ -32,6 +32,7 @@ func (o QosPolicyRoundRobinClassMatchIPSource) ResourceAttributes() map[string]s
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
 |  ipv4net  |  IPv4 prefix  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o QosPolicyRoundRobinClassMatchIPSource) ResourceAttributes() map[string]s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 		},
 

@@ -40,6 +40,7 @@ func (o ContainerNetwork) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  ipv4net  |  IPv4 network prefix  |
 |  ipv6net  |  IPv6 network prefix  |
+
 `,
 		},
 

@@ -67,6 +67,7 @@ func (o QosPolicyPriorityQueueClassMatchIP) ResourceAttributes() map[string]sche
 |  CS6  |  Network control  |
 |  CS7  |    |
 |  EF  |  Expedited Forwarding  |
+
 `,
 		},
 
@@ -78,6 +79,7 @@ func (o QosPolicyPriorityQueueClassMatchIP) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Maximum packet/payload length  |
+
 `,
 		},
 
@@ -89,6 +91,7 @@ func (o QosPolicyPriorityQueueClassMatchIP) ResourceAttributes() map[string]sche
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Protocol name  |
+
 `,
 		},
 

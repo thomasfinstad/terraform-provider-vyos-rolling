@@ -31,6 +31,7 @@ func (o InterfacesPseudoEthernetVifSVifCMirror) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o InterfacesPseudoEthernetVifSVifCMirror) ResourceAttributes() map[string]
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 

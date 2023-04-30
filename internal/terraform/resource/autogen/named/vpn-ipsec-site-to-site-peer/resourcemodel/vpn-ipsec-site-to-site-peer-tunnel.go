@@ -52,6 +52,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Protocol name  |
+
 `,
 		},
 
@@ -63,6 +64,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-100  |  Priority for IPsec policy (lowest value more preferable)  |
+
 `,
 		},
 

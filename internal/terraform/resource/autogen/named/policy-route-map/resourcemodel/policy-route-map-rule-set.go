@@ -58,6 +58,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  Distance value  |
+
 `,
 		},
 
@@ -71,6 +72,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  ipv4  |  IP address  |
 |  unchanged  |  Set the BGP nexthop address as unchanged  |
 |  peer-address  |  Set the BGP nexthop address to the address of the peer  |
+
 `,
 		},
 
@@ -82,6 +84,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  Local preference value  |
+
 `,
 		},
 
@@ -94,6 +97,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  <+/-metric>  |  Add or subtract metric  |
 |  u32:0-4294967295  |  Metric value  |
+
 `,
 		},
 
@@ -106,6 +110,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  type-1  |  OSPF external type 1 metric  |
 |  type-2  |  OSPF external type 2 metric  |
+
 `,
 		},
 
@@ -119,6 +124,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  igp  |  Interior gateway protocol origin  |
 |  egp  |  Exterior gateway protocol origin  |
 |  incomplete  |  Incomplete origin  |
+
 `,
 		},
 
@@ -130,6 +136,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Orignator IP address  |
+
 `,
 		},
 
@@ -142,6 +149,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  ipv4  |  IPv4 address  |
 |  ipv6  |  IPv6 address  |
+
 `,
 		},
 
@@ -153,6 +161,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-200  |  Table value  |
+
 `,
 		},
 
@@ -164,6 +173,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Tag value  |
+
 `,
 		},
 
@@ -175,6 +185,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-4294967295  |  BGP weight  |
+
 `,
 		},
 

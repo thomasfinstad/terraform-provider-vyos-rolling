@@ -43,6 +43,7 @@ Facility for logging
 |  local5  |  Local facility 5  |
 |  local6  |  Local facility 6  |
 |  local7  |  Local facility 7  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

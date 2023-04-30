@@ -21,6 +21,7 @@ Redistribute non-main Kernel Routing Table
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-200  |  Policy route table number  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

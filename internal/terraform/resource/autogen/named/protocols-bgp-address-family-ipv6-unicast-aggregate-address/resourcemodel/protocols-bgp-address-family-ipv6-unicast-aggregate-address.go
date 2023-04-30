@@ -40,6 +40,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

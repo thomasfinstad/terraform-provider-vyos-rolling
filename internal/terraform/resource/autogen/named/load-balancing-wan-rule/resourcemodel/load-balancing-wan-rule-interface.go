@@ -30,6 +30,7 @@ func (o LoadBalancingWanRuleInterface) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Interface weight  |
+
 `,
 		},
 

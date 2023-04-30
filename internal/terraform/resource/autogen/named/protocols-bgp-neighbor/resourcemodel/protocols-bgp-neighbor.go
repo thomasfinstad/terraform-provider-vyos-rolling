@@ -54,6 +54,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-600  |  Advertisement interval in seconds  |
+
 `,
 		},
 
@@ -65,6 +66,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -92,6 +94,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Number of hops  |
+
 `,
 		},
 
@@ -105,6 +108,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  enable  |  Enable BGP graceful restart at peer level  |
 |  disable  |  Disable BGP graceful restart at peer level  |
 |  restart-helper  |  Enable BGP graceful restart helper only functionality  |
+
 `,
 		},
 
@@ -140,6 +144,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Peer-group name  |
+
 `,
 		},
 
@@ -151,6 +156,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Neighbor BGP port number  |
+
 `,
 		},
 
@@ -164,6 +170,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  u32:1-4294967294  |  Neighbor AS number  |
 |  external  |  Any AS different from the local AS  |
 |  internal  |  Neighbor AS number  |
+
 `,
 		},
 
@@ -201,6 +208,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  ipv4  |  IPv4 address of route source  |
 |  ipv6  |  IPv6 address of route source  |
 |  txt  |  Interface as route source  |
+
 `,
 		},
 
@@ -216,6 +224,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-4294967294  |  Autonomous System Number (ASN)  |
+
 `,
 		},
 
@@ -233,6 +242,7 @@ func (o ProtocolsBgpNeighbor) ResourceAttributes() map[string]schema.Attribute {
 |  provider  |  Providing Transit  |
 |  rs-client  |  RS Client  |
 |  rs-server  |  Route Server  |
+
 `,
 		},
 

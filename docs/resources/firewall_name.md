@@ -27,8 +27,7 @@ IPv4 firewall rule-set name
 |  drop  |  Drop if no prior rules are hit  |
 |  jump  |  Jump to another chain if no prior rules are hit  |
 |  reject  |  Drop and notify source if no prior rules are hit  |
-|  return  |  Return from the current chain and continue at the next rule of the last
-                  chain  |
+|  return  |  Return from the current chain and continue at the next rule of the last                   chain  |
 |  accept  |  Accept if no prior rules are hit  |
 - `default_jump_target` (String) Set jump target. Action jump must be defined in default-action to use this
                 setting
@@ -56,8 +55,7 @@ Optional:
 |  accept  |  Accept matching entries  |
 |  jump  |  Jump to another chain  |
 |  reject  |  Reject matching entries  |
-|  return  |  Return from the current chain and continue at the next rule of the
-                      last chain  |
+|  return  |  Return from the current chain and continue at the next rule of the                       last chain  |
 |  drop  |  Drop matching entries  |
 |  queue  |  Enqueue packet to userspace  |
 - `connection_mark` (String) Connection mark
@@ -211,8 +209,7 @@ Optional:
 |  txt  |  Named port (any name in /etc/services, e.g., http)  |
 |  u32:1-65535  |  Numbered port  |
 |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
-|     |  \n\n Multiple destination ports can be specified as a
-                          comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
+|     |  \n\n Multiple destination ports can be specified as a                           comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--rule--destination--geoip"></a>
 ### Nested Schema for `rule.destination.geoip`
@@ -388,8 +385,7 @@ Optional:
 |  txt  |  Named port (any name in /etc/services, e.g., http)  |
 |  u32:1-65535  |  Numbered port  |
 |  <start-end>  |  Numbered port range (e.g. 1001-1005)  |
-|     |  \n\n Multiple destination ports can be specified as a
-                          comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
+|     |  \n\n Multiple destination ports can be specified as a                           comma-separated list.\n For example: 'telnet,http,123,1001-1005'  |
 
 <a id="nestedatt--rule--source--geoip"></a>
 ### Nested Schema for `rule.source.geoip`
@@ -522,8 +518,7 @@ Optional:
 
 |  Format  |  Description  |
 |----------|---------------|
-|  txt  |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,
-                          Saturday, Sunday)  |
+|  txt  |  Name of day (Monday, Tuesday, Wednesday, Thursdays, Friday,                           Saturday, Sunday)  |
 |  u32:0-6  |  Day number (0 = Sunday ... 6 = Saturday)  |
 
 

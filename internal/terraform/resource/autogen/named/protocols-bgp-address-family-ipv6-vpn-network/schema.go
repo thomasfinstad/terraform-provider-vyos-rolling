@@ -23,6 +23,7 @@ Import BGP network/prefix into unicast VPN IPv6 RIB
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

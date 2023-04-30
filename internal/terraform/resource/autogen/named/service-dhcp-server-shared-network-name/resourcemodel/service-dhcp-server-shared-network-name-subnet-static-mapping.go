@@ -41,6 +41,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceAttribute
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 address used in static mapping  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceAttribute
 |  Format  |  Description  |
 |----------|---------------|
 |  macaddr  |  Hardware (MAC) address  |
+
 `,
 		},
 

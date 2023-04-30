@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthentication) ResourceAttributes() 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (8 characters or less)  |
+
 `,
 		},
 

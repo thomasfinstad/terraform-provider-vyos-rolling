@@ -19,6 +19,7 @@ Configure BFD profile used by individual peer
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of BFD profile  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

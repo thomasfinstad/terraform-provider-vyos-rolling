@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]sc
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-16777215  |  Summary default cost  |
+
 `,
 		},
 
@@ -53,6 +54,7 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]sc
 |  always  |  Always translate LSA types  |
 |  candidate  |  Translate for election  |
 |  never  |  Never translate LSA types  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`candidate`),

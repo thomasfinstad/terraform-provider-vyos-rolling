@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for external routes  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for inter-area routes  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o VrfNameProtocolsOspfvthreeDistanceOspfvthree) ResourceAttributes() map[s
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for intra-area routes  |
+
 `,
 		},
 

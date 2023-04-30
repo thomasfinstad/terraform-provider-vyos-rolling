@@ -34,6 +34,7 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  filename  |  File in /config/auth directory  |
+
 `,
 		},
 
@@ -61,6 +62,7 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  DNS forwarding cache size  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`600`),

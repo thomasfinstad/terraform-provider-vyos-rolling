@@ -32,6 +32,7 @@ func (o VrfNameProtocolsOspfInterfaceAuthentication) ResourceAttributes() map[st
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Plain text password (8 characters or less)  |
+
 `,
 		},
 

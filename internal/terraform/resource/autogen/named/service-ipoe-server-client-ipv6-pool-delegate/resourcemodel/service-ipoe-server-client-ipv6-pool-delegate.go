@@ -30,6 +30,7 @@ func (o ServiceIPoeServerClientIPvsixPoolDelegate) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:32-64  |  Delegated prefix length  |
+
 `,
 		},
 

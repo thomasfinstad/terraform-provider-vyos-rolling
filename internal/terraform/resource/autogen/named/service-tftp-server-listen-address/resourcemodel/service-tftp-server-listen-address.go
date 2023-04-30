@@ -30,6 +30,7 @@ func (o ServiceTftpServerListenAddress) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

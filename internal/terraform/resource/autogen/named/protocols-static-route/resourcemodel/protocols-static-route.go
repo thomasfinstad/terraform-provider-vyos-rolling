@@ -36,6 +36,7 @@ func (o ProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  DHCP interface name  |
+
 `,
 		},
 
@@ -47,6 +48,7 @@ func (o ProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -62,6 +64,7 @@ func (o ProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
+
 `,
 		},
 
@@ -75,6 +78,7 @@ func (o ProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Next-hop router address  |
+
 `,
 		},
 

@@ -41,6 +41,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for this route  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Gateway interface name  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Name of VRF to leak to  |
+
 `,
 		},
 

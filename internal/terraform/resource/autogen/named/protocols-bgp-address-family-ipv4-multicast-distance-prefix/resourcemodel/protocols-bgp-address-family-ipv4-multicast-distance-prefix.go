@@ -30,6 +30,7 @@ func (o ProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix) ResourceAttribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Administrative distance for external BGP routes  |
+
 `,
 		},
 

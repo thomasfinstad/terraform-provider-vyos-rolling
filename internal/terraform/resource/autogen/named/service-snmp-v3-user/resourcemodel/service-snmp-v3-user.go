@@ -43,6 +43,7 @@ func (o ServiceSnmpVthreeUser) ResourceAttributes() map[string]schema.Attribute 
 |----------|---------------|
 |  ro  |  Read-Only  |
 |  rw  |  read write  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`ro`),

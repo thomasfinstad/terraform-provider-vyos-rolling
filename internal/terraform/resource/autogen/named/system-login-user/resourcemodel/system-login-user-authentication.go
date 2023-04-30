@@ -57,6 +57,7 @@ func (o SystemLoginUserAuthentication) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Key identifier used by ssh-keygen (usually of form user@host)  |
+
 `,
 		},
 

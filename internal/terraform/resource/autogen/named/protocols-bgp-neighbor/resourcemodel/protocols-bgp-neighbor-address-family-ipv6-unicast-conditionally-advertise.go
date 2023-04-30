@@ -32,6 +32,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastConditionallyAdvertise) Re
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastConditionallyAdvertise) Re
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastConditionallyAdvertise) Re
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

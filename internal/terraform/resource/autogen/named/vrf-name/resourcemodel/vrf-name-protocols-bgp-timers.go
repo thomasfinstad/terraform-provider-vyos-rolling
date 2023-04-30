@@ -32,6 +32,7 @@ func (o VrfNameProtocolsBgpTimers) ResourceAttributes() map[string]schema.Attrib
 |----------|---------------|
 |  u32:1-65535  |  Hold timer in seconds  |
 |  0  |  Hold timer disabled  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VrfNameProtocolsBgpTimers) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Keepalive interval in seconds  |
+
 `,
 		},
 

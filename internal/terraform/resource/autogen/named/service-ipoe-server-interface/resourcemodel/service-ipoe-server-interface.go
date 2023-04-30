@@ -36,6 +36,7 @@ func (o ServiceIPoeServerInterface) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  l2  |  Client located on same interface as server  |
 |  l3  |  Client located behind a router  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`l2`),
@@ -51,6 +52,7 @@ func (o ServiceIPoeServerInterface) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  shared  |  Multiple clients share the same network  |
 |  vlan  |  One VLAN per client  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`shared`),
@@ -65,6 +67,7 @@ func (o ServiceIPoeServerInterface) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  IPv4 address and prefix length  |
+
 `,
 		},
 
@@ -77,6 +80,7 @@ func (o ServiceIPoeServerInterface) ResourceAttributes() map[string]schema.Attri
 |----------|---------------|
 |  u32:1-4094  |  VLAN for automatic creation  |
 |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+
 `,
 		},
 

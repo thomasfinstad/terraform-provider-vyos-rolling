@@ -30,6 +30,7 @@ func (o ProtocolsIsisInterfaceBfd) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  BFD profile name  |
+
 `,
 		},
 

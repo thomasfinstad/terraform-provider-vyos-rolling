@@ -21,6 +21,7 @@ Serial console device name
 |  ttySN  |  TTY device name, regular serial port  |
 |  usbNbXpY  |  TTY device name, USB based  |
 |  hvcN  |  Xen console  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

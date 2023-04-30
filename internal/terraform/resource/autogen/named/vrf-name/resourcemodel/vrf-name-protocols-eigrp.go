@@ -39,6 +39,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Autonomous System Number  |
+
 `,
 		},
 
@@ -50,6 +51,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-32  |  Number of paths  |
+
 `,
 		},
 
@@ -61,6 +63,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  EIGRP network prefix  |
+
 `,
 		},
 
@@ -87,6 +90,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  babel  |  Babel routing protocol (Babel)  |
 |  static  |  Statically configured routes  |
 |  vnc  |  Virtual Network Control (VNC)  |
+
 `,
 		},
 
@@ -98,6 +102,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -109,6 +114,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Router-ID in IP address format  |
+
 `,
 		},
 
@@ -120,6 +126,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-128  |  Metric variance multiplier  |
+
 `,
 		},
 

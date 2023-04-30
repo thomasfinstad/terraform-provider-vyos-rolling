@@ -19,6 +19,7 @@ IP route-map
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

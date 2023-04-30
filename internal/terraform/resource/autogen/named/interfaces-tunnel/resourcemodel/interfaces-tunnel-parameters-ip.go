@@ -50,6 +50,7 @@ func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32  |  Tunnel key  |
+
 `,
 		},
 
@@ -61,6 +62,7 @@ func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-99  |  Type of Service (TOS)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`inherit`),
@@ -76,6 +78,7 @@ func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Att
 |----------|---------------|
 |  u32:0  |  Inherit - copy value from original IP header  |
 |  u32:1-255  |  Time to Live  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`64`),

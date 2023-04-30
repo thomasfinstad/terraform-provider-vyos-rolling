@@ -30,6 +30,7 @@ func (o ProtocolsPimRpAddress) ResourceAttributes() map[string]schema.Attribute 
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Group Address range RFC 3171  |
+
 `,
 		},
 

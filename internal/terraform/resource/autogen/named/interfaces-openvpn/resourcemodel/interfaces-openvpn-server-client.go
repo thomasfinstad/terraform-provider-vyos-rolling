@@ -42,6 +42,7 @@ func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  ipv4  |  Client IPv4 address  |
 |  ipv6  |  Client IPv6 address  |
+
 `,
 		},
 
@@ -54,6 +55,7 @@ func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  ipv4net  |  IPv4 network and prefix length  |
 |  ipv6net  |  IPv6 network and prefix length  |
+
 `,
 		},
 
@@ -66,6 +68,7 @@ func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  ipv4net  |  IPv4 network and prefix length belonging to the client  |
 |  ipv6net  |  IPv6 network and prefix length belonging to the client  |
+
 `,
 		},
 

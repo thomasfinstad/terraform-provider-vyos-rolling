@@ -75,6 +75,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-255  |  Distance for the default route from DHCP server  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`210`),
@@ -89,6 +90,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
@@ -108,6 +110,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-86400  |  Idle timeout in seconds  |
+
 `,
 		},
 
@@ -119,6 +122,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Host-uniq tag as byte string in HEX  |
+
 `,
 		},
 
@@ -130,6 +134,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  interface  |  Interface name  |
+
 `,
 		},
 
@@ -141,6 +146,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Address of local end of the PPPoE link  |
+
 `,
 		},
 
@@ -152,6 +158,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:68-1500  |  Maximum Transmission Unit in byte  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1492`),
@@ -174,6 +181,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Address of remote end of the PPPoE link  |
+
 `,
 		},
 
@@ -193,6 +201,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Destination interface name  |
+
 `,
 		},
 
@@ -204,6 +213,7 @@ func (o InterfacesPppoe) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRF instance name  |
+
 `,
 		},
 

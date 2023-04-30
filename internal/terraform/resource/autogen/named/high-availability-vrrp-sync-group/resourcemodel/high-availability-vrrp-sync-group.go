@@ -32,6 +32,7 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  VRRP group name  |
+
 `,
 		},
 

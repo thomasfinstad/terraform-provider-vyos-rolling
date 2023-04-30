@@ -39,6 +39,7 @@ func (o HighAvailabilityVrrpGroupTrack) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Interface name  |
+
 `,
 		},
 

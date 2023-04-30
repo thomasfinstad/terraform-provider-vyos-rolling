@@ -35,6 +35,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  ipv4  |  Squid cache-peer IPv4 address  |
 |  hostname  |  Squid cache-peer hostname  |
+
 `,
 		},
 
@@ -46,6 +47,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  Default port number  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`3128`),
@@ -61,6 +63,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 |----------|---------------|
 |  u32:0  |  Cache peer disabled  |
 |  u32:1-65535  |  Cache peer ICP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0`),
@@ -75,6 +78,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Cache peer options  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`no-query default`),
@@ -91,6 +95,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 |  parent  |  Peer is a parent  |
 |  sibling  |  Peer is a sibling  |
 |  multicast  |  Peer is a member of a multicast group  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`parent`),

@@ -68,6 +68,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |----------|---------------|
 |  allow  |  Default filter action is allow)  |
 |  block  |  Default filter action is block  |
+
 `,
 		},
 
@@ -87,6 +88,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  keyword  |  Keyword (or regex) to block  |
+
 `,
 		},
 
@@ -98,6 +100,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  url  |  Local URL to block (without "http://")  |
+
 `,
 		},
 
@@ -109,6 +112,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address of site to block  |
+
 `,
 		},
 
@@ -120,6 +124,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  url  |  Local URL to allow (without "http://")  |
+
 `,
 		},
 
@@ -131,6 +136,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IP address of site to allow  |
+
 `,
 		},
 
@@ -150,6 +156,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  url  |  URL for redirect  |
+
 `,
 		},
 
@@ -161,6 +168,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  group  |  Source group identifier for this rule  |
+
 `,
 		},
 
@@ -172,6 +180,7 @@ func (o ServiceWebproxyURLFilteringSquIDguardRule) ResourceAttributes() map[stri
 |  Format  |  Description  |
 |----------|---------------|
 |  period  |  Time period for this rule  |
+
 `,
 		},
 

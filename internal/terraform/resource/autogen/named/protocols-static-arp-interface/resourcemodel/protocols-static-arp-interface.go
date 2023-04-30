@@ -33,6 +33,7 @@ func (o ProtocolsStaticArpInterface) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  IPv4 destination address  |
+
 `,
 		},
 

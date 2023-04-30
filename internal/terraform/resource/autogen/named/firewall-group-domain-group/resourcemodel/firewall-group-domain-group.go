@@ -31,6 +31,7 @@ func (o FirewallGroupDomainGroup) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Domain address to match  |
+
 `,
 		},
 
@@ -42,6 +43,7 @@ func (o FirewallGroupDomainGroup) ResourceAttributes() map[string]schema.Attribu
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 

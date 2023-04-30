@@ -35,6 +35,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Neighbor dead interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`40`),
@@ -49,6 +50,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Hello interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -63,6 +65,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Retransmit interval (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`5`),
@@ -77,6 +80,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]sch
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Link state transmit delay (seconds)  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`1`),

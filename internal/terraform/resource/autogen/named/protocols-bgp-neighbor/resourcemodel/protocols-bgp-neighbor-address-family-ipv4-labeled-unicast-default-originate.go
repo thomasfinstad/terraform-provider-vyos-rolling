@@ -30,6 +30,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastDefaultOriginate) 
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 

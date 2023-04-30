@@ -36,6 +36,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Numeric IP port  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`162`),
@@ -51,6 +52,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 |----------|---------------|
 |  udp  |  Listen protocol UDP  |
 |  tcp  |  Listen protocol TCP  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`udp`),
@@ -66,6 +68,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 |----------|---------------|
 |  inform  |  Use INFORM  |
 |  trap  |  Use TRAP  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`inform`),

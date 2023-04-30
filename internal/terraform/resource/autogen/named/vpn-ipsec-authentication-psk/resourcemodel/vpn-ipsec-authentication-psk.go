@@ -32,6 +32,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  DHCP interface name  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  ID used for authentication  |
+
 `,
 		},
 
@@ -54,6 +56,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attrib
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  IKE pre-shared secret key  |
+
 `,
 		},
 

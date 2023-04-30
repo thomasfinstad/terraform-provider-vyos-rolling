@@ -60,6 +60,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 |  ht20  |  Supported channel set width both 20 MHz only  |
 |  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
 |  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
+
 `,
 		},
 
@@ -112,6 +113,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  3839  |  Set maximum A-MSDU length to 3839 octets  |
 |  7935  |  Set maximum A-MSDU length to 7935 octets  |
+
 `,
 		},
 
@@ -124,6 +126,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  20  |  Short GI for 20 MHz  |
 |  40  |  Short GI for 40 MHz  |
+
 `,
 		},
 
@@ -136,6 +139,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 |----------|---------------|
 |  static  |  STATIC Spatial Multiplexing (SM) Power Save  |
 |  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
+
 `,
 		},
 

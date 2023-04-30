@@ -30,6 +30,7 @@ func (o VpnIPsecProfileBind) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Associated interface to this profile  |
+
 `,
 		},
 

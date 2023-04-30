@@ -55,6 +55,7 @@ func (o SystemLoginUserAuthenticationPublicKeys) ResourceAttributes() map[string
 |  ssh-ed25519  |  Edwards-curve DSA with elliptic curve 25519  |
 |  sk-ecdsa-sha2-nistp256@openssh.com  |  Elliptic Curve DSA security key  |
 |  sk-ssh-ed25519@openssh.com  |  Elliptic curve 25519 security key  |
+
 `,
 		},
 

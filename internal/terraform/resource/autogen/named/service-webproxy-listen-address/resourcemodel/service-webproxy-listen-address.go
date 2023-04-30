@@ -31,6 +31,7 @@ func (o ServiceWebproxyListenAddress) ResourceAttributes() map[string]schema.Att
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1025-65535  |  Default port number  |
+
 `,
 		},
 

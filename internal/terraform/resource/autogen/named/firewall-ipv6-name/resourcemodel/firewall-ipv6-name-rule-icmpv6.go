@@ -32,6 +32,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  ICMPv6 code (0-255)  |
+
 `,
 		},
 
@@ -43,6 +44,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.A
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  ICMPv6 type (0-255)  |
+
 `,
 		},
 
@@ -71,6 +73,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.A
 |  ind-neighbor-solicit  |  ICMPv6 type 141: ind-neighbor-solicit  |
 |  ind-neighbor-advert  |  ICMPv6 type 142: ind-neighbor-advert  |
 |  mld2-listener-report  |  ICMPv6 type 143: mld2-listener-report  |
+
 `,
 		},
 

@@ -30,6 +30,7 @@ func (o VrfNameProtocolsEigrpMetric) ResourceAttributes() map[string]schema.Attr
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-255  |  K1  |
+
 `,
 		},
 

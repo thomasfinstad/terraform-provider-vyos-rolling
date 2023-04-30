@@ -23,6 +23,7 @@ Connection name of the peer
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Connection name of the peer  |
+
 `,
 		Attributes: r.model.ResourceAttributes(),
 	}

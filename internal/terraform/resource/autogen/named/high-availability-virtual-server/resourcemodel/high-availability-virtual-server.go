@@ -44,6 +44,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  source-hashing  |  Source hashing  |
 |  destination-hashing  |  Destination hashing  |
 |  locality-based-least-connection  |  Locality-Based least connection  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`least-connection`),
@@ -58,6 +59,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-600  |  Interval in seconds  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`10`),
@@ -74,6 +76,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  direct  |  Direct routing  |
 |  nat  |  NAT  |
 |  tunnel  |  Tunneling  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`nat`),
@@ -88,6 +91,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-2147483647  |  Match firewall mark value  |
+
 `,
 		},
 
@@ -99,6 +103,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:0-65535  |  Numeric IP port  |
+
 `,
 		},
 
@@ -110,6 +115,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-86400  |  Timeout for persistent connections  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`300`),
@@ -125,6 +131,7 @@ func (o HighAvailabilityVirtualServer) ResourceAttributes() map[string]schema.At
 |----------|---------------|
 |  tcp  |  TCP  |
 |  udp  |  UDP  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`tcp`),

@@ -48,6 +48,7 @@ func (o PolicyAccessListsixRuleSource) ResourceAttributes() map[string]schema.At
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv6net  |  IPv6 address and prefix length  |
+
 `,
 		},
 

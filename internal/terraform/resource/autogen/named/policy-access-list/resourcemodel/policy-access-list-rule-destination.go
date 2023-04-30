@@ -41,6 +41,7 @@ func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Host address to match  |
+
 `,
 		},
 
@@ -52,6 +53,7 @@ func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Inverse-mask to match  |
+
 `,
 		},
 
@@ -63,6 +65,7 @@ func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4net  |  Inverse-mask to match  |
+
 `,
 		},
 

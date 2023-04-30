@@ -33,6 +33,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) ResourceAttribut
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Username used for authentication  |
+
 `,
 		},
 

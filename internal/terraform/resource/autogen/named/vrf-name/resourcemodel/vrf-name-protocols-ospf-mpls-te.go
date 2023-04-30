@@ -39,6 +39,7 @@ func (o VrfNameProtocolsOspfMplsTe) ResourceAttributes() map[string]schema.Attri
 |  Format  |  Description  |
 |----------|---------------|
 |  ipv4  |  Stable IP address of the advertising router  |
+
 `,
 
 			// Default:          stringdefault.StaticString(`0.0.0.0`),

@@ -38,6 +38,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 |----------|---------------|
 |  permit  |  Permit matching entries  |
 |  deny  |  Deny matching entries  |
+
 `,
 		},
 
@@ -49,6 +50,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Route map name  |
+
 `,
 		},
 
@@ -60,6 +62,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  u32:1-65535  |  Rule number  |
+
 `,
 		},
 
@@ -71,6 +74,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 |  Format  |  Description  |
 |----------|---------------|
 |  txt  |  Description  |
+
 `,
 		},
 
