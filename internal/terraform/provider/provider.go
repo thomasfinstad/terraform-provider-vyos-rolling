@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 
 	"github.com/thomasfinstad/terraform-provider-vyos/internal/client"
-	resourcefull "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/full"
+	resourcefull "github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/resource/autogen/named"
 )
 
 // Ensure ScaffoldingProvider satisfies various provider interfaces.

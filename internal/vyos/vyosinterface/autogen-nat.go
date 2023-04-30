@@ -50,11 +50,568 @@ func nat() interfacedefinition.InterfaceDefinition {
 								Local: "tagNode",
 							},
 							NodeNameAttr: "rule",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Rule number for NAT"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr:     "numeric",
+										ArgumentAttr: "--range 1-999999",
+									}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "u32:1-999999",
+									Description: "Number of NAT rule",
+								}},
+								ConstraintErrorMessage: []string{"NAT rule number must be between 1 and 999999"},
+							}},
 							Children: []*interfacedefinition.Children{{
 								XMLName: xml.Name{
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "destination",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT destination parameters"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "group",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Group"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "address-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group address-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "domain-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of domains"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group domain-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "mac-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of MAC addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group mac-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "network-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of networks"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group network-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of ports"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group port-group"},
+														}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IP address, subnet, or range"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range-exclude",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4",
+													Description: "Match everything except the specified address",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4net",
+													Description: "Match everything except the specified prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4range",
+													Description: "Match everything except the specified range",
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "port",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port number"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "port-multi",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Named port (any name in /etc/services, e.g., http)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "start-end",
+													Description: "Numbered port range (e.g. 1001-1005)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Description: "\\n\\nMultiple destination ports can be specified as a comma-separated list.\\nThe whole list can also be negated using '!'.\\nFor example: '!22,telnet,http,123,1001-1005'",
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "source",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT source parameters"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "group",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Group"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "address-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group address-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "domain-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of domains"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group domain-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "mac-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of MAC addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group mac-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "network-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of networks"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group network-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of ports"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group port-group"},
+														}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IP address, subnet, or range"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range-exclude",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4",
+													Description: "Match everything except the specified address",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4net",
+													Description: "Match everything except the specified prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4range",
+													Description: "Match everything except the specified range",
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "port",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port number"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "port-multi",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Named port (any name in /etc/services, e.g., http)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "start-end",
+													Description: "Numbered port range (e.g. 1001-1005)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Description: "\\n\\nMultiple destination ports can be specified as a comma-separated list.\\nThe whole list can also be negated using '!'.\\nFor example: '!22,telnet,http,123,1001-1005'",
+												}},
+											}},
+										}},
+									}},
+								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "rule",
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{nil},
+											LeafNode: []*interfacedefinition.LeafNode{{
+												XMLName: xml.Name{
+													Local: "leafNode",
+												},
+												NodeNameAttr: "inbound-interface",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Inbound interface of NAT traffic"},
+													CompletionHelp: []*interfacedefinition.CompletionHelp{{
+														XMLName: xml.Name{
+															Local: "completionHelp",
+														},
+														List:   []string{"any"},
+														Script: []string{"${vyos_completion_dir}/list_interfaces"},
+													}},
+												}},
+											}},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -260,6 +817,725 @@ func nat() interfacedefinition.InterfaceDefinition {
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
+									NodeNameAttr: "description",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Description"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[[:ascii:]]{0,256}"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Description",
+										}},
+										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "disable",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Disable instance"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "exclude",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Exclude packets matching this rule from NAT"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "log",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT rule logging"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "packet-type",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Packet type"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(broadcast|host|multicast|other)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "broadcast",
+											Description: "Match broadcast packet type",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "host",
+											Description: "Match host packet type, addressed to local host",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "multicast",
+											Description: "Match multicast packet type",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "other",
+											Description: "Match packet addressed to another host",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"broadcast host multicast other"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "protocol",
+									DefaultValue: []string{"all"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Protocol to NAT"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-protocol",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "all",
+											Description: "All IP protocols",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ip",
+											Description: "Internet Protocol, pseudo protocol number",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hopopt",
+											Description: "IPv6 Hop-by-Hop Option [RFC1883]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "icmp",
+											Description: "internet control message protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "igmp",
+											Description: "Internet Group Management",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ggp",
+											Description: "gateway-gateway protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipencap",
+											Description: "IP encapsulated in IP (officially IP)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "st",
+											Description: "ST datagram mode",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "tcp",
+											Description: "transmission control protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "egp",
+											Description: "exterior gateway protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "igp",
+											Description: "any private interior gateway (Cisco)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "pup",
+											Description: "PARC universal packet protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "udp",
+											Description: "user datagram protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "tcp_udp",
+											Description: "Both TCP and UDP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hmp",
+											Description: "host monitoring protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "xns-idp",
+											Description: "Xerox NS IDP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rdp",
+											Description: "\"reliable datagram\" protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "iso-tp4",
+											Description: "ISO Transport Protocol class 4 [RFC905]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dccp",
+											Description: "Datagram Congestion Control Prot. [RFC4340]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "xtp",
+											Description: "Xpress Transfer Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ddp",
+											Description: "Datagram Delivery Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "idpr-cmtp",
+											Description: "IDPR Control Message Transport",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "Ipv6",
+											Description: "Internet Protocol, version 6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-route",
+											Description: "Routing Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-frag",
+											Description: "Fragment Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "idrp",
+											Description: "Inter-Domain Routing Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rsvp",
+											Description: "Reservation Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "gre",
+											Description: "General Routing Encapsulation",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "esp",
+											Description: "Encap Security Payload [RFC2406]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ah",
+											Description: "Authentication Header [RFC2402]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "skip",
+											Description: "SKIP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-icmp",
+											Description: "ICMP for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-nonxt",
+											Description: "No Next Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-opts",
+											Description: "Destination Options for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rspf",
+											Description: "Radio Shortest Path First (officially CPHB)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "vmtp",
+											Description: "Versatile Message Transport",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "eigrp",
+											Description: "Enhanced Interior Routing Protocol (Cisco)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ospf",
+											Description: "Open Shortest Path First IGP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ax.25",
+											Description: "AX.25 frames",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipip",
+											Description: "IP-within-IP Encapsulation Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "etherip",
+											Description: "Ethernet-within-IP Encapsulation [RFC3378]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "encap",
+											Description: "Yet Another IP encapsulation [RFC1241]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "99",
+											Description: "Any private encryption scheme",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "pim",
+											Description: "Protocol Independent Multicast",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipcomp",
+											Description: "IP Payload Compression Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "vrrp",
+											Description: "Virtual Router Redundancy Protocol [RFC5798]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "l2tp",
+											Description: "Layer Two Tunneling Protocol [RFC2661]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "isis",
+											Description: "IS-IS over IPv4",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "sctp",
+											Description: "Stream Control Transmission Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "fc",
+											Description: "Fibre Channel",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "mobility-header",
+											Description: "Mobility Support for IPv6 [RFC3775]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "udplite",
+											Description: "UDP-Lite [RFC3828]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "mpls-in-ip",
+											Description: "MPLS-in-IP [RFC4023]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "manet",
+											Description: "MANET Protocols [RFC5498]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hip",
+											Description: "Host Identity Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "shim6",
+											Description: "Shim6 Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "wesp",
+											Description: "Wrapped Encapsulating Security Payload",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rohc",
+											Description: "Robust Header Compression",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:0-255",
+											Description: "IP protocol number",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"all ip hopopt icmp igmp ggp ipencap st tcp egp igp pup udp tcp_udp hmp xns-idp rdp iso-tp4 dccp xtp ddp idpr-cmtp ipv6 ipv6-route ipv6-frag idrp rsvp gre esp ah skip ipv6-icmp ipv6-nonxt ipv6-opts rspf vmtp eigrp ospf ax.25 ipip etherip encap 99 pim ipcomp vrrp l2tp isis sctp fc mobility-header udplite mpls-in-ip manet hip shim6 wesp rohc"},
+										}},
+									}},
+								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "rule",
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "translation",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Inside NAT IP (destination NAT only)"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "options",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Translation options"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "address-mapping",
+																DefaultValue: []string{"random"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Address mapping options"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"(persistent|random)"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "persistent",
+																		Description: "Gives a client the same source or destination-address for each connection",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "random",
+																		Description: "Random source or destination address allocation for each connection",
+																	}},
+																	CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																		XMLName: xml.Name{
+																			Local: "completionHelp",
+																		},
+																		List: []string{"persistent random"},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port-mapping",
+																DefaultValue: []string{"none"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port mapping options"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"(random|fully-random|none)"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "random",
+																		Description: "Randomize source port mapping",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "fully-random",
+																		Description: "Full port randomization",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "none",
+																		Description: "Do not apply port randomization",
+																	}},
+																	CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																		XMLName: xml.Name{
+																			Local: "completionHelp",
+																		},
+																		List: []string{"random fully-random none"},
+																	}},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"IP address, subnet, or range"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-prefix",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-range",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "IPv4 address to match",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4net",
+																Description: "IPv4 prefix to match",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4range",
+																Description: "IPv4 address range to match",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "port",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Port number"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "port-range",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-65535",
+																Description: "Numeric IP port",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "range",
+																Description: "Numbered port range (e.g., 1001-1005)",
+															}},
+														}},
+													}},
+												}},
+											}},
+											LeafNode: []*interfacedefinition.LeafNode{nil},
+										}},
+									},
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
 									NodeNameAttr: "inbound-interface",
 									Properties: []*interfacedefinition.Properties{{
 										XMLName: xml.Name{
@@ -329,6 +1605,563 @@ func nat() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "destination",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT destination parameters"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "group",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Group"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "address-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group address-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "domain-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of domains"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group domain-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "mac-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of MAC addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group mac-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "network-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of networks"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group network-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of ports"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group port-group"},
+														}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IP address, subnet, or range"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range-exclude",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4",
+													Description: "Match everything except the specified address",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4net",
+													Description: "Match everything except the specified prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4range",
+													Description: "Match everything except the specified range",
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "port",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port number"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "port-multi",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Named port (any name in /etc/services, e.g., http)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "start-end",
+													Description: "Numbered port range (e.g. 1001-1005)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Description: "\\n\\nMultiple destination ports can be specified as a comma-separated list.\\nThe whole list can also be negated using '!'.\\nFor example: '!22,telnet,http,123,1001-1005'",
+												}},
+											}},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "source",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT source parameters"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										Node: []*interfacedefinition.Node{{
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "group",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Group"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "address-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group address-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "domain-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of domains"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group domain-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "mac-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of MAC addresses"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group mac-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "network-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of networks"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group network-group"},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port-group",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Group of ports"},
+														CompletionHelp: []*interfacedefinition.CompletionHelp{{
+															XMLName: xml.Name{
+																Local: "completionHelp",
+															},
+															Path: []string{"firewall group port-group"},
+														}},
+													}},
+												}},
+											}},
+										}},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IP address, subnet, or range"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-prefix-exclude",
+													}, {
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-range-exclude",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 address to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4net",
+													Description: "IPv4 prefix to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4range",
+													Description: "IPv4 address range to match",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4",
+													Description: "Match everything except the specified address",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4net",
+													Description: "Match everything except the specified prefix",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "!ipv4range",
+													Description: "Match everything except the specified range",
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "port",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Port number"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "port-multi",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Named port (any name in /etc/services, e.g., http)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-65535",
+													Description: "Numeric IP port",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "start-end",
+													Description: "Numbered port range (e.g. 1001-1005)",
+												}, {
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Description: "\\n\\nMultiple destination ports can be specified as a comma-separated list.\\nThe whole list can also be negated using '!'.\\nFor example: '!22,telnet,http,123,1001-1005'",
+												}},
+											}},
+										}},
+									}},
+								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "rule",
+										Properties: []*interfacedefinition.Properties{{
+											XMLName: xml.Name{
+												Local: "properties",
+											},
+											Help: []string{"Rule number for NAT"},
+											Constraint: []*interfacedefinition.Constraint{{
+												XMLName: xml.Name{
+													Local: "constraint",
+												},
+												Validator: []*interfacedefinition.Validator{{
+													XMLName: xml.Name{
+														Local: "validator",
+													},
+													NameAttr:     "numeric",
+													ArgumentAttr: "--range 1-999999",
+												}},
+											}},
+											ValueHelp: []*interfacedefinition.ValueHelp{{
+												XMLName: xml.Name{
+													Local: "valueHelp",
+												},
+												Format:      "u32:1-999999",
+												Description: "Number of NAT rule",
+											}},
+											ConstraintErrorMessage: []string{"NAT rule number must be between 1 and 999999"},
+										}},
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{nil},
+											LeafNode: []*interfacedefinition.LeafNode{{
+												XMLName: xml.Name{
+													Local: "leafNode",
+												},
+												NodeNameAttr: "outbound-interface",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Outbound interface of NAT traffic"},
+													CompletionHelp: []*interfacedefinition.CompletionHelp{{
+														XMLName: xml.Name{
+															Local: "completionHelp",
+														},
+														List:   []string{"any"},
+														Script: []string{"${vyos_completion_dir}/list_interfaces"},
+													}},
+												}},
+											}},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -544,6 +2377,764 @@ func nat() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "description",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Description"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"[[:ascii:]]{0,256}"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "txt",
+											Description: "Description",
+										}},
+										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "disable",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Disable instance"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "exclude",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Exclude packets matching this rule from NAT"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "log",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"NAT rule logging"},
+										Valueless: []*interfacedefinition.Valueless{{
+											XMLName: xml.Name{
+												Local: "valueless",
+											},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "packet-type",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Packet type"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Regex: []string{"(broadcast|host|multicast|other)"},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "broadcast",
+											Description: "Match broadcast packet type",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "host",
+											Description: "Match host packet type, addressed to local host",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "multicast",
+											Description: "Match multicast packet type",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "other",
+											Description: "Match packet addressed to another host",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"broadcast host multicast other"},
+										}},
+									}},
+								}, {
+									XMLName: xml.Name{
+										Local: "leafNode",
+									},
+									NodeNameAttr: "protocol",
+									DefaultValue: []string{"all"},
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Protocol to NAT"},
+										Constraint: []*interfacedefinition.Constraint{{
+											XMLName: xml.Name{
+												Local: "constraint",
+											},
+											Validator: []*interfacedefinition.Validator{{
+												XMLName: xml.Name{
+													Local: "validator",
+												},
+												NameAttr: "ip-protocol",
+											}},
+										}},
+										ValueHelp: []*interfacedefinition.ValueHelp{{
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "all",
+											Description: "All IP protocols",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ip",
+											Description: "Internet Protocol, pseudo protocol number",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hopopt",
+											Description: "IPv6 Hop-by-Hop Option [RFC1883]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "icmp",
+											Description: "internet control message protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "igmp",
+											Description: "Internet Group Management",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ggp",
+											Description: "gateway-gateway protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipencap",
+											Description: "IP encapsulated in IP (officially IP)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "st",
+											Description: "ST datagram mode",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "tcp",
+											Description: "transmission control protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "egp",
+											Description: "exterior gateway protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "igp",
+											Description: "any private interior gateway (Cisco)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "pup",
+											Description: "PARC universal packet protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "udp",
+											Description: "user datagram protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "tcp_udp",
+											Description: "Both TCP and UDP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hmp",
+											Description: "host monitoring protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "xns-idp",
+											Description: "Xerox NS IDP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rdp",
+											Description: "\"reliable datagram\" protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "iso-tp4",
+											Description: "ISO Transport Protocol class 4 [RFC905]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "dccp",
+											Description: "Datagram Congestion Control Prot. [RFC4340]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "xtp",
+											Description: "Xpress Transfer Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ddp",
+											Description: "Datagram Delivery Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "idpr-cmtp",
+											Description: "IDPR Control Message Transport",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "Ipv6",
+											Description: "Internet Protocol, version 6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-route",
+											Description: "Routing Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-frag",
+											Description: "Fragment Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "idrp",
+											Description: "Inter-Domain Routing Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rsvp",
+											Description: "Reservation Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "gre",
+											Description: "General Routing Encapsulation",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "esp",
+											Description: "Encap Security Payload [RFC2406]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ah",
+											Description: "Authentication Header [RFC2402]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "skip",
+											Description: "SKIP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-icmp",
+											Description: "ICMP for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-nonxt",
+											Description: "No Next Header for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipv6-opts",
+											Description: "Destination Options for IPv6",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rspf",
+											Description: "Radio Shortest Path First (officially CPHB)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "vmtp",
+											Description: "Versatile Message Transport",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "eigrp",
+											Description: "Enhanced Interior Routing Protocol (Cisco)",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ospf",
+											Description: "Open Shortest Path First IGP",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ax.25",
+											Description: "AX.25 frames",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipip",
+											Description: "IP-within-IP Encapsulation Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "etherip",
+											Description: "Ethernet-within-IP Encapsulation [RFC3378]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "encap",
+											Description: "Yet Another IP encapsulation [RFC1241]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "99",
+											Description: "Any private encryption scheme",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "pim",
+											Description: "Protocol Independent Multicast",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "ipcomp",
+											Description: "IP Payload Compression Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "vrrp",
+											Description: "Virtual Router Redundancy Protocol [RFC5798]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "l2tp",
+											Description: "Layer Two Tunneling Protocol [RFC2661]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "isis",
+											Description: "IS-IS over IPv4",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "sctp",
+											Description: "Stream Control Transmission Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "fc",
+											Description: "Fibre Channel",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "mobility-header",
+											Description: "Mobility Support for IPv6 [RFC3775]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "udplite",
+											Description: "UDP-Lite [RFC3828]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "mpls-in-ip",
+											Description: "MPLS-in-IP [RFC4023]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "manet",
+											Description: "MANET Protocols [RFC5498]",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "hip",
+											Description: "Host Identity Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "shim6",
+											Description: "Shim6 Protocol",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "wesp",
+											Description: "Wrapped Encapsulating Security Payload",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "rohc",
+											Description: "Robust Header Compression",
+										}, {
+											XMLName: xml.Name{
+												Local: "valueHelp",
+											},
+											Format:      "u32:0-255",
+											Description: "IP protocol number",
+										}},
+										CompletionHelp: []*interfacedefinition.CompletionHelp{{
+											XMLName: xml.Name{
+												Local: "completionHelp",
+											},
+											List: []string{"all ip hopopt icmp igmp ggp ipencap st tcp egp igp pup udp tcp_udp hmp xns-idp rdp iso-tp4 dccp xtp ddp idpr-cmtp ipv6 ipv6-route ipv6-frag idrp rsvp gre esp ah skip ipv6-icmp ipv6-nonxt ipv6-opts rspf vmtp eigrp ospf ax.25 ipip etherip encap 99 pim ipcomp vrrp l2tp isis sctp fc mobility-header udplite mpls-in-ip manet hip shim6 wesp rohc"},
+										}},
+									}},
+								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "rule",
+										Properties: []*interfacedefinition.Properties{{
+											XMLName: xml.Name{
+												Local: "properties",
+											},
+											Help: []string{"Rule number for NAT"},
+											Constraint: []*interfacedefinition.Constraint{{
+												XMLName: xml.Name{
+													Local: "constraint",
+												},
+												Validator: []*interfacedefinition.Validator{{
+													XMLName: xml.Name{
+														Local: "validator",
+													},
+													NameAttr:     "numeric",
+													ArgumentAttr: "--range 1-999999",
+												}},
+											}},
+											ValueHelp: []*interfacedefinition.ValueHelp{{
+												XMLName: xml.Name{
+													Local: "valueHelp",
+												},
+												Format:      "u32:1-999999",
+												Description: "Number of NAT rule",
+											}},
+											ConstraintErrorMessage: []string{"NAT rule number must be between 1 and 999999"},
+										}},
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "translation",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Outside NAT IP (source NAT only)"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "options",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Translation options"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "address-mapping",
+																DefaultValue: []string{"random"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Address mapping options"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"(persistent|random)"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "persistent",
+																		Description: "Gives a client the same source or destination-address for each connection",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "random",
+																		Description: "Random source or destination address allocation for each connection",
+																	}},
+																	CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																		XMLName: xml.Name{
+																			Local: "completionHelp",
+																		},
+																		List: []string{"persistent random"},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port-mapping",
+																DefaultValue: []string{"none"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port mapping options"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"(random|fully-random|none)"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "random",
+																		Description: "Randomize source port mapping",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "fully-random",
+																		Description: "Full port randomization",
+																	}, {
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "none",
+																		Description: "Do not apply port randomization",
+																	}},
+																	CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																		XMLName: xml.Name{
+																			Local: "completionHelp",
+																		},
+																		List: []string{"random fully-random none"},
+																	}},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"IP address, subnet, or range"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Regex: []string{"(masquerade)"},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-prefix",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}, {
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-range",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "IPv4 address to match",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4net",
+																Description: "IPv4 prefix to match",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4range",
+																Description: "IPv4 address range to match",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "masquerade",
+																Description: "NAT to the primary address of outbound-interface",
+															}},
+															CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																XMLName: xml.Name{
+																	Local: "completionHelp",
+																},
+																List: []string{"masquerade"},
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "port",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Port number"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "port-range",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-65535",
+																Description: "Numeric IP port",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "range",
+																Description: "Numbered port range (e.g., 1001-1005)",
+															}},
+														}},
+													}},
+												}},
+											}},
+											LeafNode: []*interfacedefinition.LeafNode{nil},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},

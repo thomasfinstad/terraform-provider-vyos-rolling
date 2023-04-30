@@ -13,7 +13,8 @@ import (
 // FromTerraformToVyos takes a resource data model and converts it to vyos api operation compatible list of lists of strings
 func FromTerraformToVyos(ctx context.Context, rdm CustomResourceDataModel) [][]string {
 
-	vyosPath, values := rdm.GetValues()
+	vyosPath := rdm.GetVyosPath()
+	values := rdm.GetValues()
 
 	return iron(ctx, vyosPath, values)
 }
@@ -26,6 +27,8 @@ func iron(ctx context.Context, vyosPath []string, values map[string]attr.Value) 
 
 		key = strings.ReplaceAll(key, "_", "-")
 		cVyosPath := append(vyosPath, key)
+
+		tflog.Error(ctx, "Terraform value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
 
 		switch value := value.(type) {
 		case types.String:

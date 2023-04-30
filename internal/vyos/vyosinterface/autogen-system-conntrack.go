@@ -436,7 +436,7 @@ func systemconntrack() interfacedefinition.InterfaceDefinition {
 												XMLName: xml.Name{
 													Local: "properties",
 												},
-												Help: []string{"Protocol to match (protocol name, number, or \"all\")"},
+												Help: []string{"Protocol"},
 												Constraint: []*interfacedefinition.Constraint{{
 													XMLName: xml.Name{
 														Local: "constraint",
@@ -452,38 +452,13 @@ func systemconntrack() interfacedefinition.InterfaceDefinition {
 													XMLName: xml.Name{
 														Local: "valueHelp",
 													},
-													Format:      "all",
-													Description: "All IP protocols",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "tcp_udp",
-													Description: "Both TCP and UDP",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "u32:0-255",
-													Description: "IP protocol number",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "<protocol>",
-													Description: "IP protocol name",
-												}, {
-													XMLName: xml.Name{
-														Local: "valueHelp",
-													},
-													Format:      "!<protocol>",
-													Description: "IP protocol name",
+													Format:      "txt",
+													Description: "Protocol name",
 												}},
 												CompletionHelp: []*interfacedefinition.CompletionHelp{{
 													XMLName: xml.Name{
 														Local: "completionHelp",
 													},
-													List:   []string{"all tcp_udp"},
 													Script: []string{"${vyos_completion_dir}/list_protocols.sh"},
 												}},
 											}},

@@ -13,6 +13,7 @@ type NodeBase interface {
 	AbsName() []string
 	BaseName() string
 	Description() string
+	AncestorDescription() string
 }
 
 // NodeParent should match Node and TagNode
@@ -20,5 +21,4 @@ type NodeParent interface {
 	NodeBase
 	InformLinage()
 	GetChildren() *Children
-	SetBaseName(string)
 }

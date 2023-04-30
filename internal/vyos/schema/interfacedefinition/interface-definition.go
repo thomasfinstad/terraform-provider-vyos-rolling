@@ -21,58 +21,6 @@ func (i *InterfaceDefinition) GetRootNode() (*Node, error) {
 	return ret, nil
 }
 
-// GetAncestory returns a list of (tag)nodes based on the pointer address of n
-// TODO replace with parent based traversal
-func (i *InterfaceDefinition) GetAncestory(target NodeParent) []NodeParent {
-	rootNode, err := i.GetRootNode()
-	die(err)
-	targetAddr := fmt.Sprint(target)
-
-	if fmt.Sprint(rootNode) == targetAddr {
-		return []NodeParent{rootNode}
-	}
-
-	var recurse func(n NodeParent) []NodeParent
-	recurse = func(n NodeParent) []NodeParent {
-		for _, child := range n.GetChildren().Node {
-			// If self pointer address matches target pointer address
-			if fmt.Sprint(child) == targetAddr {
-				// Return self
-				return []NodeParent{child}
-			}
-
-			// If a match was found downstream
-			if ret := recurse(child); len(ret) > 0 {
-				// Insert self and return
-				return append([]NodeParent{child}, ret...)
-			}
-		}
-
-		for _, child := range n.GetChildren().TagNode {
-			// If self pointer address matches target pointer address
-			if fmt.Sprint(child) == targetAddr {
-				// Return self
-				return []NodeParent{child}
-			}
-
-			// If a match was found downstream
-			if ret := recurse(child); len(ret) > 0 {
-				// Insert self and return
-				return append([]NodeParent{child}, ret...)
-			}
-		}
-
-		return nil
-	}
-
-	ret := recurse(rootNode)
-	if ret != nil {
-		ret = append([]NodeParent{rootNode}, ret...)
-	}
-
-	return ret
-}
-
 // BaseTagNodes returns highest level TagNodes
 func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
 	var recurse func(NodeParent) []*TagNode

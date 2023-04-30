@@ -1119,11 +1119,209 @@ func protocolsrip() interfacedefinition.InterfaceDefinition {
 								Local: "tagNode",
 							},
 							NodeNameAttr: "interface",
+							Properties: []*interfacedefinition.Properties{{
+								XMLName: xml.Name{
+									Local: "properties",
+								},
+								Help: []string{"Interface name"},
+								Constraint: []*interfacedefinition.Constraint{{
+									XMLName: xml.Name{
+										Local: "constraint",
+									},
+									Regex: []string{"(bond|br|dum|en|ersp|eth|gnv|ifb|lan|l2tp|l2tpeth|macsec|peth|ppp|pppoe|pptp|sstp|tun|veth|vti|vtun|vxlan|wg|wlan|wwan)[0-9]+(.\\d+)?|lo"},
+									Validator: []*interfacedefinition.Validator{{
+										XMLName: xml.Name{
+											Local: "validator",
+										},
+										NameAttr: "file-path --lookup-path /sys/class/net --directory",
+									}},
+								}},
+								ValueHelp: []*interfacedefinition.ValueHelp{{
+									XMLName: xml.Name{
+										Local: "valueHelp",
+									},
+									Format:      "txt",
+									Description: "Interface name",
+								}},
+								CompletionHelp: []*interfacedefinition.CompletionHelp{{
+									XMLName: xml.Name{
+										Local: "completionHelp",
+									},
+									Script: []string{"${vyos_completion_dir}/list_interfaces"},
+								}},
+							}},
 							Children: []*interfacedefinition.Children{{
 								XMLName: xml.Name{
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									XMLName: xml.Name{
+										Local: "node",
+									},
+									NodeNameAttr: "split-horizon",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Split horizon parameters"},
+									}},
+									Children: []*interfacedefinition.Children{{
+										XMLName: xml.Name{
+											Local: "children",
+										},
+										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "disable",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Disable split horizon on specified interface"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "poison-reverse",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Disable split horizon on specified interface"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}},
+									}},
+								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "interface",
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{nil, {
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "receive",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Advertisement reception"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "version",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Limit RIP protocol version"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-2",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "1",
+																Description: "Allow RIPv1 only",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "2",
+																Description: "Allow RIPv2 only",
+															}},
+														}},
+													}},
+												}},
+											}, {
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "send",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Advertisement transmission"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "version",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Limit RIP protocol version"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-2",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "1",
+																Description: "Allow RIPv1 only",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "2",
+																Description: "Allow RIPv2 only",
+															}},
+														}},
+													}},
+												}},
+											}},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -1228,6 +1426,175 @@ func protocolsrip() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "interface",
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "authentication",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Authentication"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "md5",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"MD5 key id"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-255",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-255",
+																Description: "OSPF key id",
+															}},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "password",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Authentication password"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"[^[:space:]]{1,16}"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "txt",
+																		Description: "MD5 Key (16 characters or less)",
+																	}},
+																	ConstraintErrorMessage: []string{"Password must be 16 characters or less"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "plaintext-password",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Plain text password"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Regex: []string{"[^[:space:]]{1,16}"},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "txt",
+																Description: "Plain text password (16 characters or less)",
+															}},
+															ConstraintErrorMessage: []string{"Password must be 16 characters or less"},
+														}},
+													}},
+												}},
+											}, nil, {
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "send",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Advertisement transmission"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "version",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Limit RIP protocol version"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-2",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "1",
+																Description: "Allow RIPv1 only",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "2",
+																Description: "Allow RIPv2 only",
+															}},
+														}},
+													}},
+												}},
+											}},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -1281,6 +1648,175 @@ func protocolsrip() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									Parent: &interfacedefinition.TagNode{
+										XMLName: xml.Name{
+											Local: "tagNode",
+										},
+										NodeNameAttr: "interface",
+										Children: []*interfacedefinition.Children{{
+											XMLName: xml.Name{
+												Local: "children",
+											},
+											Node: []*interfacedefinition.Node{{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "authentication",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Authentication"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "md5",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"MD5 key id"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-255",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-255",
+																Description: "OSPF key id",
+															}},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "password",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Authentication password"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Regex: []string{"[^[:space:]]{1,16}"},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "txt",
+																		Description: "MD5 Key (16 characters or less)",
+																	}},
+																	ConstraintErrorMessage: []string{"Password must be 16 characters or less"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "plaintext-password",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Plain text password"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Regex: []string{"[^[:space:]]{1,16}"},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "txt",
+																Description: "Plain text password (16 characters or less)",
+															}},
+															ConstraintErrorMessage: []string{"Password must be 16 characters or less"},
+														}},
+													}},
+												}},
+											}, {
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "receive",
+												Properties: []*interfacedefinition.Properties{{
+													XMLName: xml.Name{
+														Local: "properties",
+													},
+													Help: []string{"Advertisement reception"},
+												}},
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "version",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Limit RIP protocol version"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-2",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "1",
+																Description: "Allow RIPv1 only",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "2",
+																Description: "Allow RIPv2 only",
+															}},
+														}},
+													}},
+												}},
+											}, nil},
+										}},
+									},
 									XMLName: xml.Name{
 										Local: "node",
 									},

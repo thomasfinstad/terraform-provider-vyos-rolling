@@ -3,13 +3,10 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"log"
-	"math"
 	"os"
 	"path/filepath"
 	"regexp"
 	"runtime"
-	"sort"
 	"strings"
 
 	"github.com/dave/dst"
@@ -35,7 +32,7 @@ func main() {
 	outputBaseName := strings.TrimSuffix(filepath.Base(inputXMLFilePath), filepath.Ext(inputXMLFilePath))
 	outputFile := fmt.Sprintf("%s/autogen-%s.go", outputDirectory, outputBaseName)
 
-	fmt.Printf("Creating: %s\n", outputFile)
+	fmt.Printf("->\tOutput Go file: %s\n", outputFile)
 
 	dat, err := os.ReadFile(inputXMLFilePath)
 	die(err)
@@ -44,98 +41,25 @@ func main() {
 	err = xml.Unmarshal(dat, &topLevelInterface)
 	die(err)
 
-	var dedup func(interfacedefinition.NodeParent)
-	dedup = func(node interfacedefinition.NodeParent) {
-		children := node.GetChildren()
-
-		// Finding duplicate leaf nodes
-		leafIdxToRemove := []int{}
-		for idx1, l1 := range children.LeafNode {
-			for idx2, l2 := range children.LeafNode {
-				if idx1 != idx2 && l1.BaseName() == l2.BaseName() {
-					idx := int(math.Max(float64(idx1), float64(idx2)))
-					if sort.SearchInts(leafIdxToRemove, idx) == len(leafIdxToRemove) {
-						leafIdxToRemove = append(leafIdxToRemove, idx)
-						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", l1.BaseName(), idx)
-					} else {
-						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", l1.BaseName(), idx)
-					}
-				}
-			}
-		}
-
-		// Finding duplicate tag nodes
-		tagIdxToRemove := []int{}
-		for idx1, t1 := range children.TagNode {
-			for idx2, t2 := range children.TagNode {
-				if idx1 != idx2 && t1.BaseName() == t2.BaseName() {
-					idx := int(math.Min(float64(idx1), float64(idx2)))
-					if sort.SearchInts(tagIdxToRemove, idx) == len(tagIdxToRemove) {
-						tagIdxToRemove = append(tagIdxToRemove, idx)
-						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", t1.BaseName(), idx)
-					} else {
-						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", t1.BaseName(), idx)
-					}
-				}
-			}
-		}
-
-		// Finding duplicate leaf nodes
-		nodeIdxToRemove := []int{}
-		for idx1, n1 := range children.Node {
-			for idx2, n2 := range children.Node {
-				if idx1 != idx2 && n1.BaseName() == n2.BaseName() {
-					idx := int(math.Min(float64(idx1), float64(idx2)))
-					if sort.SearchInts(nodeIdxToRemove, idx) == len(nodeIdxToRemove) {
-						nodeIdxToRemove = append(nodeIdxToRemove, idx)
-						fmt.Printf("\nWARNING: [%s] Has duplicate, marking idx: %d for removal\n", n1.BaseName(), idx)
-					} else {
-						fmt.Printf("\nWARNING: [%s] Has duplicate, idx: %d already marked for removal\n", n1.BaseName(), idx)
-					}
-				}
-			}
-		}
-
-		// Removing duplicates
-		sort.Sort(sort.Reverse(sort.IntSlice(leafIdxToRemove)))
-		for _, idx := range leafIdxToRemove {
-			fmt.Printf("\nWARNING: [%s] idx: %d Removing leaf...\n", children.LeafNode[idx].BaseName(), idx)
-			children.LeafNode = append(children.LeafNode[:idx], children.LeafNode[idx+1:]...)
-		}
-
-		sort.Sort(sort.Reverse(sort.IntSlice(tagIdxToRemove)))
-		for _, idx := range tagIdxToRemove {
-			fmt.Printf("\nWARNING: [%s] idx: %d Removing tag...\n", children.TagNode[idx].BaseName(), idx)
-			children.TagNode = append(children.TagNode[:idx], children.TagNode[idx+1:]...)
-		}
-
-		sort.Sort(sort.Reverse(sort.IntSlice(nodeIdxToRemove)))
-		for _, idx := range nodeIdxToRemove {
-			fmt.Printf("\nWARNING: [%s] idx: %d Removing node...\n", children.Node[idx].BaseName(), idx)
-			children.Node = append(children.Node[:idx], children.Node[idx+1:]...)
-		}
-
-		// Recurse
-		for _, t := range children.TagNode {
-			dedup(t)
-		}
-
-		for _, n := range children.Node {
-			dedup(n)
-		}
-	}
-
 	rootNode, err := topLevelInterface.GetRootNode()
 	die(err)
-	dedup(rootNode)
+
+	mergeNodeParents(rootNode)
 
 	output := render.AsCode(topLevelInterface)
 
 	outputFormatted := []byte(output)
 
+	// Change recursive attributes with nil as these can not be dumped as code
+	// Rendered example: Parent:<REC(&interfacedefinition.Node)>,
+	// Rendered example: LeafNode:[]*interfacedefinition.LeafNode{<REC()>}
+	outputFormatted = regexp.MustCompile(`<REC\([&A-Za-z.]*\)>?`).ReplaceAll(outputFormatted, []byte("nil"))
+
 	// Remove nil values, example:
 	// VersionAttr: (&interfacedefinition.VersionAttr)(nil)}
+	// Parent: nil,
 	outputFormatted = regexp.MustCompile(`\w+:[^:]+nil\),?`).ReplaceAll(outputFormatted, []byte(""))
+	outputFormatted = regexp.MustCompile(`\w+:[ ]*nil,?`).ReplaceAll(outputFormatted, []byte(""))
 
 	// Remove empty string values, example:
 	// OwnerAttr:"",
@@ -173,7 +97,8 @@ func main() {
 	// Use DST to add linebreaks in generated code for readability
 	fset, err := decorator.Parse(outputBase)
 	if err != nil {
-		panic(err)
+		os.WriteFile("ERROR-FILE", []byte(outputBase), 0644)
+		panic(fmt.Sprintf("%s: '%#v'\nCode written to: %s", err, err, "ERROR-FILE"))
 	}
 
 	dstutil.Apply(fset, nil, func(c *dstutil.Cursor) bool {
@@ -192,10 +117,4 @@ func main() {
 
 	err = decorator.Fprint(file, fset)
 	die(err)
-}
-
-func die(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
 }

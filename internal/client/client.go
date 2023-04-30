@@ -146,3 +146,59 @@ func (c *Client) CommitChanges(ctx context.Context) (any, error) {
 
 	return nil, fmt.Errorf("API ERROR: %s", ret["error"])
 }
+
+func (c *Client) Read(ctx context.Context, path []string) (any, error) {
+	operation, err := json.Marshal(
+		map[string]interface{}{
+			"op":   "showConfig",
+			"path": path,
+		},
+	)
+	if err != nil {
+		tflog.Error(ctx, "Fail json marshal read operation", map[string]interface{}{"operation": operation, "error": err})
+		return nil, err
+	}
+
+	payload := url.Values{
+		"key":  []string{c.apiKey},
+		"data": []string{string(operation)},
+	}
+
+	tflog.Info(ctx, "Creating request for <endpoint>/retrieve", map[string]interface{}{"payload": payload})
+
+	req, err := http.NewRequest("POST", c.endpoint+"/retrieve", strings.NewReader(payload.Encode()))
+	if err != nil {
+		tflog.Error(ctx, "Failed to create http request object", map[string]interface{}{"error": err})
+		return nil, err
+	}
+
+	req.Header.Set("User-Agent", c.userAgent)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		tflog.Error(ctx, "Failed to complete http request", map[string]interface{}{"error": err})
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		tflog.Error(ctx, "Failed to read http response", map[string]interface{}{"error": err})
+		return nil, err
+	}
+
+	var ret map[string]interface{}
+
+	err = json.Unmarshal(body, &ret)
+	if err != nil {
+		tflog.Error(ctx, "Failed to unmarshal http response body as json", map[string]interface{}{"response": body, "error": err})
+		return nil, err
+	}
+
+	if ret["success"] == true {
+		return ret["data"], nil
+	}
+
+	return nil, fmt.Errorf("API ERROR: %s", ret["error"])
+}

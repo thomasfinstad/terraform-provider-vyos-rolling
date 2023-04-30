@@ -207,11 +207,442 @@ func servicepppoeserver() interfacedefinition.InterfaceDefinition {
 										Local: "node",
 									},
 									NodeNameAttr: "radius",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"RADIUS based user authentication"},
+									}},
 									Children: []*interfacedefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{nil},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "node",
+											},
+											NodeNameAttr: "dynamic-author",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "server",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr: "ipv4-address",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "ipv4",
+															Description: "IPv4 address for aynamic authorization server",
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port",
+													DefaultValue: []string{"1700"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "TCP port",
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "key",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+													}},
+												}},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{nil},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "called-sid-format",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Format of Called-Station-Id attribute"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Regex: []string{"(ifname|ifname:mac)"},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ifname",
+																Description: "NAS-Port-Id - should contain root interface name (NAS-Port-Id=eth1)",
+															}, {
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ifname:mac",
+																Description: "NAS-Port-Id - should contain root interface name and mac address (NAS-Port-Id=eth1:00:00:00:00:00:00)",
+															}},
+															ConstraintErrorMessage: []string{"Invalid Called-Station-Id format"},
+															CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																XMLName: xml.Name{
+																	Local: "completionHelp",
+																},
+																List: []string{"ifname ifname:mac"},
+															}},
+														}},
+													}},
+												}},
+											},
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -317,7 +748,4007 @@ func servicepppoeserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}},
+										TagNode: []*interfacedefinition.TagNode{{
+											XMLName: xml.Name{
+												Local: "tagNode",
+											},
+											NodeNameAttr: "server",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"RADIUS server configuration"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "RADIUS server IPv4 address",
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "disable",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Disable instance"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "key",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Shared secret key"},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port",
+													DefaultValue: []string{"1812"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Authentication port"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
+														}},
+													}},
+												}, {
+													Parent: &interfacedefinition.TagNode{
+														Parent: &interfacedefinition.Node{
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "radius",
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "dynamic-author",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "server",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ipv4-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 address for aynamic authorization server",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "port",
+																			DefaultValue: []string{"1700"},
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "TCP port",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "key",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																			}},
+																		}},
+																	}},
+																}},
+																TagNode: []*interfacedefinition.TagNode{nil},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-interim-jitter",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Maximum jitter value in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Timeout in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 0-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:0-60",
+																			Description: "Timeout in seconds, 0 to keep active",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "max-try",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-20",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-20",
+																			Description: "Maximum tries",
+																		}},
+																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-identifier",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-ip-address",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "NAS-IP-Address attribute",
+																		}},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "preallocate-vif",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														},
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{nil, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													},
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "acct-port",
+													DefaultValue: []string{"1813"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Accounting port"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
+														}},
+													}},
+												}, {
+													Parent: &interfacedefinition.TagNode{
+														Parent: &interfacedefinition.Node{
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "radius",
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "dynamic-author",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "server",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ipv4-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 address for aynamic authorization server",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "port",
+																			DefaultValue: []string{"1700"},
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "TCP port",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "key",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																			}},
+																		}},
+																	}},
+																}},
+																TagNode: []*interfacedefinition.TagNode{nil},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-interim-jitter",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Maximum jitter value in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Timeout in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 0-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:0-60",
+																			Description: "Timeout in seconds, 0 to keep active",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "max-try",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-20",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-20",
+																			Description: "Maximum tries",
+																		}},
+																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-identifier",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-ip-address",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "NAS-IP-Address attribute",
+																		}},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "preallocate-vif",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														},
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, nil, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													},
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "disable-accounting",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Disable accounting"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													Parent: &interfacedefinition.TagNode{
+														Parent: &interfacedefinition.Node{
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "radius",
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																Node: []*interfacedefinition.Node{{
+																	XMLName: xml.Name{
+																		Local: "node",
+																	},
+																	NodeNameAttr: "dynamic-author",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+																	}},
+																	Children: []*interfacedefinition.Children{{
+																		XMLName: xml.Name{
+																			Local: "children",
+																		},
+																		LeafNode: []*interfacedefinition.LeafNode{{
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "server",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr: "ipv4-address",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "ipv4",
+																					Description: "IPv4 address for aynamic authorization server",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "port",
+																			DefaultValue: []string{"1700"},
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																				Constraint: []*interfacedefinition.Constraint{{
+																					XMLName: xml.Name{
+																						Local: "constraint",
+																					},
+																					Validator: []*interfacedefinition.Validator{{
+																						XMLName: xml.Name{
+																							Local: "validator",
+																						},
+																						NameAttr:     "numeric",
+																						ArgumentAttr: "--range 1-65535",
+																					}},
+																				}},
+																				ValueHelp: []*interfacedefinition.ValueHelp{{
+																					XMLName: xml.Name{
+																						Local: "valueHelp",
+																					},
+																					Format:      "u32:1-65535",
+																					Description: "TCP port",
+																				}},
+																			}},
+																		}, {
+																			XMLName: xml.Name{
+																				Local: "leafNode",
+																			},
+																			NodeNameAttr: "key",
+																			Properties: []*interfacedefinition.Properties{{
+																				XMLName: xml.Name{
+																					Local: "properties",
+																				},
+																				Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																			}},
+																		}},
+																	}},
+																}},
+																TagNode: []*interfacedefinition.TagNode{nil},
+																LeafNode: []*interfacedefinition.LeafNode{{
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-interim-jitter",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Maximum jitter value in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-60",
+																			Description: "Timeout in seconds",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "acct-timeout",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 0-60",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:0-60",
+																			Description: "Timeout in seconds, 0 to keep active",
+																		}},
+																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "max-try",
+																	DefaultValue: []string{"3"},
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr:     "numeric",
+																				ArgumentAttr: "--range 1-20",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "u32:1-20",
+																			Description: "Maximum tries",
+																		}},
+																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-identifier",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "nas-ip-address",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+																		Constraint: []*interfacedefinition.Constraint{{
+																			XMLName: xml.Name{
+																				Local: "constraint",
+																			},
+																			Validator: []*interfacedefinition.Validator{{
+																				XMLName: xml.Name{
+																					Local: "validator",
+																				},
+																				NameAttr: "ipv4-address",
+																			}},
+																		}},
+																		ValueHelp: []*interfacedefinition.ValueHelp{{
+																			XMLName: xml.Name{
+																				Local: "valueHelp",
+																			},
+																			Format:      "ipv4",
+																			Description: "NAS-IP-Address attribute",
+																		}},
+																	}},
+																}, {
+																	XMLName: xml.Name{
+																		Local: "leafNode",
+																	},
+																	NodeNameAttr: "preallocate-vif",
+																	Properties: []*interfacedefinition.Properties{{
+																		XMLName: xml.Name{
+																			Local: "properties",
+																		},
+																		Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+																		Valueless: []*interfacedefinition.Valueless{{
+																			XMLName: xml.Name{
+																				Local: "valueless",
+																			},
+																		}},
+																	}},
+																}},
+															}},
+														},
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, nil},
+														}},
+													},
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "fail-time",
+													DefaultValue: []string{"0"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Mark server unavailable for <n> seconds on failure"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 0-600",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:0-600",
+															Description: "Fail time penalty",
+														}},
+														ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+													}},
+												}},
+											}},
+										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "source-address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IPv4 source address used to initiate connection"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 source address",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
+												}},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "acct-interim-jitter",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-60",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-60",
+													Description: "Maximum jitter value in seconds",
+												}},
+												ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "timeout",
+											DefaultValue: []string{"3"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-60",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-60",
+													Description: "Timeout in seconds",
+												}},
+												ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "acct-timeout",
+											DefaultValue: []string{"3"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 0-60",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:0-60",
+													Description: "Timeout in seconds, 0 to keep active",
+												}},
+												ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "max-try",
+											DefaultValue: []string{"3"},
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr:     "numeric",
+														ArgumentAttr: "--range 1-20",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "u32:1-20",
+													Description: "Maximum tries",
+												}},
+												ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "nas-identifier",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "preallocate-vif",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+															Valueless: []*interfacedefinition.Valueless{{
+																XMLName: xml.Name{
+																	Local: "valueless",
+																},
+															}},
+														}},
+													}},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "nas-ip-address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "NAS-IP-Address attribute",
+												}},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "dynamic-author",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Dynamic Authorization Extension/Change of Authorization server"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "server",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "ipv4-address",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "ipv4",
+																		Description: "IPv4 address for aynamic authorization server",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "port",
+																DefaultValue: []string{"1700"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "TCP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "key",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shared secret for Dynamic Authorization Extension server"},
+																}},
+															}},
+														}},
+													}},
+													TagNode: []*interfacedefinition.TagNode{{
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "server",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "acct-port",
+																DefaultValue: []string{"1813"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Accounting port"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 1-65535",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:1-65535",
+																		Description: "Numeric IP port",
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "disable-accounting",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Disable accounting"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "fail-time",
+																DefaultValue: []string{"0"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Mark server unavailable for <n> seconds on failure"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0-600",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "u32:0-600",
+																		Description: "Fail time penalty",
+																	}},
+																	ConstraintErrorMessage: []string{"Fail time must be between 0 and 600 seconds"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-interim-jitter",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Maximum jitter value in seconds to be applied to accounting information interval"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Maximum jitter value in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout in seconds to wait response from RADIUS server"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-60",
+																Description: "Timeout in seconds",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "acct-timeout",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Timeout for Interim-Update packets, terminate session afterwards"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 0-60",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:0-60",
+																Description: "Timeout in seconds, 0 to keep active",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "max-try",
+														DefaultValue: []string{"3"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Number of tries to send Access-Request/Accounting-Request queries"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-20",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-20",
+																Description: "Maximum tries",
+															}},
+															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-identifier",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
+														}},
+													}, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "nas-ip-address",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"NAS-IP-Address attribute sent to RADIUS"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr: "ipv4-address",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "ipv4",
+																Description: "NAS-IP-Address attribute",
+															}},
+														}},
+													}, nil},
+												}},
+											},
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "preallocate-vif",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Enable attribute NAS-Port-Id in Access-Request"},
+												Valueless: []*interfacedefinition.Valueless{{
+													XMLName: xml.Name{
+														Local: "valueless",
+													},
+												}},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													Node: []*interfacedefinition.Node{{
+														XMLName: xml.Name{
+															Local: "node",
+														},
+														NodeNameAttr: "rate-limit",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Upload/Download speed limits"},
+														}},
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															LeafNode: []*interfacedefinition.LeafNode{{
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "attribute",
+																DefaultValue: []string{"Filter-Id"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"RADIUS attribute that contains rate information"},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "vendor",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Vendor dictionary"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr: "accel-radius-dictionary",
+																		}},
+																	}},
+																	CompletionHelp: []*interfacedefinition.CompletionHelp{{
+																		XMLName: xml.Name{
+																			Local: "completionHelp",
+																		},
+																		List: []string{"alcatel cisco microsoft mikrotik"},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "enable",
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Enable bandwidth shaping via RADIUS"},
+																	Valueless: []*interfacedefinition.Valueless{{
+																		XMLName: xml.Name{
+																			Local: "valueless",
+																		},
+																	}},
+																}},
+															}, {
+																XMLName: xml.Name{
+																	Local: "leafNode",
+																},
+																NodeNameAttr: "multiplier",
+																DefaultValue: []string{"1"},
+																Properties: []*interfacedefinition.Properties{{
+																	XMLName: xml.Name{
+																		Local: "properties",
+																	},
+																	Help: []string{"Shaper multiplier"},
+																	Constraint: []*interfacedefinition.Constraint{{
+																		XMLName: xml.Name{
+																			Local: "constraint",
+																		},
+																		Validator: []*interfacedefinition.Validator{{
+																			XMLName: xml.Name{
+																				Local: "validator",
+																			},
+																			NameAttr:     "numeric",
+																			ArgumentAttr: "--range 0.001-1000 --float",
+																		}},
+																	}},
+																	ValueHelp: []*interfacedefinition.ValueHelp{{
+																		XMLName: xml.Name{
+																			Local: "valueHelp",
+																		},
+																		Format:      "<0.001-1000>",
+																		Description: "Shaper multiplier",
+																	}},
+																	ConstraintErrorMessage: []string{"Multiplier needs to be between 0.001 and 1000"},
+																}},
+															}},
+														}},
+													}},
+													LeafNode: []*interfacedefinition.LeafNode{nil},
+												}},
+											},
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},

@@ -295,6 +295,12 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										Local: "node",
 									},
 									NodeNameAttr: "local-users",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"Local user authentication"},
+									}},
 									Children: []*interfacedefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
@@ -304,11 +310,48 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 												Local: "tagNode",
 											},
 											NodeNameAttr: "username",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"Username used for authentication"},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "txt",
+													Description: "Username used for authentication",
+												}},
+											}},
 											Children: []*interfacedefinition.Children{{
 												XMLName: xml.Name{
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													Parent: &interfacedefinition.TagNode{
+														Parent: &interfacedefinition.Node{
+															XMLName: xml.Name{
+																Local: "node",
+															},
+															NodeNameAttr: "local-users",
+															Children: []*interfacedefinition.Children{{
+																XMLName: xml.Name{
+																	Local: "children",
+																},
+																TagNode: []*interfacedefinition.TagNode{nil},
+															}},
+														},
+														XMLName: xml.Name{
+															Local: "tagNode",
+														},
+														NodeNameAttr: "username",
+														Children: []*interfacedefinition.Children{{
+															XMLName: xml.Name{
+																Local: "children",
+															},
+															Node: []*interfacedefinition.Node{nil},
+														}},
+													},
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -452,6 +495,34 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "disable",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Disable instance"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "password",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Password used for authentication"},
+													}},
+												}},
 											}},
 										}},
 									}},
@@ -460,11 +531,169 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										Local: "node",
 									},
 									NodeNameAttr: "radius",
+									Properties: []*interfacedefinition.Properties{{
+										XMLName: xml.Name{
+											Local: "properties",
+										},
+										Help: []string{"RADIUS based user authentication"},
+									}},
 									Children: []*interfacedefinition.Children{{
 										XMLName: xml.Name{
 											Local: "children",
 										},
+										TagNode: []*interfacedefinition.TagNode{{
+											XMLName: xml.Name{
+												Local: "tagNode",
+											},
+											NodeNameAttr: "server",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"RADIUS server configuration"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "RADIUS server IPv4 address",
+												}},
+											}},
+											Children: []*interfacedefinition.Children{{
+												XMLName: xml.Name{
+													Local: "children",
+												},
+												LeafNode: []*interfacedefinition.LeafNode{{
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "disable",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Disable instance"},
+														Valueless: []*interfacedefinition.Valueless{{
+															XMLName: xml.Name{
+																Local: "valueless",
+															},
+														}},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "key",
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Shared secret key"},
+													}},
+												}, {
+													XMLName: xml.Name{
+														Local: "leafNode",
+													},
+													NodeNameAttr: "port",
+													DefaultValue: []string{"1812"},
+													Properties: []*interfacedefinition.Properties{{
+														XMLName: xml.Name{
+															Local: "properties",
+														},
+														Help: []string{"Authentication port"},
+														Constraint: []*interfacedefinition.Constraint{{
+															XMLName: xml.Name{
+																Local: "constraint",
+															},
+															Validator: []*interfacedefinition.Validator{{
+																XMLName: xml.Name{
+																	Local: "validator",
+																},
+																NameAttr:     "numeric",
+																ArgumentAttr: "--range 1-65535",
+															}},
+														}},
+														ValueHelp: []*interfacedefinition.ValueHelp{{
+															XMLName: xml.Name{
+																Local: "valueHelp",
+															},
+															Format:      "u32:1-65535",
+															Description: "Numeric IP port",
+														}},
+													}},
+												}},
+											}},
+										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											XMLName: xml.Name{
+												Local: "leafNode",
+											},
+											NodeNameAttr: "source-address",
+											Properties: []*interfacedefinition.Properties{{
+												XMLName: xml.Name{
+													Local: "properties",
+												},
+												Help: []string{"IPv4 source address used to initiate connection"},
+												Constraint: []*interfacedefinition.Constraint{{
+													XMLName: xml.Name{
+														Local: "constraint",
+													},
+													Validator: []*interfacedefinition.Validator{{
+														XMLName: xml.Name{
+															Local: "validator",
+														},
+														NameAttr: "ipv4-address",
+													}},
+												}},
+												ValueHelp: []*interfacedefinition.ValueHelp{{
+													XMLName: xml.Name{
+														Local: "valueHelp",
+													},
+													Format:      "ipv4",
+													Description: "IPv4 source address",
+												}},
+												CompletionHelp: []*interfacedefinition.CompletionHelp{{
+													XMLName: xml.Name{
+														Local: "completionHelp",
+													},
+													Script: []string{"${vyos_completion_dir}/list_local_ips.sh --ipv4"},
+												}},
+											}},
+										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{nil, {
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "groupconfig",
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"If the groupconfig option is set, then config-per-user will be overriden, and all configuration will be read from RADIUS."},
+														}},
+													}},
+												}},
+											},
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -497,6 +726,50 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Timeout must be between 1 and 240 seconds"},
 											}},
 										}, {
+											Parent: &interfacedefinition.Node{
+												XMLName: xml.Name{
+													Local: "node",
+												},
+												NodeNameAttr: "radius",
+												Children: []*interfacedefinition.Children{{
+													XMLName: xml.Name{
+														Local: "children",
+													},
+													LeafNode: []*interfacedefinition.LeafNode{{
+														XMLName: xml.Name{
+															Local: "leafNode",
+														},
+														NodeNameAttr: "timeout",
+														DefaultValue: []string{"2"},
+														Properties: []*interfacedefinition.Properties{{
+															XMLName: xml.Name{
+																Local: "properties",
+															},
+															Help: []string{"Session timeout"},
+															Constraint: []*interfacedefinition.Constraint{{
+																XMLName: xml.Name{
+																	Local: "constraint",
+																},
+																Validator: []*interfacedefinition.Validator{{
+																	XMLName: xml.Name{
+																		Local: "validator",
+																	},
+																	NameAttr:     "numeric",
+																	ArgumentAttr: "--range 1-240",
+																}},
+															}},
+															ValueHelp: []*interfacedefinition.ValueHelp{{
+																XMLName: xml.Name{
+																	Local: "valueHelp",
+																},
+																Format:      "u32:1-240",
+																Description: "Session timeout in seconds (default: 2)",
+															}},
+															ConstraintErrorMessage: []string{"Timeout must be between 1 and 240 seconds"},
+														}},
+													}, nil},
+												}},
+											},
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
