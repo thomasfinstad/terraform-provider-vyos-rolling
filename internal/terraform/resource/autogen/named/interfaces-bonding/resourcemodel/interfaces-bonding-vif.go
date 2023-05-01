@@ -2,238 +2,36 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVif describes the resource data model.
 type InterfacesBondingVif struct {
 	// LeafNodes
-	LeafInterfacesBondingVifDescrIPtion       types.String `tfsdk:"description"`
-	LeafInterfacesBondingVifAddress           types.String `tfsdk:"address"`
-	LeafInterfacesBondingVifDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
-	LeafInterfacesBondingVifDisable           types.String `tfsdk:"disable"`
-	LeafInterfacesBondingVifEgressQos         types.String `tfsdk:"egress_qos"`
-	LeafInterfacesBondingVifIngressQos        types.String `tfsdk:"ingress_qos"`
-	LeafInterfacesBondingVifMac               types.String `tfsdk:"mac"`
-	LeafInterfacesBondingVifMtu               types.String `tfsdk:"mtu"`
-	LeafInterfacesBondingVifRedirect          types.String `tfsdk:"redirect"`
-	LeafInterfacesBondingVifVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesBondingVifDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesBondingVifAddress           types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesBondingVifDisableLinkDetect types.String `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
+	LeafInterfacesBondingVifDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesBondingVifEgressQos         types.String `tfsdk:"egress_qos" json:"egress-qos,omitempty"`
+	LeafInterfacesBondingVifIngressQos        types.String `tfsdk:"ingress_qos" json:"ingress-qos,omitempty"`
+	LeafInterfacesBondingVifMac               types.String `tfsdk:"mac" json:"mac,omitempty"`
+	LeafInterfacesBondingVifMtu               types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesBondingVifRedirect          types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesBondingVifVrf               types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesBondingVifDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesBondingVifDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesBondingVifIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesBondingVifIPvsix          types.Object `tfsdk:"ipv6"`
-	NodeInterfacesBondingVifMirror          types.Object `tfsdk:"mirror"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingVif) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingVifDescrIPtion.IsNull() || o.LeafInterfacesBondingVifDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesBondingVifDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifAddress.IsNull() || o.LeafInterfacesBondingVifAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesBondingVifAddress.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifDisableLinkDetect.IsNull() || o.LeafInterfacesBondingVifDisableLinkDetect.IsUnknown()) {
-		vyosData["disable-link-detect"] = o.LeafInterfacesBondingVifDisableLinkDetect.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifDisable.IsNull() || o.LeafInterfacesBondingVifDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesBondingVifDisable.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifEgressQos.IsNull() || o.LeafInterfacesBondingVifEgressQos.IsUnknown()) {
-		vyosData["egress-qos"] = o.LeafInterfacesBondingVifEgressQos.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifIngressQos.IsNull() || o.LeafInterfacesBondingVifIngressQos.IsUnknown()) {
-		vyosData["ingress-qos"] = o.LeafInterfacesBondingVifIngressQos.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifMac.IsNull() || o.LeafInterfacesBondingVifMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafInterfacesBondingVifMac.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifMtu.IsNull() || o.LeafInterfacesBondingVifMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesBondingVifMtu.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifRedirect.IsNull() || o.LeafInterfacesBondingVifRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesBondingVifRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifVrf.IsNull() || o.LeafInterfacesBondingVifVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesBondingVifVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesBondingVifDhcpOptions.IsNull() || o.NodeInterfacesBondingVifDhcpOptions.IsUnknown()) {
-		var subModel InterfacesBondingVifDhcpOptions
-		diags.Append(o.NodeInterfacesBondingVifDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBondingVifDhcpvsixOptions.IsNull() || o.NodeInterfacesBondingVifDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesBondingVifDhcpvsixOptions
-		diags.Append(o.NodeInterfacesBondingVifDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBondingVifIP.IsNull() || o.NodeInterfacesBondingVifIP.IsUnknown()) {
-		var subModel InterfacesBondingVifIP
-		diags.Append(o.NodeInterfacesBondingVifIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBondingVifIPvsix.IsNull() || o.NodeInterfacesBondingVifIPvsix.IsUnknown()) {
-		var subModel InterfacesBondingVifIPvsix
-		diags.Append(o.NodeInterfacesBondingVifIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBondingVifMirror.IsNull() || o.NodeInterfacesBondingVifMirror.IsUnknown()) {
-		var subModel InterfacesBondingVifMirror
-		diags.Append(o.NodeInterfacesBondingVifMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingVif) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesBondingVifDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesBondingVifAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-link-detect"]; ok {
-		o.LeafInterfacesBondingVifDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDisableLinkDetect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesBondingVifDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["egress-qos"]; ok {
-		o.LeafInterfacesBondingVifEgressQos = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifEgressQos = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ingress-qos"]; ok {
-		o.LeafInterfacesBondingVifIngressQos = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifIngressQos = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafInterfacesBondingVifMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifMac = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesBondingVifMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesBondingVifRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesBondingVifVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingVifDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesBondingVifDhcpOptions = basetypes.NewObjectNull(InterfacesBondingVifDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingVifDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesBondingVifDhcpvsixOptions = basetypes.NewObjectNull(InterfacesBondingVifDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingVifIP = data
-
-	} else {
-		o.NodeInterfacesBondingVifIP = basetypes.NewObjectNull(InterfacesBondingVifIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingVifIPvsix = data
-
-	} else {
-		o.NodeInterfacesBondingVifIPvsix = basetypes.NewObjectNull(InterfacesBondingVifIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingVifMirror = data
-
-	} else {
-		o.NodeInterfacesBondingVifMirror = basetypes.NewObjectNull(InterfacesBondingVifMirror{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingVif) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":         types.StringType,
-		"address":             types.StringType,
-		"disable_link_detect": types.StringType,
-		"disable":             types.StringType,
-		"egress_qos":          types.StringType,
-		"ingress_qos":         types.StringType,
-		"mac":                 types.StringType,
-		"mtu":                 types.StringType,
-		"redirect":            types.StringType,
-		"vrf":                 types.StringType,
-
-		// Tags
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesBondingVifDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesBondingVifDhcpvsixOptions{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesBondingVifIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesBondingVifIPvsix{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesBondingVifMirror{}.AttributeTypes()},
-	}
+	NodeInterfacesBondingVifDhcpOptions     *InterfacesBondingVifDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesBondingVifDhcpvsixOptions *InterfacesBondingVifDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesBondingVifIP              *InterfacesBondingVifIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesBondingVifIPvsix          *InterfacesBondingVifIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesBondingVifMirror          *InterfacesBondingVifMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -393,4 +191,274 @@ func (o InterfacesBondingVif) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingVif) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingVifDescrIPtion.IsNull() && !o.LeafInterfacesBondingVifDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesBondingVifDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifAddress.IsNull() && !o.LeafInterfacesBondingVifAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesBondingVifAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifDisableLinkDetect.IsNull() && !o.LeafInterfacesBondingVifDisableLinkDetect.IsUnknown() {
+		jsonData["disable-link-detect"] = o.LeafInterfacesBondingVifDisableLinkDetect.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifDisable.IsNull() && !o.LeafInterfacesBondingVifDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesBondingVifDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifEgressQos.IsNull() && !o.LeafInterfacesBondingVifEgressQos.IsUnknown() {
+		jsonData["egress-qos"] = o.LeafInterfacesBondingVifEgressQos.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifIngressQos.IsNull() && !o.LeafInterfacesBondingVifIngressQos.IsUnknown() {
+		jsonData["ingress-qos"] = o.LeafInterfacesBondingVifIngressQos.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifMac.IsNull() && !o.LeafInterfacesBondingVifMac.IsUnknown() {
+		jsonData["mac"] = o.LeafInterfacesBondingVifMac.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifMtu.IsNull() && !o.LeafInterfacesBondingVifMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesBondingVifMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifRedirect.IsNull() && !o.LeafInterfacesBondingVifRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesBondingVifRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifVrf.IsNull() && !o.LeafInterfacesBondingVifVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesBondingVifVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingVifDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingVifDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingVifIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingVifIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingVifMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingVifMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingVif) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesBondingVifDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesBondingVifAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-link-detect"]; ok {
+		o.LeafInterfacesBondingVifDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifDisableLinkDetect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesBondingVifDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["egress-qos"]; ok {
+		o.LeafInterfacesBondingVifEgressQos = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifEgressQos = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ingress-qos"]; ok {
+		o.LeafInterfacesBondingVifIngressQos = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifIngressQos = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafInterfacesBondingVifMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifMac = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesBondingVifMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesBondingVifRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesBondingVifVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingVifDhcpOptions = &InterfacesBondingVifDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingVifDhcpvsixOptions = &InterfacesBondingVifDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingVifIP = &InterfacesBondingVifIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingVifIPvsix = &InterfacesBondingVifIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingVifMirror = &InterfacesBondingVifMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingVifMirror)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

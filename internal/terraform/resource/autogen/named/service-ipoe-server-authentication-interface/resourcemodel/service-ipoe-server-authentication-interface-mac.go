@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerAuthenticationInterfaceMac describes the resource data model.
 type ServiceIPoeServerAuthenticationInterfaceMac struct {
 	// LeafNodes
-	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.String `tfsdk:"vlan"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacVlan types.String `tfsdk:"vlan" json:"vlan,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit types.Object `tfsdk:"rate_limit"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerAuthenticationInterfaceMac) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsNull() || o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsUnknown()) {
-		vyosData["vlan"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit.IsNull() || o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit.IsUnknown()) {
-		var subModel ServiceIPoeServerAuthenticationInterfaceMacRateLimit
-		diags.Append(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["rate-limit"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerAuthenticationInterfaceMac) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac"}})
-
-	// Leafs
-	if value, ok := vyosData["vlan"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["rate-limit"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceIPoeServerAuthenticationInterfaceMacRateLimit{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit = data
-
-	} else {
-		o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit = basetypes.NewObjectNull(ServiceIPoeServerAuthenticationInterfaceMacRateLimit{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerAuthenticationInterfaceMac) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"vlan": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"rate_limit": types.ObjectType{AttrTypes: ServiceIPoeServerAuthenticationInterfaceMacRateLimit{}.AttributeTypes()},
-	}
+	NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit *ServiceIPoeServerAuthenticationInterfaceMacRateLimit `tfsdk:"rate_limit" json:"rate-limit,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +49,76 @@ func (o ServiceIPoeServerAuthenticationInterfaceMac) ResourceSchemaAttributes() 
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerAuthenticationInterfaceMac) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.IsUnknown() {
+		jsonData["vlan"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rate-limit"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerAuthenticationInterfaceMac) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["vlan"]; ok {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacVlan = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["rate-limit"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit = &ServiceIPoeServerAuthenticationInterfaceMacRateLimit{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceIPoeServerAuthenticationInterfaceMacRateLimit)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

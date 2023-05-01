@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatSourceRuleDestination describes the resource data model.
 type NatSourceRuleDestination struct {
 	// LeafNodes
-	LeafNatSourceRuleDestinationAddress types.String `tfsdk:"address"`
-	LeafNatSourceRuleDestinationPort    types.String `tfsdk:"port"`
+	LeafNatSourceRuleDestinationAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafNatSourceRuleDestinationPort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeNatSourceRuleDestinationGroup types.Object `tfsdk:"group"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatSourceRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatSourceRuleDestinationAddress.IsNull() || o.LeafNatSourceRuleDestinationAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafNatSourceRuleDestinationAddress.ValueString()
-	}
-	if !(o.LeafNatSourceRuleDestinationPort.IsNull() || o.LeafNatSourceRuleDestinationPort.IsUnknown()) {
-		vyosData["port"] = o.LeafNatSourceRuleDestinationPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeNatSourceRuleDestinationGroup.IsNull() || o.NodeNatSourceRuleDestinationGroup.IsUnknown()) {
-		var subModel NatSourceRuleDestinationGroup
-		diags.Append(o.NodeNatSourceRuleDestinationGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatSourceRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafNatSourceRuleDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafNatSourceRuleDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["group"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatSourceRuleDestinationGroup{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatSourceRuleDestinationGroup = data
-
-	} else {
-		o.NodeNatSourceRuleDestinationGroup = basetypes.NewObjectNull(NatSourceRuleDestinationGroup{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatSourceRuleDestination) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"group": types.ObjectType{AttrTypes: NatSourceRuleDestinationGroup{}.AttributeTypes()},
-	}
+	NodeNatSourceRuleDestinationGroup *NatSourceRuleDestinationGroup `tfsdk:"group" json:"group,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +69,86 @@ func (o NatSourceRuleDestination) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatSourceRuleDestination) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatSourceRuleDestinationAddress.IsNull() && !o.LeafNatSourceRuleDestinationAddress.IsUnknown() {
+		jsonData["address"] = o.LeafNatSourceRuleDestinationAddress.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleDestinationPort.IsNull() && !o.LeafNatSourceRuleDestinationPort.IsUnknown() {
+		jsonData["port"] = o.LeafNatSourceRuleDestinationPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeNatSourceRuleDestinationGroup).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatSourceRuleDestinationGroup)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["group"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatSourceRuleDestination) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafNatSourceRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafNatSourceRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["group"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatSourceRuleDestinationGroup = &NatSourceRuleDestinationGroup{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatSourceRuleDestinationGroup)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

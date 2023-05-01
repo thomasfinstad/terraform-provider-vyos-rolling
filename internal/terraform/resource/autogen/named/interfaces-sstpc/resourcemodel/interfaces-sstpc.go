@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesSstpc describes the resource data model.
@@ -17,21 +15,21 @@ type InterfacesSstpc struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesSstpcDescrIPtion          types.String `tfsdk:"description"`
-	LeafInterfacesSstpcDisable              types.String `tfsdk:"disable"`
-	LeafInterfacesSstpcNoDefaultRoute       types.String `tfsdk:"no_default_route"`
-	LeafInterfacesSstpcDefaultRouteDistance types.String `tfsdk:"default_route_distance"`
-	LeafInterfacesSstpcNoPeerDNS            types.String `tfsdk:"no_peer_dns"`
-	LeafInterfacesSstpcMtu                  types.String `tfsdk:"mtu"`
-	LeafInterfacesSstpcServer               types.String `tfsdk:"server"`
-	LeafInterfacesSstpcPort                 types.String `tfsdk:"port"`
-	LeafInterfacesSstpcVrf                  types.String `tfsdk:"vrf"`
+	LeafInterfacesSstpcDescrIPtion          types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesSstpcDisable              types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesSstpcNoDefaultRoute       types.String `tfsdk:"no_default_route" json:"no-default-route,omitempty"`
+	LeafInterfacesSstpcDefaultRouteDistance types.String `tfsdk:"default_route_distance" json:"default-route-distance,omitempty"`
+	LeafInterfacesSstpcNoPeerDNS            types.String `tfsdk:"no_peer_dns" json:"no-peer-dns,omitempty"`
+	LeafInterfacesSstpcMtu                  types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesSstpcServer               types.String `tfsdk:"server" json:"server,omitempty"`
+	LeafInterfacesSstpcPort                 types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafInterfacesSstpcVrf                  types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesSstpcAuthentication types.Object `tfsdk:"authentication"`
-	NodeInterfacesSstpcSsl            types.Object `tfsdk:"ssl"`
+	NodeInterfacesSstpcAuthentication *InterfacesSstpcAuthentication `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeInterfacesSstpcSsl            *InterfacesSstpcSsl            `tfsdk:"ssl" json:"ssl,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -40,155 +38,6 @@ func (o *InterfacesSstpc) GetVyosPath() []string {
 		"interfaces",
 		"sstpc",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesSstpc) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesSstpcDescrIPtion.IsNull() || o.LeafInterfacesSstpcDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesSstpcDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcDisable.IsNull() || o.LeafInterfacesSstpcDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesSstpcDisable.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcNoDefaultRoute.IsNull() || o.LeafInterfacesSstpcNoDefaultRoute.IsUnknown()) {
-		vyosData["no-default-route"] = o.LeafInterfacesSstpcNoDefaultRoute.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcDefaultRouteDistance.IsNull() || o.LeafInterfacesSstpcDefaultRouteDistance.IsUnknown()) {
-		vyosData["default-route-distance"] = o.LeafInterfacesSstpcDefaultRouteDistance.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcNoPeerDNS.IsNull() || o.LeafInterfacesSstpcNoPeerDNS.IsUnknown()) {
-		vyosData["no-peer-dns"] = o.LeafInterfacesSstpcNoPeerDNS.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcMtu.IsNull() || o.LeafInterfacesSstpcMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesSstpcMtu.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcServer.IsNull() || o.LeafInterfacesSstpcServer.IsUnknown()) {
-		vyosData["server"] = o.LeafInterfacesSstpcServer.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcPort.IsNull() || o.LeafInterfacesSstpcPort.IsUnknown()) {
-		vyosData["port"] = o.LeafInterfacesSstpcPort.ValueString()
-	}
-	if !(o.LeafInterfacesSstpcVrf.IsNull() || o.LeafInterfacesSstpcVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesSstpcVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesSstpcAuthentication.IsNull() || o.NodeInterfacesSstpcAuthentication.IsUnknown()) {
-		var subModel InterfacesSstpcAuthentication
-		diags.Append(o.NodeInterfacesSstpcAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesSstpcSsl.IsNull() || o.NodeInterfacesSstpcSsl.IsUnknown()) {
-		var subModel InterfacesSstpcSsl
-		diags.Append(o.NodeInterfacesSstpcSsl.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ssl"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesSstpc) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesSstpcDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-default-route"]; ok {
-		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["default-route-distance"]; ok {
-		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-peer-dns"]; ok {
-		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesSstpcMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["server"]; ok {
-		o.LeafInterfacesSstpcServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcServer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafInterfacesSstpcPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesSstpcVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesSstpcAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesSstpcAuthentication = data
-
-	} else {
-		o.NodeInterfacesSstpcAuthentication = basetypes.NewObjectNull(InterfacesSstpcAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ssl"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesSstpcSsl{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesSstpcSsl = data
-
-	} else {
-		o.NodeInterfacesSstpcSsl = basetypes.NewObjectNull(InterfacesSstpcSsl{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesSstpc) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":            types.StringType,
-		"disable":                types.StringType,
-		"no_default_route":       types.StringType,
-		"default_route_distance": types.StringType,
-		"no_peer_dns":            types.StringType,
-		"mtu":                    types.StringType,
-		"server":                 types.StringType,
-		"port":                   types.StringType,
-		"vrf":                    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"authentication": types.ObjectType{AttrTypes: InterfacesSstpcAuthentication{}.AttributeTypes()},
-		"ssl":            types.ObjectType{AttrTypes: InterfacesSstpcSsl{}.AttributeTypes()},
 	}
 }
 
@@ -325,4 +174,183 @@ func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesSstpc) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesSstpcDescrIPtion.IsNull() && !o.LeafInterfacesSstpcDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesSstpcDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcDisable.IsNull() && !o.LeafInterfacesSstpcDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesSstpcDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcNoDefaultRoute.IsNull() && !o.LeafInterfacesSstpcNoDefaultRoute.IsUnknown() {
+		jsonData["no-default-route"] = o.LeafInterfacesSstpcNoDefaultRoute.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcDefaultRouteDistance.IsNull() && !o.LeafInterfacesSstpcDefaultRouteDistance.IsUnknown() {
+		jsonData["default-route-distance"] = o.LeafInterfacesSstpcDefaultRouteDistance.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcNoPeerDNS.IsNull() && !o.LeafInterfacesSstpcNoPeerDNS.IsUnknown() {
+		jsonData["no-peer-dns"] = o.LeafInterfacesSstpcNoPeerDNS.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcMtu.IsNull() && !o.LeafInterfacesSstpcMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesSstpcMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcServer.IsNull() && !o.LeafInterfacesSstpcServer.IsUnknown() {
+		jsonData["server"] = o.LeafInterfacesSstpcServer.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcPort.IsNull() && !o.LeafInterfacesSstpcPort.IsUnknown() {
+		jsonData["port"] = o.LeafInterfacesSstpcPort.ValueString()
+	}
+
+	if !o.LeafInterfacesSstpcVrf.IsNull() && !o.LeafInterfacesSstpcVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesSstpcVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesSstpcAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesSstpcAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesSstpcSsl).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesSstpcSsl)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ssl"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesSstpc) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesSstpcDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-default-route"]; ok {
+		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["default-route-distance"]; ok {
+		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-peer-dns"]; ok {
+		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesSstpcMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["server"]; ok {
+		o.LeafInterfacesSstpcServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcServer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafInterfacesSstpcPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesSstpcVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesSstpcAuthentication = &InterfacesSstpcAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesSstpcAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ssl"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesSstpcSsl = &InterfacesSstpcSsl{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesSstpcSsl)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

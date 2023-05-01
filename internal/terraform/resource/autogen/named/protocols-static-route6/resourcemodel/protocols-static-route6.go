@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticRoutesix describes the resource data model.
@@ -17,15 +15,15 @@ type ProtocolsStaticRoutesix struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description"`
+	LeafProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagProtocolsStaticRoutesixInterface types.Map `tfsdk:"interface"`
-	TagProtocolsStaticRoutesixNextHop   types.Map `tfsdk:"next_hop"`
+	TagProtocolsStaticRoutesixInterface *map[string]ProtocolsStaticRoutesixInterface `tfsdk:"interface" json:"interface,omitempty"`
+	TagProtocolsStaticRoutesixNextHop   *map[string]ProtocolsStaticRoutesixNextHop   `tfsdk:"next_hop" json:"next-hop,omitempty"`
 
 	// Nodes
-	NodeProtocolsStaticRoutesixBlackhole types.Object `tfsdk:"blackhole"`
-	NodeProtocolsStaticRoutesixReject    types.Object `tfsdk:"reject"`
+	NodeProtocolsStaticRoutesixBlackhole *ProtocolsStaticRoutesixBlackhole `tfsdk:"blackhole" json:"blackhole,omitempty"`
+	NodeProtocolsStaticRoutesixReject    *ProtocolsStaticRoutesixReject    `tfsdk:"reject" json:"reject,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -35,119 +33,6 @@ func (o *ProtocolsStaticRoutesix) GetVyosPath() []string {
 		"static",
 		"route6",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticRoutesix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "route6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticRoutesixDescrIPtion.IsNull() || o.LeafProtocolsStaticRoutesixDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafProtocolsStaticRoutesixDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagProtocolsStaticRoutesixInterface.IsNull() || o.TagProtocolsStaticRoutesixInterface.IsUnknown()) {
-		subModel := make(map[string]ProtocolsStaticRoutesixInterface)
-		diags.Append(o.TagProtocolsStaticRoutesixInterface.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["interface"] = subData
-	}
-	if !(o.TagProtocolsStaticRoutesixNextHop.IsNull() || o.TagProtocolsStaticRoutesixNextHop.IsUnknown()) {
-		subModel := make(map[string]ProtocolsStaticRoutesixNextHop)
-		diags.Append(o.TagProtocolsStaticRoutesixNextHop.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["next-hop"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeProtocolsStaticRoutesixBlackhole.IsNull() || o.NodeProtocolsStaticRoutesixBlackhole.IsUnknown()) {
-		var subModel ProtocolsStaticRoutesixBlackhole
-		diags.Append(o.NodeProtocolsStaticRoutesixBlackhole.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["blackhole"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsStaticRoutesixReject.IsNull() || o.NodeProtocolsStaticRoutesixReject.IsUnknown()) {
-		var subModel ProtocolsStaticRoutesixReject
-		diags.Append(o.NodeProtocolsStaticRoutesixReject.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["reject"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticRoutesix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "route6"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["interface"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticRoutesixInterface{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsStaticRoutesixInterface = data
-	} else {
-		o.TagProtocolsStaticRoutesixInterface = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["next-hop"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticRoutesixNextHop{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsStaticRoutesixNextHop = data
-	} else {
-		o.TagProtocolsStaticRoutesixNextHop = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["blackhole"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsStaticRoutesixBlackhole{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsStaticRoutesixBlackhole = data
-
-	} else {
-		o.NodeProtocolsStaticRoutesixBlackhole = basetypes.NewObjectNull(ProtocolsStaticRoutesixBlackhole{}.AttributeTypes())
-	}
-	if value, ok := vyosData["reject"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsStaticRoutesixReject{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsStaticRoutesixReject = data
-
-	} else {
-		o.NodeProtocolsStaticRoutesixReject = basetypes.NewObjectNull(ProtocolsStaticRoutesixReject{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "route6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticRoutesix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticRoutesixInterface{}.AttributeTypes()}},
-		"next_hop":  types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticRoutesixNextHop{}.AttributeTypes()}},
-
-		// Nodes
-		"blackhole": types.ObjectType{AttrTypes: ProtocolsStaticRoutesixBlackhole{}.AttributeTypes()},
-		"reject":    types.ObjectType{AttrTypes: ProtocolsStaticRoutesixReject{}.AttributeTypes()},
 	}
 }
 
@@ -226,4 +111,157 @@ func (o ProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticRoutesix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticRoutesixDescrIPtion.IsNull() && !o.LeafProtocolsStaticRoutesixDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafProtocolsStaticRoutesixDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagProtocolsStaticRoutesixInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsStaticRoutesixInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["interface"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagProtocolsStaticRoutesixNextHop).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsStaticRoutesixNextHop)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["next-hop"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsStaticRoutesixBlackhole).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRoutesixBlackhole)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["blackhole"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsStaticRoutesixReject).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsStaticRoutesixReject)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["reject"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticRoutesix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsStaticRoutesixInterface = &map[string]ProtocolsStaticRoutesixInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsStaticRoutesixInterface)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["next-hop"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsStaticRoutesixNextHop = &map[string]ProtocolsStaticRoutesixNextHop{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsStaticRoutesixNextHop)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["blackhole"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsStaticRoutesixBlackhole = &ProtocolsStaticRoutesixBlackhole{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRoutesixBlackhole)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["reject"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsStaticRoutesixReject = &ProtocolsStaticRoutesixReject{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsStaticRoutesixReject)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

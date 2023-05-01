@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleSourceGroup describes the resource data model.
 type PolicyRouteRuleSourceGroup struct {
 	// LeafNodes
-	LeafPolicyRouteRuleSourceGroupAddressGroup types.String `tfsdk:"address_group"`
-	LeafPolicyRouteRuleSourceGroupDomainGroup  types.String `tfsdk:"domain_group"`
-	LeafPolicyRouteRuleSourceGroupMacGroup     types.String `tfsdk:"mac_group"`
-	LeafPolicyRouteRuleSourceGroupNetworkGroup types.String `tfsdk:"network_group"`
-	LeafPolicyRouteRuleSourceGroupPortGroup    types.String `tfsdk:"port_group"`
+	LeafPolicyRouteRuleSourceGroupAddressGroup types.String `tfsdk:"address_group" json:"address-group,omitempty"`
+	LeafPolicyRouteRuleSourceGroupDomainGroup  types.String `tfsdk:"domain_group" json:"domain-group,omitempty"`
+	LeafPolicyRouteRuleSourceGroupMacGroup     types.String `tfsdk:"mac_group" json:"mac-group,omitempty"`
+	LeafPolicyRouteRuleSourceGroupNetworkGroup types.String `tfsdk:"network_group" json:"network-group,omitempty"`
+	LeafPolicyRouteRuleSourceGroupPortGroup    types.String `tfsdk:"port_group" json:"port-group,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleSourceGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source", "group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleSourceGroupAddressGroup.IsNull() || o.LeafPolicyRouteRuleSourceGroupAddressGroup.IsUnknown()) {
-		vyosData["address-group"] = o.LeafPolicyRouteRuleSourceGroupAddressGroup.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleSourceGroupDomainGroup.IsNull() || o.LeafPolicyRouteRuleSourceGroupDomainGroup.IsUnknown()) {
-		vyosData["domain-group"] = o.LeafPolicyRouteRuleSourceGroupDomainGroup.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleSourceGroupMacGroup.IsNull() || o.LeafPolicyRouteRuleSourceGroupMacGroup.IsUnknown()) {
-		vyosData["mac-group"] = o.LeafPolicyRouteRuleSourceGroupMacGroup.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleSourceGroupNetworkGroup.IsNull() || o.LeafPolicyRouteRuleSourceGroupNetworkGroup.IsUnknown()) {
-		vyosData["network-group"] = o.LeafPolicyRouteRuleSourceGroupNetworkGroup.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleSourceGroupPortGroup.IsNull() || o.LeafPolicyRouteRuleSourceGroupPortGroup.IsUnknown()) {
-		vyosData["port-group"] = o.LeafPolicyRouteRuleSourceGroupPortGroup.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleSourceGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source", "group"}})
-
-	// Leafs
-	if value, ok := vyosData["address-group"]; ok {
-		o.LeafPolicyRouteRuleSourceGroupAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceGroupAddressGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["domain-group"]; ok {
-		o.LeafPolicyRouteRuleSourceGroupDomainGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceGroupDomainGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac-group"]; ok {
-		o.LeafPolicyRouteRuleSourceGroupMacGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceGroupMacGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network-group"]; ok {
-		o.LeafPolicyRouteRuleSourceGroupNetworkGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceGroupNetworkGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port-group"]; ok {
-		o.LeafPolicyRouteRuleSourceGroupPortGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleSourceGroupPortGroup = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source", "group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleSourceGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address_group": types.StringType,
-		"domain_group":  types.StringType,
-		"mac_group":     types.StringType,
-		"network_group": types.StringType,
-		"port_group":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -157,4 +68,89 @@ func (o PolicyRouteRuleSourceGroup) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleSourceGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleSourceGroupAddressGroup.IsNull() && !o.LeafPolicyRouteRuleSourceGroupAddressGroup.IsUnknown() {
+		jsonData["address-group"] = o.LeafPolicyRouteRuleSourceGroupAddressGroup.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleSourceGroupDomainGroup.IsNull() && !o.LeafPolicyRouteRuleSourceGroupDomainGroup.IsUnknown() {
+		jsonData["domain-group"] = o.LeafPolicyRouteRuleSourceGroupDomainGroup.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleSourceGroupMacGroup.IsNull() && !o.LeafPolicyRouteRuleSourceGroupMacGroup.IsUnknown() {
+		jsonData["mac-group"] = o.LeafPolicyRouteRuleSourceGroupMacGroup.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleSourceGroupNetworkGroup.IsNull() && !o.LeafPolicyRouteRuleSourceGroupNetworkGroup.IsUnknown() {
+		jsonData["network-group"] = o.LeafPolicyRouteRuleSourceGroupNetworkGroup.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleSourceGroupPortGroup.IsNull() && !o.LeafPolicyRouteRuleSourceGroupPortGroup.IsUnknown() {
+		jsonData["port-group"] = o.LeafPolicyRouteRuleSourceGroupPortGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleSourceGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address-group"]; ok {
+		o.LeafPolicyRouteRuleSourceGroupAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceGroupAddressGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["domain-group"]; ok {
+		o.LeafPolicyRouteRuleSourceGroupDomainGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceGroupDomainGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac-group"]; ok {
+		o.LeafPolicyRouteRuleSourceGroupMacGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceGroupMacGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network-group"]; ok {
+		o.LeafPolicyRouteRuleSourceGroupNetworkGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceGroupNetworkGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port-group"]; ok {
+		o.LeafPolicyRouteRuleSourceGroupPortGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceGroupPortGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

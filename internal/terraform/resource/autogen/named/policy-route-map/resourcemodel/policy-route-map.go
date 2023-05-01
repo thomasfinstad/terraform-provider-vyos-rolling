@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMap describes the resource data model.
@@ -17,10 +15,10 @@ type PolicyRouteMap struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPolicyRouteMapDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyRouteMapDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagPolicyRouteMapRule types.Map `tfsdk:"rule"`
+	TagPolicyRouteMapRule *map[string]PolicyRouteMapRule `tfsdk:"rule" json:"rule,omitempty"`
 
 	// Nodes
 }
@@ -31,74 +29,6 @@ func (o *PolicyRouteMap) GetVyosPath() []string {
 		"policy",
 		"route-map",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapDescrIPtion.IsNull() || o.LeafPolicyRouteMapDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyRouteMapDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagPolicyRouteMapRule.IsNull() || o.TagPolicyRouteMapRule.IsUnknown()) {
-		subModel := make(map[string]PolicyRouteMapRule)
-		diags.Append(o.TagPolicyRouteMapRule.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["rule"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["rule"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyRouteMapRule{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagPolicyRouteMapRule = data
-	} else {
-		o.TagPolicyRouteMapRule = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMap) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyRouteMapRule{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -148,4 +78,76 @@ func (o PolicyRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMap) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapDescrIPtion.IsNull() && !o.LeafPolicyRouteMapDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyRouteMapDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagPolicyRouteMapRule).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagPolicyRouteMapRule)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMap) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["rule"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagPolicyRouteMapRule = &map[string]PolicyRouteMapRule{}
+
+		err = json.Unmarshal(subJSONStr, o.TagPolicyRouteMapRule)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

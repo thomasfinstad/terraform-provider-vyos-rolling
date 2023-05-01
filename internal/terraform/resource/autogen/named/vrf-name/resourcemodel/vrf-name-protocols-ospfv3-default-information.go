@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeDefaultInformation describes the resource data model.
@@ -19,61 +15,7 @@ type VrfNameProtocolsOspfvthreeDefaultInformation struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate types.Object `tfsdk:"originate"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfvthreeDefaultInformation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "default-information"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate.IsNull() || o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfvthreeDefaultInformationOriginate
-		diags.Append(o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["originate"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfvthreeDefaultInformation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "default-information"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["originate"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "default-information"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfvthreeDefaultInformation) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"originate": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate *VrfNameProtocolsOspfvthreeDefaultInformationOriginate `tfsdk:"originate" json:"originate,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o VrfNameProtocolsOspfvthreeDefaultInformation) ResourceSchemaAttributes()
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfvthreeDefaultInformation) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["originate"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfvthreeDefaultInformation) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["originate"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate = &VrfNameProtocolsOspfvthreeDefaultInformationOriginate{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeDefaultInformationOriginate)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

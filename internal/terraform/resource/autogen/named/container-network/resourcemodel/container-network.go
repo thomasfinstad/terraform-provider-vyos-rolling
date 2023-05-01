@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerNetwork describes the resource data model.
@@ -17,8 +14,8 @@ type ContainerNetwork struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description"`
-	LeafContainerNetworkPrefix      types.String `tfsdk:"prefix"`
+	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafContainerNetworkPrefix      types.String `tfsdk:"prefix" json:"prefix,omitempty"`
 
 	// TagNodes
 
@@ -31,65 +28,6 @@ func (o *ContainerNetwork) GetVyosPath() []string {
 		"container",
 		"network",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerNetworkDescrIPtion.IsNull() || o.LeafContainerNetworkDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafContainerNetworkDescrIPtion.ValueString()
-	}
-	if !(o.LeafContainerNetworkPrefix.IsNull() || o.LeafContainerNetworkPrefix.IsUnknown()) {
-		vyosData["prefix"] = o.LeafContainerNetworkPrefix.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["prefix"]; ok {
-		o.LeafContainerNetworkPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNetworkPrefix = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"prefix":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -129,4 +67,59 @@ func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerNetworkDescrIPtion.IsNull() && !o.LeafContainerNetworkDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafContainerNetworkDescrIPtion.ValueString()
+	}
+
+	if !o.LeafContainerNetworkPrefix.IsNull() && !o.LeafContainerNetworkPrefix.IsUnknown() {
+		jsonData["prefix"] = o.LeafContainerNetworkPrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["prefix"]; ok {
+		o.LeafContainerNetworkPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNetworkPrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

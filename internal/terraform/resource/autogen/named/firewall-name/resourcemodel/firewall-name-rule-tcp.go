@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleTCP describes the resource data model.
 type FirewallNameRuleTCP struct {
 	// LeafNodes
-	LeafFirewallNameRuleTCPMss types.String `tfsdk:"mss"`
+	LeafFirewallNameRuleTCPMss types.String `tfsdk:"mss" json:"mss,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeFirewallNameRuleTCPFlags types.Object `tfsdk:"flags"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallNameRuleTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallNameRuleTCPMss.IsNull() || o.LeafFirewallNameRuleTCPMss.IsUnknown()) {
-		vyosData["mss"] = o.LeafFirewallNameRuleTCPMss.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeFirewallNameRuleTCPFlags.IsNull() || o.NodeFirewallNameRuleTCPFlags.IsUnknown()) {
-		var subModel FirewallNameRuleTCPFlags
-		diags.Append(o.NodeFirewallNameRuleTCPFlags.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["flags"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallNameRuleTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
-
-	// Leafs
-	if value, ok := vyosData["mss"]; ok {
-		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["flags"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTCPFlags{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleTCPFlags = data
-
-	} else {
-		o.NodeFirewallNameRuleTCPFlags = basetypes.NewObjectNull(FirewallNameRuleTCPFlags{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallNameRuleTCP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"mss": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"flags": types.ObjectType{AttrTypes: FirewallNameRuleTCPFlags{}.AttributeTypes()},
-	}
+	NodeFirewallNameRuleTCPFlags *FirewallNameRuleTCPFlags `tfsdk:"flags" json:"flags,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -115,4 +50,76 @@ func (o FirewallNameRuleTCP) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallNameRuleTCP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallNameRuleTCPMss.IsNull() && !o.LeafFirewallNameRuleTCPMss.IsUnknown() {
+		jsonData["mss"] = o.LeafFirewallNameRuleTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleTCPFlags).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTCPFlags)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["flags"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallNameRuleTCP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["mss"]; ok {
+		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["flags"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleTCPFlags = &FirewallNameRuleTCPFlags{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTCPFlags)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

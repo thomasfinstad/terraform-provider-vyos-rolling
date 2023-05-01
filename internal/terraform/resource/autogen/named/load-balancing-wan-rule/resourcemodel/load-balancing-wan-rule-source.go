@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanRuleSource describes the resource data model.
 type LoadBalancingWanRuleSource struct {
 	// LeafNodes
-	LeafLoadBalancingWanRuleSourceAddress types.String `tfsdk:"address"`
-	LeafLoadBalancingWanRuleSourcePort    types.String `tfsdk:"port"`
+	LeafLoadBalancingWanRuleSourceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafLoadBalancingWanRuleSourcePort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *LoadBalancingWanRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafLoadBalancingWanRuleSourceAddress.IsNull() || o.LeafLoadBalancingWanRuleSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafLoadBalancingWanRuleSourceAddress.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanRuleSourcePort.IsNull() || o.LeafLoadBalancingWanRuleSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafLoadBalancingWanRuleSourcePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *LoadBalancingWanRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o LoadBalancingWanRuleSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -122,4 +60,59 @@ func (o LoadBalancingWanRuleSource) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *LoadBalancingWanRuleSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafLoadBalancingWanRuleSourceAddress.IsNull() && !o.LeafLoadBalancingWanRuleSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafLoadBalancingWanRuleSourceAddress.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanRuleSourcePort.IsNull() && !o.LeafLoadBalancingWanRuleSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafLoadBalancingWanRuleSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *LoadBalancingWanRuleSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

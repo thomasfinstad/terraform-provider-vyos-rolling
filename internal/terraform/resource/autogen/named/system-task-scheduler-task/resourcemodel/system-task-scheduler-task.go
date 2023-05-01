@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemTaskSchedulerTask describes the resource data model.
@@ -17,13 +15,13 @@ type SystemTaskSchedulerTask struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemTaskSchedulerTaskCrontabSpec types.String `tfsdk:"crontab_spec"`
-	LeafSystemTaskSchedulerTaskInterval    types.String `tfsdk:"interval"`
+	LeafSystemTaskSchedulerTaskCrontabSpec types.String `tfsdk:"crontab_spec" json:"crontab-spec,omitempty"`
+	LeafSystemTaskSchedulerTaskInterval    types.String `tfsdk:"interval" json:"interval,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeSystemTaskSchedulerTaskExecutable types.Object `tfsdk:"executable"`
+	NodeSystemTaskSchedulerTaskExecutable *SystemTaskSchedulerTaskExecutable `tfsdk:"executable" json:"executable,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,78 +31,6 @@ func (o *SystemTaskSchedulerTask) GetVyosPath() []string {
 		"task-scheduler",
 		"task",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemTaskSchedulerTask) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemTaskSchedulerTaskCrontabSpec.IsNull() || o.LeafSystemTaskSchedulerTaskCrontabSpec.IsUnknown()) {
-		vyosData["crontab-spec"] = o.LeafSystemTaskSchedulerTaskCrontabSpec.ValueString()
-	}
-	if !(o.LeafSystemTaskSchedulerTaskInterval.IsNull() || o.LeafSystemTaskSchedulerTaskInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafSystemTaskSchedulerTaskInterval.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeSystemTaskSchedulerTaskExecutable.IsNull() || o.NodeSystemTaskSchedulerTaskExecutable.IsUnknown()) {
-		var subModel SystemTaskSchedulerTaskExecutable
-		diags.Append(o.NodeSystemTaskSchedulerTaskExecutable.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["executable"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemTaskSchedulerTask) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
-
-	// Leafs
-	if value, ok := vyosData["crontab-spec"]; ok {
-		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["executable"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemTaskSchedulerTaskExecutable{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemTaskSchedulerTaskExecutable = data
-
-	} else {
-		o.NodeSystemTaskSchedulerTaskExecutable = basetypes.NewObjectNull(SystemTaskSchedulerTaskExecutable{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemTaskSchedulerTask) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"crontab_spec": types.StringType,
-		"interval":     types.StringType,
-
-		// Tags
-
-		// Nodes
-		"executable": types.ObjectType{AttrTypes: SystemTaskSchedulerTaskExecutable{}.AttributeTypes()},
 	}
 }
 
@@ -157,4 +83,86 @@ func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemTaskSchedulerTask) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemTaskSchedulerTaskCrontabSpec.IsNull() && !o.LeafSystemTaskSchedulerTaskCrontabSpec.IsUnknown() {
+		jsonData["crontab-spec"] = o.LeafSystemTaskSchedulerTaskCrontabSpec.ValueString()
+	}
+
+	if !o.LeafSystemTaskSchedulerTaskInterval.IsNull() && !o.LeafSystemTaskSchedulerTaskInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafSystemTaskSchedulerTaskInterval.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeSystemTaskSchedulerTaskExecutable).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemTaskSchedulerTaskExecutable)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["executable"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemTaskSchedulerTask) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["crontab-spec"]; ok {
+		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["executable"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemTaskSchedulerTaskExecutable = &SystemTaskSchedulerTaskExecutable{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemTaskSchedulerTaskExecutable)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

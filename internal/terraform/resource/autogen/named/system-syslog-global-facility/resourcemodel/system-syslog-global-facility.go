@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogGlobalFacility describes the resource data model.
@@ -17,7 +14,7 @@ type SystemSyslogGlobalFacility struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemSyslogGlobalFacilityLevel types.String `tfsdk:"level"`
+	LeafSystemSyslogGlobalFacilityLevel types.String `tfsdk:"level" json:"level,omitempty"`
 
 	// TagNodes
 
@@ -32,56 +29,6 @@ func (o *SystemSyslogGlobalFacility) GetVyosPath() []string {
 		"global",
 		"facility",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemSyslogGlobalFacility) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "global", "facility"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemSyslogGlobalFacilityLevel.IsNull() || o.LeafSystemSyslogGlobalFacilityLevel.IsUnknown()) {
-		vyosData["level"] = o.LeafSystemSyslogGlobalFacilityLevel.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemSyslogGlobalFacility) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "global", "facility"}})
-
-	// Leafs
-	if value, ok := vyosData["level"]; ok {
-		o.LeafSystemSyslogGlobalFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogGlobalFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "global", "facility"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemSyslogGlobalFacility) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"level": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -147,4 +94,49 @@ func (o SystemSyslogGlobalFacility) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemSyslogGlobalFacility) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemSyslogGlobalFacilityLevel.IsNull() && !o.LeafSystemSyslogGlobalFacilityLevel.IsUnknown() {
+		jsonData["level"] = o.LeafSystemSyslogGlobalFacilityLevel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemSyslogGlobalFacility) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["level"]; ok {
+		o.LeafSystemSyslogGlobalFacilityLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogGlobalFacilityLevel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

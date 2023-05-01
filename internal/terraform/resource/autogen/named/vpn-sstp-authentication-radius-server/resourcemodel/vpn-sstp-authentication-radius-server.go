@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnSstpAuthenticationRadiusServer describes the resource data model.
@@ -17,12 +14,12 @@ type VpnSstpAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnSstpAuthenticationRadiusServerDisable           types.String `tfsdk:"disable"`
-	LeafVpnSstpAuthenticationRadiusServerKey               types.String `tfsdk:"key"`
-	LeafVpnSstpAuthenticationRadiusServerPort              types.String `tfsdk:"port"`
-	LeafVpnSstpAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port"`
-	LeafVpnSstpAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
-	LeafVpnSstpAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time"`
+	LeafVpnSstpAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerKey               types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerPort              types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" json:"acct-port,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" json:"fail-time,omitempty"`
 
 	// TagNodes
 
@@ -38,101 +35,6 @@ func (o *VpnSstpAuthenticationRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnSstpAuthenticationRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnSstpAuthenticationRadiusServerDisable.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnSstpAuthenticationRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationRadiusServerKey.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafVpnSstpAuthenticationRadiusServerKey.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationRadiusServerPort.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafVpnSstpAuthenticationRadiusServerPort.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsUnknown()) {
-		vyosData["acct-port"] = o.LeafVpnSstpAuthenticationRadiusServerAcctPort.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsUnknown()) {
-		vyosData["disable-accounting"] = o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsUnknown()) {
-		vyosData["fail-time"] = o.LeafVpnSstpAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnSstpAuthenticationRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["acct-port"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-accounting"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fail-time"]; ok {
-		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnSstpAuthenticationRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":            types.StringType,
-		"key":                types.StringType,
-		"port":               types.StringType,
-		"acct_port":          types.StringType,
-		"disable_accounting": types.StringType,
-		"fail_time":          types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -220,4 +122,99 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnSstpAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerDisable.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnSstpAuthenticationRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerKey.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafVpnSstpAuthenticationRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerPort.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafVpnSstpAuthenticationRadiusServerPort.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsUnknown() {
+		jsonData["acct-port"] = o.LeafVpnSstpAuthenticationRadiusServerAcctPort.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsUnknown() {
+		jsonData["disable-accounting"] = o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsNull() && !o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsUnknown() {
+		jsonData["fail-time"] = o.LeafVpnSstpAuthenticationRadiusServerFailTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnSstpAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["acct-port"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-accounting"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fail-time"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

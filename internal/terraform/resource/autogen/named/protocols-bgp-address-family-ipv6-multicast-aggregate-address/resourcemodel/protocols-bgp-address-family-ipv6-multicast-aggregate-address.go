@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress describes the resource data model.
@@ -17,9 +14,9 @@ type ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       types.String `tfsdk:"as_set"`
-	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    types.String `tfsdk:"route_map"`
-	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       types.String `tfsdk:"as_set" json:"as-set,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    types.String `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only" json:"summary-only,omitempty"`
 
 	// TagNodes
 
@@ -35,74 +32,6 @@ func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) GetVyosPath()
 		"ipv6-multicast",
 		"aggregate-address",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsUnknown()) {
-		vyosData["as-set"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.ValueString()
-	}
-	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.ValueString()
-	}
-	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsUnknown()) {
-		vyosData["summary-only"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
-
-	// Leafs
-	if value, ok := vyosData["as-set"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["summary-only"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"as_set":       types.StringType,
-		"route_map":    types.StringType,
-		"summary_only": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -152,4 +81,69 @@ func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceSchema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsUnknown() {
+		jsonData["as-set"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsUnknown() {
+		jsonData["summary-only"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["as-set"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["summary-only"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

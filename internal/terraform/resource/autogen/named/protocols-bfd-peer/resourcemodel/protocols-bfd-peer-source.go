@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBfdPeerSource describes the resource data model.
 type ProtocolsBfdPeerSource struct {
 	// LeafNodes
-	LeafProtocolsBfdPeerSourceInterface types.String `tfsdk:"interface"`
-	LeafProtocolsBfdPeerSourceAddress   types.String `tfsdk:"address"`
+	LeafProtocolsBfdPeerSourceInterface types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafProtocolsBfdPeerSourceAddress   types.String `tfsdk:"address" json:"address,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBfdPeerSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBfdPeerSourceInterface.IsNull() || o.LeafProtocolsBfdPeerSourceInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafProtocolsBfdPeerSourceInterface.ValueString()
-	}
-	if !(o.LeafProtocolsBfdPeerSourceAddress.IsNull() || o.LeafProtocolsBfdPeerSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafProtocolsBfdPeerSourceAddress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBfdPeerSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["address"]; ok {
-		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBfdPeerSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"interface": types.StringType,
-		"address":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -115,4 +53,59 @@ func (o ProtocolsBfdPeerSource) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBfdPeerSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBfdPeerSourceInterface.IsNull() && !o.LeafProtocolsBfdPeerSourceInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafProtocolsBfdPeerSourceInterface.ValueString()
+	}
+
+	if !o.LeafProtocolsBfdPeerSourceAddress.IsNull() && !o.LeafProtocolsBfdPeerSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafProtocolsBfdPeerSourceAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBfdPeerSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerSourceInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerSourceAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

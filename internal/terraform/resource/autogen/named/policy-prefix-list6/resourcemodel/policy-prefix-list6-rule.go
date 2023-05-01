@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyPrefixListsixRule describes the resource data model.
 type PolicyPrefixListsixRule struct {
 	// LeafNodes
-	LeafPolicyPrefixListsixRuleAction      types.String `tfsdk:"action"`
-	LeafPolicyPrefixListsixRuleDescrIPtion types.String `tfsdk:"description"`
-	LeafPolicyPrefixListsixRuleGe          types.String `tfsdk:"ge"`
-	LeafPolicyPrefixListsixRuleLe          types.String `tfsdk:"le"`
-	LeafPolicyPrefixListsixRulePrefix      types.String `tfsdk:"prefix"`
+	LeafPolicyPrefixListsixRuleAction      types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafPolicyPrefixListsixRuleDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyPrefixListsixRuleGe          types.String `tfsdk:"ge" json:"ge,omitempty"`
+	LeafPolicyPrefixListsixRuleLe          types.String `tfsdk:"le" json:"le,omitempty"`
+	LeafPolicyPrefixListsixRulePrefix      types.String `tfsdk:"prefix" json:"prefix,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyPrefixListsixRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyPrefixListsixRuleAction.IsNull() || o.LeafPolicyPrefixListsixRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafPolicyPrefixListsixRuleAction.ValueString()
-	}
-	if !(o.LeafPolicyPrefixListsixRuleDescrIPtion.IsNull() || o.LeafPolicyPrefixListsixRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyPrefixListsixRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafPolicyPrefixListsixRuleGe.IsNull() || o.LeafPolicyPrefixListsixRuleGe.IsUnknown()) {
-		vyosData["ge"] = o.LeafPolicyPrefixListsixRuleGe.ValueString()
-	}
-	if !(o.LeafPolicyPrefixListsixRuleLe.IsNull() || o.LeafPolicyPrefixListsixRuleLe.IsUnknown()) {
-		vyosData["le"] = o.LeafPolicyPrefixListsixRuleLe.ValueString()
-	}
-	if !(o.LeafPolicyPrefixListsixRulePrefix.IsNull() || o.LeafPolicyPrefixListsixRulePrefix.IsUnknown()) {
-		vyosData["prefix"] = o.LeafPolicyPrefixListsixRulePrefix.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyPrefixListsixRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ge"]; ok {
-		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["le"]; ok {
-		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["prefix"]; ok {
-		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyPrefixListsixRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":      types.StringType,
-		"description": types.StringType,
-		"ge":          types.StringType,
-		"le":          types.StringType,
-		"prefix":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -178,4 +89,89 @@ func (o PolicyPrefixListsixRule) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyPrefixListsixRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyPrefixListsixRuleAction.IsNull() && !o.LeafPolicyPrefixListsixRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafPolicyPrefixListsixRuleAction.ValueString()
+	}
+
+	if !o.LeafPolicyPrefixListsixRuleDescrIPtion.IsNull() && !o.LeafPolicyPrefixListsixRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyPrefixListsixRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPolicyPrefixListsixRuleGe.IsNull() && !o.LeafPolicyPrefixListsixRuleGe.IsUnknown() {
+		jsonData["ge"] = o.LeafPolicyPrefixListsixRuleGe.ValueString()
+	}
+
+	if !o.LeafPolicyPrefixListsixRuleLe.IsNull() && !o.LeafPolicyPrefixListsixRuleLe.IsUnknown() {
+		jsonData["le"] = o.LeafPolicyPrefixListsixRuleLe.ValueString()
+	}
+
+	if !o.LeafPolicyPrefixListsixRulePrefix.IsNull() && !o.LeafPolicyPrefixListsixRulePrefix.IsUnknown() {
+		jsonData["prefix"] = o.LeafPolicyPrefixListsixRulePrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyPrefixListsixRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ge"]; ok {
+		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["le"]; ok {
+		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["prefix"]; ok {
+		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

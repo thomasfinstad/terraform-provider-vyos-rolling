@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnSstpAuthenticationLocalUsersUsernameRateLimit describes the resource data model.
 type VpnSstpAuthenticationLocalUsersUsernameRateLimit struct {
 	// LeafNodes
-	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload   types.String `tfsdk:"upload"`
-	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload types.String `tfsdk:"download"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload   types.String `tfsdk:"upload" json:"upload,omitempty"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload types.String `tfsdk:"download" json:"download,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsUnknown()) {
-		vyosData["upload"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsUnknown()) {
-		vyosData["download"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
-
-	// Leafs
-	if value, ok := vyosData["upload"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["download"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnSstpAuthenticationLocalUsersUsernameRateLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"upload":   types.StringType,
-		"download": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o VpnSstpAuthenticationLocalUsersUsernameRateLimit) ResourceSchemaAttribut
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsUnknown() {
+		jsonData["upload"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsUnknown() {
+		jsonData["download"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["upload"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["download"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

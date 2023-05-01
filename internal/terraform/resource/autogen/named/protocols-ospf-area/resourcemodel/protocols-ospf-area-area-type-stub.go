@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaAreaTypeStub describes the resource data model.
 type ProtocolsOspfAreaAreaTypeStub struct {
 	// LeafNodes
-	LeafProtocolsOspfAreaAreaTypeStubDefaultCost types.String `tfsdk:"default_cost"`
-	LeafProtocolsOspfAreaAreaTypeStubNoSummary   types.String `tfsdk:"no_summary"`
+	LeafProtocolsOspfAreaAreaTypeStubDefaultCost types.String `tfsdk:"default_cost" json:"default-cost,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeStubNoSummary   types.String `tfsdk:"no_summary" json:"no-summary,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsOspfAreaAreaTypeStub) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsNull() || o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsUnknown()) {
-		vyosData["default-cost"] = o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.ValueString()
-	}
-	if !(o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsNull() || o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsUnknown()) {
-		vyosData["no-summary"] = o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsOspfAreaAreaTypeStub) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
-
-	// Leafs
-	if value, ok := vyosData["default-cost"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-summary"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsOspfAreaAreaTypeStub) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"default_cost": types.StringType,
-		"no_summary":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +48,59 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsOspfAreaAreaTypeStub) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsUnknown() {
+		jsonData["default-cost"] = o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.ValueString()
+	}
+
+	if !o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsUnknown() {
+		jsonData["no-summary"] = o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsOspfAreaAreaTypeStub) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["default-cost"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-summary"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,113 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilities describes the resource data model.
 type InterfacesWirelessCapabilities struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesRequireHt  types.String `tfsdk:"require_ht"`
-	LeafInterfacesWirelessCapabilitiesRequireVht types.String `tfsdk:"require_vht"`
+	LeafInterfacesWirelessCapabilitiesRequireHt  types.String `tfsdk:"require_ht" json:"require-ht,omitempty"`
+	LeafInterfacesWirelessCapabilitiesRequireVht types.String `tfsdk:"require_vht" json:"require-vht,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesWirelessCapabilitiesHt  types.Object `tfsdk:"ht"`
-	NodeInterfacesWirelessCapabilitiesVht types.Object `tfsdk:"vht"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessCapabilities) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessCapabilitiesRequireHt.IsNull() || o.LeafInterfacesWirelessCapabilitiesRequireHt.IsUnknown()) {
-		vyosData["require-ht"] = o.LeafInterfacesWirelessCapabilitiesRequireHt.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessCapabilitiesRequireVht.IsNull() || o.LeafInterfacesWirelessCapabilitiesRequireVht.IsUnknown()) {
-		vyosData["require-vht"] = o.LeafInterfacesWirelessCapabilitiesRequireVht.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesWirelessCapabilitiesHt.IsNull() || o.NodeInterfacesWirelessCapabilitiesHt.IsUnknown()) {
-		var subModel InterfacesWirelessCapabilitiesHt
-		diags.Append(o.NodeInterfacesWirelessCapabilitiesHt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ht"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessCapabilitiesVht.IsNull() || o.NodeInterfacesWirelessCapabilitiesVht.IsUnknown()) {
-		var subModel InterfacesWirelessCapabilitiesVht
-		diags.Append(o.NodeInterfacesWirelessCapabilitiesVht.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["vht"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessCapabilities) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
-
-	// Leafs
-	if value, ok := vyosData["require-ht"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["require-vht"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ht"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilitiesHt{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessCapabilitiesHt = data
-
-	} else {
-		o.NodeInterfacesWirelessCapabilitiesHt = basetypes.NewObjectNull(InterfacesWirelessCapabilitiesHt{}.AttributeTypes())
-	}
-	if value, ok := vyosData["vht"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilitiesVht{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessCapabilitiesVht = data
-
-	} else {
-		o.NodeInterfacesWirelessCapabilitiesVht = basetypes.NewObjectNull(InterfacesWirelessCapabilitiesVht{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessCapabilities) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"require_ht":  types.StringType,
-		"require_vht": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ht":  types.ObjectType{AttrTypes: InterfacesWirelessCapabilitiesHt{}.AttributeTypes()},
-		"vht": types.ObjectType{AttrTypes: InterfacesWirelessCapabilitiesVht{}.AttributeTypes()},
-	}
+	NodeInterfacesWirelessCapabilitiesHt  *InterfacesWirelessCapabilitiesHt  `tfsdk:"ht" json:"ht,omitempty"`
+	NodeInterfacesWirelessCapabilitiesVht *InterfacesWirelessCapabilitiesVht `tfsdk:"vht" json:"vht,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -150,4 +62,113 @@ func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessCapabilities) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessCapabilitiesRequireHt.IsNull() && !o.LeafInterfacesWirelessCapabilitiesRequireHt.IsUnknown() {
+		jsonData["require-ht"] = o.LeafInterfacesWirelessCapabilitiesRequireHt.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessCapabilitiesRequireVht.IsNull() && !o.LeafInterfacesWirelessCapabilitiesRequireVht.IsUnknown() {
+		jsonData["require-vht"] = o.LeafInterfacesWirelessCapabilitiesRequireVht.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesHt).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesHt)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ht"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilitiesVht).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilitiesVht)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["vht"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessCapabilities) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["require-ht"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["require-vht"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ht"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessCapabilitiesHt = &InterfacesWirelessCapabilitiesHt{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesHt)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["vht"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessCapabilitiesVht = &InterfacesWirelessCapabilitiesVht{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilitiesVht)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

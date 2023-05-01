@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpListenAddress describes the resource data model.
@@ -17,7 +14,7 @@ type ServiceSnmpListenAddress struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceSnmpListenAddressPort types.String `tfsdk:"port"`
+	LeafServiceSnmpListenAddressPort types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
@@ -31,56 +28,6 @@ func (o *ServiceSnmpListenAddress) GetVyosPath() []string {
 		"snmp",
 		"listen-address",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpListenAddressPort.IsNull() || o.LeafServiceSnmpListenAddressPort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceSnmpListenAddressPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
-
-	// Leafs
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpListenAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"port": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -120,4 +67,49 @@ func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpListenAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpListenAddressPort.IsNull() && !o.LeafServiceSnmpListenAddressPort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceSnmpListenAddressPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpListenAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

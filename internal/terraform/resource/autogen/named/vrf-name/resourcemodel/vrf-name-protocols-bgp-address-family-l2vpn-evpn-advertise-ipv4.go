@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour describes the resource data model.
@@ -19,61 +15,7 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast types.Object `tfsdk:"unicast"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise", "ipv4"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["unicast"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise", "ipv4"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["unicast"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise", "ipv4"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"unicast": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast `tfsdk:"unicast" json:"unicast,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) ResourceSch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["unicast"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["unicast"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast = &VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfourUnicast)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

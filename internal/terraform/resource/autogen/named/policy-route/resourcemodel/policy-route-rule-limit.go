@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleLimit describes the resource data model.
 type PolicyRouteRuleLimit struct {
 	// LeafNodes
-	LeafPolicyRouteRuleLimitBurst types.String `tfsdk:"burst"`
-	LeafPolicyRouteRuleLimitRate  types.String `tfsdk:"rate"`
+	LeafPolicyRouteRuleLimitBurst types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafPolicyRouteRuleLimitRate  types.String `tfsdk:"rate" json:"rate,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleLimitBurst.IsNull() || o.LeafPolicyRouteRuleLimitBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafPolicyRouteRuleLimitBurst.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleLimitRate.IsNull() || o.LeafPolicyRouteRuleLimitRate.IsUnknown()) {
-		vyosData["rate"] = o.LeafPolicyRouteRuleLimitRate.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "limit"}})
-
-	// Leafs
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafPolicyRouteRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleLimitBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rate"]; ok {
-		o.LeafPolicyRouteRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"burst": types.StringType,
-		"rate":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o PolicyRouteRuleLimit) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleLimitBurst.IsNull() && !o.LeafPolicyRouteRuleLimitBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafPolicyRouteRuleLimitBurst.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleLimitRate.IsNull() && !o.LeafPolicyRouteRuleLimitRate.IsUnknown() {
+		jsonData["rate"] = o.LeafPolicyRouteRuleLimitRate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafPolicyRouteRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleLimitBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rate"]; ok {
+		o.LeafPolicyRouteRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

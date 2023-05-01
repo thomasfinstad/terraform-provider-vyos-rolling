@@ -2,174 +2,31 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessVifSIP describes the resource data model.
 type InterfacesWirelessVifSIP struct {
 	// LeafNodes
-	LeafInterfacesWirelessVifSIPAdjustMss               types.String `tfsdk:"adjust_mss"`
-	LeafInterfacesWirelessVifSIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout"`
-	LeafInterfacesWirelessVifSIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter"`
-	LeafInterfacesWirelessVifSIPDisableForwarding       types.String `tfsdk:"disable_forwarding"`
-	LeafInterfacesWirelessVifSIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast"`
-	LeafInterfacesWirelessVifSIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept"`
-	LeafInterfacesWirelessVifSIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce"`
-	LeafInterfacesWirelessVifSIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore"`
-	LeafInterfacesWirelessVifSIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp"`
-	LeafInterfacesWirelessVifSIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan"`
-	LeafInterfacesWirelessVifSIPSourceValIDation        types.String `tfsdk:"source_validation"`
+	LeafInterfacesWirelessVifSIPAdjustMss               types.String `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
+	LeafInterfacesWirelessVifSIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout" json:"arp-cache-timeout,omitempty"`
+	LeafInterfacesWirelessVifSIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter" json:"disable-arp-filter,omitempty"`
+	LeafInterfacesWirelessVifSIPDisableForwarding       types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
+	LeafInterfacesWirelessVifSIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast" json:"enable-directed-broadcast,omitempty"`
+	LeafInterfacesWirelessVifSIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept" json:"enable-arp-accept,omitempty"`
+	LeafInterfacesWirelessVifSIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce" json:"enable-arp-announce,omitempty"`
+	LeafInterfacesWirelessVifSIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore" json:"enable-arp-ignore,omitempty"`
+	LeafInterfacesWirelessVifSIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp" json:"enable-proxy-arp,omitempty"`
+	LeafInterfacesWirelessVifSIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan" json:"proxy-arp-pvlan,omitempty"`
+	LeafInterfacesWirelessVifSIPSourceValIDation        types.String `tfsdk:"source_validation" json:"source-validation,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessVifSIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "ip"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessVifSIPAdjustMss.IsNull() || o.LeafInterfacesWirelessVifSIPAdjustMss.IsUnknown()) {
-		vyosData["adjust-mss"] = o.LeafInterfacesWirelessVifSIPAdjustMss.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPArpCacheTimeout.IsNull() || o.LeafInterfacesWirelessVifSIPArpCacheTimeout.IsUnknown()) {
-		vyosData["arp-cache-timeout"] = o.LeafInterfacesWirelessVifSIPArpCacheTimeout.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPDisableArpFilter.IsNull() || o.LeafInterfacesWirelessVifSIPDisableArpFilter.IsUnknown()) {
-		vyosData["disable-arp-filter"] = o.LeafInterfacesWirelessVifSIPDisableArpFilter.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPDisableForwarding.IsNull() || o.LeafInterfacesWirelessVifSIPDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesWirelessVifSIPDisableForwarding.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.IsNull() || o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.IsUnknown()) {
-		vyosData["enable-directed-broadcast"] = o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPEnableArpAccept.IsNull() || o.LeafInterfacesWirelessVifSIPEnableArpAccept.IsUnknown()) {
-		vyosData["enable-arp-accept"] = o.LeafInterfacesWirelessVifSIPEnableArpAccept.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.IsNull() || o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.IsUnknown()) {
-		vyosData["enable-arp-announce"] = o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPEnableArpIgnore.IsNull() || o.LeafInterfacesWirelessVifSIPEnableArpIgnore.IsUnknown()) {
-		vyosData["enable-arp-ignore"] = o.LeafInterfacesWirelessVifSIPEnableArpIgnore.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPEnableProxyArp.IsNull() || o.LeafInterfacesWirelessVifSIPEnableProxyArp.IsUnknown()) {
-		vyosData["enable-proxy-arp"] = o.LeafInterfacesWirelessVifSIPEnableProxyArp.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPProxyArpPvlan.IsNull() || o.LeafInterfacesWirelessVifSIPProxyArpPvlan.IsUnknown()) {
-		vyosData["proxy-arp-pvlan"] = o.LeafInterfacesWirelessVifSIPProxyArpPvlan.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSIPSourceValIDation.IsNull() || o.LeafInterfacesWirelessVifSIPSourceValIDation.IsUnknown()) {
-		vyosData["source-validation"] = o.LeafInterfacesWirelessVifSIPSourceValIDation.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessVifSIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "ip"}})
-
-	// Leafs
-	if value, ok := vyosData["adjust-mss"]; ok {
-		o.LeafInterfacesWirelessVifSIPAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPAdjustMss = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["arp-cache-timeout"]; ok {
-		o.LeafInterfacesWirelessVifSIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPArpCacheTimeout = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-arp-filter"]; ok {
-		o.LeafInterfacesWirelessVifSIPDisableArpFilter = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPDisableArpFilter = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesWirelessVifSIPDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPDisableForwarding = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-directed-broadcast"]; ok {
-		o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-accept"]; ok {
-		o.LeafInterfacesWirelessVifSIPEnableArpAccept = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPEnableArpAccept = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-announce"]; ok {
-		o.LeafInterfacesWirelessVifSIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPEnableArpAnnounce = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-ignore"]; ok {
-		o.LeafInterfacesWirelessVifSIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPEnableArpIgnore = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-proxy-arp"]; ok {
-		o.LeafInterfacesWirelessVifSIPEnableProxyArp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPEnableProxyArp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["proxy-arp-pvlan"]; ok {
-		o.LeafInterfacesWirelessVifSIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPProxyArpPvlan = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source-validation"]; ok {
-		o.LeafInterfacesWirelessVifSIPSourceValIDation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSIPSourceValIDation = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "ip"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessVifSIP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"adjust_mss":                types.StringType,
-		"arp_cache_timeout":         types.StringType,
-		"disable_arp_filter":        types.StringType,
-		"disable_forwarding":        types.StringType,
-		"enable_directed_broadcast": types.StringType,
-		"enable_arp_accept":         types.StringType,
-		"enable_arp_announce":       types.StringType,
-		"enable_arp_ignore":         types.StringType,
-		"enable_proxy_arp":          types.StringType,
-		"proxy_arp_pvlan":           types.StringType,
-		"source_validation":         types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -277,4 +134,149 @@ func (o InterfacesWirelessVifSIP) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessVifSIP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessVifSIPAdjustMss.IsNull() && !o.LeafInterfacesWirelessVifSIPAdjustMss.IsUnknown() {
+		jsonData["adjust-mss"] = o.LeafInterfacesWirelessVifSIPAdjustMss.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPArpCacheTimeout.IsNull() && !o.LeafInterfacesWirelessVifSIPArpCacheTimeout.IsUnknown() {
+		jsonData["arp-cache-timeout"] = o.LeafInterfacesWirelessVifSIPArpCacheTimeout.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPDisableArpFilter.IsNull() && !o.LeafInterfacesWirelessVifSIPDisableArpFilter.IsUnknown() {
+		jsonData["disable-arp-filter"] = o.LeafInterfacesWirelessVifSIPDisableArpFilter.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPDisableForwarding.IsNull() && !o.LeafInterfacesWirelessVifSIPDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesWirelessVifSIPDisableForwarding.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.IsNull() && !o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.IsUnknown() {
+		jsonData["enable-directed-broadcast"] = o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPEnableArpAccept.IsNull() && !o.LeafInterfacesWirelessVifSIPEnableArpAccept.IsUnknown() {
+		jsonData["enable-arp-accept"] = o.LeafInterfacesWirelessVifSIPEnableArpAccept.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.IsNull() && !o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.IsUnknown() {
+		jsonData["enable-arp-announce"] = o.LeafInterfacesWirelessVifSIPEnableArpAnnounce.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPEnableArpIgnore.IsNull() && !o.LeafInterfacesWirelessVifSIPEnableArpIgnore.IsUnknown() {
+		jsonData["enable-arp-ignore"] = o.LeafInterfacesWirelessVifSIPEnableArpIgnore.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPEnableProxyArp.IsNull() && !o.LeafInterfacesWirelessVifSIPEnableProxyArp.IsUnknown() {
+		jsonData["enable-proxy-arp"] = o.LeafInterfacesWirelessVifSIPEnableProxyArp.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPProxyArpPvlan.IsNull() && !o.LeafInterfacesWirelessVifSIPProxyArpPvlan.IsUnknown() {
+		jsonData["proxy-arp-pvlan"] = o.LeafInterfacesWirelessVifSIPProxyArpPvlan.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSIPSourceValIDation.IsNull() && !o.LeafInterfacesWirelessVifSIPSourceValIDation.IsUnknown() {
+		jsonData["source-validation"] = o.LeafInterfacesWirelessVifSIPSourceValIDation.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessVifSIP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["adjust-mss"]; ok {
+		o.LeafInterfacesWirelessVifSIPAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPAdjustMss = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["arp-cache-timeout"]; ok {
+		o.LeafInterfacesWirelessVifSIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPArpCacheTimeout = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-arp-filter"]; ok {
+		o.LeafInterfacesWirelessVifSIPDisableArpFilter = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPDisableArpFilter = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesWirelessVifSIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPDisableForwarding = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-directed-broadcast"]; ok {
+		o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPEnableDirectedBroadcast = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-accept"]; ok {
+		o.LeafInterfacesWirelessVifSIPEnableArpAccept = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPEnableArpAccept = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-announce"]; ok {
+		o.LeafInterfacesWirelessVifSIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPEnableArpAnnounce = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-ignore"]; ok {
+		o.LeafInterfacesWirelessVifSIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPEnableArpIgnore = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-proxy-arp"]; ok {
+		o.LeafInterfacesWirelessVifSIPEnableProxyArp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPEnableProxyArp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["proxy-arp-pvlan"]; ok {
+		o.LeafInterfacesWirelessVifSIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPProxyArpPvlan = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source-validation"]; ok {
+		o.LeafInterfacesWirelessVifSIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

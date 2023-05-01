@@ -2,93 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifDhcpvsixOptionsPd describes the resource data model.
 type InterfacesBondingVifDhcpvsixOptionsPd struct {
 	// LeafNodes
-	LeafInterfacesBondingVifDhcpvsixOptionsPdLength types.String `tfsdk:"length"`
+	LeafInterfacesBondingVifDhcpvsixOptionsPdLength types.String `tfsdk:"length" json:"length,omitempty"`
 
 	// TagNodes
-	TagInterfacesBondingVifDhcpvsixOptionsPdInterface types.Map `tfsdk:"interface"`
+	TagInterfacesBondingVifDhcpvsixOptionsPdInterface *map[string]InterfacesBondingVifDhcpvsixOptionsPdInterface `tfsdk:"interface" json:"interface,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingVifDhcpvsixOptionsPd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "dhcpv6-options", "pd"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.IsNull() || o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.IsUnknown()) {
-		vyosData["length"] = o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface.IsNull() || o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface.IsUnknown()) {
-		subModel := make(map[string]InterfacesBondingVifDhcpvsixOptionsPdInterface)
-		diags.Append(o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["interface"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingVifDhcpvsixOptionsPd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "dhcpv6-options", "pd"}})
-
-	// Leafs
-	if value, ok := vyosData["length"]; ok {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["interface"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBondingVifDhcpvsixOptionsPdInterface{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface = data
-	} else {
-		o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "dhcpv6-options", "pd"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingVifDhcpvsixOptionsPd) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"length": types.StringType,
-
-		// Tags
-		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBondingVifDhcpvsixOptionsPdInterface{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -125,4 +55,76 @@ func (o InterfacesBondingVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingVifDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.IsUnknown() {
+		jsonData["length"] = o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["interface"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingVifDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["length"]; ok {
+		o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifDhcpvsixOptionsPdLength = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface = &map[string]InterfacesBondingVifDhcpvsixOptionsPdInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesBondingVifDhcpvsixOptionsPdInterface)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

@@ -2,143 +2,28 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClass describes the resource data model.
 type QosPolicyLimiterClass struct {
 	// LeafNodes
-	LeafQosPolicyLimiterClassDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyLimiterClassBandwIDth   types.String `tfsdk:"bandwidth"`
-	LeafQosPolicyLimiterClassBurst       types.String `tfsdk:"burst"`
-	LeafQosPolicyLimiterClassExceed      types.String `tfsdk:"exceed"`
-	LeafQosPolicyLimiterClassNotExceed   types.String `tfsdk:"not_exceed"`
-	LeafQosPolicyLimiterClassPriority    types.String `tfsdk:"priority"`
+	LeafQosPolicyLimiterClassDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyLimiterClassBandwIDth   types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyLimiterClassBurst       types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafQosPolicyLimiterClassExceed      types.String `tfsdk:"exceed" json:"exceed,omitempty"`
+	LeafQosPolicyLimiterClassNotExceed   types.String `tfsdk:"not_exceed" json:"not-exceed,omitempty"`
+	LeafQosPolicyLimiterClassPriority    types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
-	TagQosPolicyLimiterClassMatch types.Map `tfsdk:"match"`
+	TagQosPolicyLimiterClassMatch *map[string]QosPolicyLimiterClassMatch `tfsdk:"match" json:"match,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiterClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterClassDescrIPtion.IsNull() || o.LeafQosPolicyLimiterClassDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyLimiterClassDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassBandwIDth.IsNull() || o.LeafQosPolicyLimiterClassBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyLimiterClassBandwIDth.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassBurst.IsNull() || o.LeafQosPolicyLimiterClassBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafQosPolicyLimiterClassBurst.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassExceed.IsNull() || o.LeafQosPolicyLimiterClassExceed.IsUnknown()) {
-		vyosData["exceed"] = o.LeafQosPolicyLimiterClassExceed.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassNotExceed.IsNull() || o.LeafQosPolicyLimiterClassNotExceed.IsUnknown()) {
-		vyosData["not-exceed"] = o.LeafQosPolicyLimiterClassNotExceed.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassPriority.IsNull() || o.LeafQosPolicyLimiterClassPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafQosPolicyLimiterClassPriority.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyLimiterClassMatch.IsNull() || o.TagQosPolicyLimiterClassMatch.IsUnknown()) {
-		subModel := make(map[string]QosPolicyLimiterClassMatch)
-		diags.Append(o.TagQosPolicyLimiterClassMatch.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["match"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiterClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyLimiterClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyLimiterClassBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafQosPolicyLimiterClassBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["exceed"]; ok {
-		o.LeafQosPolicyLimiterClassExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassExceed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["not-exceed"]; ok {
-		o.LeafQosPolicyLimiterClassNotExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassNotExceed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafQosPolicyLimiterClassPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["match"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyLimiterClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyLimiterClassMatch = data
-	} else {
-		o.TagQosPolicyLimiterClassMatch = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiterClass) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"bandwidth":   types.StringType,
-		"burst":       types.StringType,
-		"exceed":      types.StringType,
-		"not_exceed":  types.StringType,
-		"priority":    types.StringType,
-
-		// Tags
-		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyLimiterClassMatch{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -254,4 +139,126 @@ func (o QosPolicyLimiterClass) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiterClass) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterClassDescrIPtion.IsNull() && !o.LeafQosPolicyLimiterClassDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyLimiterClassDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassBandwIDth.IsNull() && !o.LeafQosPolicyLimiterClassBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyLimiterClassBandwIDth.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassBurst.IsNull() && !o.LeafQosPolicyLimiterClassBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafQosPolicyLimiterClassBurst.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassExceed.IsNull() && !o.LeafQosPolicyLimiterClassExceed.IsUnknown() {
+		jsonData["exceed"] = o.LeafQosPolicyLimiterClassExceed.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassNotExceed.IsNull() && !o.LeafQosPolicyLimiterClassNotExceed.IsUnknown() {
+		jsonData["not-exceed"] = o.LeafQosPolicyLimiterClassNotExceed.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassPriority.IsNull() && !o.LeafQosPolicyLimiterClassPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafQosPolicyLimiterClassPriority.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyLimiterClassMatch).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyLimiterClassMatch)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["match"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiterClass) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyLimiterClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyLimiterClassBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafQosPolicyLimiterClassBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["exceed"]; ok {
+		o.LeafQosPolicyLimiterClassExceed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassExceed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["not-exceed"]; ok {
+		o.LeafQosPolicyLimiterClassNotExceed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassNotExceed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafQosPolicyLimiterClassPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["match"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyLimiterClassMatch = &map[string]QosPolicyLimiterClassMatch{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyLimiterClassMatch)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

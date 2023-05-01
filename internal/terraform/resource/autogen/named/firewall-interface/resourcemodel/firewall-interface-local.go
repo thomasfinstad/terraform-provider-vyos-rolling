@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallInterfaceLocal describes the resource data model.
 type FirewallInterfaceLocal struct {
 	// LeafNodes
-	LeafFirewallInterfaceLocalName       types.String `tfsdk:"name"`
-	LeafFirewallInterfaceLocalIPvsixName types.String `tfsdk:"ipv6_name"`
+	LeafFirewallInterfaceLocalName       types.String `tfsdk:"name" json:"name,omitempty"`
+	LeafFirewallInterfaceLocalIPvsixName types.String `tfsdk:"ipv6_name" json:"ipv6-name,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallInterfaceLocal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallInterfaceLocalName.IsNull() || o.LeafFirewallInterfaceLocalName.IsUnknown()) {
-		vyosData["name"] = o.LeafFirewallInterfaceLocalName.ValueString()
-	}
-	if !(o.LeafFirewallInterfaceLocalIPvsixName.IsNull() || o.LeafFirewallInterfaceLocalIPvsixName.IsUnknown()) {
-		vyosData["ipv6-name"] = o.LeafFirewallInterfaceLocalIPvsixName.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallInterfaceLocal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
-
-	// Leafs
-	if value, ok := vyosData["name"]; ok {
-		o.LeafFirewallInterfaceLocalName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallInterfaceLocalName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ipv6-name"]; ok {
-		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallInterfaceLocal) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"name":      types.StringType,
-		"ipv6_name": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o FirewallInterfaceLocal) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallInterfaceLocal) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallInterfaceLocalName.IsNull() && !o.LeafFirewallInterfaceLocalName.IsUnknown() {
+		jsonData["name"] = o.LeafFirewallInterfaceLocalName.ValueString()
+	}
+
+	if !o.LeafFirewallInterfaceLocalIPvsixName.IsNull() && !o.LeafFirewallInterfaceLocalIPvsixName.IsUnknown() {
+		jsonData["ipv6-name"] = o.LeafFirewallInterfaceLocalIPvsixName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallInterfaceLocal) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["name"]; ok {
+		o.LeafFirewallInterfaceLocalName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallInterfaceLocalName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ipv6-name"]; ok {
+		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

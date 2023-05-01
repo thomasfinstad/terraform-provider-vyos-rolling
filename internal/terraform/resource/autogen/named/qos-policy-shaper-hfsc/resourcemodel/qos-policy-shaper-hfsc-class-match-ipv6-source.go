@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassMatchIPvsixSource describes the resource data model.
 type QosPolicyShaperHfscClassMatchIPvsixSource struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress types.String `tfsdk:"address"`
-	LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort    types.String `tfsdk:"port"`
+	LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscClassMatchIPvsixSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ipv6", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.IsNull() || o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.IsNull() || o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscClassMatchIPvsixSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ipv6", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ipv6", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscClassMatchIPvsixSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o QosPolicyShaperHfscClassMatchIPvsixSource) ResourceSchemaAttributes() ma
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscClassMatchIPvsixSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscClassMatchIPvsixSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchIPvsixSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

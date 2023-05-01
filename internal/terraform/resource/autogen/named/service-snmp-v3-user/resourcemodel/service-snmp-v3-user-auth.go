@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeUserAuth describes the resource data model.
 type ServiceSnmpVthreeUserAuth struct {
 	// LeafNodes
-	LeafServiceSnmpVthreeUserAuthEncryptedPassword types.String `tfsdk:"encrypted_password"`
-	LeafServiceSnmpVthreeUserAuthPlaintextPassword types.String `tfsdk:"plaintext_password"`
-	LeafServiceSnmpVthreeUserAuthType              types.String `tfsdk:"type"`
+	LeafServiceSnmpVthreeUserAuthEncryptedPassword types.String `tfsdk:"encrypted_password" json:"encrypted-password,omitempty"`
+	LeafServiceSnmpVthreeUserAuthPlaintextPassword types.String `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
+	LeafServiceSnmpVthreeUserAuthType              types.String `tfsdk:"type" json:"type,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpVthreeUserAuth) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsNull() || o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsUnknown()) {
-		vyosData["encrypted-password"] = o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsNull() || o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsUnknown()) {
-		vyosData["plaintext-password"] = o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeUserAuthType.IsNull() || o.LeafServiceSnmpVthreeUserAuthType.IsUnknown()) {
-		vyosData["type"] = o.LeafServiceSnmpVthreeUserAuthType.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpVthreeUserAuth) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
-
-	// Leafs
-	if value, ok := vyosData["encrypted-password"]; ok {
-		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["plaintext-password"]; ok {
-		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpVthreeUserAuth) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"encrypted_password": types.StringType,
-		"plaintext_password": types.StringType,
-		"type":               types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -131,4 +60,69 @@ func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpVthreeUserAuth) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsNull() && !o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsUnknown() {
+		jsonData["encrypted-password"] = o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsNull() && !o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsUnknown() {
+		jsonData["plaintext-password"] = o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeUserAuthType.IsNull() && !o.LeafServiceSnmpVthreeUserAuthType.IsUnknown() {
+		jsonData["type"] = o.LeafServiceSnmpVthreeUserAuthType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpVthreeUserAuth) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["encrypted-password"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["plaintext-password"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

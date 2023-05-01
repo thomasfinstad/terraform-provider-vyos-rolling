@@ -2,148 +2,28 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClassMatch describes the resource data model.
 type QosPolicyLimiterClassMatch struct {
 	// LeafNodes
-	LeafQosPolicyLimiterClassMatchDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyLimiterClassMatchInterface   types.String `tfsdk:"interface"`
-	LeafQosPolicyLimiterClassMatchMark        types.String `tfsdk:"mark"`
-	LeafQosPolicyLimiterClassMatchVif         types.String `tfsdk:"vif"`
+	LeafQosPolicyLimiterClassMatchDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyLimiterClassMatchInterface   types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafQosPolicyLimiterClassMatchMark        types.String `tfsdk:"mark" json:"mark,omitempty"`
+	LeafQosPolicyLimiterClassMatchVif         types.String `tfsdk:"vif" json:"vif,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeQosPolicyLimiterClassMatchEther  types.Object `tfsdk:"ether"`
-	NodeQosPolicyLimiterClassMatchIP     types.Object `tfsdk:"ip"`
-	NodeQosPolicyLimiterClassMatchIPvsix types.Object `tfsdk:"ipv6"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiterClassMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsNull() || o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyLimiterClassMatchDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchInterface.IsNull() || o.LeafQosPolicyLimiterClassMatchInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafQosPolicyLimiterClassMatchInterface.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchMark.IsNull() || o.LeafQosPolicyLimiterClassMatchMark.IsUnknown()) {
-		vyosData["mark"] = o.LeafQosPolicyLimiterClassMatchMark.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchVif.IsNull() || o.LeafQosPolicyLimiterClassMatchVif.IsUnknown()) {
-		vyosData["vif"] = o.LeafQosPolicyLimiterClassMatchVif.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeQosPolicyLimiterClassMatchEther.IsNull() || o.NodeQosPolicyLimiterClassMatchEther.IsUnknown()) {
-		var subModel QosPolicyLimiterClassMatchEther
-		diags.Append(o.NodeQosPolicyLimiterClassMatchEther.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ether"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyLimiterClassMatchIP.IsNull() || o.NodeQosPolicyLimiterClassMatchIP.IsUnknown()) {
-		var subModel QosPolicyLimiterClassMatchIP
-		diags.Append(o.NodeQosPolicyLimiterClassMatchIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyLimiterClassMatchIPvsix.IsNull() || o.NodeQosPolicyLimiterClassMatchIPvsix.IsUnknown()) {
-		var subModel QosPolicyLimiterClassMatchIPvsix
-		diags.Append(o.NodeQosPolicyLimiterClassMatchIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiterClassMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mark"]; ok {
-		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vif"]; ok {
-		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ether"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchEther{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyLimiterClassMatchEther = data
-
-	} else {
-		o.NodeQosPolicyLimiterClassMatchEther = basetypes.NewObjectNull(QosPolicyLimiterClassMatchEther{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyLimiterClassMatchIP = data
-
-	} else {
-		o.NodeQosPolicyLimiterClassMatchIP = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyLimiterClassMatchIPvsix = data
-
-	} else {
-		o.NodeQosPolicyLimiterClassMatchIPvsix = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiterClassMatch) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"interface":   types.StringType,
-		"mark":        types.StringType,
-		"vif":         types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ether": types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchEther{}.AttributeTypes()},
-		"ip":    types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIP{}.AttributeTypes()},
-		"ipv6":  types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes()},
-	}
+	NodeQosPolicyLimiterClassMatchEther  *QosPolicyLimiterClassMatchEther  `tfsdk:"ether" json:"ether,omitempty"`
+	NodeQosPolicyLimiterClassMatchIP     *QosPolicyLimiterClassMatchIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeQosPolicyLimiterClassMatchIPvsix *QosPolicyLimiterClassMatchIPvsix `tfsdk:"ipv6" json:"ipv6,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -223,4 +103,160 @@ func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiterClassMatch) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsNull() && !o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyLimiterClassMatchDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchInterface.IsNull() && !o.LeafQosPolicyLimiterClassMatchInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafQosPolicyLimiterClassMatchInterface.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchMark.IsNull() && !o.LeafQosPolicyLimiterClassMatchMark.IsUnknown() {
+		jsonData["mark"] = o.LeafQosPolicyLimiterClassMatchMark.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchVif.IsNull() && !o.LeafQosPolicyLimiterClassMatchVif.IsUnknown() {
+		jsonData["vif"] = o.LeafQosPolicyLimiterClassMatchVif.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyLimiterClassMatchEther).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyLimiterClassMatchEther)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ether"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyLimiterClassMatchIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyLimiterClassMatchIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyLimiterClassMatchIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyLimiterClassMatchIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiterClassMatch) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mark"]; ok {
+		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vif"]; ok {
+		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ether"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyLimiterClassMatchEther = &QosPolicyLimiterClassMatchEther{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyLimiterClassMatchEther)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyLimiterClassMatchIP = &QosPolicyLimiterClassMatchIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyLimiterClassMatchIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyLimiterClassMatchIPvsix = &QosPolicyLimiterClassMatchIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyLimiterClassMatchIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

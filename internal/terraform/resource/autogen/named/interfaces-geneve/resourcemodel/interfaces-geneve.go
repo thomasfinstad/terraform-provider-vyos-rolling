@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesGeneve describes the resource data model.
@@ -17,22 +15,22 @@ type InterfacesGeneve struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesGeneveAddress     types.String `tfsdk:"address"`
-	LeafInterfacesGeneveDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesGeneveDisable     types.String `tfsdk:"disable"`
-	LeafInterfacesGeneveMac         types.String `tfsdk:"mac"`
-	LeafInterfacesGeneveMtu         types.String `tfsdk:"mtu"`
-	LeafInterfacesGeneveRedirect    types.String `tfsdk:"redirect"`
-	LeafInterfacesGeneveRemote      types.String `tfsdk:"remote"`
-	LeafInterfacesGeneveVni         types.String `tfsdk:"vni"`
+	LeafInterfacesGeneveAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesGeneveDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesGeneveDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesGeneveMac         types.String `tfsdk:"mac" json:"mac,omitempty"`
+	LeafInterfacesGeneveMtu         types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesGeneveRedirect    types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesGeneveRemote      types.String `tfsdk:"remote" json:"remote,omitempty"`
+	LeafInterfacesGeneveVni         types.String `tfsdk:"vni" json:"vni,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesGeneveIP         types.Object `tfsdk:"ip"`
-	NodeInterfacesGeneveIPvsix     types.Object `tfsdk:"ipv6"`
-	NodeInterfacesGeneveParameters types.Object `tfsdk:"parameters"`
-	NodeInterfacesGeneveMirror     types.Object `tfsdk:"mirror"`
+	NodeInterfacesGeneveIP         *InterfacesGeneveIP         `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesGeneveIPvsix     *InterfacesGeneveIPvsix     `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesGeneveParameters *InterfacesGeneveParameters `tfsdk:"parameters" json:"parameters,omitempty"`
+	NodeInterfacesGeneveMirror     *InterfacesGeneveMirror     `tfsdk:"mirror" json:"mirror,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -41,174 +39,6 @@ func (o *InterfacesGeneve) GetVyosPath() []string {
 		"interfaces",
 		"geneve",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesGeneve) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesGeneveAddress.IsNull() || o.LeafInterfacesGeneveAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesGeneveAddress.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveDescrIPtion.IsNull() || o.LeafInterfacesGeneveDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesGeneveDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveDisable.IsNull() || o.LeafInterfacesGeneveDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesGeneveDisable.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveMac.IsNull() || o.LeafInterfacesGeneveMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafInterfacesGeneveMac.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveMtu.IsNull() || o.LeafInterfacesGeneveMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesGeneveMtu.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveRedirect.IsNull() || o.LeafInterfacesGeneveRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesGeneveRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveRemote.IsNull() || o.LeafInterfacesGeneveRemote.IsUnknown()) {
-		vyosData["remote"] = o.LeafInterfacesGeneveRemote.ValueString()
-	}
-	if !(o.LeafInterfacesGeneveVni.IsNull() || o.LeafInterfacesGeneveVni.IsUnknown()) {
-		vyosData["vni"] = o.LeafInterfacesGeneveVni.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesGeneveIP.IsNull() || o.NodeInterfacesGeneveIP.IsUnknown()) {
-		var subModel InterfacesGeneveIP
-		diags.Append(o.NodeInterfacesGeneveIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesGeneveIPvsix.IsNull() || o.NodeInterfacesGeneveIPvsix.IsUnknown()) {
-		var subModel InterfacesGeneveIPvsix
-		diags.Append(o.NodeInterfacesGeneveIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesGeneveParameters.IsNull() || o.NodeInterfacesGeneveParameters.IsUnknown()) {
-		var subModel InterfacesGeneveParameters
-		diags.Append(o.NodeInterfacesGeneveParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesGeneveMirror.IsNull() || o.NodeInterfacesGeneveMirror.IsUnknown()) {
-		var subModel InterfacesGeneveMirror
-		diags.Append(o.NodeInterfacesGeneveMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesGeneve) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesGeneveAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesGeneveDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafInterfacesGeneveMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveMac = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesGeneveMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesGeneveRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote"]; ok {
-		o.LeafInterfacesGeneveRemote = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveRemote = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vni"]; ok {
-		o.LeafInterfacesGeneveVni = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveVni = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveIP = data
-
-	} else {
-		o.NodeInterfacesGeneveIP = basetypes.NewObjectNull(InterfacesGeneveIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveIPvsix = data
-
-	} else {
-		o.NodeInterfacesGeneveIPvsix = basetypes.NewObjectNull(InterfacesGeneveIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["parameters"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveParameters{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveParameters = data
-
-	} else {
-		o.NodeInterfacesGeneveParameters = basetypes.NewObjectNull(InterfacesGeneveParameters{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveMirror = data
-
-	} else {
-		o.NodeInterfacesGeneveMirror = basetypes.NewObjectNull(InterfacesGeneveMirror{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesGeneve) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-		"disable":     types.StringType,
-		"mac":         types.StringType,
-		"mtu":         types.StringType,
-		"redirect":    types.StringType,
-		"remote":      types.StringType,
-		"vni":         types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ip":         types.ObjectType{AttrTypes: InterfacesGeneveIP{}.AttributeTypes()},
-		"ipv6":       types.ObjectType{AttrTypes: InterfacesGeneveIPvsix{}.AttributeTypes()},
-		"parameters": types.ObjectType{AttrTypes: InterfacesGeneveParameters{}.AttributeTypes()},
-		"mirror":     types.ObjectType{AttrTypes: InterfacesGeneveMirror{}.AttributeTypes()},
 	}
 }
 
@@ -353,4 +183,227 @@ func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesGeneve) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesGeneveAddress.IsNull() && !o.LeafInterfacesGeneveAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesGeneveAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveDescrIPtion.IsNull() && !o.LeafInterfacesGeneveDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesGeneveDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveDisable.IsNull() && !o.LeafInterfacesGeneveDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesGeneveDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveMac.IsNull() && !o.LeafInterfacesGeneveMac.IsUnknown() {
+		jsonData["mac"] = o.LeafInterfacesGeneveMac.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveMtu.IsNull() && !o.LeafInterfacesGeneveMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesGeneveMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveRedirect.IsNull() && !o.LeafInterfacesGeneveRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesGeneveRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveRemote.IsNull() && !o.LeafInterfacesGeneveRemote.IsUnknown() {
+		jsonData["remote"] = o.LeafInterfacesGeneveRemote.ValueString()
+	}
+
+	if !o.LeafInterfacesGeneveVni.IsNull() && !o.LeafInterfacesGeneveVni.IsUnknown() {
+		jsonData["vni"] = o.LeafInterfacesGeneveVni.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveParameters).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveParameters)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["parameters"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesGeneve) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesGeneveAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesGeneveDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafInterfacesGeneveMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveMac = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesGeneveMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesGeneveRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote"]; ok {
+		o.LeafInterfacesGeneveRemote = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveRemote = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vni"]; ok {
+		o.LeafInterfacesGeneveVni = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveVni = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveIP = &InterfacesGeneveIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveIPvsix = &InterfacesGeneveIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["parameters"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveParameters = &InterfacesGeneveParameters{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveParameters)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveMirror = &InterfacesGeneveMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveMirror)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,113 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal types.String `tfsdk:"external"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal types.String `tfsdk:"internal"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal    types.String `tfsdk:"local"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal types.String `tfsdk:"external" json:"external,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal types.String `tfsdk:"internal" json:"internal,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal    types.String `tfsdk:"local" json:"local,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix types.Map `tfsdk:"prefix"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix *map[string]VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix `tfsdk:"prefix" json:"prefix,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "distance"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.IsUnknown()) {
-		vyosData["external"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.IsUnknown()) {
-		vyosData["internal"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.IsUnknown()) {
-		vyosData["local"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix)
-		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["prefix"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "distance"}})
-
-	// Leafs
-	if value, ok := vyosData["external"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["internal"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["prefix"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix = data
-	} else {
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "distance"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"external": types.StringType,
-		"internal": types.StringType,
-		"local":    types.StringType,
-
-		// Tags
-		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -168,4 +80,96 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) ResourceSchemaAt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.IsUnknown() {
+		jsonData["external"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.IsUnknown() {
+		jsonData["internal"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.IsUnknown() {
+		jsonData["local"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["external"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceExternal = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["internal"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceInternal = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistanceLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["prefix"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix = &map[string]VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetVendorOption describes the resource data model.
@@ -19,61 +15,7 @@ type ServiceDhcpServerSharedNetworkNameSubnetVendorOption struct {
 	// TagNodes
 
 	// Nodes
-	NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti types.Object `tfsdk:"ubiquiti"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOption) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti.IsNull() || o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti.IsUnknown()) {
-		var subModel ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti
-		diags.Append(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ubiquiti"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOption) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ubiquiti"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti = data
-
-	} else {
-		o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti = basetypes.NewObjectNull(ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOption) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"ubiquiti": types.ObjectType{AttrTypes: ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti{}.AttributeTypes()},
-	}
+	NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti *ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti `tfsdk:"ubiquiti" json:"ubiquiti,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOption) ResourceSchemaAttr
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOption) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ubiquiti"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOption) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ubiquiti"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti = &ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

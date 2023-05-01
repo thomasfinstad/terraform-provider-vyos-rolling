@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NetnsName describes the resource data model.
@@ -17,7 +14,7 @@ type NetnsName struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafNetnsNameDescrIPtion types.String `tfsdk:"description"`
+	LeafNetnsNameDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
 
@@ -30,56 +27,6 @@ func (o *NetnsName) GetVyosPath() []string {
 		"netns",
 		"name",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NetnsName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"netns", "name"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNetnsNameDescrIPtion.IsNull() || o.LeafNetnsNameDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafNetnsNameDescrIPtion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NetnsName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"netns", "name"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafNetnsNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNetnsNameDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"netns", "name"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NetnsName) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -111,4 +58,49 @@ func (o NetnsName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NetnsName) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNetnsNameDescrIPtion.IsNull() && !o.LeafNetnsNameDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafNetnsNameDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NetnsName) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafNetnsNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNetnsNameDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,93 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpListen describes the resource data model.
 type VrfNameProtocolsBgpListen struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpListenLimit types.String `tfsdk:"limit"`
+	LeafVrfNameProtocolsBgpListenLimit types.String `tfsdk:"limit" json:"limit,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsBgpListenRange types.Map `tfsdk:"range"`
+	TagVrfNameProtocolsBgpListenRange *map[string]VrfNameProtocolsBgpListenRange `tfsdk:"range" json:"range,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpListen) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "listen"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpListenLimit.IsNull() || o.LeafVrfNameProtocolsBgpListenLimit.IsUnknown()) {
-		vyosData["limit"] = o.LeafVrfNameProtocolsBgpListenLimit.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsBgpListenRange.IsNull() || o.TagVrfNameProtocolsBgpListenRange.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpListenRange)
-		diags.Append(o.TagVrfNameProtocolsBgpListenRange.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["range"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpListen) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "listen"}})
-
-	// Leafs
-	if value, ok := vyosData["limit"]; ok {
-		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["range"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpListenRange{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpListenRange = data
-	} else {
-		o.TagVrfNameProtocolsBgpListenRange = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "listen"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpListen) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"limit": types.StringType,
-
-		// Tags
-		"range": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpListenRange{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +57,76 @@ func (o VrfNameProtocolsBgpListen) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpListen) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpListenLimit.IsNull() && !o.LeafVrfNameProtocolsBgpListenLimit.IsUnknown() {
+		jsonData["limit"] = o.LeafVrfNameProtocolsBgpListenLimit.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpListenRange).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpListenRange)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["range"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpListen) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["limit"]; ok {
+		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpListenLimit = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["range"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpListenRange = &map[string]VrfNameProtocolsBgpListenRange{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpListenRange)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

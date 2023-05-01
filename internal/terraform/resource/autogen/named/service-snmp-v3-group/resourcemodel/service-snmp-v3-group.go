@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeGroup describes the resource data model.
@@ -17,9 +14,9 @@ type ServiceSnmpVthreeGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceSnmpVthreeGroupMode     types.String `tfsdk:"mode"`
-	LeafServiceSnmpVthreeGroupSeclevel types.String `tfsdk:"seclevel"`
-	LeafServiceSnmpVthreeGroupView     types.String `tfsdk:"view"`
+	LeafServiceSnmpVthreeGroupMode     types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafServiceSnmpVthreeGroupSeclevel types.String `tfsdk:"seclevel" json:"seclevel,omitempty"`
+	LeafServiceSnmpVthreeGroupView     types.String `tfsdk:"view" json:"view,omitempty"`
 
 	// TagNodes
 
@@ -34,74 +31,6 @@ func (o *ServiceSnmpVthreeGroup) GetVyosPath() []string {
 		"v3",
 		"group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpVthreeGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpVthreeGroupMode.IsNull() || o.LeafServiceSnmpVthreeGroupMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafServiceSnmpVthreeGroupMode.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeGroupSeclevel.IsNull() || o.LeafServiceSnmpVthreeGroupSeclevel.IsUnknown()) {
-		vyosData["seclevel"] = o.LeafServiceSnmpVthreeGroupSeclevel.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeGroupView.IsNull() || o.LeafServiceSnmpVthreeGroupView.IsUnknown()) {
-		vyosData["view"] = o.LeafServiceSnmpVthreeGroupView.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpVthreeGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
-
-	// Leafs
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["seclevel"]; ok {
-		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["view"]; ok {
-		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpVthreeGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"mode":     types.StringType,
-		"seclevel": types.StringType,
-		"view":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -160,4 +89,69 @@ func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpVthreeGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpVthreeGroupMode.IsNull() && !o.LeafServiceSnmpVthreeGroupMode.IsUnknown() {
+		jsonData["mode"] = o.LeafServiceSnmpVthreeGroupMode.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeGroupSeclevel.IsNull() && !o.LeafServiceSnmpVthreeGroupSeclevel.IsUnknown() {
+		jsonData["seclevel"] = o.LeafServiceSnmpVthreeGroupSeclevel.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeGroupView.IsNull() && !o.LeafServiceSnmpVthreeGroupView.IsUnknown() {
+		jsonData["view"] = o.LeafServiceSnmpVthreeGroupView.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpVthreeGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["seclevel"]; ok {
+		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["view"]; ok {
+		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

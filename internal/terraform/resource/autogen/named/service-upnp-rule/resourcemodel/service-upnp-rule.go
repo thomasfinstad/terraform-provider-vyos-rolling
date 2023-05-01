@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceUpnpRule describes the resource data model.
@@ -17,11 +14,11 @@ type ServiceUpnpRule struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceUpnpRuleDisable           types.String `tfsdk:"disable"`
-	LeafServiceUpnpRuleExternalPortRange types.String `tfsdk:"external_port_range"`
-	LeafServiceUpnpRuleInternalPortRange types.String `tfsdk:"internal_port_range"`
-	LeafServiceUpnpRuleIP                types.String `tfsdk:"ip"`
-	LeafServiceUpnpRuleAction            types.String `tfsdk:"action"`
+	LeafServiceUpnpRuleDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceUpnpRuleExternalPortRange types.String `tfsdk:"external_port_range" json:"external-port-range,omitempty"`
+	LeafServiceUpnpRuleInternalPortRange types.String `tfsdk:"internal_port_range" json:"internal-port-range,omitempty"`
+	LeafServiceUpnpRuleIP                types.String `tfsdk:"ip" json:"ip,omitempty"`
+	LeafServiceUpnpRuleAction            types.String `tfsdk:"action" json:"action,omitempty"`
 
 	// TagNodes
 
@@ -35,92 +32,6 @@ func (o *ServiceUpnpRule) GetVyosPath() []string {
 		"upnp",
 		"rule",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceUpnpRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceUpnpRuleDisable.IsNull() || o.LeafServiceUpnpRuleDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceUpnpRuleDisable.ValueString()
-	}
-	if !(o.LeafServiceUpnpRuleExternalPortRange.IsNull() || o.LeafServiceUpnpRuleExternalPortRange.IsUnknown()) {
-		vyosData["external-port-range"] = o.LeafServiceUpnpRuleExternalPortRange.ValueString()
-	}
-	if !(o.LeafServiceUpnpRuleInternalPortRange.IsNull() || o.LeafServiceUpnpRuleInternalPortRange.IsUnknown()) {
-		vyosData["internal-port-range"] = o.LeafServiceUpnpRuleInternalPortRange.ValueString()
-	}
-	if !(o.LeafServiceUpnpRuleIP.IsNull() || o.LeafServiceUpnpRuleIP.IsUnknown()) {
-		vyosData["ip"] = o.LeafServiceUpnpRuleIP.ValueString()
-	}
-	if !(o.LeafServiceUpnpRuleAction.IsNull() || o.LeafServiceUpnpRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafServiceUpnpRuleAction.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceUpnpRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceUpnpRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["external-port-range"]; ok {
-		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["internal-port-range"]; ok {
-		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ip"]; ok {
-		o.LeafServiceUpnpRuleIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleIP = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["action"]; ok {
-		o.LeafServiceUpnpRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceUpnpRuleAction = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceUpnpRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":             types.StringType,
-		"external_port_range": types.StringType,
-		"internal_port_range": types.StringType,
-		"ip":                  types.StringType,
-		"action":              types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -195,4 +106,89 @@ func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceUpnpRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceUpnpRuleDisable.IsNull() && !o.LeafServiceUpnpRuleDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceUpnpRuleDisable.ValueString()
+	}
+
+	if !o.LeafServiceUpnpRuleExternalPortRange.IsNull() && !o.LeafServiceUpnpRuleExternalPortRange.IsUnknown() {
+		jsonData["external-port-range"] = o.LeafServiceUpnpRuleExternalPortRange.ValueString()
+	}
+
+	if !o.LeafServiceUpnpRuleInternalPortRange.IsNull() && !o.LeafServiceUpnpRuleInternalPortRange.IsUnknown() {
+		jsonData["internal-port-range"] = o.LeafServiceUpnpRuleInternalPortRange.ValueString()
+	}
+
+	if !o.LeafServiceUpnpRuleIP.IsNull() && !o.LeafServiceUpnpRuleIP.IsUnknown() {
+		jsonData["ip"] = o.LeafServiceUpnpRuleIP.ValueString()
+	}
+
+	if !o.LeafServiceUpnpRuleAction.IsNull() && !o.LeafServiceUpnpRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafServiceUpnpRuleAction.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceUpnpRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceUpnpRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["external-port-range"]; ok {
+		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["internal-port-range"]; ok {
+		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ip"]; ok {
+		o.LeafServiceUpnpRuleIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleIP = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafServiceUpnpRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleAction = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

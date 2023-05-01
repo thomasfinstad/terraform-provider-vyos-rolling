@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfRedistributeConnected describes the resource data model.
 type VrfNameProtocolsOspfRedistributeConnected struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfRedistributeConnectedMetric     types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsOspfRedistributeConnectedMetricType types.String `tfsdk:"metric_type"`
-	LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap   types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsOspfRedistributeConnectedMetric     types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfRedistributeConnectedMetricType types.String `tfsdk:"metric_type" json:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap   types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfRedistributeConnected) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "connected"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.IsUnknown()) {
-		vyosData["metric-type"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfRedistributeConnected) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "connected"}})
-
-	// Leafs
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric-type"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "connected"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfRedistributeConnected) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"metric":      types.StringType,
-		"metric_type": types.StringType,
-		"route_map":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -138,4 +67,69 @@ func (o VrfNameProtocolsOspfRedistributeConnected) ResourceSchemaAttributes() ma
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfRedistributeConnected) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.IsUnknown() {
+		jsonData["metric-type"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfRedistributeConnected) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric-type"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedMetricType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeConnectedRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

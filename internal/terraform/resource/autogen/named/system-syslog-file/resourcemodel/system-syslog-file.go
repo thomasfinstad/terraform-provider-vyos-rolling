@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogFile describes the resource data model.
@@ -19,10 +16,10 @@ type SystemSyslogFile struct {
 	// LeafNodes
 
 	// TagNodes
-	TagSystemSyslogFileFacility types.Map `tfsdk:"facility"`
+	TagSystemSyslogFileFacility *map[string]SystemSyslogFileFacility `tfsdk:"facility" json:"facility,omitempty"`
 
 	// Nodes
-	NodeSystemSyslogFileArchive types.Object `tfsdk:"archive"`
+	NodeSystemSyslogFileArchive *SystemSyslogFileArchive `tfsdk:"archive" json:"archive,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,78 +29,6 @@ func (o *SystemSyslogFile) GetVyosPath() []string {
 		"syslog",
 		"file",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemSyslogFile) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagSystemSyslogFileFacility.IsNull() || o.TagSystemSyslogFileFacility.IsUnknown()) {
-		subModel := make(map[string]SystemSyslogFileFacility)
-		diags.Append(o.TagSystemSyslogFileFacility.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["facility"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeSystemSyslogFileArchive.IsNull() || o.NodeSystemSyslogFileArchive.IsUnknown()) {
-		var subModel SystemSyslogFileArchive
-		diags.Append(o.NodeSystemSyslogFileArchive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["archive"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemSyslogFile) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["facility"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: SystemSyslogFileFacility{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagSystemSyslogFileFacility = data
-	} else {
-		o.TagSystemSyslogFileFacility = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["archive"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemSyslogFileArchive{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemSyslogFileArchive = data
-
-	} else {
-		o.NodeSystemSyslogFileArchive = basetypes.NewObjectNull(SystemSyslogFileArchive{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemSyslogFile) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"facility": types.MapType{ElemType: types.ObjectType{AttrTypes: SystemSyslogFileFacility{}.AttributeTypes()}},
-
-		// Nodes
-		"archive": types.ObjectType{AttrTypes: SystemSyslogFileArchive{}.AttributeTypes()},
 	}
 }
 
@@ -167,4 +92,93 @@ func (o SystemSyslogFile) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemSyslogFile) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagSystemSyslogFileFacility).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagSystemSyslogFileFacility)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["facility"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeSystemSyslogFileArchive).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemSyslogFileArchive)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["archive"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemSyslogFile) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["facility"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagSystemSyslogFileFacility = &map[string]SystemSyslogFileFacility{}
+
+		err = json.Unmarshal(subJSONStr, o.TagSystemSyslogFileFacility)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["archive"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemSyslogFileArchive = &SystemSyslogFileArchive{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemSyslogFileArchive)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

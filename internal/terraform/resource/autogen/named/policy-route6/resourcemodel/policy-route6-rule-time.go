@@ -2,134 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleTime describes the resource data model.
 type PolicyRoutesixRuleTime struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleTimeMonthdays types.String `tfsdk:"monthdays"`
-	LeafPolicyRoutesixRuleTimeStartdate types.String `tfsdk:"startdate"`
-	LeafPolicyRoutesixRuleTimeStarttime types.String `tfsdk:"starttime"`
-	LeafPolicyRoutesixRuleTimeStopdate  types.String `tfsdk:"stopdate"`
-	LeafPolicyRoutesixRuleTimeStoptime  types.String `tfsdk:"stoptime"`
-	LeafPolicyRoutesixRuleTimeUtc       types.String `tfsdk:"utc"`
-	LeafPolicyRoutesixRuleTimeWeekdays  types.String `tfsdk:"weekdays"`
+	LeafPolicyRoutesixRuleTimeMonthdays types.String `tfsdk:"monthdays" json:"monthdays,omitempty"`
+	LeafPolicyRoutesixRuleTimeStartdate types.String `tfsdk:"startdate" json:"startdate,omitempty"`
+	LeafPolicyRoutesixRuleTimeStarttime types.String `tfsdk:"starttime" json:"starttime,omitempty"`
+	LeafPolicyRoutesixRuleTimeStopdate  types.String `tfsdk:"stopdate" json:"stopdate,omitempty"`
+	LeafPolicyRoutesixRuleTimeStoptime  types.String `tfsdk:"stoptime" json:"stoptime,omitempty"`
+	LeafPolicyRoutesixRuleTimeUtc       types.String `tfsdk:"utc" json:"utc,omitempty"`
+	LeafPolicyRoutesixRuleTimeWeekdays  types.String `tfsdk:"weekdays" json:"weekdays,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRoutesixRuleTime) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "time"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRoutesixRuleTimeMonthdays.IsNull() || o.LeafPolicyRoutesixRuleTimeMonthdays.IsUnknown()) {
-		vyosData["monthdays"] = o.LeafPolicyRoutesixRuleTimeMonthdays.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeStartdate.IsNull() || o.LeafPolicyRoutesixRuleTimeStartdate.IsUnknown()) {
-		vyosData["startdate"] = o.LeafPolicyRoutesixRuleTimeStartdate.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeStarttime.IsNull() || o.LeafPolicyRoutesixRuleTimeStarttime.IsUnknown()) {
-		vyosData["starttime"] = o.LeafPolicyRoutesixRuleTimeStarttime.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeStopdate.IsNull() || o.LeafPolicyRoutesixRuleTimeStopdate.IsUnknown()) {
-		vyosData["stopdate"] = o.LeafPolicyRoutesixRuleTimeStopdate.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeStoptime.IsNull() || o.LeafPolicyRoutesixRuleTimeStoptime.IsUnknown()) {
-		vyosData["stoptime"] = o.LeafPolicyRoutesixRuleTimeStoptime.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeUtc.IsNull() || o.LeafPolicyRoutesixRuleTimeUtc.IsUnknown()) {
-		vyosData["utc"] = o.LeafPolicyRoutesixRuleTimeUtc.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleTimeWeekdays.IsNull() || o.LeafPolicyRoutesixRuleTimeWeekdays.IsUnknown()) {
-		vyosData["weekdays"] = o.LeafPolicyRoutesixRuleTimeWeekdays.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRoutesixRuleTime) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "time"}})
-
-	// Leafs
-	if value, ok := vyosData["monthdays"]; ok {
-		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["startdate"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["starttime"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stopdate"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stoptime"]; ok {
-		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["utc"]; ok {
-		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["weekdays"]; ok {
-		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "time"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRoutesixRuleTime) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"monthdays": types.StringType,
-		"startdate": types.StringType,
-		"starttime": types.StringType,
-		"stopdate":  types.StringType,
-		"stoptime":  types.StringType,
-		"utc":       types.StringType,
-		"weekdays":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -191,4 +84,109 @@ func (o PolicyRoutesixRuleTime) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRoutesixRuleTime) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRoutesixRuleTimeMonthdays.IsNull() && !o.LeafPolicyRoutesixRuleTimeMonthdays.IsUnknown() {
+		jsonData["monthdays"] = o.LeafPolicyRoutesixRuleTimeMonthdays.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeStartdate.IsNull() && !o.LeafPolicyRoutesixRuleTimeStartdate.IsUnknown() {
+		jsonData["startdate"] = o.LeafPolicyRoutesixRuleTimeStartdate.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeStarttime.IsNull() && !o.LeafPolicyRoutesixRuleTimeStarttime.IsUnknown() {
+		jsonData["starttime"] = o.LeafPolicyRoutesixRuleTimeStarttime.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeStopdate.IsNull() && !o.LeafPolicyRoutesixRuleTimeStopdate.IsUnknown() {
+		jsonData["stopdate"] = o.LeafPolicyRoutesixRuleTimeStopdate.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeStoptime.IsNull() && !o.LeafPolicyRoutesixRuleTimeStoptime.IsUnknown() {
+		jsonData["stoptime"] = o.LeafPolicyRoutesixRuleTimeStoptime.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeUtc.IsNull() && !o.LeafPolicyRoutesixRuleTimeUtc.IsUnknown() {
+		jsonData["utc"] = o.LeafPolicyRoutesixRuleTimeUtc.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleTimeWeekdays.IsNull() && !o.LeafPolicyRoutesixRuleTimeWeekdays.IsUnknown() {
+		jsonData["weekdays"] = o.LeafPolicyRoutesixRuleTimeWeekdays.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRoutesixRuleTime) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["monthdays"]; ok {
+		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeMonthdays = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["startdate"]; ok {
+		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeStartdate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["starttime"]; ok {
+		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeStarttime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stopdate"]; ok {
+		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeStopdate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stoptime"]; ok {
+		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeStoptime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["utc"]; ok {
+		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeUtc = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["weekdays"]; ok {
+		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTimeWeekdays = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

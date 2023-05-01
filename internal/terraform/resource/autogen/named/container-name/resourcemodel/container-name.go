@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerName describes the resource data model.
@@ -17,25 +15,25 @@ type ContainerName struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafContainerNameAllowHostNetworks types.String `tfsdk:"allow_host_networks"`
-	LeafContainerNameCapAdd            types.String `tfsdk:"cap_add"`
-	LeafContainerNameDescrIPtion       types.String `tfsdk:"description"`
-	LeafContainerNameDisable           types.String `tfsdk:"disable"`
-	LeafContainerNameEntrypoint        types.String `tfsdk:"entrypoint"`
-	LeafContainerNameHostName          types.String `tfsdk:"host_name"`
-	LeafContainerNameImage             types.String `tfsdk:"image"`
-	LeafContainerNameCommand           types.String `tfsdk:"command"`
-	LeafContainerNameArguments         types.String `tfsdk:"arguments"`
-	LeafContainerNameMemory            types.String `tfsdk:"memory"`
-	LeafContainerNameSharedMemory      types.String `tfsdk:"shared_memory"`
-	LeafContainerNameRestart           types.String `tfsdk:"restart"`
+	LeafContainerNameAllowHostNetworks types.String `tfsdk:"allow_host_networks" json:"allow-host-networks,omitempty"`
+	LeafContainerNameCapAdd            types.String `tfsdk:"cap_add" json:"cap-add,omitempty"`
+	LeafContainerNameDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafContainerNameDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafContainerNameEntrypoint        types.String `tfsdk:"entrypoint" json:"entrypoint,omitempty"`
+	LeafContainerNameHostName          types.String `tfsdk:"host_name" json:"host-name,omitempty"`
+	LeafContainerNameImage             types.String `tfsdk:"image" json:"image,omitempty"`
+	LeafContainerNameCommand           types.String `tfsdk:"command" json:"command,omitempty"`
+	LeafContainerNameArguments         types.String `tfsdk:"arguments" json:"arguments,omitempty"`
+	LeafContainerNameMemory            types.String `tfsdk:"memory" json:"memory,omitempty"`
+	LeafContainerNameSharedMemory      types.String `tfsdk:"shared_memory" json:"shared-memory,omitempty"`
+	LeafContainerNameRestart           types.String `tfsdk:"restart" json:"restart,omitempty"`
 
 	// TagNodes
-	TagContainerNameDevice      types.Map `tfsdk:"device"`
-	TagContainerNameEnvironment types.Map `tfsdk:"environment"`
-	TagContainerNameNetwork     types.Map `tfsdk:"network"`
-	TagContainerNamePort        types.Map `tfsdk:"port"`
-	TagContainerNameVolume      types.Map `tfsdk:"volume"`
+	TagContainerNameDevice      *map[string]ContainerNameDevice      `tfsdk:"device" json:"device,omitempty"`
+	TagContainerNameEnvironment *map[string]ContainerNameEnvironment `tfsdk:"environment" json:"environment,omitempty"`
+	TagContainerNameNetwork     *map[string]ContainerNameNetwork     `tfsdk:"network" json:"network,omitempty"`
+	TagContainerNamePort        *map[string]ContainerNamePort        `tfsdk:"port" json:"port,omitempty"`
+	TagContainerNameVolume      *map[string]ContainerNameVolume      `tfsdk:"volume" json:"volume,omitempty"`
 
 	// Nodes
 }
@@ -46,245 +44,6 @@ func (o *ContainerName) GetVyosPath() []string {
 		"container",
 		"name",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "name"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerNameAllowHostNetworks.IsNull() || o.LeafContainerNameAllowHostNetworks.IsUnknown()) {
-		vyosData["allow-host-networks"] = o.LeafContainerNameAllowHostNetworks.ValueString()
-	}
-	if !(o.LeafContainerNameCapAdd.IsNull() || o.LeafContainerNameCapAdd.IsUnknown()) {
-		vyosData["cap-add"] = o.LeafContainerNameCapAdd.ValueString()
-	}
-	if !(o.LeafContainerNameDescrIPtion.IsNull() || o.LeafContainerNameDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafContainerNameDescrIPtion.ValueString()
-	}
-	if !(o.LeafContainerNameDisable.IsNull() || o.LeafContainerNameDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafContainerNameDisable.ValueString()
-	}
-	if !(o.LeafContainerNameEntrypoint.IsNull() || o.LeafContainerNameEntrypoint.IsUnknown()) {
-		vyosData["entrypoint"] = o.LeafContainerNameEntrypoint.ValueString()
-	}
-	if !(o.LeafContainerNameHostName.IsNull() || o.LeafContainerNameHostName.IsUnknown()) {
-		vyosData["host-name"] = o.LeafContainerNameHostName.ValueString()
-	}
-	if !(o.LeafContainerNameImage.IsNull() || o.LeafContainerNameImage.IsUnknown()) {
-		vyosData["image"] = o.LeafContainerNameImage.ValueString()
-	}
-	if !(o.LeafContainerNameCommand.IsNull() || o.LeafContainerNameCommand.IsUnknown()) {
-		vyosData["command"] = o.LeafContainerNameCommand.ValueString()
-	}
-	if !(o.LeafContainerNameArguments.IsNull() || o.LeafContainerNameArguments.IsUnknown()) {
-		vyosData["arguments"] = o.LeafContainerNameArguments.ValueString()
-	}
-	if !(o.LeafContainerNameMemory.IsNull() || o.LeafContainerNameMemory.IsUnknown()) {
-		vyosData["memory"] = o.LeafContainerNameMemory.ValueString()
-	}
-	if !(o.LeafContainerNameSharedMemory.IsNull() || o.LeafContainerNameSharedMemory.IsUnknown()) {
-		vyosData["shared-memory"] = o.LeafContainerNameSharedMemory.ValueString()
-	}
-	if !(o.LeafContainerNameRestart.IsNull() || o.LeafContainerNameRestart.IsUnknown()) {
-		vyosData["restart"] = o.LeafContainerNameRestart.ValueString()
-	}
-
-	// Tags
-	if !(o.TagContainerNameDevice.IsNull() || o.TagContainerNameDevice.IsUnknown()) {
-		subModel := make(map[string]ContainerNameDevice)
-		diags.Append(o.TagContainerNameDevice.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["device"] = subData
-	}
-	if !(o.TagContainerNameEnvironment.IsNull() || o.TagContainerNameEnvironment.IsUnknown()) {
-		subModel := make(map[string]ContainerNameEnvironment)
-		diags.Append(o.TagContainerNameEnvironment.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["environment"] = subData
-	}
-	if !(o.TagContainerNameNetwork.IsNull() || o.TagContainerNameNetwork.IsUnknown()) {
-		subModel := make(map[string]ContainerNameNetwork)
-		diags.Append(o.TagContainerNameNetwork.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["network"] = subData
-	}
-	if !(o.TagContainerNamePort.IsNull() || o.TagContainerNamePort.IsUnknown()) {
-		subModel := make(map[string]ContainerNamePort)
-		diags.Append(o.TagContainerNamePort.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["port"] = subData
-	}
-	if !(o.TagContainerNameVolume.IsNull() || o.TagContainerNameVolume.IsUnknown()) {
-		subModel := make(map[string]ContainerNameVolume)
-		diags.Append(o.TagContainerNameVolume.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["volume"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "name"}})
-
-	// Leafs
-	if value, ok := vyosData["allow-host-networks"]; ok {
-		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["cap-add"]; ok {
-		o.LeafContainerNameCapAdd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameCapAdd = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafContainerNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafContainerNameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["entrypoint"]; ok {
-		o.LeafContainerNameEntrypoint = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameEntrypoint = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["host-name"]; ok {
-		o.LeafContainerNameHostName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameHostName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["image"]; ok {
-		o.LeafContainerNameImage = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameImage = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["command"]; ok {
-		o.LeafContainerNameCommand = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameCommand = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["arguments"]; ok {
-		o.LeafContainerNameArguments = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameArguments = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["memory"]; ok {
-		o.LeafContainerNameMemory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameMemory = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shared-memory"]; ok {
-		o.LeafContainerNameSharedMemory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameSharedMemory = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["restart"]; ok {
-		o.LeafContainerNameRestart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameRestart = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["device"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ContainerNameDevice{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagContainerNameDevice = data
-	} else {
-		o.TagContainerNameDevice = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["environment"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ContainerNameEnvironment{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagContainerNameEnvironment = data
-	} else {
-		o.TagContainerNameEnvironment = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["network"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ContainerNameNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagContainerNameNetwork = data
-	} else {
-		o.TagContainerNameNetwork = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["port"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ContainerNamePort{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagContainerNamePort = data
-	} else {
-		o.TagContainerNamePort = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["volume"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ContainerNameVolume{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagContainerNameVolume = data
-	} else {
-		o.TagContainerNameVolume = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "name"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerName) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"allow_host_networks": types.StringType,
-		"cap_add":             types.StringType,
-		"description":         types.StringType,
-		"disable":             types.StringType,
-		"entrypoint":          types.StringType,
-		"host_name":           types.StringType,
-		"image":               types.StringType,
-		"command":             types.StringType,
-		"arguments":           types.StringType,
-		"memory":              types.StringType,
-		"shared_memory":       types.StringType,
-		"restart":             types.StringType,
-
-		// Tags
-		"device":      types.MapType{ElemType: types.ObjectType{AttrTypes: ContainerNameDevice{}.AttributeTypes()}},
-		"environment": types.MapType{ElemType: types.ObjectType{AttrTypes: ContainerNameEnvironment{}.AttributeTypes()}},
-		"network":     types.MapType{ElemType: types.ObjectType{AttrTypes: ContainerNameNetwork{}.AttributeTypes()}},
-		"port":        types.MapType{ElemType: types.ObjectType{AttrTypes: ContainerNamePort{}.AttributeTypes()}},
-		"volume":      types.MapType{ElemType: types.ObjectType{AttrTypes: ContainerNameVolume{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -477,4 +236,294 @@ func (o ContainerName) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerName) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerNameAllowHostNetworks.IsNull() && !o.LeafContainerNameAllowHostNetworks.IsUnknown() {
+		jsonData["allow-host-networks"] = o.LeafContainerNameAllowHostNetworks.ValueString()
+	}
+
+	if !o.LeafContainerNameCapAdd.IsNull() && !o.LeafContainerNameCapAdd.IsUnknown() {
+		jsonData["cap-add"] = o.LeafContainerNameCapAdd.ValueString()
+	}
+
+	if !o.LeafContainerNameDescrIPtion.IsNull() && !o.LeafContainerNameDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafContainerNameDescrIPtion.ValueString()
+	}
+
+	if !o.LeafContainerNameDisable.IsNull() && !o.LeafContainerNameDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafContainerNameDisable.ValueString()
+	}
+
+	if !o.LeafContainerNameEntrypoint.IsNull() && !o.LeafContainerNameEntrypoint.IsUnknown() {
+		jsonData["entrypoint"] = o.LeafContainerNameEntrypoint.ValueString()
+	}
+
+	if !o.LeafContainerNameHostName.IsNull() && !o.LeafContainerNameHostName.IsUnknown() {
+		jsonData["host-name"] = o.LeafContainerNameHostName.ValueString()
+	}
+
+	if !o.LeafContainerNameImage.IsNull() && !o.LeafContainerNameImage.IsUnknown() {
+		jsonData["image"] = o.LeafContainerNameImage.ValueString()
+	}
+
+	if !o.LeafContainerNameCommand.IsNull() && !o.LeafContainerNameCommand.IsUnknown() {
+		jsonData["command"] = o.LeafContainerNameCommand.ValueString()
+	}
+
+	if !o.LeafContainerNameArguments.IsNull() && !o.LeafContainerNameArguments.IsUnknown() {
+		jsonData["arguments"] = o.LeafContainerNameArguments.ValueString()
+	}
+
+	if !o.LeafContainerNameMemory.IsNull() && !o.LeafContainerNameMemory.IsUnknown() {
+		jsonData["memory"] = o.LeafContainerNameMemory.ValueString()
+	}
+
+	if !o.LeafContainerNameSharedMemory.IsNull() && !o.LeafContainerNameSharedMemory.IsUnknown() {
+		jsonData["shared-memory"] = o.LeafContainerNameSharedMemory.ValueString()
+	}
+
+	if !o.LeafContainerNameRestart.IsNull() && !o.LeafContainerNameRestart.IsUnknown() {
+		jsonData["restart"] = o.LeafContainerNameRestart.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagContainerNameDevice).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagContainerNameDevice)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["device"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagContainerNameEnvironment).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagContainerNameEnvironment)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["environment"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagContainerNameNetwork).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagContainerNameNetwork)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["network"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagContainerNamePort).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagContainerNamePort)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["port"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagContainerNameVolume).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagContainerNameVolume)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["volume"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerName) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["allow-host-networks"]; ok {
+		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameAllowHostNetworks = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["cap-add"]; ok {
+		o.LeafContainerNameCapAdd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameCapAdd = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafContainerNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafContainerNameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["entrypoint"]; ok {
+		o.LeafContainerNameEntrypoint = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameEntrypoint = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["host-name"]; ok {
+		o.LeafContainerNameHostName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameHostName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["image"]; ok {
+		o.LeafContainerNameImage = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameImage = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["command"]; ok {
+		o.LeafContainerNameCommand = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameCommand = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["arguments"]; ok {
+		o.LeafContainerNameArguments = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameArguments = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["memory"]; ok {
+		o.LeafContainerNameMemory = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameMemory = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shared-memory"]; ok {
+		o.LeafContainerNameSharedMemory = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameSharedMemory = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["restart"]; ok {
+		o.LeafContainerNameRestart = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameRestart = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["device"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagContainerNameDevice = &map[string]ContainerNameDevice{}
+
+		err = json.Unmarshal(subJSONStr, o.TagContainerNameDevice)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["environment"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagContainerNameEnvironment = &map[string]ContainerNameEnvironment{}
+
+		err = json.Unmarshal(subJSONStr, o.TagContainerNameEnvironment)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["network"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagContainerNameNetwork = &map[string]ContainerNameNetwork{}
+
+		err = json.Unmarshal(subJSONStr, o.TagContainerNameNetwork)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["port"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagContainerNamePort = &map[string]ContainerNamePort{}
+
+		err = json.Unmarshal(subJSONStr, o.TagContainerNamePort)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["volume"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagContainerNameVolume = &map[string]ContainerNameVolume{}
+
+		err = json.Unmarshal(subJSONStr, o.TagContainerNameVolume)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

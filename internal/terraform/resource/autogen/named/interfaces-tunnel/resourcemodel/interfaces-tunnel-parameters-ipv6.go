@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesTunnelParametersIPvsix describes the resource data model.
 type InterfacesTunnelParametersIPvsix struct {
 	// LeafNodes
-	LeafInterfacesTunnelParametersIPvsixEncaplimit types.String `tfsdk:"encaplimit"`
-	LeafInterfacesTunnelParametersIPvsixFlowlabel  types.String `tfsdk:"flowlabel"`
-	LeafInterfacesTunnelParametersIPvsixHoplimit   types.String `tfsdk:"hoplimit"`
-	LeafInterfacesTunnelParametersIPvsixTclass     types.String `tfsdk:"tclass"`
+	LeafInterfacesTunnelParametersIPvsixEncaplimit types.String `tfsdk:"encaplimit" json:"encaplimit,omitempty"`
+	LeafInterfacesTunnelParametersIPvsixFlowlabel  types.String `tfsdk:"flowlabel" json:"flowlabel,omitempty"`
+	LeafInterfacesTunnelParametersIPvsixHoplimit   types.String `tfsdk:"hoplimit" json:"hoplimit,omitempty"`
+	LeafInterfacesTunnelParametersIPvsixTclass     types.String `tfsdk:"tclass" json:"tclass,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesTunnelParametersIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsNull() || o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsUnknown()) {
-		vyosData["encaplimit"] = o.LeafInterfacesTunnelParametersIPvsixEncaplimit.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsNull() || o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsUnknown()) {
-		vyosData["flowlabel"] = o.LeafInterfacesTunnelParametersIPvsixFlowlabel.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsNull() || o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsUnknown()) {
-		vyosData["hoplimit"] = o.LeafInterfacesTunnelParametersIPvsixHoplimit.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersIPvsixTclass.IsNull() || o.LeafInterfacesTunnelParametersIPvsixTclass.IsUnknown()) {
-		vyosData["tclass"] = o.LeafInterfacesTunnelParametersIPvsixTclass.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesTunnelParametersIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["encaplimit"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["flowlabel"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hoplimit"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["tclass"]; ok {
-		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesTunnelParametersIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"encaplimit": types.StringType,
-		"flowlabel":  types.StringType,
-		"hoplimit":   types.StringType,
-		"tclass":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -167,4 +87,79 @@ func (o InterfacesTunnelParametersIPvsix) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesTunnelParametersIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixEncaplimit.IsUnknown() {
+		jsonData["encaplimit"] = o.LeafInterfacesTunnelParametersIPvsixEncaplimit.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixFlowlabel.IsUnknown() {
+		jsonData["flowlabel"] = o.LeafInterfacesTunnelParametersIPvsixFlowlabel.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixHoplimit.IsUnknown() {
+		jsonData["hoplimit"] = o.LeafInterfacesTunnelParametersIPvsixHoplimit.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersIPvsixTclass.IsNull() && !o.LeafInterfacesTunnelParametersIPvsixTclass.IsUnknown() {
+		jsonData["tclass"] = o.LeafInterfacesTunnelParametersIPvsixTclass.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesTunnelParametersIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["encaplimit"]; ok {
+		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPvsixEncaplimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["flowlabel"]; ok {
+		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPvsixFlowlabel = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hoplimit"]; ok {
+		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPvsixHoplimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["tclass"]; ok {
+		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPvsixTclass = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifMirror describes the resource data model.
 type InterfacesBondingVifMirror struct {
 	// LeafNodes
-	LeafInterfacesBondingVifMirrorIngress types.String `tfsdk:"ingress"`
-	LeafInterfacesBondingVifMirrorEgress  types.String `tfsdk:"egress"`
+	LeafInterfacesBondingVifMirrorIngress types.String `tfsdk:"ingress" json:"ingress,omitempty"`
+	LeafInterfacesBondingVifMirrorEgress  types.String `tfsdk:"egress" json:"egress,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingVifMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "mirror"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingVifMirrorIngress.IsNull() || o.LeafInterfacesBondingVifMirrorIngress.IsUnknown()) {
-		vyosData["ingress"] = o.LeafInterfacesBondingVifMirrorIngress.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifMirrorEgress.IsNull() || o.LeafInterfacesBondingVifMirrorEgress.IsUnknown()) {
-		vyosData["egress"] = o.LeafInterfacesBondingVifMirrorEgress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingVifMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "mirror"}})
-
-	// Leafs
-	if value, ok := vyosData["ingress"]; ok {
-		o.LeafInterfacesBondingVifMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifMirrorIngress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["egress"]; ok {
-		o.LeafInterfacesBondingVifMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif", "mirror"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingVifMirror) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ingress": types.StringType,
-		"egress":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o InterfacesBondingVifMirror) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingVifMirror) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingVifMirrorIngress.IsNull() && !o.LeafInterfacesBondingVifMirrorIngress.IsUnknown() {
+		jsonData["ingress"] = o.LeafInterfacesBondingVifMirrorIngress.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifMirrorEgress.IsNull() && !o.LeafInterfacesBondingVifMirrorEgress.IsUnknown() {
+		jsonData["egress"] = o.LeafInterfacesBondingVifMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingVifMirror) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ingress"]; ok {
+		o.LeafInterfacesBondingVifMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifMirrorIngress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["egress"]; ok {
+		o.LeafInterfacesBondingVifMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

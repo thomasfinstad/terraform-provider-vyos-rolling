@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpParametersDistancePrefix describes the resource data model.
@@ -17,7 +14,7 @@ type ProtocolsBgpParametersDistancePrefix struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsBgpParametersDistancePrefixDistance types.String `tfsdk:"distance"`
+	LeafProtocolsBgpParametersDistancePrefixDistance types.String `tfsdk:"distance" json:"distance,omitempty"`
 
 	// TagNodes
 
@@ -33,56 +30,6 @@ func (o *ProtocolsBgpParametersDistancePrefix) GetVyosPath() []string {
 		"distance",
 		"prefix",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpParametersDistancePrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpParametersDistancePrefixDistance.IsNull() || o.LeafProtocolsBgpParametersDistancePrefixDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsBgpParametersDistancePrefixDistance.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpParametersDistancePrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
-
-	// Leafs
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpParametersDistancePrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"distance": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -118,4 +65,49 @@ func (o ProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpParametersDistancePrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpParametersDistancePrefixDistance.IsNull() && !o.LeafProtocolsBgpParametersDistancePrefixDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsBgpParametersDistancePrefixDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpParametersDistancePrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

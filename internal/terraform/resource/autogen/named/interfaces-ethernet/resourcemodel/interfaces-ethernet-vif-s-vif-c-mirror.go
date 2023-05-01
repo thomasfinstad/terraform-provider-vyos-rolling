@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetVifSVifCMirror describes the resource data model.
 type InterfacesEthernetVifSVifCMirror struct {
 	// LeafNodes
-	LeafInterfacesEthernetVifSVifCMirrorIngress types.String `tfsdk:"ingress"`
-	LeafInterfacesEthernetVifSVifCMirrorEgress  types.String `tfsdk:"egress"`
+	LeafInterfacesEthernetVifSVifCMirrorIngress types.String `tfsdk:"ingress" json:"ingress,omitempty"`
+	LeafInterfacesEthernetVifSVifCMirrorEgress  types.String `tfsdk:"egress" json:"egress,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetVifSVifCMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "mirror"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsNull() || o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsUnknown()) {
-		vyosData["ingress"] = o.LeafInterfacesEthernetVifSVifCMirrorIngress.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsNull() || o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsUnknown()) {
-		vyosData["egress"] = o.LeafInterfacesEthernetVifSVifCMirrorEgress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetVifSVifCMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "mirror"}})
-
-	// Leafs
-	if value, ok := vyosData["ingress"]; ok {
-		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["egress"]; ok {
-		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "mirror"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetVifSVifCMirror) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ingress": types.StringType,
-		"egress":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o InterfacesEthernetVifSVifCMirror) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetVifSVifCMirror) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsNull() && !o.LeafInterfacesEthernetVifSVifCMirrorIngress.IsUnknown() {
+		jsonData["ingress"] = o.LeafInterfacesEthernetVifSVifCMirrorIngress.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsNull() && !o.LeafInterfacesEthernetVifSVifCMirrorEgress.IsUnknown() {
+		jsonData["egress"] = o.LeafInterfacesEthernetVifSVifCMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetVifSVifCMirror) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ingress"]; ok {
+		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCMirrorIngress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["egress"]; ok {
+		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,423 +2,50 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRule describes the resource data model.
 type FirewallNameRule struct {
 	// LeafNodes
-	LeafFirewallNameRuleAction              types.String `tfsdk:"action"`
-	LeafFirewallNameRuleDescrIPtion         types.String `tfsdk:"description"`
-	LeafFirewallNameRuleDisable             types.String `tfsdk:"disable"`
-	LeafFirewallNameRuleLog                 types.String `tfsdk:"log"`
-	LeafFirewallNameRuleLogLevel            types.String `tfsdk:"log_level"`
-	LeafFirewallNameRuleProtocol            types.String `tfsdk:"protocol"`
-	LeafFirewallNameRuleDscp                types.String `tfsdk:"dscp"`
-	LeafFirewallNameRuleDscpExclude         types.String `tfsdk:"dscp_exclude"`
-	LeafFirewallNameRulePacketLength        types.String `tfsdk:"packet_length"`
-	LeafFirewallNameRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude"`
-	LeafFirewallNameRulePacketType          types.String `tfsdk:"packet_type"`
-	LeafFirewallNameRuleConnectionMark      types.String `tfsdk:"connection_mark"`
-	LeafFirewallNameRuleJumpTarget          types.String `tfsdk:"jump_target"`
-	LeafFirewallNameRuleQueue               types.String `tfsdk:"queue"`
-	LeafFirewallNameRuleQueueOptions        types.String `tfsdk:"queue_options"`
+	LeafFirewallNameRuleAction              types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafFirewallNameRuleDescrIPtion         types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafFirewallNameRuleDisable             types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafFirewallNameRuleLog                 types.String `tfsdk:"log" json:"log,omitempty"`
+	LeafFirewallNameRuleLogLevel            types.String `tfsdk:"log_level" json:"log-level,omitempty"`
+	LeafFirewallNameRuleProtocol            types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafFirewallNameRuleDscp                types.String `tfsdk:"dscp" json:"dscp,omitempty"`
+	LeafFirewallNameRuleDscpExclude         types.String `tfsdk:"dscp_exclude" json:"dscp-exclude,omitempty"`
+	LeafFirewallNameRulePacketLength        types.String `tfsdk:"packet_length" json:"packet-length,omitempty"`
+	LeafFirewallNameRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude" json:"packet-length-exclude,omitempty"`
+	LeafFirewallNameRulePacketType          types.String `tfsdk:"packet_type" json:"packet-type,omitempty"`
+	LeafFirewallNameRuleConnectionMark      types.String `tfsdk:"connection_mark" json:"connection-mark,omitempty"`
+	LeafFirewallNameRuleJumpTarget          types.String `tfsdk:"jump_target" json:"jump-target,omitempty"`
+	LeafFirewallNameRuleQueue               types.String `tfsdk:"queue" json:"queue,omitempty"`
+	LeafFirewallNameRuleQueueOptions        types.String `tfsdk:"queue_options" json:"queue-options,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeFirewallNameRuleDestination       types.Object `tfsdk:"destination"`
-	NodeFirewallNameRuleSource            types.Object `tfsdk:"source"`
-	NodeFirewallNameRuleFragment          types.Object `tfsdk:"fragment"`
-	NodeFirewallNameRuleInboundInterface  types.Object `tfsdk:"inbound_interface"`
-	NodeFirewallNameRuleOutboundInterface types.Object `tfsdk:"outbound_interface"`
-	NodeFirewallNameRuleIPsec             types.Object `tfsdk:"ipsec"`
-	NodeFirewallNameRuleLimit             types.Object `tfsdk:"limit"`
-	NodeFirewallNameRuleConnectionStatus  types.Object `tfsdk:"connection_status"`
-	NodeFirewallNameRuleRecent            types.Object `tfsdk:"recent"`
-	NodeFirewallNameRuleState             types.Object `tfsdk:"state"`
-	NodeFirewallNameRuleTCP               types.Object `tfsdk:"tcp"`
-	NodeFirewallNameRuleTime              types.Object `tfsdk:"time"`
-	NodeFirewallNameRuleIcmp              types.Object `tfsdk:"icmp"`
-	NodeFirewallNameRuleTTL               types.Object `tfsdk:"ttl"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallNameRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallNameRuleAction.IsNull() || o.LeafFirewallNameRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafFirewallNameRuleAction.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleDescrIPtion.IsNull() || o.LeafFirewallNameRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafFirewallNameRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleDisable.IsNull() || o.LeafFirewallNameRuleDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafFirewallNameRuleDisable.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleLog.IsNull() || o.LeafFirewallNameRuleLog.IsUnknown()) {
-		vyosData["log"] = o.LeafFirewallNameRuleLog.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleLogLevel.IsNull() || o.LeafFirewallNameRuleLogLevel.IsUnknown()) {
-		vyosData["log-level"] = o.LeafFirewallNameRuleLogLevel.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleProtocol.IsNull() || o.LeafFirewallNameRuleProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafFirewallNameRuleProtocol.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleDscp.IsNull() || o.LeafFirewallNameRuleDscp.IsUnknown()) {
-		vyosData["dscp"] = o.LeafFirewallNameRuleDscp.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleDscpExclude.IsNull() || o.LeafFirewallNameRuleDscpExclude.IsUnknown()) {
-		vyosData["dscp-exclude"] = o.LeafFirewallNameRuleDscpExclude.ValueString()
-	}
-	if !(o.LeafFirewallNameRulePacketLength.IsNull() || o.LeafFirewallNameRulePacketLength.IsUnknown()) {
-		vyosData["packet-length"] = o.LeafFirewallNameRulePacketLength.ValueString()
-	}
-	if !(o.LeafFirewallNameRulePacketLengthExclude.IsNull() || o.LeafFirewallNameRulePacketLengthExclude.IsUnknown()) {
-		vyosData["packet-length-exclude"] = o.LeafFirewallNameRulePacketLengthExclude.ValueString()
-	}
-	if !(o.LeafFirewallNameRulePacketType.IsNull() || o.LeafFirewallNameRulePacketType.IsUnknown()) {
-		vyosData["packet-type"] = o.LeafFirewallNameRulePacketType.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleConnectionMark.IsNull() || o.LeafFirewallNameRuleConnectionMark.IsUnknown()) {
-		vyosData["connection-mark"] = o.LeafFirewallNameRuleConnectionMark.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleJumpTarget.IsNull() || o.LeafFirewallNameRuleJumpTarget.IsUnknown()) {
-		vyosData["jump-target"] = o.LeafFirewallNameRuleJumpTarget.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleQueue.IsNull() || o.LeafFirewallNameRuleQueue.IsUnknown()) {
-		vyosData["queue"] = o.LeafFirewallNameRuleQueue.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleQueueOptions.IsNull() || o.LeafFirewallNameRuleQueueOptions.IsUnknown()) {
-		vyosData["queue-options"] = o.LeafFirewallNameRuleQueueOptions.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeFirewallNameRuleDestination.IsNull() || o.NodeFirewallNameRuleDestination.IsUnknown()) {
-		var subModel FirewallNameRuleDestination
-		diags.Append(o.NodeFirewallNameRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleSource.IsNull() || o.NodeFirewallNameRuleSource.IsUnknown()) {
-		var subModel FirewallNameRuleSource
-		diags.Append(o.NodeFirewallNameRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleFragment.IsNull() || o.NodeFirewallNameRuleFragment.IsUnknown()) {
-		var subModel FirewallNameRuleFragment
-		diags.Append(o.NodeFirewallNameRuleFragment.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["fragment"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleInboundInterface.IsNull() || o.NodeFirewallNameRuleInboundInterface.IsUnknown()) {
-		var subModel FirewallNameRuleInboundInterface
-		diags.Append(o.NodeFirewallNameRuleInboundInterface.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["inbound-interface"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleOutboundInterface.IsNull() || o.NodeFirewallNameRuleOutboundInterface.IsUnknown()) {
-		var subModel FirewallNameRuleOutboundInterface
-		diags.Append(o.NodeFirewallNameRuleOutboundInterface.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["outbound-interface"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleIPsec.IsNull() || o.NodeFirewallNameRuleIPsec.IsUnknown()) {
-		var subModel FirewallNameRuleIPsec
-		diags.Append(o.NodeFirewallNameRuleIPsec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipsec"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleLimit.IsNull() || o.NodeFirewallNameRuleLimit.IsUnknown()) {
-		var subModel FirewallNameRuleLimit
-		diags.Append(o.NodeFirewallNameRuleLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["limit"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleConnectionStatus.IsNull() || o.NodeFirewallNameRuleConnectionStatus.IsUnknown()) {
-		var subModel FirewallNameRuleConnectionStatus
-		diags.Append(o.NodeFirewallNameRuleConnectionStatus.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["connection-status"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleRecent.IsNull() || o.NodeFirewallNameRuleRecent.IsUnknown()) {
-		var subModel FirewallNameRuleRecent
-		diags.Append(o.NodeFirewallNameRuleRecent.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["recent"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleState.IsNull() || o.NodeFirewallNameRuleState.IsUnknown()) {
-		var subModel FirewallNameRuleState
-		diags.Append(o.NodeFirewallNameRuleState.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["state"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleTCP.IsNull() || o.NodeFirewallNameRuleTCP.IsUnknown()) {
-		var subModel FirewallNameRuleTCP
-		diags.Append(o.NodeFirewallNameRuleTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleTime.IsNull() || o.NodeFirewallNameRuleTime.IsUnknown()) {
-		var subModel FirewallNameRuleTime
-		diags.Append(o.NodeFirewallNameRuleTime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["time"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleIcmp.IsNull() || o.NodeFirewallNameRuleIcmp.IsUnknown()) {
-		var subModel FirewallNameRuleIcmp
-		diags.Append(o.NodeFirewallNameRuleIcmp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["icmp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallNameRuleTTL.IsNull() || o.NodeFirewallNameRuleTTL.IsUnknown()) {
-		var subModel FirewallNameRuleTTL
-		diags.Append(o.NodeFirewallNameRuleTTL.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ttl"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallNameRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafFirewallNameRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafFirewallNameRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["log"]; ok {
-		o.LeafFirewallNameRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLog = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["log-level"]; ok {
-		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafFirewallNameRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dscp"]; ok {
-		o.LeafFirewallNameRuleDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDscp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dscp-exclude"]; ok {
-		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-length"]; ok {
-		o.LeafFirewallNameRulePacketLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketLength = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-length-exclude"]; ok {
-		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-type"]; ok {
-		o.LeafFirewallNameRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRulePacketType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["connection-mark"]; ok {
-		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["jump-target"]; ok {
-		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue"]; ok {
-		o.LeafFirewallNameRuleQueue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleQueue = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-options"]; ok {
-		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleDestination = data
-
-	} else {
-		o.NodeFirewallNameRuleDestination = basetypes.NewObjectNull(FirewallNameRuleDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleSource = data
-
-	} else {
-		o.NodeFirewallNameRuleSource = basetypes.NewObjectNull(FirewallNameRuleSource{}.AttributeTypes())
-	}
-	if value, ok := vyosData["fragment"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleFragment{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleFragment = data
-
-	} else {
-		o.NodeFirewallNameRuleFragment = basetypes.NewObjectNull(FirewallNameRuleFragment{}.AttributeTypes())
-	}
-	if value, ok := vyosData["inbound-interface"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleInboundInterface{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleInboundInterface = data
-
-	} else {
-		o.NodeFirewallNameRuleInboundInterface = basetypes.NewObjectNull(FirewallNameRuleInboundInterface{}.AttributeTypes())
-	}
-	if value, ok := vyosData["outbound-interface"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleOutboundInterface{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleOutboundInterface = data
-
-	} else {
-		o.NodeFirewallNameRuleOutboundInterface = basetypes.NewObjectNull(FirewallNameRuleOutboundInterface{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipsec"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleIPsec{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleIPsec = data
-
-	} else {
-		o.NodeFirewallNameRuleIPsec = basetypes.NewObjectNull(FirewallNameRuleIPsec{}.AttributeTypes())
-	}
-	if value, ok := vyosData["limit"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleLimit{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleLimit = data
-
-	} else {
-		o.NodeFirewallNameRuleLimit = basetypes.NewObjectNull(FirewallNameRuleLimit{}.AttributeTypes())
-	}
-	if value, ok := vyosData["connection-status"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleConnectionStatus{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleConnectionStatus = data
-
-	} else {
-		o.NodeFirewallNameRuleConnectionStatus = basetypes.NewObjectNull(FirewallNameRuleConnectionStatus{}.AttributeTypes())
-	}
-	if value, ok := vyosData["recent"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleRecent{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleRecent = data
-
-	} else {
-		o.NodeFirewallNameRuleRecent = basetypes.NewObjectNull(FirewallNameRuleRecent{}.AttributeTypes())
-	}
-	if value, ok := vyosData["state"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleState{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleState = data
-
-	} else {
-		o.NodeFirewallNameRuleState = basetypes.NewObjectNull(FirewallNameRuleState{}.AttributeTypes())
-	}
-	if value, ok := vyosData["tcp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTCP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleTCP = data
-
-	} else {
-		o.NodeFirewallNameRuleTCP = basetypes.NewObjectNull(FirewallNameRuleTCP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["time"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTime{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleTime = data
-
-	} else {
-		o.NodeFirewallNameRuleTime = basetypes.NewObjectNull(FirewallNameRuleTime{}.AttributeTypes())
-	}
-	if value, ok := vyosData["icmp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleIcmp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleIcmp = data
-
-	} else {
-		o.NodeFirewallNameRuleIcmp = basetypes.NewObjectNull(FirewallNameRuleIcmp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ttl"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTTL{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallNameRuleTTL = data
-
-	} else {
-		o.NodeFirewallNameRuleTTL = basetypes.NewObjectNull(FirewallNameRuleTTL{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallNameRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":                types.StringType,
-		"description":           types.StringType,
-		"disable":               types.StringType,
-		"log":                   types.StringType,
-		"log_level":             types.StringType,
-		"protocol":              types.StringType,
-		"dscp":                  types.StringType,
-		"dscp_exclude":          types.StringType,
-		"packet_length":         types.StringType,
-		"packet_length_exclude": types.StringType,
-		"packet_type":           types.StringType,
-		"connection_mark":       types.StringType,
-		"jump_target":           types.StringType,
-		"queue":                 types.StringType,
-		"queue_options":         types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination":        types.ObjectType{AttrTypes: FirewallNameRuleDestination{}.AttributeTypes()},
-		"source":             types.ObjectType{AttrTypes: FirewallNameRuleSource{}.AttributeTypes()},
-		"fragment":           types.ObjectType{AttrTypes: FirewallNameRuleFragment{}.AttributeTypes()},
-		"inbound_interface":  types.ObjectType{AttrTypes: FirewallNameRuleInboundInterface{}.AttributeTypes()},
-		"outbound_interface": types.ObjectType{AttrTypes: FirewallNameRuleOutboundInterface{}.AttributeTypes()},
-		"ipsec":              types.ObjectType{AttrTypes: FirewallNameRuleIPsec{}.AttributeTypes()},
-		"limit":              types.ObjectType{AttrTypes: FirewallNameRuleLimit{}.AttributeTypes()},
-		"connection_status":  types.ObjectType{AttrTypes: FirewallNameRuleConnectionStatus{}.AttributeTypes()},
-		"recent":             types.ObjectType{AttrTypes: FirewallNameRuleRecent{}.AttributeTypes()},
-		"state":              types.ObjectType{AttrTypes: FirewallNameRuleState{}.AttributeTypes()},
-		"tcp":                types.ObjectType{AttrTypes: FirewallNameRuleTCP{}.AttributeTypes()},
-		"time":               types.ObjectType{AttrTypes: FirewallNameRuleTime{}.AttributeTypes()},
-		"icmp":               types.ObjectType{AttrTypes: FirewallNameRuleIcmp{}.AttributeTypes()},
-		"ttl":                types.ObjectType{AttrTypes: FirewallNameRuleTTL{}.AttributeTypes()},
-	}
+	NodeFirewallNameRuleDestination       *FirewallNameRuleDestination       `tfsdk:"destination" json:"destination,omitempty"`
+	NodeFirewallNameRuleSource            *FirewallNameRuleSource            `tfsdk:"source" json:"source,omitempty"`
+	NodeFirewallNameRuleFragment          *FirewallNameRuleFragment          `tfsdk:"fragment" json:"fragment,omitempty"`
+	NodeFirewallNameRuleInboundInterface  *FirewallNameRuleInboundInterface  `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
+	NodeFirewallNameRuleOutboundInterface *FirewallNameRuleOutboundInterface `tfsdk:"outbound_interface" json:"outbound-interface,omitempty"`
+	NodeFirewallNameRuleIPsec             *FirewallNameRuleIPsec             `tfsdk:"ipsec" json:"ipsec,omitempty"`
+	NodeFirewallNameRuleLimit             *FirewallNameRuleLimit             `tfsdk:"limit" json:"limit,omitempty"`
+	NodeFirewallNameRuleConnectionStatus  *FirewallNameRuleConnectionStatus  `tfsdk:"connection_status" json:"connection-status,omitempty"`
+	NodeFirewallNameRuleRecent            *FirewallNameRuleRecent            `tfsdk:"recent" json:"recent,omitempty"`
+	NodeFirewallNameRuleState             *FirewallNameRuleState             `tfsdk:"state" json:"state,omitempty"`
+	NodeFirewallNameRuleTCP               *FirewallNameRuleTCP               `tfsdk:"tcp" json:"tcp,omitempty"`
+	NodeFirewallNameRuleTime              *FirewallNameRuleTime              `tfsdk:"time" json:"time,omitempty"`
+	NodeFirewallNameRuleIcmp              *FirewallNameRuleIcmp              `tfsdk:"icmp" json:"icmp,omitempty"`
+	NodeFirewallNameRuleTTL               *FirewallNameRuleTTL               `tfsdk:"ttl" json:"ttl,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -725,4 +352,567 @@ func (o FirewallNameRule) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallNameRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallNameRuleAction.IsNull() && !o.LeafFirewallNameRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafFirewallNameRuleAction.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleDescrIPtion.IsNull() && !o.LeafFirewallNameRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafFirewallNameRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleDisable.IsNull() && !o.LeafFirewallNameRuleDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafFirewallNameRuleDisable.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleLog.IsNull() && !o.LeafFirewallNameRuleLog.IsUnknown() {
+		jsonData["log"] = o.LeafFirewallNameRuleLog.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleLogLevel.IsNull() && !o.LeafFirewallNameRuleLogLevel.IsUnknown() {
+		jsonData["log-level"] = o.LeafFirewallNameRuleLogLevel.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleProtocol.IsNull() && !o.LeafFirewallNameRuleProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafFirewallNameRuleProtocol.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleDscp.IsNull() && !o.LeafFirewallNameRuleDscp.IsUnknown() {
+		jsonData["dscp"] = o.LeafFirewallNameRuleDscp.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleDscpExclude.IsNull() && !o.LeafFirewallNameRuleDscpExclude.IsUnknown() {
+		jsonData["dscp-exclude"] = o.LeafFirewallNameRuleDscpExclude.ValueString()
+	}
+
+	if !o.LeafFirewallNameRulePacketLength.IsNull() && !o.LeafFirewallNameRulePacketLength.IsUnknown() {
+		jsonData["packet-length"] = o.LeafFirewallNameRulePacketLength.ValueString()
+	}
+
+	if !o.LeafFirewallNameRulePacketLengthExclude.IsNull() && !o.LeafFirewallNameRulePacketLengthExclude.IsUnknown() {
+		jsonData["packet-length-exclude"] = o.LeafFirewallNameRulePacketLengthExclude.ValueString()
+	}
+
+	if !o.LeafFirewallNameRulePacketType.IsNull() && !o.LeafFirewallNameRulePacketType.IsUnknown() {
+		jsonData["packet-type"] = o.LeafFirewallNameRulePacketType.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleConnectionMark.IsNull() && !o.LeafFirewallNameRuleConnectionMark.IsUnknown() {
+		jsonData["connection-mark"] = o.LeafFirewallNameRuleConnectionMark.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleJumpTarget.IsNull() && !o.LeafFirewallNameRuleJumpTarget.IsUnknown() {
+		jsonData["jump-target"] = o.LeafFirewallNameRuleJumpTarget.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleQueue.IsNull() && !o.LeafFirewallNameRuleQueue.IsUnknown() {
+		jsonData["queue"] = o.LeafFirewallNameRuleQueue.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleQueueOptions.IsNull() && !o.LeafFirewallNameRuleQueueOptions.IsUnknown() {
+		jsonData["queue-options"] = o.LeafFirewallNameRuleQueueOptions.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleFragment).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleFragment)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["fragment"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleInboundInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleInboundInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["inbound-interface"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleOutboundInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleOutboundInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["outbound-interface"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleIPsec).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleIPsec)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipsec"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleLimit).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleLimit)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["limit"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleConnectionStatus).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleConnectionStatus)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["connection-status"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleRecent).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleRecent)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["recent"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleState).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleState)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["state"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleTCP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTCP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["tcp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleTime).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTime)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["time"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleIcmp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleIcmp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["icmp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallNameRuleTTL).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallNameRuleTTL)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ttl"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallNameRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafFirewallNameRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafFirewallNameRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["log"]; ok {
+		o.LeafFirewallNameRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLog = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["log-level"]; ok {
+		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLogLevel = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafFirewallNameRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dscp"]; ok {
+		o.LeafFirewallNameRuleDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDscp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dscp-exclude"]; ok {
+		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDscpExclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-length"]; ok {
+		o.LeafFirewallNameRulePacketLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRulePacketLength = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-length-exclude"]; ok {
+		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRulePacketLengthExclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-type"]; ok {
+		o.LeafFirewallNameRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRulePacketType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["connection-mark"]; ok {
+		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleConnectionMark = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["jump-target"]; ok {
+		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleJumpTarget = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue"]; ok {
+		o.LeafFirewallNameRuleQueue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleQueue = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-options"]; ok {
+		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleQueueOptions = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleDestination = &FirewallNameRuleDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleSource = &FirewallNameRuleSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleSource)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["fragment"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleFragment = &FirewallNameRuleFragment{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleFragment)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["inbound-interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleInboundInterface = &FirewallNameRuleInboundInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleInboundInterface)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["outbound-interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleOutboundInterface = &FirewallNameRuleOutboundInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleOutboundInterface)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipsec"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleIPsec = &FirewallNameRuleIPsec{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleIPsec)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["limit"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleLimit = &FirewallNameRuleLimit{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleLimit)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["connection-status"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleConnectionStatus = &FirewallNameRuleConnectionStatus{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleConnectionStatus)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["recent"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleRecent = &FirewallNameRuleRecent{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleRecent)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["state"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleState = &FirewallNameRuleState{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleState)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["tcp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleTCP = &FirewallNameRuleTCP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTCP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["time"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleTime = &FirewallNameRuleTime{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTime)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["icmp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleIcmp = &FirewallNameRuleIcmp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleIcmp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ttl"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallNameRuleTTL = &FirewallNameRuleTTL{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallNameRuleTTL)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

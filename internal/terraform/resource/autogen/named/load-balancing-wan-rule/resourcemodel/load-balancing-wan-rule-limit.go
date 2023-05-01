@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanRuleLimit describes the resource data model.
 type LoadBalancingWanRuleLimit struct {
 	// LeafNodes
-	LeafLoadBalancingWanRuleLimitBurst     types.String `tfsdk:"burst"`
-	LeafLoadBalancingWanRuleLimitPeriod    types.String `tfsdk:"period"`
-	LeafLoadBalancingWanRuleLimitRate      types.String `tfsdk:"rate"`
-	LeafLoadBalancingWanRuleLimitThreshold types.String `tfsdk:"threshold"`
+	LeafLoadBalancingWanRuleLimitBurst     types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafLoadBalancingWanRuleLimitPeriod    types.String `tfsdk:"period" json:"period,omitempty"`
+	LeafLoadBalancingWanRuleLimitRate      types.String `tfsdk:"rate" json:"rate,omitempty"`
+	LeafLoadBalancingWanRuleLimitThreshold types.String `tfsdk:"threshold" json:"threshold,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *LoadBalancingWanRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafLoadBalancingWanRuleLimitBurst.IsNull() || o.LeafLoadBalancingWanRuleLimitBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafLoadBalancingWanRuleLimitBurst.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanRuleLimitPeriod.IsNull() || o.LeafLoadBalancingWanRuleLimitPeriod.IsUnknown()) {
-		vyosData["period"] = o.LeafLoadBalancingWanRuleLimitPeriod.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanRuleLimitRate.IsNull() || o.LeafLoadBalancingWanRuleLimitRate.IsUnknown()) {
-		vyosData["rate"] = o.LeafLoadBalancingWanRuleLimitRate.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanRuleLimitThreshold.IsNull() || o.LeafLoadBalancingWanRuleLimitThreshold.IsUnknown()) {
-		vyosData["threshold"] = o.LeafLoadBalancingWanRuleLimitThreshold.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *LoadBalancingWanRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
-
-	// Leafs
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["period"]; ok {
-		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rate"]; ok {
-		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["threshold"]; ok {
-		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o LoadBalancingWanRuleLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"burst":     types.StringType,
-		"period":    types.StringType,
-		"rate":      types.StringType,
-		"threshold": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -159,4 +79,79 @@ func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *LoadBalancingWanRuleLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafLoadBalancingWanRuleLimitBurst.IsNull() && !o.LeafLoadBalancingWanRuleLimitBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafLoadBalancingWanRuleLimitBurst.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanRuleLimitPeriod.IsNull() && !o.LeafLoadBalancingWanRuleLimitPeriod.IsUnknown() {
+		jsonData["period"] = o.LeafLoadBalancingWanRuleLimitPeriod.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanRuleLimitRate.IsNull() && !o.LeafLoadBalancingWanRuleLimitRate.IsUnknown() {
+		jsonData["rate"] = o.LeafLoadBalancingWanRuleLimitRate.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanRuleLimitThreshold.IsNull() && !o.LeafLoadBalancingWanRuleLimitThreshold.IsUnknown() {
+		jsonData["threshold"] = o.LeafLoadBalancingWanRuleLimitThreshold.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *LoadBalancingWanRuleLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["period"]; ok {
+		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rate"]; ok {
+		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["threshold"]; ok {
+		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

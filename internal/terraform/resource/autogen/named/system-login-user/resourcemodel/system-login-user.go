@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginUser describes the resource data model.
@@ -17,13 +15,13 @@ type SystemLoginUser struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemLoginUserFullName      types.String `tfsdk:"full_name"`
-	LeafSystemLoginUserHomeDirectory types.String `tfsdk:"home_directory"`
+	LeafSystemLoginUserFullName      types.String `tfsdk:"full_name" json:"full-name,omitempty"`
+	LeafSystemLoginUserHomeDirectory types.String `tfsdk:"home_directory" json:"home-directory,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeSystemLoginUserAuthentication types.Object `tfsdk:"authentication"`
+	NodeSystemLoginUserAuthentication *SystemLoginUserAuthentication `tfsdk:"authentication" json:"authentication,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,78 +31,6 @@ func (o *SystemLoginUser) GetVyosPath() []string {
 		"login",
 		"user",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemLoginUser) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "user"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemLoginUserFullName.IsNull() || o.LeafSystemLoginUserFullName.IsUnknown()) {
-		vyosData["full-name"] = o.LeafSystemLoginUserFullName.ValueString()
-	}
-	if !(o.LeafSystemLoginUserHomeDirectory.IsNull() || o.LeafSystemLoginUserHomeDirectory.IsUnknown()) {
-		vyosData["home-directory"] = o.LeafSystemLoginUserHomeDirectory.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeSystemLoginUserAuthentication.IsNull() || o.NodeSystemLoginUserAuthentication.IsUnknown()) {
-		var subModel SystemLoginUserAuthentication
-		diags.Append(o.NodeSystemLoginUserAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemLoginUser) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "user"}})
-
-	// Leafs
-	if value, ok := vyosData["full-name"]; ok {
-		o.LeafSystemLoginUserFullName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserFullName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["home-directory"]; ok {
-		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemLoginUserAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemLoginUserAuthentication = data
-
-	} else {
-		o.NodeSystemLoginUserAuthentication = basetypes.NewObjectNull(SystemLoginUserAuthentication{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "user"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemLoginUser) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"full_name":      types.StringType,
-		"home_directory": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"authentication": types.ObjectType{AttrTypes: SystemLoginUserAuthentication{}.AttributeTypes()},
 	}
 }
 
@@ -146,4 +72,86 @@ func (o SystemLoginUser) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemLoginUser) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemLoginUserFullName.IsNull() && !o.LeafSystemLoginUserFullName.IsUnknown() {
+		jsonData["full-name"] = o.LeafSystemLoginUserFullName.ValueString()
+	}
+
+	if !o.LeafSystemLoginUserHomeDirectory.IsNull() && !o.LeafSystemLoginUserHomeDirectory.IsUnknown() {
+		jsonData["home-directory"] = o.LeafSystemLoginUserHomeDirectory.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeSystemLoginUserAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemLoginUserAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemLoginUser) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["full-name"]; ok {
+		o.LeafSystemLoginUserFullName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserFullName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["home-directory"]; ok {
+		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemLoginUserAuthentication = &SystemLoginUserAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemLoginUserAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

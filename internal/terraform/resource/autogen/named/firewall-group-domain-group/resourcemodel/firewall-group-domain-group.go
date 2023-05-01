@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupDomainGroup describes the resource data model.
@@ -17,8 +14,8 @@ type FirewallGroupDomainGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafFirewallGroupDomainGroupAddress     types.String `tfsdk:"address"`
-	LeafFirewallGroupDomainGroupDescrIPtion types.String `tfsdk:"description"`
+	LeafFirewallGroupDomainGroupAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafFirewallGroupDomainGroupDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
 
@@ -32,65 +29,6 @@ func (o *FirewallGroupDomainGroup) GetVyosPath() []string {
 		"group",
 		"domain-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallGroupDomainGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "domain-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallGroupDomainGroupAddress.IsNull() || o.LeafFirewallGroupDomainGroupAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafFirewallGroupDomainGroupAddress.ValueString()
-	}
-	if !(o.LeafFirewallGroupDomainGroupDescrIPtion.IsNull() || o.LeafFirewallGroupDomainGroupDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafFirewallGroupDomainGroupDescrIPtion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallGroupDomainGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "domain-group"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafFirewallGroupDomainGroupAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupDomainGroupAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafFirewallGroupDomainGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupDomainGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "domain-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallGroupDomainGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -133,4 +71,59 @@ func (o FirewallGroupDomainGroup) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallGroupDomainGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallGroupDomainGroupAddress.IsNull() && !o.LeafFirewallGroupDomainGroupAddress.IsUnknown() {
+		jsonData["address"] = o.LeafFirewallGroupDomainGroupAddress.ValueString()
+	}
+
+	if !o.LeafFirewallGroupDomainGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupDomainGroupDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafFirewallGroupDomainGroupDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallGroupDomainGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafFirewallGroupDomainGroupAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupDomainGroupAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafFirewallGroupDomainGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupDomainGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

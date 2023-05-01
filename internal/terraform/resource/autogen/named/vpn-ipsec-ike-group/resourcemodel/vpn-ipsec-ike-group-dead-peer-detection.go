@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecIkeGroupDeadPeerDetection describes the resource data model.
 type VpnIPsecIkeGroupDeadPeerDetection struct {
 	// LeafNodes
-	LeafVpnIPsecIkeGroupDeadPeerDetectionAction   types.String `tfsdk:"action"`
-	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.String `tfsdk:"interval"`
-	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.String `tfsdk:"timeout"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionAction   types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.String `tfsdk:"timeout" json:"timeout,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecIkeGroupDeadPeerDetection) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsUnknown()) {
-		vyosData["action"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsUnknown()) {
-		vyosData["timeout"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecIkeGroupDeadPeerDetection) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["timeout"]; ok {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecIkeGroupDeadPeerDetection) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":   types.StringType,
-		"interval": types.StringType,
-		"timeout":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -146,4 +75,69 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecIkeGroupDeadPeerDetection) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsUnknown() {
+		jsonData["action"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsNull() && !o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsUnknown() {
+		jsonData["timeout"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecIkeGroupDeadPeerDetection) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["timeout"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

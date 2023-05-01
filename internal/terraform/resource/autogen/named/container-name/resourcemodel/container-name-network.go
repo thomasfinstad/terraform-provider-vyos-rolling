@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerNameNetwork describes the resource data model.
 type ContainerNameNetwork struct {
 	// LeafNodes
-	LeafContainerNameNetworkAddress types.String `tfsdk:"address"`
+	LeafContainerNameNetworkAddress types.String `tfsdk:"address" json:"address,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerNameNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "name", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerNameNetworkAddress.IsNull() || o.LeafContainerNameNetworkAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafContainerNameNetworkAddress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerNameNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "name", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafContainerNameNetworkAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameNetworkAddress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "name", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerNameNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o ContainerNameNetwork) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerNameNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerNameNetworkAddress.IsNull() && !o.LeafContainerNameNetworkAddress.IsUnknown() {
+		jsonData["address"] = o.LeafContainerNameNetworkAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerNameNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafContainerNameNetworkAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameNetworkAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

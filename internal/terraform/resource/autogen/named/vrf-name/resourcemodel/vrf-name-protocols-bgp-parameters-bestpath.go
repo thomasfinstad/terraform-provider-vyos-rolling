@@ -2,128 +2,26 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpath struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth"`
-	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.String `tfsdk:"compare_routerid"`
+	LeafVrfNameProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.String `tfsdk:"compare_routerid" json:"compare-routerid,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpParametersBestpathAsPath   types.Object `tfsdk:"as_path"`
-	NodeVrfNameProtocolsBgpParametersBestpathMed      types.Object `tfsdk:"med"`
-	NodeVrfNameProtocolsBgpParametersBestpathPeerType types.Object `tfsdk:"peer_type"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpParametersBestpath) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsUnknown()) {
-		vyosData["compare-routerid"] = o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersBestpathAsPath
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["as-path"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersBestpathMed.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathMed.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersBestpathMed
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathMed.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["med"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersBestpathPeerType
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["peer-type"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpParametersBestpath) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
-
-	// Leafs
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["compare-routerid"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["as-path"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes())
-	}
-	if value, ok := vyosData["med"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersBestpathMed = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersBestpathMed = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes())
-	}
-	if value, ok := vyosData["peer-type"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpath) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"bandwidth":        types.StringType,
-		"compare_routerid": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"as_path":   types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes()},
-		"med":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes()},
-		"peer_type": types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpParametersBestpathAsPath   *VrfNameProtocolsBgpParametersBestpathAsPath   `tfsdk:"as_path" json:"as-path,omitempty"`
+	NodeVrfNameProtocolsBgpParametersBestpathMed      *VrfNameProtocolsBgpParametersBestpathMed      `tfsdk:"med" json:"med,omitempty"`
+	NodeVrfNameProtocolsBgpParametersBestpathPeerType *VrfNameProtocolsBgpParametersBestpathPeerType `tfsdk:"peer_type" json:"peer-type,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -179,4 +77,140 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[st
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpParametersBestpath) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsUnknown() {
+		jsonData["compare-routerid"] = o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["as-path"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathMed).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathMed)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["med"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["peer-type"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpParametersBestpath) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["compare-routerid"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["as-path"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = &VrfNameProtocolsBgpParametersBestpathAsPath{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathAsPath)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["med"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersBestpathMed = &VrfNameProtocolsBgpParametersBestpathMed{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathMed)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["peer-type"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = &VrfNameProtocolsBgpParametersBestpathPeerType{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpathPeerType)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

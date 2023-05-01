@@ -2,138 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueClassMatchIPvsix describes the resource data model.
 type QosPolicyPriorityQueueClassMatchIPvsix struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueClassMatchIPvsixDscp      types.String `tfsdk:"dscp"`
-	LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength types.String `tfsdk:"max_length"`
-	LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol  types.String `tfsdk:"protocol"`
+	LeafQosPolicyPriorityQueueClassMatchIPvsixDscp      types.String `tfsdk:"dscp" json:"dscp,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength types.String `tfsdk:"max_length" json:"max-length,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol  types.String `tfsdk:"protocol" json:"protocol,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeQosPolicyPriorityQueueClassMatchIPvsixDestination types.Object `tfsdk:"destination"`
-	NodeQosPolicyPriorityQueueClassMatchIPvsixSource      types.Object `tfsdk:"source"`
-	NodeQosPolicyPriorityQueueClassMatchIPvsixTCP         types.Object `tfsdk:"tcp"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyPriorityQueueClassMatchIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.IsUnknown()) {
-		vyosData["dscp"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.IsUnknown()) {
-		vyosData["max-length"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination.IsNull() || o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination.IsUnknown()) {
-		var subModel QosPolicyPriorityQueueClassMatchIPvsixDestination
-		diags.Append(o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource.IsNull() || o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource.IsUnknown()) {
-		var subModel QosPolicyPriorityQueueClassMatchIPvsixSource
-		diags.Append(o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP.IsNull() || o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP.IsUnknown()) {
-		var subModel QosPolicyPriorityQueueClassMatchIPvsixTCP
-		diags.Append(o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyPriorityQueueClassMatchIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["dscp"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["max-length"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyPriorityQueueClassMatchIPvsixDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination = data
-
-	} else {
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination = basetypes.NewObjectNull(QosPolicyPriorityQueueClassMatchIPvsixDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyPriorityQueueClassMatchIPvsixSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource = data
-
-	} else {
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource = basetypes.NewObjectNull(QosPolicyPriorityQueueClassMatchIPvsixSource{}.AttributeTypes())
-	}
-	if value, ok := vyosData["tcp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyPriorityQueueClassMatchIPvsixTCP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP = data
-
-	} else {
-		o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP = basetypes.NewObjectNull(QosPolicyPriorityQueueClassMatchIPvsixTCP{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyPriorityQueueClassMatchIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"dscp":       types.StringType,
-		"max_length": types.StringType,
-		"protocol":   types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: QosPolicyPriorityQueueClassMatchIPvsixDestination{}.AttributeTypes()},
-		"source":      types.ObjectType{AttrTypes: QosPolicyPriorityQueueClassMatchIPvsixSource{}.AttributeTypes()},
-		"tcp":         types.ObjectType{AttrTypes: QosPolicyPriorityQueueClassMatchIPvsixTCP{}.AttributeTypes()},
-	}
+	NodeQosPolicyPriorityQueueClassMatchIPvsixDestination *QosPolicyPriorityQueueClassMatchIPvsixDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodeQosPolicyPriorityQueueClassMatchIPvsixSource      *QosPolicyPriorityQueueClassMatchIPvsixSource      `tfsdk:"source" json:"source,omitempty"`
+	NodeQosPolicyPriorityQueueClassMatchIPvsixTCP         *QosPolicyPriorityQueueClassMatchIPvsixTCP         `tfsdk:"tcp" json:"tcp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -233,4 +122,150 @@ func (o QosPolicyPriorityQueueClassMatchIPvsix) ResourceSchemaAttributes() map[s
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyPriorityQueueClassMatchIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.IsUnknown() {
+		jsonData["dscp"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.IsUnknown() {
+		jsonData["max-length"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["tcp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyPriorityQueueClassMatchIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["dscp"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixDscp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["max-length"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixMaxLength = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchIPvsixProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination = &QosPolicyPriorityQueueClassMatchIPvsixDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchIPvsixDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource = &QosPolicyPriorityQueueClassMatchIPvsixSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchIPvsixSource)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["tcp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP = &QosPolicyPriorityQueueClassMatchIPvsixTCP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueClassMatchIPvsixTCP)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

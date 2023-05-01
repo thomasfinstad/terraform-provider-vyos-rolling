@@ -2,138 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchIPvsix describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPvsix struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinClassMatchIPvsixDscp      types.String `tfsdk:"dscp"`
-	LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength types.String `tfsdk:"max_length"`
-	LeafQosPolicyRoundRobinClassMatchIPvsixProtocol  types.String `tfsdk:"protocol"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixDscp      types.String `tfsdk:"dscp" json:"dscp,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength types.String `tfsdk:"max_length" json:"max-length,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPvsixProtocol  types.String `tfsdk:"protocol" json:"protocol,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeQosPolicyRoundRobinClassMatchIPvsixDestination types.Object `tfsdk:"destination"`
-	NodeQosPolicyRoundRobinClassMatchIPvsixSource      types.Object `tfsdk:"source"`
-	NodeQosPolicyRoundRobinClassMatchIPvsixTCP         types.Object `tfsdk:"tcp"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRoundRobinClassMatchIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsUnknown()) {
-		vyosData["dscp"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsUnknown()) {
-		vyosData["max-length"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination.IsUnknown()) {
-		var subModel QosPolicyRoundRobinClassMatchIPvsixDestination
-		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPvsixSource.IsUnknown()) {
-		var subModel QosPolicyRoundRobinClassMatchIPvsixSource
-		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP.IsUnknown()) {
-		var subModel QosPolicyRoundRobinClassMatchIPvsixTCP
-		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRoundRobinClassMatchIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["dscp"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["max-length"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPvsixDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination = data
-
-	} else {
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPvsixDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPvsixSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixSource = data
-
-	} else {
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixSource = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPvsixSource{}.AttributeTypes())
-	}
-	if value, ok := vyosData["tcp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPvsixTCP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP = data
-
-	} else {
-		o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPvsixTCP{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRoundRobinClassMatchIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"dscp":       types.StringType,
-		"max_length": types.StringType,
-		"protocol":   types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPvsixDestination{}.AttributeTypes()},
-		"source":      types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPvsixSource{}.AttributeTypes()},
-		"tcp":         types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPvsixTCP{}.AttributeTypes()},
-	}
+	NodeQosPolicyRoundRobinClassMatchIPvsixDestination *QosPolicyRoundRobinClassMatchIPvsixDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodeQosPolicyRoundRobinClassMatchIPvsixSource      *QosPolicyRoundRobinClassMatchIPvsixSource      `tfsdk:"source" json:"source,omitempty"`
+	NodeQosPolicyRoundRobinClassMatchIPvsixTCP         *QosPolicyRoundRobinClassMatchIPvsixTCP         `tfsdk:"tcp" json:"tcp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -233,4 +122,150 @@ func (o QosPolicyRoundRobinClassMatchIPvsix) ResourceSchemaAttributes() map[stri
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRoundRobinClassMatchIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.IsUnknown() {
+		jsonData["dscp"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.IsUnknown() {
+		jsonData["max-length"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["tcp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRoundRobinClassMatchIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["dscp"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixDscp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["max-length"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixMaxLength = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPvsixProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination = &QosPolicyRoundRobinClassMatchIPvsixDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyRoundRobinClassMatchIPvsixSource = &QosPolicyRoundRobinClassMatchIPvsixSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixSource)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["tcp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP = &QosPolicyRoundRobinClassMatchIPvsixTCP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinClassMatchIPvsixTCP)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

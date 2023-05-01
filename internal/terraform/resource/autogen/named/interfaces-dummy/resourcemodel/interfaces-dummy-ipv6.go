@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesDummyIPvsix describes the resource data model.
 type InterfacesDummyIPvsix struct {
 	// LeafNodes
-	LeafInterfacesDummyIPvsixDisableForwarding types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesDummyIPvsixDisableForwarding types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesDummyIPvsixAddress types.Object `tfsdk:"address"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesDummyIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesDummyIPvsixDisableForwarding.IsNull() || o.LeafInterfacesDummyIPvsixDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesDummyIPvsixDisableForwarding.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesDummyIPvsixAddress.IsNull() || o.NodeInterfacesDummyIPvsixAddress.IsUnknown()) {
-		var subModel InterfacesDummyIPvsixAddress
-		diags.Append(o.NodeInterfacesDummyIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesDummyIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["address"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesDummyIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesDummyIPvsixAddress = data
-
-	} else {
-		o.NodeInterfacesDummyIPvsixAddress = basetypes.NewObjectNull(InterfacesDummyIPvsixAddress{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesDummyIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable_forwarding": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"address": types.ObjectType{AttrTypes: InterfacesDummyIPvsixAddress{}.AttributeTypes()},
-	}
+	NodeInterfacesDummyIPvsixAddress *InterfacesDummyIPvsixAddress `tfsdk:"address" json:"address,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +45,76 @@ func (o InterfacesDummyIPvsix) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesDummyIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesDummyIPvsixDisableForwarding.IsNull() && !o.LeafInterfacesDummyIPvsixDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesDummyIPvsixDisableForwarding.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesDummyIPvsixAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesDummyIPvsixAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesDummyIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesDummyIPvsixAddress = &InterfacesDummyIPvsixAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesDummyIPvsixAddress)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

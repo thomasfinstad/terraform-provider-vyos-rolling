@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList struct {
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport types.String `tfsdk:"export"`
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport types.String `tfsdk:"import"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport types.String `tfsdk:"export" json:"export,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport types.String `tfsdk:"import" json:"import,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "distribute-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.IsUnknown()) {
-		vyosData["export"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.ValueString()
-	}
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.IsUnknown()) {
-		vyosData["import"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "distribute-list"}})
-
-	// Leafs
-	if value, ok := vyosData["export"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "distribute-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"export": types.StringType,
-		"import": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) Resource
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.IsUnknown() {
+		jsonData["export"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.IsUnknown() {
+		jsonData["import"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListExport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDistributeListImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

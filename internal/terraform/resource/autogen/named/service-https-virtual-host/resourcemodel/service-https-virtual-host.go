@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceHTTPSVirtualHost describes the resource data model.
@@ -17,9 +14,9 @@ type ServiceHTTPSVirtualHost struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address"`
-	LeafServiceHTTPSVirtualHostListenPort    types.String `tfsdk:"listen_port"`
-	LeafServiceHTTPSVirtualHostServerName    types.String `tfsdk:"server_name"`
+	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address" json:"listen-address,omitempty"`
+	LeafServiceHTTPSVirtualHostListenPort    types.String `tfsdk:"listen_port" json:"listen-port,omitempty"`
+	LeafServiceHTTPSVirtualHostServerName    types.String `tfsdk:"server_name" json:"server-name,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *ServiceHTTPSVirtualHost) GetVyosPath() []string {
 		"https",
 		"virtual-host",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceHTTPSVirtualHost) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceHTTPSVirtualHostListenAddress.IsNull() || o.LeafServiceHTTPSVirtualHostListenAddress.IsUnknown()) {
-		vyosData["listen-address"] = o.LeafServiceHTTPSVirtualHostListenAddress.ValueString()
-	}
-	if !(o.LeafServiceHTTPSVirtualHostListenPort.IsNull() || o.LeafServiceHTTPSVirtualHostListenPort.IsUnknown()) {
-		vyosData["listen-port"] = o.LeafServiceHTTPSVirtualHostListenPort.ValueString()
-	}
-	if !(o.LeafServiceHTTPSVirtualHostServerName.IsNull() || o.LeafServiceHTTPSVirtualHostServerName.IsUnknown()) {
-		vyosData["server-name"] = o.LeafServiceHTTPSVirtualHostServerName.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceHTTPSVirtualHost) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
-
-	// Leafs
-	if value, ok := vyosData["listen-address"]; ok {
-		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["listen-port"]; ok {
-		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["server-name"]; ok {
-		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceHTTPSVirtualHost) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"listen_address": types.StringType,
-		"listen_port":    types.StringType,
-		"server_name":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -152,4 +81,69 @@ func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceHTTPSVirtualHost) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceHTTPSVirtualHostListenAddress.IsNull() && !o.LeafServiceHTTPSVirtualHostListenAddress.IsUnknown() {
+		jsonData["listen-address"] = o.LeafServiceHTTPSVirtualHostListenAddress.ValueString()
+	}
+
+	if !o.LeafServiceHTTPSVirtualHostListenPort.IsNull() && !o.LeafServiceHTTPSVirtualHostListenPort.IsUnknown() {
+		jsonData["listen-port"] = o.LeafServiceHTTPSVirtualHostListenPort.ValueString()
+	}
+
+	if !o.LeafServiceHTTPSVirtualHostServerName.IsNull() && !o.LeafServiceHTTPSVirtualHostServerName.IsUnknown() {
+		jsonData["server-name"] = o.LeafServiceHTTPSVirtualHostServerName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceHTTPSVirtualHost) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["listen-address"]; ok {
+		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["listen-port"]; ok {
+		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["server-name"]; ok {
+		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

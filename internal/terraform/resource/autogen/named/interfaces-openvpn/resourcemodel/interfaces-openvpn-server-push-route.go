@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerPushRoute describes the resource data model.
 type InterfacesOpenvpnServerPushRoute struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerPushRouteMetric types.String `tfsdk:"metric"`
+	LeafInterfacesOpenvpnServerPushRouteMetric types.String `tfsdk:"metric" json:"metric,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerPushRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "push-route"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnServerPushRouteMetric.IsNull() || o.LeafInterfacesOpenvpnServerPushRouteMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafInterfacesOpenvpnServerPushRouteMetric.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerPushRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "push-route"}})
-
-	// Leafs
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "push-route"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerPushRoute) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"metric": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -96,4 +43,49 @@ func (o InterfacesOpenvpnServerPushRoute) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerPushRoute) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnServerPushRouteMetric.IsNull() && !o.LeafInterfacesOpenvpnServerPushRouteMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafInterfacesOpenvpnServerPushRouteMetric.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerPushRoute) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerPushRouteMetric = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpathAsPath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathAsPath struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed         types.String `tfsdk:"confed"`
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore         types.String `tfsdk:"ignore"`
-	LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax types.String `tfsdk:"multipath_relax"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed         types.String `tfsdk:"confed" json:"confed,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore         types.String `tfsdk:"ignore" json:"ignore,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax types.String `tfsdk:"multipath_relax" json:"multipath-relax,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpParametersBestpathAsPath) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsUnknown()) {
-		vyosData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsUnknown()) {
-		vyosData["ignore"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsUnknown()) {
-		vyosData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpParametersBestpathAsPath) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
-
-	// Leafs
-	if value, ok := vyosData["confed"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ignore"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["multipath-relax"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpathAsPath) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"confed":          types.StringType,
-		"ignore":          types.StringType,
-		"multipath_relax": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -123,4 +52,69 @@ func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpParametersBestpathAsPath) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsUnknown() {
+		jsonData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsUnknown() {
+		jsonData["ignore"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsNull() && !o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsUnknown() {
+		jsonData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpParametersBestpathAsPath) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["confed"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ignore"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["multipath-relax"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

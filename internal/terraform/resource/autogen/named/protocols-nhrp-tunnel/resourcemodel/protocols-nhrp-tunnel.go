@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsNhrpTunnel describes the resource data model.
@@ -17,18 +15,18 @@ type ProtocolsNhrpTunnel struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication"`
-	LeafProtocolsNhrpTunnelHoldingTime         types.String `tfsdk:"holding_time"`
-	LeafProtocolsNhrpTunnelMulticast           types.String `tfsdk:"multicast"`
-	LeafProtocolsNhrpTunnelNonCaching          types.String `tfsdk:"non_caching"`
-	LeafProtocolsNhrpTunnelRedirect            types.String `tfsdk:"redirect"`
-	LeafProtocolsNhrpTunnelShortcutDestination types.String `tfsdk:"shortcut_destination"`
-	LeafProtocolsNhrpTunnelShortcut            types.String `tfsdk:"shortcut"`
+	LeafProtocolsNhrpTunnelCiscoAuthentication types.String `tfsdk:"cisco_authentication" json:"cisco-authentication,omitempty"`
+	LeafProtocolsNhrpTunnelHoldingTime         types.String `tfsdk:"holding_time" json:"holding-time,omitempty"`
+	LeafProtocolsNhrpTunnelMulticast           types.String `tfsdk:"multicast" json:"multicast,omitempty"`
+	LeafProtocolsNhrpTunnelNonCaching          types.String `tfsdk:"non_caching" json:"non-caching,omitempty"`
+	LeafProtocolsNhrpTunnelRedirect            types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafProtocolsNhrpTunnelShortcutDestination types.String `tfsdk:"shortcut_destination" json:"shortcut-destination,omitempty"`
+	LeafProtocolsNhrpTunnelShortcut            types.String `tfsdk:"shortcut" json:"shortcut,omitempty"`
 
 	// TagNodes
-	TagProtocolsNhrpTunnelDynamicMap     types.Map `tfsdk:"dynamic_map"`
-	TagProtocolsNhrpTunnelMap            types.Map `tfsdk:"map"`
-	TagProtocolsNhrpTunnelShortcutTarget types.Map `tfsdk:"shortcut_target"`
+	TagProtocolsNhrpTunnelDynamicMap     *map[string]ProtocolsNhrpTunnelDynamicMap     `tfsdk:"dynamic_map" json:"dynamic-map,omitempty"`
+	TagProtocolsNhrpTunnelMap            *map[string]ProtocolsNhrpTunnelMap            `tfsdk:"map" json:"map,omitempty"`
+	TagProtocolsNhrpTunnelShortcutTarget *map[string]ProtocolsNhrpTunnelShortcutTarget `tfsdk:"shortcut_target" json:"shortcut-target,omitempty"`
 
 	// Nodes
 }
@@ -40,164 +38,6 @@ func (o *ProtocolsNhrpTunnel) GetVyosPath() []string {
 		"nhrp",
 		"tunnel",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsNhrpTunnel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsNull() || o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsUnknown()) {
-		vyosData["cisco-authentication"] = o.LeafProtocolsNhrpTunnelCiscoAuthentication.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelHoldingTime.IsNull() || o.LeafProtocolsNhrpTunnelHoldingTime.IsUnknown()) {
-		vyosData["holding-time"] = o.LeafProtocolsNhrpTunnelHoldingTime.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelMulticast.IsNull() || o.LeafProtocolsNhrpTunnelMulticast.IsUnknown()) {
-		vyosData["multicast"] = o.LeafProtocolsNhrpTunnelMulticast.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelNonCaching.IsNull() || o.LeafProtocolsNhrpTunnelNonCaching.IsUnknown()) {
-		vyosData["non-caching"] = o.LeafProtocolsNhrpTunnelNonCaching.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelRedirect.IsNull() || o.LeafProtocolsNhrpTunnelRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafProtocolsNhrpTunnelRedirect.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelShortcutDestination.IsNull() || o.LeafProtocolsNhrpTunnelShortcutDestination.IsUnknown()) {
-		vyosData["shortcut-destination"] = o.LeafProtocolsNhrpTunnelShortcutDestination.ValueString()
-	}
-	if !(o.LeafProtocolsNhrpTunnelShortcut.IsNull() || o.LeafProtocolsNhrpTunnelShortcut.IsUnknown()) {
-		vyosData["shortcut"] = o.LeafProtocolsNhrpTunnelShortcut.ValueString()
-	}
-
-	// Tags
-	if !(o.TagProtocolsNhrpTunnelDynamicMap.IsNull() || o.TagProtocolsNhrpTunnelDynamicMap.IsUnknown()) {
-		subModel := make(map[string]ProtocolsNhrpTunnelDynamicMap)
-		diags.Append(o.TagProtocolsNhrpTunnelDynamicMap.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["dynamic-map"] = subData
-	}
-	if !(o.TagProtocolsNhrpTunnelMap.IsNull() || o.TagProtocolsNhrpTunnelMap.IsUnknown()) {
-		subModel := make(map[string]ProtocolsNhrpTunnelMap)
-		diags.Append(o.TagProtocolsNhrpTunnelMap.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["map"] = subData
-	}
-	if !(o.TagProtocolsNhrpTunnelShortcutTarget.IsNull() || o.TagProtocolsNhrpTunnelShortcutTarget.IsUnknown()) {
-		subModel := make(map[string]ProtocolsNhrpTunnelShortcutTarget)
-		diags.Append(o.TagProtocolsNhrpTunnelShortcutTarget.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["shortcut-target"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsNhrpTunnel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel"}})
-
-	// Leafs
-	if value, ok := vyosData["cisco-authentication"]; ok {
-		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["holding-time"]; ok {
-		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["multicast"]; ok {
-		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["non-caching"]; ok {
-		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shortcut-destination"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shortcut"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["dynamic-map"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsNhrpTunnelDynamicMap{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsNhrpTunnelDynamicMap = data
-	} else {
-		o.TagProtocolsNhrpTunnelDynamicMap = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["map"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsNhrpTunnelMap{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsNhrpTunnelMap = data
-	} else {
-		o.TagProtocolsNhrpTunnelMap = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["shortcut-target"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsNhrpTunnelShortcutTarget{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsNhrpTunnelShortcutTarget = data
-	} else {
-		o.TagProtocolsNhrpTunnelShortcutTarget = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsNhrpTunnel) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cisco_authentication": types.StringType,
-		"holding_time":         types.StringType,
-		"multicast":            types.StringType,
-		"non_caching":          types.StringType,
-		"redirect":             types.StringType,
-		"shortcut_destination": types.StringType,
-		"shortcut":             types.StringType,
-
-		// Tags
-		"dynamic_map":     types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsNhrpTunnelDynamicMap{}.AttributeTypes()}},
-		"map":             types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsNhrpTunnelMap{}.AttributeTypes()}},
-		"shortcut_target": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsNhrpTunnelShortcutTarget{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -309,4 +149,190 @@ func (o ProtocolsNhrpTunnel) ResourceSchemaAttributes() map[string]schema.Attrib
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsNhrpTunnel) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsNull() && !o.LeafProtocolsNhrpTunnelCiscoAuthentication.IsUnknown() {
+		jsonData["cisco-authentication"] = o.LeafProtocolsNhrpTunnelCiscoAuthentication.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelHoldingTime.IsNull() && !o.LeafProtocolsNhrpTunnelHoldingTime.IsUnknown() {
+		jsonData["holding-time"] = o.LeafProtocolsNhrpTunnelHoldingTime.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelMulticast.IsNull() && !o.LeafProtocolsNhrpTunnelMulticast.IsUnknown() {
+		jsonData["multicast"] = o.LeafProtocolsNhrpTunnelMulticast.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelNonCaching.IsNull() && !o.LeafProtocolsNhrpTunnelNonCaching.IsUnknown() {
+		jsonData["non-caching"] = o.LeafProtocolsNhrpTunnelNonCaching.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelRedirect.IsNull() && !o.LeafProtocolsNhrpTunnelRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafProtocolsNhrpTunnelRedirect.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelShortcutDestination.IsNull() && !o.LeafProtocolsNhrpTunnelShortcutDestination.IsUnknown() {
+		jsonData["shortcut-destination"] = o.LeafProtocolsNhrpTunnelShortcutDestination.ValueString()
+	}
+
+	if !o.LeafProtocolsNhrpTunnelShortcut.IsNull() && !o.LeafProtocolsNhrpTunnelShortcut.IsUnknown() {
+		jsonData["shortcut"] = o.LeafProtocolsNhrpTunnelShortcut.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagProtocolsNhrpTunnelDynamicMap).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsNhrpTunnelDynamicMap)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dynamic-map"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagProtocolsNhrpTunnelMap).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsNhrpTunnelMap)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["map"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagProtocolsNhrpTunnelShortcutTarget).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsNhrpTunnelShortcutTarget)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["shortcut-target"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsNhrpTunnel) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cisco-authentication"]; ok {
+		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelCiscoAuthentication = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["holding-time"]; ok {
+		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelHoldingTime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["multicast"]; ok {
+		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelMulticast = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["non-caching"]; ok {
+		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelNonCaching = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shortcut-destination"]; ok {
+		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelShortcutDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shortcut"]; ok {
+		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelShortcut = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["dynamic-map"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsNhrpTunnelDynamicMap = &map[string]ProtocolsNhrpTunnelDynamicMap{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsNhrpTunnelDynamicMap)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["map"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsNhrpTunnelMap = &map[string]ProtocolsNhrpTunnelMap{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsNhrpTunnelMap)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["shortcut-target"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsNhrpTunnelShortcutTarget = &map[string]ProtocolsNhrpTunnelShortcutTarget{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsNhrpTunnelShortcutTarget)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

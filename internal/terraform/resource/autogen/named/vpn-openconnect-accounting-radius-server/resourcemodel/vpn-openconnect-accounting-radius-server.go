@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAccountingRadiusServer describes the resource data model.
@@ -17,9 +14,9 @@ type VpnOpenconnectAccountingRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnOpenconnectAccountingRadiusServerDisable types.String `tfsdk:"disable"`
-	LeafVpnOpenconnectAccountingRadiusServerKey     types.String `tfsdk:"key"`
-	LeafVpnOpenconnectAccountingRadiusServerPort    types.String `tfsdk:"port"`
+	LeafVpnOpenconnectAccountingRadiusServerDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnOpenconnectAccountingRadiusServerKey     types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafVpnOpenconnectAccountingRadiusServerPort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
@@ -35,74 +32,6 @@ func (o *VpnOpenconnectAccountingRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnOpenconnectAccountingRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "accounting", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnOpenconnectAccountingRadiusServerDisable.IsNull() || o.LeafVpnOpenconnectAccountingRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnOpenconnectAccountingRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAccountingRadiusServerKey.IsNull() || o.LeafVpnOpenconnectAccountingRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafVpnOpenconnectAccountingRadiusServerKey.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAccountingRadiusServerPort.IsNull() || o.LeafVpnOpenconnectAccountingRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafVpnOpenconnectAccountingRadiusServerPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnOpenconnectAccountingRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "accounting", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnOpenconnectAccountingRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAccountingRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafVpnOpenconnectAccountingRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAccountingRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafVpnOpenconnectAccountingRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAccountingRadiusServerPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "accounting", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnOpenconnectAccountingRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable": types.StringType,
-		"key":     types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -155,4 +84,69 @@ func (o VpnOpenconnectAccountingRadiusServer) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnOpenconnectAccountingRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnOpenconnectAccountingRadiusServerDisable.IsNull() && !o.LeafVpnOpenconnectAccountingRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnOpenconnectAccountingRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAccountingRadiusServerKey.IsNull() && !o.LeafVpnOpenconnectAccountingRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafVpnOpenconnectAccountingRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAccountingRadiusServerPort.IsNull() && !o.LeafVpnOpenconnectAccountingRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafVpnOpenconnectAccountingRadiusServerPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnOpenconnectAccountingRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnOpenconnectAccountingRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAccountingRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafVpnOpenconnectAccountingRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAccountingRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafVpnOpenconnectAccountingRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAccountingRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

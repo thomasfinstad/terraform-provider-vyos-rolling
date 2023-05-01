@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterface describes the resource data model.
@@ -17,14 +15,14 @@ type ServiceDNSDynamicInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceDNSDynamicInterfaceIPvsixEnable types.String `tfsdk:"ipv6_enable"`
+	LeafServiceDNSDynamicInterfaceIPvsixEnable types.String `tfsdk:"ipv6_enable" json:"ipv6-enable,omitempty"`
 
 	// TagNodes
-	TagServiceDNSDynamicInterfaceRfctwoonethreesix types.Map `tfsdk:"rfc2136"`
-	TagServiceDNSDynamicInterfaceService           types.Map `tfsdk:"service"`
+	TagServiceDNSDynamicInterfaceRfctwoonethreesix *map[string]ServiceDNSDynamicInterfaceRfctwoonethreesix `tfsdk:"rfc2136" json:"rfc2136,omitempty"`
+	TagServiceDNSDynamicInterfaceService           *map[string]ServiceDNSDynamicInterfaceService           `tfsdk:"service" json:"service,omitempty"`
 
 	// Nodes
-	NodeServiceDNSDynamicInterfaceUseWeb types.Object `tfsdk:"use_web"`
+	NodeServiceDNSDynamicInterfaceUseWeb *ServiceDNSDynamicInterfaceUseWeb `tfsdk:"use_web" json:"use-web,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -35,105 +33,6 @@ func (o *ServiceDNSDynamicInterface) GetVyosPath() []string {
 		"dynamic",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSDynamicInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsNull() || o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsUnknown()) {
-		vyosData["ipv6-enable"] = o.LeafServiceDNSDynamicInterfaceIPvsixEnable.ValueString()
-	}
-
-	// Tags
-	if !(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.IsNull() || o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.IsUnknown()) {
-		subModel := make(map[string]ServiceDNSDynamicInterfaceRfctwoonethreesix)
-		diags.Append(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["rfc2136"] = subData
-	}
-	if !(o.TagServiceDNSDynamicInterfaceService.IsNull() || o.TagServiceDNSDynamicInterfaceService.IsUnknown()) {
-		subModel := make(map[string]ServiceDNSDynamicInterfaceService)
-		diags.Append(o.TagServiceDNSDynamicInterfaceService.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["service"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeServiceDNSDynamicInterfaceUseWeb.IsNull() || o.NodeServiceDNSDynamicInterfaceUseWeb.IsUnknown()) {
-		var subModel ServiceDNSDynamicInterfaceUseWeb
-		diags.Append(o.NodeServiceDNSDynamicInterfaceUseWeb.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["use-web"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSDynamicInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["ipv6-enable"]; ok {
-		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["rfc2136"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceDNSDynamicInterfaceRfctwoonethreesix = data
-	} else {
-		o.TagServiceDNSDynamicInterfaceRfctwoonethreesix = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["service"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceService{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceDNSDynamicInterfaceService = data
-	} else {
-		o.TagServiceDNSDynamicInterfaceService = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["use-web"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceDNSDynamicInterfaceUseWeb = data
-
-	} else {
-		o.NodeServiceDNSDynamicInterfaceUseWeb = basetypes.NewObjectNull(ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSDynamicInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ipv6_enable": types.StringType,
-
-		// Tags
-		"rfc2136": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.AttributeTypes()}},
-		"service": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceService{}.AttributeTypes()}},
-
-		// Nodes
-		"use_web": types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes()},
 	}
 }
 
@@ -203,4 +102,130 @@ func (o ServiceDNSDynamicInterface) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSDynamicInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsNull() && !o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsUnknown() {
+		jsonData["ipv6-enable"] = o.LeafServiceDNSDynamicInterfaceIPvsixEnable.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rfc2136"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagServiceDNSDynamicInterfaceService).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceDNSDynamicInterfaceService)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["service"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceDNSDynamicInterfaceUseWeb).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceDNSDynamicInterfaceUseWeb)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["use-web"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSDynamicInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ipv6-enable"]; ok {
+		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["rfc2136"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceDNSDynamicInterfaceRfctwoonethreesix = &map[string]ServiceDNSDynamicInterfaceRfctwoonethreesix{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceDNSDynamicInterfaceRfctwoonethreesix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["service"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceDNSDynamicInterfaceService = &map[string]ServiceDNSDynamicInterfaceService{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceDNSDynamicInterfaceService)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["use-web"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceDNSDynamicInterfaceUseWeb = &ServiceDNSDynamicInterfaceUseWeb{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceDNSDynamicInterfaceUseWeb)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfRedistribute describes the resource data model.
@@ -17,172 +13,16 @@ type VrfNameProtocolsOspfRedistribute struct {
 	// LeafNodes
 
 	// TagNodes
-	TagVrfNameProtocolsOspfRedistributeTable types.Map `tfsdk:"table"`
+	TagVrfNameProtocolsOspfRedistributeTable *map[string]VrfNameProtocolsOspfRedistributeTable `tfsdk:"table" json:"table,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfRedistributeBgp       types.Object `tfsdk:"bgp"`
-	NodeVrfNameProtocolsOspfRedistributeConnected types.Object `tfsdk:"connected"`
-	NodeVrfNameProtocolsOspfRedistributeIsis      types.Object `tfsdk:"isis"`
-	NodeVrfNameProtocolsOspfRedistributeKernel    types.Object `tfsdk:"kernel"`
-	NodeVrfNameProtocolsOspfRedistributeRIP       types.Object `tfsdk:"rip"`
-	NodeVrfNameProtocolsOspfRedistributeBabel     types.Object `tfsdk:"babel"`
-	NodeVrfNameProtocolsOspfRedistributeStatic    types.Object `tfsdk:"static"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfRedistribute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagVrfNameProtocolsOspfRedistributeTable.IsNull() || o.TagVrfNameProtocolsOspfRedistributeTable.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfRedistributeTable)
-		diags.Append(o.TagVrfNameProtocolsOspfRedistributeTable.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["table"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfRedistributeBgp.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeBgp.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeBgp
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeBgp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bgp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeConnected.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeConnected.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeConnected
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeIsis.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeIsis.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeIsis
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeIsis.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["isis"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeKernel.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeKernel.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeKernel
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeRIP.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeRIP.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeRIP
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeRIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["rip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeBabel.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeBabel.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeBabel
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistributeStatic.IsNull() || o.NodeVrfNameProtocolsOspfRedistributeStatic.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistributeStatic
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistributeStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfRedistribute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["table"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeTable{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfRedistributeTable = data
-	} else {
-		o.TagVrfNameProtocolsOspfRedistributeTable = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["bgp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeBgp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeBgp = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeBgp = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeBgp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["connected"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeConnected{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeConnected = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeConnected = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeConnected{}.AttributeTypes())
-	}
-	if value, ok := vyosData["isis"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeIsis{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeIsis = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeIsis = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeIsis{}.AttributeTypes())
-	}
-	if value, ok := vyosData["kernel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeKernel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeKernel = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeKernel = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeKernel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["rip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeRIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeRIP = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeRIP = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeRIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["babel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeBabel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeBabel = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeBabel = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeBabel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["static"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistributeStatic{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistributeStatic = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistributeStatic = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistributeStatic{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfRedistribute) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"table": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeTable{}.AttributeTypes()}},
-
-		// Nodes
-		"bgp":       types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeBgp{}.AttributeTypes()},
-		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeConnected{}.AttributeTypes()},
-		"isis":      types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeIsis{}.AttributeTypes()},
-		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeKernel{}.AttributeTypes()},
-		"rip":       types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeRIP{}.AttributeTypes()},
-		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeBabel{}.AttributeTypes()},
-		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistributeStatic{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfRedistributeBgp       *VrfNameProtocolsOspfRedistributeBgp       `tfsdk:"bgp" json:"bgp,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeConnected *VrfNameProtocolsOspfRedistributeConnected `tfsdk:"connected" json:"connected,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeIsis      *VrfNameProtocolsOspfRedistributeIsis      `tfsdk:"isis" json:"isis,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeKernel    *VrfNameProtocolsOspfRedistributeKernel    `tfsdk:"kernel" json:"kernel,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeRIP       *VrfNameProtocolsOspfRedistributeRIP       `tfsdk:"rip" json:"rip,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeBabel     *VrfNameProtocolsOspfRedistributeBabel     `tfsdk:"babel" json:"babel,omitempty"`
+	NodeVrfNameProtocolsOspfRedistributeStatic    *VrfNameProtocolsOspfRedistributeStatic    `tfsdk:"static" json:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -264,4 +104,255 @@ func (o VrfNameProtocolsOspfRedistribute) ResourceSchemaAttributes() map[string]
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfRedistribute) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfRedistributeTable).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfRedistributeTable)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["table"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeBgp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeBgp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bgp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeConnected).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeConnected)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["connected"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeIsis).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeIsis)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["isis"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeKernel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeKernel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["kernel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeRIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeRIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeBabel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeBabel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["babel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistributeStatic).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistributeStatic)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["static"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfRedistribute) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["table"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfRedistributeTable = &map[string]VrfNameProtocolsOspfRedistributeTable{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfRedistributeTable)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["bgp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeBgp = &VrfNameProtocolsOspfRedistributeBgp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeBgp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["connected"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeConnected = &VrfNameProtocolsOspfRedistributeConnected{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeConnected)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["isis"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeIsis = &VrfNameProtocolsOspfRedistributeIsis{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeIsis)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["kernel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeKernel = &VrfNameProtocolsOspfRedistributeKernel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeKernel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["rip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeRIP = &VrfNameProtocolsOspfRedistributeRIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeRIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["babel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeBabel = &VrfNameProtocolsOspfRedistributeBabel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeBabel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["static"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistributeStatic = &VrfNameProtocolsOspfRedistributeStatic{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistributeStatic)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

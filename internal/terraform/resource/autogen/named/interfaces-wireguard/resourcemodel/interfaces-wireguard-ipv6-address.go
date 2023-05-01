@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWireguardIPvsixAddress describes the resource data model.
 type InterfacesWireguardIPvsixAddress struct {
 	// LeafNodes
-	LeafInterfacesWireguardIPvsixAddressAutoconf           types.String `tfsdk:"autoconf"`
-	LeafInterfacesWireguardIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
-	LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
+	LeafInterfacesWireguardIPvsixAddressAutoconf           types.String `tfsdk:"autoconf" json:"autoconf,omitempty"`
+	LeafInterfacesWireguardIPvsixAddressEuisixfour         types.String `tfsdk:"eui64" json:"eui64,omitempty"`
+	LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWireguardIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireguard", "ipv6", "address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWireguardIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesWireguardIPvsixAddressAutoconf.IsUnknown()) {
-		vyosData["autoconf"] = o.LeafInterfacesWireguardIPvsixAddressAutoconf.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesWireguardIPvsixAddressEuisixfour.IsUnknown()) {
-		vyosData["eui64"] = o.LeafInterfacesWireguardIPvsixAddressEuisixfour.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
-		vyosData["no-default-link-local"] = o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWireguardIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireguard", "ipv6", "address"}})
-
-	// Leafs
-	if value, ok := vyosData["autoconf"]; ok {
-		o.LeafInterfacesWireguardIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardIPvsixAddressAutoconf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["eui64"]; ok {
-		o.LeafInterfacesWireguardIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardIPvsixAddressEuisixfour = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-default-link-local"]; ok {
-		o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireguard", "ipv6", "address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWireguardIPvsixAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"autoconf":              types.StringType,
-		"eui64":                 types.StringType,
-		"no_default_link_local": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +56,69 @@ func (o InterfacesWireguardIPvsixAddress) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWireguardIPvsixAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWireguardIPvsixAddressAutoconf.IsNull() && !o.LeafInterfacesWireguardIPvsixAddressAutoconf.IsUnknown() {
+		jsonData["autoconf"] = o.LeafInterfacesWireguardIPvsixAddressAutoconf.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardIPvsixAddressEuisixfour.IsNull() && !o.LeafInterfacesWireguardIPvsixAddressEuisixfour.IsUnknown() {
+		jsonData["eui64"] = o.LeafInterfacesWireguardIPvsixAddressEuisixfour.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.IsNull() && !o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.IsUnknown() {
+		jsonData["no-default-link-local"] = o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWireguardIPvsixAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["autoconf"]; ok {
+		o.LeafInterfacesWireguardIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["eui64"]; ok {
+		o.LeafInterfacesWireguardIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-default-link-local"]; ok {
+		o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

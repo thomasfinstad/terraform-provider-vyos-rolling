@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisDefaultInformationOriginateIPvfour describes the resource data model.
@@ -19,76 +15,8 @@ type VrfNameProtocolsIsisDefaultInformationOriginateIPvfour struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne types.Object `tfsdk:"level_1"`
-	NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo types.Object `tfsdk:"level_2"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne.IsNull() || o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne
-		diags.Append(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["level-1"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo.IsNull() || o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo
-		diags.Append(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["level-2"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["level-1"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne = basetypes.NewObjectNull(VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne{}.AttributeTypes())
-	}
-	if value, ok := vyosData["level-2"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo = basetypes.NewObjectNull(VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"level_1": types.ObjectType{AttrTypes: VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne{}.AttributeTypes()},
-		"level_2": types.ObjectType{AttrTypes: VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne `tfsdk:"level_1" json:"level-1,omitempty"`
+	NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo `tfsdk:"level_2" json:"level-2,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -116,4 +44,93 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) ResourceSchemaAt
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["level-1"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["level-2"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfour) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["level-1"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne = &VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["level-2"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo = &VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelTwo)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

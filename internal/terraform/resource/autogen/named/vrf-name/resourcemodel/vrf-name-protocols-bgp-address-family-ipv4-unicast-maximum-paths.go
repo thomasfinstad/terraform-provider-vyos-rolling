@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp types.String `tfsdk:"ebgp"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp types.String `tfsdk:"ibgp"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp types.String `tfsdk:"ebgp" json:"ebgp,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp types.String `tfsdk:"ibgp" json:"ibgp,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "maximum-paths"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.IsUnknown()) {
-		vyosData["ebgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.IsUnknown()) {
-		vyosData["ibgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "maximum-paths"}})
-
-	// Leafs
-	if value, ok := vyosData["ebgp"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ibgp"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "maximum-paths"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ebgp": types.StringType,
-		"ibgp": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) ResourceSche
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.IsUnknown() {
+		jsonData["ebgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.IsUnknown() {
+		jsonData["ibgp"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ebgp"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsEbgp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ibgp"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPathsIbgp = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

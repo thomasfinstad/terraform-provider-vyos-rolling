@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleIcmpvsix describes the resource data model.
 type FirewallIPvsixNameRuleIcmpvsix struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleIcmpvsixCode     types.String `tfsdk:"code"`
-	LeafFirewallIPvsixNameRuleIcmpvsixType     types.String `tfsdk:"type"`
-	LeafFirewallIPvsixNameRuleIcmpvsixTypeName types.String `tfsdk:"type_name"`
+	LeafFirewallIPvsixNameRuleIcmpvsixCode     types.String `tfsdk:"code" json:"code,omitempty"`
+	LeafFirewallIPvsixNameRuleIcmpvsixType     types.String `tfsdk:"type" json:"type,omitempty"`
+	LeafFirewallIPvsixNameRuleIcmpvsixTypeName types.String `tfsdk:"type_name" json:"type-name,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallIPvsixNameRuleIcmpvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsUnknown()) {
-		vyosData["code"] = o.LeafFirewallIPvsixNameRuleIcmpvsixCode.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsUnknown()) {
-		vyosData["type"] = o.LeafFirewallIPvsixNameRuleIcmpvsixType.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsUnknown()) {
-		vyosData["type-name"] = o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallIPvsixNameRuleIcmpvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
-
-	// Leafs
-	if value, ok := vyosData["code"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type-name"]; ok {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallIPvsixNameRuleIcmpvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"code":      types.StringType,
-		"type":      types.StringType,
-		"type_name": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -152,4 +81,69 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallIPvsixNameRuleIcmpvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsUnknown() {
+		jsonData["code"] = o.LeafFirewallIPvsixNameRuleIcmpvsixCode.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsUnknown() {
+		jsonData["type"] = o.LeafFirewallIPvsixNameRuleIcmpvsixType.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsNull() && !o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsUnknown() {
+		jsonData["type-name"] = o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallIPvsixNameRuleIcmpvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["code"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type-name"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,166 +2,29 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfArea describes the resource data model.
 type VrfNameProtocolsOspfArea struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication"`
-	LeafVrfNameProtocolsOspfAreaNetwork        types.String `tfsdk:"network"`
-	LeafVrfNameProtocolsOspfAreaShortcut       types.String `tfsdk:"shortcut"`
-	LeafVrfNameProtocolsOspfAreaExportList     types.String `tfsdk:"export_list"`
-	LeafVrfNameProtocolsOspfAreaImportList     types.String `tfsdk:"import_list"`
+	LeafVrfNameProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication" json:"authentication,omitempty"`
+	LeafVrfNameProtocolsOspfAreaNetwork        types.String `tfsdk:"network" json:"network,omitempty"`
+	LeafVrfNameProtocolsOspfAreaShortcut       types.String `tfsdk:"shortcut" json:"shortcut,omitempty"`
+	LeafVrfNameProtocolsOspfAreaExportList     types.String `tfsdk:"export_list" json:"export-list,omitempty"`
+	LeafVrfNameProtocolsOspfAreaImportList     types.String `tfsdk:"import_list" json:"import-list,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsOspfAreaRange       types.Map `tfsdk:"range"`
-	TagVrfNameProtocolsOspfAreaVirtualLink types.Map `tfsdk:"virtual_link"`
+	TagVrfNameProtocolsOspfAreaRange       *map[string]VrfNameProtocolsOspfAreaRange       `tfsdk:"range" json:"range,omitempty"`
+	TagVrfNameProtocolsOspfAreaVirtualLink *map[string]VrfNameProtocolsOspfAreaVirtualLink `tfsdk:"virtual_link" json:"virtual-link,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfAreaAreaType types.Object `tfsdk:"area_type"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfArea) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfAreaAuthentication.IsNull() || o.LeafVrfNameProtocolsOspfAreaAuthentication.IsUnknown()) {
-		vyosData["authentication"] = o.LeafVrfNameProtocolsOspfAreaAuthentication.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaNetwork.IsNull() || o.LeafVrfNameProtocolsOspfAreaNetwork.IsUnknown()) {
-		vyosData["network"] = o.LeafVrfNameProtocolsOspfAreaNetwork.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaShortcut.IsNull() || o.LeafVrfNameProtocolsOspfAreaShortcut.IsUnknown()) {
-		vyosData["shortcut"] = o.LeafVrfNameProtocolsOspfAreaShortcut.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaExportList.IsNull() || o.LeafVrfNameProtocolsOspfAreaExportList.IsUnknown()) {
-		vyosData["export-list"] = o.LeafVrfNameProtocolsOspfAreaExportList.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaImportList.IsNull() || o.LeafVrfNameProtocolsOspfAreaImportList.IsUnknown()) {
-		vyosData["import-list"] = o.LeafVrfNameProtocolsOspfAreaImportList.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsOspfAreaRange.IsNull() || o.TagVrfNameProtocolsOspfAreaRange.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfAreaRange)
-		diags.Append(o.TagVrfNameProtocolsOspfAreaRange.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["range"] = subData
-	}
-	if !(o.TagVrfNameProtocolsOspfAreaVirtualLink.IsNull() || o.TagVrfNameProtocolsOspfAreaVirtualLink.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfAreaVirtualLink)
-		diags.Append(o.TagVrfNameProtocolsOspfAreaVirtualLink.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["virtual-link"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfAreaAreaType.IsNull() || o.NodeVrfNameProtocolsOspfAreaAreaType.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfAreaAreaType
-		diags.Append(o.NodeVrfNameProtocolsOspfAreaAreaType.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["area-type"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfArea) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area"}})
-
-	// Leafs
-	if value, ok := vyosData["authentication"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAuthentication = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAuthentication = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaNetwork = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shortcut"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaShortcut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaShortcut = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["export-list"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaExportList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaExportList = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import-list"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaImportList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaImportList = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["range"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaRange{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfAreaRange = data
-	} else {
-		o.TagVrfNameProtocolsOspfAreaRange = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["virtual-link"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaVirtualLink{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfAreaVirtualLink = data
-	} else {
-		o.TagVrfNameProtocolsOspfAreaVirtualLink = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["area-type"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfAreaAreaType{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfAreaAreaType = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfAreaAreaType = basetypes.NewObjectNull(VrfNameProtocolsOspfAreaAreaType{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfArea) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"authentication": types.StringType,
-		"network":        types.StringType,
-		"shortcut":       types.StringType,
-		"export_list":    types.StringType,
-		"import_list":    types.StringType,
-
-		// Tags
-		"range":        types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaRange{}.AttributeTypes()}},
-		"virtual_link": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaVirtualLink{}.AttributeTypes()}},
-
-		// Nodes
-		"area_type": types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaAreaType{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfAreaAreaType *VrfNameProtocolsOspfAreaAreaType `tfsdk:"area_type" json:"area-type,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -267,4 +130,170 @@ func (o VrfNameProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfArea) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfAreaAuthentication.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAuthentication.IsUnknown() {
+		jsonData["authentication"] = o.LeafVrfNameProtocolsOspfAreaAuthentication.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaNetwork.IsNull() && !o.LeafVrfNameProtocolsOspfAreaNetwork.IsUnknown() {
+		jsonData["network"] = o.LeafVrfNameProtocolsOspfAreaNetwork.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaShortcut.IsNull() && !o.LeafVrfNameProtocolsOspfAreaShortcut.IsUnknown() {
+		jsonData["shortcut"] = o.LeafVrfNameProtocolsOspfAreaShortcut.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaExportList.IsNull() && !o.LeafVrfNameProtocolsOspfAreaExportList.IsUnknown() {
+		jsonData["export-list"] = o.LeafVrfNameProtocolsOspfAreaExportList.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaImportList.IsNull() && !o.LeafVrfNameProtocolsOspfAreaImportList.IsUnknown() {
+		jsonData["import-list"] = o.LeafVrfNameProtocolsOspfAreaImportList.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfAreaRange).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfAreaRange)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["range"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfAreaVirtualLink).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfAreaVirtualLink)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["virtual-link"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfAreaAreaType).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfAreaAreaType)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["area-type"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfArea) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["authentication"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAuthentication = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAuthentication = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaNetwork = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shortcut"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaShortcut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaShortcut = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["export-list"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaExportList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaExportList = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import-list"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaImportList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaImportList = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["range"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfAreaRange = &map[string]VrfNameProtocolsOspfAreaRange{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfAreaRange)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["virtual-link"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfAreaVirtualLink = &map[string]VrfNameProtocolsOspfAreaVirtualLink{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfAreaVirtualLink)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["area-type"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfAreaAreaType = &VrfNameProtocolsOspfAreaAreaType{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfAreaAreaType)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

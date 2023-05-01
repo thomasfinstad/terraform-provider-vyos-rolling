@@ -2,123 +2,26 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifSDhcpvsixOptions describes the resource data model.
 type InterfacesBondingVifSDhcpvsixOptions struct {
 	// LeafNodes
-	LeafInterfacesBondingVifSDhcpvsixOptionsDuID           types.String `tfsdk:"duid"`
-	LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only"`
-	LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit"`
-	LeafInterfacesBondingVifSDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary"`
+	LeafInterfacesBondingVifSDhcpvsixOptionsDuID           types.String `tfsdk:"duid" json:"duid,omitempty"`
+	LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only" json:"parameters-only,omitempty"`
+	LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit" json:"rapid-commit,omitempty"`
+	LeafInterfacesBondingVifSDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary" json:"temporary,omitempty"`
 
 	// TagNodes
-	TagInterfacesBondingVifSDhcpvsixOptionsPd types.Map `tfsdk:"pd"`
+	TagInterfacesBondingVifSDhcpvsixOptionsPd *map[string]InterfacesBondingVifSDhcpvsixOptionsPd `tfsdk:"pd" json:"pd,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingVifSDhcpvsixOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "dhcpv6-options"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.IsNull() || o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.IsUnknown()) {
-		vyosData["duid"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.IsNull() || o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.IsUnknown()) {
-		vyosData["parameters-only"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.IsNull() || o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.IsUnknown()) {
-		vyosData["rapid-commit"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.ValueString()
-	}
-	if !(o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.IsNull() || o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.IsUnknown()) {
-		vyosData["temporary"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesBondingVifSDhcpvsixOptionsPd.IsNull() || o.TagInterfacesBondingVifSDhcpvsixOptionsPd.IsUnknown()) {
-		subModel := make(map[string]InterfacesBondingVifSDhcpvsixOptionsPd)
-		diags.Append(o.TagInterfacesBondingVifSDhcpvsixOptionsPd.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["pd"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingVifSDhcpvsixOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "dhcpv6-options"}})
-
-	// Leafs
-	if value, ok := vyosData["duid"]; ok {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["parameters-only"]; ok {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rapid-commit"]; ok {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["temporary"]; ok {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["pd"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBondingVifSDhcpvsixOptionsPd{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesBondingVifSDhcpvsixOptionsPd = data
-	} else {
-		o.TagInterfacesBondingVifSDhcpvsixOptionsPd = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "dhcpv6-options"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingVifSDhcpvsixOptions) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"duid":            types.StringType,
-		"parameters_only": types.StringType,
-		"rapid_commit":    types.StringType,
-		"temporary":       types.StringType,
-
-		// Tags
-		"pd": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBondingVifSDhcpvsixOptionsPd{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -177,4 +80,106 @@ func (o InterfacesBondingVifSDhcpvsixOptions) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingVifSDhcpvsixOptions) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.IsNull() && !o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.IsUnknown() {
+		jsonData["duid"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.IsNull() && !o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.IsUnknown() {
+		jsonData["parameters-only"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.IsNull() && !o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.IsUnknown() {
+		jsonData["rapid-commit"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.IsNull() && !o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.IsUnknown() {
+		jsonData["temporary"] = o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesBondingVifSDhcpvsixOptionsPd).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesBondingVifSDhcpvsixOptionsPd)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["pd"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingVifSDhcpvsixOptions) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["duid"]; ok {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsDuID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["parameters-only"]; ok {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rapid-commit"]; ok {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["temporary"]; ok {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSDhcpvsixOptionsTemporary = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["pd"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesBondingVifSDhcpvsixOptionsPd = &map[string]InterfacesBondingVifSDhcpvsixOptionsPd{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesBondingVifSDhcpvsixOptionsPd)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

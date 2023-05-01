@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchEther describes the resource data model.
 type QosPolicyRoundRobinClassMatchEther struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinClassMatchEtherDestination types.String `tfsdk:"destination"`
-	LeafQosPolicyRoundRobinClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
-	LeafQosPolicyRoundRobinClassMatchEtherSource      types.String `tfsdk:"source"`
+	LeafQosPolicyRoundRobinClassMatchEtherDestination types.String `tfsdk:"destination" json:"destination,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchEtherProtocol    types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchEtherSource      types.String `tfsdk:"source" json:"source,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRoundRobinClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsUnknown()) {
-		vyosData["destination"] = o.LeafQosPolicyRoundRobinClassMatchEtherDestination.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsUnknown()) {
-		vyosData["source"] = o.LeafQosPolicyRoundRobinClassMatchEtherSource.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRoundRobinClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
-
-	// Leafs
-	if value, ok := vyosData["destination"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRoundRobinClassMatchEther) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"destination": types.StringType,
-		"protocol":    types.StringType,
-		"source":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +72,69 @@ func (o QosPolicyRoundRobinClassMatchEther) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRoundRobinClassMatchEther) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsUnknown() {
+		jsonData["destination"] = o.LeafQosPolicyRoundRobinClassMatchEtherDestination.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsUnknown() {
+		jsonData["source"] = o.LeafQosPolicyRoundRobinClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRoundRobinClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["destination"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

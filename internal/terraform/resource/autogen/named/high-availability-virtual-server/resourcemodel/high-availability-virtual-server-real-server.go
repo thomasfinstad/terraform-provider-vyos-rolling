@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVirtualServerRealServer describes the resource data model.
 type HighAvailabilityVirtualServerRealServer struct {
 	// LeafNodes
-	LeafHighAvailabilityVirtualServerRealServerPort              types.String `tfsdk:"port"`
-	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.String `tfsdk:"connection_timeout"`
+	LeafHighAvailabilityVirtualServerRealServerPort              types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.String `tfsdk:"connection_timeout" json:"connection-timeout,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeHighAvailabilityVirtualServerRealServerHealthCheck types.Object `tfsdk:"health_check"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVirtualServerRealServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVirtualServerRealServerPort.IsNull() || o.LeafHighAvailabilityVirtualServerRealServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafHighAvailabilityVirtualServerRealServerPort.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsNull() || o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsUnknown()) {
-		vyosData["connection-timeout"] = o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.IsNull() || o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.IsUnknown()) {
-		var subModel HighAvailabilityVirtualServerRealServerHealthCheck
-		diags.Append(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["health-check"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVirtualServerRealServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
-
-	// Leafs
-	if value, ok := vyosData["port"]; ok {
-		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["connection-timeout"]; ok {
-		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["health-check"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = data
-
-	} else {
-		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = basetypes.NewObjectNull(HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVirtualServerRealServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"port":               types.StringType,
-		"connection_timeout": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"health_check": types.ObjectType{AttrTypes: HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes()},
-	}
+	NodeHighAvailabilityVirtualServerRealServerHealthCheck *HighAvailabilityVirtualServerRealServerHealthCheck `tfsdk:"health_check" json:"health-check,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +61,86 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVirtualServerRealServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVirtualServerRealServerPort.IsNull() && !o.LeafHighAvailabilityVirtualServerRealServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafHighAvailabilityVirtualServerRealServerPort.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsNull() && !o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsUnknown() {
+		jsonData["connection-timeout"] = o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["health-check"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVirtualServerRealServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["connection-timeout"]; ok {
+		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["health-check"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = &HighAvailabilityVirtualServerRealServerHealthCheck{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVirtualServerRealServerHealthCheck)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

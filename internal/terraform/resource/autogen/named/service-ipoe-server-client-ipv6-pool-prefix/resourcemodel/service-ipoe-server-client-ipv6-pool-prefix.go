@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerClientIPvsixPoolPrefix describes the resource data model.
@@ -17,7 +14,7 @@ type ServiceIPoeServerClientIPvsixPoolPrefix struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceIPoeServerClientIPvsixPoolPrefixMask types.String `tfsdk:"mask"`
+	LeafServiceIPoeServerClientIPvsixPoolPrefixMask types.String `tfsdk:"mask" json:"mask,omitempty"`
 
 	// TagNodes
 
@@ -32,56 +29,6 @@ func (o *ServiceIPoeServerClientIPvsixPoolPrefix) GetVyosPath() []string {
 		"client-ipv6-pool",
 		"prefix",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerClientIPvsixPoolPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ipv6-pool", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsNull() || o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsUnknown()) {
-		vyosData["mask"] = o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerClientIPvsixPoolPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ipv6-pool", "prefix"}})
-
-	// Leafs
-	if value, ok := vyosData["mask"]; ok {
-		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ipv6-pool", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerClientIPvsixPoolPrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"mask": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -120,4 +67,49 @@ func (o ServiceIPoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerClientIPvsixPoolPrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsNull() && !o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.IsUnknown() {
+		jsonData["mask"] = o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerClientIPvsixPoolPrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["mask"]; ok {
+		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

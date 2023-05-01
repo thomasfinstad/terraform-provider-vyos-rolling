@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerRegistry describes the resource data model.
@@ -17,12 +15,12 @@ type ContainerRegistry struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafContainerRegistryDisable types.String `tfsdk:"disable"`
+	LeafContainerRegistryDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeContainerRegistryAuthentication types.Object `tfsdk:"authentication"`
+	NodeContainerRegistryAuthentication *ContainerRegistryAuthentication `tfsdk:"authentication" json:"authentication,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -31,69 +29,6 @@ func (o *ContainerRegistry) GetVyosPath() []string {
 		"container",
 		"registry",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerRegistry) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "registry"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerRegistryDisable.IsNull() || o.LeafContainerRegistryDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafContainerRegistryDisable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeContainerRegistryAuthentication.IsNull() || o.NodeContainerRegistryAuthentication.IsUnknown()) {
-		var subModel ContainerRegistryAuthentication
-		diags.Append(o.NodeContainerRegistryAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerRegistry) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "registry"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafContainerRegistryDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerRegistryDisable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ContainerRegistryAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeContainerRegistryAuthentication = data
-
-	} else {
-		o.NodeContainerRegistryAuthentication = basetypes.NewObjectNull(ContainerRegistryAuthentication{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "registry"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerRegistry) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"authentication": types.ObjectType{AttrTypes: ContainerRegistryAuthentication{}.AttributeTypes()},
 	}
 }
 
@@ -128,4 +63,76 @@ func (o ContainerRegistry) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerRegistry) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerRegistryDisable.IsNull() && !o.LeafContainerRegistryDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafContainerRegistryDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeContainerRegistryAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeContainerRegistryAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerRegistry) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafContainerRegistryDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerRegistryDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeContainerRegistryAuthentication = &ContainerRegistryAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeContainerRegistryAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

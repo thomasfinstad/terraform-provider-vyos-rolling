@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetCommunity describes the resource data model.
 type PolicyRouteMapRuleSetCommunity struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetCommunityAdd     types.String `tfsdk:"add"`
-	LeafPolicyRouteMapRuleSetCommunityReplace types.String `tfsdk:"replace"`
-	LeafPolicyRouteMapRuleSetCommunityNone    types.String `tfsdk:"none"`
-	LeafPolicyRouteMapRuleSetCommunityDelete  types.String `tfsdk:"delete"`
+	LeafPolicyRouteMapRuleSetCommunityAdd     types.String `tfsdk:"add" json:"add,omitempty"`
+	LeafPolicyRouteMapRuleSetCommunityReplace types.String `tfsdk:"replace" json:"replace,omitempty"`
+	LeafPolicyRouteMapRuleSetCommunityNone    types.String `tfsdk:"none" json:"none,omitempty"`
+	LeafPolicyRouteMapRuleSetCommunityDelete  types.String `tfsdk:"delete" json:"delete,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleSetCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapRuleSetCommunityAdd.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityAdd.IsUnknown()) {
-		vyosData["add"] = o.LeafPolicyRouteMapRuleSetCommunityAdd.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetCommunityReplace.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityReplace.IsUnknown()) {
-		vyosData["replace"] = o.LeafPolicyRouteMapRuleSetCommunityReplace.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetCommunityNone.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityNone.IsUnknown()) {
-		vyosData["none"] = o.LeafPolicyRouteMapRuleSetCommunityNone.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetCommunityDelete.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityDelete.IsUnknown()) {
-		vyosData["delete"] = o.LeafPolicyRouteMapRuleSetCommunityDelete.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleSetCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
-
-	// Leafs
-	if value, ok := vyosData["add"]; ok {
-		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["replace"]; ok {
-		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["none"]; ok {
-		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["delete"]; ok {
-		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleSetCommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"add":     types.StringType,
-		"replace": types.StringType,
-		"none":    types.StringType,
-		"delete":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -182,4 +102,79 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleSetCommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapRuleSetCommunityAdd.IsNull() && !o.LeafPolicyRouteMapRuleSetCommunityAdd.IsUnknown() {
+		jsonData["add"] = o.LeafPolicyRouteMapRuleSetCommunityAdd.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetCommunityReplace.IsNull() && !o.LeafPolicyRouteMapRuleSetCommunityReplace.IsUnknown() {
+		jsonData["replace"] = o.LeafPolicyRouteMapRuleSetCommunityReplace.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetCommunityNone.IsNull() && !o.LeafPolicyRouteMapRuleSetCommunityNone.IsUnknown() {
+		jsonData["none"] = o.LeafPolicyRouteMapRuleSetCommunityNone.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetCommunityDelete.IsNull() && !o.LeafPolicyRouteMapRuleSetCommunityDelete.IsUnknown() {
+		jsonData["delete"] = o.LeafPolicyRouteMapRuleSetCommunityDelete.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleSetCommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["add"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["replace"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["none"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["delete"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

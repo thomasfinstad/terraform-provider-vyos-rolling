@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborTTLSecURIty describes the resource data model.
 type ProtocolsBgpNeighborTTLSecURIty struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborTTLSecURItyHops types.String `tfsdk:"hops"`
+	LeafProtocolsBgpNeighborTTLSecURItyHops types.String `tfsdk:"hops" json:"hops,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborTTLSecURIty) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "ttl-security"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborTTLSecURItyHops.IsNull() || o.LeafProtocolsBgpNeighborTTLSecURItyHops.IsUnknown()) {
-		vyosData["hops"] = o.LeafProtocolsBgpNeighborTTLSecURItyHops.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborTTLSecURIty) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "ttl-security"}})
-
-	// Leafs
-	if value, ok := vyosData["hops"]; ok {
-		o.LeafProtocolsBgpNeighborTTLSecURItyHops = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTTLSecURItyHops = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "ttl-security"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborTTLSecURIty) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"hops": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o ProtocolsBgpNeighborTTLSecURIty) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborTTLSecURIty) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborTTLSecURItyHops.IsNull() && !o.LeafProtocolsBgpNeighborTTLSecURItyHops.IsUnknown() {
+		jsonData["hops"] = o.LeafProtocolsBgpNeighborTTLSecURItyHops.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborTTLSecURIty) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["hops"]; ok {
+		o.LeafProtocolsBgpNeighborTTLSecURItyHops = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborTTLSecURItyHops = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

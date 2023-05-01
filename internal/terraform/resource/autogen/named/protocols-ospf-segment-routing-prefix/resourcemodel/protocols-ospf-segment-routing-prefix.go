@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfSegmentRoutingPrefix describes the resource data model.
@@ -21,7 +18,7 @@ type ProtocolsOspfSegmentRoutingPrefix struct {
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsOspfSegmentRoutingPrefixIndex types.Object `tfsdk:"index"`
+	NodeProtocolsOspfSegmentRoutingPrefixIndex *ProtocolsOspfSegmentRoutingPrefixIndex `tfsdk:"index" json:"index,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,60 +29,6 @@ func (o *ProtocolsOspfSegmentRoutingPrefix) GetVyosPath() []string {
 		"segment-routing",
 		"prefix",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsOspfSegmentRoutingPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "segment-routing", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsOspfSegmentRoutingPrefixIndex.IsNull() || o.NodeProtocolsOspfSegmentRoutingPrefixIndex.IsUnknown()) {
-		var subModel ProtocolsOspfSegmentRoutingPrefixIndex
-		diags.Append(o.NodeProtocolsOspfSegmentRoutingPrefixIndex.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["index"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsOspfSegmentRoutingPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "segment-routing", "prefix"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["index"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsOspfSegmentRoutingPrefixIndex = data
-
-	} else {
-		o.NodeProtocolsOspfSegmentRoutingPrefixIndex = basetypes.NewObjectNull(ProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "segment-routing", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsOspfSegmentRoutingPrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"index": types.ObjectType{AttrTypes: ProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes()},
 	}
 }
 
@@ -117,4 +60,66 @@ func (o ProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map[string
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsOspfSegmentRoutingPrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsOspfSegmentRoutingPrefixIndex).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfSegmentRoutingPrefixIndex)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["index"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsOspfSegmentRoutingPrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["index"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsOspfSegmentRoutingPrefixIndex = &ProtocolsOspfSegmentRoutingPrefixIndex{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfSegmentRoutingPrefixIndex)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

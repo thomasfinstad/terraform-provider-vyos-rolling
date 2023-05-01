@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap types.String `tfsdk:"advertise_map"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap     types.String `tfsdk:"exist_map"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap  types.String `tfsdk:"non_exist_map"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap types.String `tfsdk:"advertise_map" json:"advertise-map,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap     types.String `tfsdk:"exist_map" json:"exist-map,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap  types.String `tfsdk:"non_exist_map" json:"non-exist-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "conditionally-advertise"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.IsUnknown()) {
-		vyosData["advertise-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.IsUnknown()) {
-		vyosData["exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.IsUnknown()) {
-		vyosData["non-exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "conditionally-advertise"}})
-
-	// Leafs
-	if value, ok := vyosData["advertise-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["exist-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["non-exist-map"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "conditionally-advertise"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"advertise_map": types.StringType,
-		"exist_map":     types.StringType,
-		"non_exist_map": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) R
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.IsUnknown() {
+		jsonData["advertise-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.IsUnknown() {
+		jsonData["exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.IsUnknown() {
+		jsonData["non-exist-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertise) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["advertise-map"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["exist-map"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseExistMap = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["non-exist-map"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

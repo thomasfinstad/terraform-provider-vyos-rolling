@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerInterfaceExternalDhcp describes the resource data model.
 type ServiceIPoeServerInterfaceExternalDhcp struct {
 	// LeafNodes
-	LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay types.String `tfsdk:"dhcp_relay"`
-	LeafServiceIPoeServerInterfaceExternalDhcpGiaddr    types.String `tfsdk:"giaddr"`
+	LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay types.String `tfsdk:"dhcp_relay" json:"dhcp-relay,omitempty"`
+	LeafServiceIPoeServerInterfaceExternalDhcpGiaddr    types.String `tfsdk:"giaddr" json:"giaddr,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerInterfaceExternalDhcp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface", "external-dhcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsNull() || o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsUnknown()) {
-		vyosData["dhcp-relay"] = o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsNull() || o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsUnknown()) {
-		vyosData["giaddr"] = o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerInterfaceExternalDhcp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface", "external-dhcp"}})
-
-	// Leafs
-	if value, ok := vyosData["dhcp-relay"]; ok {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["giaddr"]; ok {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface", "external-dhcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerInterfaceExternalDhcp) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"dhcp_relay": types.StringType,
-		"giaddr":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ServiceIPoeServerInterfaceExternalDhcp) ResourceSchemaAttributes() map[s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerInterfaceExternalDhcp) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsNull() && !o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.IsUnknown() {
+		jsonData["dhcp-relay"] = o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsNull() && !o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.IsUnknown() {
+		jsonData["giaddr"] = o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerInterfaceExternalDhcp) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["dhcp-relay"]; ok {
+		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceExternalDhcpDhcpRelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["giaddr"]; ok {
+		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceExternalDhcpGiaddr = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

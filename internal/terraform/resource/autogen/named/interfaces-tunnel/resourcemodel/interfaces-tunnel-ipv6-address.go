@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesTunnelIPvsixAddress describes the resource data model.
 type InterfacesTunnelIPvsixAddress struct {
 	// LeafNodes
-	LeafInterfacesTunnelIPvsixAddressAutoconf           types.String `tfsdk:"autoconf"`
-	LeafInterfacesTunnelIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
-	LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
+	LeafInterfacesTunnelIPvsixAddressAutoconf           types.String `tfsdk:"autoconf" json:"autoconf,omitempty"`
+	LeafInterfacesTunnelIPvsixAddressEuisixfour         types.String `tfsdk:"eui64" json:"eui64,omitempty"`
+	LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesTunnelIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "ipv6", "address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesTunnelIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesTunnelIPvsixAddressAutoconf.IsUnknown()) {
-		vyosData["autoconf"] = o.LeafInterfacesTunnelIPvsixAddressAutoconf.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesTunnelIPvsixAddressEuisixfour.IsUnknown()) {
-		vyosData["eui64"] = o.LeafInterfacesTunnelIPvsixAddressEuisixfour.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
-		vyosData["no-default-link-local"] = o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesTunnelIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "ipv6", "address"}})
-
-	// Leafs
-	if value, ok := vyosData["autoconf"]; ok {
-		o.LeafInterfacesTunnelIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelIPvsixAddressAutoconf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["eui64"]; ok {
-		o.LeafInterfacesTunnelIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelIPvsixAddressEuisixfour = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-default-link-local"]; ok {
-		o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "ipv6", "address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesTunnelIPvsixAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"autoconf":              types.StringType,
-		"eui64":                 types.StringType,
-		"no_default_link_local": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +56,69 @@ func (o InterfacesTunnelIPvsixAddress) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesTunnelIPvsixAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesTunnelIPvsixAddressAutoconf.IsNull() && !o.LeafInterfacesTunnelIPvsixAddressAutoconf.IsUnknown() {
+		jsonData["autoconf"] = o.LeafInterfacesTunnelIPvsixAddressAutoconf.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelIPvsixAddressEuisixfour.IsNull() && !o.LeafInterfacesTunnelIPvsixAddressEuisixfour.IsUnknown() {
+		jsonData["eui64"] = o.LeafInterfacesTunnelIPvsixAddressEuisixfour.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.IsNull() && !o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.IsUnknown() {
+		jsonData["no-default-link-local"] = o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesTunnelIPvsixAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["autoconf"]; ok {
+		o.LeafInterfacesTunnelIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["eui64"]; ok {
+		o.LeafInterfacesTunnelIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-default-link-local"]; ok {
+		o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

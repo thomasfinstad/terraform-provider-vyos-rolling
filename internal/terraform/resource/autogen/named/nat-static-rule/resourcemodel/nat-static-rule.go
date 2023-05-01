@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatStaticRule describes the resource data model.
@@ -17,14 +15,14 @@ type NatStaticRule struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description"`
-	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface"`
+	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeNatStaticRuleDestination types.Object `tfsdk:"destination"`
-	NodeNatStaticRuleTranSLAtion types.Object `tfsdk:"translation"`
+	NodeNatStaticRuleDestination *NatStaticRuleDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodeNatStaticRuleTranSLAtion *NatStaticRuleTranSLAtion `tfsdk:"translation" json:"translation,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,92 +32,6 @@ func (o *NatStaticRule) GetVyosPath() []string {
 		"static",
 		"rule",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatStaticRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatStaticRuleDescrIPtion.IsNull() || o.LeafNatStaticRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafNatStaticRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafNatStaticRuleInboundInterface.IsNull() || o.LeafNatStaticRuleInboundInterface.IsUnknown()) {
-		vyosData["inbound-interface"] = o.LeafNatStaticRuleInboundInterface.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeNatStaticRuleDestination.IsNull() || o.NodeNatStaticRuleDestination.IsUnknown()) {
-		var subModel NatStaticRuleDestination
-		diags.Append(o.NodeNatStaticRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeNatStaticRuleTranSLAtion.IsNull() || o.NodeNatStaticRuleTranSLAtion.IsUnknown()) {
-		var subModel NatStaticRuleTranSLAtion
-		diags.Append(o.NodeNatStaticRuleTranSLAtion.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["translation"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatStaticRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["inbound-interface"]; ok {
-		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatStaticRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatStaticRuleDestination = data
-
-	} else {
-		o.NodeNatStaticRuleDestination = basetypes.NewObjectNull(NatStaticRuleDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["translation"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatStaticRuleTranSLAtion{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatStaticRuleTranSLAtion = data
-
-	} else {
-		o.NodeNatStaticRuleTranSLAtion = basetypes.NewObjectNull(NatStaticRuleTranSLAtion{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatStaticRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":       types.StringType,
-		"inbound_interface": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: NatStaticRuleDestination{}.AttributeTypes()},
-		"translation": types.ObjectType{AttrTypes: NatStaticRuleTranSLAtion{}.AttributeTypes()},
 	}
 }
 
@@ -173,4 +85,113 @@ func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatStaticRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatStaticRuleDescrIPtion.IsNull() && !o.LeafNatStaticRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafNatStaticRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafNatStaticRuleInboundInterface.IsNull() && !o.LeafNatStaticRuleInboundInterface.IsUnknown() {
+		jsonData["inbound-interface"] = o.LeafNatStaticRuleInboundInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeNatStaticRuleDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatStaticRuleDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeNatStaticRuleTranSLAtion).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatStaticRuleTranSLAtion)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["translation"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatStaticRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["inbound-interface"]; ok {
+		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatStaticRuleDestination = &NatStaticRuleDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatStaticRuleDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["translation"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatStaticRuleTranSLAtion = &NatStaticRuleTranSLAtion{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatStaticRuleTranSLAtion)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

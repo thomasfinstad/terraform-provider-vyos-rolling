@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPngDistributeListInterface describes the resource data model.
@@ -21,8 +18,8 @@ type ProtocolsRIPngDistributeListInterface struct {
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsRIPngDistributeListInterfaceAccessList types.Object `tfsdk:"access_list"`
-	NodeProtocolsRIPngDistributeListInterfacePrefixList types.Object `tfsdk:"prefix_list"`
+	NodeProtocolsRIPngDistributeListInterfaceAccessList *ProtocolsRIPngDistributeListInterfaceAccessList `tfsdk:"access_list" json:"access-list,omitempty"`
+	NodeProtocolsRIPngDistributeListInterfacePrefixList *ProtocolsRIPngDistributeListInterfacePrefixList `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,74 +30,6 @@ func (o *ProtocolsRIPngDistributeListInterface) GetVyosPath() []string {
 		"distribute-list",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsRIPngDistributeListInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsRIPngDistributeListInterfaceAccessList.IsNull() || o.NodeProtocolsRIPngDistributeListInterfaceAccessList.IsUnknown()) {
-		var subModel ProtocolsRIPngDistributeListInterfaceAccessList
-		diags.Append(o.NodeProtocolsRIPngDistributeListInterfaceAccessList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["access-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsRIPngDistributeListInterfacePrefixList.IsNull() || o.NodeProtocolsRIPngDistributeListInterfacePrefixList.IsUnknown()) {
-		var subModel ProtocolsRIPngDistributeListInterfacePrefixList
-		diags.Append(o.NodeProtocolsRIPngDistributeListInterfacePrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsRIPngDistributeListInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["access-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPngDistributeListInterfaceAccessList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPngDistributeListInterfaceAccessList = data
-
-	} else {
-		o.NodeProtocolsRIPngDistributeListInterfaceAccessList = basetypes.NewObjectNull(ProtocolsRIPngDistributeListInterfaceAccessList{}.AttributeTypes())
-	}
-	if value, ok := vyosData["prefix-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPngDistributeListInterfacePrefixList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPngDistributeListInterfacePrefixList = data
-
-	} else {
-		o.NodeProtocolsRIPngDistributeListInterfacePrefixList = basetypes.NewObjectNull(ProtocolsRIPngDistributeListInterfacePrefixList{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsRIPngDistributeListInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"access_list": types.ObjectType{AttrTypes: ProtocolsRIPngDistributeListInterfaceAccessList{}.AttributeTypes()},
-		"prefix_list": types.ObjectType{AttrTypes: ProtocolsRIPngDistributeListInterfacePrefixList{}.AttributeTypes()},
 	}
 }
 
@@ -140,4 +69,93 @@ func (o ProtocolsRIPngDistributeListInterface) ResourceSchemaAttributes() map[st
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsRIPngDistributeListInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPngDistributeListInterfaceAccessList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPngDistributeListInterfaceAccessList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["access-list"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPngDistributeListInterfacePrefixList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPngDistributeListInterfacePrefixList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix-list"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsRIPngDistributeListInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["access-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPngDistributeListInterfaceAccessList = &ProtocolsRIPngDistributeListInterfaceAccessList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPngDistributeListInterfaceAccessList)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["prefix-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPngDistributeListInterfacePrefixList = &ProtocolsRIPngDistributeListInterfacePrefixList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPngDistributeListInterfacePrefixList)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

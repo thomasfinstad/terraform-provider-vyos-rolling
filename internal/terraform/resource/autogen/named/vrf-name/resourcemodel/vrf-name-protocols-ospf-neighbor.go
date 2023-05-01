@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfNeighbor describes the resource data model.
 type VrfNameProtocolsOspfNeighbor struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfNeighborPollInterval types.String `tfsdk:"poll_interval"`
-	LeafVrfNameProtocolsOspfNeighborPriority     types.String `tfsdk:"priority"`
+	LeafVrfNameProtocolsOspfNeighborPollInterval types.String `tfsdk:"poll_interval" json:"poll-interval,omitempty"`
+	LeafVrfNameProtocolsOspfNeighborPriority     types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfNeighbor) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "neighbor"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsNull() || o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsUnknown()) {
-		vyosData["poll-interval"] = o.LeafVrfNameProtocolsOspfNeighborPollInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfNeighborPriority.IsNull() || o.LeafVrfNameProtocolsOspfNeighborPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafVrfNameProtocolsOspfNeighborPriority.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfNeighbor) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "neighbor"}})
-
-	// Leafs
-	if value, ok := vyosData["poll-interval"]; ok {
-		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "neighbor"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfNeighbor) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"poll_interval": types.StringType,
-		"priority":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -120,4 +58,59 @@ func (o VrfNameProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfNeighbor) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsNull() && !o.LeafVrfNameProtocolsOspfNeighborPollInterval.IsUnknown() {
+		jsonData["poll-interval"] = o.LeafVrfNameProtocolsOspfNeighborPollInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfNeighborPriority.IsNull() && !o.LeafVrfNameProtocolsOspfNeighborPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafVrfNameProtocolsOspfNeighborPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfNeighbor) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["poll-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfNeighborPollInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfNeighborPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

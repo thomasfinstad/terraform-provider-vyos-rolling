@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceConntrackSyncInterface describes the resource data model.
@@ -17,8 +14,8 @@ type ServiceConntrackSyncInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceConntrackSyncInterfacePeer types.String `tfsdk:"peer"`
-	LeafServiceConntrackSyncInterfacePort types.String `tfsdk:"port"`
+	LeafServiceConntrackSyncInterfacePeer types.String `tfsdk:"peer" json:"peer,omitempty"`
+	LeafServiceConntrackSyncInterfacePort types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
@@ -32,65 +29,6 @@ func (o *ServiceConntrackSyncInterface) GetVyosPath() []string {
 		"conntrack-sync",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceConntrackSyncInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceConntrackSyncInterfacePeer.IsNull() || o.LeafServiceConntrackSyncInterfacePeer.IsUnknown()) {
-		vyosData["peer"] = o.LeafServiceConntrackSyncInterfacePeer.ValueString()
-	}
-	if !(o.LeafServiceConntrackSyncInterfacePort.IsNull() || o.LeafServiceConntrackSyncInterfacePort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceConntrackSyncInterfacePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceConntrackSyncInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["peer"]; ok {
-		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceConntrackSyncInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"peer": types.StringType,
-		"port": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -133,4 +71,59 @@ func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceConntrackSyncInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceConntrackSyncInterfacePeer.IsNull() && !o.LeafServiceConntrackSyncInterfacePeer.IsUnknown() {
+		jsonData["peer"] = o.LeafServiceConntrackSyncInterfacePeer.ValueString()
+	}
+
+	if !o.LeafServiceConntrackSyncInterfacePort.IsNull() && !o.LeafServiceConntrackSyncInterfacePort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceConntrackSyncInterfacePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceConntrackSyncInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["peer"]; ok {
+		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

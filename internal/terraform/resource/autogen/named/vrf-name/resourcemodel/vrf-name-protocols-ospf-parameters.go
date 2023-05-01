@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfParameters describes the resource data model.
 type VrfNameProtocolsOspfParameters struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfParametersAbrType                           types.String `tfsdk:"abr_type"`
-	LeafVrfNameProtocolsOspfParametersOpaqueLsa                         types.String `tfsdk:"opaque_lsa"`
-	LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility types.String `tfsdk:"rfc1583_compatibility"`
-	LeafVrfNameProtocolsOspfParametersRouterID                          types.String `tfsdk:"router_id"`
+	LeafVrfNameProtocolsOspfParametersAbrType                           types.String `tfsdk:"abr_type" json:"abr-type,omitempty"`
+	LeafVrfNameProtocolsOspfParametersOpaqueLsa                         types.String `tfsdk:"opaque_lsa" json:"opaque-lsa,omitempty"`
+	LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility types.String `tfsdk:"rfc1583_compatibility" json:"rfc1583-compatibility,omitempty"`
+	LeafVrfNameProtocolsOspfParametersRouterID                          types.String `tfsdk:"router_id" json:"router-id,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "parameters"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfParametersAbrType.IsNull() || o.LeafVrfNameProtocolsOspfParametersAbrType.IsUnknown()) {
-		vyosData["abr-type"] = o.LeafVrfNameProtocolsOspfParametersAbrType.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsNull() || o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsUnknown()) {
-		vyosData["opaque-lsa"] = o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsNull() || o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsUnknown()) {
-		vyosData["rfc1583-compatibility"] = o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfParametersRouterID.IsNull() || o.LeafVrfNameProtocolsOspfParametersRouterID.IsUnknown()) {
-		vyosData["router-id"] = o.LeafVrfNameProtocolsOspfParametersRouterID.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "parameters"}})
-
-	// Leafs
-	if value, ok := vyosData["abr-type"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["opaque-lsa"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rfc1583-compatibility"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["router-id"]; ok {
-		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "parameters"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfParameters) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"abr_type":              types.StringType,
-		"opaque_lsa":            types.StringType,
-		"rfc1583_compatibility": types.StringType,
-		"router_id":             types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -154,4 +74,79 @@ func (o VrfNameProtocolsOspfParameters) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfParameters) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfParametersAbrType.IsNull() && !o.LeafVrfNameProtocolsOspfParametersAbrType.IsUnknown() {
+		jsonData["abr-type"] = o.LeafVrfNameProtocolsOspfParametersAbrType.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsNull() && !o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.IsUnknown() {
+		jsonData["opaque-lsa"] = o.LeafVrfNameProtocolsOspfParametersOpaqueLsa.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsNull() && !o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.IsUnknown() {
+		jsonData["rfc1583-compatibility"] = o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfParametersRouterID.IsNull() && !o.LeafVrfNameProtocolsOspfParametersRouterID.IsUnknown() {
+		jsonData["router-id"] = o.LeafVrfNameProtocolsOspfParametersRouterID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfParameters) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["abr-type"]; ok {
+		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfParametersAbrType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["opaque-lsa"]; ok {
+		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfParametersOpaqueLsa = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rfc1583-compatibility"]; ok {
+		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfParametersRfconefiveeightthreeCompatibility = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["router-id"]; ok {
+		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfParametersRouterID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

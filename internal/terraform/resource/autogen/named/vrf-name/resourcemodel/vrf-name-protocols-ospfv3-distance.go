@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeDistance describes the resource data model.
 type VrfNameProtocolsOspfvthreeDistance struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeDistanceGlobal types.String `tfsdk:"global"`
+	LeafVrfNameProtocolsOspfvthreeDistanceGlobal types.String `tfsdk:"global" json:"global,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree types.Object `tfsdk:"ospfv3"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfvthreeDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsNull() || o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsUnknown()) {
-		vyosData["global"] = o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.IsNull() || o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfvthreeDistanceOspfvthree
-		diags.Append(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ospfv3"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfvthreeDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
-
-	// Leafs
-	if value, ok := vyosData["global"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ospfv3"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfvthreeDistance) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"global": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ospfv3": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree *VrfNameProtocolsOspfvthreeDistanceOspfvthree `tfsdk:"ospfv3" json:"ospfv3,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +49,76 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[strin
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfvthreeDistance) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsUnknown() {
+		jsonData["global"] = o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ospfv3"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfvthreeDistance) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["global"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ospfv3"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = &VrfNameProtocolsOspfvthreeDistanceOspfvthree{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesSstpcSsl describes the resource data model.
 type InterfacesSstpcSsl struct {
 	// LeafNodes
-	LeafInterfacesSstpcSslCaCertificate types.String `tfsdk:"ca_certificate"`
+	LeafInterfacesSstpcSslCaCertificate types.String `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesSstpcSsl) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesSstpcSslCaCertificate.IsNull() || o.LeafInterfacesSstpcSslCaCertificate.IsUnknown()) {
-		vyosData["ca-certificate"] = o.LeafInterfacesSstpcSslCaCertificate.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesSstpcSsl) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
-
-	// Leafs
-	if value, ok := vyosData["ca-certificate"]; ok {
-		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesSstpcSsl) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ca_certificate": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o InterfacesSstpcSsl) ResourceSchemaAttributes() map[string]schema.Attribu
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesSstpcSsl) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesSstpcSslCaCertificate.IsNull() && !o.LeafInterfacesSstpcSslCaCertificate.IsUnknown() {
+		jsonData["ca-certificate"] = o.LeafInterfacesSstpcSslCaCertificate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesSstpcSsl) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ca-certificate"]; ok {
+		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

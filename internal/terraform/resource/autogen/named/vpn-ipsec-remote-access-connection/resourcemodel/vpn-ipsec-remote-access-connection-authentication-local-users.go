@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers describes the resource data model.
@@ -17,68 +13,9 @@ type VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers struct {
 	// LeafNodes
 
 	// TagNodes
-	TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername types.Map `tfsdk:"username"`
+	TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername *map[string]VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername `tfsdk:"username" json:"username,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "local-users"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername.IsNull() || o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername.IsUnknown()) {
-		subModel := make(map[string]VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername)
-		diags.Append(o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["username"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "local-users"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["username"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername = data
-	} else {
-		o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "local-users"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"username": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -105,4 +42,66 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) ResourceSchemaAt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["username"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["username"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername = &map[string]VpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVpnIPsecRemoteAccessConnectionAuthenticationLocalUsersUsername)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

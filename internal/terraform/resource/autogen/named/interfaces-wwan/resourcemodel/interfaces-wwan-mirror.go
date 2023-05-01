@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWwanMirror describes the resource data model.
 type InterfacesWwanMirror struct {
 	// LeafNodes
-	LeafInterfacesWwanMirrorIngress types.String `tfsdk:"ingress"`
-	LeafInterfacesWwanMirrorEgress  types.String `tfsdk:"egress"`
+	LeafInterfacesWwanMirrorIngress types.String `tfsdk:"ingress" json:"ingress,omitempty"`
+	LeafInterfacesWwanMirrorEgress  types.String `tfsdk:"egress" json:"egress,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWwanMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wwan", "mirror"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWwanMirrorIngress.IsNull() || o.LeafInterfacesWwanMirrorIngress.IsUnknown()) {
-		vyosData["ingress"] = o.LeafInterfacesWwanMirrorIngress.ValueString()
-	}
-	if !(o.LeafInterfacesWwanMirrorEgress.IsNull() || o.LeafInterfacesWwanMirrorEgress.IsUnknown()) {
-		vyosData["egress"] = o.LeafInterfacesWwanMirrorEgress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWwanMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wwan", "mirror"}})
-
-	// Leafs
-	if value, ok := vyosData["ingress"]; ok {
-		o.LeafInterfacesWwanMirrorIngress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanMirrorIngress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["egress"]; ok {
-		o.LeafInterfacesWwanMirrorEgress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanMirrorEgress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wwan", "mirror"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWwanMirror) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ingress": types.StringType,
-		"egress":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o InterfacesWwanMirror) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWwanMirror) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWwanMirrorIngress.IsNull() && !o.LeafInterfacesWwanMirrorIngress.IsUnknown() {
+		jsonData["ingress"] = o.LeafInterfacesWwanMirrorIngress.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanMirrorEgress.IsNull() && !o.LeafInterfacesWwanMirrorEgress.IsUnknown() {
+		jsonData["egress"] = o.LeafInterfacesWwanMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWwanMirror) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ingress"]; ok {
+		o.LeafInterfacesWwanMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanMirrorIngress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["egress"]; ok {
+		o.LeafInterfacesWwanMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

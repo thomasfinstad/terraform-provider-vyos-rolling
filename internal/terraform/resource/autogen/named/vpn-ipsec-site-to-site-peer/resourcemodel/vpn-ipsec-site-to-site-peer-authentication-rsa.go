@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerAuthenticationRsa describes the resource data model.
 type VpnIPsecSiteToSitePeerAuthenticationRsa struct {
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey   types.String `tfsdk:"local_key"`
-	LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase types.String `tfsdk:"passphrase"`
-	LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey  types.String `tfsdk:"remote_key"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey   types.String `tfsdk:"local_key" json:"local-key,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase types.String `tfsdk:"passphrase" json:"passphrase,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey  types.String `tfsdk:"remote_key" json:"remote-key,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "rsa"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsUnknown()) {
-		vyosData["local-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsUnknown()) {
-		vyosData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsUnknown()) {
-		vyosData["remote-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "rsa"}})
-
-	// Leafs
-	if value, ok := vyosData["local-key"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passphrase"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-key"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "rsa"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecSiteToSitePeerAuthenticationRsa) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"local_key":  types.StringType,
-		"passphrase": types.StringType,
-		"remote_key": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -123,4 +52,69 @@ func (o VpnIPsecSiteToSitePeerAuthenticationRsa) ResourceSchemaAttributes() map[
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.IsUnknown() {
+		jsonData["local-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.IsUnknown() {
+		jsonData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.IsUnknown() {
+		jsonData["remote-key"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecSiteToSitePeerAuthenticationRsa) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["local-key"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaLocalKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passphrase"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaPassphrase = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-key"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationRsaRemoteKey = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

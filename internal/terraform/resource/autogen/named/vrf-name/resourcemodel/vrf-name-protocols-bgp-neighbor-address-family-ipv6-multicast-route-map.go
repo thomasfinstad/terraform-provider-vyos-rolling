@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport types.String `tfsdk:"export"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport types.String `tfsdk:"import"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport types.String `tfsdk:"export" json:"export,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport types.String `tfsdk:"import" json:"import,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "route-map"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.IsUnknown()) {
-		vyosData["export"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.IsUnknown()) {
-		vyosData["import"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "route-map"}})
-
-	// Leafs
-	if value, ok := vyosData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "route-map"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"export": types.StringType,
-		"import": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) Resourc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.IsUnknown() {
+		jsonData["export"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.IsUnknown() {
+		jsonData["import"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMap) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapExport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticastRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

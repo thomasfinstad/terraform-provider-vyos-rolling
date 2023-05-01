@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueClassMatchIPTCP describes the resource data model.
 type QosPolicyPriorityQueueClassMatchIPTCP struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueClassMatchIPTCPAck types.String `tfsdk:"ack"`
-	LeafQosPolicyPriorityQueueClassMatchIPTCPSyn types.String `tfsdk:"syn"`
+	LeafQosPolicyPriorityQueueClassMatchIPTCPAck types.String `tfsdk:"ack" json:"ack,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchIPTCPSyn types.String `tfsdk:"syn" json:"syn,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyPriorityQueueClassMatchIPTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ip", "tcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsUnknown()) {
-		vyosData["ack"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsUnknown()) {
-		vyosData["syn"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyPriorityQueueClassMatchIPTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ip", "tcp"}})
-
-	// Leafs
-	if value, ok := vyosData["ack"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["syn"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ip", "tcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyPriorityQueueClassMatchIPTCP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ack": types.StringType,
-		"syn": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o QosPolicyPriorityQueueClassMatchIPTCP) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyPriorityQueueClassMatchIPTCP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.IsUnknown() {
+		jsonData["ack"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.IsUnknown() {
+		jsonData["syn"] = o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyPriorityQueueClassMatchIPTCP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ack"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchIPTCPAck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["syn"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchIPTCPSyn = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

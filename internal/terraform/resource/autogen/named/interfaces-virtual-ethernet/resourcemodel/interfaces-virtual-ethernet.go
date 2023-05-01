@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVirtualEthernet describes the resource data model.
@@ -17,17 +15,17 @@ type InterfacesVirtualEthernet struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesVirtualEthernetAddress     types.String `tfsdk:"address"`
-	LeafInterfacesVirtualEthernetDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesVirtualEthernetDisable     types.String `tfsdk:"disable"`
-	LeafInterfacesVirtualEthernetVrf         types.String `tfsdk:"vrf"`
-	LeafInterfacesVirtualEthernetPeerName    types.String `tfsdk:"peer_name"`
+	LeafInterfacesVirtualEthernetAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesVirtualEthernetDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesVirtualEthernetDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesVirtualEthernetVrf         types.String `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesVirtualEthernetPeerName    types.String `tfsdk:"peer_name" json:"peer-name,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesVirtualEthernetDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesVirtualEthernetDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
+	NodeInterfacesVirtualEthernetDhcpOptions     *InterfacesVirtualEthernetDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesVirtualEthernetDhcpvsixOptions *InterfacesVirtualEthernetDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -36,119 +34,6 @@ func (o *InterfacesVirtualEthernet) GetVyosPath() []string {
 		"interfaces",
 		"virtual-ethernet",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesVirtualEthernet) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "virtual-ethernet"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesVirtualEthernetAddress.IsNull() || o.LeafInterfacesVirtualEthernetAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesVirtualEthernetAddress.ValueString()
-	}
-	if !(o.LeafInterfacesVirtualEthernetDescrIPtion.IsNull() || o.LeafInterfacesVirtualEthernetDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesVirtualEthernetDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesVirtualEthernetDisable.IsNull() || o.LeafInterfacesVirtualEthernetDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesVirtualEthernetDisable.ValueString()
-	}
-	if !(o.LeafInterfacesVirtualEthernetVrf.IsNull() || o.LeafInterfacesVirtualEthernetVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesVirtualEthernetVrf.ValueString()
-	}
-	if !(o.LeafInterfacesVirtualEthernetPeerName.IsNull() || o.LeafInterfacesVirtualEthernetPeerName.IsUnknown()) {
-		vyosData["peer-name"] = o.LeafInterfacesVirtualEthernetPeerName.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesVirtualEthernetDhcpOptions.IsNull() || o.NodeInterfacesVirtualEthernetDhcpOptions.IsUnknown()) {
-		var subModel InterfacesVirtualEthernetDhcpOptions
-		diags.Append(o.NodeInterfacesVirtualEthernetDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesVirtualEthernetDhcpvsixOptions.IsNull() || o.NodeInterfacesVirtualEthernetDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesVirtualEthernetDhcpvsixOptions
-		diags.Append(o.NodeInterfacesVirtualEthernetDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesVirtualEthernet) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "virtual-ethernet"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["peer-name"]; ok {
-		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVirtualEthernetDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVirtualEthernetDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesVirtualEthernetDhcpOptions = basetypes.NewObjectNull(InterfacesVirtualEthernetDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVirtualEthernetDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVirtualEthernetDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesVirtualEthernetDhcpvsixOptions = basetypes.NewObjectNull(InterfacesVirtualEthernetDhcpvsixOptions{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "virtual-ethernet"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesVirtualEthernet) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-		"disable":     types.StringType,
-		"vrf":         types.StringType,
-		"peer_name":   types.StringType,
-
-		// Tags
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesVirtualEthernetDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesVirtualEthernetDhcpvsixOptions{}.AttributeTypes()},
 	}
 }
 
@@ -242,4 +127,143 @@ func (o InterfacesVirtualEthernet) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesVirtualEthernet) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesVirtualEthernetAddress.IsNull() && !o.LeafInterfacesVirtualEthernetAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesVirtualEthernetAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesVirtualEthernetDescrIPtion.IsNull() && !o.LeafInterfacesVirtualEthernetDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesVirtualEthernetDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesVirtualEthernetDisable.IsNull() && !o.LeafInterfacesVirtualEthernetDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesVirtualEthernetDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesVirtualEthernetVrf.IsNull() && !o.LeafInterfacesVirtualEthernetVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesVirtualEthernetVrf.ValueString()
+	}
+
+	if !o.LeafInterfacesVirtualEthernetPeerName.IsNull() && !o.LeafInterfacesVirtualEthernetPeerName.IsUnknown() {
+		jsonData["peer-name"] = o.LeafInterfacesVirtualEthernetPeerName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesVirtualEthernetDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVirtualEthernetDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesVirtualEthernetDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVirtualEthernetDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesVirtualEthernet) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVirtualEthernetAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVirtualEthernetDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVirtualEthernetDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVirtualEthernetVrf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["peer-name"]; ok {
+		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVirtualEthernetPeerName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVirtualEthernetDhcpOptions = &InterfacesVirtualEthernetDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVirtualEthernetDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVirtualEthernetDhcpvsixOptions = &InterfacesVirtualEthernetDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVirtualEthernetDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

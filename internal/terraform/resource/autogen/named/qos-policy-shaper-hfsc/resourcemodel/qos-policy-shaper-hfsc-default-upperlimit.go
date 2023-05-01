@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscDefaultUpperlimit describes the resource data model.
 type QosPolicyShaperHfscDefaultUpperlimit struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscDefaultUpperlimitD    types.String `tfsdk:"d"`
-	LeafQosPolicyShaperHfscDefaultUpperlimitMone types.String `tfsdk:"m1"`
-	LeafQosPolicyShaperHfscDefaultUpperlimitMtwo types.String `tfsdk:"m2"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitD    types.String `tfsdk:"d" json:"d,omitempty"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitMone types.String `tfsdk:"m1" json:"m1,omitempty"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitMtwo types.String `tfsdk:"m2" json:"m2,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscDefaultUpperlimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsUnknown()) {
-		vyosData["d"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitD.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsUnknown()) {
-		vyosData["m1"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsUnknown()) {
-		vyosData["m2"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscDefaultUpperlimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
-
-	// Leafs
-	if value, ok := vyosData["d"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscDefaultUpperlimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"d":  types.StringType,
-		"m1": types.StringType,
-		"m2": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -151,4 +80,69 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscDefaultUpperlimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsUnknown() {
+		jsonData["d"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitD.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsUnknown() {
+		jsonData["m1"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsNull() && !o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsUnknown() {
+		jsonData["m2"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscDefaultUpperlimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["d"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkName describes the resource data model.
@@ -17,18 +15,18 @@ type ServiceDhcpServerSharedNetworkName struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceDhcpServerSharedNetworkNameAuthoritative           types.String `tfsdk:"authoritative"`
-	LeafServiceDhcpServerSharedNetworkNameDomainName              types.String `tfsdk:"domain_name"`
-	LeafServiceDhcpServerSharedNetworkNameDomainSearch            types.String `tfsdk:"domain_search"`
-	LeafServiceDhcpServerSharedNetworkNameNtpServer               types.String `tfsdk:"ntp_server"`
-	LeafServiceDhcpServerSharedNetworkNamePingCheck               types.String `tfsdk:"ping_check"`
-	LeafServiceDhcpServerSharedNetworkNameDescrIPtion             types.String `tfsdk:"description"`
-	LeafServiceDhcpServerSharedNetworkNameDisable                 types.String `tfsdk:"disable"`
-	LeafServiceDhcpServerSharedNetworkNameNameServer              types.String `tfsdk:"name_server"`
-	LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters types.String `tfsdk:"shared_network_parameters"`
+	LeafServiceDhcpServerSharedNetworkNameAuthoritative           types.String `tfsdk:"authoritative" json:"authoritative,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDomainName              types.String `tfsdk:"domain_name" json:"domain-name,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDomainSearch            types.String `tfsdk:"domain_search" json:"domain-search,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameNtpServer               types.String `tfsdk:"ntp_server" json:"ntp-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNamePingCheck               types.String `tfsdk:"ping_check" json:"ping-check,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDescrIPtion             types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameDisable                 types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameNameServer              types.String `tfsdk:"name_server" json:"name-server,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters types.String `tfsdk:"shared_network_parameters" json:"shared-network-parameters,omitempty"`
 
 	// TagNodes
-	TagServiceDhcpServerSharedNetworkNameSubnet types.Map `tfsdk:"subnet"`
+	TagServiceDhcpServerSharedNetworkNameSubnet *map[string]ServiceDhcpServerSharedNetworkNameSubnet `tfsdk:"subnet" json:"subnet,omitempty"`
 
 	// Nodes
 }
@@ -40,146 +38,6 @@ func (o *ServiceDhcpServerSharedNetworkName) GetVyosPath() []string {
 		"dhcp-server",
 		"shared-network-name",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDhcpServerSharedNetworkName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsUnknown()) {
-		vyosData["authoritative"] = o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsUnknown()) {
-		vyosData["domain-name"] = o.LeafServiceDhcpServerSharedNetworkNameDomainName.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsUnknown()) {
-		vyosData["domain-search"] = o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsUnknown()) {
-		vyosData["ntp-server"] = o.LeafServiceDhcpServerSharedNetworkNameNtpServer.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsNull() || o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsUnknown()) {
-		vyosData["ping-check"] = o.LeafServiceDhcpServerSharedNetworkNamePingCheck.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameDisable.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceDhcpServerSharedNetworkNameDisable.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsUnknown()) {
-		vyosData["name-server"] = o.LeafServiceDhcpServerSharedNetworkNameNameServer.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsUnknown()) {
-		vyosData["shared-network-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.ValueString()
-	}
-
-	// Tags
-	if !(o.TagServiceDhcpServerSharedNetworkNameSubnet.IsNull() || o.TagServiceDhcpServerSharedNetworkNameSubnet.IsUnknown()) {
-		subModel := make(map[string]ServiceDhcpServerSharedNetworkNameSubnet)
-		diags.Append(o.TagServiceDhcpServerSharedNetworkNameSubnet.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["subnet"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDhcpServerSharedNetworkName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name"}})
-
-	// Leafs
-	if value, ok := vyosData["authoritative"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["domain-name"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["domain-search"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ntp-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ping-check"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["name-server"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shared-network-parameters"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["subnet"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDhcpServerSharedNetworkNameSubnet{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceDhcpServerSharedNetworkNameSubnet = data
-	} else {
-		o.TagServiceDhcpServerSharedNetworkNameSubnet = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDhcpServerSharedNetworkName) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"authoritative":             types.StringType,
-		"domain_name":               types.StringType,
-		"domain_search":             types.StringType,
-		"ntp_server":                types.StringType,
-		"ping_check":                types.StringType,
-		"description":               types.StringType,
-		"disable":                   types.StringType,
-		"name_server":               types.StringType,
-		"shared_network_parameters": types.StringType,
-
-		// Tags
-		"subnet": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDhcpServerSharedNetworkNameSubnet{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -289,4 +147,156 @@ func (o ServiceDhcpServerSharedNetworkName) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDhcpServerSharedNetworkName) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.IsUnknown() {
+		jsonData["authoritative"] = o.LeafServiceDhcpServerSharedNetworkNameAuthoritative.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDomainName.IsUnknown() {
+		jsonData["domain-name"] = o.LeafServiceDhcpServerSharedNetworkNameDomainName.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.IsUnknown() {
+		jsonData["domain-search"] = o.LeafServiceDhcpServerSharedNetworkNameDomainSearch.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameNtpServer.IsUnknown() {
+		jsonData["ntp-server"] = o.LeafServiceDhcpServerSharedNetworkNameNtpServer.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNamePingCheck.IsUnknown() {
+		jsonData["ping-check"] = o.LeafServiceDhcpServerSharedNetworkNamePingCheck.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameDisable.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceDhcpServerSharedNetworkNameDisable.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameNameServer.IsUnknown() {
+		jsonData["name-server"] = o.LeafServiceDhcpServerSharedNetworkNameNameServer.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.IsUnknown() {
+		jsonData["shared-network-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceDhcpServerSharedNetworkNameSubnet).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceDhcpServerSharedNetworkNameSubnet)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["subnet"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDhcpServerSharedNetworkName) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["authoritative"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameAuthoritative = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["domain-name"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameDomainName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["domain-search"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameDomainSearch = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ntp-server"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameNtpServer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ping-check"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNamePingCheck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["name-server"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameNameServer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shared-network-parameters"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSharedNetworkParameters = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["subnet"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceDhcpServerSharedNetworkNameSubnet = &map[string]ServiceDhcpServerSharedNetworkNameSubnet{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceDhcpServerSharedNetworkNameSubnet)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

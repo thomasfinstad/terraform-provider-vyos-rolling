@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatDestinationRule describes the resource data model.
@@ -17,20 +15,20 @@ type NatDestinationRule struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafNatDestinationRuleDescrIPtion      types.String `tfsdk:"description"`
-	LeafNatDestinationRuleDisable          types.String `tfsdk:"disable"`
-	LeafNatDestinationRuleExclude          types.String `tfsdk:"exclude"`
-	LeafNatDestinationRuleLog              types.String `tfsdk:"log"`
-	LeafNatDestinationRulePacketType       types.String `tfsdk:"packet_type"`
-	LeafNatDestinationRuleProtocol         types.String `tfsdk:"protocol"`
-	LeafNatDestinationRuleInboundInterface types.String `tfsdk:"inbound_interface"`
+	LeafNatDestinationRuleDescrIPtion      types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafNatDestinationRuleDisable          types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafNatDestinationRuleExclude          types.String `tfsdk:"exclude" json:"exclude,omitempty"`
+	LeafNatDestinationRuleLog              types.String `tfsdk:"log" json:"log,omitempty"`
+	LeafNatDestinationRulePacketType       types.String `tfsdk:"packet_type" json:"packet-type,omitempty"`
+	LeafNatDestinationRuleProtocol         types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafNatDestinationRuleInboundInterface types.String `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeNatDestinationRuleDestination types.Object `tfsdk:"destination"`
-	NodeNatDestinationRuleSource      types.Object `tfsdk:"source"`
-	NodeNatDestinationRuleTranSLAtion types.Object `tfsdk:"translation"`
+	NodeNatDestinationRuleDestination *NatDestinationRuleDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodeNatDestinationRuleSource      *NatDestinationRuleSource      `tfsdk:"source" json:"source,omitempty"`
+	NodeNatDestinationRuleTranSLAtion *NatDestinationRuleTranSLAtion `tfsdk:"translation" json:"translation,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -40,151 +38,6 @@ func (o *NatDestinationRule) GetVyosPath() []string {
 		"destination",
 		"rule",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatDestinationRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "destination", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatDestinationRuleDescrIPtion.IsNull() || o.LeafNatDestinationRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafNatDestinationRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleDisable.IsNull() || o.LeafNatDestinationRuleDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafNatDestinationRuleDisable.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleExclude.IsNull() || o.LeafNatDestinationRuleExclude.IsUnknown()) {
-		vyosData["exclude"] = o.LeafNatDestinationRuleExclude.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleLog.IsNull() || o.LeafNatDestinationRuleLog.IsUnknown()) {
-		vyosData["log"] = o.LeafNatDestinationRuleLog.ValueString()
-	}
-	if !(o.LeafNatDestinationRulePacketType.IsNull() || o.LeafNatDestinationRulePacketType.IsUnknown()) {
-		vyosData["packet-type"] = o.LeafNatDestinationRulePacketType.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleProtocol.IsNull() || o.LeafNatDestinationRuleProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafNatDestinationRuleProtocol.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleInboundInterface.IsNull() || o.LeafNatDestinationRuleInboundInterface.IsUnknown()) {
-		vyosData["inbound-interface"] = o.LeafNatDestinationRuleInboundInterface.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeNatDestinationRuleDestination.IsNull() || o.NodeNatDestinationRuleDestination.IsUnknown()) {
-		var subModel NatDestinationRuleDestination
-		diags.Append(o.NodeNatDestinationRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeNatDestinationRuleSource.IsNull() || o.NodeNatDestinationRuleSource.IsUnknown()) {
-		var subModel NatDestinationRuleSource
-		diags.Append(o.NodeNatDestinationRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeNatDestinationRuleTranSLAtion.IsNull() || o.NodeNatDestinationRuleTranSLAtion.IsUnknown()) {
-		var subModel NatDestinationRuleTranSLAtion
-		diags.Append(o.NodeNatDestinationRuleTranSLAtion.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["translation"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatDestinationRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "destination", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafNatDestinationRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["exclude"]; ok {
-		o.LeafNatDestinationRuleExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleExclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["log"]; ok {
-		o.LeafNatDestinationRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleLog = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-type"]; ok {
-		o.LeafNatDestinationRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRulePacketType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafNatDestinationRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["inbound-interface"]; ok {
-		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatDestinationRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatDestinationRuleDestination = data
-
-	} else {
-		o.NodeNatDestinationRuleDestination = basetypes.NewObjectNull(NatDestinationRuleDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatDestinationRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatDestinationRuleSource = data
-
-	} else {
-		o.NodeNatDestinationRuleSource = basetypes.NewObjectNull(NatDestinationRuleSource{}.AttributeTypes())
-	}
-	if value, ok := vyosData["translation"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatDestinationRuleTranSLAtion{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatDestinationRuleTranSLAtion = data
-
-	} else {
-		o.NodeNatDestinationRuleTranSLAtion = basetypes.NewObjectNull(NatDestinationRuleTranSLAtion{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "destination", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatDestinationRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":       types.StringType,
-		"disable":           types.StringType,
-		"exclude":           types.StringType,
-		"log":               types.StringType,
-		"packet_type":       types.StringType,
-		"protocol":          types.StringType,
-		"inbound_interface": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: NatDestinationRuleDestination{}.AttributeTypes()},
-		"source":      types.ObjectType{AttrTypes: NatDestinationRuleSource{}.AttributeTypes()},
-		"translation": types.ObjectType{AttrTypes: NatDestinationRuleTranSLAtion{}.AttributeTypes()},
 	}
 }
 
@@ -357,4 +210,190 @@ func (o NatDestinationRule) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatDestinationRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatDestinationRuleDescrIPtion.IsNull() && !o.LeafNatDestinationRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafNatDestinationRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleDisable.IsNull() && !o.LeafNatDestinationRuleDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafNatDestinationRuleDisable.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleExclude.IsNull() && !o.LeafNatDestinationRuleExclude.IsUnknown() {
+		jsonData["exclude"] = o.LeafNatDestinationRuleExclude.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleLog.IsNull() && !o.LeafNatDestinationRuleLog.IsUnknown() {
+		jsonData["log"] = o.LeafNatDestinationRuleLog.ValueString()
+	}
+
+	if !o.LeafNatDestinationRulePacketType.IsNull() && !o.LeafNatDestinationRulePacketType.IsUnknown() {
+		jsonData["packet-type"] = o.LeafNatDestinationRulePacketType.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleProtocol.IsNull() && !o.LeafNatDestinationRuleProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafNatDestinationRuleProtocol.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleInboundInterface.IsNull() && !o.LeafNatDestinationRuleInboundInterface.IsUnknown() {
+		jsonData["inbound-interface"] = o.LeafNatDestinationRuleInboundInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeNatDestinationRuleDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeNatDestinationRuleSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeNatDestinationRuleTranSLAtion).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatDestinationRuleTranSLAtion)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["translation"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatDestinationRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafNatDestinationRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["exclude"]; ok {
+		o.LeafNatDestinationRuleExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleExclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["log"]; ok {
+		o.LeafNatDestinationRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleLog = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-type"]; ok {
+		o.LeafNatDestinationRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRulePacketType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafNatDestinationRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["inbound-interface"]; ok {
+		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleInboundInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatDestinationRuleDestination = &NatDestinationRuleDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatDestinationRuleSource = &NatDestinationRuleSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleSource)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["translation"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatDestinationRuleTranSLAtion = &NatDestinationRuleTranSLAtion{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatDestinationRuleTranSLAtion)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

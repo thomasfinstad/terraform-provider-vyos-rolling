@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticArpInterfaceAddress describes the resource data model.
 type ProtocolsStaticArpInterfaceAddress struct {
 	// LeafNodes
-	LeafProtocolsStaticArpInterfaceAddressDescrIPtion types.String `tfsdk:"description"`
-	LeafProtocolsStaticArpInterfaceAddressMac         types.String `tfsdk:"mac"`
+	LeafProtocolsStaticArpInterfaceAddressDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafProtocolsStaticArpInterfaceAddressMac         types.String `tfsdk:"mac" json:"mac,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticArpInterfaceAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsNull() || o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.ValueString()
-	}
-	if !(o.LeafProtocolsStaticArpInterfaceAddressMac.IsNull() || o.LeafProtocolsStaticArpInterfaceAddressMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafProtocolsStaticArpInterfaceAddressMac.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticArpInterfaceAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticArpInterfaceAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"mac":         types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticArpInterfaceAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsNull() && !o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticArpInterfaceAddressMac.IsNull() && !o.LeafProtocolsStaticArpInterfaceAddressMac.IsUnknown() {
+		jsonData["mac"] = o.LeafProtocolsStaticArpInterfaceAddressMac.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticArpInterfaceAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

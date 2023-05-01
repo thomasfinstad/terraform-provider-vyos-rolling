@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborInterface describes the resource data model.
 type VrfNameProtocolsBgpNeighborInterface struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup       types.String `tfsdk:"peer_group"`
-	LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs        types.String `tfsdk:"remote_as"`
-	LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface types.String `tfsdk:"source_interface"`
+	LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup       types.String `tfsdk:"peer_group" json:"peer-group,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs        types.String `tfsdk:"remote_as" json:"remote-as,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface types.String `tfsdk:"source_interface" json:"source-interface,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly types.Object `tfsdk:"v6only"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsUnknown()) {
-		vyosData["peer-group"] = o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsUnknown()) {
-		vyosData["remote-as"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsUnknown()) {
-		vyosData["source-interface"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.IsNull() || o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpNeighborInterfaceVsixonly
-		diags.Append(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["v6only"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["peer-group"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-as"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source-interface"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["v6only"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"peer_group":       types.StringType,
-		"remote_as":        types.StringType,
-		"source_interface": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"v6only": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly *VrfNameProtocolsBgpNeighborInterfaceVsixonly `tfsdk:"v6only" json:"v6only,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -158,4 +75,96 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[str
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsUnknown() {
+		jsonData["peer-group"] = o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsUnknown() {
+		jsonData["remote-as"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsUnknown() {
+		jsonData["source-interface"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["v6only"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["peer-group"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-as"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source-interface"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["v6only"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly = &VrfNameProtocolsBgpNeighborInterfaceVsixonly{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticMapping describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticMapping struct {
 	// LeafNodes
-	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable                 types.String `tfsdk:"disable"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress               types.String `tfsdk:"ip_address"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress              types.String `tfsdk:"mac_address"`
-	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters types.String `tfsdk:"static_mapping_parameters"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable                 types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress               types.String `tfsdk:"ip_address" json:"ip-address,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress              types.String `tfsdk:"mac_address" json:"mac-address,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters types.String `tfsdk:"static_mapping_parameters" json:"static-mapping-parameters,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-mapping"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.IsUnknown()) {
-		vyosData["ip-address"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.IsUnknown()) {
-		vyosData["mac-address"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.ValueString()
-	}
-	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.IsUnknown()) {
-		vyosData["static-mapping-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-mapping"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ip-address"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac-address"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["static-mapping-parameters"]; ok {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-mapping"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":                   types.StringType,
-		"ip_address":                types.StringType,
-		"mac_address":               types.StringType,
-		"static_mapping_parameters": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -148,4 +68,79 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) ResourceSchemaAtt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.IsUnknown() {
+		jsonData["ip-address"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.IsUnknown() {
+		jsonData["mac-address"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress.ValueString()
+	}
+
+	if !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.IsNull() && !o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.IsUnknown() {
+		jsonData["static-mapping-parameters"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticMapping) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ip-address"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingIPAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac-address"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingMacAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["static-mapping-parameters"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticMappingStaticMappingParameters = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne describes the resource data model.
 type VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways   types.String `tfsdk:"always"`
-	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric   types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways   types.String `tfsdk:"always" json:"always,omitempty"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric   types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4", "level-1"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.IsUnknown()) {
-		vyosData["always"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4", "level-1"}})
-
-	// Leafs
-	if value, ok := vyosData["always"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv4", "level-1"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"always":    types.StringType,
-		"metric":    types.StringType,
-		"route_map": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -131,4 +60,69 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) Resource
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.IsUnknown() {
+		jsonData["always"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.IsNull() && !o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOne) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["always"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneAlways = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvfourLevelOneRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

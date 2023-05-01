@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.String `tfsdk:"backdoor"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.String `tfsdk:"backdoor" json:"backdoor,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsUnknown()) {
-		vyosData["backdoor"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["backdoor"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"backdoor":  types.StringType,
-		"route_map": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +48,59 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsUnknown() {
+		jsonData["backdoor"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["backdoor"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesDummyIP describes the resource data model.
 type InterfacesDummyIP struct {
 	// LeafNodes
-	LeafInterfacesDummyIPSourceValIDation  types.String `tfsdk:"source_validation"`
-	LeafInterfacesDummyIPDisableForwarding types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesDummyIPSourceValIDation  types.String `tfsdk:"source_validation" json:"source-validation,omitempty"`
+	LeafInterfacesDummyIPDisableForwarding types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesDummyIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ip"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesDummyIPSourceValIDation.IsNull() || o.LeafInterfacesDummyIPSourceValIDation.IsUnknown()) {
-		vyosData["source-validation"] = o.LeafInterfacesDummyIPSourceValIDation.ValueString()
-	}
-	if !(o.LeafInterfacesDummyIPDisableForwarding.IsNull() || o.LeafInterfacesDummyIPDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesDummyIPDisableForwarding.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesDummyIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ip"}})
-
-	// Leafs
-	if value, ok := vyosData["source-validation"]; ok {
-		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ip"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesDummyIP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"source_validation":  types.StringType,
-		"disable_forwarding": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -112,4 +50,59 @@ func (o InterfacesDummyIP) ResourceSchemaAttributes() map[string]schema.Attribut
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesDummyIP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesDummyIPSourceValIDation.IsNull() && !o.LeafInterfacesDummyIPSourceValIDation.IsUnknown() {
+		jsonData["source-validation"] = o.LeafInterfacesDummyIPSourceValIDation.ValueString()
+	}
+
+	if !o.LeafInterfacesDummyIPDisableForwarding.IsNull() && !o.LeafInterfacesDummyIPDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesDummyIPDisableForwarding.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesDummyIP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["source-validation"]; ok {
+		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPDisableForwarding = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

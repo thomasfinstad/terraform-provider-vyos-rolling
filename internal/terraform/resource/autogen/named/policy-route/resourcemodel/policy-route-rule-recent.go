@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleRecent describes the resource data model.
 type PolicyRouteRuleRecent struct {
 	// LeafNodes
-	LeafPolicyRouteRuleRecentCount types.String `tfsdk:"count"`
-	LeafPolicyRouteRuleRecentTime  types.String `tfsdk:"time"`
+	LeafPolicyRouteRuleRecentCount types.String `tfsdk:"count" json:"count,omitempty"`
+	LeafPolicyRouteRuleRecentTime  types.String `tfsdk:"time" json:"time,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleRecent) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "recent"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleRecentCount.IsNull() || o.LeafPolicyRouteRuleRecentCount.IsUnknown()) {
-		vyosData["count"] = o.LeafPolicyRouteRuleRecentCount.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleRecentTime.IsNull() || o.LeafPolicyRouteRuleRecentTime.IsUnknown()) {
-		vyosData["time"] = o.LeafPolicyRouteRuleRecentTime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleRecent) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "recent"}})
-
-	// Leafs
-	if value, ok := vyosData["count"]; ok {
-		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["time"]; ok {
-		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "recent"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleRecent) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"count": types.StringType,
-		"time":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o PolicyRouteRuleRecent) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleRecent) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleRecentCount.IsNull() && !o.LeafPolicyRouteRuleRecentCount.IsUnknown() {
+		jsonData["count"] = o.LeafPolicyRouteRuleRecentCount.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleRecentTime.IsNull() && !o.LeafPolicyRouteRuleRecentTime.IsUnknown() {
+		jsonData["time"] = o.LeafPolicyRouteRuleRecentTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleRecent) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["count"]; ok {
+		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleRecentCount = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["time"]; ok {
+		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleRecentTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

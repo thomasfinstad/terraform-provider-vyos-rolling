@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterfaceLocationCoordinateBased describes the resource data model.
 type ServiceLldpInterfaceLocationCoordinateBased struct {
 	// LeafNodes
-	LeafServiceLldpInterfaceLocationCoordinateBasedAltitude  types.String `tfsdk:"altitude"`
-	LeafServiceLldpInterfaceLocationCoordinateBasedDatum     types.String `tfsdk:"datum"`
-	LeafServiceLldpInterfaceLocationCoordinateBasedLatitude  types.String `tfsdk:"latitude"`
-	LeafServiceLldpInterfaceLocationCoordinateBasedLongitude types.String `tfsdk:"longitude"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedAltitude  types.String `tfsdk:"altitude" json:"altitude,omitempty"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedDatum     types.String `tfsdk:"datum" json:"datum,omitempty"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedLatitude  types.String `tfsdk:"latitude" json:"latitude,omitempty"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedLongitude types.String `tfsdk:"longitude" json:"longitude,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceLldpInterfaceLocationCoordinateBased) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsUnknown()) {
-		vyosData["altitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.ValueString()
-	}
-	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsUnknown()) {
-		vyosData["datum"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.ValueString()
-	}
-	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsUnknown()) {
-		vyosData["latitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.ValueString()
-	}
-	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsUnknown()) {
-		vyosData["longitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceLldpInterfaceLocationCoordinateBased) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
-
-	// Leafs
-	if value, ok := vyosData["altitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["datum"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["latitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["longitude"]; ok {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceLldpInterfaceLocationCoordinateBased) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"altitude":  types.StringType,
-		"datum":     types.StringType,
-		"latitude":  types.StringType,
-		"longitude": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -165,4 +85,79 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceLldpInterfaceLocationCoordinateBased) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsUnknown() {
+		jsonData["altitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.ValueString()
+	}
+
+	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsUnknown() {
+		jsonData["datum"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.ValueString()
+	}
+
+	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsUnknown() {
+		jsonData["latitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.ValueString()
+	}
+
+	if !o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsNull() && !o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsUnknown() {
+		jsonData["longitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceLldpInterfaceLocationCoordinateBased) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["altitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["datum"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["latitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["longitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

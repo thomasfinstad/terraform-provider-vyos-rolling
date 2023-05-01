@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf describes the resource data model.
@@ -19,61 +15,7 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList types.Object `tfsdk:"prefix_list"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList
-		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["prefix-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"prefix_list": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) Reso
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix-list"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrf) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["prefix-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList = &VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

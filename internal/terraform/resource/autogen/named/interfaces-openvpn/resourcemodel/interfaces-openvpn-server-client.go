@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClient describes the resource data model.
 type InterfacesOpenvpnServerClient struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerClientDisable   types.String `tfsdk:"disable"`
-	LeafInterfacesOpenvpnServerClientIP        types.String `tfsdk:"ip"`
-	LeafInterfacesOpenvpnServerClientPushRoute types.String `tfsdk:"push_route"`
-	LeafInterfacesOpenvpnServerClientSubnet    types.String `tfsdk:"subnet"`
+	LeafInterfacesOpenvpnServerClientDisable   types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesOpenvpnServerClientIP        types.String `tfsdk:"ip" json:"ip,omitempty"`
+	LeafInterfacesOpenvpnServerClientPushRoute types.String `tfsdk:"push_route" json:"push-route,omitempty"`
+	LeafInterfacesOpenvpnServerClientSubnet    types.String `tfsdk:"subnet" json:"subnet,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerClient) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnServerClientDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientDisable.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientIP.IsNull() || o.LeafInterfacesOpenvpnServerClientIP.IsUnknown()) {
-		vyosData["ip"] = o.LeafInterfacesOpenvpnServerClientIP.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientPushRoute.IsNull() || o.LeafInterfacesOpenvpnServerClientPushRoute.IsUnknown()) {
-		vyosData["push-route"] = o.LeafInterfacesOpenvpnServerClientPushRoute.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientSubnet.IsNull() || o.LeafInterfacesOpenvpnServerClientSubnet.IsUnknown()) {
-		vyosData["subnet"] = o.LeafInterfacesOpenvpnServerClientSubnet.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerClient) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ip"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["push-route"]; ok {
-		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["subnet"]; ok {
-		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerClient) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":    types.StringType,
-		"ip":         types.StringType,
-		"push_route": types.StringType,
-		"subnet":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -155,4 +75,79 @@ func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerClient) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnServerClientDisable.IsNull() && !o.LeafInterfacesOpenvpnServerClientDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesOpenvpnServerClientDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientIP.IsNull() && !o.LeafInterfacesOpenvpnServerClientIP.IsUnknown() {
+		jsonData["ip"] = o.LeafInterfacesOpenvpnServerClientIP.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientPushRoute.IsNull() && !o.LeafInterfacesOpenvpnServerClientPushRoute.IsUnknown() {
+		jsonData["push-route"] = o.LeafInterfacesOpenvpnServerClientPushRoute.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientSubnet.IsNull() && !o.LeafInterfacesOpenvpnServerClientSubnet.IsUnknown() {
+		jsonData["subnet"] = o.LeafInterfacesOpenvpnServerClientSubnet.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerClient) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ip"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["push-route"]; ok {
+		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["subnet"]; ok {
+		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

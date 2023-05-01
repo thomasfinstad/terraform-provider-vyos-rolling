@@ -2,133 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessConnectionAuthentication describes the resource data model.
 type VpnIPsecRemoteAccessConnectionAuthentication struct {
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID         types.String `tfsdk:"local_id"`
-	LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode      types.String `tfsdk:"client_mode"`
-	LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode      types.String `tfsdk:"server_mode"`
-	LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret types.String `tfsdk:"pre_shared_secret"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID         types.String `tfsdk:"local_id" json:"local-id,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode      types.String `tfsdk:"client_mode" json:"client-mode,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode      types.String `tfsdk:"server_mode" json:"server-mode,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret types.String `tfsdk:"pre_shared_secret" json:"pre-shared-secret,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine types.Object `tfsdk:"x509"`
-	NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers    types.Object `tfsdk:"local_users"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecRemoteAccessConnectionAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsUnknown()) {
-		vyosData["local-id"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsUnknown()) {
-		vyosData["client-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsUnknown()) {
-		vyosData["server-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsUnknown()) {
-		vyosData["pre-shared-secret"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine.IsNull() || o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine.IsUnknown()) {
-		var subModel VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine
-		diags.Append(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["x509"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers.IsNull() || o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers.IsUnknown()) {
-		var subModel VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers
-		diags.Append(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["local-users"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecRemoteAccessConnectionAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication"}})
-
-	// Leafs
-	if value, ok := vyosData["local-id"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["client-mode"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["server-mode"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["pre-shared-secret"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["x509"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine = data
-
-	} else {
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine = basetypes.NewObjectNull(VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine{}.AttributeTypes())
-	}
-	if value, ok := vyosData["local-users"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers = data
-
-	} else {
-		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers = basetypes.NewObjectNull(VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecRemoteAccessConnectionAuthentication) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"local_id":          types.StringType,
-		"client_mode":       types.StringType,
-		"server_mode":       types.StringType,
-		"pre_shared_secret": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"x509":        types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine{}.AttributeTypes()},
-		"local_users": types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}.AttributeTypes()},
-	}
+	NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine *VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine `tfsdk:"x509" json:"x509,omitempty"`
+	NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers    *VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers    `tfsdk:"local_users" json:"local-users,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -209,4 +103,133 @@ func (o VpnIPsecRemoteAccessConnectionAuthentication) ResourceSchemaAttributes()
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecRemoteAccessConnectionAuthentication) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.IsUnknown() {
+		jsonData["local-id"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.IsUnknown() {
+		jsonData["client-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.IsUnknown() {
+		jsonData["server-mode"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.IsUnknown() {
+		jsonData["pre-shared-secret"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["x509"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local-users"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecRemoteAccessConnectionAuthentication) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["local-id"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationLocalID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["client-mode"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationClientMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["server-mode"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationServerMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["pre-shared-secret"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationPreSharedSecret = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["x509"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine = &VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["local-users"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers = &VpnIPsecRemoteAccessConnectionAuthenticationLocalUsers{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionAuthenticationLocalUsers)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

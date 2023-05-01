@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfaceInterval describes the resource data model.
 type ServiceRouterAdvertInterfaceInterval struct {
 	// LeafNodes
-	LeafServiceRouterAdvertInterfaceIntervalMax types.String `tfsdk:"max"`
-	LeafServiceRouterAdvertInterfaceIntervalMin types.String `tfsdk:"min"`
+	LeafServiceRouterAdvertInterfaceIntervalMax types.String `tfsdk:"max" json:"max,omitempty"`
+	LeafServiceRouterAdvertInterfaceIntervalMin types.String `tfsdk:"min" json:"min,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceRouterAdvertInterfaceInterval) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceRouterAdvertInterfaceIntervalMax.IsNull() || o.LeafServiceRouterAdvertInterfaceIntervalMax.IsUnknown()) {
-		vyosData["max"] = o.LeafServiceRouterAdvertInterfaceIntervalMax.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfaceIntervalMin.IsNull() || o.LeafServiceRouterAdvertInterfaceIntervalMin.IsUnknown()) {
-		vyosData["min"] = o.LeafServiceRouterAdvertInterfaceIntervalMin.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceRouterAdvertInterfaceInterval) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
-
-	// Leafs
-	if value, ok := vyosData["max"]; ok {
-		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["min"]; ok {
-		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceRouterAdvertInterfaceInterval) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"max": types.StringType,
-		"min": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -117,4 +55,59 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceRouterAdvertInterfaceInterval) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceRouterAdvertInterfaceIntervalMax.IsNull() && !o.LeafServiceRouterAdvertInterfaceIntervalMax.IsUnknown() {
+		jsonData["max"] = o.LeafServiceRouterAdvertInterfaceIntervalMax.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfaceIntervalMin.IsNull() && !o.LeafServiceRouterAdvertInterfaceIntervalMin.IsUnknown() {
+		jsonData["min"] = o.LeafServiceRouterAdvertInterfaceIntervalMin.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceRouterAdvertInterfaceInterval) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["max"]; ok {
+		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["min"]; ok {
+		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

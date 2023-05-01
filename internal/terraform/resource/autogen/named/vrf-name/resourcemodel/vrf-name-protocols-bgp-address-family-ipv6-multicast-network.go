@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.String `tfsdk:"path_limit"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap  types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.String `tfsdk:"path_limit" json:"path-limit,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap  types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsUnknown()) {
-		vyosData["path-limit"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["path-limit"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"path_limit": types.StringType,
-		"route_map":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsUnknown() {
+		jsonData["path-limit"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["path-limit"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

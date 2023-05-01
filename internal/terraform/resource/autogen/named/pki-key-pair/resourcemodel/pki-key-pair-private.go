@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiKeyPairPrivate describes the resource data model.
 type PkiKeyPairPrivate struct {
 	// LeafNodes
-	LeafPkiKeyPairPrivateKey               types.String `tfsdk:"key"`
-	LeafPkiKeyPairPrivatePasswordProtected types.String `tfsdk:"password_protected"`
+	LeafPkiKeyPairPrivateKey               types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafPkiKeyPairPrivatePasswordProtected types.String `tfsdk:"password_protected" json:"password-protected,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PkiKeyPairPrivate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "key-pair", "private"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPkiKeyPairPrivateKey.IsNull() || o.LeafPkiKeyPairPrivateKey.IsUnknown()) {
-		vyosData["key"] = o.LeafPkiKeyPairPrivateKey.ValueString()
-	}
-	if !(o.LeafPkiKeyPairPrivatePasswordProtected.IsNull() || o.LeafPkiKeyPairPrivatePasswordProtected.IsUnknown()) {
-		vyosData["password-protected"] = o.LeafPkiKeyPairPrivatePasswordProtected.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PkiKeyPairPrivate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "key-pair", "private"}})
-
-	// Leafs
-	if value, ok := vyosData["key"]; ok {
-		o.LeafPkiKeyPairPrivateKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiKeyPairPrivateKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["password-protected"]; ok {
-		o.LeafPkiKeyPairPrivatePasswordProtected = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiKeyPairPrivatePasswordProtected = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "key-pair", "private"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PkiKeyPairPrivate) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"key":                types.StringType,
-		"password_protected": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o PkiKeyPairPrivate) ResourceSchemaAttributes() map[string]schema.Attribut
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PkiKeyPairPrivate) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPkiKeyPairPrivateKey.IsNull() && !o.LeafPkiKeyPairPrivateKey.IsUnknown() {
+		jsonData["key"] = o.LeafPkiKeyPairPrivateKey.ValueString()
+	}
+
+	if !o.LeafPkiKeyPairPrivatePasswordProtected.IsNull() && !o.LeafPkiKeyPairPrivatePasswordProtected.IsUnknown() {
+		jsonData["password-protected"] = o.LeafPkiKeyPairPrivatePasswordProtected.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PkiKeyPairPrivate) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafPkiKeyPairPrivateKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiKeyPairPrivateKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["password-protected"]; ok {
+		o.LeafPkiKeyPairPrivatePasswordProtected = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiKeyPairPrivatePasswordProtected = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

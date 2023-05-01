@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborBfd describes the resource data model.
 type VrfNameProtocolsBgpNeighborBfd struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborBfdProfile                  types.String `tfsdk:"profile"`
-	LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure types.String `tfsdk:"check_control_plane_failure"`
+	LeafVrfNameProtocolsBgpNeighborBfdProfile                  types.String `tfsdk:"profile" json:"profile,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure types.String `tfsdk:"check_control_plane_failure" json:"check-control-plane-failure,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborBfd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsNull() || o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsUnknown()) {
-		vyosData["profile"] = o.LeafVrfNameProtocolsBgpNeighborBfdProfile.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsNull() || o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsUnknown()) {
-		vyosData["check-control-plane-failure"] = o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborBfd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
-
-	// Leafs
-	if value, ok := vyosData["profile"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["check-control-plane-failure"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborBfd) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"profile":                     types.StringType,
-		"check_control_plane_failure": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +48,59 @@ func (o VrfNameProtocolsBgpNeighborBfd) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborBfd) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsUnknown() {
+		jsonData["profile"] = o.LeafVrfNameProtocolsBgpNeighborBfdProfile.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsUnknown() {
+		jsonData["check-control-plane-failure"] = o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborBfd) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["profile"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["check-control-plane-failure"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

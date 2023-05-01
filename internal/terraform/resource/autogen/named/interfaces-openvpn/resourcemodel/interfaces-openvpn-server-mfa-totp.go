@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerMfaTotp describes the resource data model.
 type InterfacesOpenvpnServerMfaTotp struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerMfaTotpSlop      types.String `tfsdk:"slop"`
-	LeafInterfacesOpenvpnServerMfaTotpDrift     types.String `tfsdk:"drift"`
-	LeafInterfacesOpenvpnServerMfaTotpStep      types.String `tfsdk:"step"`
-	LeafInterfacesOpenvpnServerMfaTotpDigits    types.String `tfsdk:"digits"`
-	LeafInterfacesOpenvpnServerMfaTotpChallenge types.String `tfsdk:"challenge"`
+	LeafInterfacesOpenvpnServerMfaTotpSlop      types.String `tfsdk:"slop" json:"slop,omitempty"`
+	LeafInterfacesOpenvpnServerMfaTotpDrift     types.String `tfsdk:"drift" json:"drift,omitempty"`
+	LeafInterfacesOpenvpnServerMfaTotpStep      types.String `tfsdk:"step" json:"step,omitempty"`
+	LeafInterfacesOpenvpnServerMfaTotpDigits    types.String `tfsdk:"digits" json:"digits,omitempty"`
+	LeafInterfacesOpenvpnServerMfaTotpChallenge types.String `tfsdk:"challenge" json:"challenge,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerMfaTotp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsUnknown()) {
-		vyosData["slop"] = o.LeafInterfacesOpenvpnServerMfaTotpSlop.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsUnknown()) {
-		vyosData["drift"] = o.LeafInterfacesOpenvpnServerMfaTotpDrift.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerMfaTotpStep.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpStep.IsUnknown()) {
-		vyosData["step"] = o.LeafInterfacesOpenvpnServerMfaTotpStep.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsUnknown()) {
-		vyosData["digits"] = o.LeafInterfacesOpenvpnServerMfaTotpDigits.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsUnknown()) {
-		vyosData["challenge"] = o.LeafInterfacesOpenvpnServerMfaTotpChallenge.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerMfaTotp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
-
-	// Leafs
-	if value, ok := vyosData["slop"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["drift"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["step"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["digits"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["challenge"]; ok {
-		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerMfaTotp) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"slop":      types.StringType,
-		"drift":     types.StringType,
-		"step":      types.StringType,
-		"digits":    types.StringType,
-		"challenge": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -193,4 +104,89 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerMfaTotp) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsUnknown() {
+		jsonData["slop"] = o.LeafInterfacesOpenvpnServerMfaTotpSlop.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsUnknown() {
+		jsonData["drift"] = o.LeafInterfacesOpenvpnServerMfaTotpDrift.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerMfaTotpStep.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpStep.IsUnknown() {
+		jsonData["step"] = o.LeafInterfacesOpenvpnServerMfaTotpStep.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsUnknown() {
+		jsonData["digits"] = o.LeafInterfacesOpenvpnServerMfaTotpDigits.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsNull() && !o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsUnknown() {
+		jsonData["challenge"] = o.LeafInterfacesOpenvpnServerMfaTotpChallenge.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerMfaTotp) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["slop"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["drift"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["step"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["digits"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["challenge"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

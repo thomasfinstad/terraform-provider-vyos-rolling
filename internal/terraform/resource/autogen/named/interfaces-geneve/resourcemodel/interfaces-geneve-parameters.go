@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesGeneveParameters describes the resource data model.
@@ -19,76 +15,8 @@ type InterfacesGeneveParameters struct {
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesGeneveParametersIP     types.Object `tfsdk:"ip"`
-	NodeInterfacesGeneveParametersIPvsix types.Object `tfsdk:"ipv6"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesGeneveParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesGeneveParametersIP.IsNull() || o.NodeInterfacesGeneveParametersIP.IsUnknown()) {
-		var subModel InterfacesGeneveParametersIP
-		diags.Append(o.NodeInterfacesGeneveParametersIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesGeneveParametersIPvsix.IsNull() || o.NodeInterfacesGeneveParametersIPvsix.IsUnknown()) {
-		var subModel InterfacesGeneveParametersIPvsix
-		diags.Append(o.NodeInterfacesGeneveParametersIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesGeneveParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveParametersIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveParametersIP = data
-
-	} else {
-		o.NodeInterfacesGeneveParametersIP = basetypes.NewObjectNull(InterfacesGeneveParametersIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveParametersIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesGeneveParametersIPvsix = data
-
-	} else {
-		o.NodeInterfacesGeneveParametersIPvsix = basetypes.NewObjectNull(InterfacesGeneveParametersIPvsix{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesGeneveParameters) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"ip":   types.ObjectType{AttrTypes: InterfacesGeneveParametersIP{}.AttributeTypes()},
-		"ipv6": types.ObjectType{AttrTypes: InterfacesGeneveParametersIPvsix{}.AttributeTypes()},
-	}
+	NodeInterfacesGeneveParametersIP     *InterfacesGeneveParametersIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesGeneveParametersIPvsix *InterfacesGeneveParametersIPvsix `tfsdk:"ipv6" json:"ipv6,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -116,4 +44,93 @@ func (o InterfacesGeneveParameters) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesGeneveParameters) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveParametersIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveParametersIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesGeneveParametersIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesGeneveParametersIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesGeneveParameters) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveParametersIP = &InterfacesGeneveParametersIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveParametersIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesGeneveParametersIPvsix = &InterfacesGeneveParametersIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesGeneveParametersIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

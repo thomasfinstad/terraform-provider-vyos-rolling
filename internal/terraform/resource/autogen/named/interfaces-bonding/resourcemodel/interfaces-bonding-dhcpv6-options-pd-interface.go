@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesBondingDhcpvsixOptionsPdInterface struct {
 	// LeafNodes
-	LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address"`
-	LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id"`
+	LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id" json:"sla-id,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingDhcpvsixOptionsPdInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "dhcpv6-options", "pd", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.IsNull() || o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.ValueString()
-	}
-	if !(o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.IsNull() || o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.IsUnknown()) {
-		vyosData["sla-id"] = o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingDhcpvsixOptionsPdInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "dhcpv6-options", "pd", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["sla-id"]; ok {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "dhcpv6-options", "pd", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingDhcpvsixOptionsPdInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"sla_id":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o InterfacesBondingDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingDhcpvsixOptionsPdInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.IsNull() && !o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.IsNull() && !o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.IsUnknown() {
+		jsonData["sla-id"] = o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingDhcpvsixOptionsPdInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["sla-id"]; ok {
+		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

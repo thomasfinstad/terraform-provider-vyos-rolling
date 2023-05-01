@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupInterfaceGroup describes the resource data model.
@@ -17,9 +14,9 @@ type FirewallGroupInterfaceGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafFirewallGroupInterfaceGroupInterface   types.String `tfsdk:"interface"`
-	LeafFirewallGroupInterfaceGroupInclude     types.String `tfsdk:"include"`
-	LeafFirewallGroupInterfaceGroupDescrIPtion types.String `tfsdk:"description"`
+	LeafFirewallGroupInterfaceGroupInterface   types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafFirewallGroupInterfaceGroupInclude     types.String `tfsdk:"include" json:"include,omitempty"`
+	LeafFirewallGroupInterfaceGroupDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *FirewallGroupInterfaceGroup) GetVyosPath() []string {
 		"group",
 		"interface-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallGroupInterfaceGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallGroupInterfaceGroupInterface.IsNull() || o.LeafFirewallGroupInterfaceGroupInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafFirewallGroupInterfaceGroupInterface.ValueString()
-	}
-	if !(o.LeafFirewallGroupInterfaceGroupInclude.IsNull() || o.LeafFirewallGroupInterfaceGroupInclude.IsUnknown()) {
-		vyosData["include"] = o.LeafFirewallGroupInterfaceGroupInclude.ValueString()
-	}
-	if !(o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsNull() || o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafFirewallGroupInterfaceGroupDescrIPtion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallGroupInterfaceGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
-
-	// Leafs
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["include"]; ok {
-		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallGroupInterfaceGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"interface":   types.StringType,
-		"include":     types.StringType,
-		"description": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -146,4 +75,69 @@ func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallGroupInterfaceGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallGroupInterfaceGroupInterface.IsNull() && !o.LeafFirewallGroupInterfaceGroupInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafFirewallGroupInterfaceGroupInterface.ValueString()
+	}
+
+	if !o.LeafFirewallGroupInterfaceGroupInclude.IsNull() && !o.LeafFirewallGroupInterfaceGroupInclude.IsUnknown() {
+		jsonData["include"] = o.LeafFirewallGroupInterfaceGroupInclude.ValueString()
+	}
+
+	if !o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafFirewallGroupInterfaceGroupDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallGroupInterfaceGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["include"]; ok {
+		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

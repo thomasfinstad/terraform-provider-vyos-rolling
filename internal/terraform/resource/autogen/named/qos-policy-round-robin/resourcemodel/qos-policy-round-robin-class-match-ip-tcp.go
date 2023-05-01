@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchIPTCP describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPTCP struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinClassMatchIPTCPAck types.String `tfsdk:"ack"`
-	LeafQosPolicyRoundRobinClassMatchIPTCPSyn types.String `tfsdk:"syn"`
+	LeafQosPolicyRoundRobinClassMatchIPTCPAck types.String `tfsdk:"ack" json:"ack,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPTCPSyn types.String `tfsdk:"syn" json:"syn,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRoundRobinClassMatchIPTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "tcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.IsUnknown()) {
-		vyosData["ack"] = o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.IsUnknown()) {
-		vyosData["syn"] = o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRoundRobinClassMatchIPTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "tcp"}})
-
-	// Leafs
-	if value, ok := vyosData["ack"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPTCPAck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["syn"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "tcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRoundRobinClassMatchIPTCP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ack": types.StringType,
-		"syn": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o QosPolicyRoundRobinClassMatchIPTCP) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRoundRobinClassMatchIPTCP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.IsUnknown() {
+		jsonData["ack"] = o.LeafQosPolicyRoundRobinClassMatchIPTCPAck.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.IsUnknown() {
+		jsonData["syn"] = o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRoundRobinClassMatchIPTCP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ack"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPTCPAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPTCPAck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["syn"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPTCPSyn = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

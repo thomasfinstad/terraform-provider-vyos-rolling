@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsernameOtp describes the resource data model.
 type VpnOpenconnectAuthenticationLocalUsersUsernameOtp struct {
 	// LeafNodes
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       types.String `tfsdk:"key"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength types.String `tfsdk:"otp_length"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.String `tfsdk:"interval"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType types.String `tfsdk:"token_type"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength types.String `tfsdk:"otp_length" json:"otp-length,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType types.String `tfsdk:"token_type" json:"token-type,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsUnknown()) {
-		vyosData["key"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsUnknown()) {
-		vyosData["otp-length"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsUnknown()) {
-		vyosData["token-type"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
-
-	// Leafs
-	if value, ok := vyosData["key"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["otp-length"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["token-type"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"key":        types.StringType,
-		"otp_length": types.StringType,
-		"interval":   types.StringType,
-		"token_type": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -166,4 +86,79 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttribu
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsUnknown() {
+		jsonData["key"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsUnknown() {
+		jsonData["otp-length"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsUnknown() {
+		jsonData["token-type"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["otp-length"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["token-type"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

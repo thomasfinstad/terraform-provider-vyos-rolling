@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIgmpInterface describes the resource data model.
@@ -17,12 +15,12 @@ type ProtocolsIgmpInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsIgmpInterfaceVersion              types.String `tfsdk:"version"`
-	LeafProtocolsIgmpInterfaceQueryInterval        types.String `tfsdk:"query_interval"`
-	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.String `tfsdk:"query_max_response_time"`
+	LeafProtocolsIgmpInterfaceVersion              types.String `tfsdk:"version" json:"version,omitempty"`
+	LeafProtocolsIgmpInterfaceQueryInterval        types.String `tfsdk:"query_interval" json:"query-interval,omitempty"`
+	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.String `tfsdk:"query_max_response_time" json:"query-max-response-time,omitempty"`
 
 	// TagNodes
-	TagProtocolsIgmpInterfaceJoin types.Map `tfsdk:"join"`
+	TagProtocolsIgmpInterfaceJoin *map[string]ProtocolsIgmpInterfaceJoin `tfsdk:"join" json:"join,omitempty"`
 
 	// Nodes
 }
@@ -34,92 +32,6 @@ func (o *ProtocolsIgmpInterface) GetVyosPath() []string {
 		"igmp",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsIgmpInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsIgmpInterfaceVersion.IsNull() || o.LeafProtocolsIgmpInterfaceVersion.IsUnknown()) {
-		vyosData["version"] = o.LeafProtocolsIgmpInterfaceVersion.ValueString()
-	}
-	if !(o.LeafProtocolsIgmpInterfaceQueryInterval.IsNull() || o.LeafProtocolsIgmpInterfaceQueryInterval.IsUnknown()) {
-		vyosData["query-interval"] = o.LeafProtocolsIgmpInterfaceQueryInterval.ValueString()
-	}
-	if !(o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsNull() || o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsUnknown()) {
-		vyosData["query-max-response-time"] = o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.ValueString()
-	}
-
-	// Tags
-	if !(o.TagProtocolsIgmpInterfaceJoin.IsNull() || o.TagProtocolsIgmpInterfaceJoin.IsUnknown()) {
-		subModel := make(map[string]ProtocolsIgmpInterfaceJoin)
-		diags.Append(o.TagProtocolsIgmpInterfaceJoin.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["join"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsIgmpInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["version"]; ok {
-		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["query-interval"]; ok {
-		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["query-max-response-time"]; ok {
-		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["join"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsIgmpInterfaceJoin{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsIgmpInterfaceJoin = data
-	} else {
-		o.TagProtocolsIgmpInterfaceJoin = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsIgmpInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"version":                 types.StringType,
-		"query_interval":          types.StringType,
-		"query_max_response_time": types.StringType,
-
-		// Tags
-		"join": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsIgmpInterfaceJoin{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -188,4 +100,96 @@ func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsIgmpInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsIgmpInterfaceVersion.IsNull() && !o.LeafProtocolsIgmpInterfaceVersion.IsUnknown() {
+		jsonData["version"] = o.LeafProtocolsIgmpInterfaceVersion.ValueString()
+	}
+
+	if !o.LeafProtocolsIgmpInterfaceQueryInterval.IsNull() && !o.LeafProtocolsIgmpInterfaceQueryInterval.IsUnknown() {
+		jsonData["query-interval"] = o.LeafProtocolsIgmpInterfaceQueryInterval.ValueString()
+	}
+
+	if !o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsNull() && !o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsUnknown() {
+		jsonData["query-max-response-time"] = o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagProtocolsIgmpInterfaceJoin).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsIgmpInterfaceJoin)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["join"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsIgmpInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["version"]; ok {
+		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["query-interval"]; ok {
+		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["query-max-response-time"]; ok {
+		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["join"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsIgmpInterfaceJoin = &map[string]ProtocolsIgmpInterfaceJoin{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsIgmpInterfaceJoin)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

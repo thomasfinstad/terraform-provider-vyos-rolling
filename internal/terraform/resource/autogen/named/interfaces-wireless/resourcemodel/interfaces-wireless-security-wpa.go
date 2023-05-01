@@ -2,118 +2,26 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessSecURItyWpa describes the resource data model.
 type InterfacesWirelessSecURItyWpa struct {
 	// LeafNodes
-	LeafInterfacesWirelessSecURItyWpaCIPher      types.String `tfsdk:"cipher"`
-	LeafInterfacesWirelessSecURItyWpaGroupCIPher types.String `tfsdk:"group_cipher"`
-	LeafInterfacesWirelessSecURItyWpaMode        types.String `tfsdk:"mode"`
-	LeafInterfacesWirelessSecURItyWpaPassphrase  types.String `tfsdk:"passphrase"`
+	LeafInterfacesWirelessSecURItyWpaCIPher      types.String `tfsdk:"cipher" json:"cipher,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaGroupCIPher types.String `tfsdk:"group_cipher" json:"group-cipher,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaMode        types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafInterfacesWirelessSecURItyWpaPassphrase  types.String `tfsdk:"passphrase" json:"passphrase,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesWirelessSecURItyWpaRadius types.Object `tfsdk:"radius"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessSecURItyWpa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessSecURItyWpaCIPher.IsNull() || o.LeafInterfacesWirelessSecURItyWpaCIPher.IsUnknown()) {
-		vyosData["cipher"] = o.LeafInterfacesWirelessSecURItyWpaCIPher.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsNull() || o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsUnknown()) {
-		vyosData["group-cipher"] = o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessSecURItyWpaMode.IsNull() || o.LeafInterfacesWirelessSecURItyWpaMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafInterfacesWirelessSecURItyWpaMode.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsNull() || o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsUnknown()) {
-		vyosData["passphrase"] = o.LeafInterfacesWirelessSecURItyWpaPassphrase.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesWirelessSecURItyWpaRadius.IsNull() || o.NodeInterfacesWirelessSecURItyWpaRadius.IsUnknown()) {
-		var subModel InterfacesWirelessSecURItyWpaRadius
-		diags.Append(o.NodeInterfacesWirelessSecURItyWpaRadius.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["radius"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessSecURItyWpa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa"}})
-
-	// Leafs
-	if value, ok := vyosData["cipher"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["group-cipher"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passphrase"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["radius"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessSecURItyWpaRadius{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessSecURItyWpaRadius = data
-
-	} else {
-		o.NodeInterfacesWirelessSecURItyWpaRadius = basetypes.NewObjectNull(InterfacesWirelessSecURItyWpaRadius{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessSecURItyWpa) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cipher":       types.StringType,
-		"group_cipher": types.StringType,
-		"mode":         types.StringType,
-		"passphrase":   types.StringType,
-
-		// Tags
-
-		// Nodes
-		"radius": types.ObjectType{AttrTypes: InterfacesWirelessSecURItyWpaRadius{}.AttributeTypes()},
-	}
+	NodeInterfacesWirelessSecURItyWpaRadius *InterfacesWirelessSecURItyWpaRadius `tfsdk:"radius" json:"radius,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -190,4 +98,106 @@ func (o InterfacesWirelessSecURItyWpa) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessSecURItyWpa) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessSecURItyWpaCIPher.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaCIPher.IsUnknown() {
+		jsonData["cipher"] = o.LeafInterfacesWirelessSecURItyWpaCIPher.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.IsUnknown() {
+		jsonData["group-cipher"] = o.LeafInterfacesWirelessSecURItyWpaGroupCIPher.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessSecURItyWpaMode.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaMode.IsUnknown() {
+		jsonData["mode"] = o.LeafInterfacesWirelessSecURItyWpaMode.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaPassphrase.IsUnknown() {
+		jsonData["passphrase"] = o.LeafInterfacesWirelessSecURItyWpaPassphrase.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessSecURItyWpaRadius).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessSecURItyWpaRadius)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["radius"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessSecURItyWpa) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cipher"]; ok {
+		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSecURItyWpaCIPher = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["group-cipher"]; ok {
+		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSecURItyWpaGroupCIPher = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSecURItyWpaMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passphrase"]; ok {
+		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSecURItyWpaPassphrase = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["radius"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessSecURItyWpaRadius = &InterfacesWirelessSecURItyWpaRadius{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessSecURItyWpaRadius)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

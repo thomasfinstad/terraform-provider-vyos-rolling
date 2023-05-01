@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpGroup describes the resource data model.
@@ -17,28 +15,28 @@ type HighAvailabilityVrrpGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface"`
-	LeafHighAvailabilityVrrpGroupAdvertiseInterval                  types.String `tfsdk:"advertise_interval"`
-	LeafHighAvailabilityVrrpGroupDescrIPtion                        types.String `tfsdk:"description"`
-	LeafHighAvailabilityVrrpGroupDisable                            types.String `tfsdk:"disable"`
-	LeafHighAvailabilityVrrpGroupHelloSourceAddress                 types.String `tfsdk:"hello_source_address"`
-	LeafHighAvailabilityVrrpGroupPeerAddress                        types.String `tfsdk:"peer_address"`
-	LeafHighAvailabilityVrrpGroupNoPreempt                          types.String `tfsdk:"no_preempt"`
-	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.String `tfsdk:"preempt_delay"`
-	LeafHighAvailabilityVrrpGroupPriority                           types.String `tfsdk:"priority"`
-	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.String `tfsdk:"rfc3768_compatibility"`
-	LeafHighAvailabilityVrrpGroupExcludedAddress                    types.String `tfsdk:"excluded_address"`
-	LeafHighAvailabilityVrrpGroupVrID                               types.String `tfsdk:"vrid"`
+	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafHighAvailabilityVrrpGroupAdvertiseInterval                  types.String `tfsdk:"advertise_interval" json:"advertise-interval,omitempty"`
+	LeafHighAvailabilityVrrpGroupDescrIPtion                        types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafHighAvailabilityVrrpGroupDisable                            types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafHighAvailabilityVrrpGroupHelloSourceAddress                 types.String `tfsdk:"hello_source_address" json:"hello-source-address,omitempty"`
+	LeafHighAvailabilityVrrpGroupPeerAddress                        types.String `tfsdk:"peer_address" json:"peer-address,omitempty"`
+	LeafHighAvailabilityVrrpGroupNoPreempt                          types.String `tfsdk:"no_preempt" json:"no-preempt,omitempty"`
+	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.String `tfsdk:"preempt_delay" json:"preempt-delay,omitempty"`
+	LeafHighAvailabilityVrrpGroupPriority                           types.String `tfsdk:"priority" json:"priority,omitempty"`
+	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.String `tfsdk:"rfc3768_compatibility" json:"rfc3768-compatibility,omitempty"`
+	LeafHighAvailabilityVrrpGroupExcludedAddress                    types.String `tfsdk:"excluded_address" json:"excluded-address,omitempty"`
+	LeafHighAvailabilityVrrpGroupVrID                               types.String `tfsdk:"vrid" json:"vrid,omitempty"`
 
 	// TagNodes
-	TagHighAvailabilityVrrpGroupAddress types.Map `tfsdk:"address"`
+	TagHighAvailabilityVrrpGroupAddress *map[string]HighAvailabilityVrrpGroupAddress `tfsdk:"address" json:"address,omitempty"`
 
 	// Nodes
-	NodeHighAvailabilityVrrpGroupGarp             types.Object `tfsdk:"garp"`
-	NodeHighAvailabilityVrrpGroupAuthentication   types.Object `tfsdk:"authentication"`
-	NodeHighAvailabilityVrrpGroupHealthCheck      types.Object `tfsdk:"health_check"`
-	NodeHighAvailabilityVrrpGroupTrack            types.Object `tfsdk:"track"`
-	NodeHighAvailabilityVrrpGroupTransitionScrIPt types.Object `tfsdk:"transition_script"`
+	NodeHighAvailabilityVrrpGroupGarp             *HighAvailabilityVrrpGroupGarp             `tfsdk:"garp" json:"garp,omitempty"`
+	NodeHighAvailabilityVrrpGroupAuthentication   *HighAvailabilityVrrpGroupAuthentication   `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeHighAvailabilityVrrpGroupHealthCheck      *HighAvailabilityVrrpGroupHealthCheck      `tfsdk:"health_check" json:"health-check,omitempty"`
+	NodeHighAvailabilityVrrpGroupTrack            *HighAvailabilityVrrpGroupTrack            `tfsdk:"track" json:"track,omitempty"`
+	NodeHighAvailabilityVrrpGroupTransitionScrIPt *HighAvailabilityVrrpGroupTransitionScrIPt `tfsdk:"transition_script" json:"transition-script,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -48,242 +46,6 @@ func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
 		"vrrp",
 		"group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVrrpGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVrrpGroupInterface.IsNull() || o.LeafHighAvailabilityVrrpGroupInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafHighAvailabilityVrrpGroupInterface.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsNull() || o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsUnknown()) {
-		vyosData["advertise-interval"] = o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsNull() || o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafHighAvailabilityVrrpGroupDescrIPtion.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupDisable.IsNull() || o.LeafHighAvailabilityVrrpGroupDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafHighAvailabilityVrrpGroupDisable.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsUnknown()) {
-		vyosData["hello-source-address"] = o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupPeerAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupPeerAddress.IsUnknown()) {
-		vyosData["peer-address"] = o.LeafHighAvailabilityVrrpGroupPeerAddress.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupNoPreempt.IsNull() || o.LeafHighAvailabilityVrrpGroupNoPreempt.IsUnknown()) {
-		vyosData["no-preempt"] = o.LeafHighAvailabilityVrrpGroupNoPreempt.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsNull() || o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsUnknown()) {
-		vyosData["preempt-delay"] = o.LeafHighAvailabilityVrrpGroupPreemptDelay.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupPriority.IsNull() || o.LeafHighAvailabilityVrrpGroupPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafHighAvailabilityVrrpGroupPriority.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsNull() || o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsUnknown()) {
-		vyosData["rfc3768-compatibility"] = o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsUnknown()) {
-		vyosData["excluded-address"] = o.LeafHighAvailabilityVrrpGroupExcludedAddress.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupVrID.IsNull() || o.LeafHighAvailabilityVrrpGroupVrID.IsUnknown()) {
-		vyosData["vrid"] = o.LeafHighAvailabilityVrrpGroupVrID.ValueString()
-	}
-
-	// Tags
-	if !(o.TagHighAvailabilityVrrpGroupAddress.IsNull() || o.TagHighAvailabilityVrrpGroupAddress.IsUnknown()) {
-		subModel := make(map[string]HighAvailabilityVrrpGroupAddress)
-		diags.Append(o.TagHighAvailabilityVrrpGroupAddress.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["address"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeHighAvailabilityVrrpGroupGarp.IsNull() || o.NodeHighAvailabilityVrrpGroupGarp.IsUnknown()) {
-		var subModel HighAvailabilityVrrpGroupGarp
-		diags.Append(o.NodeHighAvailabilityVrrpGroupGarp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["garp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeHighAvailabilityVrrpGroupAuthentication.IsNull() || o.NodeHighAvailabilityVrrpGroupAuthentication.IsUnknown()) {
-		var subModel HighAvailabilityVrrpGroupAuthentication
-		diags.Append(o.NodeHighAvailabilityVrrpGroupAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeHighAvailabilityVrrpGroupHealthCheck.IsNull() || o.NodeHighAvailabilityVrrpGroupHealthCheck.IsUnknown()) {
-		var subModel HighAvailabilityVrrpGroupHealthCheck
-		diags.Append(o.NodeHighAvailabilityVrrpGroupHealthCheck.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["health-check"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeHighAvailabilityVrrpGroupTrack.IsNull() || o.NodeHighAvailabilityVrrpGroupTrack.IsUnknown()) {
-		var subModel HighAvailabilityVrrpGroupTrack
-		diags.Append(o.NodeHighAvailabilityVrrpGroupTrack.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["track"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.IsNull() || o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.IsUnknown()) {
-		var subModel HighAvailabilityVrrpGroupTransitionScrIPt
-		diags.Append(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["transition-script"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVrrpGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
-
-	// Leafs
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["advertise-interval"]; ok {
-		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-source-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["peer-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-preempt"]; ok {
-		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["preempt-delay"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rfc3768-compatibility"]; ok {
-		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["excluded-address"]; ok {
-		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrid"]; ok {
-		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["address"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAddress{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagHighAvailabilityVrrpGroupAddress = data
-	} else {
-		o.TagHighAvailabilityVrrpGroupAddress = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["garp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupGarp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpGroupGarp = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpGroupGarp = basetypes.NewObjectNull(HighAvailabilityVrrpGroupGarp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpGroupAuthentication = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpGroupAuthentication = basetypes.NewObjectNull(HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["health-check"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpGroupHealthCheck = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpGroupHealthCheck = basetypes.NewObjectNull(HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes())
-	}
-	if value, ok := vyosData["track"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupTrack{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpGroupTrack = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpGroupTrack = basetypes.NewObjectNull(HighAvailabilityVrrpGroupTrack{}.AttributeTypes())
-	}
-	if value, ok := vyosData["transition-script"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = basetypes.NewObjectNull(HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVrrpGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"interface":             types.StringType,
-		"advertise_interval":    types.StringType,
-		"description":           types.StringType,
-		"disable":               types.StringType,
-		"hello_source_address":  types.StringType,
-		"peer_address":          types.StringType,
-		"no_preempt":            types.StringType,
-		"preempt_delay":         types.StringType,
-		"priority":              types.StringType,
-		"rfc3768_compatibility": types.StringType,
-		"excluded_address":      types.StringType,
-		"vrid":                  types.StringType,
-
-		// Tags
-		"address": types.MapType{ElemType: types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAddress{}.AttributeTypes()}},
-
-		// Nodes
-		"garp":              types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupGarp{}.AttributeTypes()},
-		"authentication":    types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes()},
-		"health_check":      types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes()},
-		"track":             types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupTrack{}.AttributeTypes()},
-		"transition_script": types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes()},
 	}
 }
 
@@ -490,4 +252,321 @@ func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVrrpGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVrrpGroupInterface.IsNull() && !o.LeafHighAvailabilityVrrpGroupInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafHighAvailabilityVrrpGroupInterface.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsNull() && !o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsUnknown() {
+		jsonData["advertise-interval"] = o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsNull() && !o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafHighAvailabilityVrrpGroupDescrIPtion.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupDisable.IsNull() && !o.LeafHighAvailabilityVrrpGroupDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafHighAvailabilityVrrpGroupDisable.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsUnknown() {
+		jsonData["hello-source-address"] = o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupPeerAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupPeerAddress.IsUnknown() {
+		jsonData["peer-address"] = o.LeafHighAvailabilityVrrpGroupPeerAddress.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupNoPreempt.IsNull() && !o.LeafHighAvailabilityVrrpGroupNoPreempt.IsUnknown() {
+		jsonData["no-preempt"] = o.LeafHighAvailabilityVrrpGroupNoPreempt.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsNull() && !o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsUnknown() {
+		jsonData["preempt-delay"] = o.LeafHighAvailabilityVrrpGroupPreemptDelay.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupPriority.IsNull() && !o.LeafHighAvailabilityVrrpGroupPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafHighAvailabilityVrrpGroupPriority.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsNull() && !o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsUnknown() {
+		jsonData["rfc3768-compatibility"] = o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsNull() && !o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsUnknown() {
+		jsonData["excluded-address"] = o.LeafHighAvailabilityVrrpGroupExcludedAddress.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupVrID.IsNull() && !o.LeafHighAvailabilityVrrpGroupVrID.IsUnknown() {
+		jsonData["vrid"] = o.LeafHighAvailabilityVrrpGroupVrID.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagHighAvailabilityVrrpGroupAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagHighAvailabilityVrrpGroupAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupGarp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupGarp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["garp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupHealthCheck).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupHealthCheck)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["health-check"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupTrack).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupTrack)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["track"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["transition-script"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVrrpGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["advertise-interval"]; ok {
+		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-source-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["peer-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-preempt"]; ok {
+		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["preempt-delay"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rfc3768-compatibility"]; ok {
+		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["excluded-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrid"]; ok {
+		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagHighAvailabilityVrrpGroupAddress = &map[string]HighAvailabilityVrrpGroupAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.TagHighAvailabilityVrrpGroupAddress)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["garp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpGroupGarp = &HighAvailabilityVrrpGroupGarp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupGarp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpGroupAuthentication = &HighAvailabilityVrrpGroupAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["health-check"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpGroupHealthCheck = &HighAvailabilityVrrpGroupHealthCheck{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupHealthCheck)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["track"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpGroupTrack = &HighAvailabilityVrrpGroupTrack{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupTrack)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["transition-script"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = &HighAvailabilityVrrpGroupTransitionScrIPt{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpGroupTransitionScrIPt)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

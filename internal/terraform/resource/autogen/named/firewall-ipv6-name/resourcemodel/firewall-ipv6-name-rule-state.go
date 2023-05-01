@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleState describes the resource data model.
 type FirewallIPvsixNameRuleState struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleStateEstablished types.String `tfsdk:"established"`
-	LeafFirewallIPvsixNameRuleStateInvalID     types.String `tfsdk:"invalid"`
-	LeafFirewallIPvsixNameRuleStateNew         types.String `tfsdk:"new"`
-	LeafFirewallIPvsixNameRuleStateRelated     types.String `tfsdk:"related"`
+	LeafFirewallIPvsixNameRuleStateEstablished types.String `tfsdk:"established" json:"established,omitempty"`
+	LeafFirewallIPvsixNameRuleStateInvalID     types.String `tfsdk:"invalid" json:"invalid,omitempty"`
+	LeafFirewallIPvsixNameRuleStateNew         types.String `tfsdk:"new" json:"new,omitempty"`
+	LeafFirewallIPvsixNameRuleStateRelated     types.String `tfsdk:"related" json:"related,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallIPvsixNameRuleState) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "state"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallIPvsixNameRuleStateEstablished.IsNull() || o.LeafFirewallIPvsixNameRuleStateEstablished.IsUnknown()) {
-		vyosData["established"] = o.LeafFirewallIPvsixNameRuleStateEstablished.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleStateInvalID.IsNull() || o.LeafFirewallIPvsixNameRuleStateInvalID.IsUnknown()) {
-		vyosData["invalid"] = o.LeafFirewallIPvsixNameRuleStateInvalID.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleStateNew.IsNull() || o.LeafFirewallIPvsixNameRuleStateNew.IsUnknown()) {
-		vyosData["new"] = o.LeafFirewallIPvsixNameRuleStateNew.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleStateRelated.IsNull() || o.LeafFirewallIPvsixNameRuleStateRelated.IsUnknown()) {
-		vyosData["related"] = o.LeafFirewallIPvsixNameRuleStateRelated.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallIPvsixNameRuleState) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "state"}})
-
-	// Leafs
-	if value, ok := vyosData["established"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["invalid"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["new"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["related"]; ok {
-		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "state"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallIPvsixNameRuleState) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"established": types.StringType,
-		"invalid":     types.StringType,
-		"new":         types.StringType,
-		"related":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -160,4 +80,79 @@ func (o FirewallIPvsixNameRuleState) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallIPvsixNameRuleState) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallIPvsixNameRuleStateEstablished.IsNull() && !o.LeafFirewallIPvsixNameRuleStateEstablished.IsUnknown() {
+		jsonData["established"] = o.LeafFirewallIPvsixNameRuleStateEstablished.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleStateInvalID.IsNull() && !o.LeafFirewallIPvsixNameRuleStateInvalID.IsUnknown() {
+		jsonData["invalid"] = o.LeafFirewallIPvsixNameRuleStateInvalID.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleStateNew.IsNull() && !o.LeafFirewallIPvsixNameRuleStateNew.IsUnknown() {
+		jsonData["new"] = o.LeafFirewallIPvsixNameRuleStateNew.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleStateRelated.IsNull() && !o.LeafFirewallIPvsixNameRuleStateRelated.IsUnknown() {
+		jsonData["related"] = o.LeafFirewallIPvsixNameRuleStateRelated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallIPvsixNameRuleState) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["established"]; ok {
+		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleStateEstablished = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["invalid"]; ok {
+		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleStateInvalID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["new"]; ok {
+		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleStateNew = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["related"]; ok {
+		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleStateRelated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

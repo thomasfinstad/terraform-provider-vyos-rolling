@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupLocalAs describes the resource data model.
@@ -19,61 +15,7 @@ type ProtocolsBgpPeerGroupLocalAs struct {
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsBgpPeerGroupLocalAsNoPrepend types.Object `tfsdk:"no_prepend"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpPeerGroupLocalAs) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "local-as"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend.IsNull() || o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend.IsUnknown()) {
-		var subModel ProtocolsBgpPeerGroupLocalAsNoPrepend
-		diags.Append(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["no-prepend"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpPeerGroupLocalAs) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "local-as"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["no-prepend"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend = data
-
-	} else {
-		o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend = basetypes.NewObjectNull(ProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "local-as"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpPeerGroupLocalAs) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"no_prepend": types.ObjectType{AttrTypes: ProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes()},
-	}
+	NodeProtocolsBgpPeerGroupLocalAsNoPrepend *ProtocolsBgpPeerGroupLocalAsNoPrepend `tfsdk:"no_prepend" json:"no-prepend,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o ProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpPeerGroupLocalAs) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["no-prepend"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpPeerGroupLocalAs) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["no-prepend"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend = &ProtocolsBgpPeerGroupLocalAsNoPrepend{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpPeerGroupLocalAsNoPrepend)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

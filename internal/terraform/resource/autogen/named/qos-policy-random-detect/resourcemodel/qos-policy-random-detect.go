@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRandomDetect describes the resource data model.
@@ -17,11 +15,11 @@ type QosPolicyRandomDetect struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyRandomDetectDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyRandomDetectBandwIDth   types.String `tfsdk:"bandwidth"`
+	LeafQosPolicyRandomDetectDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyRandomDetectBandwIDth   types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
 
 	// TagNodes
-	TagQosPolicyRandomDetectPrecedence types.Map `tfsdk:"precedence"`
+	TagQosPolicyRandomDetectPrecedence *map[string]QosPolicyRandomDetectPrecedence `tfsdk:"precedence" json:"precedence,omitempty"`
 
 	// Nodes
 }
@@ -33,83 +31,6 @@ func (o *QosPolicyRandomDetect) GetVyosPath() []string {
 		"policy",
 		"random-detect",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRandomDetect) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRandomDetectDescrIPtion.IsNull() || o.LeafQosPolicyRandomDetectDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyRandomDetectDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyRandomDetectBandwIDth.IsNull() || o.LeafQosPolicyRandomDetectBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyRandomDetectBandwIDth.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyRandomDetectPrecedence.IsNull() || o.TagQosPolicyRandomDetectPrecedence.IsUnknown()) {
-		subModel := make(map[string]QosPolicyRandomDetectPrecedence)
-		diags.Append(o.TagQosPolicyRandomDetectPrecedence.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["precedence"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRandomDetect) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["precedence"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyRandomDetectPrecedence{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyRandomDetectPrecedence = data
-	} else {
-		o.TagQosPolicyRandomDetectPrecedence = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRandomDetect) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"bandwidth":   types.StringType,
-
-		// Tags
-		"precedence": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyRandomDetectPrecedence{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -180,4 +101,86 @@ func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRandomDetect) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRandomDetectDescrIPtion.IsNull() && !o.LeafQosPolicyRandomDetectDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyRandomDetectDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyRandomDetectBandwIDth.IsNull() && !o.LeafQosPolicyRandomDetectBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyRandomDetectBandwIDth.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyRandomDetectPrecedence).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyRandomDetectPrecedence)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["precedence"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRandomDetect) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["precedence"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyRandomDetectPrecedence = &map[string]QosPolicyRandomDetectPrecedence{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyRandomDetectPrecedence)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

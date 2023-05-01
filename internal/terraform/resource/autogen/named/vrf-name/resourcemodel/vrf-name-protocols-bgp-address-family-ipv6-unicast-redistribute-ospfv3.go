@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric   types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric   types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "redistribute", "ospfv3"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "redistribute", "ospfv3"}})
-
-	// Leafs
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "redistribute", "ospfv3"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"metric":    types.StringType,
-		"route_map": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) Res
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthree) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistributeOspfvthreeRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

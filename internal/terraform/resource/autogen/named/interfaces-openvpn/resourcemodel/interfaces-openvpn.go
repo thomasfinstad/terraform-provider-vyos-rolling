@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpn describes the resource data model.
@@ -17,37 +15,37 @@ type InterfacesOpenvpn struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesOpenvpnDescrIPtion       types.String `tfsdk:"description"`
-	LeafInterfacesOpenvpnDeviceType        types.String `tfsdk:"device_type"`
-	LeafInterfacesOpenvpnDisable           types.String `tfsdk:"disable"`
-	LeafInterfacesOpenvpnHash              types.String `tfsdk:"hash"`
-	LeafInterfacesOpenvpnLocalHost         types.String `tfsdk:"local_host"`
-	LeafInterfacesOpenvpnLocalPort         types.String `tfsdk:"local_port"`
-	LeafInterfacesOpenvpnMode              types.String `tfsdk:"mode"`
-	LeafInterfacesOpenvpnOpenvpnOption     types.String `tfsdk:"openvpn_option"`
-	LeafInterfacesOpenvpnPersistentTunnel  types.String `tfsdk:"persistent_tunnel"`
-	LeafInterfacesOpenvpnProtocol          types.String `tfsdk:"protocol"`
-	LeafInterfacesOpenvpnRemoteAddress     types.String `tfsdk:"remote_address"`
-	LeafInterfacesOpenvpnRemoteHost        types.String `tfsdk:"remote_host"`
-	LeafInterfacesOpenvpnRemotePort        types.String `tfsdk:"remote_port"`
-	LeafInterfacesOpenvpnSharedSecretKey   types.String `tfsdk:"shared_secret_key"`
-	LeafInterfacesOpenvpnUseLzoCompression types.String `tfsdk:"use_lzo_compression"`
-	LeafInterfacesOpenvpnRedirect          types.String `tfsdk:"redirect"`
-	LeafInterfacesOpenvpnVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesOpenvpnDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesOpenvpnDeviceType        types.String `tfsdk:"device_type" json:"device-type,omitempty"`
+	LeafInterfacesOpenvpnDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesOpenvpnHash              types.String `tfsdk:"hash" json:"hash,omitempty"`
+	LeafInterfacesOpenvpnLocalHost         types.String `tfsdk:"local_host" json:"local-host,omitempty"`
+	LeafInterfacesOpenvpnLocalPort         types.String `tfsdk:"local_port" json:"local-port,omitempty"`
+	LeafInterfacesOpenvpnMode              types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafInterfacesOpenvpnOpenvpnOption     types.String `tfsdk:"openvpn_option" json:"openvpn-option,omitempty"`
+	LeafInterfacesOpenvpnPersistentTunnel  types.String `tfsdk:"persistent_tunnel" json:"persistent-tunnel,omitempty"`
+	LeafInterfacesOpenvpnProtocol          types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafInterfacesOpenvpnRemoteAddress     types.String `tfsdk:"remote_address" json:"remote-address,omitempty"`
+	LeafInterfacesOpenvpnRemoteHost        types.String `tfsdk:"remote_host" json:"remote-host,omitempty"`
+	LeafInterfacesOpenvpnRemotePort        types.String `tfsdk:"remote_port" json:"remote-port,omitempty"`
+	LeafInterfacesOpenvpnSharedSecretKey   types.String `tfsdk:"shared_secret_key" json:"shared-secret-key,omitempty"`
+	LeafInterfacesOpenvpnUseLzoCompression types.String `tfsdk:"use_lzo_compression" json:"use-lzo-compression,omitempty"`
+	LeafInterfacesOpenvpnRedirect          types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesOpenvpnVrf               types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
-	TagInterfacesOpenvpnLocalAddress types.Map `tfsdk:"local_address"`
+	TagInterfacesOpenvpnLocalAddress *map[string]InterfacesOpenvpnLocalAddress `tfsdk:"local_address" json:"local-address,omitempty"`
 
 	// Nodes
-	NodeInterfacesOpenvpnAuthentication      types.Object `tfsdk:"authentication"`
-	NodeInterfacesOpenvpnEncryption          types.Object `tfsdk:"encryption"`
-	NodeInterfacesOpenvpnIP                  types.Object `tfsdk:"ip"`
-	NodeInterfacesOpenvpnIPvsix              types.Object `tfsdk:"ipv6"`
-	NodeInterfacesOpenvpnMirror              types.Object `tfsdk:"mirror"`
-	NodeInterfacesOpenvpnKeepAlive           types.Object `tfsdk:"keep_alive"`
-	NodeInterfacesOpenvpnReplaceDefaultRoute types.Object `tfsdk:"replace_default_route"`
-	NodeInterfacesOpenvpnServer              types.Object `tfsdk:"server"`
-	NodeInterfacesOpenvpnTLS                 types.Object `tfsdk:"tls"`
+	NodeInterfacesOpenvpnAuthentication      *InterfacesOpenvpnAuthentication      `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeInterfacesOpenvpnEncryption          *InterfacesOpenvpnEncryption          `tfsdk:"encryption" json:"encryption,omitempty"`
+	NodeInterfacesOpenvpnIP                  *InterfacesOpenvpnIP                  `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesOpenvpnIPvsix              *InterfacesOpenvpnIPvsix              `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesOpenvpnMirror              *InterfacesOpenvpnMirror              `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesOpenvpnKeepAlive           *InterfacesOpenvpnKeepAlive           `tfsdk:"keep_alive" json:"keep-alive,omitempty"`
+	NodeInterfacesOpenvpnReplaceDefaultRoute *InterfacesOpenvpnReplaceDefaultRoute `tfsdk:"replace_default_route" json:"replace-default-route,omitempty"`
+	NodeInterfacesOpenvpnServer              *InterfacesOpenvpnServer              `tfsdk:"server" json:"server,omitempty"`
+	NodeInterfacesOpenvpnTLS                 *InterfacesOpenvpnTLS                 `tfsdk:"tls" json:"tls,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -56,343 +54,6 @@ func (o *InterfacesOpenvpn) GetVyosPath() []string {
 		"interfaces",
 		"openvpn",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnDescrIPtion.IsNull() || o.LeafInterfacesOpenvpnDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesOpenvpnDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnDeviceType.IsNull() || o.LeafInterfacesOpenvpnDeviceType.IsUnknown()) {
-		vyosData["device-type"] = o.LeafInterfacesOpenvpnDeviceType.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnDisable.IsNull() || o.LeafInterfacesOpenvpnDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesOpenvpnDisable.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnHash.IsNull() || o.LeafInterfacesOpenvpnHash.IsUnknown()) {
-		vyosData["hash"] = o.LeafInterfacesOpenvpnHash.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnLocalHost.IsNull() || o.LeafInterfacesOpenvpnLocalHost.IsUnknown()) {
-		vyosData["local-host"] = o.LeafInterfacesOpenvpnLocalHost.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnLocalPort.IsNull() || o.LeafInterfacesOpenvpnLocalPort.IsUnknown()) {
-		vyosData["local-port"] = o.LeafInterfacesOpenvpnLocalPort.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnMode.IsNull() || o.LeafInterfacesOpenvpnMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafInterfacesOpenvpnMode.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnOpenvpnOption.IsNull() || o.LeafInterfacesOpenvpnOpenvpnOption.IsUnknown()) {
-		vyosData["openvpn-option"] = o.LeafInterfacesOpenvpnOpenvpnOption.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnPersistentTunnel.IsNull() || o.LeafInterfacesOpenvpnPersistentTunnel.IsUnknown()) {
-		vyosData["persistent-tunnel"] = o.LeafInterfacesOpenvpnPersistentTunnel.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnProtocol.IsNull() || o.LeafInterfacesOpenvpnProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafInterfacesOpenvpnProtocol.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnRemoteAddress.IsNull() || o.LeafInterfacesOpenvpnRemoteAddress.IsUnknown()) {
-		vyosData["remote-address"] = o.LeafInterfacesOpenvpnRemoteAddress.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnRemoteHost.IsNull() || o.LeafInterfacesOpenvpnRemoteHost.IsUnknown()) {
-		vyosData["remote-host"] = o.LeafInterfacesOpenvpnRemoteHost.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnRemotePort.IsNull() || o.LeafInterfacesOpenvpnRemotePort.IsUnknown()) {
-		vyosData["remote-port"] = o.LeafInterfacesOpenvpnRemotePort.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnSharedSecretKey.IsNull() || o.LeafInterfacesOpenvpnSharedSecretKey.IsUnknown()) {
-		vyosData["shared-secret-key"] = o.LeafInterfacesOpenvpnSharedSecretKey.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnUseLzoCompression.IsNull() || o.LeafInterfacesOpenvpnUseLzoCompression.IsUnknown()) {
-		vyosData["use-lzo-compression"] = o.LeafInterfacesOpenvpnUseLzoCompression.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnRedirect.IsNull() || o.LeafInterfacesOpenvpnRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesOpenvpnRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnVrf.IsNull() || o.LeafInterfacesOpenvpnVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesOpenvpnVrf.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesOpenvpnLocalAddress.IsNull() || o.TagInterfacesOpenvpnLocalAddress.IsUnknown()) {
-		subModel := make(map[string]InterfacesOpenvpnLocalAddress)
-		diags.Append(o.TagInterfacesOpenvpnLocalAddress.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["local-address"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeInterfacesOpenvpnAuthentication.IsNull() || o.NodeInterfacesOpenvpnAuthentication.IsUnknown()) {
-		var subModel InterfacesOpenvpnAuthentication
-		diags.Append(o.NodeInterfacesOpenvpnAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnEncryption.IsNull() || o.NodeInterfacesOpenvpnEncryption.IsUnknown()) {
-		var subModel InterfacesOpenvpnEncryption
-		diags.Append(o.NodeInterfacesOpenvpnEncryption.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["encryption"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnIP.IsNull() || o.NodeInterfacesOpenvpnIP.IsUnknown()) {
-		var subModel InterfacesOpenvpnIP
-		diags.Append(o.NodeInterfacesOpenvpnIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnIPvsix.IsNull() || o.NodeInterfacesOpenvpnIPvsix.IsUnknown()) {
-		var subModel InterfacesOpenvpnIPvsix
-		diags.Append(o.NodeInterfacesOpenvpnIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnMirror.IsNull() || o.NodeInterfacesOpenvpnMirror.IsUnknown()) {
-		var subModel InterfacesOpenvpnMirror
-		diags.Append(o.NodeInterfacesOpenvpnMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnKeepAlive.IsNull() || o.NodeInterfacesOpenvpnKeepAlive.IsUnknown()) {
-		var subModel InterfacesOpenvpnKeepAlive
-		diags.Append(o.NodeInterfacesOpenvpnKeepAlive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["keep-alive"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnReplaceDefaultRoute.IsNull() || o.NodeInterfacesOpenvpnReplaceDefaultRoute.IsUnknown()) {
-		var subModel InterfacesOpenvpnReplaceDefaultRoute
-		diags.Append(o.NodeInterfacesOpenvpnReplaceDefaultRoute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["replace-default-route"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnServer.IsNull() || o.NodeInterfacesOpenvpnServer.IsUnknown()) {
-		var subModel InterfacesOpenvpnServer
-		diags.Append(o.NodeInterfacesOpenvpnServer.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["server"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesOpenvpnTLS.IsNull() || o.NodeInterfacesOpenvpnTLS.IsUnknown()) {
-		var subModel InterfacesOpenvpnTLS
-		diags.Append(o.NodeInterfacesOpenvpnTLS.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["tls"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesOpenvpnDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["device-type"]; ok {
-		o.LeafInterfacesOpenvpnDeviceType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnDeviceType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesOpenvpnDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hash"]; ok {
-		o.LeafInterfacesOpenvpnHash = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnHash = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local-host"]; ok {
-		o.LeafInterfacesOpenvpnLocalHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnLocalHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local-port"]; ok {
-		o.LeafInterfacesOpenvpnLocalPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnLocalPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafInterfacesOpenvpnMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["openvpn-option"]; ok {
-		o.LeafInterfacesOpenvpnOpenvpnOption = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnOpenvpnOption = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["persistent-tunnel"]; ok {
-		o.LeafInterfacesOpenvpnPersistentTunnel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnPersistentTunnel = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafInterfacesOpenvpnProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-address"]; ok {
-		o.LeafInterfacesOpenvpnRemoteAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnRemoteAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-host"]; ok {
-		o.LeafInterfacesOpenvpnRemoteHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnRemoteHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-port"]; ok {
-		o.LeafInterfacesOpenvpnRemotePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnRemotePort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shared-secret-key"]; ok {
-		o.LeafInterfacesOpenvpnSharedSecretKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnSharedSecretKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["use-lzo-compression"]; ok {
-		o.LeafInterfacesOpenvpnUseLzoCompression = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnUseLzoCompression = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesOpenvpnRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesOpenvpnVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["local-address"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesOpenvpnLocalAddress{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesOpenvpnLocalAddress = data
-	} else {
-		o.TagInterfacesOpenvpnLocalAddress = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnAuthentication = data
-
-	} else {
-		o.NodeInterfacesOpenvpnAuthentication = basetypes.NewObjectNull(InterfacesOpenvpnAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["encryption"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnEncryption{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnEncryption = data
-
-	} else {
-		o.NodeInterfacesOpenvpnEncryption = basetypes.NewObjectNull(InterfacesOpenvpnEncryption{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnIP = data
-
-	} else {
-		o.NodeInterfacesOpenvpnIP = basetypes.NewObjectNull(InterfacesOpenvpnIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnIPvsix = data
-
-	} else {
-		o.NodeInterfacesOpenvpnIPvsix = basetypes.NewObjectNull(InterfacesOpenvpnIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnMirror = data
-
-	} else {
-		o.NodeInterfacesOpenvpnMirror = basetypes.NewObjectNull(InterfacesOpenvpnMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["keep-alive"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnKeepAlive{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnKeepAlive = data
-
-	} else {
-		o.NodeInterfacesOpenvpnKeepAlive = basetypes.NewObjectNull(InterfacesOpenvpnKeepAlive{}.AttributeTypes())
-	}
-	if value, ok := vyosData["replace-default-route"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnReplaceDefaultRoute{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnReplaceDefaultRoute = data
-
-	} else {
-		o.NodeInterfacesOpenvpnReplaceDefaultRoute = basetypes.NewObjectNull(InterfacesOpenvpnReplaceDefaultRoute{}.AttributeTypes())
-	}
-	if value, ok := vyosData["server"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnServer{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnServer = data
-
-	} else {
-		o.NodeInterfacesOpenvpnServer = basetypes.NewObjectNull(InterfacesOpenvpnServer{}.AttributeTypes())
-	}
-	if value, ok := vyosData["tls"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnTLS{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnTLS = data
-
-	} else {
-		o.NodeInterfacesOpenvpnTLS = basetypes.NewObjectNull(InterfacesOpenvpnTLS{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpn) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":         types.StringType,
-		"device_type":         types.StringType,
-		"disable":             types.StringType,
-		"hash":                types.StringType,
-		"local_host":          types.StringType,
-		"local_port":          types.StringType,
-		"mode":                types.StringType,
-		"openvpn_option":      types.StringType,
-		"persistent_tunnel":   types.StringType,
-		"protocol":            types.StringType,
-		"remote_address":      types.StringType,
-		"remote_host":         types.StringType,
-		"remote_port":         types.StringType,
-		"shared_secret_key":   types.StringType,
-		"use_lzo_compression": types.StringType,
-		"redirect":            types.StringType,
-		"vrf":                 types.StringType,
-
-		// Tags
-		"local_address": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesOpenvpnLocalAddress{}.AttributeTypes()}},
-
-		// Nodes
-		"authentication":        types.ObjectType{AttrTypes: InterfacesOpenvpnAuthentication{}.AttributeTypes()},
-		"encryption":            types.ObjectType{AttrTypes: InterfacesOpenvpnEncryption{}.AttributeTypes()},
-		"ip":                    types.ObjectType{AttrTypes: InterfacesOpenvpnIP{}.AttributeTypes()},
-		"ipv6":                  types.ObjectType{AttrTypes: InterfacesOpenvpnIPvsix{}.AttributeTypes()},
-		"mirror":                types.ObjectType{AttrTypes: InterfacesOpenvpnMirror{}.AttributeTypes()},
-		"keep_alive":            types.ObjectType{AttrTypes: InterfacesOpenvpnKeepAlive{}.AttributeTypes()},
-		"replace_default_route": types.ObjectType{AttrTypes: InterfacesOpenvpnReplaceDefaultRoute{}.AttributeTypes()},
-		"server":                types.ObjectType{AttrTypes: InterfacesOpenvpnServer{}.AttributeTypes()},
-		"tls":                   types.ObjectType{AttrTypes: InterfacesOpenvpnTLS{}.AttributeTypes()},
 	}
 }
 
@@ -684,4 +345,479 @@ func (o InterfacesOpenvpn) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpn) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnDescrIPtion.IsNull() && !o.LeafInterfacesOpenvpnDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesOpenvpnDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnDeviceType.IsNull() && !o.LeafInterfacesOpenvpnDeviceType.IsUnknown() {
+		jsonData["device-type"] = o.LeafInterfacesOpenvpnDeviceType.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnDisable.IsNull() && !o.LeafInterfacesOpenvpnDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesOpenvpnDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnHash.IsNull() && !o.LeafInterfacesOpenvpnHash.IsUnknown() {
+		jsonData["hash"] = o.LeafInterfacesOpenvpnHash.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnLocalHost.IsNull() && !o.LeafInterfacesOpenvpnLocalHost.IsUnknown() {
+		jsonData["local-host"] = o.LeafInterfacesOpenvpnLocalHost.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnLocalPort.IsNull() && !o.LeafInterfacesOpenvpnLocalPort.IsUnknown() {
+		jsonData["local-port"] = o.LeafInterfacesOpenvpnLocalPort.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnMode.IsNull() && !o.LeafInterfacesOpenvpnMode.IsUnknown() {
+		jsonData["mode"] = o.LeafInterfacesOpenvpnMode.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnOpenvpnOption.IsNull() && !o.LeafInterfacesOpenvpnOpenvpnOption.IsUnknown() {
+		jsonData["openvpn-option"] = o.LeafInterfacesOpenvpnOpenvpnOption.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnPersistentTunnel.IsNull() && !o.LeafInterfacesOpenvpnPersistentTunnel.IsUnknown() {
+		jsonData["persistent-tunnel"] = o.LeafInterfacesOpenvpnPersistentTunnel.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnProtocol.IsNull() && !o.LeafInterfacesOpenvpnProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafInterfacesOpenvpnProtocol.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnRemoteAddress.IsNull() && !o.LeafInterfacesOpenvpnRemoteAddress.IsUnknown() {
+		jsonData["remote-address"] = o.LeafInterfacesOpenvpnRemoteAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnRemoteHost.IsNull() && !o.LeafInterfacesOpenvpnRemoteHost.IsUnknown() {
+		jsonData["remote-host"] = o.LeafInterfacesOpenvpnRemoteHost.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnRemotePort.IsNull() && !o.LeafInterfacesOpenvpnRemotePort.IsUnknown() {
+		jsonData["remote-port"] = o.LeafInterfacesOpenvpnRemotePort.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnSharedSecretKey.IsNull() && !o.LeafInterfacesOpenvpnSharedSecretKey.IsUnknown() {
+		jsonData["shared-secret-key"] = o.LeafInterfacesOpenvpnSharedSecretKey.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnUseLzoCompression.IsNull() && !o.LeafInterfacesOpenvpnUseLzoCompression.IsUnknown() {
+		jsonData["use-lzo-compression"] = o.LeafInterfacesOpenvpnUseLzoCompression.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnRedirect.IsNull() && !o.LeafInterfacesOpenvpnRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesOpenvpnRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnVrf.IsNull() && !o.LeafInterfacesOpenvpnVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesOpenvpnVrf.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesOpenvpnLocalAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesOpenvpnLocalAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local-address"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnEncryption).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnEncryption)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["encryption"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnKeepAlive).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnKeepAlive)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["keep-alive"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnReplaceDefaultRoute).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnReplaceDefaultRoute)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["replace-default-route"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnServer).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnServer)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["server"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnTLS).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnTLS)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["tls"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpn) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesOpenvpnDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["device-type"]; ok {
+		o.LeafInterfacesOpenvpnDeviceType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnDeviceType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesOpenvpnDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hash"]; ok {
+		o.LeafInterfacesOpenvpnHash = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnHash = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local-host"]; ok {
+		o.LeafInterfacesOpenvpnLocalHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnLocalHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local-port"]; ok {
+		o.LeafInterfacesOpenvpnLocalPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnLocalPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafInterfacesOpenvpnMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["openvpn-option"]; ok {
+		o.LeafInterfacesOpenvpnOpenvpnOption = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnOpenvpnOption = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["persistent-tunnel"]; ok {
+		o.LeafInterfacesOpenvpnPersistentTunnel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnPersistentTunnel = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafInterfacesOpenvpnProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-address"]; ok {
+		o.LeafInterfacesOpenvpnRemoteAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnRemoteAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-host"]; ok {
+		o.LeafInterfacesOpenvpnRemoteHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnRemoteHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-port"]; ok {
+		o.LeafInterfacesOpenvpnRemotePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnRemotePort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shared-secret-key"]; ok {
+		o.LeafInterfacesOpenvpnSharedSecretKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnSharedSecretKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["use-lzo-compression"]; ok {
+		o.LeafInterfacesOpenvpnUseLzoCompression = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnUseLzoCompression = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesOpenvpnRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesOpenvpnVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["local-address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesOpenvpnLocalAddress = &map[string]InterfacesOpenvpnLocalAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesOpenvpnLocalAddress)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnAuthentication = &InterfacesOpenvpnAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["encryption"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnEncryption = &InterfacesOpenvpnEncryption{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnEncryption)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnIP = &InterfacesOpenvpnIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnIPvsix = &InterfacesOpenvpnIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnMirror = &InterfacesOpenvpnMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["keep-alive"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnKeepAlive = &InterfacesOpenvpnKeepAlive{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnKeepAlive)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["replace-default-route"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnReplaceDefaultRoute = &InterfacesOpenvpnReplaceDefaultRoute{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnReplaceDefaultRoute)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["server"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnServer = &InterfacesOpenvpnServer{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnServer)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["tls"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnTLS = &InterfacesOpenvpnTLS{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnTLS)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

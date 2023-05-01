@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetVifIPvsixAddress describes the resource data model.
 type InterfacesPseudoEthernetVifIPvsixAddress struct {
 	// LeafNodes
-	LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf           types.String `tfsdk:"autoconf"`
-	LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
-	LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
+	LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf           types.String `tfsdk:"autoconf" json:"autoconf,omitempty"`
+	LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour         types.String `tfsdk:"eui64" json:"eui64,omitempty"`
+	LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesPseudoEthernetVifIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif", "ipv6", "address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.IsUnknown()) {
-		vyosData["autoconf"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.ValueString()
-	}
-	if !(o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.IsUnknown()) {
-		vyosData["eui64"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.ValueString()
-	}
-	if !(o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
-		vyosData["no-default-link-local"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesPseudoEthernetVifIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif", "ipv6", "address"}})
-
-	// Leafs
-	if value, ok := vyosData["autoconf"]; ok {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["eui64"]; ok {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-default-link-local"]; ok {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif", "ipv6", "address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesPseudoEthernetVifIPvsixAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"autoconf":              types.StringType,
-		"eui64":                 types.StringType,
-		"no_default_link_local": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +56,69 @@ func (o InterfacesPseudoEthernetVifIPvsixAddress) ResourceSchemaAttributes() map
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesPseudoEthernetVifIPvsixAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.IsNull() && !o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.IsUnknown() {
+		jsonData["autoconf"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf.ValueString()
+	}
+
+	if !o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.IsNull() && !o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.IsUnknown() {
+		jsonData["eui64"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour.ValueString()
+	}
+
+	if !o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.IsNull() && !o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.IsUnknown() {
+		jsonData["no-default-link-local"] = o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesPseudoEthernetVifIPvsixAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["autoconf"]; ok {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["eui64"]; ok {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-default-link-local"]; ok {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

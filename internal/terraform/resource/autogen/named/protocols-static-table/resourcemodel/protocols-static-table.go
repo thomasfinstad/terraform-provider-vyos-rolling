@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTable describes the resource data model.
@@ -17,11 +15,11 @@ type ProtocolsStaticTable struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description"`
+	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagProtocolsStaticTableRoute    types.Map `tfsdk:"route"`
-	TagProtocolsStaticTableRoutesix types.Map `tfsdk:"route6"`
+	TagProtocolsStaticTableRoute    *map[string]ProtocolsStaticTableRoute    `tfsdk:"route" json:"route,omitempty"`
+	TagProtocolsStaticTableRoutesix *map[string]ProtocolsStaticTableRoutesix `tfsdk:"route6" json:"route6,omitempty"`
 
 	// Nodes
 }
@@ -33,92 +31,6 @@ func (o *ProtocolsStaticTable) GetVyosPath() []string {
 		"static",
 		"table",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticTable) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticTableDescrIPtion.IsNull() || o.LeafProtocolsStaticTableDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafProtocolsStaticTableDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagProtocolsStaticTableRoute.IsNull() || o.TagProtocolsStaticTableRoute.IsUnknown()) {
-		subModel := make(map[string]ProtocolsStaticTableRoute)
-		diags.Append(o.TagProtocolsStaticTableRoute.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["route"] = subData
-	}
-	if !(o.TagProtocolsStaticTableRoutesix.IsNull() || o.TagProtocolsStaticTableRoutesix.IsUnknown()) {
-		subModel := make(map[string]ProtocolsStaticTableRoutesix)
-		diags.Append(o.TagProtocolsStaticTableRoutesix.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["route6"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticTable) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["route"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticTableRoute{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsStaticTableRoute = data
-	} else {
-		o.TagProtocolsStaticTableRoute = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["route6"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticTableRoutesix{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsStaticTableRoutesix = data
-	} else {
-		o.TagProtocolsStaticTableRoutesix = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticTable) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"route":  types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticTableRoute{}.AttributeTypes()}},
-		"route6": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticTableRoutesix{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -182,4 +94,103 @@ func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticTable) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticTableDescrIPtion.IsNull() && !o.LeafProtocolsStaticTableDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafProtocolsStaticTableDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagProtocolsStaticTableRoute).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsStaticTableRoute)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagProtocolsStaticTableRoutesix).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsStaticTableRoutesix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route6"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticTable) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["route"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsStaticTableRoute = &map[string]ProtocolsStaticTableRoute{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsStaticTableRoute)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsStaticTableRoutesix = &map[string]ProtocolsStaticTableRoutesix{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsStaticTableRoutesix)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

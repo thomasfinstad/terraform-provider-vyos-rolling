@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTableRoutesixBlackhole describes the resource data model.
 type ProtocolsStaticTableRoutesixBlackhole struct {
 	// LeafNodes
-	LeafProtocolsStaticTableRoutesixBlackholeDistance types.String `tfsdk:"distance"`
-	LeafProtocolsStaticTableRoutesixBlackholeTag      types.String `tfsdk:"tag"`
+	LeafProtocolsStaticTableRoutesixBlackholeDistance types.String `tfsdk:"distance" json:"distance,omitempty"`
+	LeafProtocolsStaticTableRoutesixBlackholeTag      types.String `tfsdk:"tag" json:"tag,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticTableRoutesixBlackhole) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "blackhole"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticTableRoutesixBlackholeDistance.IsNull() || o.LeafProtocolsStaticTableRoutesixBlackholeDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsStaticTableRoutesixBlackholeDistance.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRoutesixBlackholeTag.IsNull() || o.LeafProtocolsStaticTableRoutesixBlackholeTag.IsUnknown()) {
-		vyosData["tag"] = o.LeafProtocolsStaticTableRoutesixBlackholeTag.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticTableRoutesixBlackhole) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "blackhole"}})
-
-	// Leafs
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsStaticTableRoutesixBlackholeDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixBlackholeDistance = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["tag"]; ok {
-		o.LeafProtocolsStaticTableRoutesixBlackholeTag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixBlackholeTag = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "blackhole"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticTableRoutesixBlackhole) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"distance": types.StringType,
-		"tag":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsStaticTableRoutesixBlackhole) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticTableRoutesixBlackhole) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticTableRoutesixBlackholeDistance.IsNull() && !o.LeafProtocolsStaticTableRoutesixBlackholeDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsStaticTableRoutesixBlackholeDistance.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRoutesixBlackholeTag.IsNull() && !o.LeafProtocolsStaticTableRoutesixBlackholeTag.IsUnknown() {
+		jsonData["tag"] = o.LeafProtocolsStaticTableRoutesixBlackholeTag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticTableRoutesixBlackhole) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsStaticTableRoutesixBlackholeDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixBlackholeDistance = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["tag"]; ok {
+		o.LeafProtocolsStaticTableRoutesixBlackholeTag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixBlackholeTag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

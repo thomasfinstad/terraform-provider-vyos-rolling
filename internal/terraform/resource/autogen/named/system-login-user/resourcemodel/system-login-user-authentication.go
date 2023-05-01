@@ -2,117 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginUserAuthentication describes the resource data model.
 type SystemLoginUserAuthentication struct {
 	// LeafNodes
-	LeafSystemLoginUserAuthenticationEncryptedPassword types.String `tfsdk:"encrypted_password"`
-	LeafSystemLoginUserAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password"`
+	LeafSystemLoginUserAuthenticationEncryptedPassword types.String `tfsdk:"encrypted_password" json:"encrypted-password,omitempty"`
+	LeafSystemLoginUserAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
 
 	// TagNodes
-	TagSystemLoginUserAuthenticationPublicKeys types.Map `tfsdk:"public_keys"`
+	TagSystemLoginUserAuthenticationPublicKeys *map[string]SystemLoginUserAuthenticationPublicKeys `tfsdk:"public_keys" json:"public-keys,omitempty"`
 
 	// Nodes
-	NodeSystemLoginUserAuthenticationOtp types.Object `tfsdk:"otp"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemLoginUserAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsNull() || o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsUnknown()) {
-		vyosData["encrypted-password"] = o.LeafSystemLoginUserAuthenticationEncryptedPassword.ValueString()
-	}
-	if !(o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsNull() || o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsUnknown()) {
-		vyosData["plaintext-password"] = o.LeafSystemLoginUserAuthenticationPlaintextPassword.ValueString()
-	}
-
-	// Tags
-	if !(o.TagSystemLoginUserAuthenticationPublicKeys.IsNull() || o.TagSystemLoginUserAuthenticationPublicKeys.IsUnknown()) {
-		subModel := make(map[string]SystemLoginUserAuthenticationPublicKeys)
-		diags.Append(o.TagSystemLoginUserAuthenticationPublicKeys.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["public-keys"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeSystemLoginUserAuthenticationOtp.IsNull() || o.NodeSystemLoginUserAuthenticationOtp.IsUnknown()) {
-		var subModel SystemLoginUserAuthenticationOtp
-		diags.Append(o.NodeSystemLoginUserAuthenticationOtp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["otp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemLoginUserAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication"}})
-
-	// Leafs
-	if value, ok := vyosData["encrypted-password"]; ok {
-		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["plaintext-password"]; ok {
-		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["public-keys"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: SystemLoginUserAuthenticationPublicKeys{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagSystemLoginUserAuthenticationPublicKeys = data
-	} else {
-		o.TagSystemLoginUserAuthenticationPublicKeys = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["otp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemLoginUserAuthenticationOtp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemLoginUserAuthenticationOtp = data
-
-	} else {
-		o.NodeSystemLoginUserAuthenticationOtp = basetypes.NewObjectNull(SystemLoginUserAuthenticationOtp{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemLoginUserAuthentication) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"encrypted_password": types.StringType,
-		"plaintext_password": types.StringType,
-
-		// Tags
-		"public_keys": types.MapType{ElemType: types.ObjectType{AttrTypes: SystemLoginUserAuthenticationPublicKeys{}.AttributeTypes()}},
-
-		// Nodes
-		"otp": types.ObjectType{AttrTypes: SystemLoginUserAuthenticationOtp{}.AttributeTypes()},
-	}
+	NodeSystemLoginUserAuthenticationOtp *SystemLoginUserAuthenticationOtp `tfsdk:"otp" json:"otp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -163,4 +71,113 @@ func (o SystemLoginUserAuthentication) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemLoginUserAuthentication) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsNull() && !o.LeafSystemLoginUserAuthenticationEncryptedPassword.IsUnknown() {
+		jsonData["encrypted-password"] = o.LeafSystemLoginUserAuthenticationEncryptedPassword.ValueString()
+	}
+
+	if !o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsNull() && !o.LeafSystemLoginUserAuthenticationPlaintextPassword.IsUnknown() {
+		jsonData["plaintext-password"] = o.LeafSystemLoginUserAuthenticationPlaintextPassword.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagSystemLoginUserAuthenticationPublicKeys).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagSystemLoginUserAuthenticationPublicKeys)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["public-keys"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeSystemLoginUserAuthenticationOtp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemLoginUserAuthenticationOtp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["otp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemLoginUserAuthentication) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["encrypted-password"]; ok {
+		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationEncryptedPassword = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["plaintext-password"]; ok {
+		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationPlaintextPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["public-keys"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagSystemLoginUserAuthenticationPublicKeys = &map[string]SystemLoginUserAuthenticationPublicKeys{}
+
+		err = json.Unmarshal(subJSONStr, o.TagSystemLoginUserAuthenticationPublicKeys)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["otp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemLoginUserAuthenticationOtp = &SystemLoginUserAuthenticationOtp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemLoginUserAuthenticationOtp)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

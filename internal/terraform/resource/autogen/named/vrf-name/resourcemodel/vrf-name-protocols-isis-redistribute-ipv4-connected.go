@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvfourConnected describes the resource data model.
@@ -19,76 +15,8 @@ type VrfNameProtocolsIsisRedistributeIPvfourConnected struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne types.Object `tfsdk:"level_1"`
-	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo types.Object `tfsdk:"level_2"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisRedistributeIPvfourConnected) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["level-1"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["level-2"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisRedistributeIPvfourConnected) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["level-1"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne{}.AttributeTypes())
-	}
-	if value, ok := vyosData["level-2"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfourConnected) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"level_1": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne{}.AttributeTypes()},
-		"level_2": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne `tfsdk:"level_1" json:"level-1,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo `tfsdk:"level_2" json:"level-2,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -116,4 +44,93 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourConnected) ResourceSchemaAttribut
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisRedistributeIPvfourConnected) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["level-1"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["level-2"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisRedistributeIPvfourConnected) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["level-1"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne = &VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["level-2"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo = &VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelTwo)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

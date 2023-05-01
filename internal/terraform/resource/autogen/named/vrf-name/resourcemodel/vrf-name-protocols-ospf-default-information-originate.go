@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfDefaultInformationOriginate describes the resource data model.
 type VrfNameProtocolsOspfDefaultInformationOriginate struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways     types.String `tfsdk:"always"`
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric     types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType types.String `tfsdk:"metric_type"`
-	LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap   types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways     types.String `tfsdk:"always" json:"always,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric     types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType types.String `tfsdk:"metric_type" json:"metric-type,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap   types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfDefaultInformationOriginate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsUnknown()) {
-		vyosData["always"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsUnknown()) {
-		vyosData["metric-type"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfDefaultInformationOriginate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
-
-	// Leafs
-	if value, ok := vyosData["always"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric-type"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfDefaultInformationOriginate) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"always":      types.StringType,
-		"metric":      types.StringType,
-		"metric_type": types.StringType,
-		"route_map":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -155,4 +75,79 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceSchemaAttribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfDefaultInformationOriginate) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsUnknown() {
+		jsonData["always"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsUnknown() {
+		jsonData["metric-type"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfDefaultInformationOriginate) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["always"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric-type"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

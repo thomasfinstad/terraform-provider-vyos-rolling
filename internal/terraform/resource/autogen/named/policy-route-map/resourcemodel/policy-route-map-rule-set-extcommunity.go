@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetExtcommunity describes the resource data model.
 type PolicyRouteMapRuleSetExtcommunity struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetExtcommunityBandwIDth              types.String `tfsdk:"bandwidth"`
-	LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive types.String `tfsdk:"bandwidth_non_transitive"`
-	LeafPolicyRouteMapRuleSetExtcommunityRt                     types.String `tfsdk:"rt"`
-	LeafPolicyRouteMapRuleSetExtcommunitySoo                    types.String `tfsdk:"soo"`
-	LeafPolicyRouteMapRuleSetExtcommunityNone                   types.String `tfsdk:"none"`
+	LeafPolicyRouteMapRuleSetExtcommunityBandwIDth              types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive types.String `tfsdk:"bandwidth_non_transitive" json:"bandwidth-non-transitive,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityRt                     types.String `tfsdk:"rt" json:"rt,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunitySoo                    types.String `tfsdk:"soo" json:"soo,omitempty"`
+	LeafPolicyRouteMapRuleSetExtcommunityNone                   types.String `tfsdk:"none" json:"none,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleSetExtcommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "extcommunity"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsNull() || o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsNull() || o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsUnknown()) {
-		vyosData["bandwidth-non-transitive"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsNull() || o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsUnknown()) {
-		vyosData["rt"] = o.LeafPolicyRouteMapRuleSetExtcommunityRt.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsNull() || o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsUnknown()) {
-		vyosData["soo"] = o.LeafPolicyRouteMapRuleSetExtcommunitySoo.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsNull() || o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsUnknown()) {
-		vyosData["none"] = o.LeafPolicyRouteMapRuleSetExtcommunityNone.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleSetExtcommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "extcommunity"}})
-
-	// Leafs
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth-non-transitive"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rt"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["soo"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["none"]; ok {
-		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "extcommunity"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleSetExtcommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"bandwidth":                types.StringType,
-		"bandwidth_non_transitive": types.StringType,
-		"rt":                       types.StringType,
-		"soo":                      types.StringType,
-		"none":                     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -173,4 +84,89 @@ func (o PolicyRouteMapRuleSetExtcommunity) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleSetExtcommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.IsUnknown() {
+		jsonData["bandwidth-non-transitive"] = o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityRt.IsUnknown() {
+		jsonData["rt"] = o.LeafPolicyRouteMapRuleSetExtcommunityRt.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunitySoo.IsUnknown() {
+		jsonData["soo"] = o.LeafPolicyRouteMapRuleSetExtcommunitySoo.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsNull() && !o.LeafPolicyRouteMapRuleSetExtcommunityNone.IsUnknown() {
+		jsonData["none"] = o.LeafPolicyRouteMapRuleSetExtcommunityNone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleSetExtcommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth-non-transitive"]; ok {
+		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetExtcommunityBandwIDthNonTransitive = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rt"]; ok {
+		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetExtcommunityRt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["soo"]; ok {
+		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetExtcommunitySoo = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["none"]; ok {
+		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetExtcommunityNone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

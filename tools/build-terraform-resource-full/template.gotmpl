@@ -74,6 +74,8 @@ import (
 	}
 {{end}}
 
+// TODO look into using the json tags during unmarshalling,
+// or use a custom MarshalVyos function with dedicated tag
 {{define "resource-model"}}
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
@@ -92,15 +94,15 @@ import (
 											NOT IMPLEMENTED
 										{{- else -}}
 											UNKNOWN TYPE: {{.ValueType}}
-										{{- end}} `tfsdk:"{{.BaseNameS}}"`
+										{{- end}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
 			{{end}}
 			// TagNodes
 			{{range .TagNodes -}}
-				Tag{{.BaseNameCG}} types.Map `tfsdk:"{{.BaseNameS}}"`
+				Tag{{.BaseNameCG}} *map[string]{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
 			{{end}}
 			// Nodes
 			{{range .Nodes -}}
-				Node{{.BaseNameCG}} types.Object `tfsdk:"{{.BaseNameS}}"`
+				Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
 			{{end}}
 		{{end}}
 	}
@@ -117,7 +119,7 @@ import (
 		}
 	{{end}}
 
-	// TerraformToVyos converts terraform data to vyos data
+	{{/* // TerraformToVyos converts terraform data to vyos data
 	func (o *{{.BaseNameCG}}) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) (map[string]interface{}) {
 		tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
 
@@ -230,7 +232,7 @@ import (
 				{{end}}
 			{{end}}
 		}
-	}
+	} */}}
 
 	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
 	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
@@ -275,6 +277,124 @@ import (
 			{{end}}
 		}
 	}
+
+	// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+	func (o *{{.BaseNameCG}}) MarshalJSON() ([]byte, error) {
+		jsonData := make(map[string]interface{})
+
+		{{with .GetChildren }}
+			// Leafs
+			{{range .LeafNodes }}
+				if !o.Leaf{{.BaseNameCG}}.IsNull() && !o.Leaf{{.BaseNameCG}}.IsUnknown() {
+					jsonData["{{.BaseName}}"] = o.Leaf{{.BaseNameCG}}.ValueString()
+				}
+			{{end}}
+
+			// Tags
+			{{range .TagNodes }}
+				if ! reflect.ValueOf(o.Tag{{.BaseNameCG}}).IsZero()  {
+					subJSONStr, err := json.Marshal(o.Tag{{.BaseNameCG}})
+					if err != nil {
+						return nil, err
+					}
+
+					subData :=  make(map[string]interface{})
+					err = json.Unmarshal(subJSONStr, &subData)
+					if err != nil {
+						return nil, err
+					}
+					jsonData["{{.BaseName}}"] = subData
+				}
+			{{end}}
+
+			// Nodes
+			{{range .Nodes }}
+				if ! reflect.ValueOf(o.Node{{.BaseNameCG}}).IsZero()  {
+					subJSONStr, err := json.Marshal(o.Node{{.BaseNameCG}})
+					if err != nil {
+						return nil, err
+					}
+
+					subData :=  make(map[string]interface{})
+					err = json.Unmarshal(subJSONStr, &subData)
+					if err != nil {
+						return nil, err
+					}
+					jsonData["{{.BaseName}}"] = subData
+				}
+			{{end}}
+		{{end}}
+
+		// Return compiled data
+		ret, err := json.Marshal(jsonData)
+		if err != nil {
+			return nil, err
+		}
+		return ret, nil
+	}
+
+	// UnmarshalJSON unmarshals json byte array into this object
+	func (o *{{.BaseNameCG}}) UnmarshalJSON(jsonStr []byte) error {
+		jsonData := make(map[string]interface{})
+		err := json.Unmarshal(jsonStr, &jsonData)
+		if err != nil {
+			return err
+		}
+
+		{{with .GetChildren }}
+			// Leafs
+			{{range .LeafNodes }}
+				{{if eq .ValueType "string" -}}
+					if value, ok := jsonData["{{.BaseName}}"]; ok {
+						o.Leaf{{.BaseNameCG}} = basetypes.NewStringValue(value.(string))
+					} else {
+						o.Leaf{{.BaseNameCG}} = basetypes.NewStringNull()
+					}
+				{{- else  if eq .ValueType "number" -}}
+					NUMBER NOT IMPLEMENTED
+				{{- else if eq .ValueType "bool" -}}
+					BOOL NOT IMPLEMENTED
+				{{- else -}}
+					UNKNOWN TYPE: {{.ValueType}}
+				{{- end}}
+			{{end}}
+
+			// Tags
+			{{range .TagNodes -}}
+				if value, ok := jsonData["{{.BaseName}}"]; ok {
+					subJSONStr, err := json.Marshal(value)
+					if err != nil {
+						return err
+					}
+
+					o.Tag{{.BaseNameCG}} = &map[string]{{.BaseNameCG}}{}
+
+					err = json.Unmarshal(subJSONStr, o.Tag{{.BaseNameCG}})
+					if err != nil {
+						return err
+					}
+				}
+			{{end}}
+			// Nodes
+			{{range .Nodes -}}
+				if value, ok := jsonData["{{.BaseName}}"]; ok {
+					subJSONStr, err := json.Marshal(value)
+					if err != nil {
+						return err
+					}
+
+					o.Node{{.BaseNameCG}} = &{{.BaseNameCG}}{}
+
+					err = json.Unmarshal(subJSONStr, o.Node{{.BaseNameCG}})
+					if err != nil {
+						return err
+					}
+				}
+			{{end}}
+		{{end}}
+
+		return nil
+	}
 {{end}}
 
 {{define "metadata"}}
@@ -310,11 +430,18 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 			return
 		}
 
-		vyosData := data.TerraformToVyos(ctx, &resp.Diagnostics)
-		if resp.Diagnostics.HasError() {
+		jsonData, err := json.Marshal(data)
+		if err != nil {
+			resp.Diagnostics.AddError("Json Marshalling Error", fmt.Sprintf("%s", err))
 			return
 		}
-		tflog.Error(ctx, "Compiled terraform to vyos data", map[string]interface{}{"vyosData": vyosData})
+
+		var vyosData map[string]interface{}
+		err = json.Unmarshal(jsonData, &vyosData)
+		if err != nil {
+			resp.Diagnostics.AddError("Json Unmarshalling Error", fmt.Sprintf("%s", err))
+			return
+		}
 
 		// Create vyos api ops
 		vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
@@ -365,7 +492,12 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 		}
 
-		data.VyosToTerraform(ctx, &resp.Diagnostics, response.(map[string]interface{}))
+		jsonStr, err := json.Marshal(response.(map[string]interface{}))
+		err = json.Unmarshal(jsonStr, &r.model)
+		if err != nil {
+			resp.Diagnostics.AddError("Json Unmarshal Error", fmt.Sprintf("%s", err))
+			return
+		}
 
 		// Save updated data into Terraform state
 		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})

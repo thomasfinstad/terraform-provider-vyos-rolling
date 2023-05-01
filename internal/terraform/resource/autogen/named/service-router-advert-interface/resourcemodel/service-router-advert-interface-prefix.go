@@ -2,124 +2,26 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfacePrefix describes the resource data model.
 type ServiceRouterAdvertInterfacePrefix struct {
 	// LeafNodes
-	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.String `tfsdk:"no_autonomous_flag"`
-	LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag      types.String `tfsdk:"no_on_link_flag"`
-	LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix   types.String `tfsdk:"deprecate_prefix"`
-	LeafServiceRouterAdvertInterfacePrefixDecrementLifetime types.String `tfsdk:"decrement_lifetime"`
-	LeafServiceRouterAdvertInterfacePrefixPreferredLifetime types.String `tfsdk:"preferred_lifetime"`
-	LeafServiceRouterAdvertInterfacePrefixValIDLifetime     types.String `tfsdk:"valid_lifetime"`
+	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.String `tfsdk:"no_autonomous_flag" json:"no-autonomous-flag,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag      types.String `tfsdk:"no_on_link_flag" json:"no-on-link-flag,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix   types.String `tfsdk:"deprecate_prefix" json:"deprecate-prefix,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixDecrementLifetime types.String `tfsdk:"decrement_lifetime" json:"decrement-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixPreferredLifetime types.String `tfsdk:"preferred_lifetime" json:"preferred-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixValIDLifetime     types.String `tfsdk:"valid_lifetime" json:"valid-lifetime,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceRouterAdvertInterfacePrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsUnknown()) {
-		vyosData["no-autonomous-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsUnknown()) {
-		vyosData["no-on-link-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsUnknown()) {
-		vyosData["deprecate-prefix"] = o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsUnknown()) {
-		vyosData["decrement-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsUnknown()) {
-		vyosData["preferred-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsUnknown()) {
-		vyosData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceRouterAdvertInterfacePrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
-
-	// Leafs
-	if value, ok := vyosData["no-autonomous-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-on-link-flag"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["deprecate-prefix"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["decrement-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["preferred-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["valid-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceRouterAdvertInterfacePrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"no_autonomous_flag": types.StringType,
-		"no_on_link_flag":    types.StringType,
-		"deprecate_prefix":   types.StringType,
-		"decrement_lifetime": types.StringType,
-		"preferred_lifetime": types.StringType,
-		"valid_lifetime":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -190,4 +92,99 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceRouterAdvertInterfacePrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsUnknown() {
+		jsonData["no-autonomous-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsUnknown() {
+		jsonData["no-on-link-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsUnknown() {
+		jsonData["deprecate-prefix"] = o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsUnknown() {
+		jsonData["decrement-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsUnknown() {
+		jsonData["preferred-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsUnknown() {
+		jsonData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceRouterAdvertInterfacePrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["no-autonomous-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-on-link-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["deprecate-prefix"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["decrement-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["preferred-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["valid-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

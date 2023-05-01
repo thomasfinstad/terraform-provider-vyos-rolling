@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemConntrackIgnoreRule describes the resource data model.
@@ -17,15 +15,15 @@ type SystemConntrackIgnoreRule struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemConntrackIgnoreRuleDescrIPtion      types.String `tfsdk:"description"`
-	LeafSystemConntrackIgnoreRuleInboundInterface types.String `tfsdk:"inbound_interface"`
-	LeafSystemConntrackIgnoreRuleProtocol         types.String `tfsdk:"protocol"`
+	LeafSystemConntrackIgnoreRuleDescrIPtion      types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafSystemConntrackIgnoreRuleInboundInterface types.String `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
+	LeafSystemConntrackIgnoreRuleProtocol         types.String `tfsdk:"protocol" json:"protocol,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeSystemConntrackIgnoreRuleDestination types.Object `tfsdk:"destination"`
-	NodeSystemConntrackIgnoreRuleSource      types.Object `tfsdk:"source"`
+	NodeSystemConntrackIgnoreRuleDestination *SystemConntrackIgnoreRuleDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodeSystemConntrackIgnoreRuleSource      *SystemConntrackIgnoreRuleSource      `tfsdk:"source" json:"source,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -36,101 +34,6 @@ func (o *SystemConntrackIgnoreRule) GetVyosPath() []string {
 		"ignore",
 		"rule",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemConntrackIgnoreRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsNull() || o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafSystemConntrackIgnoreRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafSystemConntrackIgnoreRuleInboundInterface.IsNull() || o.LeafSystemConntrackIgnoreRuleInboundInterface.IsUnknown()) {
-		vyosData["inbound-interface"] = o.LeafSystemConntrackIgnoreRuleInboundInterface.ValueString()
-	}
-	if !(o.LeafSystemConntrackIgnoreRuleProtocol.IsNull() || o.LeafSystemConntrackIgnoreRuleProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafSystemConntrackIgnoreRuleProtocol.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeSystemConntrackIgnoreRuleDestination.IsNull() || o.NodeSystemConntrackIgnoreRuleDestination.IsUnknown()) {
-		var subModel SystemConntrackIgnoreRuleDestination
-		diags.Append(o.NodeSystemConntrackIgnoreRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeSystemConntrackIgnoreRuleSource.IsNull() || o.NodeSystemConntrackIgnoreRuleSource.IsUnknown()) {
-		var subModel SystemConntrackIgnoreRuleSource
-		diags.Append(o.NodeSystemConntrackIgnoreRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemConntrackIgnoreRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["inbound-interface"]; ok {
-		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemConntrackIgnoreRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemConntrackIgnoreRuleDestination = data
-
-	} else {
-		o.NodeSystemConntrackIgnoreRuleDestination = basetypes.NewObjectNull(SystemConntrackIgnoreRuleDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, SystemConntrackIgnoreRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeSystemConntrackIgnoreRuleSource = data
-
-	} else {
-		o.NodeSystemConntrackIgnoreRuleSource = basetypes.NewObjectNull(SystemConntrackIgnoreRuleSource{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemConntrackIgnoreRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":       types.StringType,
-		"inbound_interface": types.StringType,
-		"protocol":          types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: SystemConntrackIgnoreRuleDestination{}.AttributeTypes()},
-		"source":      types.ObjectType{AttrTypes: SystemConntrackIgnoreRuleSource{}.AttributeTypes()},
 	}
 }
 
@@ -199,4 +102,123 @@ func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemConntrackIgnoreRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsNull() && !o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafSystemConntrackIgnoreRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafSystemConntrackIgnoreRuleInboundInterface.IsNull() && !o.LeafSystemConntrackIgnoreRuleInboundInterface.IsUnknown() {
+		jsonData["inbound-interface"] = o.LeafSystemConntrackIgnoreRuleInboundInterface.ValueString()
+	}
+
+	if !o.LeafSystemConntrackIgnoreRuleProtocol.IsNull() && !o.LeafSystemConntrackIgnoreRuleProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafSystemConntrackIgnoreRuleProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeSystemConntrackIgnoreRuleDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemConntrackIgnoreRuleDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeSystemConntrackIgnoreRuleSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeSystemConntrackIgnoreRuleSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemConntrackIgnoreRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["inbound-interface"]; ok {
+		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemConntrackIgnoreRuleDestination = &SystemConntrackIgnoreRuleDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemConntrackIgnoreRuleDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeSystemConntrackIgnoreRuleSource = &SystemConntrackIgnoreRuleSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeSystemConntrackIgnoreRuleSource)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

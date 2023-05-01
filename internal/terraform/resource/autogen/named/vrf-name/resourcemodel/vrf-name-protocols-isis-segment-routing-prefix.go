@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRoutingPrefix describes the resource data model.
@@ -19,76 +15,8 @@ type VrfNameProtocolsIsisSegmentRoutingPrefix struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute types.Object `tfsdk:"absolute"`
-	NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex    types.Object `tfsdk:"index"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute
-		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["absolute"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisSegmentRoutingPrefixIndex
-		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["index"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["absolute"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes())
-	}
-	if value, ok := vyosData["index"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRoutingPrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"absolute": types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes()},
-		"index":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute *VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute `tfsdk:"absolute" json:"absolute,omitempty"`
+	NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex    *VrfNameProtocolsIsisSegmentRoutingPrefixIndex    `tfsdk:"index" json:"index,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -116,4 +44,93 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceSchemaAttributes() map
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["absolute"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["index"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["absolute"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute = &VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["index"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex = &VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

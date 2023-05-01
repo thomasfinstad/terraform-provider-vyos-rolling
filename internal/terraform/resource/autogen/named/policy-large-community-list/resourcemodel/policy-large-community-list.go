@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyLargeCommunityList describes the resource data model.
@@ -17,10 +15,10 @@ type PolicyLargeCommunityList struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPolicyLargeCommunityListDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyLargeCommunityListDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagPolicyLargeCommunityListRule types.Map `tfsdk:"rule"`
+	TagPolicyLargeCommunityListRule *map[string]PolicyLargeCommunityListRule `tfsdk:"rule" json:"rule,omitempty"`
 
 	// Nodes
 }
@@ -31,74 +29,6 @@ func (o *PolicyLargeCommunityList) GetVyosPath() []string {
 		"policy",
 		"large-community-list",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyLargeCommunityList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "large-community-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyLargeCommunityListDescrIPtion.IsNull() || o.LeafPolicyLargeCommunityListDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyLargeCommunityListDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagPolicyLargeCommunityListRule.IsNull() || o.TagPolicyLargeCommunityListRule.IsUnknown()) {
-		subModel := make(map[string]PolicyLargeCommunityListRule)
-		diags.Append(o.TagPolicyLargeCommunityListRule.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["rule"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyLargeCommunityList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "large-community-list"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyLargeCommunityListDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLargeCommunityListDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["rule"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyLargeCommunityListRule{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagPolicyLargeCommunityListRule = data
-	} else {
-		o.TagPolicyLargeCommunityListRule = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "large-community-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyLargeCommunityList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyLargeCommunityListRule{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -148,4 +78,76 @@ func (o PolicyLargeCommunityList) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyLargeCommunityList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyLargeCommunityListDescrIPtion.IsNull() && !o.LeafPolicyLargeCommunityListDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyLargeCommunityListDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagPolicyLargeCommunityListRule).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagPolicyLargeCommunityListRule)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyLargeCommunityList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyLargeCommunityListDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLargeCommunityListDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["rule"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagPolicyLargeCommunityListRule = &map[string]PolicyLargeCommunityListRule{}
+
+		err = json.Unmarshal(subJSONStr, o.TagPolicyLargeCommunityListRule)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

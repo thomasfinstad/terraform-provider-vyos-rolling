@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeUser describes the resource data model.
@@ -17,14 +15,14 @@ type ServiceSnmpVthreeUser struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceSnmpVthreeUserGroup types.String `tfsdk:"group"`
-	LeafServiceSnmpVthreeUserMode  types.String `tfsdk:"mode"`
+	LeafServiceSnmpVthreeUserGroup types.String `tfsdk:"group" json:"group,omitempty"`
+	LeafServiceSnmpVthreeUserMode  types.String `tfsdk:"mode" json:"mode,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceSnmpVthreeUserAuth    types.Object `tfsdk:"auth"`
-	NodeServiceSnmpVthreeUserPrivacy types.Object `tfsdk:"privacy"`
+	NodeServiceSnmpVthreeUserAuth    *ServiceSnmpVthreeUserAuth    `tfsdk:"auth" json:"auth,omitempty"`
+	NodeServiceSnmpVthreeUserPrivacy *ServiceSnmpVthreeUserPrivacy `tfsdk:"privacy" json:"privacy,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -35,92 +33,6 @@ func (o *ServiceSnmpVthreeUser) GetVyosPath() []string {
 		"v3",
 		"user",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpVthreeUser) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpVthreeUserGroup.IsNull() || o.LeafServiceSnmpVthreeUserGroup.IsUnknown()) {
-		vyosData["group"] = o.LeafServiceSnmpVthreeUserGroup.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeUserMode.IsNull() || o.LeafServiceSnmpVthreeUserMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafServiceSnmpVthreeUserMode.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceSnmpVthreeUserAuth.IsNull() || o.NodeServiceSnmpVthreeUserAuth.IsUnknown()) {
-		var subModel ServiceSnmpVthreeUserAuth
-		diags.Append(o.NodeServiceSnmpVthreeUserAuth.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["auth"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeServiceSnmpVthreeUserPrivacy.IsNull() || o.NodeServiceSnmpVthreeUserPrivacy.IsUnknown()) {
-		var subModel ServiceSnmpVthreeUserPrivacy
-		diags.Append(o.NodeServiceSnmpVthreeUserPrivacy.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["privacy"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpVthreeUser) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
-
-	// Leafs
-	if value, ok := vyosData["group"]; ok {
-		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["auth"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeUserAuth{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceSnmpVthreeUserAuth = data
-
-	} else {
-		o.NodeServiceSnmpVthreeUserAuth = basetypes.NewObjectNull(ServiceSnmpVthreeUserAuth{}.AttributeTypes())
-	}
-	if value, ok := vyosData["privacy"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeUserPrivacy{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceSnmpVthreeUserPrivacy = data
-
-	} else {
-		o.NodeServiceSnmpVthreeUserPrivacy = basetypes.NewObjectNull(ServiceSnmpVthreeUserPrivacy{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpVthreeUser) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"group": types.StringType,
-		"mode":  types.StringType,
-
-		// Tags
-
-		// Nodes
-		"auth":    types.ObjectType{AttrTypes: ServiceSnmpVthreeUserAuth{}.AttributeTypes()},
-		"privacy": types.ObjectType{AttrTypes: ServiceSnmpVthreeUserPrivacy{}.AttributeTypes()},
 	}
 }
 
@@ -178,4 +90,113 @@ func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpVthreeUser) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpVthreeUserGroup.IsNull() && !o.LeafServiceSnmpVthreeUserGroup.IsUnknown() {
+		jsonData["group"] = o.LeafServiceSnmpVthreeUserGroup.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeUserMode.IsNull() && !o.LeafServiceSnmpVthreeUserMode.IsUnknown() {
+		jsonData["mode"] = o.LeafServiceSnmpVthreeUserMode.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceSnmpVthreeUserAuth).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeUserAuth)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["auth"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeServiceSnmpVthreeUserPrivacy).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeUserPrivacy)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["privacy"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpVthreeUser) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["group"]; ok {
+		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["auth"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceSnmpVthreeUserAuth = &ServiceSnmpVthreeUserAuth{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeUserAuth)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["privacy"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceSnmpVthreeUserPrivacy = &ServiceSnmpVthreeUserPrivacy{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeUserPrivacy)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

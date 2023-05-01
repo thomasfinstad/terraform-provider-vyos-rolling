@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesMacsecSecURIty describes the resource data model.
 type InterfacesMacsecSecURIty struct {
 	// LeafNodes
-	LeafInterfacesMacsecSecURItyCIPher       types.String `tfsdk:"cipher"`
-	LeafInterfacesMacsecSecURItyEncrypt      types.String `tfsdk:"encrypt"`
-	LeafInterfacesMacsecSecURItyReplayWindow types.String `tfsdk:"replay_window"`
+	LeafInterfacesMacsecSecURItyCIPher       types.String `tfsdk:"cipher" json:"cipher,omitempty"`
+	LeafInterfacesMacsecSecURItyEncrypt      types.String `tfsdk:"encrypt" json:"encrypt,omitempty"`
+	LeafInterfacesMacsecSecURItyReplayWindow types.String `tfsdk:"replay_window" json:"replay-window,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesMacsecSecURItyMka types.Object `tfsdk:"mka"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesMacsecSecURIty) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesMacsecSecURItyCIPher.IsNull() || o.LeafInterfacesMacsecSecURItyCIPher.IsUnknown()) {
-		vyosData["cipher"] = o.LeafInterfacesMacsecSecURItyCIPher.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecSecURItyEncrypt.IsNull() || o.LeafInterfacesMacsecSecURItyEncrypt.IsUnknown()) {
-		vyosData["encrypt"] = o.LeafInterfacesMacsecSecURItyEncrypt.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecSecURItyReplayWindow.IsNull() || o.LeafInterfacesMacsecSecURItyReplayWindow.IsUnknown()) {
-		vyosData["replay-window"] = o.LeafInterfacesMacsecSecURItyReplayWindow.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesMacsecSecURItyMka.IsNull() || o.NodeInterfacesMacsecSecURItyMka.IsUnknown()) {
-		var subModel InterfacesMacsecSecURItyMka
-		diags.Append(o.NodeInterfacesMacsecSecURItyMka.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mka"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesMacsecSecURIty) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
-
-	// Leafs
-	if value, ok := vyosData["cipher"]; ok {
-		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["encrypt"]; ok {
-		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["replay-window"]; ok {
-		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["mka"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecSecURItyMka{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecSecURItyMka = data
-
-	} else {
-		o.NodeInterfacesMacsecSecURItyMka = basetypes.NewObjectNull(InterfacesMacsecSecURItyMka{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesMacsecSecURIty) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cipher":        types.StringType,
-		"encrypt":       types.StringType,
-		"replay_window": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"mka": types.ObjectType{AttrTypes: InterfacesMacsecSecURItyMka{}.AttributeTypes()},
-	}
+	NodeInterfacesMacsecSecURItyMka *InterfacesMacsecSecURItyMka `tfsdk:"mka" json:"mka,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -154,4 +71,96 @@ func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesMacsecSecURIty) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesMacsecSecURItyCIPher.IsNull() && !o.LeafInterfacesMacsecSecURItyCIPher.IsUnknown() {
+		jsonData["cipher"] = o.LeafInterfacesMacsecSecURItyCIPher.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecSecURItyEncrypt.IsNull() && !o.LeafInterfacesMacsecSecURItyEncrypt.IsUnknown() {
+		jsonData["encrypt"] = o.LeafInterfacesMacsecSecURItyEncrypt.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecSecURItyReplayWindow.IsNull() && !o.LeafInterfacesMacsecSecURItyReplayWindow.IsUnknown() {
+		jsonData["replay-window"] = o.LeafInterfacesMacsecSecURItyReplayWindow.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecSecURItyMka).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecSecURItyMka)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mka"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesMacsecSecURIty) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cipher"]; ok {
+		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["encrypt"]; ok {
+		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["replay-window"]; ok {
+		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["mka"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecSecURItyMka = &InterfacesMacsecSecURItyMka{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecSecURItyMka)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

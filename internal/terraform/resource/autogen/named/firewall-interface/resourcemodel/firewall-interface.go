@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallInterface describes the resource data model.
@@ -21,9 +18,9 @@ type FirewallInterface struct {
 	// TagNodes
 
 	// Nodes
-	NodeFirewallInterfaceIn    types.Object `tfsdk:"in"`
-	NodeFirewallInterfaceOut   types.Object `tfsdk:"out"`
-	NodeFirewallInterfaceLocal types.Object `tfsdk:"local"`
+	NodeFirewallInterfaceIn    *FirewallInterfaceIn    `tfsdk:"in" json:"in,omitempty"`
+	NodeFirewallInterfaceOut   *FirewallInterfaceOut   `tfsdk:"out" json:"out,omitempty"`
+	NodeFirewallInterfaceLocal *FirewallInterfaceLocal `tfsdk:"local" json:"local,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,88 +29,6 @@ func (o *FirewallInterface) GetVyosPath() []string {
 		"firewall",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeFirewallInterfaceIn.IsNull() || o.NodeFirewallInterfaceIn.IsUnknown()) {
-		var subModel FirewallInterfaceIn
-		diags.Append(o.NodeFirewallInterfaceIn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["in"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallInterfaceOut.IsNull() || o.NodeFirewallInterfaceOut.IsUnknown()) {
-		var subModel FirewallInterfaceOut
-		diags.Append(o.NodeFirewallInterfaceOut.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["out"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeFirewallInterfaceLocal.IsNull() || o.NodeFirewallInterfaceLocal.IsUnknown()) {
-		var subModel FirewallInterfaceLocal
-		diags.Append(o.NodeFirewallInterfaceLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["local"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "interface"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["in"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceIn{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallInterfaceIn = data
-
-	} else {
-		o.NodeFirewallInterfaceIn = basetypes.NewObjectNull(FirewallInterfaceIn{}.AttributeTypes())
-	}
-	if value, ok := vyosData["out"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceOut{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallInterfaceOut = data
-
-	} else {
-		o.NodeFirewallInterfaceOut = basetypes.NewObjectNull(FirewallInterfaceOut{}.AttributeTypes())
-	}
-	if value, ok := vyosData["local"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceLocal{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallInterfaceLocal = data
-
-	} else {
-		o.NodeFirewallInterfaceLocal = basetypes.NewObjectNull(FirewallInterfaceLocal{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"in":    types.ObjectType{AttrTypes: FirewallInterfaceIn{}.AttributeTypes()},
-		"out":   types.ObjectType{AttrTypes: FirewallInterfaceOut{}.AttributeTypes()},
-		"local": types.ObjectType{AttrTypes: FirewallInterfaceLocal{}.AttributeTypes()},
 	}
 }
 
@@ -157,4 +72,120 @@ func (o FirewallInterface) ResourceSchemaAttributes() map[string]schema.Attribut
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeFirewallInterfaceIn).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceIn)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["in"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallInterfaceOut).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceOut)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["out"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeFirewallInterfaceLocal).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallInterfaceLocal)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["in"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallInterfaceIn = &FirewallInterfaceIn{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceIn)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["out"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallInterfaceOut = &FirewallInterfaceOut{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceOut)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["local"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallInterfaceLocal = &FirewallInterfaceLocal{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallInterfaceLocal)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

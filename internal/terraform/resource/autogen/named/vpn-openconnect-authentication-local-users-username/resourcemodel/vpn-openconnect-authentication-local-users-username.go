@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsername describes the resource data model.
@@ -17,13 +15,13 @@ type VpnOpenconnectAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable"`
-	LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" json:"password,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp types.Object `tfsdk:"otp"`
+	NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp *VpnOpenconnectAuthenticationLocalUsersUsernameOtp `tfsdk:"otp" json:"otp,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -35,78 +33,6 @@ func (o *VpnOpenconnectAuthenticationLocalUsersUsername) GetVyosPath() []string 
 		"local-users",
 		"username",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnOpenconnectAuthenticationLocalUsersUsername) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsUnknown()) {
-		vyosData["password"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.IsNull() || o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.IsUnknown()) {
-		var subModel VpnOpenconnectAuthenticationLocalUsersUsernameOtp
-		diags.Append(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["otp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnOpenconnectAuthenticationLocalUsersUsername) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["password"]; ok {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["otp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = data
-
-	} else {
-		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = basetypes.NewObjectNull(VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnOpenconnectAuthenticationLocalUsersUsername) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":  types.StringType,
-		"password": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"otp": types.ObjectType{AttrTypes: VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes()},
 	}
 }
 
@@ -152,4 +78,86 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceSchemaAttributes
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.ValueString()
+	}
+
+	if !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsUnknown() {
+		jsonData["password"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["otp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["password"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["otp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = &VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

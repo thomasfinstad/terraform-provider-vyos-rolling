@@ -2,103 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMx describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMx struct {
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     types.String `tfsdk:"ttl"`
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable types.String `tfsdk:"disable"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     types.String `tfsdk:"ttl" json:"ttl,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
 
 	// TagNodes
-	TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer types.Map `tfsdk:"server"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer *map[string]ServiceDNSForwardingAuthoritativeDomainRecordsMxServer `tfsdk:"server" json:"server,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsUnknown()) {
-		vyosData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.ValueString()
-	}
-	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.ValueString()
-	}
-
-	// Tags
-	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.IsUnknown()) {
-		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsMxServer)
-		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["server"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
-
-	// Leafs
-	if value, ok := vyosData["ttl"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["server"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer = data
-	} else {
-		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ttl":     types.StringType,
-		"disable": types.StringType,
-
-		// Tags
-		"server": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -146,4 +67,86 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceSchemaAttribut
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsUnknown() {
+		jsonData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.ValueString()
+	}
+
+	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["server"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ttl"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["server"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer = &map[string]ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

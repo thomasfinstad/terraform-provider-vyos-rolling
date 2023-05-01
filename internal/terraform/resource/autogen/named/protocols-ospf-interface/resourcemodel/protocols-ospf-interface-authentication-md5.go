@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfInterfaceAuthenticationMdfive describes the resource data model.
@@ -17,68 +13,9 @@ type ProtocolsOspfInterfaceAuthenticationMdfive struct {
 	// LeafNodes
 
 	// TagNodes
-	TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID types.Map `tfsdk:"key_id"`
+	TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID *map[string]ProtocolsOspfInterfaceAuthenticationMdfiveKeyID `tfsdk:"key_id" json:"key-id,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsOspfInterfaceAuthenticationMdfive) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "interface", "authentication", "md5"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID.IsNull() || o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID.IsUnknown()) {
-		subModel := make(map[string]ProtocolsOspfInterfaceAuthenticationMdfiveKeyID)
-		diags.Append(o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["key-id"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsOspfInterfaceAuthenticationMdfive) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "interface", "authentication", "md5"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["key-id"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID = data
-	} else {
-		o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "interface", "authentication", "md5"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsOspfInterfaceAuthenticationMdfive) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"key_id": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -105,4 +42,66 @@ func (o ProtocolsOspfInterfaceAuthenticationMdfive) ResourceSchemaAttributes() m
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsOspfInterfaceAuthenticationMdfive) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["key-id"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsOspfInterfaceAuthenticationMdfive) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["key-id"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID = &map[string]ProtocolsOspfInterfaceAuthenticationMdfiveKeyID{}
+
+		err = json.Unmarshal(subJSONStr, o.TagProtocolsOspfInterfaceAuthenticationMdfiveKeyID)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

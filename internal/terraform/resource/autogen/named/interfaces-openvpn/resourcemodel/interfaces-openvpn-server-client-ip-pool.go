@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClientIPPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPPool struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.String `tfsdk:"disable"`
-	LeafInterfacesOpenvpnServerClientIPPoolStart      types.String `tfsdk:"start"`
-	LeafInterfacesOpenvpnServerClientIPPoolStop       types.String `tfsdk:"stop"`
-	LeafInterfacesOpenvpnServerClientIPPoolSubnetMask types.String `tfsdk:"subnet_mask"`
+	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPPoolStart      types.String `tfsdk:"start" json:"start,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPPoolStop       types.String `tfsdk:"stop" json:"stop,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPPoolSubnetMask types.String `tfsdk:"subnet_mask" json:"subnet-mask,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerClientIPPool) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientIPPoolDisable.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsUnknown()) {
-		vyosData["start"] = o.LeafInterfacesOpenvpnServerClientIPPoolStart.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsUnknown()) {
-		vyosData["stop"] = o.LeafInterfacesOpenvpnServerClientIPPoolStop.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsUnknown()) {
-		vyosData["subnet-mask"] = o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerClientIPPool) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["start"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stop"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["subnet-mask"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerClientIPPool) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":     types.StringType,
-		"start":       types.StringType,
-		"stop":        types.StringType,
-		"subnet_mask": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -152,4 +72,79 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerClientIPPool) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesOpenvpnServerClientIPPoolDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsUnknown() {
+		jsonData["start"] = o.LeafInterfacesOpenvpnServerClientIPPoolStart.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsUnknown() {
+		jsonData["stop"] = o.LeafInterfacesOpenvpnServerClientIPPoolStop.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsUnknown() {
+		jsonData["subnet-mask"] = o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerClientIPPool) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["start"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stop"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["subnet-mask"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

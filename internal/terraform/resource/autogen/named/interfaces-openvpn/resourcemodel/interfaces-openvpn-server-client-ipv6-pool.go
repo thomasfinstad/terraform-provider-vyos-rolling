@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClientIPvsixPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPvsixPool struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnServerClientIPvsixPoolBase    types.String `tfsdk:"base"`
-	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.String `tfsdk:"disable"`
+	LeafInterfacesOpenvpnServerClientIPvsixPoolBase    types.String `tfsdk:"base" json:"base,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerClientIPvsixPool) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsNull() || o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsUnknown()) {
-		vyosData["base"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerClientIPvsixPool) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
-
-	// Leafs
-	if value, ok := vyosData["base"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerClientIPvsixPool) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"base":    types.StringType,
-		"disable": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +48,59 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes() map[
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerClientIPvsixPool) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsUnknown() {
+		jsonData["base"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsNull() && !o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerClientIPvsixPool) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["base"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

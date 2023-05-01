@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatchIPvsixNexthop describes the resource data model.
 type PolicyRouteMapRuleMatchIPvsixNexthop struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress    types.String `tfsdk:"address"`
-	LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList types.String `tfsdk:"access_list"`
-	LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList types.String `tfsdk:"prefix_list"`
-	LeafPolicyRouteMapRuleMatchIPvsixNexthopType       types.String `tfsdk:"type"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress    types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList types.String `tfsdk:"access_list" json:"access-list,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList types.String `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopType       types.String `tfsdk:"type" json:"type,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleMatchIPvsixNexthop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsUnknown()) {
-		vyosData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsUnknown()) {
-		vyosData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsUnknown()) {
-		vyosData["type"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleMatchIPvsixNexthop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["access-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["prefix-list"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleMatchIPvsixNexthop) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"access_list": types.StringType,
-		"prefix_list": types.StringType,
-		"type":        types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -152,4 +72,79 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleMatchIPvsixNexthop) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsUnknown() {
+		jsonData["address"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsUnknown() {
+		jsonData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsUnknown() {
+		jsonData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsNull() && !o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsUnknown() {
+		jsonData["type"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleMatchIPvsixNexthop) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["access-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["prefix-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

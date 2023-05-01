@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterface describes the resource data model.
@@ -17,12 +15,12 @@ type ServiceLldpInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceLldpInterfaceDisable types.String `tfsdk:"disable"`
+	LeafServiceLldpInterfaceDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceLldpInterfaceLocation types.Object `tfsdk:"location"`
+	NodeServiceLldpInterfaceLocation *ServiceLldpInterfaceLocation `tfsdk:"location" json:"location,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,69 +30,6 @@ func (o *ServiceLldpInterface) GetVyosPath() []string {
 		"lldp",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceLldpInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceLldpInterfaceDisable.IsNull() || o.LeafServiceLldpInterfaceDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceLldpInterfaceDisable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceLldpInterfaceLocation.IsNull() || o.NodeServiceLldpInterfaceLocation.IsUnknown()) {
-		var subModel ServiceLldpInterfaceLocation
-		diags.Append(o.NodeServiceLldpInterfaceLocation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["location"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceLldpInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["location"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceLldpInterfaceLocation{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceLldpInterfaceLocation = data
-
-	} else {
-		o.NodeServiceLldpInterfaceLocation = basetypes.NewObjectNull(ServiceLldpInterfaceLocation{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceLldpInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"location": types.ObjectType{AttrTypes: ServiceLldpInterfaceLocation{}.AttributeTypes()},
 	}
 }
 
@@ -134,4 +69,76 @@ func (o ServiceLldpInterface) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceLldpInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceLldpInterfaceDisable.IsNull() && !o.LeafServiceLldpInterfaceDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceLldpInterfaceDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceLldpInterfaceLocation).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceLldpInterfaceLocation)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["location"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceLldpInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["location"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceLldpInterfaceLocation = &ServiceLldpInterfaceLocation{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceLldpInterfaceLocation)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

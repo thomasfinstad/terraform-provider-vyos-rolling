@@ -2,122 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRouting describes the resource data model.
 type VrfNameProtocolsIsisSegmentRouting struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth types.String `tfsdk:"maximum_label_depth"`
+	LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth types.String `tfsdk:"maximum_label_depth" json:"maximum-label-depth,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsIsisSegmentRoutingPrefix types.Map `tfsdk:"prefix"`
+	TagVrfNameProtocolsIsisSegmentRoutingPrefix *map[string]VrfNameProtocolsIsisSegmentRoutingPrefix `tfsdk:"prefix" json:"prefix,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock types.Object `tfsdk:"global_block"`
-	NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock  types.Object `tfsdk:"local_block"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisSegmentRouting) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsUnknown()) {
-		vyosData["maximum-label-depth"] = o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.IsNull() || o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsIsisSegmentRoutingPrefix)
-		diags.Append(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["prefix"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisSegmentRoutingGlobalBlock
-		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["global-block"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisSegmentRoutingLocalBlock
-		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["local-block"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisSegmentRouting) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
-
-	// Leafs
-	if value, ok := vyosData["maximum-label-depth"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["prefix"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsIsisSegmentRoutingPrefix = data
-	} else {
-		o.TagVrfNameProtocolsIsisSegmentRoutingPrefix = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["global-block"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes())
-	}
-	if value, ok := vyosData["local-block"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRouting) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"maximum_label_depth": types.StringType,
-
-		// Tags
-		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.AttributeTypes()}},
-
-		// Nodes
-		"global_block": types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes()},
-		"local_block":  types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock *VrfNameProtocolsIsisSegmentRoutingGlobalBlock `tfsdk:"global_block" json:"global-block,omitempty"`
+	NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock  *VrfNameProtocolsIsisSegmentRoutingLocalBlock  `tfsdk:"local_block" json:"local-block,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -171,4 +74,130 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[strin
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisSegmentRouting) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsUnknown() {
+		jsonData["maximum-label-depth"] = o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["global-block"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local-block"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisSegmentRouting) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["maximum-label-depth"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["prefix"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsIsisSegmentRoutingPrefix = &map[string]VrfNameProtocolsIsisSegmentRoutingPrefix{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsIsisSegmentRoutingPrefix)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["global-block"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock = &VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["local-block"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock = &VrfNameProtocolsIsisSegmentRoutingLocalBlock{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,153 +2,29 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueClass describes the resource data model.
 type QosPolicyPriorityQueueClass struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueClassDescrIPtion  types.String `tfsdk:"description"`
-	LeafQosPolicyPriorityQueueClassCodelQuantum types.String `tfsdk:"codel_quantum"`
-	LeafQosPolicyPriorityQueueClassFlows        types.String `tfsdk:"flows"`
-	LeafQosPolicyPriorityQueueClassInterval     types.String `tfsdk:"interval"`
-	LeafQosPolicyPriorityQueueClassQueueLimit   types.String `tfsdk:"queue_limit"`
-	LeafQosPolicyPriorityQueueClassQueueType    types.String `tfsdk:"queue_type"`
-	LeafQosPolicyPriorityQueueClassTarget       types.String `tfsdk:"target"`
+	LeafQosPolicyPriorityQueueClassDescrIPtion  types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyPriorityQueueClassCodelQuantum types.String `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
+	LeafQosPolicyPriorityQueueClassFlows        types.String `tfsdk:"flows" json:"flows,omitempty"`
+	LeafQosPolicyPriorityQueueClassInterval     types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafQosPolicyPriorityQueueClassQueueLimit   types.String `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyPriorityQueueClassQueueType    types.String `tfsdk:"queue_type" json:"queue-type,omitempty"`
+	LeafQosPolicyPriorityQueueClassTarget       types.String `tfsdk:"target" json:"target,omitempty"`
 
 	// TagNodes
-	TagQosPolicyPriorityQueueClassMatch types.Map `tfsdk:"match"`
+	TagQosPolicyPriorityQueueClassMatch *map[string]QosPolicyPriorityQueueClassMatch `tfsdk:"match" json:"match,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyPriorityQueueClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsNull() || o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyPriorityQueueClassDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsNull() || o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsUnknown()) {
-		vyosData["codel-quantum"] = o.LeafQosPolicyPriorityQueueClassCodelQuantum.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassFlows.IsNull() || o.LeafQosPolicyPriorityQueueClassFlows.IsUnknown()) {
-		vyosData["flows"] = o.LeafQosPolicyPriorityQueueClassFlows.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassInterval.IsNull() || o.LeafQosPolicyPriorityQueueClassInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafQosPolicyPriorityQueueClassInterval.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassQueueLimit.IsNull() || o.LeafQosPolicyPriorityQueueClassQueueLimit.IsUnknown()) {
-		vyosData["queue-limit"] = o.LeafQosPolicyPriorityQueueClassQueueLimit.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassQueueType.IsNull() || o.LeafQosPolicyPriorityQueueClassQueueType.IsUnknown()) {
-		vyosData["queue-type"] = o.LeafQosPolicyPriorityQueueClassQueueType.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassTarget.IsNull() || o.LeafQosPolicyPriorityQueueClassTarget.IsUnknown()) {
-		vyosData["target"] = o.LeafQosPolicyPriorityQueueClassTarget.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyPriorityQueueClassMatch.IsNull() || o.TagQosPolicyPriorityQueueClassMatch.IsUnknown()) {
-		subModel := make(map[string]QosPolicyPriorityQueueClassMatch)
-		diags.Append(o.TagQosPolicyPriorityQueueClassMatch.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["match"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyPriorityQueueClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["codel-quantum"]; ok {
-		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["flows"]; ok {
-		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-limit"]; ok {
-		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-type"]; ok {
-		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["target"]; ok {
-		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["match"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyPriorityQueueClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyPriorityQueueClassMatch = data
-	} else {
-		o.TagQosPolicyPriorityQueueClassMatch = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyPriorityQueueClass) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":   types.StringType,
-		"codel_quantum": types.StringType,
-		"flows":         types.StringType,
-		"interval":      types.StringType,
-		"queue_limit":   types.StringType,
-		"queue_type":    types.StringType,
-		"target":        types.StringType,
-
-		// Tags
-		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyPriorityQueueClassMatch{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -267,4 +143,136 @@ func (o QosPolicyPriorityQueueClass) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyPriorityQueueClass) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsNull() && !o.LeafQosPolicyPriorityQueueClassDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyPriorityQueueClassDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsNull() && !o.LeafQosPolicyPriorityQueueClassCodelQuantum.IsUnknown() {
+		jsonData["codel-quantum"] = o.LeafQosPolicyPriorityQueueClassCodelQuantum.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassFlows.IsNull() && !o.LeafQosPolicyPriorityQueueClassFlows.IsUnknown() {
+		jsonData["flows"] = o.LeafQosPolicyPriorityQueueClassFlows.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassInterval.IsNull() && !o.LeafQosPolicyPriorityQueueClassInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafQosPolicyPriorityQueueClassInterval.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassQueueLimit.IsNull() && !o.LeafQosPolicyPriorityQueueClassQueueLimit.IsUnknown() {
+		jsonData["queue-limit"] = o.LeafQosPolicyPriorityQueueClassQueueLimit.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassQueueType.IsNull() && !o.LeafQosPolicyPriorityQueueClassQueueType.IsUnknown() {
+		jsonData["queue-type"] = o.LeafQosPolicyPriorityQueueClassQueueType.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassTarget.IsNull() && !o.LeafQosPolicyPriorityQueueClassTarget.IsUnknown() {
+		jsonData["target"] = o.LeafQosPolicyPriorityQueueClassTarget.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyPriorityQueueClassMatch).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyPriorityQueueClassMatch)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["match"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyPriorityQueueClass) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["codel-quantum"]; ok {
+		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassCodelQuantum = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["flows"]; ok {
+		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassFlows = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-limit"]; ok {
+		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassQueueLimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-type"]; ok {
+		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassQueueType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["target"]; ok {
+		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["match"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyPriorityQueueClassMatch = &map[string]QosPolicyPriorityQueueClassMatch{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyPriorityQueueClassMatch)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

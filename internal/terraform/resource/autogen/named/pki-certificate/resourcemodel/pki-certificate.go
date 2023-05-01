@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiCertificate describes the resource data model.
@@ -17,14 +15,14 @@ type PkiCertificate struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPkiCertificateCertificate types.String `tfsdk:"certificate"`
-	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description"`
-	LeafPkiCertificateRevoke      types.String `tfsdk:"revoke"`
+	LeafPkiCertificateCertificate types.String `tfsdk:"certificate" json:"certificate,omitempty"`
+	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPkiCertificateRevoke      types.String `tfsdk:"revoke" json:"revoke,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePkiCertificatePrivate types.Object `tfsdk:"private"`
+	NodePkiCertificatePrivate *PkiCertificatePrivate `tfsdk:"private" json:"private,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,87 +31,6 @@ func (o *PkiCertificate) GetVyosPath() []string {
 		"pki",
 		"certificate",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PkiCertificate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "certificate"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPkiCertificateCertificate.IsNull() || o.LeafPkiCertificateCertificate.IsUnknown()) {
-		vyosData["certificate"] = o.LeafPkiCertificateCertificate.ValueString()
-	}
-	if !(o.LeafPkiCertificateDescrIPtion.IsNull() || o.LeafPkiCertificateDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPkiCertificateDescrIPtion.ValueString()
-	}
-	if !(o.LeafPkiCertificateRevoke.IsNull() || o.LeafPkiCertificateRevoke.IsUnknown()) {
-		vyosData["revoke"] = o.LeafPkiCertificateRevoke.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePkiCertificatePrivate.IsNull() || o.NodePkiCertificatePrivate.IsUnknown()) {
-		var subModel PkiCertificatePrivate
-		diags.Append(o.NodePkiCertificatePrivate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["private"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PkiCertificate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "certificate"}})
-
-	// Leafs
-	if value, ok := vyosData["certificate"]; ok {
-		o.LeafPkiCertificateCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateCertificate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["revoke"]; ok {
-		o.LeafPkiCertificateRevoke = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCertificateRevoke = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["private"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PkiCertificatePrivate{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePkiCertificatePrivate = data
-
-	} else {
-		o.NodePkiCertificatePrivate = basetypes.NewObjectNull(PkiCertificatePrivate{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "certificate"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PkiCertificate) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"certificate": types.StringType,
-		"description": types.StringType,
-		"revoke":      types.StringType,
-
-		// Tags
-
-		// Nodes
-		"private": types.ObjectType{AttrTypes: PkiCertificatePrivate{}.AttributeTypes()},
 	}
 }
 
@@ -162,4 +79,96 @@ func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PkiCertificate) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPkiCertificateCertificate.IsNull() && !o.LeafPkiCertificateCertificate.IsUnknown() {
+		jsonData["certificate"] = o.LeafPkiCertificateCertificate.ValueString()
+	}
+
+	if !o.LeafPkiCertificateDescrIPtion.IsNull() && !o.LeafPkiCertificateDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPkiCertificateDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPkiCertificateRevoke.IsNull() && !o.LeafPkiCertificateRevoke.IsUnknown() {
+		jsonData["revoke"] = o.LeafPkiCertificateRevoke.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePkiCertificatePrivate).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePkiCertificatePrivate)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["private"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PkiCertificate) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["certificate"]; ok {
+		o.LeafPkiCertificateCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateCertificate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["revoke"]; ok {
+		o.LeafPkiCertificateRevoke = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateRevoke = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["private"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePkiCertificatePrivate = &PkiCertificatePrivate{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePkiCertificatePrivate)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

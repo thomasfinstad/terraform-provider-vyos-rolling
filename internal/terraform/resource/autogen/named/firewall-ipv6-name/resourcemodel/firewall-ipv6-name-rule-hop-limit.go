@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleHopLimit describes the resource data model.
 type FirewallIPvsixNameRuleHopLimit struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleHopLimitEq types.String `tfsdk:"eq"`
-	LeafFirewallIPvsixNameRuleHopLimitGt types.String `tfsdk:"gt"`
-	LeafFirewallIPvsixNameRuleHopLimitLt types.String `tfsdk:"lt"`
+	LeafFirewallIPvsixNameRuleHopLimitEq types.String `tfsdk:"eq" json:"eq,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitGt types.String `tfsdk:"gt" json:"gt,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitLt types.String `tfsdk:"lt" json:"lt,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallIPvsixNameRuleHopLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallIPvsixNameRuleHopLimitEq.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitEq.IsUnknown()) {
-		vyosData["eq"] = o.LeafFirewallIPvsixNameRuleHopLimitEq.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleHopLimitGt.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitGt.IsUnknown()) {
-		vyosData["gt"] = o.LeafFirewallIPvsixNameRuleHopLimitGt.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleHopLimitLt.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitLt.IsUnknown()) {
-		vyosData["lt"] = o.LeafFirewallIPvsixNameRuleHopLimitLt.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallIPvsixNameRuleHopLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
-
-	// Leafs
-	if value, ok := vyosData["eq"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["gt"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["lt"]; ok {
-		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallIPvsixNameRuleHopLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"eq": types.StringType,
-		"gt": types.StringType,
-		"lt": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallIPvsixNameRuleHopLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallIPvsixNameRuleHopLimitEq.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitEq.IsUnknown() {
+		jsonData["eq"] = o.LeafFirewallIPvsixNameRuleHopLimitEq.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleHopLimitGt.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitGt.IsUnknown() {
+		jsonData["gt"] = o.LeafFirewallIPvsixNameRuleHopLimitGt.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleHopLimitLt.IsNull() && !o.LeafFirewallIPvsixNameRuleHopLimitLt.IsUnknown() {
+		jsonData["lt"] = o.LeafFirewallIPvsixNameRuleHopLimitLt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallIPvsixNameRuleHopLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["eq"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["gt"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["lt"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

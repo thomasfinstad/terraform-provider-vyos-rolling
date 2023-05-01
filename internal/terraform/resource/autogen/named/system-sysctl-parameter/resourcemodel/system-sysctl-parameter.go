@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSysctlParameter describes the resource data model.
@@ -17,7 +14,7 @@ type SystemSysctlParameter struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemSysctlParameterValue types.String `tfsdk:"value"`
+	LeafSystemSysctlParameterValue types.String `tfsdk:"value" json:"value,omitempty"`
 
 	// TagNodes
 
@@ -31,56 +28,6 @@ func (o *SystemSysctlParameter) GetVyosPath() []string {
 		"sysctl",
 		"parameter",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemSysctlParameter) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "sysctl", "parameter"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemSysctlParameterValue.IsNull() || o.LeafSystemSysctlParameterValue.IsUnknown()) {
-		vyosData["value"] = o.LeafSystemSysctlParameterValue.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemSysctlParameter) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "sysctl", "parameter"}})
-
-	// Leafs
-	if value, ok := vyosData["value"]; ok {
-		o.LeafSystemSysctlParameterValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSysctlParameterValue = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "sysctl", "parameter"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemSysctlParameter) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"value": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -112,4 +59,49 @@ func (o SystemSysctlParameter) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemSysctlParameter) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemSysctlParameterValue.IsNull() && !o.LeafSystemSysctlParameterValue.IsUnknown() {
+		jsonData["value"] = o.LeafSystemSysctlParameterValue.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemSysctlParameter) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["value"]; ok {
+		o.LeafSystemSysctlParameterValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSysctlParameterValue = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

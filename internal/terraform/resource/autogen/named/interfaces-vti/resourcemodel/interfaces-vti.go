@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVti describes the resource data model.
@@ -17,19 +15,19 @@ type InterfacesVti struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesVtiAddress     types.String `tfsdk:"address"`
-	LeafInterfacesVtiDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesVtiDisable     types.String `tfsdk:"disable"`
-	LeafInterfacesVtiMtu         types.String `tfsdk:"mtu"`
-	LeafInterfacesVtiRedirect    types.String `tfsdk:"redirect"`
-	LeafInterfacesVtiVrf         types.String `tfsdk:"vrf"`
+	LeafInterfacesVtiAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesVtiDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesVtiDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesVtiMtu         types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesVtiRedirect    types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesVtiVrf         types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesVtiIP     types.Object `tfsdk:"ip"`
-	NodeInterfacesVtiIPvsix types.Object `tfsdk:"ipv6"`
-	NodeInterfacesVtiMirror types.Object `tfsdk:"mirror"`
+	NodeInterfacesVtiIP     *InterfacesVtiIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesVtiIPvsix *InterfacesVtiIPvsix `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesVtiMirror *InterfacesVtiMirror `tfsdk:"mirror" json:"mirror,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -38,142 +36,6 @@ func (o *InterfacesVti) GetVyosPath() []string {
 		"interfaces",
 		"vti",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesVti) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesVtiAddress.IsNull() || o.LeafInterfacesVtiAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesVtiAddress.ValueString()
-	}
-	if !(o.LeafInterfacesVtiDescrIPtion.IsNull() || o.LeafInterfacesVtiDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesVtiDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesVtiDisable.IsNull() || o.LeafInterfacesVtiDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesVtiDisable.ValueString()
-	}
-	if !(o.LeafInterfacesVtiMtu.IsNull() || o.LeafInterfacesVtiMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesVtiMtu.ValueString()
-	}
-	if !(o.LeafInterfacesVtiRedirect.IsNull() || o.LeafInterfacesVtiRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesVtiRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesVtiVrf.IsNull() || o.LeafInterfacesVtiVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesVtiVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesVtiIP.IsNull() || o.NodeInterfacesVtiIP.IsUnknown()) {
-		var subModel InterfacesVtiIP
-		diags.Append(o.NodeInterfacesVtiIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesVtiIPvsix.IsNull() || o.NodeInterfacesVtiIPvsix.IsUnknown()) {
-		var subModel InterfacesVtiIPvsix
-		diags.Append(o.NodeInterfacesVtiIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesVtiMirror.IsNull() || o.NodeInterfacesVtiMirror.IsUnknown()) {
-		var subModel InterfacesVtiMirror
-		diags.Append(o.NodeInterfacesVtiMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesVti) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesVtiAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesVtiDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesVtiMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesVtiRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesVtiVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVtiVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVtiIP = data
-
-	} else {
-		o.NodeInterfacesVtiIP = basetypes.NewObjectNull(InterfacesVtiIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVtiIPvsix = data
-
-	} else {
-		o.NodeInterfacesVtiIPvsix = basetypes.NewObjectNull(InterfacesVtiIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVtiMirror = data
-
-	} else {
-		o.NodeInterfacesVtiMirror = basetypes.NewObjectNull(InterfacesVtiMirror{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesVti) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-		"disable":     types.StringType,
-		"mtu":         types.StringType,
-		"redirect":    types.StringType,
-		"vrf":         types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ip":     types.ObjectType{AttrTypes: InterfacesVtiIP{}.AttributeTypes()},
-		"ipv6":   types.ObjectType{AttrTypes: InterfacesVtiIPvsix{}.AttributeTypes()},
-		"mirror": types.ObjectType{AttrTypes: InterfacesVtiMirror{}.AttributeTypes()},
 	}
 }
 
@@ -287,4 +149,180 @@ func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesVti) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesVtiAddress.IsNull() && !o.LeafInterfacesVtiAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesVtiAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesVtiDescrIPtion.IsNull() && !o.LeafInterfacesVtiDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesVtiDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesVtiDisable.IsNull() && !o.LeafInterfacesVtiDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesVtiDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesVtiMtu.IsNull() && !o.LeafInterfacesVtiMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesVtiMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesVtiRedirect.IsNull() && !o.LeafInterfacesVtiRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesVtiRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesVtiVrf.IsNull() && !o.LeafInterfacesVtiVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesVtiVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesVtiIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesVtiIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesVtiMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVtiMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesVti) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesVtiAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesVtiDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesVtiMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesVtiRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesVtiVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVtiIP = &InterfacesVtiIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVtiIPvsix = &InterfacesVtiIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVtiMirror = &InterfacesVtiMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVtiMirror)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

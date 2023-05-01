@@ -2,93 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessSecURItyWpaRadius describes the resource data model.
 type InterfacesWirelessSecURItyWpaRadius struct {
 	// LeafNodes
-	LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress types.String `tfsdk:"source_address"`
+	LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress types.String `tfsdk:"source_address" json:"source-address,omitempty"`
 
 	// TagNodes
-	TagInterfacesWirelessSecURItyWpaRadiusServer types.Map `tfsdk:"server"`
+	TagInterfacesWirelessSecURItyWpaRadiusServer *map[string]InterfacesWirelessSecURItyWpaRadiusServer `tfsdk:"server" json:"server,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessSecURItyWpaRadius) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa", "radius"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsNull() || o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsUnknown()) {
-		vyosData["source-address"] = o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesWirelessSecURItyWpaRadiusServer.IsNull() || o.TagInterfacesWirelessSecURItyWpaRadiusServer.IsUnknown()) {
-		subModel := make(map[string]InterfacesWirelessSecURItyWpaRadiusServer)
-		diags.Append(o.TagInterfacesWirelessSecURItyWpaRadiusServer.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["server"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessSecURItyWpaRadius) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa", "radius"}})
-
-	// Leafs
-	if value, ok := vyosData["source-address"]; ok {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["server"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesWirelessSecURItyWpaRadiusServer{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesWirelessSecURItyWpaRadiusServer = data
-	} else {
-		o.TagInterfacesWirelessSecURItyWpaRadiusServer = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "security", "wpa", "radius"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessSecURItyWpaRadius) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"source_address": types.StringType,
-
-		// Tags
-		"server": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesWirelessSecURItyWpaRadiusServer{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -126,4 +56,76 @@ func (o InterfacesWirelessSecURItyWpaRadius) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessSecURItyWpaRadius) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsNull() && !o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.IsUnknown() {
+		jsonData["source-address"] = o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesWirelessSecURItyWpaRadiusServer).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesWirelessSecURItyWpaRadiusServer)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["server"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessSecURItyWpaRadius) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["source-address"]; ok {
+		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSecURItyWpaRadiusSourceAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["server"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesWirelessSecURItyWpaRadiusServer = &map[string]InterfacesWirelessSecURItyWpaRadiusServer{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesWirelessSecURItyWpaRadiusServer)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

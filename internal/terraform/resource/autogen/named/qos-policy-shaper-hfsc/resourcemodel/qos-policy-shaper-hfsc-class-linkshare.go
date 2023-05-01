@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassLinkshare describes the resource data model.
 type QosPolicyShaperHfscClassLinkshare struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscClassLinkshareD    types.String `tfsdk:"d"`
-	LeafQosPolicyShaperHfscClassLinkshareMone types.String `tfsdk:"m1"`
-	LeafQosPolicyShaperHfscClassLinkshareMtwo types.String `tfsdk:"m2"`
+	LeafQosPolicyShaperHfscClassLinkshareD    types.String `tfsdk:"d" json:"d,omitempty"`
+	LeafQosPolicyShaperHfscClassLinkshareMone types.String `tfsdk:"m1" json:"m1,omitempty"`
+	LeafQosPolicyShaperHfscClassLinkshareMtwo types.String `tfsdk:"m2" json:"m2,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscClassLinkshare) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscClassLinkshareD.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareD.IsUnknown()) {
-		vyosData["d"] = o.LeafQosPolicyShaperHfscClassLinkshareD.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassLinkshareMone.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareMone.IsUnknown()) {
-		vyosData["m1"] = o.LeafQosPolicyShaperHfscClassLinkshareMone.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsUnknown()) {
-		vyosData["m2"] = o.LeafQosPolicyShaperHfscClassLinkshareMtwo.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscClassLinkshare) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
-
-	// Leafs
-	if value, ok := vyosData["d"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscClassLinkshare) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"d":  types.StringType,
-		"m1": types.StringType,
-		"m2": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -151,4 +80,69 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscClassLinkshare) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscClassLinkshareD.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareD.IsUnknown() {
+		jsonData["d"] = o.LeafQosPolicyShaperHfscClassLinkshareD.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassLinkshareMone.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareMone.IsUnknown() {
+		jsonData["m1"] = o.LeafQosPolicyShaperHfscClassLinkshareMone.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsNull() && !o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsUnknown() {
+		jsonData["m2"] = o.LeafQosPolicyShaperHfscClassLinkshareMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscClassLinkshare) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["d"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

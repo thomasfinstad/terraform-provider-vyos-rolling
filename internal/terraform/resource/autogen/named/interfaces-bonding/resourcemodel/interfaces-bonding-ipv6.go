@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingIPvsix describes the resource data model.
 type InterfacesBondingIPvsix struct {
 	// LeafNodes
-	LeafInterfacesBondingIPvsixAdjustMss              types.String `tfsdk:"adjust_mss"`
-	LeafInterfacesBondingIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding"`
-	LeafInterfacesBondingIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits"`
+	LeafInterfacesBondingIPvsixAdjustMss              types.String `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
+	LeafInterfacesBondingIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
+	LeafInterfacesBondingIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits" json:"dup-addr-detect-transmits,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesBondingIPvsixAddress types.Object `tfsdk:"address"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBondingIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBondingIPvsixAdjustMss.IsNull() || o.LeafInterfacesBondingIPvsixAdjustMss.IsUnknown()) {
-		vyosData["adjust-mss"] = o.LeafInterfacesBondingIPvsixAdjustMss.ValueString()
-	}
-	if !(o.LeafInterfacesBondingIPvsixDisableForwarding.IsNull() || o.LeafInterfacesBondingIPvsixDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesBondingIPvsixDisableForwarding.ValueString()
-	}
-	if !(o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.IsNull() || o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.IsUnknown()) {
-		vyosData["dup-addr-detect-transmits"] = o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesBondingIPvsixAddress.IsNull() || o.NodeInterfacesBondingIPvsixAddress.IsUnknown()) {
-		var subModel InterfacesBondingIPvsixAddress
-		diags.Append(o.NodeInterfacesBondingIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBondingIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["adjust-mss"]; ok {
-		o.LeafInterfacesBondingIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingIPvsixAdjustMss = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesBondingIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingIPvsixDisableForwarding = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dup-addr-detect-transmits"]; ok {
-		o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["address"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBondingIPvsixAddress = data
-
-	} else {
-		o.NodeInterfacesBondingIPvsixAddress = basetypes.NewObjectNull(InterfacesBondingIPvsixAddress{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBondingIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"adjust_mss":                types.StringType,
-		"disable_forwarding":        types.StringType,
-		"dup_addr_detect_transmits": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"address": types.ObjectType{AttrTypes: InterfacesBondingIPvsixAddress{}.AttributeTypes()},
-	}
+	NodeInterfacesBondingIPvsixAddress *InterfacesBondingIPvsixAddress `tfsdk:"address" json:"address,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -154,4 +71,96 @@ func (o InterfacesBondingIPvsix) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBondingIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBondingIPvsixAdjustMss.IsNull() && !o.LeafInterfacesBondingIPvsixAdjustMss.IsUnknown() {
+		jsonData["adjust-mss"] = o.LeafInterfacesBondingIPvsixAdjustMss.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingIPvsixDisableForwarding.IsNull() && !o.LeafInterfacesBondingIPvsixDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesBondingIPvsixDisableForwarding.ValueString()
+	}
+
+	if !o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.IsNull() && !o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.IsUnknown() {
+		jsonData["dup-addr-detect-transmits"] = o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesBondingIPvsixAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBondingIPvsixAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBondingIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["adjust-mss"]; ok {
+		o.LeafInterfacesBondingIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingIPvsixAdjustMss = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesBondingIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dup-addr-detect-transmits"]; ok {
+		o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBondingIPvsixAddress = &InterfacesBondingIPvsixAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBondingIPvsixAddress)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

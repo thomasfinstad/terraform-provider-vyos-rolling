@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfDistanceOspf describes the resource data model.
 type VrfNameProtocolsOspfDistanceOspf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDistanceOspfExternal  types.String `tfsdk:"external"`
-	LeafVrfNameProtocolsOspfDistanceOspfInterArea types.String `tfsdk:"inter_area"`
-	LeafVrfNameProtocolsOspfDistanceOspfIntraArea types.String `tfsdk:"intra_area"`
+	LeafVrfNameProtocolsOspfDistanceOspfExternal  types.String `tfsdk:"external" json:"external,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfInterArea types.String `tfsdk:"inter_area" json:"inter-area,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfIntraArea types.String `tfsdk:"intra_area" json:"intra-area,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfDistanceOspf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsUnknown()) {
-		vyosData["external"] = o.LeafVrfNameProtocolsOspfDistanceOspfExternal.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsUnknown()) {
-		vyosData["inter-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsUnknown()) {
-		vyosData["intra-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfDistanceOspf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
-
-	// Leafs
-	if value, ok := vyosData["external"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["inter-area"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["intra-area"]; ok {
-		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfDistanceOspf) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"external":   types.StringType,
-		"inter_area": types.StringType,
-		"intra_area": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfDistanceOspf) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsUnknown() {
+		jsonData["external"] = o.LeafVrfNameProtocolsOspfDistanceOspfExternal.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsUnknown() {
+		jsonData["inter-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsNull() && !o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsUnknown() {
+		jsonData["intra-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfDistanceOspf) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["external"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["inter-area"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["intra-area"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

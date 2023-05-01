@@ -2,178 +2,29 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.String `tfsdk:"table"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.String `tfsdk:"table" json:"table,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected types.Object `tfsdk:"connected"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      types.Object `tfsdk:"isis"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    types.Object `tfsdk:"kernel"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      types.Object `tfsdk:"ospf"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       types.Object `tfsdk:"rip"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     types.Object `tfsdk:"babel"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    types.Object `tfsdk:"static"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsUnknown()) {
-		vyosData["table"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["isis"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ospf"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["rip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
-
-	// Leafs
-	if value, ok := vyosData["table"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["connected"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes())
-	}
-	if value, ok := vyosData["isis"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes())
-	}
-	if value, ok := vyosData["kernel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ospf"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes())
-	}
-	if value, ok := vyosData["rip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["babel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["static"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"table": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes()},
-		"isis":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes()},
-		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes()},
-		"ospf":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes()},
-		"rip":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes()},
-		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes()},
-		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected `tfsdk:"connected" json:"connected,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      `tfsdk:"isis" json:"isis,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    `tfsdk:"kernel" json:"kernel,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      `tfsdk:"ospf" json:"ospf,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       `tfsdk:"rip" json:"rip,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     `tfsdk:"babel" json:"babel,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    `tfsdk:"static" json:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -248,4 +99,238 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSche
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsUnknown() {
+		jsonData["table"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["connected"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["isis"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["kernel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ospf"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["babel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["static"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["table"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["connected"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["isis"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["kernel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ospf"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["rip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["babel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["static"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic = &VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

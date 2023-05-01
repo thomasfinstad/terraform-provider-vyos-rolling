@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginRadiusServer describes the resource data model.
@@ -17,11 +14,11 @@ type SystemLoginRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemLoginRadiusServerDisable  types.String `tfsdk:"disable"`
-	LeafSystemLoginRadiusServerKey      types.String `tfsdk:"key"`
-	LeafSystemLoginRadiusServerPort     types.String `tfsdk:"port"`
-	LeafSystemLoginRadiusServerTimeout  types.String `tfsdk:"timeout"`
-	LeafSystemLoginRadiusServerPriority types.String `tfsdk:"priority"`
+	LeafSystemLoginRadiusServerDisable  types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafSystemLoginRadiusServerKey      types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafSystemLoginRadiusServerPort     types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafSystemLoginRadiusServerTimeout  types.String `tfsdk:"timeout" json:"timeout,omitempty"`
+	LeafSystemLoginRadiusServerPriority types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
 
@@ -36,92 +33,6 @@ func (o *SystemLoginRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemLoginRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemLoginRadiusServerDisable.IsNull() || o.LeafSystemLoginRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafSystemLoginRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafSystemLoginRadiusServerKey.IsNull() || o.LeafSystemLoginRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafSystemLoginRadiusServerKey.ValueString()
-	}
-	if !(o.LeafSystemLoginRadiusServerPort.IsNull() || o.LeafSystemLoginRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafSystemLoginRadiusServerPort.ValueString()
-	}
-	if !(o.LeafSystemLoginRadiusServerTimeout.IsNull() || o.LeafSystemLoginRadiusServerTimeout.IsUnknown()) {
-		vyosData["timeout"] = o.LeafSystemLoginRadiusServerTimeout.ValueString()
-	}
-	if !(o.LeafSystemLoginRadiusServerPriority.IsNull() || o.LeafSystemLoginRadiusServerPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafSystemLoginRadiusServerPriority.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemLoginRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["timeout"]; ok {
-		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemLoginRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":  types.StringType,
-		"key":      types.StringType,
-		"port":     types.StringType,
-		"timeout":  types.StringType,
-		"priority": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -203,4 +114,89 @@ func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemLoginRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemLoginRadiusServerDisable.IsNull() && !o.LeafSystemLoginRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafSystemLoginRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafSystemLoginRadiusServerKey.IsNull() && !o.LeafSystemLoginRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafSystemLoginRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafSystemLoginRadiusServerPort.IsNull() && !o.LeafSystemLoginRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafSystemLoginRadiusServerPort.ValueString()
+	}
+
+	if !o.LeafSystemLoginRadiusServerTimeout.IsNull() && !o.LeafSystemLoginRadiusServerTimeout.IsUnknown() {
+		jsonData["timeout"] = o.LeafSystemLoginRadiusServerTimeout.ValueString()
+	}
+
+	if !o.LeafSystemLoginRadiusServerPriority.IsNull() && !o.LeafSystemLoginRadiusServerPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafSystemLoginRadiusServerPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemLoginRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["timeout"]; ok {
+		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

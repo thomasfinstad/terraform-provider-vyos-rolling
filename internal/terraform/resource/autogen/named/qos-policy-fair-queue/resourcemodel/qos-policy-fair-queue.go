@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyFairQueue describes the resource data model.
@@ -17,9 +14,9 @@ type QosPolicyFairQueue struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyFairQueueDescrIPtion  types.String `tfsdk:"description"`
-	LeafQosPolicyFairQueueHashInterval types.String `tfsdk:"hash_interval"`
-	LeafQosPolicyFairQueueQueueLimit   types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyFairQueueDescrIPtion  types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyFairQueueHashInterval types.String `tfsdk:"hash_interval" json:"hash-interval,omitempty"`
+	LeafQosPolicyFairQueueQueueLimit   types.String `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *QosPolicyFairQueue) GetVyosPath() []string {
 		"policy",
 		"fair-queue",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyFairQueue) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyFairQueueDescrIPtion.IsNull() || o.LeafQosPolicyFairQueueDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyFairQueueDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyFairQueueHashInterval.IsNull() || o.LeafQosPolicyFairQueueHashInterval.IsUnknown()) {
-		vyosData["hash-interval"] = o.LeafQosPolicyFairQueueHashInterval.ValueString()
-	}
-	if !(o.LeafQosPolicyFairQueueQueueLimit.IsNull() || o.LeafQosPolicyFairQueueQueueLimit.IsUnknown()) {
-		vyosData["queue-limit"] = o.LeafQosPolicyFairQueueQueueLimit.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyFairQueue) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hash-interval"]; ok {
-		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-limit"]; ok {
-		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyFairQueue) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":   types.StringType,
-		"hash_interval": types.StringType,
-		"queue_limit":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -165,4 +94,69 @@ func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribu
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyFairQueue) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyFairQueueDescrIPtion.IsNull() && !o.LeafQosPolicyFairQueueDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyFairQueueDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyFairQueueHashInterval.IsNull() && !o.LeafQosPolicyFairQueueHashInterval.IsUnknown() {
+		jsonData["hash-interval"] = o.LeafQosPolicyFairQueueHashInterval.ValueString()
+	}
+
+	if !o.LeafQosPolicyFairQueueQueueLimit.IsNull() && !o.LeafQosPolicyFairQueueQueueLimit.IsUnknown() {
+		jsonData["queue-limit"] = o.LeafQosPolicyFairQueueQueueLimit.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyFairQueue) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hash-interval"]; ok {
+		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-limit"]; ok {
+		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

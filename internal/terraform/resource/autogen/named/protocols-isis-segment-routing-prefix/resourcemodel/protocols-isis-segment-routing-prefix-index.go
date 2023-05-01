@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIsisSegmentRoutingPrefixIndex describes the resource data model.
 type ProtocolsIsisSegmentRoutingPrefixIndex struct {
 	// LeafNodes
-	LeafProtocolsIsisSegmentRoutingPrefixIndexValue        types.String `tfsdk:"value"`
-	LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull types.String `tfsdk:"explicit_null"`
-	LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag    types.String `tfsdk:"no_php_flag"`
+	LeafProtocolsIsisSegmentRoutingPrefixIndexValue        types.String `tfsdk:"value" json:"value,omitempty"`
+	LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull types.String `tfsdk:"explicit_null" json:"explicit-null,omitempty"`
+	LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag    types.String `tfsdk:"no_php_flag" json:"no-php-flag,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsIsisSegmentRoutingPrefixIndex) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "isis", "segment-routing", "prefix", "index"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.IsNull() || o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.IsUnknown()) {
-		vyosData["value"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.ValueString()
-	}
-	if !(o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsNull() || o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsUnknown()) {
-		vyosData["explicit-null"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.ValueString()
-	}
-	if !(o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsNull() || o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsUnknown()) {
-		vyosData["no-php-flag"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsIsisSegmentRoutingPrefixIndex) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "isis", "segment-routing", "prefix", "index"}})
-
-	// Leafs
-	if value, ok := vyosData["value"]; ok {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["explicit-null"]; ok {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-php-flag"]; ok {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "isis", "segment-routing", "prefix", "index"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsIsisSegmentRoutingPrefixIndex) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"value":         types.StringType,
-		"explicit_null": types.StringType,
-		"no_php_flag":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +56,69 @@ func (o ProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes() map[s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsIsisSegmentRoutingPrefixIndex) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.IsNull() && !o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.IsUnknown() {
+		jsonData["value"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue.ValueString()
+	}
+
+	if !o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsNull() && !o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsUnknown() {
+		jsonData["explicit-null"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.ValueString()
+	}
+
+	if !o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsNull() && !o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsUnknown() {
+		jsonData["no-php-flag"] = o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsIsisSegmentRoutingPrefixIndex) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["value"]; ok {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["explicit-null"]; ok {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-php-flag"]; ok {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

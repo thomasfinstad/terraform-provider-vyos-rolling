@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessList describes the resource data model.
@@ -17,10 +15,10 @@ type PolicyAccessList struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagPolicyAccessListRule types.Map `tfsdk:"rule"`
+	TagPolicyAccessListRule *map[string]PolicyAccessListRule `tfsdk:"rule" json:"rule,omitempty"`
 
 	// Nodes
 }
@@ -31,74 +29,6 @@ func (o *PolicyAccessList) GetVyosPath() []string {
 		"policy",
 		"access-list",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyAccessListDescrIPtion.IsNull() || o.LeafPolicyAccessListDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyAccessListDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagPolicyAccessListRule.IsNull() || o.TagPolicyAccessListRule.IsUnknown()) {
-		subModel := make(map[string]PolicyAccessListRule)
-		diags.Append(o.TagPolicyAccessListRule.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["rule"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["rule"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyAccessListRule{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagPolicyAccessListRule = data
-	} else {
-		o.TagPolicyAccessListRule = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyAccessList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyAccessListRule{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -151,4 +81,76 @@ func (o PolicyAccessList) ResourceSchemaAttributes() map[string]schema.Attribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyAccessList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyAccessListDescrIPtion.IsNull() && !o.LeafPolicyAccessListDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyAccessListDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagPolicyAccessListRule).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagPolicyAccessListRule)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyAccessList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["rule"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagPolicyAccessListRule = &map[string]PolicyAccessListRule{}
+
+		err = json.Unmarshal(subJSONStr, o.TagPolicyAccessListRule)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

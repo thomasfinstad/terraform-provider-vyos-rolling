@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueClassMatchEther describes the resource data model.
 type QosPolicyPriorityQueueClassMatchEther struct {
 	// LeafNodes
-	LeafQosPolicyPriorityQueueClassMatchEtherDestination types.String `tfsdk:"destination"`
-	LeafQosPolicyPriorityQueueClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
-	LeafQosPolicyPriorityQueueClassMatchEtherSource      types.String `tfsdk:"source"`
+	LeafQosPolicyPriorityQueueClassMatchEtherDestination types.String `tfsdk:"destination" json:"destination,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchEtherProtocol    types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchEtherSource      types.String `tfsdk:"source" json:"source,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyPriorityQueueClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsUnknown()) {
-		vyosData["destination"] = o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.ValueString()
-	}
-	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsUnknown()) {
-		vyosData["source"] = o.LeafQosPolicyPriorityQueueClassMatchEtherSource.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyPriorityQueueClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
-
-	// Leafs
-	if value, ok := vyosData["destination"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source"]; ok {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyPriorityQueueClassMatchEther) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"destination": types.StringType,
-		"protocol":    types.StringType,
-		"source":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +72,69 @@ func (o QosPolicyPriorityQueueClassMatchEther) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyPriorityQueueClassMatchEther) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsUnknown() {
+		jsonData["destination"] = o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.ValueString()
+	}
+
+	if !o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsNull() && !o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsUnknown() {
+		jsonData["source"] = o.LeafQosPolicyPriorityQueueClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyPriorityQueueClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["destination"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

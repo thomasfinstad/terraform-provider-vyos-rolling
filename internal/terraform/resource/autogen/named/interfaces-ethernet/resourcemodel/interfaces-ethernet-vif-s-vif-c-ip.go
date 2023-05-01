@@ -2,174 +2,31 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetVifSVifCIP describes the resource data model.
 type InterfacesEthernetVifSVifCIP struct {
 	// LeafNodes
-	LeafInterfacesEthernetVifSVifCIPAdjustMss               types.String `tfsdk:"adjust_mss"`
-	LeafInterfacesEthernetVifSVifCIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout"`
-	LeafInterfacesEthernetVifSVifCIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter"`
-	LeafInterfacesEthernetVifSVifCIPDisableForwarding       types.String `tfsdk:"disable_forwarding"`
-	LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast"`
-	LeafInterfacesEthernetVifSVifCIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept"`
-	LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce"`
-	LeafInterfacesEthernetVifSVifCIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore"`
-	LeafInterfacesEthernetVifSVifCIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp"`
-	LeafInterfacesEthernetVifSVifCIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan"`
-	LeafInterfacesEthernetVifSVifCIPSourceValIDation        types.String `tfsdk:"source_validation"`
+	LeafInterfacesEthernetVifSVifCIPAdjustMss               types.String `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout" json:"arp-cache-timeout,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter" json:"disable-arp-filter,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPDisableForwarding       types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast" json:"enable-directed-broadcast,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept" json:"enable-arp-accept,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce" json:"enable-arp-announce,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore" json:"enable-arp-ignore,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp" json:"enable-proxy-arp,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan" json:"proxy-arp-pvlan,omitempty"`
+	LeafInterfacesEthernetVifSVifCIPSourceValIDation        types.String `tfsdk:"source_validation" json:"source-validation,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetVifSVifCIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "ip"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetVifSVifCIPAdjustMss.IsNull() || o.LeafInterfacesEthernetVifSVifCIPAdjustMss.IsUnknown()) {
-		vyosData["adjust-mss"] = o.LeafInterfacesEthernetVifSVifCIPAdjustMss.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.IsNull() || o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.IsUnknown()) {
-		vyosData["arp-cache-timeout"] = o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.IsNull() || o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.IsUnknown()) {
-		vyosData["disable-arp-filter"] = o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.IsNull() || o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.IsNull() || o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.IsUnknown()) {
-		vyosData["enable-directed-broadcast"] = o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.IsNull() || o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.IsUnknown()) {
-		vyosData["enable-arp-accept"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.IsNull() || o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.IsUnknown()) {
-		vyosData["enable-arp-announce"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.IsNull() || o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.IsUnknown()) {
-		vyosData["enable-arp-ignore"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.IsNull() || o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.IsUnknown()) {
-		vyosData["enable-proxy-arp"] = o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.IsNull() || o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.IsUnknown()) {
-		vyosData["proxy-arp-pvlan"] = o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.IsNull() || o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.IsUnknown()) {
-		vyosData["source-validation"] = o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetVifSVifCIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "ip"}})
-
-	// Leafs
-	if value, ok := vyosData["adjust-mss"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPAdjustMss = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["arp-cache-timeout"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-arp-filter"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPDisableForwarding = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-directed-broadcast"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-accept"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-announce"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-arp-ignore"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-proxy-arp"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["proxy-arp-pvlan"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source-validation"]; ok {
-		o.LeafInterfacesEthernetVifSVifCIPSourceValIDation = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifSVifCIPSourceValIDation = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif-s", "vif-c", "ip"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetVifSVifCIP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"adjust_mss":                types.StringType,
-		"arp_cache_timeout":         types.StringType,
-		"disable_arp_filter":        types.StringType,
-		"disable_forwarding":        types.StringType,
-		"enable_directed_broadcast": types.StringType,
-		"enable_arp_accept":         types.StringType,
-		"enable_arp_announce":       types.StringType,
-		"enable_arp_ignore":         types.StringType,
-		"enable_proxy_arp":          types.StringType,
-		"proxy_arp_pvlan":           types.StringType,
-		"source_validation":         types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -277,4 +134,149 @@ func (o InterfacesEthernetVifSVifCIP) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetVifSVifCIP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetVifSVifCIPAdjustMss.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPAdjustMss.IsUnknown() {
+		jsonData["adjust-mss"] = o.LeafInterfacesEthernetVifSVifCIPAdjustMss.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.IsUnknown() {
+		jsonData["arp-cache-timeout"] = o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.IsUnknown() {
+		jsonData["disable-arp-filter"] = o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesEthernetVifSVifCIPDisableForwarding.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.IsUnknown() {
+		jsonData["enable-directed-broadcast"] = o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.IsUnknown() {
+		jsonData["enable-arp-accept"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.IsUnknown() {
+		jsonData["enable-arp-announce"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.IsUnknown() {
+		jsonData["enable-arp-ignore"] = o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.IsUnknown() {
+		jsonData["enable-proxy-arp"] = o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.IsUnknown() {
+		jsonData["proxy-arp-pvlan"] = o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.IsNull() && !o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.IsUnknown() {
+		jsonData["source-validation"] = o.LeafInterfacesEthernetVifSVifCIPSourceValIDation.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetVifSVifCIP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["adjust-mss"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPAdjustMss = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["arp-cache-timeout"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPArpCacheTimeout = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-arp-filter"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPDisableArpFilter = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPDisableForwarding = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-directed-broadcast"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-accept"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpAccept = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-announce"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpAnnounce = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-arp-ignore"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPEnableArpIgnore = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-proxy-arp"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPEnableProxyArp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["proxy-arp-pvlan"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPProxyArpPvlan = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source-validation"]; ok {
+		o.LeafInterfacesEthernetVifSVifCIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifSVifCIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

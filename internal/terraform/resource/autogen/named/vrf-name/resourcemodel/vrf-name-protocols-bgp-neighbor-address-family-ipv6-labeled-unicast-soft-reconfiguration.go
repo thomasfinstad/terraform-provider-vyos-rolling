@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound types.String `tfsdk:"inbound"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound types.String `tfsdk:"inbound" json:"inbound,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "soft-reconfiguration"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.IsUnknown()) {
-		vyosData["inbound"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "soft-reconfiguration"}})
-
-	// Leafs
-	if value, ok := vyosData["inbound"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "soft-reconfiguration"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"inbound": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,4 +36,49 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfig
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.IsUnknown() {
+		jsonData["inbound"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["inbound"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

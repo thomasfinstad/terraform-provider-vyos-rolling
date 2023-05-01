@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpSyncGroupTransitionScrIPt describes the resource data model.
 type HighAvailabilityVrrpSyncGroupTransitionScrIPt struct {
 	// LeafNodes
-	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster types.String `tfsdk:"master"`
-	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup types.String `tfsdk:"backup"`
-	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault  types.String `tfsdk:"fault"`
-	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop   types.String `tfsdk:"stop"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster types.String `tfsdk:"master" json:"master,omitempty"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup types.String `tfsdk:"backup" json:"backup,omitempty"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault  types.String `tfsdk:"fault" json:"fault,omitempty"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop   types.String `tfsdk:"stop" json:"stop,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsUnknown()) {
-		vyosData["master"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsUnknown()) {
-		vyosData["backup"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsUnknown()) {
-		vyosData["fault"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsUnknown()) {
-		vyosData["stop"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
-
-	// Leafs
-	if value, ok := vyosData["master"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["backup"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fault"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stop"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"master": types.StringType,
-		"backup": types.StringType,
-		"fault":  types.StringType,
-		"stop":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -140,4 +60,79 @@ func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes(
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsUnknown() {
+		jsonData["master"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsUnknown() {
+		jsonData["backup"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsUnknown() {
+		jsonData["fault"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsUnknown() {
+		jsonData["stop"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["master"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["backup"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fault"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stop"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

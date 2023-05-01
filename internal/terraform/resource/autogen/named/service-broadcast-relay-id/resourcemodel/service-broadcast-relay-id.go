@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceBroadcastRelayID describes the resource data model.
@@ -17,11 +14,11 @@ type ServiceBroadcastRelayID struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceBroadcastRelayIDDisable     types.String `tfsdk:"disable"`
-	LeafServiceBroadcastRelayIDAddress     types.String `tfsdk:"address"`
-	LeafServiceBroadcastRelayIDDescrIPtion types.String `tfsdk:"description"`
-	LeafServiceBroadcastRelayIDInterface   types.String `tfsdk:"interface"`
-	LeafServiceBroadcastRelayIDPort        types.String `tfsdk:"port"`
+	LeafServiceBroadcastRelayIDDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceBroadcastRelayIDAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafServiceBroadcastRelayIDDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafServiceBroadcastRelayIDInterface   types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafServiceBroadcastRelayIDPort        types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
@@ -35,92 +32,6 @@ func (o *ServiceBroadcastRelayID) GetVyosPath() []string {
 		"broadcast-relay",
 		"id",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceBroadcastRelayID) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "broadcast-relay", "id"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceBroadcastRelayIDDisable.IsNull() || o.LeafServiceBroadcastRelayIDDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceBroadcastRelayIDDisable.ValueString()
-	}
-	if !(o.LeafServiceBroadcastRelayIDAddress.IsNull() || o.LeafServiceBroadcastRelayIDAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafServiceBroadcastRelayIDAddress.ValueString()
-	}
-	if !(o.LeafServiceBroadcastRelayIDDescrIPtion.IsNull() || o.LeafServiceBroadcastRelayIDDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafServiceBroadcastRelayIDDescrIPtion.ValueString()
-	}
-	if !(o.LeafServiceBroadcastRelayIDInterface.IsNull() || o.LeafServiceBroadcastRelayIDInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafServiceBroadcastRelayIDInterface.ValueString()
-	}
-	if !(o.LeafServiceBroadcastRelayIDPort.IsNull() || o.LeafServiceBroadcastRelayIDPort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceBroadcastRelayIDPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceBroadcastRelayID) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "broadcast-relay", "id"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["address"]; ok {
-		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "broadcast-relay", "id"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceBroadcastRelayID) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":     types.StringType,
-		"address":     types.StringType,
-		"description": types.StringType,
-		"interface":   types.StringType,
-		"port":        types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -192,4 +103,89 @@ func (o ServiceBroadcastRelayID) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceBroadcastRelayID) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceBroadcastRelayIDDisable.IsNull() && !o.LeafServiceBroadcastRelayIDDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceBroadcastRelayIDDisable.ValueString()
+	}
+
+	if !o.LeafServiceBroadcastRelayIDAddress.IsNull() && !o.LeafServiceBroadcastRelayIDAddress.IsUnknown() {
+		jsonData["address"] = o.LeafServiceBroadcastRelayIDAddress.ValueString()
+	}
+
+	if !o.LeafServiceBroadcastRelayIDDescrIPtion.IsNull() && !o.LeafServiceBroadcastRelayIDDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafServiceBroadcastRelayIDDescrIPtion.ValueString()
+	}
+
+	if !o.LeafServiceBroadcastRelayIDInterface.IsNull() && !o.LeafServiceBroadcastRelayIDInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafServiceBroadcastRelayIDInterface.ValueString()
+	}
+
+	if !o.LeafServiceBroadcastRelayIDPort.IsNull() && !o.LeafServiceBroadcastRelayIDPort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceBroadcastRelayIDPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceBroadcastRelayID) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceBroadcastRelayIDDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceBroadcastRelayIDAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceBroadcastRelayIDDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceBroadcastRelayIDInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceBroadcastRelayIDPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

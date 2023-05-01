@@ -2,338 +2,45 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParameters describes the resource data model.
 type VrfNameProtocolsBgpParameters struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.String `tfsdk:"always_compare_med"`
-	LeafVrfNameProtocolsBgpParametersClusterID                         types.String `tfsdk:"cluster_id"`
-	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.String `tfsdk:"deterministic_med"`
-	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.String `tfsdk:"ebgp_requires_policy"`
-	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.String `tfsdk:"fast_convergence"`
-	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.String `tfsdk:"graceful_shutdown"`
-	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.String `tfsdk:"log_neighbor_changes"`
-	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.String `tfsdk:"minimum_holdtime"`
-	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.String `tfsdk:"network_import_check"`
-	LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy types.String `tfsdk:"route_reflector_allow_outbound_policy"`
-	LeafVrfNameProtocolsBgpParametersNoClientToClientReflection        types.String `tfsdk:"no_client_to_client_reflection"`
-	LeafVrfNameProtocolsBgpParametersNoFastExternalFailover            types.String `tfsdk:"no_fast_external_failover"`
-	LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates              types.String `tfsdk:"no_suppress_duplicates"`
-	LeafVrfNameProtocolsBgpParametersRejectAsSets                      types.String `tfsdk:"reject_as_sets"`
-	LeafVrfNameProtocolsBgpParametersShutdown                          types.String `tfsdk:"shutdown"`
-	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.String `tfsdk:"suppress_fib_pending"`
-	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id"`
+	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.String `tfsdk:"always_compare_med" json:"always-compare-med,omitempty"`
+	LeafVrfNameProtocolsBgpParametersClusterID                         types.String `tfsdk:"cluster_id" json:"cluster-id,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.String `tfsdk:"deterministic_med" json:"deterministic-med,omitempty"`
+	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.String `tfsdk:"ebgp_requires_policy" json:"ebgp-requires-policy,omitempty"`
+	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.String `tfsdk:"fast_convergence" json:"fast-convergence,omitempty"`
+	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.String `tfsdk:"graceful_shutdown" json:"graceful-shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.String `tfsdk:"log_neighbor_changes" json:"log-neighbor-changes,omitempty"`
+	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.String `tfsdk:"minimum_holdtime" json:"minimum-holdtime,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.String `tfsdk:"network_import_check" json:"network-import-check,omitempty"`
+	LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy types.String `tfsdk:"route_reflector_allow_outbound_policy" json:"route-reflector-allow-outbound-policy,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoClientToClientReflection        types.String `tfsdk:"no_client_to_client_reflection" json:"no-client-to-client-reflection,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoFastExternalFailover            types.String `tfsdk:"no_fast_external_failover" json:"no-fast-external-failover,omitempty"`
+	LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates              types.String `tfsdk:"no_suppress_duplicates" json:"no-suppress-duplicates,omitempty"`
+	LeafVrfNameProtocolsBgpParametersRejectAsSets                      types.String `tfsdk:"reject_as_sets" json:"reject-as-sets,omitempty"`
+	LeafVrfNameProtocolsBgpParametersShutdown                          types.String `tfsdk:"shutdown" json:"shutdown,omitempty"`
+	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.String `tfsdk:"suppress_fib_pending" json:"suppress-fib-pending,omitempty"`
+	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id" json:"router-id,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpParametersBestpath                 types.Object `tfsdk:"bestpath"`
-	NodeVrfNameProtocolsBgpParametersConfederation            types.Object `tfsdk:"confederation"`
-	NodeVrfNameProtocolsBgpParametersConditionalAdvertisement types.Object `tfsdk:"conditional_advertisement"`
-	NodeVrfNameProtocolsBgpParametersDampening                types.Object `tfsdk:"dampening"`
-	NodeVrfNameProtocolsBgpParametersDefault                  types.Object `tfsdk:"default"`
-	NodeVrfNameProtocolsBgpParametersDistance                 types.Object `tfsdk:"distance"`
-	NodeVrfNameProtocolsBgpParametersGracefulRestart          types.Object `tfsdk:"graceful_restart"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsNull() || o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsUnknown()) {
-		vyosData["always-compare-med"] = o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersClusterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersClusterID.IsUnknown()) {
-		vyosData["cluster-id"] = o.LeafVrfNameProtocolsBgpParametersClusterID.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsNull() || o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsUnknown()) {
-		vyosData["deterministic-med"] = o.LeafVrfNameProtocolsBgpParametersDeterministicMed.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsNull() || o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsUnknown()) {
-		vyosData["ebgp-requires-policy"] = o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsNull() || o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsUnknown()) {
-		vyosData["fast-convergence"] = o.LeafVrfNameProtocolsBgpParametersFastConvergence.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsNull() || o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsUnknown()) {
-		vyosData["graceful-shutdown"] = o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsNull() || o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsUnknown()) {
-		vyosData["log-neighbor-changes"] = o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsNull() || o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsUnknown()) {
-		vyosData["minimum-holdtime"] = o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsNull() || o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsUnknown()) {
-		vyosData["network-import-check"] = o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsNull() || o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsUnknown()) {
-		vyosData["route-reflector-allow-outbound-policy"] = o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsUnknown()) {
-		vyosData["no-client-to-client-reflection"] = o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsUnknown()) {
-		vyosData["no-fast-external-failover"] = o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsUnknown()) {
-		vyosData["no-suppress-duplicates"] = o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsNull() || o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsUnknown()) {
-		vyosData["reject-as-sets"] = o.LeafVrfNameProtocolsBgpParametersRejectAsSets.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersShutdown.IsNull() || o.LeafVrfNameProtocolsBgpParametersShutdown.IsUnknown()) {
-		vyosData["shutdown"] = o.LeafVrfNameProtocolsBgpParametersShutdown.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsNull() || o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsUnknown()) {
-		vyosData["suppress-fib-pending"] = o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersRouterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersRouterID.IsUnknown()) {
-		vyosData["router-id"] = o.LeafVrfNameProtocolsBgpParametersRouterID.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpParametersBestpath.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpath.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersBestpath
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpath.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bestpath"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersConfederation.IsNull() || o.NodeVrfNameProtocolsBgpParametersConfederation.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersConfederation
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersConfederation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["confederation"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.IsNull() || o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersConditionalAdvertisement
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["conditional-advertisement"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersDampening.IsNull() || o.NodeVrfNameProtocolsBgpParametersDampening.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersDampening
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersDampening.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dampening"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersDefault.IsNull() || o.NodeVrfNameProtocolsBgpParametersDefault.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersDefault
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersDistance.IsNull() || o.NodeVrfNameProtocolsBgpParametersDistance.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersDistance
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParametersGracefulRestart.IsNull() || o.NodeVrfNameProtocolsBgpParametersGracefulRestart.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParametersGracefulRestart
-		diags.Append(o.NodeVrfNameProtocolsBgpParametersGracefulRestart.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["graceful-restart"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
-
-	// Leafs
-	if value, ok := vyosData["always-compare-med"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["cluster-id"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["deterministic-med"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ebgp-requires-policy"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fast-convergence"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["graceful-shutdown"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["log-neighbor-changes"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["minimum-holdtime"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network-import-check"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-reflector-allow-outbound-policy"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-client-to-client-reflection"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-fast-external-failover"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-suppress-duplicates"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["reject-as-sets"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["shutdown"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["suppress-fib-pending"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["router-id"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["bestpath"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersBestpath = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersBestpath = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes())
-	}
-	if value, ok := vyosData["confederation"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersConfederation = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersConfederation = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes())
-	}
-	if value, ok := vyosData["conditional-advertisement"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dampening"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDampening{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersDampening = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersDampening = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDampening{}.AttributeTypes())
-	}
-	if value, ok := vyosData["default"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDefault{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersDefault = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersDefault = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDefault{}.AttributeTypes())
-	}
-	if value, ok := vyosData["distance"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDistance{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersDistance = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDistance{}.AttributeTypes())
-	}
-	if value, ok := vyosData["graceful-restart"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpParameters) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"always_compare_med":                    types.StringType,
-		"cluster_id":                            types.StringType,
-		"deterministic_med":                     types.StringType,
-		"ebgp_requires_policy":                  types.StringType,
-		"fast_convergence":                      types.StringType,
-		"graceful_shutdown":                     types.StringType,
-		"log_neighbor_changes":                  types.StringType,
-		"minimum_holdtime":                      types.StringType,
-		"network_import_check":                  types.StringType,
-		"route_reflector_allow_outbound_policy": types.StringType,
-		"no_client_to_client_reflection":        types.StringType,
-		"no_fast_external_failover":             types.StringType,
-		"no_suppress_duplicates":                types.StringType,
-		"reject_as_sets":                        types.StringType,
-		"shutdown":                              types.StringType,
-		"suppress_fib_pending":                  types.StringType,
-		"router_id":                             types.StringType,
-
-		// Tags
-
-		// Nodes
-		"bestpath":                  types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes()},
-		"confederation":             types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes()},
-		"conditional_advertisement": types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes()},
-		"dampening":                 types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDampening{}.AttributeTypes()},
-		"default":                   types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDefault{}.AttributeTypes()},
-		"distance":                  types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDistance{}.AttributeTypes()},
-		"graceful_restart":          types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpParametersBestpath                 *VrfNameProtocolsBgpParametersBestpath                 `tfsdk:"bestpath" json:"bestpath,omitempty"`
+	NodeVrfNameProtocolsBgpParametersConfederation            *VrfNameProtocolsBgpParametersConfederation            `tfsdk:"confederation" json:"confederation,omitempty"`
+	NodeVrfNameProtocolsBgpParametersConditionalAdvertisement *VrfNameProtocolsBgpParametersConditionalAdvertisement `tfsdk:"conditional_advertisement" json:"conditional-advertisement,omitempty"`
+	NodeVrfNameProtocolsBgpParametersDampening                *VrfNameProtocolsBgpParametersDampening                `tfsdk:"dampening" json:"dampening,omitempty"`
+	NodeVrfNameProtocolsBgpParametersDefault                  *VrfNameProtocolsBgpParametersDefault                  `tfsdk:"default" json:"default,omitempty"`
+	NodeVrfNameProtocolsBgpParametersDistance                 *VrfNameProtocolsBgpParametersDistance                 `tfsdk:"distance" json:"distance,omitempty"`
+	NodeVrfNameProtocolsBgpParametersGracefulRestart          *VrfNameProtocolsBgpParametersGracefulRestart          `tfsdk:"graceful_restart" json:"graceful-restart,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -532,4 +239,398 @@ func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpParameters) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsUnknown() {
+		jsonData["always-compare-med"] = o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersClusterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersClusterID.IsUnknown() {
+		jsonData["cluster-id"] = o.LeafVrfNameProtocolsBgpParametersClusterID.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsUnknown() {
+		jsonData["deterministic-med"] = o.LeafVrfNameProtocolsBgpParametersDeterministicMed.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsNull() && !o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsUnknown() {
+		jsonData["ebgp-requires-policy"] = o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsNull() && !o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsUnknown() {
+		jsonData["fast-convergence"] = o.LeafVrfNameProtocolsBgpParametersFastConvergence.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsNull() && !o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsUnknown() {
+		jsonData["graceful-shutdown"] = o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsNull() && !o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsUnknown() {
+		jsonData["log-neighbor-changes"] = o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsNull() && !o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsUnknown() {
+		jsonData["minimum-holdtime"] = o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsUnknown() {
+		jsonData["network-import-check"] = o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsUnknown() {
+		jsonData["route-reflector-allow-outbound-policy"] = o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsUnknown() {
+		jsonData["no-client-to-client-reflection"] = o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsUnknown() {
+		jsonData["no-fast-external-failover"] = o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsNull() && !o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsUnknown() {
+		jsonData["no-suppress-duplicates"] = o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsUnknown() {
+		jsonData["reject-as-sets"] = o.LeafVrfNameProtocolsBgpParametersRejectAsSets.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersShutdown.IsNull() && !o.LeafVrfNameProtocolsBgpParametersShutdown.IsUnknown() {
+		jsonData["shutdown"] = o.LeafVrfNameProtocolsBgpParametersShutdown.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsNull() && !o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsUnknown() {
+		jsonData["suppress-fib-pending"] = o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersRouterID.IsNull() && !o.LeafVrfNameProtocolsBgpParametersRouterID.IsUnknown() {
+		jsonData["router-id"] = o.LeafVrfNameProtocolsBgpParametersRouterID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersBestpath).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersBestpath)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bestpath"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersConfederation).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersConfederation)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["confederation"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["conditional-advertisement"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDampening).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDampening)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dampening"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDefault).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDefault)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersDistance).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersDistance)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["distance"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParametersGracefulRestart).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParametersGracefulRestart)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["graceful-restart"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpParameters) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["always-compare-med"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["cluster-id"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["deterministic-med"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ebgp-requires-policy"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fast-convergence"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["graceful-shutdown"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["log-neighbor-changes"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["minimum-holdtime"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network-import-check"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-reflector-allow-outbound-policy"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-client-to-client-reflection"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-fast-external-failover"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-suppress-duplicates"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["reject-as-sets"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["shutdown"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["suppress-fib-pending"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["router-id"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["bestpath"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersBestpath = &VrfNameProtocolsBgpParametersBestpath{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersBestpath)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["confederation"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersConfederation = &VrfNameProtocolsBgpParametersConfederation{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersConfederation)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["conditional-advertisement"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = &VrfNameProtocolsBgpParametersConditionalAdvertisement{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dampening"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersDampening = &VrfNameProtocolsBgpParametersDampening{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDampening)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["default"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersDefault = &VrfNameProtocolsBgpParametersDefault{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDefault)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["distance"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersDistance = &VrfNameProtocolsBgpParametersDistance{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersDistance)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["graceful-restart"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = &VrfNameProtocolsBgpParametersGracefulRestart{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParametersGracefulRestart)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

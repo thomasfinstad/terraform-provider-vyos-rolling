@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaRange describes the resource data model.
 type ProtocolsOspfAreaRange struct {
 	// LeafNodes
-	LeafProtocolsOspfAreaRangeCost         types.String `tfsdk:"cost"`
-	LeafProtocolsOspfAreaRangeNotAdvertise types.String `tfsdk:"not_advertise"`
-	LeafProtocolsOspfAreaRangeSubstitute   types.String `tfsdk:"substitute"`
+	LeafProtocolsOspfAreaRangeCost         types.String `tfsdk:"cost" json:"cost,omitempty"`
+	LeafProtocolsOspfAreaRangeNotAdvertise types.String `tfsdk:"not_advertise" json:"not-advertise,omitempty"`
+	LeafProtocolsOspfAreaRangeSubstitute   types.String `tfsdk:"substitute" json:"substitute,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsOspfAreaRange) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "range"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsOspfAreaRangeCost.IsNull() || o.LeafProtocolsOspfAreaRangeCost.IsUnknown()) {
-		vyosData["cost"] = o.LeafProtocolsOspfAreaRangeCost.ValueString()
-	}
-	if !(o.LeafProtocolsOspfAreaRangeNotAdvertise.IsNull() || o.LeafProtocolsOspfAreaRangeNotAdvertise.IsUnknown()) {
-		vyosData["not-advertise"] = o.LeafProtocolsOspfAreaRangeNotAdvertise.ValueString()
-	}
-	if !(o.LeafProtocolsOspfAreaRangeSubstitute.IsNull() || o.LeafProtocolsOspfAreaRangeSubstitute.IsUnknown()) {
-		vyosData["substitute"] = o.LeafProtocolsOspfAreaRangeSubstitute.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsOspfAreaRange) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "range"}})
-
-	// Leafs
-	if value, ok := vyosData["cost"]; ok {
-		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["not-advertise"]; ok {
-		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["substitute"]; ok {
-		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "range"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsOspfAreaRange) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cost":          types.StringType,
-		"not_advertise": types.StringType,
-		"substitute":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -131,4 +60,69 @@ func (o ProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsOspfAreaRange) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsOspfAreaRangeCost.IsNull() && !o.LeafProtocolsOspfAreaRangeCost.IsUnknown() {
+		jsonData["cost"] = o.LeafProtocolsOspfAreaRangeCost.ValueString()
+	}
+
+	if !o.LeafProtocolsOspfAreaRangeNotAdvertise.IsNull() && !o.LeafProtocolsOspfAreaRangeNotAdvertise.IsUnknown() {
+		jsonData["not-advertise"] = o.LeafProtocolsOspfAreaRangeNotAdvertise.ValueString()
+	}
+
+	if !o.LeafProtocolsOspfAreaRangeSubstitute.IsNull() && !o.LeafProtocolsOspfAreaRangeSubstitute.IsUnknown() {
+		jsonData["substitute"] = o.LeafProtocolsOspfAreaRangeSubstitute.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsOspfAreaRange) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cost"]; ok {
+		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaRangeCost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["not-advertise"]; ok {
+		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["substitute"]; ok {
+		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaRangeSubstitute = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

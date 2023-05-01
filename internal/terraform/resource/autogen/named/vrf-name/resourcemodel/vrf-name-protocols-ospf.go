@@ -2,344 +2,40 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspf describes the resource data model.
 type VrfNameProtocolsOspf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfDefaultMetric    types.String `tfsdk:"default_metric"`
-	LeafVrfNameProtocolsOspfMaximumPaths     types.String `tfsdk:"maximum_paths"`
-	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface"`
-	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsOspfDefaultMetric    types.String `tfsdk:"default_metric" json:"default-metric,omitempty"`
+	LeafVrfNameProtocolsOspfMaximumPaths     types.String `tfsdk:"maximum_paths" json:"maximum-paths,omitempty"`
+	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface" json:"passive-interface,omitempty"`
+	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsOspfAccessList types.Map `tfsdk:"access_list"`
-	TagVrfNameProtocolsOspfArea       types.Map `tfsdk:"area"`
-	TagVrfNameProtocolsOspfInterface  types.Map `tfsdk:"interface"`
-	TagVrfNameProtocolsOspfNeighbor   types.Map `tfsdk:"neighbor"`
+	TagVrfNameProtocolsOspfAccessList *map[string]VrfNameProtocolsOspfAccessList `tfsdk:"access_list" json:"access-list,omitempty"`
+	TagVrfNameProtocolsOspfArea       *map[string]VrfNameProtocolsOspfArea       `tfsdk:"area" json:"area,omitempty"`
+	TagVrfNameProtocolsOspfInterface  *map[string]VrfNameProtocolsOspfInterface  `tfsdk:"interface" json:"interface,omitempty"`
+	TagVrfNameProtocolsOspfNeighbor   *map[string]VrfNameProtocolsOspfNeighbor   `tfsdk:"neighbor" json:"neighbor,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsOspfAutoCost            types.Object `tfsdk:"auto_cost"`
-	NodeVrfNameProtocolsOspfDefaultInformation  types.Object `tfsdk:"default_information"`
-	NodeVrfNameProtocolsOspfDistance            types.Object `tfsdk:"distance"`
-	NodeVrfNameProtocolsOspfLogAdjacencyChanges types.Object `tfsdk:"log_adjacency_changes"`
-	NodeVrfNameProtocolsOspfMaxMetric           types.Object `tfsdk:"max_metric"`
-	NodeVrfNameProtocolsOspfMplsTe              types.Object `tfsdk:"mpls_te"`
-	NodeVrfNameProtocolsOspfParameters          types.Object `tfsdk:"parameters"`
-	NodeVrfNameProtocolsOspfSegmentRouting      types.Object `tfsdk:"segment_routing"`
-	NodeVrfNameProtocolsOspfRedistribute        types.Object `tfsdk:"redistribute"`
-	NodeVrfNameProtocolsOspfRefresh             types.Object `tfsdk:"refresh"`
-	NodeVrfNameProtocolsOspfTimers              types.Object `tfsdk:"timers"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfDefaultMetric.IsNull() || o.LeafVrfNameProtocolsOspfDefaultMetric.IsUnknown()) {
-		vyosData["default-metric"] = o.LeafVrfNameProtocolsOspfDefaultMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfMaximumPaths.IsNull() || o.LeafVrfNameProtocolsOspfMaximumPaths.IsUnknown()) {
-		vyosData["maximum-paths"] = o.LeafVrfNameProtocolsOspfMaximumPaths.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfPassiveInterface.IsNull() || o.LeafVrfNameProtocolsOspfPassiveInterface.IsUnknown()) {
-		vyosData["passive-interface"] = o.LeafVrfNameProtocolsOspfPassiveInterface.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfRouteMap.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsOspfAccessList.IsNull() || o.TagVrfNameProtocolsOspfAccessList.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfAccessList)
-		diags.Append(o.TagVrfNameProtocolsOspfAccessList.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["access-list"] = subData
-	}
-	if !(o.TagVrfNameProtocolsOspfArea.IsNull() || o.TagVrfNameProtocolsOspfArea.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfArea)
-		diags.Append(o.TagVrfNameProtocolsOspfArea.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["area"] = subData
-	}
-	if !(o.TagVrfNameProtocolsOspfInterface.IsNull() || o.TagVrfNameProtocolsOspfInterface.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfInterface)
-		diags.Append(o.TagVrfNameProtocolsOspfInterface.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["interface"] = subData
-	}
-	if !(o.TagVrfNameProtocolsOspfNeighbor.IsNull() || o.TagVrfNameProtocolsOspfNeighbor.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsOspfNeighbor)
-		diags.Append(o.TagVrfNameProtocolsOspfNeighbor.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["neighbor"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfAutoCost.IsNull() || o.NodeVrfNameProtocolsOspfAutoCost.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfAutoCost
-		diags.Append(o.NodeVrfNameProtocolsOspfAutoCost.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["auto-cost"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfDefaultInformation.IsNull() || o.NodeVrfNameProtocolsOspfDefaultInformation.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfDefaultInformation
-		diags.Append(o.NodeVrfNameProtocolsOspfDefaultInformation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default-information"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfDistance.IsNull() || o.NodeVrfNameProtocolsOspfDistance.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfDistance
-		diags.Append(o.NodeVrfNameProtocolsOspfDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.IsNull() || o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfLogAdjacencyChanges
-		diags.Append(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["log-adjacency-changes"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfMaxMetric.IsNull() || o.NodeVrfNameProtocolsOspfMaxMetric.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfMaxMetric
-		diags.Append(o.NodeVrfNameProtocolsOspfMaxMetric.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["max-metric"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfMplsTe.IsNull() || o.NodeVrfNameProtocolsOspfMplsTe.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfMplsTe
-		diags.Append(o.NodeVrfNameProtocolsOspfMplsTe.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mpls-te"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfParameters.IsNull() || o.NodeVrfNameProtocolsOspfParameters.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfParameters
-		diags.Append(o.NodeVrfNameProtocolsOspfParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfSegmentRouting.IsNull() || o.NodeVrfNameProtocolsOspfSegmentRouting.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfSegmentRouting
-		diags.Append(o.NodeVrfNameProtocolsOspfSegmentRouting.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["segment-routing"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRedistribute.IsNull() || o.NodeVrfNameProtocolsOspfRedistribute.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRedistribute
-		diags.Append(o.NodeVrfNameProtocolsOspfRedistribute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["redistribute"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfRefresh.IsNull() || o.NodeVrfNameProtocolsOspfRefresh.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfRefresh
-		diags.Append(o.NodeVrfNameProtocolsOspfRefresh.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["refresh"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfTimers.IsNull() || o.NodeVrfNameProtocolsOspfTimers.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfTimers
-		diags.Append(o.NodeVrfNameProtocolsOspfTimers.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["timers"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
-
-	// Leafs
-	if value, ok := vyosData["default-metric"]; ok {
-		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["maximum-paths"]; ok {
-		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passive-interface"]; ok {
-		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["access-list"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfAccessList{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfAccessList = data
-	} else {
-		o.TagVrfNameProtocolsOspfAccessList = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["area"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfArea{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfArea = data
-	} else {
-		o.TagVrfNameProtocolsOspfArea = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["interface"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterface{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfInterface = data
-	} else {
-		o.TagVrfNameProtocolsOspfInterface = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["neighbor"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfNeighbor{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsOspfNeighbor = data
-	} else {
-		o.TagVrfNameProtocolsOspfNeighbor = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["auto-cost"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfAutoCost{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfAutoCost = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfAutoCost = basetypes.NewObjectNull(VrfNameProtocolsOspfAutoCost{}.AttributeTypes())
-	}
-	if value, ok := vyosData["default-information"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfDefaultInformation = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfDefaultInformation = basetypes.NewObjectNull(VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes())
-	}
-	if value, ok := vyosData["distance"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfDistance{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfDistance = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfDistance = basetypes.NewObjectNull(VrfNameProtocolsOspfDistance{}.AttributeTypes())
-	}
-	if value, ok := vyosData["log-adjacency-changes"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = basetypes.NewObjectNull(VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes())
-	}
-	if value, ok := vyosData["max-metric"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMaxMetric{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfMaxMetric = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfMaxMetric = basetypes.NewObjectNull(VrfNameProtocolsOspfMaxMetric{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mpls-te"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMplsTe{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfMplsTe = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfMplsTe = basetypes.NewObjectNull(VrfNameProtocolsOspfMplsTe{}.AttributeTypes())
-	}
-	if value, ok := vyosData["parameters"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfParameters{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfParameters = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfParameters = basetypes.NewObjectNull(VrfNameProtocolsOspfParameters{}.AttributeTypes())
-	}
-	if value, ok := vyosData["segment-routing"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfSegmentRouting = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfSegmentRouting = basetypes.NewObjectNull(VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes())
-	}
-	if value, ok := vyosData["redistribute"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistribute{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRedistribute = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRedistribute = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistribute{}.AttributeTypes())
-	}
-	if value, ok := vyosData["refresh"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRefresh{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfRefresh = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfRefresh = basetypes.NewObjectNull(VrfNameProtocolsOspfRefresh{}.AttributeTypes())
-	}
-	if value, ok := vyosData["timers"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfTimers{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfTimers = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfTimers = basetypes.NewObjectNull(VrfNameProtocolsOspfTimers{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspf) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"default_metric":    types.StringType,
-		"maximum_paths":     types.StringType,
-		"passive_interface": types.StringType,
-		"route_map":         types.StringType,
-
-		// Tags
-		"access_list": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfAccessList{}.AttributeTypes()}},
-		"area":        types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfArea{}.AttributeTypes()}},
-		"interface":   types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterface{}.AttributeTypes()}},
-		"neighbor":    types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfNeighbor{}.AttributeTypes()}},
-
-		// Nodes
-		"auto_cost":             types.ObjectType{AttrTypes: VrfNameProtocolsOspfAutoCost{}.AttributeTypes()},
-		"default_information":   types.ObjectType{AttrTypes: VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes()},
-		"distance":              types.ObjectType{AttrTypes: VrfNameProtocolsOspfDistance{}.AttributeTypes()},
-		"log_adjacency_changes": types.ObjectType{AttrTypes: VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes()},
-		"max_metric":            types.ObjectType{AttrTypes: VrfNameProtocolsOspfMaxMetric{}.AttributeTypes()},
-		"mpls_te":               types.ObjectType{AttrTypes: VrfNameProtocolsOspfMplsTe{}.AttributeTypes()},
-		"parameters":            types.ObjectType{AttrTypes: VrfNameProtocolsOspfParameters{}.AttributeTypes()},
-		"segment_routing":       types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes()},
-		"redistribute":          types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistribute{}.AttributeTypes()},
-		"refresh":               types.ObjectType{AttrTypes: VrfNameProtocolsOspfRefresh{}.AttributeTypes()},
-		"timers":                types.ObjectType{AttrTypes: VrfNameProtocolsOspfTimers{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfAutoCost            *VrfNameProtocolsOspfAutoCost            `tfsdk:"auto_cost" json:"auto-cost,omitempty"`
+	NodeVrfNameProtocolsOspfDefaultInformation  *VrfNameProtocolsOspfDefaultInformation  `tfsdk:"default_information" json:"default-information,omitempty"`
+	NodeVrfNameProtocolsOspfDistance            *VrfNameProtocolsOspfDistance            `tfsdk:"distance" json:"distance,omitempty"`
+	NodeVrfNameProtocolsOspfLogAdjacencyChanges *VrfNameProtocolsOspfLogAdjacencyChanges `tfsdk:"log_adjacency_changes" json:"log-adjacency-changes,omitempty"`
+	NodeVrfNameProtocolsOspfMaxMetric           *VrfNameProtocolsOspfMaxMetric           `tfsdk:"max_metric" json:"max-metric,omitempty"`
+	NodeVrfNameProtocolsOspfMplsTe              *VrfNameProtocolsOspfMplsTe              `tfsdk:"mpls_te" json:"mpls-te,omitempty"`
+	NodeVrfNameProtocolsOspfParameters          *VrfNameProtocolsOspfParameters          `tfsdk:"parameters" json:"parameters,omitempty"`
+	NodeVrfNameProtocolsOspfSegmentRouting      *VrfNameProtocolsOspfSegmentRouting      `tfsdk:"segment_routing" json:"segment-routing,omitempty"`
+	NodeVrfNameProtocolsOspfRedistribute        *VrfNameProtocolsOspfRedistribute        `tfsdk:"redistribute" json:"redistribute,omitempty"`
+	NodeVrfNameProtocolsOspfRefresh             *VrfNameProtocolsOspfRefresh             `tfsdk:"refresh" json:"refresh,omitempty"`
+	NodeVrfNameProtocolsOspfTimers              *VrfNameProtocolsOspfTimers              `tfsdk:"timers" json:"timers,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -540,4 +236,484 @@ func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attri
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspf) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfDefaultMetric.IsNull() && !o.LeafVrfNameProtocolsOspfDefaultMetric.IsUnknown() {
+		jsonData["default-metric"] = o.LeafVrfNameProtocolsOspfDefaultMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfMaximumPaths.IsNull() && !o.LeafVrfNameProtocolsOspfMaximumPaths.IsUnknown() {
+		jsonData["maximum-paths"] = o.LeafVrfNameProtocolsOspfMaximumPaths.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfPassiveInterface.IsNull() && !o.LeafVrfNameProtocolsOspfPassiveInterface.IsUnknown() {
+		jsonData["passive-interface"] = o.LeafVrfNameProtocolsOspfPassiveInterface.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfRouteMap.IsNull() && !o.LeafVrfNameProtocolsOspfRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsOspfRouteMap.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfAccessList).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfAccessList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["access-list"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfArea).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfArea)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["area"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["interface"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsOspfNeighbor).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsOspfNeighbor)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["neighbor"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfAutoCost).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfAutoCost)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["auto-cost"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfDefaultInformation).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfDefaultInformation)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default-information"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfDistance).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfDistance)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["distance"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["log-adjacency-changes"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMaxMetric).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMaxMetric)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["max-metric"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMplsTe).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMplsTe)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mpls-te"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfParameters).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfParameters)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["parameters"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfSegmentRouting).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfSegmentRouting)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["segment-routing"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRedistribute).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRedistribute)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["redistribute"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfRefresh).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfRefresh)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["refresh"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfTimers).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfTimers)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["timers"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspf) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["default-metric"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["maximum-paths"]; ok {
+		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passive-interface"]; ok {
+		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["access-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfAccessList = &map[string]VrfNameProtocolsOspfAccessList{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfAccessList)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["area"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfArea = &map[string]VrfNameProtocolsOspfArea{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfArea)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfInterface = &map[string]VrfNameProtocolsOspfInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfInterface)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["neighbor"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsOspfNeighbor = &map[string]VrfNameProtocolsOspfNeighbor{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsOspfNeighbor)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["auto-cost"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfAutoCost = &VrfNameProtocolsOspfAutoCost{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfAutoCost)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["default-information"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfDefaultInformation = &VrfNameProtocolsOspfDefaultInformation{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfDefaultInformation)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["distance"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfDistance = &VrfNameProtocolsOspfDistance{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfDistance)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["log-adjacency-changes"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = &VrfNameProtocolsOspfLogAdjacencyChanges{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfLogAdjacencyChanges)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["max-metric"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfMaxMetric = &VrfNameProtocolsOspfMaxMetric{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMaxMetric)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mpls-te"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfMplsTe = &VrfNameProtocolsOspfMplsTe{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMplsTe)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["parameters"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfParameters = &VrfNameProtocolsOspfParameters{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfParameters)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["segment-routing"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfSegmentRouting = &VrfNameProtocolsOspfSegmentRouting{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfSegmentRouting)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["redistribute"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRedistribute = &VrfNameProtocolsOspfRedistribute{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRedistribute)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["refresh"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfRefresh = &VrfNameProtocolsOspfRefresh{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfRefresh)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["timers"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfTimers = &VrfNameProtocolsOspfTimers{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfTimers)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

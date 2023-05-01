@@ -2,158 +2,30 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleTCPFlags describes the resource data model.
 type FirewallIPvsixNameRuleTCPFlags struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleTCPFlagsSyn types.String `tfsdk:"syn"`
-	LeafFirewallIPvsixNameRuleTCPFlagsAck types.String `tfsdk:"ack"`
-	LeafFirewallIPvsixNameRuleTCPFlagsFin types.String `tfsdk:"fin"`
-	LeafFirewallIPvsixNameRuleTCPFlagsRst types.String `tfsdk:"rst"`
-	LeafFirewallIPvsixNameRuleTCPFlagsUrg types.String `tfsdk:"urg"`
-	LeafFirewallIPvsixNameRuleTCPFlagsPsh types.String `tfsdk:"psh"`
-	LeafFirewallIPvsixNameRuleTCPFlagsEcn types.String `tfsdk:"ecn"`
-	LeafFirewallIPvsixNameRuleTCPFlagsCwr types.String `tfsdk:"cwr"`
+	LeafFirewallIPvsixNameRuleTCPFlagsSyn types.String `tfsdk:"syn" json:"syn,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsAck types.String `tfsdk:"ack" json:"ack,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsFin types.String `tfsdk:"fin" json:"fin,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsRst types.String `tfsdk:"rst" json:"rst,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsUrg types.String `tfsdk:"urg" json:"urg,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsPsh types.String `tfsdk:"psh" json:"psh,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsEcn types.String `tfsdk:"ecn" json:"ecn,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPFlagsCwr types.String `tfsdk:"cwr" json:"cwr,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeFirewallIPvsixNameRuleTCPFlagsNot types.Object `tfsdk:"not"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallIPvsixNameRuleTCPFlags) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp", "flags"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsUnknown()) {
-		vyosData["syn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsUnknown()) {
-		vyosData["ack"] = o.LeafFirewallIPvsixNameRuleTCPFlagsAck.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsUnknown()) {
-		vyosData["fin"] = o.LeafFirewallIPvsixNameRuleTCPFlagsFin.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsUnknown()) {
-		vyosData["rst"] = o.LeafFirewallIPvsixNameRuleTCPFlagsRst.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsUnknown()) {
-		vyosData["urg"] = o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsUnknown()) {
-		vyosData["psh"] = o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsUnknown()) {
-		vyosData["ecn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsNull() || o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsUnknown()) {
-		vyosData["cwr"] = o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeFirewallIPvsixNameRuleTCPFlagsNot.IsNull() || o.NodeFirewallIPvsixNameRuleTCPFlagsNot.IsUnknown()) {
-		var subModel FirewallIPvsixNameRuleTCPFlagsNot
-		diags.Append(o.NodeFirewallIPvsixNameRuleTCPFlagsNot.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["not"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallIPvsixNameRuleTCPFlags) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp", "flags"}})
-
-	// Leafs
-	if value, ok := vyosData["syn"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ack"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fin"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rst"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["urg"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["psh"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ecn"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["cwr"]; ok {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["not"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallIPvsixNameRuleTCPFlagsNot{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallIPvsixNameRuleTCPFlagsNot = data
-
-	} else {
-		o.NodeFirewallIPvsixNameRuleTCPFlagsNot = basetypes.NewObjectNull(FirewallIPvsixNameRuleTCPFlagsNot{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp", "flags"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallIPvsixNameRuleTCPFlags) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"syn": types.StringType,
-		"ack": types.StringType,
-		"fin": types.StringType,
-		"rst": types.StringType,
-		"urg": types.StringType,
-		"psh": types.StringType,
-		"ecn": types.StringType,
-		"cwr": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"not": types.ObjectType{AttrTypes: FirewallIPvsixNameRuleTCPFlagsNot{}.AttributeTypes()},
-	}
+	NodeFirewallIPvsixNameRuleTCPFlagsNot *FirewallIPvsixNameRuleTCPFlagsNot `tfsdk:"not" json:"not,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -229,4 +101,146 @@ func (o FirewallIPvsixNameRuleTCPFlags) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallIPvsixNameRuleTCPFlags) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.IsUnknown() {
+		jsonData["syn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsSyn.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsAck.IsUnknown() {
+		jsonData["ack"] = o.LeafFirewallIPvsixNameRuleTCPFlagsAck.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsFin.IsUnknown() {
+		jsonData["fin"] = o.LeafFirewallIPvsixNameRuleTCPFlagsFin.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsRst.IsUnknown() {
+		jsonData["rst"] = o.LeafFirewallIPvsixNameRuleTCPFlagsRst.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.IsUnknown() {
+		jsonData["urg"] = o.LeafFirewallIPvsixNameRuleTCPFlagsUrg.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.IsUnknown() {
+		jsonData["psh"] = o.LeafFirewallIPvsixNameRuleTCPFlagsPsh.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.IsUnknown() {
+		jsonData["ecn"] = o.LeafFirewallIPvsixNameRuleTCPFlagsEcn.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsNull() && !o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.IsUnknown() {
+		jsonData["cwr"] = o.LeafFirewallIPvsixNameRuleTCPFlagsCwr.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeFirewallIPvsixNameRuleTCPFlagsNot).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallIPvsixNameRuleTCPFlagsNot)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["not"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallIPvsixNameRuleTCPFlags) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["syn"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsSyn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ack"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsAck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fin"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsFin = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rst"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsRst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["urg"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsUrg = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["psh"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsPsh = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ecn"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsEcn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["cwr"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPFlagsCwr = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["not"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallIPvsixNameRuleTCPFlagsNot = &FirewallIPvsixNameRuleTCPFlagsNot{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallIPvsixNameRuleTCPFlagsNot)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborTimers describes the resource data model.
 type ProtocolsBgpNeighborTimers struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborTimersConnect   types.String `tfsdk:"connect"`
-	LeafProtocolsBgpNeighborTimersHoldtime  types.String `tfsdk:"holdtime"`
-	LeafProtocolsBgpNeighborTimersKeepalive types.String `tfsdk:"keepalive"`
+	LeafProtocolsBgpNeighborTimersConnect   types.String `tfsdk:"connect" json:"connect,omitempty"`
+	LeafProtocolsBgpNeighborTimersHoldtime  types.String `tfsdk:"holdtime" json:"holdtime,omitempty"`
+	LeafProtocolsBgpNeighborTimersKeepalive types.String `tfsdk:"keepalive" json:"keepalive,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborTimers) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "timers"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborTimersConnect.IsNull() || o.LeafProtocolsBgpNeighborTimersConnect.IsUnknown()) {
-		vyosData["connect"] = o.LeafProtocolsBgpNeighborTimersConnect.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborTimersHoldtime.IsNull() || o.LeafProtocolsBgpNeighborTimersHoldtime.IsUnknown()) {
-		vyosData["holdtime"] = o.LeafProtocolsBgpNeighborTimersHoldtime.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborTimersKeepalive.IsNull() || o.LeafProtocolsBgpNeighborTimersKeepalive.IsUnknown()) {
-		vyosData["keepalive"] = o.LeafProtocolsBgpNeighborTimersKeepalive.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborTimers) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "timers"}})
-
-	// Leafs
-	if value, ok := vyosData["connect"]; ok {
-		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["holdtime"]; ok {
-		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["keepalive"]; ok {
-		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "timers"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborTimers) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"connect":   types.StringType,
-		"holdtime":  types.StringType,
-		"keepalive": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -137,4 +66,69 @@ func (o ProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborTimers) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborTimersConnect.IsNull() && !o.LeafProtocolsBgpNeighborTimersConnect.IsUnknown() {
+		jsonData["connect"] = o.LeafProtocolsBgpNeighborTimersConnect.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborTimersHoldtime.IsNull() && !o.LeafProtocolsBgpNeighborTimersHoldtime.IsUnknown() {
+		jsonData["holdtime"] = o.LeafProtocolsBgpNeighborTimersHoldtime.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborTimersKeepalive.IsNull() && !o.LeafProtocolsBgpNeighborTimersKeepalive.IsUnknown() {
+		jsonData["keepalive"] = o.LeafProtocolsBgpNeighborTimersKeepalive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborTimers) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["connect"]; ok {
+		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborTimersConnect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["holdtime"]; ok {
+		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["keepalive"]; ok {
+		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,144 +2,28 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyCakeFlowIsolation describes the resource data model.
 type QosPolicyCakeFlowIsolation struct {
 	// LeafNodes
-	LeafQosPolicyCakeFlowIsolationBlind       types.String `tfsdk:"blind"`
-	LeafQosPolicyCakeFlowIsolationSrcHost     types.String `tfsdk:"src_host"`
-	LeafQosPolicyCakeFlowIsolationDstHost     types.String `tfsdk:"dst_host"`
-	LeafQosPolicyCakeFlowIsolationHost        types.String `tfsdk:"host"`
-	LeafQosPolicyCakeFlowIsolationFlow        types.String `tfsdk:"flow"`
-	LeafQosPolicyCakeFlowIsolationDualSrcHost types.String `tfsdk:"dual_src_host"`
-	LeafQosPolicyCakeFlowIsolationDualDstHost types.String `tfsdk:"dual_dst_host"`
-	LeafQosPolicyCakeFlowIsolationNat         types.String `tfsdk:"nat"`
+	LeafQosPolicyCakeFlowIsolationBlind       types.String `tfsdk:"blind" json:"blind,omitempty"`
+	LeafQosPolicyCakeFlowIsolationSrcHost     types.String `tfsdk:"src_host" json:"src-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDstHost     types.String `tfsdk:"dst_host" json:"dst-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationHost        types.String `tfsdk:"host" json:"host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationFlow        types.String `tfsdk:"flow" json:"flow,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDualSrcHost types.String `tfsdk:"dual_src_host" json:"dual-src-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationDualDstHost types.String `tfsdk:"dual_dst_host" json:"dual-dst-host,omitempty"`
+	LeafQosPolicyCakeFlowIsolationNat         types.String `tfsdk:"nat" json:"nat,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyCakeFlowIsolation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyCakeFlowIsolationBlind.IsNull() || o.LeafQosPolicyCakeFlowIsolationBlind.IsUnknown()) {
-		vyosData["blind"] = o.LeafQosPolicyCakeFlowIsolationBlind.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationSrcHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationSrcHost.IsUnknown()) {
-		vyosData["src-host"] = o.LeafQosPolicyCakeFlowIsolationSrcHost.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationDstHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDstHost.IsUnknown()) {
-		vyosData["dst-host"] = o.LeafQosPolicyCakeFlowIsolationDstHost.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationHost.IsUnknown()) {
-		vyosData["host"] = o.LeafQosPolicyCakeFlowIsolationHost.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationFlow.IsNull() || o.LeafQosPolicyCakeFlowIsolationFlow.IsUnknown()) {
-		vyosData["flow"] = o.LeafQosPolicyCakeFlowIsolationFlow.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsUnknown()) {
-		vyosData["dual-src-host"] = o.LeafQosPolicyCakeFlowIsolationDualSrcHost.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsUnknown()) {
-		vyosData["dual-dst-host"] = o.LeafQosPolicyCakeFlowIsolationDualDstHost.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeFlowIsolationNat.IsNull() || o.LeafQosPolicyCakeFlowIsolationNat.IsUnknown()) {
-		vyosData["nat"] = o.LeafQosPolicyCakeFlowIsolationNat.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyCakeFlowIsolation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
-
-	// Leafs
-	if value, ok := vyosData["blind"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["src-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dst-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["flow"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dual-src-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dual-dst-host"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["nat"]; ok {
-		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyCakeFlowIsolation) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"blind":         types.StringType,
-		"src_host":      types.StringType,
-		"dst_host":      types.StringType,
-		"host":          types.StringType,
-		"flow":          types.StringType,
-		"dual_src_host": types.StringType,
-		"dual_dst_host": types.StringType,
-		"nat":           types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -208,4 +92,119 @@ func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyCakeFlowIsolation) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyCakeFlowIsolationBlind.IsNull() && !o.LeafQosPolicyCakeFlowIsolationBlind.IsUnknown() {
+		jsonData["blind"] = o.LeafQosPolicyCakeFlowIsolationBlind.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationSrcHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationSrcHost.IsUnknown() {
+		jsonData["src-host"] = o.LeafQosPolicyCakeFlowIsolationSrcHost.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationDstHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDstHost.IsUnknown() {
+		jsonData["dst-host"] = o.LeafQosPolicyCakeFlowIsolationDstHost.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationHost.IsUnknown() {
+		jsonData["host"] = o.LeafQosPolicyCakeFlowIsolationHost.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationFlow.IsNull() && !o.LeafQosPolicyCakeFlowIsolationFlow.IsUnknown() {
+		jsonData["flow"] = o.LeafQosPolicyCakeFlowIsolationFlow.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsUnknown() {
+		jsonData["dual-src-host"] = o.LeafQosPolicyCakeFlowIsolationDualSrcHost.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsNull() && !o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsUnknown() {
+		jsonData["dual-dst-host"] = o.LeafQosPolicyCakeFlowIsolationDualDstHost.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeFlowIsolationNat.IsNull() && !o.LeafQosPolicyCakeFlowIsolationNat.IsUnknown() {
+		jsonData["nat"] = o.LeafQosPolicyCakeFlowIsolationNat.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyCakeFlowIsolation) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["blind"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["src-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dst-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["flow"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dual-src-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dual-dst-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["nat"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

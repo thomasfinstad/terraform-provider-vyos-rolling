@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport types.String `tfsdk:"export"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport types.String `tfsdk:"import"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport types.String `tfsdk:"export" json:"export,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport types.String `tfsdk:"import" json:"import,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "filter-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.IsUnknown()) {
-		vyosData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.IsUnknown()) {
-		vyosData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "filter-list"}})
-
-	// Leafs
-	if value, ok := vyosData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "filter-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"export": types.StringType,
-		"import": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) ResourceSch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.IsUnknown() {
+		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.IsUnknown() {
+		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListExport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterListImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

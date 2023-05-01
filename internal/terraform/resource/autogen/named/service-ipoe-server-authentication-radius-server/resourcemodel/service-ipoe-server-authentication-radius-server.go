@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerAuthenticationRadiusServer describes the resource data model.
@@ -17,12 +14,12 @@ type ServiceIPoeServerAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceIPoeServerAuthenticationRadiusServerDisable           types.String `tfsdk:"disable"`
-	LeafServiceIPoeServerAuthenticationRadiusServerKey               types.String `tfsdk:"key"`
-	LeafServiceIPoeServerAuthenticationRadiusServerPort              types.String `tfsdk:"port"`
-	LeafServiceIPoeServerAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port"`
-	LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
-	LeafServiceIPoeServerAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time"`
+	LeafServiceIPoeServerAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceIPoeServerAuthenticationRadiusServerKey               types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafServiceIPoeServerAuthenticationRadiusServerPort              types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceIPoeServerAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" json:"acct-port,omitempty"`
+	LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
+	LeafServiceIPoeServerAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" json:"fail-time,omitempty"`
 
 	// TagNodes
 
@@ -38,101 +35,6 @@ func (o *ServiceIPoeServerAuthenticationRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerAuthenticationRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerKey.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafServiceIPoeServerAuthenticationRadiusServerKey.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerPort.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceIPoeServerAuthenticationRadiusServerPort.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.IsUnknown()) {
-		vyosData["acct-port"] = o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.IsUnknown()) {
-		vyosData["disable-accounting"] = o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.IsNull() || o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.IsUnknown()) {
-		vyosData["fail-time"] = o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerAuthenticationRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["acct-port"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-accounting"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fail-time"]; ok {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerAuthenticationRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":            types.StringType,
-		"key":                types.StringType,
-		"port":               types.StringType,
-		"acct_port":          types.StringType,
-		"disable_accounting": types.StringType,
-		"fail_time":          types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -220,4 +122,99 @@ func (o ServiceIPoeServerAuthenticationRadiusServer) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceIPoeServerAuthenticationRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerKey.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafServiceIPoeServerAuthenticationRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerPort.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceIPoeServerAuthenticationRadiusServerPort.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.IsUnknown() {
+		jsonData["acct-port"] = o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.IsUnknown() {
+		jsonData["disable-accounting"] = o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.IsNull() && !o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.IsUnknown() {
+		jsonData["fail-time"] = o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["acct-port"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-accounting"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fail-time"]; ok {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,218 +2,34 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessVifSVifC describes the resource data model.
 type InterfacesWirelessVifSVifC struct {
 	// LeafNodes
-	LeafInterfacesWirelessVifSVifCDescrIPtion       types.String `tfsdk:"description"`
-	LeafInterfacesWirelessVifSVifCAddress           types.String `tfsdk:"address"`
-	LeafInterfacesWirelessVifSVifCDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
-	LeafInterfacesWirelessVifSVifCDisable           types.String `tfsdk:"disable"`
-	LeafInterfacesWirelessVifSVifCMac               types.String `tfsdk:"mac"`
-	LeafInterfacesWirelessVifSVifCMtu               types.String `tfsdk:"mtu"`
-	LeafInterfacesWirelessVifSVifCRedirect          types.String `tfsdk:"redirect"`
-	LeafInterfacesWirelessVifSVifCVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesWirelessVifSVifCDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesWirelessVifSVifCAddress           types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesWirelessVifSVifCDisableLinkDetect types.String `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
+	LeafInterfacesWirelessVifSVifCDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesWirelessVifSVifCMac               types.String `tfsdk:"mac" json:"mac,omitempty"`
+	LeafInterfacesWirelessVifSVifCMtu               types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesWirelessVifSVifCRedirect          types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesWirelessVifSVifCVrf               types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesWirelessVifSVifCDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesWirelessVifSVifCDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesWirelessVifSVifCIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesWirelessVifSVifCIPvsix          types.Object `tfsdk:"ipv6"`
-	NodeInterfacesWirelessVifSVifCMirror          types.Object `tfsdk:"mirror"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessVifSVifC) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "vif-c"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessVifSVifCDescrIPtion.IsNull() || o.LeafInterfacesWirelessVifSVifCDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesWirelessVifSVifCDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCAddress.IsNull() || o.LeafInterfacesWirelessVifSVifCAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesWirelessVifSVifCAddress.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.IsNull() || o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.IsUnknown()) {
-		vyosData["disable-link-detect"] = o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCDisable.IsNull() || o.LeafInterfacesWirelessVifSVifCDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesWirelessVifSVifCDisable.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCMac.IsNull() || o.LeafInterfacesWirelessVifSVifCMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafInterfacesWirelessVifSVifCMac.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCMtu.IsNull() || o.LeafInterfacesWirelessVifSVifCMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesWirelessVifSVifCMtu.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCRedirect.IsNull() || o.LeafInterfacesWirelessVifSVifCRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesWirelessVifSVifCRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVifSVifCVrf.IsNull() || o.LeafInterfacesWirelessVifSVifCVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesWirelessVifSVifCVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesWirelessVifSVifCDhcpOptions.IsNull() || o.NodeInterfacesWirelessVifSVifCDhcpOptions.IsUnknown()) {
-		var subModel InterfacesWirelessVifSVifCDhcpOptions
-		diags.Append(o.NodeInterfacesWirelessVifSVifCDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions.IsNull() || o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesWirelessVifSVifCDhcpvsixOptions
-		diags.Append(o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessVifSVifCIP.IsNull() || o.NodeInterfacesWirelessVifSVifCIP.IsUnknown()) {
-		var subModel InterfacesWirelessVifSVifCIP
-		diags.Append(o.NodeInterfacesWirelessVifSVifCIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessVifSVifCIPvsix.IsNull() || o.NodeInterfacesWirelessVifSVifCIPvsix.IsUnknown()) {
-		var subModel InterfacesWirelessVifSVifCIPvsix
-		diags.Append(o.NodeInterfacesWirelessVifSVifCIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessVifSVifCMirror.IsNull() || o.NodeInterfacesWirelessVifSVifCMirror.IsUnknown()) {
-		var subModel InterfacesWirelessVifSVifCMirror
-		diags.Append(o.NodeInterfacesWirelessVifSVifCMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessVifSVifC) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "vif-c"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesWirelessVifSVifCAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-link-detect"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDisableLinkDetect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesWirelessVifSVifCDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafInterfacesWirelessVifSVifCMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCMac = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesWirelessVifSVifCMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesWirelessVifSVifCRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesWirelessVifSVifCVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVifSVifCVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessVifSVifCDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessVifSVifCDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesWirelessVifSVifCDhcpOptions = basetypes.NewObjectNull(InterfacesWirelessVifSVifCDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessVifSVifCDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions = basetypes.NewObjectNull(InterfacesWirelessVifSVifCDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessVifSVifCIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessVifSVifCIP = data
-
-	} else {
-		o.NodeInterfacesWirelessVifSVifCIP = basetypes.NewObjectNull(InterfacesWirelessVifSVifCIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessVifSVifCIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessVifSVifCIPvsix = data
-
-	} else {
-		o.NodeInterfacesWirelessVifSVifCIPvsix = basetypes.NewObjectNull(InterfacesWirelessVifSVifCIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessVifSVifCMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessVifSVifCMirror = data
-
-	} else {
-		o.NodeInterfacesWirelessVifSVifCMirror = basetypes.NewObjectNull(InterfacesWirelessVifSVifCMirror{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif-s", "vif-c"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessVifSVifC) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":         types.StringType,
-		"address":             types.StringType,
-		"disable_link_detect": types.StringType,
-		"disable":             types.StringType,
-		"mac":                 types.StringType,
-		"mtu":                 types.StringType,
-		"redirect":            types.StringType,
-		"vrf":                 types.StringType,
-
-		// Tags
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesWirelessVifSVifCDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesWirelessVifSVifCDhcpvsixOptions{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesWirelessVifSVifCIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesWirelessVifSVifCIPvsix{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesWirelessVifSVifCMirror{}.AttributeTypes()},
-	}
+	NodeInterfacesWirelessVifSVifCDhcpOptions     *InterfacesWirelessVifSVifCDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesWirelessVifSVifCDhcpvsixOptions *InterfacesWirelessVifSVifCDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesWirelessVifSVifCIP              *InterfacesWirelessVifSVifCIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesWirelessVifSVifCIPvsix          *InterfacesWirelessVifSVifCIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesWirelessVifSVifCMirror          *InterfacesWirelessVifSVifCMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -351,4 +167,254 @@ func (o InterfacesWirelessVifSVifC) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessVifSVifC) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessVifSVifCDescrIPtion.IsNull() && !o.LeafInterfacesWirelessVifSVifCDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesWirelessVifSVifCDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCAddress.IsNull() && !o.LeafInterfacesWirelessVifSVifCAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesWirelessVifSVifCAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.IsNull() && !o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.IsUnknown() {
+		jsonData["disable-link-detect"] = o.LeafInterfacesWirelessVifSVifCDisableLinkDetect.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCDisable.IsNull() && !o.LeafInterfacesWirelessVifSVifCDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesWirelessVifSVifCDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCMac.IsNull() && !o.LeafInterfacesWirelessVifSVifCMac.IsUnknown() {
+		jsonData["mac"] = o.LeafInterfacesWirelessVifSVifCMac.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCMtu.IsNull() && !o.LeafInterfacesWirelessVifSVifCMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesWirelessVifSVifCMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCRedirect.IsNull() && !o.LeafInterfacesWirelessVifSVifCRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesWirelessVifSVifCRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVifSVifCVrf.IsNull() && !o.LeafInterfacesWirelessVifSVifCVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesWirelessVifSVifCVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessVifSVifCDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessVifSVifCDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessVifSVifCIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessVifSVifCIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessVifSVifCIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessVifSVifCIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessVifSVifCMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessVifSVifCMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessVifSVifC) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesWirelessVifSVifCDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesWirelessVifSVifCAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-link-detect"]; ok {
+		o.LeafInterfacesWirelessVifSVifCDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCDisableLinkDetect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesWirelessVifSVifCDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafInterfacesWirelessVifSVifCMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCMac = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesWirelessVifSVifCMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesWirelessVifSVifCRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesWirelessVifSVifCVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifSVifCVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessVifSVifCDhcpOptions = &InterfacesWirelessVifSVifCDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessVifSVifCDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions = &InterfacesWirelessVifSVifCDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessVifSVifCDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessVifSVifCIP = &InterfacesWirelessVifSVifCIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessVifSVifCIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessVifSVifCIPvsix = &InterfacesWirelessVifSVifCIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessVifSVifCIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessVifSVifCMirror = &InterfacesWirelessVifSVifCMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessVifSVifCMirror)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

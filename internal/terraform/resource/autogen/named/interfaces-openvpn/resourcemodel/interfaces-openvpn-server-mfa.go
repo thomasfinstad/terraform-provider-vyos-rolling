@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerMfa describes the resource data model.
@@ -19,61 +15,7 @@ type InterfacesOpenvpnServerMfa struct {
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesOpenvpnServerMfaTotp types.Object `tfsdk:"totp"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnServerMfa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesOpenvpnServerMfaTotp.IsNull() || o.NodeInterfacesOpenvpnServerMfaTotp.IsUnknown()) {
-		var subModel InterfacesOpenvpnServerMfaTotp
-		diags.Append(o.NodeInterfacesOpenvpnServerMfaTotp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["totp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnServerMfa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["totp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnServerMfaTotp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesOpenvpnServerMfaTotp = data
-
-	} else {
-		o.NodeInterfacesOpenvpnServerMfaTotp = basetypes.NewObjectNull(InterfacesOpenvpnServerMfaTotp{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnServerMfa) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"totp": types.ObjectType{AttrTypes: InterfacesOpenvpnServerMfaTotp{}.AttributeTypes()},
-	}
+	NodeInterfacesOpenvpnServerMfaTotp *InterfacesOpenvpnServerMfaTotp `tfsdk:"totp" json:"totp,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o InterfacesOpenvpnServerMfa) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnServerMfa) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesOpenvpnServerMfaTotp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesOpenvpnServerMfaTotp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["totp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnServerMfa) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["totp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesOpenvpnServerMfaTotp = &InterfacesOpenvpnServerMfaTotp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesOpenvpnServerMfaTotp)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

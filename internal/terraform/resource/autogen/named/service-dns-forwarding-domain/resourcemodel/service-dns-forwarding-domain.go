@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingDomain describes the resource data model.
@@ -17,9 +14,9 @@ type ServiceDNSForwardingDomain struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingDomainServer           types.String `tfsdk:"server"`
-	LeafServiceDNSForwardingDomainAddnta           types.String `tfsdk:"addnta"`
-	LeafServiceDNSForwardingDomainRecursionDesired types.String `tfsdk:"recursion_desired"`
+	LeafServiceDNSForwardingDomainServer           types.String `tfsdk:"server" json:"server,omitempty"`
+	LeafServiceDNSForwardingDomainAddnta           types.String `tfsdk:"addnta" json:"addnta,omitempty"`
+	LeafServiceDNSForwardingDomainRecursionDesired types.String `tfsdk:"recursion_desired" json:"recursion-desired,omitempty"`
 
 	// TagNodes
 
@@ -34,74 +31,6 @@ func (o *ServiceDNSForwardingDomain) GetVyosPath() []string {
 		"forwarding",
 		"domain",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSForwardingDomain) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "domain"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSForwardingDomainServer.IsNull() || o.LeafServiceDNSForwardingDomainServer.IsUnknown()) {
-		vyosData["server"] = o.LeafServiceDNSForwardingDomainServer.ValueString()
-	}
-	if !(o.LeafServiceDNSForwardingDomainAddnta.IsNull() || o.LeafServiceDNSForwardingDomainAddnta.IsUnknown()) {
-		vyosData["addnta"] = o.LeafServiceDNSForwardingDomainAddnta.ValueString()
-	}
-	if !(o.LeafServiceDNSForwardingDomainRecursionDesired.IsNull() || o.LeafServiceDNSForwardingDomainRecursionDesired.IsUnknown()) {
-		vyosData["recursion-desired"] = o.LeafServiceDNSForwardingDomainRecursionDesired.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSForwardingDomain) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "domain"}})
-
-	// Leafs
-	if value, ok := vyosData["server"]; ok {
-		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["addnta"]; ok {
-		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["recursion-desired"]; ok {
-		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "domain"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSForwardingDomain) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"server":            types.StringType,
-		"addnta":            types.StringType,
-		"recursion_desired": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -148,4 +77,69 @@ func (o ServiceDNSForwardingDomain) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSForwardingDomain) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSForwardingDomainServer.IsNull() && !o.LeafServiceDNSForwardingDomainServer.IsUnknown() {
+		jsonData["server"] = o.LeafServiceDNSForwardingDomainServer.ValueString()
+	}
+
+	if !o.LeafServiceDNSForwardingDomainAddnta.IsNull() && !o.LeafServiceDNSForwardingDomainAddnta.IsUnknown() {
+		jsonData["addnta"] = o.LeafServiceDNSForwardingDomainAddnta.ValueString()
+	}
+
+	if !o.LeafServiceDNSForwardingDomainRecursionDesired.IsNull() && !o.LeafServiceDNSForwardingDomainRecursionDesired.IsUnknown() {
+		jsonData["recursion-desired"] = o.LeafServiceDNSForwardingDomainRecursionDesired.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSForwardingDomain) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["server"]; ok {
+		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingDomainServer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["addnta"]; ok {
+		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingDomainAddnta = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["recursion-desired"]; ok {
+		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingDomainRecursionDesired = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

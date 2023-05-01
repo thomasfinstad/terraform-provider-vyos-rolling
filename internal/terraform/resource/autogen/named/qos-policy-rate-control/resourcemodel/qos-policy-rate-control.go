@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRateControl describes the resource data model.
@@ -17,10 +14,10 @@ type QosPolicyRateControl struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyRateControlDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyRateControlBandwIDth   types.String `tfsdk:"bandwidth"`
-	LeafQosPolicyRateControlBurst       types.String `tfsdk:"burst"`
-	LeafQosPolicyRateControlLatency     types.String `tfsdk:"latency"`
+	LeafQosPolicyRateControlDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyRateControlBandwIDth   types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyRateControlBurst       types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafQosPolicyRateControlLatency     types.String `tfsdk:"latency" json:"latency,omitempty"`
 
 	// TagNodes
 
@@ -34,83 +31,6 @@ func (o *QosPolicyRateControl) GetVyosPath() []string {
 		"policy",
 		"rate-control",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRateControl) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "rate-control"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRateControlDescrIPtion.IsNull() || o.LeafQosPolicyRateControlDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyRateControlDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyRateControlBandwIDth.IsNull() || o.LeafQosPolicyRateControlBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyRateControlBandwIDth.ValueString()
-	}
-	if !(o.LeafQosPolicyRateControlBurst.IsNull() || o.LeafQosPolicyRateControlBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafQosPolicyRateControlBurst.ValueString()
-	}
-	if !(o.LeafQosPolicyRateControlLatency.IsNull() || o.LeafQosPolicyRateControlLatency.IsUnknown()) {
-		vyosData["latency"] = o.LeafQosPolicyRateControlLatency.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRateControl) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "rate-control"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafQosPolicyRateControlBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["latency"]; ok {
-		o.LeafQosPolicyRateControlLatency = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRateControlLatency = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "rate-control"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRateControl) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"bandwidth":   types.StringType,
-		"burst":       types.StringType,
-		"latency":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -192,4 +112,79 @@ func (o QosPolicyRateControl) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRateControl) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRateControlDescrIPtion.IsNull() && !o.LeafQosPolicyRateControlDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyRateControlDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyRateControlBandwIDth.IsNull() && !o.LeafQosPolicyRateControlBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyRateControlBandwIDth.ValueString()
+	}
+
+	if !o.LeafQosPolicyRateControlBurst.IsNull() && !o.LeafQosPolicyRateControlBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafQosPolicyRateControlBurst.ValueString()
+	}
+
+	if !o.LeafQosPolicyRateControlLatency.IsNull() && !o.LeafQosPolicyRateControlLatency.IsUnknown() {
+		jsonData["latency"] = o.LeafQosPolicyRateControlLatency.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRateControl) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRateControlDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRateControlBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafQosPolicyRateControlBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRateControlBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["latency"]; ok {
+		o.LeafQosPolicyRateControlLatency = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRateControlLatency = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

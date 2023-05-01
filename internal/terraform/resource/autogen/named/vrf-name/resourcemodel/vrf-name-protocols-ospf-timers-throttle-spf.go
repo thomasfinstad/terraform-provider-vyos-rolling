@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfTimersThroTTLeSpf describes the resource data model.
 type VrfNameProtocolsOspfTimersThroTTLeSpf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay           types.String `tfsdk:"delay"`
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime types.String `tfsdk:"initial_holdtime"`
-	LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime     types.String `tfsdk:"max_holdtime"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay           types.String `tfsdk:"delay" json:"delay,omitempty"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime types.String `tfsdk:"initial_holdtime" json:"initial-holdtime,omitempty"`
+	LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime     types.String `tfsdk:"max_holdtime" json:"max-holdtime,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers", "throttle", "spf"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsNull() || o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsUnknown()) {
-		vyosData["delay"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsNull() || o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsUnknown()) {
-		vyosData["initial-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsNull() || o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsUnknown()) {
-		vyosData["max-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers", "throttle", "spf"}})
-
-	// Leafs
-	if value, ok := vyosData["delay"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["initial-holdtime"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["max-holdtime"]; ok {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers", "throttle", "spf"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfTimersThroTTLeSpf) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"delay":            types.StringType,
-		"initial_holdtime": types.StringType,
-		"max_holdtime":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -144,4 +73,69 @@ func (o VrfNameProtocolsOspfTimersThroTTLeSpf) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.IsUnknown() {
+		jsonData["delay"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.IsUnknown() {
+		jsonData["initial-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsNull() && !o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.IsUnknown() {
+		jsonData["max-holdtime"] = o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfTimersThroTTLeSpf) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["delay"]; ok {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["initial-holdtime"]; ok {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfInitialHoldtime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["max-holdtime"]; ok {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfTimersThroTTLeSpfMaxHoldtime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

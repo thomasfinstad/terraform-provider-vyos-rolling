@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetIPvsix describes the resource data model.
 type InterfacesEthernetIPvsix struct {
 	// LeafNodes
-	LeafInterfacesEthernetIPvsixAdjustMss              types.String `tfsdk:"adjust_mss"`
-	LeafInterfacesEthernetIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding"`
-	LeafInterfacesEthernetIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits"`
+	LeafInterfacesEthernetIPvsixAdjustMss              types.String `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
+	LeafInterfacesEthernetIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
+	LeafInterfacesEthernetIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits" json:"dup-addr-detect-transmits,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesEthernetIPvsixAddress types.Object `tfsdk:"address"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetIPvsixAdjustMss.IsNull() || o.LeafInterfacesEthernetIPvsixAdjustMss.IsUnknown()) {
-		vyosData["adjust-mss"] = o.LeafInterfacesEthernetIPvsixAdjustMss.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetIPvsixDisableForwarding.IsNull() || o.LeafInterfacesEthernetIPvsixDisableForwarding.IsUnknown()) {
-		vyosData["disable-forwarding"] = o.LeafInterfacesEthernetIPvsixDisableForwarding.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.IsNull() || o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.IsUnknown()) {
-		vyosData["dup-addr-detect-transmits"] = o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesEthernetIPvsixAddress.IsNull() || o.NodeInterfacesEthernetIPvsixAddress.IsUnknown()) {
-		var subModel InterfacesEthernetIPvsixAddress
-		diags.Append(o.NodeInterfacesEthernetIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["adjust-mss"]; ok {
-		o.LeafInterfacesEthernetIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixAdjustMss = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-forwarding"]; ok {
-		o.LeafInterfacesEthernetIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixDisableForwarding = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dup-addr-detect-transmits"]; ok {
-		o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["address"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesEthernetIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesEthernetIPvsixAddress = data
-
-	} else {
-		o.NodeInterfacesEthernetIPvsixAddress = basetypes.NewObjectNull(InterfacesEthernetIPvsixAddress{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"adjust_mss":                types.StringType,
-		"disable_forwarding":        types.StringType,
-		"dup_addr_detect_transmits": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"address": types.ObjectType{AttrTypes: InterfacesEthernetIPvsixAddress{}.AttributeTypes()},
-	}
+	NodeInterfacesEthernetIPvsixAddress *InterfacesEthernetIPvsixAddress `tfsdk:"address" json:"address,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -154,4 +71,96 @@ func (o InterfacesEthernetIPvsix) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetIPvsixAdjustMss.IsNull() && !o.LeafInterfacesEthernetIPvsixAdjustMss.IsUnknown() {
+		jsonData["adjust-mss"] = o.LeafInterfacesEthernetIPvsixAdjustMss.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetIPvsixDisableForwarding.IsNull() && !o.LeafInterfacesEthernetIPvsixDisableForwarding.IsUnknown() {
+		jsonData["disable-forwarding"] = o.LeafInterfacesEthernetIPvsixDisableForwarding.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.IsNull() && !o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.IsUnknown() {
+		jsonData["dup-addr-detect-transmits"] = o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesEthernetIPvsixAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesEthernetIPvsixAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["adjust-mss"]; ok {
+		o.LeafInterfacesEthernetIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetIPvsixAdjustMss = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-forwarding"]; ok {
+		o.LeafInterfacesEthernetIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dup-addr-detect-transmits"]; ok {
+		o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesEthernetIPvsixAddress = &InterfacesEthernetIPvsixAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesEthernetIPvsixAddress)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

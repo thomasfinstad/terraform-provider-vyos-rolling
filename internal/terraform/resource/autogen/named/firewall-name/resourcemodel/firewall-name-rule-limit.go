@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleLimit describes the resource data model.
 type FirewallNameRuleLimit struct {
 	// LeafNodes
-	LeafFirewallNameRuleLimitBurst types.String `tfsdk:"burst"`
-	LeafFirewallNameRuleLimitRate  types.String `tfsdk:"rate"`
+	LeafFirewallNameRuleLimitBurst types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafFirewallNameRuleLimitRate  types.String `tfsdk:"rate" json:"rate,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallNameRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallNameRuleLimitBurst.IsNull() || o.LeafFirewallNameRuleLimitBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafFirewallNameRuleLimitBurst.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleLimitRate.IsNull() || o.LeafFirewallNameRuleLimitRate.IsUnknown()) {
-		vyosData["rate"] = o.LeafFirewallNameRuleLimitRate.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallNameRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
-
-	// Leafs
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rate"]; ok {
-		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallNameRuleLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"burst": types.StringType,
-		"rate":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallNameRuleLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallNameRuleLimitBurst.IsNull() && !o.LeafFirewallNameRuleLimitBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafFirewallNameRuleLimitBurst.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleLimitRate.IsNull() && !o.LeafFirewallNameRuleLimitRate.IsUnknown() {
+		jsonData["rate"] = o.LeafFirewallNameRuleLimitRate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallNameRuleLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rate"]; ok {
+		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

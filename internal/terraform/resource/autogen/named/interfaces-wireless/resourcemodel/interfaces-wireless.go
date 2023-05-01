@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWireless describes the resource data model.
@@ -17,39 +15,39 @@ type InterfacesWireless struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesWirelessAddress                types.String `tfsdk:"address"`
-	LeafInterfacesWirelessChannel                types.String `tfsdk:"channel"`
-	LeafInterfacesWirelessCountryCode            types.String `tfsdk:"country_code"`
-	LeafInterfacesWirelessDescrIPtion            types.String `tfsdk:"description"`
-	LeafInterfacesWirelessDisableBroadcastSsID   types.String `tfsdk:"disable_broadcast_ssid"`
-	LeafInterfacesWirelessDisableLinkDetect      types.String `tfsdk:"disable_link_detect"`
-	LeafInterfacesWirelessDisable                types.String `tfsdk:"disable"`
-	LeafInterfacesWirelessVrf                    types.String `tfsdk:"vrf"`
-	LeafInterfacesWirelessExpungeFailingStations types.String `tfsdk:"expunge_failing_stations"`
-	LeafInterfacesWirelessHwID                   types.String `tfsdk:"hw_id"`
-	LeafInterfacesWirelessIsolateStations        types.String `tfsdk:"isolate_stations"`
-	LeafInterfacesWirelessMac                    types.String `tfsdk:"mac"`
-	LeafInterfacesWirelessMaxStations            types.String `tfsdk:"max_stations"`
-	LeafInterfacesWirelessMgmtFrameProtection    types.String `tfsdk:"mgmt_frame_protection"`
-	LeafInterfacesWirelessMode                   types.String `tfsdk:"mode"`
-	LeafInterfacesWirelessPhysicalDevice         types.String `tfsdk:"physical_device"`
-	LeafInterfacesWirelessReduceTransmitPower    types.String `tfsdk:"reduce_transmit_power"`
-	LeafInterfacesWirelessSsID                   types.String `tfsdk:"ssid"`
-	LeafInterfacesWirelessType                   types.String `tfsdk:"type"`
-	LeafInterfacesWirelessRedirect               types.String `tfsdk:"redirect"`
+	LeafInterfacesWirelessAddress                types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesWirelessChannel                types.String `tfsdk:"channel" json:"channel,omitempty"`
+	LeafInterfacesWirelessCountryCode            types.String `tfsdk:"country_code" json:"country-code,omitempty"`
+	LeafInterfacesWirelessDescrIPtion            types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesWirelessDisableBroadcastSsID   types.String `tfsdk:"disable_broadcast_ssid" json:"disable-broadcast-ssid,omitempty"`
+	LeafInterfacesWirelessDisableLinkDetect      types.String `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
+	LeafInterfacesWirelessDisable                types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesWirelessVrf                    types.String `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesWirelessExpungeFailingStations types.String `tfsdk:"expunge_failing_stations" json:"expunge-failing-stations,omitempty"`
+	LeafInterfacesWirelessHwID                   types.String `tfsdk:"hw_id" json:"hw-id,omitempty"`
+	LeafInterfacesWirelessIsolateStations        types.String `tfsdk:"isolate_stations" json:"isolate-stations,omitempty"`
+	LeafInterfacesWirelessMac                    types.String `tfsdk:"mac" json:"mac,omitempty"`
+	LeafInterfacesWirelessMaxStations            types.String `tfsdk:"max_stations" json:"max-stations,omitempty"`
+	LeafInterfacesWirelessMgmtFrameProtection    types.String `tfsdk:"mgmt_frame_protection" json:"mgmt-frame-protection,omitempty"`
+	LeafInterfacesWirelessMode                   types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafInterfacesWirelessPhysicalDevice         types.String `tfsdk:"physical_device" json:"physical-device,omitempty"`
+	LeafInterfacesWirelessReduceTransmitPower    types.String `tfsdk:"reduce_transmit_power" json:"reduce-transmit-power,omitempty"`
+	LeafInterfacesWirelessSsID                   types.String `tfsdk:"ssid" json:"ssid,omitempty"`
+	LeafInterfacesWirelessType                   types.String `tfsdk:"type" json:"type,omitempty"`
+	LeafInterfacesWirelessRedirect               types.String `tfsdk:"redirect" json:"redirect,omitempty"`
 
 	// TagNodes
-	TagInterfacesWirelessVif  types.Map `tfsdk:"vif"`
-	TagInterfacesWirelessVifS types.Map `tfsdk:"vif_s"`
+	TagInterfacesWirelessVif  *map[string]InterfacesWirelessVif  `tfsdk:"vif" json:"vif,omitempty"`
+	TagInterfacesWirelessVifS *map[string]InterfacesWirelessVifS `tfsdk:"vif_s" json:"vif-s,omitempty"`
 
 	// Nodes
-	NodeInterfacesWirelessCapabilities    types.Object `tfsdk:"capabilities"`
-	NodeInterfacesWirelessDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesWirelessDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesWirelessIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesWirelessIPvsix          types.Object `tfsdk:"ipv6"`
-	NodeInterfacesWirelessMirror          types.Object `tfsdk:"mirror"`
-	NodeInterfacesWirelessSecURIty        types.Object `tfsdk:"security"`
+	NodeInterfacesWirelessCapabilities    *InterfacesWirelessCapabilities    `tfsdk:"capabilities" json:"capabilities,omitempty"`
+	NodeInterfacesWirelessDhcpOptions     *InterfacesWirelessDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesWirelessDhcpvsixOptions *InterfacesWirelessDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesWirelessIP              *InterfacesWirelessIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesWirelessIPvsix          *InterfacesWirelessIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesWirelessMirror          *InterfacesWirelessMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesWirelessSecURIty        *InterfacesWirelessSecURIty        `tfsdk:"security" json:"security,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -58,360 +56,6 @@ func (o *InterfacesWireless) GetVyosPath() []string {
 		"interfaces",
 		"wireless",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWireless) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessAddress.IsNull() || o.LeafInterfacesWirelessAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesWirelessAddress.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessChannel.IsNull() || o.LeafInterfacesWirelessChannel.IsUnknown()) {
-		vyosData["channel"] = o.LeafInterfacesWirelessChannel.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessCountryCode.IsNull() || o.LeafInterfacesWirelessCountryCode.IsUnknown()) {
-		vyosData["country-code"] = o.LeafInterfacesWirelessCountryCode.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessDescrIPtion.IsNull() || o.LeafInterfacesWirelessDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesWirelessDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessDisableBroadcastSsID.IsNull() || o.LeafInterfacesWirelessDisableBroadcastSsID.IsUnknown()) {
-		vyosData["disable-broadcast-ssid"] = o.LeafInterfacesWirelessDisableBroadcastSsID.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessDisableLinkDetect.IsNull() || o.LeafInterfacesWirelessDisableLinkDetect.IsUnknown()) {
-		vyosData["disable-link-detect"] = o.LeafInterfacesWirelessDisableLinkDetect.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessDisable.IsNull() || o.LeafInterfacesWirelessDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesWirelessDisable.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessVrf.IsNull() || o.LeafInterfacesWirelessVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesWirelessVrf.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessExpungeFailingStations.IsNull() || o.LeafInterfacesWirelessExpungeFailingStations.IsUnknown()) {
-		vyosData["expunge-failing-stations"] = o.LeafInterfacesWirelessExpungeFailingStations.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessHwID.IsNull() || o.LeafInterfacesWirelessHwID.IsUnknown()) {
-		vyosData["hw-id"] = o.LeafInterfacesWirelessHwID.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessIsolateStations.IsNull() || o.LeafInterfacesWirelessIsolateStations.IsUnknown()) {
-		vyosData["isolate-stations"] = o.LeafInterfacesWirelessIsolateStations.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessMac.IsNull() || o.LeafInterfacesWirelessMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafInterfacesWirelessMac.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessMaxStations.IsNull() || o.LeafInterfacesWirelessMaxStations.IsUnknown()) {
-		vyosData["max-stations"] = o.LeafInterfacesWirelessMaxStations.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessMgmtFrameProtection.IsNull() || o.LeafInterfacesWirelessMgmtFrameProtection.IsUnknown()) {
-		vyosData["mgmt-frame-protection"] = o.LeafInterfacesWirelessMgmtFrameProtection.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessMode.IsNull() || o.LeafInterfacesWirelessMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafInterfacesWirelessMode.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessPhysicalDevice.IsNull() || o.LeafInterfacesWirelessPhysicalDevice.IsUnknown()) {
-		vyosData["physical-device"] = o.LeafInterfacesWirelessPhysicalDevice.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessReduceTransmitPower.IsNull() || o.LeafInterfacesWirelessReduceTransmitPower.IsUnknown()) {
-		vyosData["reduce-transmit-power"] = o.LeafInterfacesWirelessReduceTransmitPower.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessSsID.IsNull() || o.LeafInterfacesWirelessSsID.IsUnknown()) {
-		vyosData["ssid"] = o.LeafInterfacesWirelessSsID.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessType.IsNull() || o.LeafInterfacesWirelessType.IsUnknown()) {
-		vyosData["type"] = o.LeafInterfacesWirelessType.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessRedirect.IsNull() || o.LeafInterfacesWirelessRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesWirelessRedirect.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesWirelessVif.IsNull() || o.TagInterfacesWirelessVif.IsUnknown()) {
-		subModel := make(map[string]InterfacesWirelessVif)
-		diags.Append(o.TagInterfacesWirelessVif.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["vif"] = subData
-	}
-	if !(o.TagInterfacesWirelessVifS.IsNull() || o.TagInterfacesWirelessVifS.IsUnknown()) {
-		subModel := make(map[string]InterfacesWirelessVifS)
-		diags.Append(o.TagInterfacesWirelessVifS.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["vif-s"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeInterfacesWirelessCapabilities.IsNull() || o.NodeInterfacesWirelessCapabilities.IsUnknown()) {
-		var subModel InterfacesWirelessCapabilities
-		diags.Append(o.NodeInterfacesWirelessCapabilities.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["capabilities"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessDhcpOptions.IsNull() || o.NodeInterfacesWirelessDhcpOptions.IsUnknown()) {
-		var subModel InterfacesWirelessDhcpOptions
-		diags.Append(o.NodeInterfacesWirelessDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessDhcpvsixOptions.IsNull() || o.NodeInterfacesWirelessDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesWirelessDhcpvsixOptions
-		diags.Append(o.NodeInterfacesWirelessDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessIP.IsNull() || o.NodeInterfacesWirelessIP.IsUnknown()) {
-		var subModel InterfacesWirelessIP
-		diags.Append(o.NodeInterfacesWirelessIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessIPvsix.IsNull() || o.NodeInterfacesWirelessIPvsix.IsUnknown()) {
-		var subModel InterfacesWirelessIPvsix
-		diags.Append(o.NodeInterfacesWirelessIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessMirror.IsNull() || o.NodeInterfacesWirelessMirror.IsUnknown()) {
-		var subModel InterfacesWirelessMirror
-		diags.Append(o.NodeInterfacesWirelessMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWirelessSecURIty.IsNull() || o.NodeInterfacesWirelessSecURIty.IsUnknown()) {
-		var subModel InterfacesWirelessSecURIty
-		diags.Append(o.NodeInterfacesWirelessSecURIty.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["security"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWireless) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesWirelessAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["channel"]; ok {
-		o.LeafInterfacesWirelessChannel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessChannel = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["country-code"]; ok {
-		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-broadcast-ssid"]; ok {
-		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-link-detect"]; ok {
-		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesWirelessDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesWirelessVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessVrf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["expunge-failing-stations"]; ok {
-		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hw-id"]; ok {
-		o.LeafInterfacesWirelessHwID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessHwID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["isolate-stations"]; ok {
-		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafInterfacesWirelessMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMac = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["max-stations"]; ok {
-		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mgmt-frame-protection"]; ok {
-		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafInterfacesWirelessMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["physical-device"]; ok {
-		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["reduce-transmit-power"]; ok {
-		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ssid"]; ok {
-		o.LeafInterfacesWirelessSsID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessSsID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafInterfacesWirelessType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesWirelessRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessRedirect = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["vif"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesWirelessVif{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesWirelessVif = data
-	} else {
-		o.TagInterfacesWirelessVif = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["vif-s"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesWirelessVifS{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesWirelessVifS = data
-	} else {
-		o.TagInterfacesWirelessVifS = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["capabilities"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilities{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessCapabilities = data
-
-	} else {
-		o.NodeInterfacesWirelessCapabilities = basetypes.NewObjectNull(InterfacesWirelessCapabilities{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesWirelessDhcpOptions = basetypes.NewObjectNull(InterfacesWirelessDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesWirelessDhcpvsixOptions = basetypes.NewObjectNull(InterfacesWirelessDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessIP = data
-
-	} else {
-		o.NodeInterfacesWirelessIP = basetypes.NewObjectNull(InterfacesWirelessIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessIPvsix = data
-
-	} else {
-		o.NodeInterfacesWirelessIPvsix = basetypes.NewObjectNull(InterfacesWirelessIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessMirror = data
-
-	} else {
-		o.NodeInterfacesWirelessMirror = basetypes.NewObjectNull(InterfacesWirelessMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["security"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessSecURIty{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWirelessSecURIty = data
-
-	} else {
-		o.NodeInterfacesWirelessSecURIty = basetypes.NewObjectNull(InterfacesWirelessSecURIty{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWireless) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":                  types.StringType,
-		"channel":                  types.StringType,
-		"country_code":             types.StringType,
-		"description":              types.StringType,
-		"disable_broadcast_ssid":   types.StringType,
-		"disable_link_detect":      types.StringType,
-		"disable":                  types.StringType,
-		"vrf":                      types.StringType,
-		"expunge_failing_stations": types.StringType,
-		"hw_id":                    types.StringType,
-		"isolate_stations":         types.StringType,
-		"mac":                      types.StringType,
-		"max_stations":             types.StringType,
-		"mgmt_frame_protection":    types.StringType,
-		"mode":                     types.StringType,
-		"physical_device":          types.StringType,
-		"reduce_transmit_power":    types.StringType,
-		"ssid":                     types.StringType,
-		"type":                     types.StringType,
-		"redirect":                 types.StringType,
-
-		// Tags
-		"vif":   types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesWirelessVif{}.AttributeTypes()}},
-		"vif_s": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesWirelessVifS{}.AttributeTypes()}},
-
-		// Nodes
-		"capabilities":   types.ObjectType{AttrTypes: InterfacesWirelessCapabilities{}.AttributeTypes()},
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesWirelessDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesWirelessDhcpvsixOptions{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesWirelessIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesWirelessIPvsix{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesWirelessMirror{}.AttributeTypes()},
-		"security":       types.ObjectType{AttrTypes: InterfacesWirelessSecURIty{}.AttributeTypes()},
 	}
 }
 
@@ -739,4 +383,482 @@ func (o InterfacesWireless) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWireless) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessAddress.IsNull() && !o.LeafInterfacesWirelessAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesWirelessAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessChannel.IsNull() && !o.LeafInterfacesWirelessChannel.IsUnknown() {
+		jsonData["channel"] = o.LeafInterfacesWirelessChannel.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessCountryCode.IsNull() && !o.LeafInterfacesWirelessCountryCode.IsUnknown() {
+		jsonData["country-code"] = o.LeafInterfacesWirelessCountryCode.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessDescrIPtion.IsNull() && !o.LeafInterfacesWirelessDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesWirelessDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessDisableBroadcastSsID.IsNull() && !o.LeafInterfacesWirelessDisableBroadcastSsID.IsUnknown() {
+		jsonData["disable-broadcast-ssid"] = o.LeafInterfacesWirelessDisableBroadcastSsID.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessDisableLinkDetect.IsNull() && !o.LeafInterfacesWirelessDisableLinkDetect.IsUnknown() {
+		jsonData["disable-link-detect"] = o.LeafInterfacesWirelessDisableLinkDetect.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessDisable.IsNull() && !o.LeafInterfacesWirelessDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesWirelessDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessVrf.IsNull() && !o.LeafInterfacesWirelessVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesWirelessVrf.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessExpungeFailingStations.IsNull() && !o.LeafInterfacesWirelessExpungeFailingStations.IsUnknown() {
+		jsonData["expunge-failing-stations"] = o.LeafInterfacesWirelessExpungeFailingStations.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessHwID.IsNull() && !o.LeafInterfacesWirelessHwID.IsUnknown() {
+		jsonData["hw-id"] = o.LeafInterfacesWirelessHwID.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessIsolateStations.IsNull() && !o.LeafInterfacesWirelessIsolateStations.IsUnknown() {
+		jsonData["isolate-stations"] = o.LeafInterfacesWirelessIsolateStations.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessMac.IsNull() && !o.LeafInterfacesWirelessMac.IsUnknown() {
+		jsonData["mac"] = o.LeafInterfacesWirelessMac.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessMaxStations.IsNull() && !o.LeafInterfacesWirelessMaxStations.IsUnknown() {
+		jsonData["max-stations"] = o.LeafInterfacesWirelessMaxStations.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessMgmtFrameProtection.IsNull() && !o.LeafInterfacesWirelessMgmtFrameProtection.IsUnknown() {
+		jsonData["mgmt-frame-protection"] = o.LeafInterfacesWirelessMgmtFrameProtection.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessMode.IsNull() && !o.LeafInterfacesWirelessMode.IsUnknown() {
+		jsonData["mode"] = o.LeafInterfacesWirelessMode.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessPhysicalDevice.IsNull() && !o.LeafInterfacesWirelessPhysicalDevice.IsUnknown() {
+		jsonData["physical-device"] = o.LeafInterfacesWirelessPhysicalDevice.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessReduceTransmitPower.IsNull() && !o.LeafInterfacesWirelessReduceTransmitPower.IsUnknown() {
+		jsonData["reduce-transmit-power"] = o.LeafInterfacesWirelessReduceTransmitPower.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessSsID.IsNull() && !o.LeafInterfacesWirelessSsID.IsUnknown() {
+		jsonData["ssid"] = o.LeafInterfacesWirelessSsID.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessType.IsNull() && !o.LeafInterfacesWirelessType.IsUnknown() {
+		jsonData["type"] = o.LeafInterfacesWirelessType.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessRedirect.IsNull() && !o.LeafInterfacesWirelessRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesWirelessRedirect.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesWirelessVif).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesWirelessVif)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["vif"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagInterfacesWirelessVifS).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesWirelessVifS)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["vif-s"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessCapabilities).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessCapabilities)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["capabilities"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWirelessSecURIty).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWirelessSecURIty)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["security"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWireless) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesWirelessAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["channel"]; ok {
+		o.LeafInterfacesWirelessChannel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessChannel = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["country-code"]; ok {
+		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCountryCode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-broadcast-ssid"]; ok {
+		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessDisableBroadcastSsID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-link-detect"]; ok {
+		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessDisableLinkDetect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesWirelessDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesWirelessVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVrf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["expunge-failing-stations"]; ok {
+		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessExpungeFailingStations = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hw-id"]; ok {
+		o.LeafInterfacesWirelessHwID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessHwID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["isolate-stations"]; ok {
+		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessIsolateStations = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafInterfacesWirelessMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessMac = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["max-stations"]; ok {
+		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessMaxStations = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mgmt-frame-protection"]; ok {
+		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessMgmtFrameProtection = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafInterfacesWirelessMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["physical-device"]; ok {
+		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessPhysicalDevice = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["reduce-transmit-power"]; ok {
+		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessReduceTransmitPower = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ssid"]; ok {
+		o.LeafInterfacesWirelessSsID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessSsID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafInterfacesWirelessType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesWirelessRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["vif"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesWirelessVif = &map[string]InterfacesWirelessVif{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesWirelessVif)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["vif-s"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesWirelessVifS = &map[string]InterfacesWirelessVifS{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesWirelessVifS)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["capabilities"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessCapabilities = &InterfacesWirelessCapabilities{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessCapabilities)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessDhcpOptions = &InterfacesWirelessDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessDhcpvsixOptions = &InterfacesWirelessDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessIP = &InterfacesWirelessIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessIPvsix = &InterfacesWirelessIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessMirror = &InterfacesWirelessMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["security"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWirelessSecURIty = &InterfacesWirelessSecURIty{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWirelessSecURIty)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

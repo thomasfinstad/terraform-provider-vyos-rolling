@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoute describes the resource data model.
@@ -17,12 +15,12 @@ type PolicyRoute struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPolicyRouteDescrIPtion      types.String `tfsdk:"description"`
-	LeafPolicyRouteInterface        types.String `tfsdk:"interface"`
-	LeafPolicyRouteEnableDefaultLog types.String `tfsdk:"enable_default_log"`
+	LeafPolicyRouteDescrIPtion      types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyRouteInterface        types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafPolicyRouteEnableDefaultLog types.String `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
 
 	// TagNodes
-	TagPolicyRouteRule types.Map `tfsdk:"rule"`
+	TagPolicyRouteRule *map[string]PolicyRouteRule `tfsdk:"rule" json:"rule,omitempty"`
 
 	// Nodes
 }
@@ -33,92 +31,6 @@ func (o *PolicyRoute) GetVyosPath() []string {
 		"policy",
 		"route",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteDescrIPtion.IsNull() || o.LeafPolicyRouteDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyRouteDescrIPtion.ValueString()
-	}
-	if !(o.LeafPolicyRouteInterface.IsNull() || o.LeafPolicyRouteInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafPolicyRouteInterface.ValueString()
-	}
-	if !(o.LeafPolicyRouteEnableDefaultLog.IsNull() || o.LeafPolicyRouteEnableDefaultLog.IsUnknown()) {
-		vyosData["enable-default-log"] = o.LeafPolicyRouteEnableDefaultLog.ValueString()
-	}
-
-	// Tags
-	if !(o.TagPolicyRouteRule.IsNull() || o.TagPolicyRouteRule.IsUnknown()) {
-		subModel := make(map[string]PolicyRouteRule)
-		diags.Append(o.TagPolicyRouteRule.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["rule"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafPolicyRouteInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-default-log"]; ok {
-		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["rule"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyRouteRule{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagPolicyRouteRule = data
-	} else {
-		o.TagPolicyRouteRule = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRoute) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":        types.StringType,
-		"interface":          types.StringType,
-		"enable_default_log": types.StringType,
-
-		// Tags
-		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyRouteRule{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -182,4 +94,96 @@ func (o PolicyRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRoute) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteDescrIPtion.IsNull() && !o.LeafPolicyRouteDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyRouteDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPolicyRouteInterface.IsNull() && !o.LeafPolicyRouteInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafPolicyRouteInterface.ValueString()
+	}
+
+	if !o.LeafPolicyRouteEnableDefaultLog.IsNull() && !o.LeafPolicyRouteEnableDefaultLog.IsUnknown() {
+		jsonData["enable-default-log"] = o.LeafPolicyRouteEnableDefaultLog.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagPolicyRouteRule).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagPolicyRouteRule)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRoute) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafPolicyRouteInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-default-log"]; ok {
+		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["rule"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagPolicyRouteRule = &map[string]PolicyRouteRule{}
+
+		err = json.Unmarshal(subJSONStr, o.TagPolicyRouteRule)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

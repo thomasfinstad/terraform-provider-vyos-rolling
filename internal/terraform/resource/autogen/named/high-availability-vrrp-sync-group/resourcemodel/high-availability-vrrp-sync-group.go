@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpSyncGroup describes the resource data model.
@@ -17,12 +15,12 @@ type HighAvailabilityVrrpSyncGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafHighAvailabilityVrrpSyncGroupMember types.String `tfsdk:"member"`
+	LeafHighAvailabilityVrrpSyncGroupMember types.String `tfsdk:"member" json:"member,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt types.Object `tfsdk:"transition_script"`
+	NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt *HighAvailabilityVrrpSyncGroupTransitionScrIPt `tfsdk:"transition_script" json:"transition-script,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,69 +30,6 @@ func (o *HighAvailabilityVrrpSyncGroup) GetVyosPath() []string {
 		"vrrp",
 		"sync-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVrrpSyncGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVrrpSyncGroupMember.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupMember.IsUnknown()) {
-		vyosData["member"] = o.LeafHighAvailabilityVrrpSyncGroupMember.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt.IsNull() || o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt.IsUnknown()) {
-		var subModel HighAvailabilityVrrpSyncGroupTransitionScrIPt
-		diags.Append(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["transition-script"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVrrpSyncGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group"}})
-
-	// Leafs
-	if value, ok := vyosData["member"]; ok {
-		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["transition-script"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpSyncGroupTransitionScrIPt{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt = data
-
-	} else {
-		o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt = basetypes.NewObjectNull(HighAvailabilityVrrpSyncGroupTransitionScrIPt{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVrrpSyncGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"member": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"transition_script": types.ObjectType{AttrTypes: HighAvailabilityVrrpSyncGroupTransitionScrIPt{}.AttributeTypes()},
 	}
 }
 
@@ -133,4 +68,76 @@ func (o HighAvailabilityVrrpSyncGroup) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVrrpSyncGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVrrpSyncGroupMember.IsNull() && !o.LeafHighAvailabilityVrrpSyncGroupMember.IsUnknown() {
+		jsonData["member"] = o.LeafHighAvailabilityVrrpSyncGroupMember.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["transition-script"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVrrpSyncGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["member"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupMember = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["transition-script"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt = &HighAvailabilityVrrpSyncGroupTransitionScrIPt{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeHighAvailabilityVrrpSyncGroupTransitionScrIPt)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

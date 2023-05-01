@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassMatchEther describes the resource data model.
 type QosPolicyShaperHfscClassMatchEther struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscClassMatchEtherDestination types.String `tfsdk:"destination"`
-	LeafQosPolicyShaperHfscClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
-	LeafQosPolicyShaperHfscClassMatchEtherSource      types.String `tfsdk:"source"`
+	LeafQosPolicyShaperHfscClassMatchEtherDestination types.String `tfsdk:"destination" json:"destination,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchEtherProtocol    types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchEtherSource      types.String `tfsdk:"source" json:"source,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsUnknown()) {
-		vyosData["destination"] = o.LeafQosPolicyShaperHfscClassMatchEtherDestination.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsUnknown()) {
-		vyosData["source"] = o.LeafQosPolicyShaperHfscClassMatchEtherSource.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
-
-	// Leafs
-	if value, ok := vyosData["destination"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source"]; ok {
-		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscClassMatchEther) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"destination": types.StringType,
-		"protocol":    types.StringType,
-		"source":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +72,69 @@ func (o QosPolicyShaperHfscClassMatchEther) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscClassMatchEther) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsUnknown() {
+		jsonData["destination"] = o.LeafQosPolicyShaperHfscClassMatchEtherDestination.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsNull() && !o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsUnknown() {
+		jsonData["source"] = o.LeafQosPolicyShaperHfscClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["destination"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

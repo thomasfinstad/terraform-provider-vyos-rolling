@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpGroupGarp describes the resource data model.
 type HighAvailabilityVrrpGroupGarp struct {
 	// LeafNodes
-	LeafHighAvailabilityVrrpGroupGarpInterval            types.String `tfsdk:"interval"`
-	LeafHighAvailabilityVrrpGroupGarpMasterDelay         types.String `tfsdk:"master_delay"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRefresh       types.String `tfsdk:"master_refresh"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.String `tfsdk:"master_refresh_repeat"`
-	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.String `tfsdk:"master_repeat"`
+	LeafHighAvailabilityVrrpGroupGarpInterval            types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterDelay         types.String `tfsdk:"master_delay" json:"master-delay,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefresh       types.String `tfsdk:"master_refresh" json:"master-refresh,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.String `tfsdk:"master_refresh_repeat" json:"master-refresh-repeat,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.String `tfsdk:"master_repeat" json:"master-repeat,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVrrpGroupGarp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVrrpGroupGarpInterval.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafHighAvailabilityVrrpGroupGarpInterval.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsUnknown()) {
-		vyosData["master-delay"] = o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsUnknown()) {
-		vyosData["master-refresh"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsUnknown()) {
-		vyosData["master-refresh-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.ValueString()
-	}
-	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsUnknown()) {
-		vyosData["master-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVrrpGroupGarp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
-
-	// Leafs
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["master-delay"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["master-refresh"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["master-refresh-repeat"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["master-repeat"]; ok {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVrrpGroupGarp) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"interval":              types.StringType,
-		"master_delay":          types.StringType,
-		"master_refresh":        types.StringType,
-		"master_refresh_repeat": types.StringType,
-		"master_repeat":         types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -193,4 +104,89 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVrrpGroupGarp) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVrrpGroupGarpInterval.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafHighAvailabilityVrrpGroupGarpInterval.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsUnknown() {
+		jsonData["master-delay"] = o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsUnknown() {
+		jsonData["master-refresh"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsUnknown() {
+		jsonData["master-refresh-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.ValueString()
+	}
+
+	if !o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsNull() && !o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsUnknown() {
+		jsonData["master-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVrrpGroupGarp) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["master-delay"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["master-refresh"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["master-refresh-repeat"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["master-repeat"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

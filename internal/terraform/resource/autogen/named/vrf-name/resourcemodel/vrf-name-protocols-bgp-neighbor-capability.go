@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborCapability describes the resource data model.
 type VrfNameProtocolsBgpNeighborCapability struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborCapabilityDynamic         types.String `tfsdk:"dynamic"`
-	LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop types.String `tfsdk:"extended_nexthop"`
+	LeafVrfNameProtocolsBgpNeighborCapabilityDynamic         types.String `tfsdk:"dynamic" json:"dynamic,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop types.String `tfsdk:"extended_nexthop" json:"extended-nexthop,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborCapability) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "capability"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.IsNull() || o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.IsUnknown()) {
-		vyosData["dynamic"] = o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.IsNull() || o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.IsUnknown()) {
-		vyosData["extended-nexthop"] = o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborCapability) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "capability"}})
-
-	// Leafs
-	if value, ok := vyosData["dynamic"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["extended-nexthop"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "capability"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborCapability) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"dynamic":          types.StringType,
-		"extended_nexthop": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o VrfNameProtocolsBgpNeighborCapability) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborCapability) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.IsUnknown() {
+		jsonData["dynamic"] = o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.IsUnknown() {
+		jsonData["extended-nexthop"] = o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborCapability) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["dynamic"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborCapabilityDynamic = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["extended-nexthop"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborCapabilityExtendedNexthop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

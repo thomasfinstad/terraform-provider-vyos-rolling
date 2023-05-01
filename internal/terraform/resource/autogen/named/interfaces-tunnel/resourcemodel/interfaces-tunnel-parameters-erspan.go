@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesTunnelParametersErspan describes the resource data model.
 type InterfacesTunnelParametersErspan struct {
 	// LeafNodes
-	LeafInterfacesTunnelParametersErspanDirection types.String `tfsdk:"direction"`
-	LeafInterfacesTunnelParametersErspanHwID      types.String `tfsdk:"hw_id"`
-	LeafInterfacesTunnelParametersErspanIndex     types.String `tfsdk:"index"`
-	LeafInterfacesTunnelParametersErspanVersion   types.String `tfsdk:"version"`
+	LeafInterfacesTunnelParametersErspanDirection types.String `tfsdk:"direction" json:"direction,omitempty"`
+	LeafInterfacesTunnelParametersErspanHwID      types.String `tfsdk:"hw_id" json:"hw-id,omitempty"`
+	LeafInterfacesTunnelParametersErspanIndex     types.String `tfsdk:"index" json:"index,omitempty"`
+	LeafInterfacesTunnelParametersErspanVersion   types.String `tfsdk:"version" json:"version,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesTunnelParametersErspan) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "erspan"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesTunnelParametersErspanDirection.IsNull() || o.LeafInterfacesTunnelParametersErspanDirection.IsUnknown()) {
-		vyosData["direction"] = o.LeafInterfacesTunnelParametersErspanDirection.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersErspanHwID.IsNull() || o.LeafInterfacesTunnelParametersErspanHwID.IsUnknown()) {
-		vyosData["hw-id"] = o.LeafInterfacesTunnelParametersErspanHwID.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersErspanIndex.IsNull() || o.LeafInterfacesTunnelParametersErspanIndex.IsUnknown()) {
-		vyosData["index"] = o.LeafInterfacesTunnelParametersErspanIndex.ValueString()
-	}
-	if !(o.LeafInterfacesTunnelParametersErspanVersion.IsNull() || o.LeafInterfacesTunnelParametersErspanVersion.IsUnknown()) {
-		vyosData["version"] = o.LeafInterfacesTunnelParametersErspanVersion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesTunnelParametersErspan) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "erspan"}})
-
-	// Leafs
-	if value, ok := vyosData["direction"]; ok {
-		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hw-id"]; ok {
-		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["index"]; ok {
-		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["version"]; ok {
-		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "erspan"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesTunnelParametersErspan) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"direction": types.StringType,
-		"hw_id":     types.StringType,
-		"index":     types.StringType,
-		"version":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -161,4 +81,79 @@ func (o InterfacesTunnelParametersErspan) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesTunnelParametersErspan) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesTunnelParametersErspanDirection.IsNull() && !o.LeafInterfacesTunnelParametersErspanDirection.IsUnknown() {
+		jsonData["direction"] = o.LeafInterfacesTunnelParametersErspanDirection.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersErspanHwID.IsNull() && !o.LeafInterfacesTunnelParametersErspanHwID.IsUnknown() {
+		jsonData["hw-id"] = o.LeafInterfacesTunnelParametersErspanHwID.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersErspanIndex.IsNull() && !o.LeafInterfacesTunnelParametersErspanIndex.IsUnknown() {
+		jsonData["index"] = o.LeafInterfacesTunnelParametersErspanIndex.ValueString()
+	}
+
+	if !o.LeafInterfacesTunnelParametersErspanVersion.IsNull() && !o.LeafInterfacesTunnelParametersErspanVersion.IsUnknown() {
+		jsonData["version"] = o.LeafInterfacesTunnelParametersErspanVersion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesTunnelParametersErspan) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["direction"]; ok {
+		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersErspanDirection = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hw-id"]; ok {
+		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersErspanHwID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["index"]; ok {
+		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersErspanIndex = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["version"]; ok {
+		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersErspanVersion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

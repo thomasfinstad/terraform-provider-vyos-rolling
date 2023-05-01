@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessRadiusServer describes the resource data model.
@@ -17,10 +14,10 @@ type VpnIPsecRemoteAccessRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessRadiusServerDisable           types.String `tfsdk:"disable"`
-	LeafVpnIPsecRemoteAccessRadiusServerKey               types.String `tfsdk:"key"`
-	LeafVpnIPsecRemoteAccessRadiusServerPort              types.String `tfsdk:"port"`
-	LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
+	LeafVpnIPsecRemoteAccessRadiusServerDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnIPsecRemoteAccessRadiusServerKey               types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafVpnIPsecRemoteAccessRadiusServerPort              types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
 
 	// TagNodes
 
@@ -36,83 +33,6 @@ func (o *VpnIPsecRemoteAccessRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecRemoteAccessRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafVpnIPsecRemoteAccessRadiusServerKey.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafVpnIPsecRemoteAccessRadiusServerPort.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsUnknown()) {
-		vyosData["disable-accounting"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecRemoteAccessRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-accounting"]; ok {
-		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecRemoteAccessRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":            types.StringType,
-		"key":                types.StringType,
-		"port":               types.StringType,
-		"disable_accounting": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -172,4 +92,79 @@ func (o VpnIPsecRemoteAccessRadiusServer) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecRemoteAccessRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsNull() && !o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsNull() && !o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafVpnIPsecRemoteAccessRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsNull() && !o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafVpnIPsecRemoteAccessRadiusServerPort.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsNull() && !o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsUnknown() {
+		jsonData["disable-accounting"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecRemoteAccessRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-accounting"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

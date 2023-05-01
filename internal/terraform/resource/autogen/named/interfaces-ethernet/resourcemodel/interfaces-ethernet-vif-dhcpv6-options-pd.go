@@ -2,93 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetVifDhcpvsixOptionsPd describes the resource data model.
 type InterfacesEthernetVifDhcpvsixOptionsPd struct {
 	// LeafNodes
-	LeafInterfacesEthernetVifDhcpvsixOptionsPdLength types.String `tfsdk:"length"`
+	LeafInterfacesEthernetVifDhcpvsixOptionsPdLength types.String `tfsdk:"length" json:"length,omitempty"`
 
 	// TagNodes
-	TagInterfacesEthernetVifDhcpvsixOptionsPdInterface types.Map `tfsdk:"interface"`
+	TagInterfacesEthernetVifDhcpvsixOptionsPdInterface *map[string]InterfacesEthernetVifDhcpvsixOptionsPdInterface `tfsdk:"interface" json:"interface,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetVifDhcpvsixOptionsPd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif", "dhcpv6-options", "pd"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsNull() || o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsUnknown()) {
-		vyosData["length"] = o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface.IsNull() || o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface.IsUnknown()) {
-		subModel := make(map[string]InterfacesEthernetVifDhcpvsixOptionsPdInterface)
-		diags.Append(o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["interface"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetVifDhcpvsixOptionsPd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif", "dhcpv6-options", "pd"}})
-
-	// Leafs
-	if value, ok := vyosData["length"]; ok {
-		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["interface"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesEthernetVifDhcpvsixOptionsPdInterface{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface = data
-	} else {
-		o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "vif", "dhcpv6-options", "pd"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetVifDhcpvsixOptionsPd) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"length": types.StringType,
-
-		// Tags
-		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesEthernetVifDhcpvsixOptionsPdInterface{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -125,4 +55,76 @@ func (o InterfacesEthernetVifDhcpvsixOptionsPd) ResourceSchemaAttributes() map[s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetVifDhcpvsixOptionsPd) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsNull() && !o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.IsUnknown() {
+		jsonData["length"] = o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["interface"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetVifDhcpvsixOptionsPd) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["length"]; ok {
+		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetVifDhcpvsixOptionsPdLength = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["interface"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface = &map[string]InterfacesEthernetVifDhcpvsixOptionsPdInterface{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesEthernetVifDhcpvsixOptionsPdInterface)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

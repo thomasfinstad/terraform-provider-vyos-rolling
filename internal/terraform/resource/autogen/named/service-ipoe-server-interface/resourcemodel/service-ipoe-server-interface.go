@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerInterface describes the resource data model.
@@ -17,15 +15,15 @@ type ServiceIPoeServerInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceIPoeServerInterfaceMode         types.String `tfsdk:"mode"`
-	LeafServiceIPoeServerInterfaceNetwork      types.String `tfsdk:"network"`
-	LeafServiceIPoeServerInterfaceClientSubnet types.String `tfsdk:"client_subnet"`
-	LeafServiceIPoeServerInterfaceVlan         types.String `tfsdk:"vlan"`
+	LeafServiceIPoeServerInterfaceMode         types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafServiceIPoeServerInterfaceNetwork      types.String `tfsdk:"network" json:"network,omitempty"`
+	LeafServiceIPoeServerInterfaceClientSubnet types.String `tfsdk:"client_subnet" json:"client-subnet,omitempty"`
+	LeafServiceIPoeServerInterfaceVlan         types.String `tfsdk:"vlan" json:"vlan,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceIPoeServerInterfaceExternalDhcp types.Object `tfsdk:"external_dhcp"`
+	NodeServiceIPoeServerInterfaceExternalDhcp *ServiceIPoeServerInterfaceExternalDhcp `tfsdk:"external_dhcp" json:"external-dhcp,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -35,96 +33,6 @@ func (o *ServiceIPoeServerInterface) GetVyosPath() []string {
 		"ipoe-server",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerInterfaceMode.IsNull() || o.LeafServiceIPoeServerInterfaceMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafServiceIPoeServerInterfaceMode.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerInterfaceNetwork.IsNull() || o.LeafServiceIPoeServerInterfaceNetwork.IsUnknown()) {
-		vyosData["network"] = o.LeafServiceIPoeServerInterfaceNetwork.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerInterfaceClientSubnet.IsNull() || o.LeafServiceIPoeServerInterfaceClientSubnet.IsUnknown()) {
-		vyosData["client-subnet"] = o.LeafServiceIPoeServerInterfaceClientSubnet.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerInterfaceVlan.IsNull() || o.LeafServiceIPoeServerInterfaceVlan.IsUnknown()) {
-		vyosData["vlan"] = o.LeafServiceIPoeServerInterfaceVlan.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceIPoeServerInterfaceExternalDhcp.IsNull() || o.NodeServiceIPoeServerInterfaceExternalDhcp.IsUnknown()) {
-		var subModel ServiceIPoeServerInterfaceExternalDhcp
-		diags.Append(o.NodeServiceIPoeServerInterfaceExternalDhcp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["external-dhcp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafServiceIPoeServerInterfaceMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network"]; ok {
-		o.LeafServiceIPoeServerInterfaceNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceNetwork = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["client-subnet"]; ok {
-		o.LeafServiceIPoeServerInterfaceClientSubnet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceClientSubnet = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vlan"]; ok {
-		o.LeafServiceIPoeServerInterfaceVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerInterfaceVlan = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["external-dhcp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceIPoeServerInterfaceExternalDhcp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceIPoeServerInterfaceExternalDhcp = data
-
-	} else {
-		o.NodeServiceIPoeServerInterfaceExternalDhcp = basetypes.NewObjectNull(ServiceIPoeServerInterfaceExternalDhcp{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"mode":          types.StringType,
-		"network":       types.StringType,
-		"client_subnet": types.StringType,
-		"vlan":          types.StringType,
-
-		// Tags
-
-		// Nodes
-		"external_dhcp": types.ObjectType{AttrTypes: ServiceIPoeServerInterfaceExternalDhcp{}.AttributeTypes()},
 	}
 }
 
@@ -205,4 +113,106 @@ func (o ServiceIPoeServerInterface) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerInterfaceMode.IsNull() && !o.LeafServiceIPoeServerInterfaceMode.IsUnknown() {
+		jsonData["mode"] = o.LeafServiceIPoeServerInterfaceMode.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerInterfaceNetwork.IsNull() && !o.LeafServiceIPoeServerInterfaceNetwork.IsUnknown() {
+		jsonData["network"] = o.LeafServiceIPoeServerInterfaceNetwork.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerInterfaceClientSubnet.IsNull() && !o.LeafServiceIPoeServerInterfaceClientSubnet.IsUnknown() {
+		jsonData["client-subnet"] = o.LeafServiceIPoeServerInterfaceClientSubnet.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerInterfaceVlan.IsNull() && !o.LeafServiceIPoeServerInterfaceVlan.IsUnknown() {
+		jsonData["vlan"] = o.LeafServiceIPoeServerInterfaceVlan.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceIPoeServerInterfaceExternalDhcp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceIPoeServerInterfaceExternalDhcp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["external-dhcp"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafServiceIPoeServerInterfaceMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network"]; ok {
+		o.LeafServiceIPoeServerInterfaceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceNetwork = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["client-subnet"]; ok {
+		o.LeafServiceIPoeServerInterfaceClientSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceClientSubnet = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vlan"]; ok {
+		o.LeafServiceIPoeServerInterfaceVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerInterfaceVlan = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["external-dhcp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceIPoeServerInterfaceExternalDhcp = &ServiceIPoeServerInterfaceExternalDhcp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceIPoeServerInterfaceExternalDhcp)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnSstpAuthenticationLocalUsersUsername describes the resource data model.
@@ -17,14 +15,14 @@ type VpnSstpAuthenticationLocalUsersUsername struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnSstpAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable"`
-	LeafVpnSstpAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password"`
-	LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP types.String `tfsdk:"static_ip"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnSstpAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password" json:"password,omitempty"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP types.String `tfsdk:"static_ip" json:"static-ip,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit types.Object `tfsdk:"rate_limit"`
+	NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit *VpnSstpAuthenticationLocalUsersUsernameRateLimit `tfsdk:"rate_limit" json:"rate-limit,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -36,87 +34,6 @@ func (o *VpnSstpAuthenticationLocalUsersUsername) GetVyosPath() []string {
 		"local-users",
 		"username",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnSstpAuthenticationLocalUsersUsername) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsUnknown()) {
-		vyosData["password"] = o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.ValueString()
-	}
-	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsUnknown()) {
-		vyosData["static-ip"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit.IsNull() || o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit.IsUnknown()) {
-		var subModel VpnSstpAuthenticationLocalUsersUsernameRateLimit
-		diags.Append(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["rate-limit"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnSstpAuthenticationLocalUsersUsername) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["password"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["static-ip"]; ok {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["rate-limit"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnSstpAuthenticationLocalUsersUsernameRateLimit{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit = data
-
-	} else {
-		o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit = basetypes.NewObjectNull(VpnSstpAuthenticationLocalUsersUsernameRateLimit{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnSstpAuthenticationLocalUsersUsername) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":   types.StringType,
-		"password":  types.StringType,
-		"static_ip": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"rate_limit": types.ObjectType{AttrTypes: VpnSstpAuthenticationLocalUsersUsernameRateLimit{}.AttributeTypes()},
 	}
 }
 
@@ -168,4 +85,96 @@ func (o VpnSstpAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnSstpAuthenticationLocalUsersUsername) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.IsUnknown() {
+		jsonData["password"] = o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword.ValueString()
+	}
+
+	if !o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsNull() && !o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.IsUnknown() {
+		jsonData["static-ip"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rate-limit"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnSstpAuthenticationLocalUsersUsername) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["password"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["static-ip"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameStaticIP = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["rate-limit"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit = &VpnSstpAuthenticationLocalUsersUsernameRateLimit{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnSstpAuthenticationLocalUsersUsernameRateLimit)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

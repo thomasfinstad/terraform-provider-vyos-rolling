@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueue describes the resource data model.
@@ -17,13 +15,13 @@ type QosPolicyPriorityQueue struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyPriorityQueueDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyPriorityQueueDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagQosPolicyPriorityQueueClass types.Map `tfsdk:"class"`
+	TagQosPolicyPriorityQueueClass *map[string]QosPolicyPriorityQueueClass `tfsdk:"class" json:"class,omitempty"`
 
 	// Nodes
-	NodeQosPolicyPriorityQueueDefault types.Object `tfsdk:"default"`
+	NodeQosPolicyPriorityQueueDefault *QosPolicyPriorityQueueDefault `tfsdk:"default" json:"default,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,87 +31,6 @@ func (o *QosPolicyPriorityQueue) GetVyosPath() []string {
 		"policy",
 		"priority-queue",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyPriorityQueue) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyPriorityQueueDescrIPtion.IsNull() || o.LeafQosPolicyPriorityQueueDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyPriorityQueueDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyPriorityQueueClass.IsNull() || o.TagQosPolicyPriorityQueueClass.IsUnknown()) {
-		subModel := make(map[string]QosPolicyPriorityQueueClass)
-		diags.Append(o.TagQosPolicyPriorityQueueClass.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["class"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeQosPolicyPriorityQueueDefault.IsNull() || o.NodeQosPolicyPriorityQueueDefault.IsUnknown()) {
-		var subModel QosPolicyPriorityQueueDefault
-		diags.Append(o.NodeQosPolicyPriorityQueueDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyPriorityQueue) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["class"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyPriorityQueueClass{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyPriorityQueueClass = data
-	} else {
-		o.TagQosPolicyPriorityQueueClass = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["default"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyPriorityQueueDefault{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyPriorityQueueDefault = data
-
-	} else {
-		o.NodeQosPolicyPriorityQueueDefault = basetypes.NewObjectNull(QosPolicyPriorityQueueDefault{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyPriorityQueue) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyPriorityQueueClass{}.AttributeTypes()}},
-
-		// Nodes
-		"default": types.ObjectType{AttrTypes: QosPolicyPriorityQueueDefault{}.AttributeTypes()},
 	}
 }
 
@@ -170,4 +87,103 @@ func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Att
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyPriorityQueue) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyPriorityQueueDescrIPtion.IsNull() && !o.LeafQosPolicyPriorityQueueDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyPriorityQueueDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyPriorityQueueClass).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyPriorityQueueClass)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["class"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyPriorityQueueDefault).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyPriorityQueueDefault)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyPriorityQueue) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["class"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyPriorityQueueClass = &map[string]QosPolicyPriorityQueueClass{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyPriorityQueueClass)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["default"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyPriorityQueueDefault = &QosPolicyPriorityQueueDefault{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyPriorityQueueDefault)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

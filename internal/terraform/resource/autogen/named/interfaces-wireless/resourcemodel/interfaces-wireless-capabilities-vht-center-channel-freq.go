@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilitiesVhtCenterChannelFreq describes the resource data model.
 type InterfacesWirelessCapabilitiesVhtCenterChannelFreq struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne types.String `tfsdk:"freq_1"`
-	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo types.String `tfsdk:"freq_2"`
+	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne types.String `tfsdk:"freq_1" json:"freq-1,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo types.String `tfsdk:"freq_2" json:"freq-2,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "center-channel-freq"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsNull() || o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsUnknown()) {
-		vyosData["freq-1"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsNull() || o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsUnknown()) {
-		vyosData["freq-2"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "center-channel-freq"}})
-
-	// Leafs
-	if value, ok := vyosData["freq-1"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["freq-2"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "center-channel-freq"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"freq_1": types.StringType,
-		"freq_2": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o InterfacesWirelessCapabilitiesVhtCenterChannelFreq) ResourceSchemaAttrib
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.IsUnknown() {
+		jsonData["freq-1"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.IsUnknown() {
+		jsonData["freq-2"] = o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessCapabilitiesVhtCenterChannelFreq) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["freq-1"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqOne = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["freq-2"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesVhtCenterChannelFreqFreqTwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

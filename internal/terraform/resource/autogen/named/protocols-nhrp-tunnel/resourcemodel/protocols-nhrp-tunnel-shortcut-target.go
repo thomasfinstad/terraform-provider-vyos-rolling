@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsNhrpTunnelShortcutTarget describes the resource data model.
 type ProtocolsNhrpTunnelShortcutTarget struct {
 	// LeafNodes
-	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time"`
+	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time" json:"holding-time,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsNhrpTunnelShortcutTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsNull() || o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsUnknown()) {
-		vyosData["holding-time"] = o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsNhrpTunnelShortcutTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
-
-	// Leafs
-	if value, ok := vyosData["holding-time"]; ok {
-		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsNhrpTunnelShortcutTarget) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"holding_time": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,4 +36,49 @@ func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsNhrpTunnelShortcutTarget) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsNull() && !o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsUnknown() {
+		jsonData["holding-time"] = o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsNhrpTunnelShortcutTarget) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["holding-time"]; ok {
+		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

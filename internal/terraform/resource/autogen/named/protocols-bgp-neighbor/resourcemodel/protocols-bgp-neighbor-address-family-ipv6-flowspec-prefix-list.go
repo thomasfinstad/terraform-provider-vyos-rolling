@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport types.String `tfsdk:"export"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport types.String `tfsdk:"import"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport types.String `tfsdk:"export" json:"export,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport types.String `tfsdk:"import" json:"import,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec", "prefix-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.IsUnknown()) {
-		vyosData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.IsUnknown()) {
-		vyosData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec", "prefix-list"}})
-
-	// Leafs
-	if value, ok := vyosData["export"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec", "prefix-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"export": types.StringType,
-		"import": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) ResourceSchem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.IsUnknown() {
+		jsonData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.IsUnknown() {
+		jsonData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListExport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixListImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

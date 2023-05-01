@@ -2,181 +2,29 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgp describes the resource data model.
 type VrfNameProtocolsBgp struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpSystemAs types.String `tfsdk:"system_as"`
-	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpSystemAs types.String `tfsdk:"system_as" json:"system-as,omitempty"`
+	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
-	TagVrfNameProtocolsBgpNeighbor  types.Map `tfsdk:"neighbor"`
-	TagVrfNameProtocolsBgpPeerGroup types.Map `tfsdk:"peer_group"`
+	TagVrfNameProtocolsBgpNeighbor  *map[string]VrfNameProtocolsBgpNeighbor  `tfsdk:"neighbor" json:"neighbor,omitempty"`
+	TagVrfNameProtocolsBgpPeerGroup *map[string]VrfNameProtocolsBgpPeerGroup `tfsdk:"peer_group" json:"peer-group,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamily types.Object `tfsdk:"address_family"`
-	NodeVrfNameProtocolsBgpListen        types.Object `tfsdk:"listen"`
-	NodeVrfNameProtocolsBgpParameters    types.Object `tfsdk:"parameters"`
-	NodeVrfNameProtocolsBgpTimers        types.Object `tfsdk:"timers"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpSystemAs.IsNull() || o.LeafVrfNameProtocolsBgpSystemAs.IsUnknown()) {
-		vyosData["system-as"] = o.LeafVrfNameProtocolsBgpSystemAs.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpRouteMap.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVrfNameProtocolsBgpNeighbor.IsNull() || o.TagVrfNameProtocolsBgpNeighbor.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpNeighbor)
-		diags.Append(o.TagVrfNameProtocolsBgpNeighbor.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["neighbor"] = subData
-	}
-	if !(o.TagVrfNameProtocolsBgpPeerGroup.IsNull() || o.TagVrfNameProtocolsBgpPeerGroup.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpPeerGroup)
-		diags.Append(o.TagVrfNameProtocolsBgpPeerGroup.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["peer-group"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamily.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamily.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamily
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamily.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["address-family"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpListen.IsNull() || o.NodeVrfNameProtocolsBgpListen.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpListen
-		diags.Append(o.NodeVrfNameProtocolsBgpListen.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["listen"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpParameters.IsNull() || o.NodeVrfNameProtocolsBgpParameters.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpParameters
-		diags.Append(o.NodeVrfNameProtocolsBgpParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpTimers.IsNull() || o.NodeVrfNameProtocolsBgpTimers.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpTimers
-		diags.Append(o.NodeVrfNameProtocolsBgpTimers.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["timers"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
-
-	// Leafs
-	if value, ok := vyosData["system-as"]; ok {
-		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["neighbor"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighbor{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpNeighbor = data
-	} else {
-		o.TagVrfNameProtocolsBgpNeighbor = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["peer-group"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroup{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpPeerGroup = data
-	} else {
-		o.TagVrfNameProtocolsBgpPeerGroup = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["address-family"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamily{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamily = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamily = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamily{}.AttributeTypes())
-	}
-	if value, ok := vyosData["listen"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpListen{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpListen = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpListen = basetypes.NewObjectNull(VrfNameProtocolsBgpListen{}.AttributeTypes())
-	}
-	if value, ok := vyosData["parameters"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParameters{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpParameters = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpParameters = basetypes.NewObjectNull(VrfNameProtocolsBgpParameters{}.AttributeTypes())
-	}
-	if value, ok := vyosData["timers"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpTimers{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpTimers = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpTimers = basetypes.NewObjectNull(VrfNameProtocolsBgpTimers{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgp) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"system_as": types.StringType,
-		"route_map": types.StringType,
-
-		// Tags
-		"neighbor":   types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighbor{}.AttributeTypes()}},
-		"peer_group": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroup{}.AttributeTypes()}},
-
-		// Nodes
-		"address_family": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamily{}.AttributeTypes()},
-		"listen":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpListen{}.AttributeTypes()},
-		"parameters":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpParameters{}.AttributeTypes()},
-		"timers":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpTimers{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamily *VrfNameProtocolsBgpAddressFamily `tfsdk:"address_family" json:"address-family,omitempty"`
+	NodeVrfNameProtocolsBgpListen        *VrfNameProtocolsBgpListen        `tfsdk:"listen" json:"listen,omitempty"`
+	NodeVrfNameProtocolsBgpParameters    *VrfNameProtocolsBgpParameters    `tfsdk:"parameters" json:"parameters,omitempty"`
+	NodeVrfNameProtocolsBgpTimers        *VrfNameProtocolsBgpTimers        `tfsdk:"timers" json:"timers,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -268,4 +116,221 @@ func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgp) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpSystemAs.IsNull() && !o.LeafVrfNameProtocolsBgpSystemAs.IsUnknown() {
+		jsonData["system-as"] = o.LeafVrfNameProtocolsBgpSystemAs.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpRouteMap.IsNull() && !o.LeafVrfNameProtocolsBgpRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsBgpRouteMap.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpNeighbor).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpNeighbor)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["neighbor"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpPeerGroup).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpPeerGroup)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["peer-group"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamily).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamily)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address-family"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpListen).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpListen)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["listen"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpParameters).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpParameters)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["parameters"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpTimers).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpTimers)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["timers"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgp) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["system-as"]; ok {
+		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["neighbor"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpNeighbor = &map[string]VrfNameProtocolsBgpNeighbor{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpNeighbor)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["peer-group"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpPeerGroup = &map[string]VrfNameProtocolsBgpPeerGroup{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpPeerGroup)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["address-family"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamily = &VrfNameProtocolsBgpAddressFamily{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamily)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["listen"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpListen = &VrfNameProtocolsBgpListen{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpListen)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["parameters"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpParameters = &VrfNameProtocolsBgpParameters{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpParameters)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["timers"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpTimers = &VrfNameProtocolsBgpTimers{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpTimers)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

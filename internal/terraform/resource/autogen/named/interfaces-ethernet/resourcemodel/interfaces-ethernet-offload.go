@@ -2,134 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetOffload describes the resource data model.
 type InterfacesEthernetOffload struct {
 	// LeafNodes
-	LeafInterfacesEthernetOffloadGro types.String `tfsdk:"gro"`
-	LeafInterfacesEthernetOffloadGso types.String `tfsdk:"gso"`
-	LeafInterfacesEthernetOffloadLro types.String `tfsdk:"lro"`
-	LeafInterfacesEthernetOffloadRps types.String `tfsdk:"rps"`
-	LeafInterfacesEthernetOffloadRfs types.String `tfsdk:"rfs"`
-	LeafInterfacesEthernetOffloadSg  types.String `tfsdk:"sg"`
-	LeafInterfacesEthernetOffloadTso types.String `tfsdk:"tso"`
+	LeafInterfacesEthernetOffloadGro types.String `tfsdk:"gro" json:"gro,omitempty"`
+	LeafInterfacesEthernetOffloadGso types.String `tfsdk:"gso" json:"gso,omitempty"`
+	LeafInterfacesEthernetOffloadLro types.String `tfsdk:"lro" json:"lro,omitempty"`
+	LeafInterfacesEthernetOffloadRps types.String `tfsdk:"rps" json:"rps,omitempty"`
+	LeafInterfacesEthernetOffloadRfs types.String `tfsdk:"rfs" json:"rfs,omitempty"`
+	LeafInterfacesEthernetOffloadSg  types.String `tfsdk:"sg" json:"sg,omitempty"`
+	LeafInterfacesEthernetOffloadTso types.String `tfsdk:"tso" json:"tso,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetOffload) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetOffloadGro.IsNull() || o.LeafInterfacesEthernetOffloadGro.IsUnknown()) {
-		vyosData["gro"] = o.LeafInterfacesEthernetOffloadGro.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadGso.IsNull() || o.LeafInterfacesEthernetOffloadGso.IsUnknown()) {
-		vyosData["gso"] = o.LeafInterfacesEthernetOffloadGso.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadLro.IsNull() || o.LeafInterfacesEthernetOffloadLro.IsUnknown()) {
-		vyosData["lro"] = o.LeafInterfacesEthernetOffloadLro.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadRps.IsNull() || o.LeafInterfacesEthernetOffloadRps.IsUnknown()) {
-		vyosData["rps"] = o.LeafInterfacesEthernetOffloadRps.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadRfs.IsNull() || o.LeafInterfacesEthernetOffloadRfs.IsUnknown()) {
-		vyosData["rfs"] = o.LeafInterfacesEthernetOffloadRfs.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadSg.IsNull() || o.LeafInterfacesEthernetOffloadSg.IsUnknown()) {
-		vyosData["sg"] = o.LeafInterfacesEthernetOffloadSg.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetOffloadTso.IsNull() || o.LeafInterfacesEthernetOffloadTso.IsUnknown()) {
-		vyosData["tso"] = o.LeafInterfacesEthernetOffloadTso.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetOffload) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
-
-	// Leafs
-	if value, ok := vyosData["gro"]; ok {
-		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["gso"]; ok {
-		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["lro"]; ok {
-		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rps"]; ok {
-		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rfs"]; ok {
-		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["sg"]; ok {
-		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["tso"]; ok {
-		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetOffload) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"gro": types.StringType,
-		"gso": types.StringType,
-		"lro": types.StringType,
-		"rps": types.StringType,
-		"rfs": types.StringType,
-		"sg":  types.StringType,
-		"tso": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -191,4 +84,109 @@ func (o InterfacesEthernetOffload) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetOffload) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetOffloadGro.IsNull() && !o.LeafInterfacesEthernetOffloadGro.IsUnknown() {
+		jsonData["gro"] = o.LeafInterfacesEthernetOffloadGro.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadGso.IsNull() && !o.LeafInterfacesEthernetOffloadGso.IsUnknown() {
+		jsonData["gso"] = o.LeafInterfacesEthernetOffloadGso.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadLro.IsNull() && !o.LeafInterfacesEthernetOffloadLro.IsUnknown() {
+		jsonData["lro"] = o.LeafInterfacesEthernetOffloadLro.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadRps.IsNull() && !o.LeafInterfacesEthernetOffloadRps.IsUnknown() {
+		jsonData["rps"] = o.LeafInterfacesEthernetOffloadRps.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadRfs.IsNull() && !o.LeafInterfacesEthernetOffloadRfs.IsUnknown() {
+		jsonData["rfs"] = o.LeafInterfacesEthernetOffloadRfs.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadSg.IsNull() && !o.LeafInterfacesEthernetOffloadSg.IsUnknown() {
+		jsonData["sg"] = o.LeafInterfacesEthernetOffloadSg.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetOffloadTso.IsNull() && !o.LeafInterfacesEthernetOffloadTso.IsUnknown() {
+		jsonData["tso"] = o.LeafInterfacesEthernetOffloadTso.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetOffload) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["gro"]; ok {
+		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["gso"]; ok {
+		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["lro"]; ok {
+		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rps"]; ok {
+		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rfs"]; ok {
+		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["sg"]; ok {
+		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["tso"]; ok {
+		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

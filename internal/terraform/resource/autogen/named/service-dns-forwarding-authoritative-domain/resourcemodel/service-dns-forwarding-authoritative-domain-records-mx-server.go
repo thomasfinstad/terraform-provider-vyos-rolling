@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMxServer describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMxServer struct {
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.String `tfsdk:"priority"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"priority": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -96,4 +43,49 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) ResourceSchemaAt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMxServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxServerPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

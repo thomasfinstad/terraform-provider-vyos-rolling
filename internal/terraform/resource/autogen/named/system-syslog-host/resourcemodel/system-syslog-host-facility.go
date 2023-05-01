@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogHostFacility describes the resource data model.
 type SystemSyslogHostFacility struct {
 	// LeafNodes
-	LeafSystemSyslogHostFacilityProtocol types.String `tfsdk:"protocol"`
-	LeafSystemSyslogHostFacilityLevel    types.String `tfsdk:"level"`
+	LeafSystemSyslogHostFacilityProtocol types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafSystemSyslogHostFacilityLevel    types.String `tfsdk:"level" json:"level,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemSyslogHostFacility) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemSyslogHostFacilityProtocol.IsNull() || o.LeafSystemSyslogHostFacilityProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafSystemSyslogHostFacilityProtocol.ValueString()
-	}
-	if !(o.LeafSystemSyslogHostFacilityLevel.IsNull() || o.LeafSystemSyslogHostFacilityLevel.IsUnknown()) {
-		vyosData["level"] = o.LeafSystemSyslogHostFacilityLevel.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemSyslogHostFacility) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
-
-	// Leafs
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["level"]; ok {
-		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemSyslogHostFacility) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"protocol": types.StringType,
-		"level":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -123,4 +61,59 @@ func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemSyslogHostFacility) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemSyslogHostFacilityProtocol.IsNull() && !o.LeafSystemSyslogHostFacilityProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafSystemSyslogHostFacilityProtocol.ValueString()
+	}
+
+	if !o.LeafSystemSyslogHostFacilityLevel.IsNull() && !o.LeafSystemSyslogHostFacilityLevel.IsUnknown() {
+		jsonData["level"] = o.LeafSystemSyslogHostFacilityLevel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemSyslogHostFacility) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["level"]; ok {
+		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

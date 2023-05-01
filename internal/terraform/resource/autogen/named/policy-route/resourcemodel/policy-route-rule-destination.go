@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleDestination describes the resource data model.
 type PolicyRouteRuleDestination struct {
 	// LeafNodes
-	LeafPolicyRouteRuleDestinationAddress types.String `tfsdk:"address"`
-	LeafPolicyRouteRuleDestinationPort    types.String `tfsdk:"port"`
+	LeafPolicyRouteRuleDestinationAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafPolicyRouteRuleDestinationPort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteRuleDestinationGroup types.Object `tfsdk:"group"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleDestinationAddress.IsNull() || o.LeafPolicyRouteRuleDestinationAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafPolicyRouteRuleDestinationAddress.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleDestinationPort.IsNull() || o.LeafPolicyRouteRuleDestinationPort.IsUnknown()) {
-		vyosData["port"] = o.LeafPolicyRouteRuleDestinationPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteRuleDestinationGroup.IsNull() || o.NodePolicyRouteRuleDestinationGroup.IsUnknown()) {
-		var subModel PolicyRouteRuleDestinationGroup
-		diags.Append(o.NodePolicyRouteRuleDestinationGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafPolicyRouteRuleDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDestinationAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafPolicyRouteRuleDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["group"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleDestinationGroup{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleDestinationGroup = data
-
-	} else {
-		o.NodePolicyRouteRuleDestinationGroup = basetypes.NewObjectNull(PolicyRouteRuleDestinationGroup{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleDestination) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"group": types.ObjectType{AttrTypes: PolicyRouteRuleDestinationGroup{}.AttributeTypes()},
-	}
+	NodePolicyRouteRuleDestinationGroup *PolicyRouteRuleDestinationGroup `tfsdk:"group" json:"group,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +69,86 @@ func (o PolicyRouteRuleDestination) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleDestination) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleDestinationAddress.IsNull() && !o.LeafPolicyRouteRuleDestinationAddress.IsUnknown() {
+		jsonData["address"] = o.LeafPolicyRouteRuleDestinationAddress.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleDestinationPort.IsNull() && !o.LeafPolicyRouteRuleDestinationPort.IsUnknown() {
+		jsonData["port"] = o.LeafPolicyRouteRuleDestinationPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleDestinationGroup).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleDestinationGroup)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["group"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleDestination) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafPolicyRouteRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafPolicyRouteRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["group"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleDestinationGroup = &PolicyRouteRuleDestinationGroup{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleDestinationGroup)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

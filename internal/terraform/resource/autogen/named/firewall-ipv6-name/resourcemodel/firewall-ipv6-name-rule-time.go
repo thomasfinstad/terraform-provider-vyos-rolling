@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleTime describes the resource data model.
 type FirewallIPvsixNameRuleTime struct {
 	// LeafNodes
-	LeafFirewallIPvsixNameRuleTimeStartdate types.String `tfsdk:"startdate"`
-	LeafFirewallIPvsixNameRuleTimeStarttime types.String `tfsdk:"starttime"`
-	LeafFirewallIPvsixNameRuleTimeStopdate  types.String `tfsdk:"stopdate"`
-	LeafFirewallIPvsixNameRuleTimeStoptime  types.String `tfsdk:"stoptime"`
-	LeafFirewallIPvsixNameRuleTimeWeekdays  types.String `tfsdk:"weekdays"`
+	LeafFirewallIPvsixNameRuleTimeStartdate types.String `tfsdk:"startdate" json:"startdate,omitempty"`
+	LeafFirewallIPvsixNameRuleTimeStarttime types.String `tfsdk:"starttime" json:"starttime,omitempty"`
+	LeafFirewallIPvsixNameRuleTimeStopdate  types.String `tfsdk:"stopdate" json:"stopdate,omitempty"`
+	LeafFirewallIPvsixNameRuleTimeStoptime  types.String `tfsdk:"stoptime" json:"stoptime,omitempty"`
+	LeafFirewallIPvsixNameRuleTimeWeekdays  types.String `tfsdk:"weekdays" json:"weekdays,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallIPvsixNameRuleTime) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallIPvsixNameRuleTimeStartdate.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStartdate.IsUnknown()) {
-		vyosData["startdate"] = o.LeafFirewallIPvsixNameRuleTimeStartdate.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTimeStarttime.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStarttime.IsUnknown()) {
-		vyosData["starttime"] = o.LeafFirewallIPvsixNameRuleTimeStarttime.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTimeStopdate.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStopdate.IsUnknown()) {
-		vyosData["stopdate"] = o.LeafFirewallIPvsixNameRuleTimeStopdate.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTimeStoptime.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStoptime.IsUnknown()) {
-		vyosData["stoptime"] = o.LeafFirewallIPvsixNameRuleTimeStoptime.ValueString()
-	}
-	if !(o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsNull() || o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsUnknown()) {
-		vyosData["weekdays"] = o.LeafFirewallIPvsixNameRuleTimeWeekdays.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallIPvsixNameRuleTime) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
-
-	// Leafs
-	if value, ok := vyosData["startdate"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["starttime"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stopdate"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stoptime"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["weekdays"]; ok {
-		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallIPvsixNameRuleTime) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"startdate": types.StringType,
-		"starttime": types.StringType,
-		"stopdate":  types.StringType,
-		"stoptime":  types.StringType,
-		"weekdays":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -178,4 +89,89 @@ func (o FirewallIPvsixNameRuleTime) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallIPvsixNameRuleTime) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallIPvsixNameRuleTimeStartdate.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStartdate.IsUnknown() {
+		jsonData["startdate"] = o.LeafFirewallIPvsixNameRuleTimeStartdate.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTimeStarttime.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStarttime.IsUnknown() {
+		jsonData["starttime"] = o.LeafFirewallIPvsixNameRuleTimeStarttime.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTimeStopdate.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStopdate.IsUnknown() {
+		jsonData["stopdate"] = o.LeafFirewallIPvsixNameRuleTimeStopdate.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTimeStoptime.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeStoptime.IsUnknown() {
+		jsonData["stoptime"] = o.LeafFirewallIPvsixNameRuleTimeStoptime.ValueString()
+	}
+
+	if !o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsNull() && !o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsUnknown() {
+		jsonData["weekdays"] = o.LeafFirewallIPvsixNameRuleTimeWeekdays.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallIPvsixNameRuleTime) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["startdate"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["starttime"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stopdate"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stoptime"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["weekdays"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

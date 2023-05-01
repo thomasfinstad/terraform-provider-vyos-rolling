@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBabelDistributeListIPvsixInterfaceAccessList describes the resource data model.
 type ProtocolsBabelDistributeListIPvsixInterfaceAccessList struct {
 	// LeafNodes
-	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  types.String `tfsdk:"in"`
-	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut types.String `tfsdk:"out"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  types.String `tfsdk:"in" json:"in,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut types.String `tfsdk:"out" json:"out,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsNull() || o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsUnknown()) {
-		vyosData["in"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.ValueString()
-	}
-	if !(o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsNull() || o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsUnknown()) {
-		vyosData["out"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
-
-	// Leafs
-	if value, ok := vyosData["in"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["out"]; ok {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"in":  types.StringType,
-		"out": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAtt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsUnknown() {
+		jsonData["in"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.ValueString()
+	}
+
+	if !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsNull() && !o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsUnknown() {
+		jsonData["out"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["in"]; ok {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["out"]; ok {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

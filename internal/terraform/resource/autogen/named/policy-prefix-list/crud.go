@@ -3,6 +3,7 @@ package namedpolicyprefixlist
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -23,11 +24,18 @@ func (r policyPrefixList) Create(ctx context.Context, req resource.CreateRequest
 		return
 	}
 
-	vyosData := data.TerraformToVyos(ctx, &resp.Diagnostics)
-	if resp.Diagnostics.HasError() {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		resp.Diagnostics.AddError("Json Marshalling Error", fmt.Sprintf("%s", err))
 		return
 	}
-	tflog.Error(ctx, "Compiled terraform to vyos data", map[string]interface{}{"vyosData": vyosData})
+
+	var vyosData map[string]interface{}
+	err = json.Unmarshal(jsonData, &vyosData)
+	if err != nil {
+		resp.Diagnostics.AddError("Json Unmarshalling Error", fmt.Sprintf("%s", err))
+		return
+	}
 
 	// Create vyos api ops
 	vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
@@ -78,7 +86,12 @@ func (r policyPrefixList) Read(ctx context.Context, req resource.ReadRequest, re
 		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
 	}
 
-	data.VyosToTerraform(ctx, &resp.Diagnostics, response.(map[string]interface{}))
+	jsonStr, err := json.Marshal(response.(map[string]interface{}))
+	err = json.Unmarshal(jsonStr, &r.model)
+	if err != nil {
+		resp.Diagnostics.AddError("Json Unmarshal Error", fmt.Sprintf("%s", err))
+		return
+	}
 
 	// Save updated data into Terraform state
 	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})

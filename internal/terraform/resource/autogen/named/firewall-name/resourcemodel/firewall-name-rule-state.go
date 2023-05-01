@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleState describes the resource data model.
 type FirewallNameRuleState struct {
 	// LeafNodes
-	LeafFirewallNameRuleStateEstablished types.String `tfsdk:"established"`
-	LeafFirewallNameRuleStateInvalID     types.String `tfsdk:"invalid"`
-	LeafFirewallNameRuleStateNew         types.String `tfsdk:"new"`
-	LeafFirewallNameRuleStateRelated     types.String `tfsdk:"related"`
+	LeafFirewallNameRuleStateEstablished types.String `tfsdk:"established" json:"established,omitempty"`
+	LeafFirewallNameRuleStateInvalID     types.String `tfsdk:"invalid" json:"invalid,omitempty"`
+	LeafFirewallNameRuleStateNew         types.String `tfsdk:"new" json:"new,omitempty"`
+	LeafFirewallNameRuleStateRelated     types.String `tfsdk:"related" json:"related,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallNameRuleState) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallNameRuleStateEstablished.IsNull() || o.LeafFirewallNameRuleStateEstablished.IsUnknown()) {
-		vyosData["established"] = o.LeafFirewallNameRuleStateEstablished.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleStateInvalID.IsNull() || o.LeafFirewallNameRuleStateInvalID.IsUnknown()) {
-		vyosData["invalid"] = o.LeafFirewallNameRuleStateInvalID.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleStateNew.IsNull() || o.LeafFirewallNameRuleStateNew.IsUnknown()) {
-		vyosData["new"] = o.LeafFirewallNameRuleStateNew.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleStateRelated.IsNull() || o.LeafFirewallNameRuleStateRelated.IsUnknown()) {
-		vyosData["related"] = o.LeafFirewallNameRuleStateRelated.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallNameRuleState) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
-
-	// Leafs
-	if value, ok := vyosData["established"]; ok {
-		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["invalid"]; ok {
-		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["new"]; ok {
-		o.LeafFirewallNameRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateNew = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["related"]; ok {
-		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallNameRuleState) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"established": types.StringType,
-		"invalid":     types.StringType,
-		"new":         types.StringType,
-		"related":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -160,4 +80,79 @@ func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallNameRuleState) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallNameRuleStateEstablished.IsNull() && !o.LeafFirewallNameRuleStateEstablished.IsUnknown() {
+		jsonData["established"] = o.LeafFirewallNameRuleStateEstablished.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleStateInvalID.IsNull() && !o.LeafFirewallNameRuleStateInvalID.IsUnknown() {
+		jsonData["invalid"] = o.LeafFirewallNameRuleStateInvalID.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleStateNew.IsNull() && !o.LeafFirewallNameRuleStateNew.IsUnknown() {
+		jsonData["new"] = o.LeafFirewallNameRuleStateNew.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleStateRelated.IsNull() && !o.LeafFirewallNameRuleStateRelated.IsUnknown() {
+		jsonData["related"] = o.LeafFirewallNameRuleStateRelated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallNameRuleState) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["established"]; ok {
+		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["invalid"]; ok {
+		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["new"]; ok {
+		o.LeafFirewallNameRuleStateNew = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateNew = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["related"]; ok {
+		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

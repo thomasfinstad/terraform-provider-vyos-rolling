@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpCommunity describes the resource data model.
@@ -17,9 +14,9 @@ type ServiceSnmpCommunity struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization"`
-	LeafServiceSnmpCommunityClient        types.String `tfsdk:"client"`
-	LeafServiceSnmpCommunityNetwork       types.String `tfsdk:"network"`
+	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization" json:"authorization,omitempty"`
+	LeafServiceSnmpCommunityClient        types.String `tfsdk:"client" json:"client,omitempty"`
+	LeafServiceSnmpCommunityNetwork       types.String `tfsdk:"network" json:"network,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *ServiceSnmpCommunity) GetVyosPath() []string {
 		"snmp",
 		"community",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpCommunityAuthorization.IsNull() || o.LeafServiceSnmpCommunityAuthorization.IsUnknown()) {
-		vyosData["authorization"] = o.LeafServiceSnmpCommunityAuthorization.ValueString()
-	}
-	if !(o.LeafServiceSnmpCommunityClient.IsNull() || o.LeafServiceSnmpCommunityClient.IsUnknown()) {
-		vyosData["client"] = o.LeafServiceSnmpCommunityClient.ValueString()
-	}
-	if !(o.LeafServiceSnmpCommunityNetwork.IsNull() || o.LeafServiceSnmpCommunityNetwork.IsUnknown()) {
-		vyosData["network"] = o.LeafServiceSnmpCommunityNetwork.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
-
-	// Leafs
-	if value, ok := vyosData["authorization"]; ok {
-		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["client"]; ok {
-		o.LeafServiceSnmpCommunityClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityClient = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network"]; ok {
-		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpCommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"authorization": types.StringType,
-		"client":        types.StringType,
-		"network":       types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -158,4 +87,69 @@ func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpCommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpCommunityAuthorization.IsNull() && !o.LeafServiceSnmpCommunityAuthorization.IsUnknown() {
+		jsonData["authorization"] = o.LeafServiceSnmpCommunityAuthorization.ValueString()
+	}
+
+	if !o.LeafServiceSnmpCommunityClient.IsNull() && !o.LeafServiceSnmpCommunityClient.IsUnknown() {
+		jsonData["client"] = o.LeafServiceSnmpCommunityClient.ValueString()
+	}
+
+	if !o.LeafServiceSnmpCommunityNetwork.IsNull() && !o.LeafServiceSnmpCommunityNetwork.IsUnknown() {
+		jsonData["network"] = o.LeafServiceSnmpCommunityNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpCommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["authorization"]; ok {
+		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["client"]; ok {
+		o.LeafServiceSnmpCommunityClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityClient = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network"]; ok {
+		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

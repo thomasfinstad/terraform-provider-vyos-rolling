@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListsixRule describes the resource data model.
 type PolicyAccessListsixRule struct {
 	// LeafNodes
-	LeafPolicyAccessListsixRuleAction      types.String `tfsdk:"action"`
-	LeafPolicyAccessListsixRuleDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyAccessListsixRuleAction      types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafPolicyAccessListsixRuleDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyAccessListsixRuleSource types.Object `tfsdk:"source"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyAccessListsixRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyAccessListsixRuleAction.IsNull() || o.LeafPolicyAccessListsixRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafPolicyAccessListsixRuleAction.ValueString()
-	}
-	if !(o.LeafPolicyAccessListsixRuleDescrIPtion.IsNull() || o.LeafPolicyAccessListsixRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyAccessListsixRuleDescrIPtion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyAccessListsixRuleSource.IsNull() || o.NodePolicyAccessListsixRuleSource.IsUnknown()) {
-		var subModel PolicyAccessListsixRuleSource
-		diags.Append(o.NodePolicyAccessListsixRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyAccessListsixRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyAccessListsixRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyAccessListsixRuleSource = data
-
-	} else {
-		o.NodePolicyAccessListsixRuleSource = basetypes.NewObjectNull(PolicyAccessListsixRuleSource{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyAccessListsixRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":      types.StringType,
-		"description": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"source": types.ObjectType{AttrTypes: PolicyAccessListsixRuleSource{}.AttributeTypes()},
-	}
+	NodePolicyAccessListsixRuleSource *PolicyAccessListsixRuleSource `tfsdk:"source" json:"source,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -136,4 +62,86 @@ func (o PolicyAccessListsixRule) ResourceSchemaAttributes() map[string]schema.At
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyAccessListsixRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyAccessListsixRuleAction.IsNull() && !o.LeafPolicyAccessListsixRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafPolicyAccessListsixRuleAction.ValueString()
+	}
+
+	if !o.LeafPolicyAccessListsixRuleDescrIPtion.IsNull() && !o.LeafPolicyAccessListsixRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyAccessListsixRuleDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyAccessListsixRuleSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyAccessListsixRuleSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyAccessListsixRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyAccessListsixRuleSource = &PolicyAccessListsixRuleSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyAccessListsixRuleSource)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

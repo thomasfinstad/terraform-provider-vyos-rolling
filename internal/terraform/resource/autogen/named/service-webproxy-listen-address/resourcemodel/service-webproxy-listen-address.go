@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyListenAddress describes the resource data model.
@@ -17,8 +14,8 @@ type ServiceWebproxyListenAddress struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceWebproxyListenAddressPort               types.String `tfsdk:"port"`
-	LeafServiceWebproxyListenAddressDisableTransparent types.String `tfsdk:"disable_transparent"`
+	LeafServiceWebproxyListenAddressPort               types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceWebproxyListenAddressDisableTransparent types.String `tfsdk:"disable_transparent" json:"disable-transparent,omitempty"`
 
 	// TagNodes
 
@@ -32,65 +29,6 @@ func (o *ServiceWebproxyListenAddress) GetVyosPath() []string {
 		"webproxy",
 		"listen-address",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceWebproxyListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceWebproxyListenAddressPort.IsNull() || o.LeafServiceWebproxyListenAddressPort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceWebproxyListenAddressPort.ValueString()
-	}
-	if !(o.LeafServiceWebproxyListenAddressDisableTransparent.IsNull() || o.LeafServiceWebproxyListenAddressDisableTransparent.IsUnknown()) {
-		vyosData["disable-transparent"] = o.LeafServiceWebproxyListenAddressDisableTransparent.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceWebproxyListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
-
-	// Leafs
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-transparent"]; ok {
-		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceWebproxyListenAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"port":                types.StringType,
-		"disable_transparent": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -133,4 +71,59 @@ func (o ServiceWebproxyListenAddress) ResourceSchemaAttributes() map[string]sche
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceWebproxyListenAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceWebproxyListenAddressPort.IsNull() && !o.LeafServiceWebproxyListenAddressPort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceWebproxyListenAddressPort.ValueString()
+	}
+
+	if !o.LeafServiceWebproxyListenAddressDisableTransparent.IsNull() && !o.LeafServiceWebproxyListenAddressDisableTransparent.IsUnknown() {
+		jsonData["disable-transparent"] = o.LeafServiceWebproxyListenAddressDisableTransparent.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceWebproxyListenAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-transparent"]; ok {
+		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

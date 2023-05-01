@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborInterfaceVsixonly describes the resource data model.
 type ProtocolsBgpNeighborInterfaceVsixonly struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup types.String `tfsdk:"peer_group"`
-	LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs  types.String `tfsdk:"remote_as"`
+	LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup types.String `tfsdk:"peer_group" json:"peer-group,omitempty"`
+	LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs  types.String `tfsdk:"remote_as" json:"remote-as,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborInterfaceVsixonly) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "interface", "v6only"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsNull() || o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsUnknown()) {
-		vyosData["peer-group"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsNull() || o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsUnknown()) {
-		vyosData["remote-as"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborInterfaceVsixonly) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "interface", "v6only"}})
-
-	// Leafs
-	if value, ok := vyosData["peer-group"]; ok {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["remote-as"]; ok {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "interface", "v6only"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborInterfaceVsixonly) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"peer_group": types.StringType,
-		"remote_as":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -116,4 +54,59 @@ func (o ProtocolsBgpNeighborInterfaceVsixonly) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborInterfaceVsixonly) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsNull() && !o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.IsUnknown() {
+		jsonData["peer-group"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsNull() && !o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.IsUnknown() {
+		jsonData["remote-as"] = o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborInterfaceVsixonly) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["peer-group"]; ok {
+		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborInterfaceVsixonlyPeerGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["remote-as"]; ok {
+		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborInterfaceVsixonlyRemoteAs = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

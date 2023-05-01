@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth   types.String `tfsdk:"both"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport types.String `tfsdk:"import"`
-	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport types.String `tfsdk:"export"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth   types.String `tfsdk:"both" json:"both,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport types.String `tfsdk:"import" json:"import,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport types.String `tfsdk:"export" json:"export,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "route-target", "vpn"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.IsUnknown()) {
-		vyosData["both"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.IsUnknown()) {
-		vyosData["import"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.IsUnknown()) {
-		vyosData["export"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "route-target", "vpn"}})
-
-	// Leafs
-	if value, ok := vyosData["both"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["export"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast", "route-target", "vpn"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"both":   types.StringType,
-		"import": types.StringType,
-		"export": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) ResourceSch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.IsUnknown() {
+		jsonData["both"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.IsUnknown() {
+		jsonData["import"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.IsUnknown() {
+		jsonData["export"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpn) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["both"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnBoth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnImport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTargetVpnExport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

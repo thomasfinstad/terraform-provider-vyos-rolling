@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap struct {
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport types.String `tfsdk:"export"`
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport types.String `tfsdk:"import"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport types.String `tfsdk:"export" json:"export,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport types.String `tfsdk:"import" json:"import,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsUnknown()) {
-		vyosData["export"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.ValueString()
-	}
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsUnknown()) {
-		vyosData["import"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
-
-	// Leafs
-	if value, ok := vyosData["export"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["import"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"export": types.StringType,
-		"import": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) ResourceSchemaA
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsUnknown() {
+		jsonData["export"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsUnknown() {
+		jsonData["import"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["export"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["import"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

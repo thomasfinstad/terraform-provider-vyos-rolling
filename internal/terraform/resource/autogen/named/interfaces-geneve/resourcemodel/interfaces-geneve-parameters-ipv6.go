@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesGeneveParametersIPvsix describes the resource data model.
 type InterfacesGeneveParametersIPvsix struct {
 	// LeafNodes
-	LeafInterfacesGeneveParametersIPvsixFlowlabel types.String `tfsdk:"flowlabel"`
+	LeafInterfacesGeneveParametersIPvsixFlowlabel types.String `tfsdk:"flowlabel" json:"flowlabel,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesGeneveParametersIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesGeneveParametersIPvsixFlowlabel.IsNull() || o.LeafInterfacesGeneveParametersIPvsixFlowlabel.IsUnknown()) {
-		vyosData["flowlabel"] = o.LeafInterfacesGeneveParametersIPvsixFlowlabel.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesGeneveParametersIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters", "ipv6"}})
-
-	// Leafs
-	if value, ok := vyosData["flowlabel"]; ok {
-		o.LeafInterfacesGeneveParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesGeneveParametersIPvsixFlowlabel = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "geneve", "parameters", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesGeneveParametersIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"flowlabel": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -94,4 +41,49 @@ func (o InterfacesGeneveParametersIPvsix) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesGeneveParametersIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesGeneveParametersIPvsixFlowlabel.IsNull() && !o.LeafInterfacesGeneveParametersIPvsixFlowlabel.IsUnknown() {
+		jsonData["flowlabel"] = o.LeafInterfacesGeneveParametersIPvsixFlowlabel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesGeneveParametersIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["flowlabel"]; ok {
+		o.LeafInterfacesGeneveParametersIPvsixFlowlabel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveParametersIPvsixFlowlabel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

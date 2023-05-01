@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallZoneIntraZoneFilteringFirewall describes the resource data model.
 type FirewallZoneIntraZoneFilteringFirewall struct {
 	// LeafNodes
-	LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName types.String `tfsdk:"ipv6_name"`
-	LeafFirewallZoneIntraZoneFilteringFirewallName       types.String `tfsdk:"name"`
+	LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName types.String `tfsdk:"ipv6_name" json:"ipv6-name,omitempty"`
+	LeafFirewallZoneIntraZoneFilteringFirewallName       types.String `tfsdk:"name" json:"name,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallZoneIntraZoneFilteringFirewall) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering", "firewall"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsNull() || o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsUnknown()) {
-		vyosData["ipv6-name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.ValueString()
-	}
-	if !(o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsNull() || o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsUnknown()) {
-		vyosData["name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallName.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallZoneIntraZoneFilteringFirewall) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering", "firewall"}})
-
-	// Leafs
-	if value, ok := vyosData["ipv6-name"]; ok {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["name"]; ok {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering", "firewall"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallZoneIntraZoneFilteringFirewall) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ipv6_name": types.StringType,
-		"name":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o FirewallZoneIntraZoneFilteringFirewall) ResourceSchemaAttributes() map[s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallZoneIntraZoneFilteringFirewall) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsNull() && !o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.IsUnknown() {
+		jsonData["ipv6-name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName.ValueString()
+	}
+
+	if !o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsNull() && !o.LeafFirewallZoneIntraZoneFilteringFirewallName.IsUnknown() {
+		jsonData["name"] = o.LeafFirewallZoneIntraZoneFilteringFirewallName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallZoneIntraZoneFilteringFirewall) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ipv6-name"]; ok {
+		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneIntraZoneFilteringFirewallIPvsixName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["name"]; ok {
+		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneIntraZoneFilteringFirewallName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

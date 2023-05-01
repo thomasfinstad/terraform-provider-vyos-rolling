@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber types.String `tfsdk:"number"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber types.String `tfsdk:"number" json:"number,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "allowas-in"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.IsUnknown()) {
-		vyosData["number"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "allowas-in"}})
-
-	// Leafs
-	if value, ok := vyosData["number"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "allowas-in"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"number": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) ResourceSc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.IsUnknown() {
+		jsonData["number"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasIn) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["number"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAllowasInNumber = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

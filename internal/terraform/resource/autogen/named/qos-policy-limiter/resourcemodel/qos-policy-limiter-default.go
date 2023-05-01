@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterDefault describes the resource data model.
 type QosPolicyLimiterDefault struct {
 	// LeafNodes
-	LeafQosPolicyLimiterDefaultBandwIDth types.String `tfsdk:"bandwidth"`
-	LeafQosPolicyLimiterDefaultBurst     types.String `tfsdk:"burst"`
-	LeafQosPolicyLimiterDefaultExceed    types.String `tfsdk:"exceed"`
-	LeafQosPolicyLimiterDefaultNotExceed types.String `tfsdk:"not_exceed"`
+	LeafQosPolicyLimiterDefaultBandwIDth types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyLimiterDefaultBurst     types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafQosPolicyLimiterDefaultExceed    types.String `tfsdk:"exceed" json:"exceed,omitempty"`
+	LeafQosPolicyLimiterDefaultNotExceed types.String `tfsdk:"not_exceed" json:"not-exceed,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiterDefault) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "default"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterDefaultBandwIDth.IsNull() || o.LeafQosPolicyLimiterDefaultBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyLimiterDefaultBandwIDth.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterDefaultBurst.IsNull() || o.LeafQosPolicyLimiterDefaultBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafQosPolicyLimiterDefaultBurst.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterDefaultExceed.IsNull() || o.LeafQosPolicyLimiterDefaultExceed.IsUnknown()) {
-		vyosData["exceed"] = o.LeafQosPolicyLimiterDefaultExceed.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterDefaultNotExceed.IsNull() || o.LeafQosPolicyLimiterDefaultNotExceed.IsUnknown()) {
-		vyosData["not-exceed"] = o.LeafQosPolicyLimiterDefaultNotExceed.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiterDefault) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "default"}})
-
-	// Leafs
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["exceed"]; ok {
-		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["not-exceed"]; ok {
-		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "default"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiterDefault) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"bandwidth":  types.StringType,
-		"burst":      types.StringType,
-		"exceed":     types.StringType,
-		"not_exceed": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -180,4 +100,79 @@ func (o QosPolicyLimiterDefault) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiterDefault) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterDefaultBandwIDth.IsNull() && !o.LeafQosPolicyLimiterDefaultBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyLimiterDefaultBandwIDth.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterDefaultBurst.IsNull() && !o.LeafQosPolicyLimiterDefaultBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafQosPolicyLimiterDefaultBurst.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterDefaultExceed.IsNull() && !o.LeafQosPolicyLimiterDefaultExceed.IsUnknown() {
+		jsonData["exceed"] = o.LeafQosPolicyLimiterDefaultExceed.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterDefaultNotExceed.IsNull() && !o.LeafQosPolicyLimiterDefaultNotExceed.IsUnknown() {
+		jsonData["not-exceed"] = o.LeafQosPolicyLimiterDefaultNotExceed.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiterDefault) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDefaultBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDefaultBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["exceed"]; ok {
+		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDefaultExceed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["not-exceed"]; ok {
+		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDefaultNotExceed = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

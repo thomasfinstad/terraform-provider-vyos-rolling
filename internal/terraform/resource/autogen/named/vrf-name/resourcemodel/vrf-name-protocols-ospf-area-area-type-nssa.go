@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfAreaAreaTypeNssa describes the resource data model.
 type VrfNameProtocolsOspfAreaAreaTypeNssa struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.String `tfsdk:"default_cost"`
-	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.String `tfsdk:"no_summary"`
-	LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.String `tfsdk:"default_cost" json:"default-cost,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.String `tfsdk:"no_summary" json:"no-summary,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate" json:"translate,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsUnknown()) {
-		vyosData["default-cost"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsUnknown()) {
-		vyosData["no-summary"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsUnknown()) {
-		vyosData["translate"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
-
-	// Leafs
-	if value, ok := vyosData["default-cost"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-summary"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["translate"]; ok {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfAreaAreaTypeNssa) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"default_cost": types.StringType,
-		"no_summary":   types.StringType,
-		"translate":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -136,4 +65,69 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsUnknown() {
+		jsonData["default-cost"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsUnknown() {
+		jsonData["no-summary"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsNull() && !o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsUnknown() {
+		jsonData["translate"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["default-cost"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-summary"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["translate"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

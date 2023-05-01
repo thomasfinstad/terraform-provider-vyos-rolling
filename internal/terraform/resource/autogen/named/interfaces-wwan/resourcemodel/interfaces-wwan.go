@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWwan describes the resource data model.
@@ -17,25 +15,25 @@ type InterfacesWwan struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesWwanAddress           types.String `tfsdk:"address"`
-	LeafInterfacesWwanApn               types.String `tfsdk:"apn"`
-	LeafInterfacesWwanDescrIPtion       types.String `tfsdk:"description"`
-	LeafInterfacesWwanDisable           types.String `tfsdk:"disable"`
-	LeafInterfacesWwanDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
-	LeafInterfacesWwanMtu               types.String `tfsdk:"mtu"`
-	LeafInterfacesWwanConnectOnDemand   types.String `tfsdk:"connect_on_demand"`
-	LeafInterfacesWwanRedirect          types.String `tfsdk:"redirect"`
-	LeafInterfacesWwanVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesWwanAddress           types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesWwanApn               types.String `tfsdk:"apn" json:"apn,omitempty"`
+	LeafInterfacesWwanDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesWwanDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesWwanDisableLinkDetect types.String `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
+	LeafInterfacesWwanMtu               types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesWwanConnectOnDemand   types.String `tfsdk:"connect_on_demand" json:"connect-on-demand,omitempty"`
+	LeafInterfacesWwanRedirect          types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesWwanVrf               types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesWwanDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesWwanDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesWwanAuthentication  types.Object `tfsdk:"authentication"`
-	NodeInterfacesWwanMirror          types.Object `tfsdk:"mirror"`
-	NodeInterfacesWwanIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesWwanIPvsix          types.Object `tfsdk:"ipv6"`
+	NodeInterfacesWwanDhcpOptions     *InterfacesWwanDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesWwanDhcpvsixOptions *InterfacesWwanDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesWwanAuthentication  *InterfacesWwanAuthentication  `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeInterfacesWwanMirror          *InterfacesWwanMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesWwanIP              *InterfacesWwanIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesWwanIPvsix          *InterfacesWwanIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -44,211 +42,6 @@ func (o *InterfacesWwan) GetVyosPath() []string {
 		"interfaces",
 		"wwan",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWwan) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wwan"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWwanAddress.IsNull() || o.LeafInterfacesWwanAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesWwanAddress.ValueString()
-	}
-	if !(o.LeafInterfacesWwanApn.IsNull() || o.LeafInterfacesWwanApn.IsUnknown()) {
-		vyosData["apn"] = o.LeafInterfacesWwanApn.ValueString()
-	}
-	if !(o.LeafInterfacesWwanDescrIPtion.IsNull() || o.LeafInterfacesWwanDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesWwanDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesWwanDisable.IsNull() || o.LeafInterfacesWwanDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesWwanDisable.ValueString()
-	}
-	if !(o.LeafInterfacesWwanDisableLinkDetect.IsNull() || o.LeafInterfacesWwanDisableLinkDetect.IsUnknown()) {
-		vyosData["disable-link-detect"] = o.LeafInterfacesWwanDisableLinkDetect.ValueString()
-	}
-	if !(o.LeafInterfacesWwanMtu.IsNull() || o.LeafInterfacesWwanMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesWwanMtu.ValueString()
-	}
-	if !(o.LeafInterfacesWwanConnectOnDemand.IsNull() || o.LeafInterfacesWwanConnectOnDemand.IsUnknown()) {
-		vyosData["connect-on-demand"] = o.LeafInterfacesWwanConnectOnDemand.ValueString()
-	}
-	if !(o.LeafInterfacesWwanRedirect.IsNull() || o.LeafInterfacesWwanRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesWwanRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesWwanVrf.IsNull() || o.LeafInterfacesWwanVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesWwanVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesWwanDhcpOptions.IsNull() || o.NodeInterfacesWwanDhcpOptions.IsUnknown()) {
-		var subModel InterfacesWwanDhcpOptions
-		diags.Append(o.NodeInterfacesWwanDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWwanDhcpvsixOptions.IsNull() || o.NodeInterfacesWwanDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesWwanDhcpvsixOptions
-		diags.Append(o.NodeInterfacesWwanDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWwanAuthentication.IsNull() || o.NodeInterfacesWwanAuthentication.IsUnknown()) {
-		var subModel InterfacesWwanAuthentication
-		diags.Append(o.NodeInterfacesWwanAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWwanMirror.IsNull() || o.NodeInterfacesWwanMirror.IsUnknown()) {
-		var subModel InterfacesWwanMirror
-		diags.Append(o.NodeInterfacesWwanMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWwanIP.IsNull() || o.NodeInterfacesWwanIP.IsUnknown()) {
-		var subModel InterfacesWwanIP
-		diags.Append(o.NodeInterfacesWwanIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWwanIPvsix.IsNull() || o.NodeInterfacesWwanIPvsix.IsUnknown()) {
-		var subModel InterfacesWwanIPvsix
-		diags.Append(o.NodeInterfacesWwanIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWwan) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wwan"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesWwanAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["apn"]; ok {
-		o.LeafInterfacesWwanApn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanApn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesWwanDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-link-detect"]; ok {
-		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesWwanMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["connect-on-demand"]; ok {
-		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesWwanRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesWwanVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWwanVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesWwanDhcpOptions = basetypes.NewObjectNull(InterfacesWwanDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesWwanDhcpvsixOptions = basetypes.NewObjectNull(InterfacesWwanDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanAuthentication = data
-
-	} else {
-		o.NodeInterfacesWwanAuthentication = basetypes.NewObjectNull(InterfacesWwanAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanMirror = data
-
-	} else {
-		o.NodeInterfacesWwanMirror = basetypes.NewObjectNull(InterfacesWwanMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanIP = data
-
-	} else {
-		o.NodeInterfacesWwanIP = basetypes.NewObjectNull(InterfacesWwanIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWwanIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWwanIPvsix = data
-
-	} else {
-		o.NodeInterfacesWwanIPvsix = basetypes.NewObjectNull(InterfacesWwanIPvsix{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wwan"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWwan) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":             types.StringType,
-		"apn":                 types.StringType,
-		"description":         types.StringType,
-		"disable":             types.StringType,
-		"disable_link_detect": types.StringType,
-		"mtu":                 types.StringType,
-		"connect_on_demand":   types.StringType,
-		"redirect":            types.StringType,
-		"vrf":                 types.StringType,
-
-		// Tags
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesWwanDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesWwanDhcpvsixOptions{}.AttributeTypes()},
-		"authentication": types.ObjectType{AttrTypes: InterfacesWwanAuthentication{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesWwanMirror{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesWwanIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesWwanIPvsix{}.AttributeTypes()},
 	}
 }
 
@@ -409,4 +202,291 @@ func (o InterfacesWwan) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWwan) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWwanAddress.IsNull() && !o.LeafInterfacesWwanAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesWwanAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanApn.IsNull() && !o.LeafInterfacesWwanApn.IsUnknown() {
+		jsonData["apn"] = o.LeafInterfacesWwanApn.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanDescrIPtion.IsNull() && !o.LeafInterfacesWwanDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesWwanDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanDisable.IsNull() && !o.LeafInterfacesWwanDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesWwanDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanDisableLinkDetect.IsNull() && !o.LeafInterfacesWwanDisableLinkDetect.IsUnknown() {
+		jsonData["disable-link-detect"] = o.LeafInterfacesWwanDisableLinkDetect.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanMtu.IsNull() && !o.LeafInterfacesWwanMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesWwanMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanConnectOnDemand.IsNull() && !o.LeafInterfacesWwanConnectOnDemand.IsUnknown() {
+		jsonData["connect-on-demand"] = o.LeafInterfacesWwanConnectOnDemand.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanRedirect.IsNull() && !o.LeafInterfacesWwanRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesWwanRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesWwanVrf.IsNull() && !o.LeafInterfacesWwanVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesWwanVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWwanIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWwanIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWwan) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesWwanAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["apn"]; ok {
+		o.LeafInterfacesWwanApn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanApn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesWwanDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-link-detect"]; ok {
+		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanDisableLinkDetect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesWwanMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["connect-on-demand"]; ok {
+		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanConnectOnDemand = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesWwanRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesWwanVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWwanVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanDhcpOptions = &InterfacesWwanDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanDhcpvsixOptions = &InterfacesWwanDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanAuthentication = &InterfacesWwanAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanMirror = &InterfacesWwanMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanIP = &InterfacesWwanIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWwanIPvsix = &InterfacesWwanIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWwanIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,103 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEventScrIPt describes the resource data model.
 type ServiceEventHandlerEventScrIPt struct {
 	// LeafNodes
-	LeafServiceEventHandlerEventScrIPtArguments types.String `tfsdk:"arguments"`
-	LeafServiceEventHandlerEventScrIPtPath      types.String `tfsdk:"path"`
+	LeafServiceEventHandlerEventScrIPtArguments types.String `tfsdk:"arguments" json:"arguments,omitempty"`
+	LeafServiceEventHandlerEventScrIPtPath      types.String `tfsdk:"path" json:"path,omitempty"`
 
 	// TagNodes
-	TagServiceEventHandlerEventScrIPtEnvironment types.Map `tfsdk:"environment"`
+	TagServiceEventHandlerEventScrIPtEnvironment *map[string]ServiceEventHandlerEventScrIPtEnvironment `tfsdk:"environment" json:"environment,omitempty"`
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceEventHandlerEventScrIPt) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceEventHandlerEventScrIPtArguments.IsNull() || o.LeafServiceEventHandlerEventScrIPtArguments.IsUnknown()) {
-		vyosData["arguments"] = o.LeafServiceEventHandlerEventScrIPtArguments.ValueString()
-	}
-	if !(o.LeafServiceEventHandlerEventScrIPtPath.IsNull() || o.LeafServiceEventHandlerEventScrIPtPath.IsUnknown()) {
-		vyosData["path"] = o.LeafServiceEventHandlerEventScrIPtPath.ValueString()
-	}
-
-	// Tags
-	if !(o.TagServiceEventHandlerEventScrIPtEnvironment.IsNull() || o.TagServiceEventHandlerEventScrIPtEnvironment.IsUnknown()) {
-		subModel := make(map[string]ServiceEventHandlerEventScrIPtEnvironment)
-		diags.Append(o.TagServiceEventHandlerEventScrIPtEnvironment.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["environment"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceEventHandlerEventScrIPt) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script"}})
-
-	// Leafs
-	if value, ok := vyosData["arguments"]; ok {
-		o.LeafServiceEventHandlerEventScrIPtArguments = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventScrIPtArguments = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["path"]; ok {
-		o.LeafServiceEventHandlerEventScrIPtPath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventScrIPtPath = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["environment"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceEventHandlerEventScrIPtEnvironment{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceEventHandlerEventScrIPtEnvironment = data
-	} else {
-		o.TagServiceEventHandlerEventScrIPtEnvironment = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceEventHandlerEventScrIPt) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"arguments": types.StringType,
-		"path":      types.StringType,
-
-		// Tags
-		"environment": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceEventHandlerEventScrIPtEnvironment{}.AttributeTypes()}},
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +56,86 @@ func (o ServiceEventHandlerEventScrIPt) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceEventHandlerEventScrIPt) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceEventHandlerEventScrIPtArguments.IsNull() && !o.LeafServiceEventHandlerEventScrIPtArguments.IsUnknown() {
+		jsonData["arguments"] = o.LeafServiceEventHandlerEventScrIPtArguments.ValueString()
+	}
+
+	if !o.LeafServiceEventHandlerEventScrIPtPath.IsNull() && !o.LeafServiceEventHandlerEventScrIPtPath.IsUnknown() {
+		jsonData["path"] = o.LeafServiceEventHandlerEventScrIPtPath.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceEventHandlerEventScrIPtEnvironment).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceEventHandlerEventScrIPtEnvironment)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["environment"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceEventHandlerEventScrIPt) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["arguments"]; ok {
+		o.LeafServiceEventHandlerEventScrIPtArguments = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventScrIPtArguments = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["path"]; ok {
+		o.LeafServiceEventHandlerEventScrIPtPath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventScrIPtPath = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["environment"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceEventHandlerEventScrIPtEnvironment = &map[string]ServiceEventHandlerEventScrIPtEnvironment{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceEventHandlerEventScrIPtEnvironment)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

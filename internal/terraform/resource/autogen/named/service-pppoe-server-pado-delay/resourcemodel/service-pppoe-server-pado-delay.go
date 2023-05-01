@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerPadoDelay describes the resource data model.
@@ -17,7 +14,7 @@ type ServicePppoeServerPadoDelay struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServicePppoeServerPadoDelaySessions types.String `tfsdk:"sessions"`
+	LeafServicePppoeServerPadoDelaySessions types.String `tfsdk:"sessions" json:"sessions,omitempty"`
 
 	// TagNodes
 
@@ -31,56 +28,6 @@ func (o *ServicePppoeServerPadoDelay) GetVyosPath() []string {
 		"pppoe-server",
 		"pado-delay",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServicePppoeServerPadoDelay) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServicePppoeServerPadoDelaySessions.IsNull() || o.LeafServicePppoeServerPadoDelaySessions.IsUnknown()) {
-		vyosData["sessions"] = o.LeafServicePppoeServerPadoDelaySessions.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServicePppoeServerPadoDelay) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
-
-	// Leafs
-	if value, ok := vyosData["sessions"]; ok {
-		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServicePppoeServerPadoDelay) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"sessions": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -116,4 +63,49 @@ func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServicePppoeServerPadoDelay) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServicePppoeServerPadoDelaySessions.IsNull() && !o.LeafServicePppoeServerPadoDelaySessions.IsUnknown() {
+		jsonData["sessions"] = o.LeafServicePppoeServerPadoDelaySessions.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServicePppoeServerPadoDelay) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["sessions"]; ok {
+		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

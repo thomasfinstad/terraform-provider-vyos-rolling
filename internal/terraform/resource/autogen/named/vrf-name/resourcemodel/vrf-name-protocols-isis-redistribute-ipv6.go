@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvsix describes the resource data model.
@@ -19,151 +15,13 @@ type VrfNameProtocolsIsisRedistributeIPvsix struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisRedistributeIPvsixBgp       types.Object `tfsdk:"bgp"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixConnected types.Object `tfsdk:"connected"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixKernel    types.Object `tfsdk:"kernel"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix   types.Object `tfsdk:"ospf6"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng     types.Object `tfsdk:"ripng"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixBabel     types.Object `tfsdk:"babel"`
-	NodeVrfNameProtocolsIsisRedistributeIPvsixStatic    types.Object `tfsdk:"static"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisRedistributeIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixBgp
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bgp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixConnected
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixKernel
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixOspfsix
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ospf6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixRIPng
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ripng"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixBabel
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisRedistributeIPvsixStatic
-		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisRedistributeIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["bgp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["connected"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes())
-	}
-	if value, ok := vyosData["kernel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ospf6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ripng"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes())
-	}
-	if value, ok := vyosData["babel"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["static"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvsix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"bgp":       types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes()},
-		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes()},
-		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes()},
-		"ospf6":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes()},
-		"ripng":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes()},
-		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes()},
-		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisRedistributeIPvsixBgp       *VrfNameProtocolsIsisRedistributeIPvsixBgp       `tfsdk:"bgp" json:"bgp,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixConnected *VrfNameProtocolsIsisRedistributeIPvsixConnected `tfsdk:"connected" json:"connected,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixKernel    *VrfNameProtocolsIsisRedistributeIPvsixKernel    `tfsdk:"kernel" json:"kernel,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix   *VrfNameProtocolsIsisRedistributeIPvsixOspfsix   `tfsdk:"ospf6" json:"ospf6,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng     *VrfNameProtocolsIsisRedistributeIPvsixRIPng     `tfsdk:"ripng" json:"ripng,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixBabel     *VrfNameProtocolsIsisRedistributeIPvsixBabel     `tfsdk:"babel" json:"babel,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixStatic    *VrfNameProtocolsIsisRedistributeIPvsixStatic    `tfsdk:"static" json:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -231,4 +89,228 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[s
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisRedistributeIPvsix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bgp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["connected"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["kernel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ospf6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ripng"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["babel"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["static"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisRedistributeIPvsix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["bgp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp = &VrfNameProtocolsIsisRedistributeIPvsixBgp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["connected"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected = &VrfNameProtocolsIsisRedistributeIPvsixConnected{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["kernel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel = &VrfNameProtocolsIsisRedistributeIPvsixKernel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ospf6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix = &VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ripng"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng = &VrfNameProtocolsIsisRedistributeIPvsixRIPng{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["babel"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel = &VrfNameProtocolsIsisRedistributeIPvsixBabel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["static"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic = &VrfNameProtocolsIsisRedistributeIPvsixStatic{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

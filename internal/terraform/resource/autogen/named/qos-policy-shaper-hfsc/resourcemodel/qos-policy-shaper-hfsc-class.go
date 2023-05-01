@@ -2,137 +2,26 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClass describes the resource data model.
 type QosPolicyShaperHfscClass struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagQosPolicyShaperHfscClassMatch types.Map `tfsdk:"match"`
+	TagQosPolicyShaperHfscClassMatch *map[string]QosPolicyShaperHfscClassMatch `tfsdk:"match" json:"match,omitempty"`
 
 	// Nodes
-	NodeQosPolicyShaperHfscClassLinkshare  types.Object `tfsdk:"linkshare"`
-	NodeQosPolicyShaperHfscClassRealtime   types.Object `tfsdk:"realtime"`
-	NodeQosPolicyShaperHfscClassUpperlimit types.Object `tfsdk:"upperlimit"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscClassDescrIPtion.IsNull() || o.LeafQosPolicyShaperHfscClassDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyShaperHfscClassDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyShaperHfscClassMatch.IsNull() || o.TagQosPolicyShaperHfscClassMatch.IsUnknown()) {
-		subModel := make(map[string]QosPolicyShaperHfscClassMatch)
-		diags.Append(o.TagQosPolicyShaperHfscClassMatch.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["match"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeQosPolicyShaperHfscClassLinkshare.IsNull() || o.NodeQosPolicyShaperHfscClassLinkshare.IsUnknown()) {
-		var subModel QosPolicyShaperHfscClassLinkshare
-		diags.Append(o.NodeQosPolicyShaperHfscClassLinkshare.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["linkshare"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyShaperHfscClassRealtime.IsNull() || o.NodeQosPolicyShaperHfscClassRealtime.IsUnknown()) {
-		var subModel QosPolicyShaperHfscClassRealtime
-		diags.Append(o.NodeQosPolicyShaperHfscClassRealtime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["realtime"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeQosPolicyShaperHfscClassUpperlimit.IsNull() || o.NodeQosPolicyShaperHfscClassUpperlimit.IsUnknown()) {
-		var subModel QosPolicyShaperHfscClassUpperlimit
-		diags.Append(o.NodeQosPolicyShaperHfscClassUpperlimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["upperlimit"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["match"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyShaperHfscClassMatch = data
-	} else {
-		o.TagQosPolicyShaperHfscClassMatch = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["linkshare"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassLinkshare{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyShaperHfscClassLinkshare = data
-
-	} else {
-		o.NodeQosPolicyShaperHfscClassLinkshare = basetypes.NewObjectNull(QosPolicyShaperHfscClassLinkshare{}.AttributeTypes())
-	}
-	if value, ok := vyosData["realtime"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassRealtime{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyShaperHfscClassRealtime = data
-
-	} else {
-		o.NodeQosPolicyShaperHfscClassRealtime = basetypes.NewObjectNull(QosPolicyShaperHfscClassRealtime{}.AttributeTypes())
-	}
-	if value, ok := vyosData["upperlimit"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyShaperHfscClassUpperlimit = data
-
-	} else {
-		o.NodeQosPolicyShaperHfscClassUpperlimit = basetypes.NewObjectNull(QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscClass) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatch{}.AttributeTypes()}},
-
-		// Nodes
-		"linkshare":  types.ObjectType{AttrTypes: QosPolicyShaperHfscClassLinkshare{}.AttributeTypes()},
-		"realtime":   types.ObjectType{AttrTypes: QosPolicyShaperHfscClassRealtime{}.AttributeTypes()},
-		"upperlimit": types.ObjectType{AttrTypes: QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes()},
-	}
+	NodeQosPolicyShaperHfscClassLinkshare  *QosPolicyShaperHfscClassLinkshare  `tfsdk:"linkshare" json:"linkshare,omitempty"`
+	NodeQosPolicyShaperHfscClassRealtime   *QosPolicyShaperHfscClassRealtime   `tfsdk:"realtime" json:"realtime,omitempty"`
+	NodeQosPolicyShaperHfscClassUpperlimit *QosPolicyShaperHfscClassUpperlimit `tfsdk:"upperlimit" json:"upperlimit,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -189,4 +78,157 @@ func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscClass) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscClassDescrIPtion.IsNull() && !o.LeafQosPolicyShaperHfscClassDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyShaperHfscClassDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyShaperHfscClassMatch).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyShaperHfscClassMatch)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["match"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassLinkshare).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassLinkshare)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["linkshare"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassRealtime).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassRealtime)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["realtime"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeQosPolicyShaperHfscClassUpperlimit).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperHfscClassUpperlimit)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["upperlimit"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscClass) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["match"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyShaperHfscClassMatch = &map[string]QosPolicyShaperHfscClassMatch{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyShaperHfscClassMatch)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["linkshare"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyShaperHfscClassLinkshare = &QosPolicyShaperHfscClassLinkshare{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassLinkshare)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["realtime"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyShaperHfscClassRealtime = &QosPolicyShaperHfscClassRealtime{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassRealtime)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["upperlimit"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyShaperHfscClassUpperlimit = &QosPolicyShaperHfscClassUpperlimit{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperHfscClassUpperlimit)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnLocalAddress describes the resource data model.
 type InterfacesOpenvpnLocalAddress struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnLocalAddressSubnetMask types.String `tfsdk:"subnet_mask"`
+	LeafInterfacesOpenvpnLocalAddressSubnetMask types.String `tfsdk:"subnet_mask" json:"subnet-mask,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnLocalAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "local-address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsNull() || o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsUnknown()) {
-		vyosData["subnet-mask"] = o.LeafInterfacesOpenvpnLocalAddressSubnetMask.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnLocalAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "local-address"}})
-
-	// Leafs
-	if value, ok := vyosData["subnet-mask"]; ok {
-		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "local-address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnLocalAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"subnet_mask": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,4 +36,49 @@ func (o InterfacesOpenvpnLocalAddress) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnLocalAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsNull() && !o.LeafInterfacesOpenvpnLocalAddressSubnetMask.IsUnknown() {
+		jsonData["subnet-mask"] = o.LeafInterfacesOpenvpnLocalAddressSubnetMask.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnLocalAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["subnet-mask"]; ok {
+		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnLocalAddressSubnetMask = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisDomainPassword describes the resource data model.
 type VrfNameProtocolsIsisDomainPassword struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword types.String `tfsdk:"plaintext_password"`
-	LeafVrfNameProtocolsIsisDomainPasswordMdfive            types.String `tfsdk:"md5"`
+	LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword types.String `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
+	LeafVrfNameProtocolsIsisDomainPasswordMdfive            types.String `tfsdk:"md5" json:"md5,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisDomainPassword) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "domain-password"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsNull() || o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsUnknown()) {
-		vyosData["plaintext-password"] = o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsNull() || o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsUnknown()) {
-		vyosData["md5"] = o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisDomainPassword) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "domain-password"}})
-
-	// Leafs
-	if value, ok := vyosData["plaintext-password"]; ok {
-		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["md5"]; ok {
-		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "domain-password"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisDomainPassword) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"plaintext_password": types.StringType,
-		"md5":                types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsIsisDomainPassword) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisDomainPassword) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsNull() && !o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.IsUnknown() {
+		jsonData["plaintext-password"] = o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsNull() && !o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.IsUnknown() {
+		jsonData["md5"] = o.LeafVrfNameProtocolsIsisDomainPasswordMdfive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisDomainPassword) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["plaintext-password"]; ok {
+		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDomainPasswordPlaintextPassword = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["md5"]; ok {
+		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDomainPasswordMdfive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,353 +2,44 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRule describes the resource data model.
 type PolicyRouteRule struct {
 	// LeafNodes
-	LeafPolicyRouteRuleAction              types.String `tfsdk:"action"`
-	LeafPolicyRouteRuleDescrIPtion         types.String `tfsdk:"description"`
-	LeafPolicyRouteRuleDisable             types.String `tfsdk:"disable"`
-	LeafPolicyRouteRuleLog                 types.String `tfsdk:"log"`
-	LeafPolicyRouteRuleProtocol            types.String `tfsdk:"protocol"`
-	LeafPolicyRouteRuleDscp                types.String `tfsdk:"dscp"`
-	LeafPolicyRouteRuleDscpExclude         types.String `tfsdk:"dscp_exclude"`
-	LeafPolicyRouteRulePacketLength        types.String `tfsdk:"packet_length"`
-	LeafPolicyRouteRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude"`
-	LeafPolicyRouteRulePacketType          types.String `tfsdk:"packet_type"`
-	LeafPolicyRouteRuleConnectionMark      types.String `tfsdk:"connection_mark"`
+	LeafPolicyRouteRuleAction              types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafPolicyRouteRuleDescrIPtion         types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyRouteRuleDisable             types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafPolicyRouteRuleLog                 types.String `tfsdk:"log" json:"log,omitempty"`
+	LeafPolicyRouteRuleProtocol            types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafPolicyRouteRuleDscp                types.String `tfsdk:"dscp" json:"dscp,omitempty"`
+	LeafPolicyRouteRuleDscpExclude         types.String `tfsdk:"dscp_exclude" json:"dscp-exclude,omitempty"`
+	LeafPolicyRouteRulePacketLength        types.String `tfsdk:"packet_length" json:"packet-length,omitempty"`
+	LeafPolicyRouteRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude" json:"packet-length-exclude,omitempty"`
+	LeafPolicyRouteRulePacketType          types.String `tfsdk:"packet_type" json:"packet-type,omitempty"`
+	LeafPolicyRouteRuleConnectionMark      types.String `tfsdk:"connection_mark" json:"connection-mark,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteRuleDestination types.Object `tfsdk:"destination"`
-	NodePolicyRouteRuleSource      types.Object `tfsdk:"source"`
-	NodePolicyRouteRuleFragment    types.Object `tfsdk:"fragment"`
-	NodePolicyRouteRuleIPsec       types.Object `tfsdk:"ipsec"`
-	NodePolicyRouteRuleLimit       types.Object `tfsdk:"limit"`
-	NodePolicyRouteRuleRecent      types.Object `tfsdk:"recent"`
-	NodePolicyRouteRuleSet         types.Object `tfsdk:"set"`
-	NodePolicyRouteRuleState       types.Object `tfsdk:"state"`
-	NodePolicyRouteRuleTCP         types.Object `tfsdk:"tcp"`
-	NodePolicyRouteRuleTime        types.Object `tfsdk:"time"`
-	NodePolicyRouteRuleIcmp        types.Object `tfsdk:"icmp"`
-	NodePolicyRouteRuleTTL         types.Object `tfsdk:"ttl"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleAction.IsNull() || o.LeafPolicyRouteRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafPolicyRouteRuleAction.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleDescrIPtion.IsNull() || o.LeafPolicyRouteRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyRouteRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleDisable.IsNull() || o.LeafPolicyRouteRuleDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafPolicyRouteRuleDisable.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleLog.IsNull() || o.LeafPolicyRouteRuleLog.IsUnknown()) {
-		vyosData["log"] = o.LeafPolicyRouteRuleLog.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleProtocol.IsNull() || o.LeafPolicyRouteRuleProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafPolicyRouteRuleProtocol.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleDscp.IsNull() || o.LeafPolicyRouteRuleDscp.IsUnknown()) {
-		vyosData["dscp"] = o.LeafPolicyRouteRuleDscp.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleDscpExclude.IsNull() || o.LeafPolicyRouteRuleDscpExclude.IsUnknown()) {
-		vyosData["dscp-exclude"] = o.LeafPolicyRouteRuleDscpExclude.ValueString()
-	}
-	if !(o.LeafPolicyRouteRulePacketLength.IsNull() || o.LeafPolicyRouteRulePacketLength.IsUnknown()) {
-		vyosData["packet-length"] = o.LeafPolicyRouteRulePacketLength.ValueString()
-	}
-	if !(o.LeafPolicyRouteRulePacketLengthExclude.IsNull() || o.LeafPolicyRouteRulePacketLengthExclude.IsUnknown()) {
-		vyosData["packet-length-exclude"] = o.LeafPolicyRouteRulePacketLengthExclude.ValueString()
-	}
-	if !(o.LeafPolicyRouteRulePacketType.IsNull() || o.LeafPolicyRouteRulePacketType.IsUnknown()) {
-		vyosData["packet-type"] = o.LeafPolicyRouteRulePacketType.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleConnectionMark.IsNull() || o.LeafPolicyRouteRuleConnectionMark.IsUnknown()) {
-		vyosData["connection-mark"] = o.LeafPolicyRouteRuleConnectionMark.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteRuleDestination.IsNull() || o.NodePolicyRouteRuleDestination.IsUnknown()) {
-		var subModel PolicyRouteRuleDestination
-		diags.Append(o.NodePolicyRouteRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleSource.IsNull() || o.NodePolicyRouteRuleSource.IsUnknown()) {
-		var subModel PolicyRouteRuleSource
-		diags.Append(o.NodePolicyRouteRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleFragment.IsNull() || o.NodePolicyRouteRuleFragment.IsUnknown()) {
-		var subModel PolicyRouteRuleFragment
-		diags.Append(o.NodePolicyRouteRuleFragment.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["fragment"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleIPsec.IsNull() || o.NodePolicyRouteRuleIPsec.IsUnknown()) {
-		var subModel PolicyRouteRuleIPsec
-		diags.Append(o.NodePolicyRouteRuleIPsec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipsec"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleLimit.IsNull() || o.NodePolicyRouteRuleLimit.IsUnknown()) {
-		var subModel PolicyRouteRuleLimit
-		diags.Append(o.NodePolicyRouteRuleLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["limit"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleRecent.IsNull() || o.NodePolicyRouteRuleRecent.IsUnknown()) {
-		var subModel PolicyRouteRuleRecent
-		diags.Append(o.NodePolicyRouteRuleRecent.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["recent"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleSet.IsNull() || o.NodePolicyRouteRuleSet.IsUnknown()) {
-		var subModel PolicyRouteRuleSet
-		diags.Append(o.NodePolicyRouteRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleState.IsNull() || o.NodePolicyRouteRuleState.IsUnknown()) {
-		var subModel PolicyRouteRuleState
-		diags.Append(o.NodePolicyRouteRuleState.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["state"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleTCP.IsNull() || o.NodePolicyRouteRuleTCP.IsUnknown()) {
-		var subModel PolicyRouteRuleTCP
-		diags.Append(o.NodePolicyRouteRuleTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleTime.IsNull() || o.NodePolicyRouteRuleTime.IsUnknown()) {
-		var subModel PolicyRouteRuleTime
-		diags.Append(o.NodePolicyRouteRuleTime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["time"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleIcmp.IsNull() || o.NodePolicyRouteRuleIcmp.IsUnknown()) {
-		var subModel PolicyRouteRuleIcmp
-		diags.Append(o.NodePolicyRouteRuleIcmp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["icmp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteRuleTTL.IsNull() || o.NodePolicyRouteRuleTTL.IsUnknown()) {
-		var subModel PolicyRouteRuleTTL
-		diags.Append(o.NodePolicyRouteRuleTTL.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ttl"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafPolicyRouteRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafPolicyRouteRuleDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["log"]; ok {
-		o.LeafPolicyRouteRuleLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleLog = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dscp"]; ok {
-		o.LeafPolicyRouteRuleDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDscp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dscp-exclude"]; ok {
-		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-length"]; ok {
-		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-length-exclude"]; ok {
-		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["packet-type"]; ok {
-		o.LeafPolicyRouteRulePacketType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRulePacketType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["connection-mark"]; ok {
-		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["destination"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleDestination = data
-
-	} else {
-		o.NodePolicyRouteRuleDestination = basetypes.NewObjectNull(PolicyRouteRuleDestination{}.AttributeTypes())
-	}
-	if value, ok := vyosData["source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleSource = data
-
-	} else {
-		o.NodePolicyRouteRuleSource = basetypes.NewObjectNull(PolicyRouteRuleSource{}.AttributeTypes())
-	}
-	if value, ok := vyosData["fragment"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleFragment{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleFragment = data
-
-	} else {
-		o.NodePolicyRouteRuleFragment = basetypes.NewObjectNull(PolicyRouteRuleFragment{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipsec"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleIPsec{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleIPsec = data
-
-	} else {
-		o.NodePolicyRouteRuleIPsec = basetypes.NewObjectNull(PolicyRouteRuleIPsec{}.AttributeTypes())
-	}
-	if value, ok := vyosData["limit"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleLimit{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleLimit = data
-
-	} else {
-		o.NodePolicyRouteRuleLimit = basetypes.NewObjectNull(PolicyRouteRuleLimit{}.AttributeTypes())
-	}
-	if value, ok := vyosData["recent"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleRecent{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleRecent = data
-
-	} else {
-		o.NodePolicyRouteRuleRecent = basetypes.NewObjectNull(PolicyRouteRuleRecent{}.AttributeTypes())
-	}
-	if value, ok := vyosData["set"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleSet = data
-
-	} else {
-		o.NodePolicyRouteRuleSet = basetypes.NewObjectNull(PolicyRouteRuleSet{}.AttributeTypes())
-	}
-	if value, ok := vyosData["state"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleState{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleState = data
-
-	} else {
-		o.NodePolicyRouteRuleState = basetypes.NewObjectNull(PolicyRouteRuleState{}.AttributeTypes())
-	}
-	if value, ok := vyosData["tcp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTCP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleTCP = data
-
-	} else {
-		o.NodePolicyRouteRuleTCP = basetypes.NewObjectNull(PolicyRouteRuleTCP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["time"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTime{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleTime = data
-
-	} else {
-		o.NodePolicyRouteRuleTime = basetypes.NewObjectNull(PolicyRouteRuleTime{}.AttributeTypes())
-	}
-	if value, ok := vyosData["icmp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleIcmp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleIcmp = data
-
-	} else {
-		o.NodePolicyRouteRuleIcmp = basetypes.NewObjectNull(PolicyRouteRuleIcmp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ttl"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTTL{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleTTL = data
-
-	} else {
-		o.NodePolicyRouteRuleTTL = basetypes.NewObjectNull(PolicyRouteRuleTTL{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":                types.StringType,
-		"description":           types.StringType,
-		"disable":               types.StringType,
-		"log":                   types.StringType,
-		"protocol":              types.StringType,
-		"dscp":                  types.StringType,
-		"dscp_exclude":          types.StringType,
-		"packet_length":         types.StringType,
-		"packet_length_exclude": types.StringType,
-		"packet_type":           types.StringType,
-		"connection_mark":       types.StringType,
-
-		// Tags
-
-		// Nodes
-		"destination": types.ObjectType{AttrTypes: PolicyRouteRuleDestination{}.AttributeTypes()},
-		"source":      types.ObjectType{AttrTypes: PolicyRouteRuleSource{}.AttributeTypes()},
-		"fragment":    types.ObjectType{AttrTypes: PolicyRouteRuleFragment{}.AttributeTypes()},
-		"ipsec":       types.ObjectType{AttrTypes: PolicyRouteRuleIPsec{}.AttributeTypes()},
-		"limit":       types.ObjectType{AttrTypes: PolicyRouteRuleLimit{}.AttributeTypes()},
-		"recent":      types.ObjectType{AttrTypes: PolicyRouteRuleRecent{}.AttributeTypes()},
-		"set":         types.ObjectType{AttrTypes: PolicyRouteRuleSet{}.AttributeTypes()},
-		"state":       types.ObjectType{AttrTypes: PolicyRouteRuleState{}.AttributeTypes()},
-		"tcp":         types.ObjectType{AttrTypes: PolicyRouteRuleTCP{}.AttributeTypes()},
-		"time":        types.ObjectType{AttrTypes: PolicyRouteRuleTime{}.AttributeTypes()},
-		"icmp":        types.ObjectType{AttrTypes: PolicyRouteRuleIcmp{}.AttributeTypes()},
-		"ttl":         types.ObjectType{AttrTypes: PolicyRouteRuleTTL{}.AttributeTypes()},
-	}
+	NodePolicyRouteRuleDestination *PolicyRouteRuleDestination `tfsdk:"destination" json:"destination,omitempty"`
+	NodePolicyRouteRuleSource      *PolicyRouteRuleSource      `tfsdk:"source" json:"source,omitempty"`
+	NodePolicyRouteRuleFragment    *PolicyRouteRuleFragment    `tfsdk:"fragment" json:"fragment,omitempty"`
+	NodePolicyRouteRuleIPsec       *PolicyRouteRuleIPsec       `tfsdk:"ipsec" json:"ipsec,omitempty"`
+	NodePolicyRouteRuleLimit       *PolicyRouteRuleLimit       `tfsdk:"limit" json:"limit,omitempty"`
+	NodePolicyRouteRuleRecent      *PolicyRouteRuleRecent      `tfsdk:"recent" json:"recent,omitempty"`
+	NodePolicyRouteRuleSet         *PolicyRouteRuleSet         `tfsdk:"set" json:"set,omitempty"`
+	NodePolicyRouteRuleState       *PolicyRouteRuleState       `tfsdk:"state" json:"state,omitempty"`
+	NodePolicyRouteRuleTCP         *PolicyRouteRuleTCP         `tfsdk:"tcp" json:"tcp,omitempty"`
+	NodePolicyRouteRuleTime        *PolicyRouteRuleTime        `tfsdk:"time" json:"time,omitempty"`
+	NodePolicyRouteRuleIcmp        *PolicyRouteRuleIcmp        `tfsdk:"icmp" json:"icmp,omitempty"`
+	NodePolicyRouteRuleTTL         *PolicyRouteRuleTTL         `tfsdk:"ttl" json:"ttl,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -590,4 +281,473 @@ func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleAction.IsNull() && !o.LeafPolicyRouteRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafPolicyRouteRuleAction.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleDescrIPtion.IsNull() && !o.LeafPolicyRouteRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyRouteRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleDisable.IsNull() && !o.LeafPolicyRouteRuleDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafPolicyRouteRuleDisable.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleLog.IsNull() && !o.LeafPolicyRouteRuleLog.IsUnknown() {
+		jsonData["log"] = o.LeafPolicyRouteRuleLog.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleProtocol.IsNull() && !o.LeafPolicyRouteRuleProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafPolicyRouteRuleProtocol.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleDscp.IsNull() && !o.LeafPolicyRouteRuleDscp.IsUnknown() {
+		jsonData["dscp"] = o.LeafPolicyRouteRuleDscp.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleDscpExclude.IsNull() && !o.LeafPolicyRouteRuleDscpExclude.IsUnknown() {
+		jsonData["dscp-exclude"] = o.LeafPolicyRouteRuleDscpExclude.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRulePacketLength.IsNull() && !o.LeafPolicyRouteRulePacketLength.IsUnknown() {
+		jsonData["packet-length"] = o.LeafPolicyRouteRulePacketLength.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRulePacketLengthExclude.IsNull() && !o.LeafPolicyRouteRulePacketLengthExclude.IsUnknown() {
+		jsonData["packet-length-exclude"] = o.LeafPolicyRouteRulePacketLengthExclude.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRulePacketType.IsNull() && !o.LeafPolicyRouteRulePacketType.IsUnknown() {
+		jsonData["packet-type"] = o.LeafPolicyRouteRulePacketType.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleConnectionMark.IsNull() && !o.LeafPolicyRouteRuleConnectionMark.IsUnknown() {
+		jsonData["connection-mark"] = o.LeafPolicyRouteRuleConnectionMark.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleDestination).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleDestination)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["destination"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["source"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleFragment).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleFragment)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["fragment"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleIPsec).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleIPsec)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipsec"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleLimit).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleLimit)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["limit"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleRecent).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleRecent)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["recent"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleSet).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleSet)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["set"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleState).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleState)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["state"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleTCP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTCP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["tcp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleTime).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTime)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["time"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleIcmp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleIcmp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["icmp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleTTL).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTTL)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ttl"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafPolicyRouteRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafPolicyRouteRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["log"]; ok {
+		o.LeafPolicyRouteRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleLog = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dscp"]; ok {
+		o.LeafPolicyRouteRuleDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDscp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dscp-exclude"]; ok {
+		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-length"]; ok {
+		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-length-exclude"]; ok {
+		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["packet-type"]; ok {
+		o.LeafPolicyRouteRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["connection-mark"]; ok {
+		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["destination"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleDestination = &PolicyRouteRuleDestination{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleDestination)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleSource = &PolicyRouteRuleSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleSource)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["fragment"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleFragment = &PolicyRouteRuleFragment{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleFragment)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipsec"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleIPsec = &PolicyRouteRuleIPsec{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleIPsec)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["limit"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleLimit = &PolicyRouteRuleLimit{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleLimit)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["recent"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleRecent = &PolicyRouteRuleRecent{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleRecent)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["set"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleSet = &PolicyRouteRuleSet{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleSet)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["state"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleState = &PolicyRouteRuleState{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleState)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["tcp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleTCP = &PolicyRouteRuleTCP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTCP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["time"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleTime = &PolicyRouteRuleTime{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTime)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["icmp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleIcmp = &PolicyRouteRuleIcmp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleIcmp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ttl"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleTTL = &PolicyRouteRuleTTL{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTTL)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

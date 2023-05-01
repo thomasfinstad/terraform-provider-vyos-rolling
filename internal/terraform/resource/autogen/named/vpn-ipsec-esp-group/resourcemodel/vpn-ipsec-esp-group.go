@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecEspGroup describes the resource data model.
@@ -17,15 +15,15 @@ type VpnIPsecEspGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnIPsecEspGroupCompression types.String `tfsdk:"compression"`
-	LeafVpnIPsecEspGroupLifetime    types.String `tfsdk:"lifetime"`
-	LeafVpnIPsecEspGroupLifeBytes   types.String `tfsdk:"life_bytes"`
-	LeafVpnIPsecEspGroupLifePackets types.String `tfsdk:"life_packets"`
-	LeafVpnIPsecEspGroupMode        types.String `tfsdk:"mode"`
-	LeafVpnIPsecEspGroupPfs         types.String `tfsdk:"pfs"`
+	LeafVpnIPsecEspGroupCompression types.String `tfsdk:"compression" json:"compression,omitempty"`
+	LeafVpnIPsecEspGroupLifetime    types.String `tfsdk:"lifetime" json:"lifetime,omitempty"`
+	LeafVpnIPsecEspGroupLifeBytes   types.String `tfsdk:"life_bytes" json:"life-bytes,omitempty"`
+	LeafVpnIPsecEspGroupLifePackets types.String `tfsdk:"life_packets" json:"life-packets,omitempty"`
+	LeafVpnIPsecEspGroupMode        types.String `tfsdk:"mode" json:"mode,omitempty"`
+	LeafVpnIPsecEspGroupPfs         types.String `tfsdk:"pfs" json:"pfs,omitempty"`
 
 	// TagNodes
-	TagVpnIPsecEspGroupProposal types.Map `tfsdk:"proposal"`
+	TagVpnIPsecEspGroupProposal *map[string]VpnIPsecEspGroupProposal `tfsdk:"proposal" json:"proposal,omitempty"`
 
 	// Nodes
 }
@@ -37,119 +35,6 @@ func (o *VpnIPsecEspGroup) GetVyosPath() []string {
 		"ipsec",
 		"esp-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecEspGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecEspGroupCompression.IsNull() || o.LeafVpnIPsecEspGroupCompression.IsUnknown()) {
-		vyosData["compression"] = o.LeafVpnIPsecEspGroupCompression.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupLifetime.IsNull() || o.LeafVpnIPsecEspGroupLifetime.IsUnknown()) {
-		vyosData["lifetime"] = o.LeafVpnIPsecEspGroupLifetime.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupLifeBytes.IsNull() || o.LeafVpnIPsecEspGroupLifeBytes.IsUnknown()) {
-		vyosData["life-bytes"] = o.LeafVpnIPsecEspGroupLifeBytes.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupLifePackets.IsNull() || o.LeafVpnIPsecEspGroupLifePackets.IsUnknown()) {
-		vyosData["life-packets"] = o.LeafVpnIPsecEspGroupLifePackets.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupMode.IsNull() || o.LeafVpnIPsecEspGroupMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafVpnIPsecEspGroupMode.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupPfs.IsNull() || o.LeafVpnIPsecEspGroupPfs.IsUnknown()) {
-		vyosData["pfs"] = o.LeafVpnIPsecEspGroupPfs.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVpnIPsecEspGroupProposal.IsNull() || o.TagVpnIPsecEspGroupProposal.IsUnknown()) {
-		subModel := make(map[string]VpnIPsecEspGroupProposal)
-		diags.Append(o.TagVpnIPsecEspGroupProposal.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["proposal"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecEspGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
-
-	// Leafs
-	if value, ok := vyosData["compression"]; ok {
-		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["lifetime"]; ok {
-		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["life-bytes"]; ok {
-		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["life-packets"]; ok {
-		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["pfs"]; ok {
-		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["proposal"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecEspGroupProposal{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVpnIPsecEspGroupProposal = data
-	} else {
-		o.TagVpnIPsecEspGroupProposal = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecEspGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"compression":  types.StringType,
-		"lifetime":     types.StringType,
-		"life_bytes":   types.StringType,
-		"life_packets": types.StringType,
-		"mode":         types.StringType,
-		"pfs":          types.StringType,
-
-		// Tags
-		"proposal": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecEspGroupProposal{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -279,4 +164,126 @@ func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecEspGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecEspGroupCompression.IsNull() && !o.LeafVpnIPsecEspGroupCompression.IsUnknown() {
+		jsonData["compression"] = o.LeafVpnIPsecEspGroupCompression.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupLifetime.IsNull() && !o.LeafVpnIPsecEspGroupLifetime.IsUnknown() {
+		jsonData["lifetime"] = o.LeafVpnIPsecEspGroupLifetime.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupLifeBytes.IsNull() && !o.LeafVpnIPsecEspGroupLifeBytes.IsUnknown() {
+		jsonData["life-bytes"] = o.LeafVpnIPsecEspGroupLifeBytes.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupLifePackets.IsNull() && !o.LeafVpnIPsecEspGroupLifePackets.IsUnknown() {
+		jsonData["life-packets"] = o.LeafVpnIPsecEspGroupLifePackets.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupMode.IsNull() && !o.LeafVpnIPsecEspGroupMode.IsUnknown() {
+		jsonData["mode"] = o.LeafVpnIPsecEspGroupMode.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupPfs.IsNull() && !o.LeafVpnIPsecEspGroupPfs.IsUnknown() {
+		jsonData["pfs"] = o.LeafVpnIPsecEspGroupPfs.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVpnIPsecEspGroupProposal).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVpnIPsecEspGroupProposal)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["proposal"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecEspGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["compression"]; ok {
+		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["lifetime"]; ok {
+		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["life-bytes"]; ok {
+		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["life-packets"]; ok {
+		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["pfs"]; ok {
+		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["proposal"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVpnIPsecEspGroupProposal = &map[string]VpnIPsecEspGroupProposal{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVpnIPsecEspGroupProposal)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

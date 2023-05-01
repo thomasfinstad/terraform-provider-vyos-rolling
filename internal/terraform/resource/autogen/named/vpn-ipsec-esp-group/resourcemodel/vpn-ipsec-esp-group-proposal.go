@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecEspGroupProposal describes the resource data model.
 type VpnIPsecEspGroupProposal struct {
 	// LeafNodes
-	LeafVpnIPsecEspGroupProposalEncryption types.String `tfsdk:"encryption"`
-	LeafVpnIPsecEspGroupProposalHash       types.String `tfsdk:"hash"`
+	LeafVpnIPsecEspGroupProposalEncryption types.String `tfsdk:"encryption" json:"encryption,omitempty"`
+	LeafVpnIPsecEspGroupProposalHash       types.String `tfsdk:"hash" json:"hash,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecEspGroupProposal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecEspGroupProposalEncryption.IsNull() || o.LeafVpnIPsecEspGroupProposalEncryption.IsUnknown()) {
-		vyosData["encryption"] = o.LeafVpnIPsecEspGroupProposalEncryption.ValueString()
-	}
-	if !(o.LeafVpnIPsecEspGroupProposalHash.IsNull() || o.LeafVpnIPsecEspGroupProposalHash.IsUnknown()) {
-		vyosData["hash"] = o.LeafVpnIPsecEspGroupProposalHash.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecEspGroupProposal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
-
-	// Leafs
-	if value, ok := vyosData["encryption"]; ok {
-		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hash"]; ok {
-		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecEspGroupProposal) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"encryption": types.StringType,
-		"hash":       types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -186,4 +124,59 @@ func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecEspGroupProposal) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecEspGroupProposalEncryption.IsNull() && !o.LeafVpnIPsecEspGroupProposalEncryption.IsUnknown() {
+		jsonData["encryption"] = o.LeafVpnIPsecEspGroupProposalEncryption.ValueString()
+	}
+
+	if !o.LeafVpnIPsecEspGroupProposalHash.IsNull() && !o.LeafVpnIPsecEspGroupProposalHash.IsUnknown() {
+		jsonData["hash"] = o.LeafVpnIPsecEspGroupProposalHash.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecEspGroupProposal) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["encryption"]; ok {
+		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hash"]; ok {
+		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

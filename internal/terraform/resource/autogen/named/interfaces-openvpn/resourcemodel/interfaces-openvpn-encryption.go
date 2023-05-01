@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnEncryption describes the resource data model.
 type InterfacesOpenvpnEncryption struct {
 	// LeafNodes
-	LeafInterfacesOpenvpnEncryptionCIPher     types.String `tfsdk:"cipher"`
-	LeafInterfacesOpenvpnEncryptionNcpCIPhers types.String `tfsdk:"ncp_ciphers"`
+	LeafInterfacesOpenvpnEncryptionCIPher     types.String `tfsdk:"cipher" json:"cipher,omitempty"`
+	LeafInterfacesOpenvpnEncryptionNcpCIPhers types.String `tfsdk:"ncp_ciphers" json:"ncp-ciphers,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesOpenvpnEncryption) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesOpenvpnEncryptionCIPher.IsNull() || o.LeafInterfacesOpenvpnEncryptionCIPher.IsUnknown()) {
-		vyosData["cipher"] = o.LeafInterfacesOpenvpnEncryptionCIPher.ValueString()
-	}
-	if !(o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsNull() || o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsUnknown()) {
-		vyosData["ncp-ciphers"] = o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesOpenvpnEncryption) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
-
-	// Leafs
-	if value, ok := vyosData["cipher"]; ok {
-		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ncp-ciphers"]; ok {
-		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesOpenvpnEncryption) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cipher":      types.StringType,
-		"ncp_ciphers": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -132,4 +70,59 @@ func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesOpenvpnEncryption) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesOpenvpnEncryptionCIPher.IsNull() && !o.LeafInterfacesOpenvpnEncryptionCIPher.IsUnknown() {
+		jsonData["cipher"] = o.LeafInterfacesOpenvpnEncryptionCIPher.ValueString()
+	}
+
+	if !o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsNull() && !o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsUnknown() {
+		jsonData["ncp-ciphers"] = o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesOpenvpnEncryption) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cipher"]; ok {
+		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ncp-ciphers"]; ok {
+		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

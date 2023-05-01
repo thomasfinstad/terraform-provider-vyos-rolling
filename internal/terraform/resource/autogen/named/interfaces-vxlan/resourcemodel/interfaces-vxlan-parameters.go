@@ -2,103 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanParameters describes the resource data model.
 type InterfacesVxlanParameters struct {
 	// LeafNodes
-	LeafInterfacesVxlanParametersNolearning types.String `tfsdk:"nolearning"`
+	LeafInterfacesVxlanParametersNolearning types.String `tfsdk:"nolearning" json:"nolearning,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesVxlanParametersIP     types.Object `tfsdk:"ip"`
-	NodeInterfacesVxlanParametersIPvsix types.Object `tfsdk:"ipv6"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesVxlanParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesVxlanParametersNolearning.IsNull() || o.LeafInterfacesVxlanParametersNolearning.IsUnknown()) {
-		vyosData["nolearning"] = o.LeafInterfacesVxlanParametersNolearning.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesVxlanParametersIP.IsNull() || o.NodeInterfacesVxlanParametersIP.IsUnknown()) {
-		var subModel InterfacesVxlanParametersIP
-		diags.Append(o.NodeInterfacesVxlanParametersIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesVxlanParametersIPvsix.IsNull() || o.NodeInterfacesVxlanParametersIPvsix.IsUnknown()) {
-		var subModel InterfacesVxlanParametersIPvsix
-		diags.Append(o.NodeInterfacesVxlanParametersIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesVxlanParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
-
-	// Leafs
-	if value, ok := vyosData["nolearning"]; ok {
-		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVxlanParametersIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVxlanParametersIP = data
-
-	} else {
-		o.NodeInterfacesVxlanParametersIP = basetypes.NewObjectNull(InterfacesVxlanParametersIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVxlanParametersIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesVxlanParametersIPvsix = data
-
-	} else {
-		o.NodeInterfacesVxlanParametersIPvsix = basetypes.NewObjectNull(InterfacesVxlanParametersIPvsix{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesVxlanParameters) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"nolearning": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ip":   types.ObjectType{AttrTypes: InterfacesVxlanParametersIP{}.AttributeTypes()},
-		"ipv6": types.ObjectType{AttrTypes: InterfacesVxlanParametersIPvsix{}.AttributeTypes()},
-	}
+	NodeInterfacesVxlanParametersIP     *InterfacesVxlanParametersIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesVxlanParametersIPvsix *InterfacesVxlanParametersIPvsix `tfsdk:"ipv6" json:"ipv6,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -133,4 +54,103 @@ func (o InterfacesVxlanParameters) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesVxlanParameters) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesVxlanParametersNolearning.IsNull() && !o.LeafInterfacesVxlanParametersNolearning.IsUnknown() {
+		jsonData["nolearning"] = o.LeafInterfacesVxlanParametersNolearning.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesVxlanParametersIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanParametersIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesVxlanParametersIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesVxlanParametersIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesVxlanParameters) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["nolearning"]; ok {
+		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVxlanParametersIP = &InterfacesVxlanParametersIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanParametersIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesVxlanParametersIPvsix = &InterfacesVxlanParametersIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesVxlanParametersIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

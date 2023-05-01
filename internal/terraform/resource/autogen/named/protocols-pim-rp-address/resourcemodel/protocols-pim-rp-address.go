@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsPimRpAddress describes the resource data model.
@@ -17,7 +14,7 @@ type ProtocolsPimRpAddress struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsPimRpAddressGroup types.String `tfsdk:"group"`
+	LeafProtocolsPimRpAddressGroup types.String `tfsdk:"group" json:"group,omitempty"`
 
 	// TagNodes
 
@@ -32,56 +29,6 @@ func (o *ProtocolsPimRpAddress) GetVyosPath() []string {
 		"rp",
 		"address",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsPimRpAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsPimRpAddressGroup.IsNull() || o.LeafProtocolsPimRpAddressGroup.IsUnknown()) {
-		vyosData["group"] = o.LeafProtocolsPimRpAddressGroup.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsPimRpAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
-
-	// Leafs
-	if value, ok := vyosData["group"]; ok {
-		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsPimRpAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"group": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -117,4 +64,49 @@ func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsPimRpAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsPimRpAddressGroup.IsNull() && !o.LeafProtocolsPimRpAddressGroup.IsUnknown() {
+		jsonData["group"] = o.LeafProtocolsPimRpAddressGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsPimRpAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["group"]; ok {
+		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

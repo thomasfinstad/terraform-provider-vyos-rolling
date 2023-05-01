@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleTCP describes the resource data model.
 type PolicyRouteRuleTCP struct {
 	// LeafNodes
-	LeafPolicyRouteRuleTCPMss types.String `tfsdk:"mss"`
+	LeafPolicyRouteRuleTCPMss types.String `tfsdk:"mss" json:"mss,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteRuleTCPFlags types.Object `tfsdk:"flags"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleTCPMss.IsNull() || o.LeafPolicyRouteRuleTCPMss.IsUnknown()) {
-		vyosData["mss"] = o.LeafPolicyRouteRuleTCPMss.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteRuleTCPFlags.IsNull() || o.NodePolicyRouteRuleTCPFlags.IsUnknown()) {
-		var subModel PolicyRouteRuleTCPFlags
-		diags.Append(o.NodePolicyRouteRuleTCPFlags.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["flags"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
-
-	// Leafs
-	if value, ok := vyosData["mss"]; ok {
-		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["flags"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTCPFlags{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteRuleTCPFlags = data
-
-	} else {
-		o.NodePolicyRouteRuleTCPFlags = basetypes.NewObjectNull(PolicyRouteRuleTCPFlags{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleTCP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"mss": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"flags": types.ObjectType{AttrTypes: PolicyRouteRuleTCPFlags{}.AttributeTypes()},
-	}
+	NodePolicyRouteRuleTCPFlags *PolicyRouteRuleTCPFlags `tfsdk:"flags" json:"flags,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -115,4 +50,76 @@ func (o PolicyRouteRuleTCP) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleTCP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleTCPMss.IsNull() && !o.LeafPolicyRouteRuleTCPMss.IsUnknown() {
+		jsonData["mss"] = o.LeafPolicyRouteRuleTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteRuleTCPFlags).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteRuleTCPFlags)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["flags"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleTCP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["mss"]; ok {
+		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["flags"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteRuleTCPFlags = &PolicyRouteRuleTCPFlags{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteRuleTCPFlags)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

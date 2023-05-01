@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassRealtime describes the resource data model.
 type QosPolicyShaperHfscClassRealtime struct {
 	// LeafNodes
-	LeafQosPolicyShaperHfscClassRealtimeD    types.String `tfsdk:"d"`
-	LeafQosPolicyShaperHfscClassRealtimeMone types.String `tfsdk:"m1"`
-	LeafQosPolicyShaperHfscClassRealtimeMtwo types.String `tfsdk:"m2"`
+	LeafQosPolicyShaperHfscClassRealtimeD    types.String `tfsdk:"d" json:"d,omitempty"`
+	LeafQosPolicyShaperHfscClassRealtimeMone types.String `tfsdk:"m1" json:"m1,omitempty"`
+	LeafQosPolicyShaperHfscClassRealtimeMtwo types.String `tfsdk:"m2" json:"m2,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperHfscClassRealtime) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperHfscClassRealtimeD.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeD.IsUnknown()) {
-		vyosData["d"] = o.LeafQosPolicyShaperHfscClassRealtimeD.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassRealtimeMone.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeMone.IsUnknown()) {
-		vyosData["m1"] = o.LeafQosPolicyShaperHfscClassRealtimeMone.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsUnknown()) {
-		vyosData["m2"] = o.LeafQosPolicyShaperHfscClassRealtimeMtwo.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperHfscClassRealtime) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
-
-	// Leafs
-	if value, ok := vyosData["d"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m1"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["m2"]; ok {
-		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperHfscClassRealtime) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"d":  types.StringType,
-		"m1": types.StringType,
-		"m2": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -151,4 +80,69 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperHfscClassRealtime) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperHfscClassRealtimeD.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeD.IsUnknown() {
+		jsonData["d"] = o.LeafQosPolicyShaperHfscClassRealtimeD.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassRealtimeMone.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeMone.IsUnknown() {
+		jsonData["m1"] = o.LeafQosPolicyShaperHfscClassRealtimeMone.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsNull() && !o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsUnknown() {
+		jsonData["m2"] = o.LeafQosPolicyShaperHfscClassRealtimeMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperHfscClassRealtime) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["d"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

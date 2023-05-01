@@ -2,158 +2,28 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient types.String `tfsdk:"route_reflector_client"`
-	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient    types.String `tfsdk:"route_server_client"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient types.String `tfsdk:"route_reflector_client" json:"route-reflector-client,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient    types.String `tfsdk:"route_server_client" json:"route-server-client,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn           types.Object `tfsdk:"allowas_in"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged  types.Object `tfsdk:"attribute_unchanged"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf         types.Object `tfsdk:"nexthop_self"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap            types.Object `tfsdk:"route_map"`
-	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration types.Object `tfsdk:"soft_reconfiguration"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.IsUnknown()) {
-		vyosData["route-reflector-client"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.IsUnknown()) {
-		vyosData["route-server-client"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn
-		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["allowas-in"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged
-		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["attribute-unchanged"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf
-		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["nexthop-self"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap
-		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration
-		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["soft-reconfiguration"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn"}})
-
-	// Leafs
-	if value, ok := vyosData["route-reflector-client"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-server-client"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["allowas-in"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn{}.AttributeTypes())
-	}
-	if value, ok := vyosData["attribute-unchanged"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged{}.AttributeTypes())
-	}
-	if value, ok := vyosData["nexthop-self"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf{}.AttributeTypes())
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap{}.AttributeTypes())
-	}
-	if value, ok := vyosData["soft-reconfiguration"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"route_reflector_client": types.StringType,
-		"route_server_client":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"allowas_in":           types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn{}.AttributeTypes()},
-		"attribute_unchanged":  types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged{}.AttributeTypes()},
-		"nexthop_self":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf{}.AttributeTypes()},
-		"route_map":            types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap{}.AttributeTypes()},
-		"soft_reconfiguration": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn           *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn           `tfsdk:"allowas_in" json:"allowas-in,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged  *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged  `tfsdk:"attribute_unchanged" json:"attribute-unchanged,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf         *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf         `tfsdk:"nexthop_self" json:"nexthop-self,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap            *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap            `tfsdk:"route_map" json:"route-map,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration `tfsdk:"soft_reconfiguration" json:"soft-reconfiguration,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -219,4 +89,194 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) ResourceSchemaAttr
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.IsUnknown() {
+		jsonData["route-reflector-client"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.IsUnknown() {
+		jsonData["route-server-client"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["allowas-in"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["attribute-unchanged"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["nexthop-self"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-map"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["soft-reconfiguration"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["route-reflector-client"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteReflectorClient = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-server-client"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteServerClient = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["allowas-in"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn = &VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAllowasIn)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["attribute-unchanged"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged = &VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnAttributeUnchanged)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["nexthop-self"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf = &VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route-map"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap = &VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnRouteMap)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["soft-reconfiguration"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration = &VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnSoftReconfiguration)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

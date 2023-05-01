@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilitiesVhtStbc describes the resource data model.
 type InterfacesWirelessCapabilitiesVhtStbc struct {
 	// LeafNodes
-	LeafInterfacesWirelessCapabilitiesVhtStbcRx types.String `tfsdk:"rx"`
-	LeafInterfacesWirelessCapabilitiesVhtStbcTx types.String `tfsdk:"tx"`
+	LeafInterfacesWirelessCapabilitiesVhtStbcRx types.String `tfsdk:"rx" json:"rx,omitempty"`
+	LeafInterfacesWirelessCapabilitiesVhtStbcTx types.String `tfsdk:"tx" json:"tx,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWirelessCapabilitiesVhtStbc) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "stbc"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsNull() || o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsUnknown()) {
-		vyosData["rx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.ValueString()
-	}
-	if !(o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsNull() || o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsUnknown()) {
-		vyosData["tx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWirelessCapabilitiesVhtStbc) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "stbc"}})
-
-	// Leafs
-	if value, ok := vyosData["rx"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["tx"]; ok {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "vht", "stbc"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWirelessCapabilitiesVhtStbc) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"rx": types.StringType,
-		"tx": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -110,4 +48,59 @@ func (o InterfacesWirelessCapabilitiesVhtStbc) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWirelessCapabilitiesVhtStbc) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.IsUnknown() {
+		jsonData["rx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcRx.ValueString()
+	}
+
+	if !o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsNull() && !o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.IsUnknown() {
+		jsonData["tx"] = o.LeafInterfacesWirelessCapabilitiesVhtStbcTx.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWirelessCapabilitiesVhtStbc) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["rx"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesVhtStbcRx = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["tx"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesVhtStbcTx = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetLthreevpnNexthop describes the resource data model.
@@ -19,61 +15,7 @@ type PolicyRouteMapRuleSetLthreevpnNexthop struct {
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation types.Object `tfsdk:"encapsulation"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleSetLthreevpnNexthop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.IsNull() || o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.IsUnknown()) {
-		var subModel PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation
-		diags.Append(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["encapsulation"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleSetLthreevpnNexthop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["encapsulation"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation = data
-
-	} else {
-		o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation = basetypes.NewObjectNull(PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleSetLthreevpnNexthop) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"encapsulation": types.ObjectType{AttrTypes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes()},
-	}
+	NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation *PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation `tfsdk:"encapsulation" json:"encapsulation,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceSchemaAttributes() map[st
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleSetLthreevpnNexthop) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["encapsulation"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleSetLthreevpnNexthop) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["encapsulation"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation = &PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

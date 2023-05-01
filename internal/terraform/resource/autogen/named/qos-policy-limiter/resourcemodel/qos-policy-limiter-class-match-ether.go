@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClassMatchEther describes the resource data model.
 type QosPolicyLimiterClassMatchEther struct {
 	// LeafNodes
-	LeafQosPolicyLimiterClassMatchEtherDestination types.String `tfsdk:"destination"`
-	LeafQosPolicyLimiterClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
-	LeafQosPolicyLimiterClassMatchEtherSource      types.String `tfsdk:"source"`
+	LeafQosPolicyLimiterClassMatchEtherDestination types.String `tfsdk:"destination" json:"destination,omitempty"`
+	LeafQosPolicyLimiterClassMatchEtherProtocol    types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyLimiterClassMatchEtherSource      types.String `tfsdk:"source" json:"source,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiterClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ether"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterClassMatchEtherDestination.IsNull() || o.LeafQosPolicyLimiterClassMatchEtherDestination.IsUnknown()) {
-		vyosData["destination"] = o.LeafQosPolicyLimiterClassMatchEtherDestination.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyLimiterClassMatchEtherProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafQosPolicyLimiterClassMatchEtherProtocol.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchEtherSource.IsNull() || o.LeafQosPolicyLimiterClassMatchEtherSource.IsUnknown()) {
-		vyosData["source"] = o.LeafQosPolicyLimiterClassMatchEtherSource.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiterClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ether"}})
-
-	// Leafs
-	if value, ok := vyosData["destination"]; ok {
-		o.LeafQosPolicyLimiterClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchEtherDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafQosPolicyLimiterClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchEtherProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source"]; ok {
-		o.LeafQosPolicyLimiterClassMatchEtherSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchEtherSource = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ether"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiterClassMatchEther) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"destination": types.StringType,
-		"protocol":    types.StringType,
-		"source":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +72,69 @@ func (o QosPolicyLimiterClassMatchEther) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiterClassMatchEther) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterClassMatchEtherDestination.IsNull() && !o.LeafQosPolicyLimiterClassMatchEtherDestination.IsUnknown() {
+		jsonData["destination"] = o.LeafQosPolicyLimiterClassMatchEtherDestination.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchEtherProtocol.IsNull() && !o.LeafQosPolicyLimiterClassMatchEtherProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafQosPolicyLimiterClassMatchEtherProtocol.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchEtherSource.IsNull() && !o.LeafQosPolicyLimiterClassMatchEtherSource.IsUnknown() {
+		jsonData["source"] = o.LeafQosPolicyLimiterClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiterClassMatchEther) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["destination"]; ok {
+		o.LeafQosPolicyLimiterClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafQosPolicyLimiterClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source"]; ok {
+		o.LeafQosPolicyLimiterClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

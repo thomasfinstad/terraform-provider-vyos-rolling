@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleFragment describes the resource data model.
 type FirewallNameRuleFragment struct {
 	// LeafNodes
-	LeafFirewallNameRuleFragmentMatchFrag    types.String `tfsdk:"match_frag"`
-	LeafFirewallNameRuleFragmentMatchNonFrag types.String `tfsdk:"match_non_frag"`
+	LeafFirewallNameRuleFragmentMatchFrag    types.String `tfsdk:"match_frag" json:"match-frag,omitempty"`
+	LeafFirewallNameRuleFragmentMatchNonFrag types.String `tfsdk:"match_non_frag" json:"match-non-frag,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallNameRuleFragment) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "fragment"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallNameRuleFragmentMatchFrag.IsNull() || o.LeafFirewallNameRuleFragmentMatchFrag.IsUnknown()) {
-		vyosData["match-frag"] = o.LeafFirewallNameRuleFragmentMatchFrag.ValueString()
-	}
-	if !(o.LeafFirewallNameRuleFragmentMatchNonFrag.IsNull() || o.LeafFirewallNameRuleFragmentMatchNonFrag.IsUnknown()) {
-		vyosData["match-non-frag"] = o.LeafFirewallNameRuleFragmentMatchNonFrag.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallNameRuleFragment) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "fragment"}})
-
-	// Leafs
-	if value, ok := vyosData["match-frag"]; ok {
-		o.LeafFirewallNameRuleFragmentMatchFrag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleFragmentMatchFrag = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["match-non-frag"]; ok {
-		o.LeafFirewallNameRuleFragmentMatchNonFrag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallNameRuleFragmentMatchNonFrag = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "fragment"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallNameRuleFragment) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"match_frag":     types.StringType,
-		"match_non_frag": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o FirewallNameRuleFragment) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallNameRuleFragment) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallNameRuleFragmentMatchFrag.IsNull() && !o.LeafFirewallNameRuleFragmentMatchFrag.IsUnknown() {
+		jsonData["match-frag"] = o.LeafFirewallNameRuleFragmentMatchFrag.ValueString()
+	}
+
+	if !o.LeafFirewallNameRuleFragmentMatchNonFrag.IsNull() && !o.LeafFirewallNameRuleFragmentMatchNonFrag.IsUnknown() {
+		jsonData["match-non-frag"] = o.LeafFirewallNameRuleFragmentMatchNonFrag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallNameRuleFragment) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["match-frag"]; ok {
+		o.LeafFirewallNameRuleFragmentMatchFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleFragmentMatchFrag = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["match-non-frag"]; ok {
+		o.LeafFirewallNameRuleFragmentMatchNonFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleFragmentMatchNonFrag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

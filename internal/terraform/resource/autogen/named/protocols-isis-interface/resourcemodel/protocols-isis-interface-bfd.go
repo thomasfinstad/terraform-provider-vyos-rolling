@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIsisInterfaceBfd describes the resource data model.
 type ProtocolsIsisInterfaceBfd struct {
 	// LeafNodes
-	LeafProtocolsIsisInterfaceBfdProfile types.String `tfsdk:"profile"`
+	LeafProtocolsIsisInterfaceBfdProfile types.String `tfsdk:"profile" json:"profile,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsIsisInterfaceBfd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "bfd"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsIsisInterfaceBfdProfile.IsNull() || o.LeafProtocolsIsisInterfaceBfdProfile.IsUnknown()) {
-		vyosData["profile"] = o.LeafProtocolsIsisInterfaceBfdProfile.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsIsisInterfaceBfd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "bfd"}})
-
-	// Leafs
-	if value, ok := vyosData["profile"]; ok {
-		o.LeafProtocolsIsisInterfaceBfdProfile = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceBfdProfile = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "bfd"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsIsisInterfaceBfd) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"profile": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o ProtocolsIsisInterfaceBfd) ResourceSchemaAttributes() map[string]schema.
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsIsisInterfaceBfd) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsIsisInterfaceBfdProfile.IsNull() && !o.LeafProtocolsIsisInterfaceBfdProfile.IsUnknown() {
+		jsonData["profile"] = o.LeafProtocolsIsisInterfaceBfdProfile.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsIsisInterfaceBfd) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["profile"]; ok {
+		o.LeafProtocolsIsisInterfaceBfdProfile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIsisInterfaceBfdProfile = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

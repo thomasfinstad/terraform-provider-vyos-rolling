@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesMacsecSecURItyMka describes the resource data model.
 type InterfacesMacsecSecURItyMka struct {
 	// LeafNodes
-	LeafInterfacesMacsecSecURItyMkaCak      types.String `tfsdk:"cak"`
-	LeafInterfacesMacsecSecURItyMkaCkn      types.String `tfsdk:"ckn"`
-	LeafInterfacesMacsecSecURItyMkaPriority types.String `tfsdk:"priority"`
+	LeafInterfacesMacsecSecURItyMkaCak      types.String `tfsdk:"cak" json:"cak,omitempty"`
+	LeafInterfacesMacsecSecURItyMkaCkn      types.String `tfsdk:"ckn" json:"ckn,omitempty"`
+	LeafInterfacesMacsecSecURItyMkaPriority types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesMacsecSecURItyMka) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesMacsecSecURItyMkaCak.IsNull() || o.LeafInterfacesMacsecSecURItyMkaCak.IsUnknown()) {
-		vyosData["cak"] = o.LeafInterfacesMacsecSecURItyMkaCak.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecSecURItyMkaCkn.IsNull() || o.LeafInterfacesMacsecSecURItyMkaCkn.IsUnknown()) {
-		vyosData["ckn"] = o.LeafInterfacesMacsecSecURItyMkaCkn.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecSecURItyMkaPriority.IsNull() || o.LeafInterfacesMacsecSecURItyMkaPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafInterfacesMacsecSecURItyMkaPriority.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesMacsecSecURItyMka) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
-
-	// Leafs
-	if value, ok := vyosData["cak"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ckn"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesMacsecSecURItyMka) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"cak":      types.StringType,
-		"ckn":      types.StringType,
-		"priority": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -138,4 +67,69 @@ func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesMacsecSecURItyMka) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesMacsecSecURItyMkaCak.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaCak.IsUnknown() {
+		jsonData["cak"] = o.LeafInterfacesMacsecSecURItyMkaCak.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecSecURItyMkaCkn.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaCkn.IsUnknown() {
+		jsonData["ckn"] = o.LeafInterfacesMacsecSecURItyMkaCkn.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecSecURItyMkaPriority.IsNull() && !o.LeafInterfacesMacsecSecURItyMkaPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafInterfacesMacsecSecURItyMkaPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesMacsecSecURItyMka) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["cak"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ckn"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

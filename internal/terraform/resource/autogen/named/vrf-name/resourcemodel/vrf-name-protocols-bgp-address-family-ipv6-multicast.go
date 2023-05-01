@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticast describes the resource data model.
@@ -17,101 +13,11 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixMulticast struct {
 	// LeafNodes
 
 	// TagNodes
-	TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress types.Map `tfsdk:"aggregate_address"`
-	TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork          types.Map `tfsdk:"network"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress *map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress `tfsdk:"aggregate_address" json:"aggregate-address,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork          *map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork          `tfsdk:"network" json:"network,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance types.Object `tfsdk:"distance"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress)
-		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["aggregate-address"] = subData
-	}
-	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork)
-		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["network"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["aggregate-address"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress = data
-	} else {
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["network"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork = data
-	} else {
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["distance"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"aggregate_address": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress{}.AttributeTypes()}},
-		"network":           types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork{}.AttributeTypes()}},
-
-		// Nodes
-		"distance": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance `tfsdk:"distance" json:"distance,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -159,4 +65,120 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) ResourceSchemaAttribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["aggregate-address"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["network"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["distance"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticast) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["aggregate-address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress = &map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["network"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork = &map[string]VrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpAddressFamilyIPvsixMulticastNetwork)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["distance"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance = &VrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixMulticastDistance)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

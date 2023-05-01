@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetEvpn describes the resource data model.
@@ -19,61 +15,7 @@ type PolicyRouteMapRuleSetEvpn struct {
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleSetEvpnGateway types.Object `tfsdk:"gateway"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleSetEvpn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteMapRuleSetEvpnGateway.IsNull() || o.NodePolicyRouteMapRuleSetEvpnGateway.IsUnknown()) {
-		var subModel PolicyRouteMapRuleSetEvpnGateway
-		diags.Append(o.NodePolicyRouteMapRuleSetEvpnGateway.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["gateway"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleSetEvpn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["gateway"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetEvpnGateway{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleSetEvpnGateway = data
-
-	} else {
-		o.NodePolicyRouteMapRuleSetEvpnGateway = basetypes.NewObjectNull(PolicyRouteMapRuleSetEvpnGateway{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleSetEvpn) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"gateway": types.ObjectType{AttrTypes: PolicyRouteMapRuleSetEvpnGateway{}.AttributeTypes()},
-	}
+	NodePolicyRouteMapRuleSetEvpnGateway *PolicyRouteMapRuleSetEvpnGateway `tfsdk:"gateway" json:"gateway,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o PolicyRouteMapRuleSetEvpn) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleSetEvpn) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSetEvpnGateway).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSetEvpnGateway)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["gateway"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleSetEvpn) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["gateway"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleSetEvpnGateway = &PolicyRouteMapRuleSetEvpnGateway{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSetEvpnGateway)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

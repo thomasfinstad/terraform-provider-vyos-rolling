@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiDh describes the resource data model.
@@ -17,7 +14,7 @@ type PkiDh struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPkiDhParameters types.String `tfsdk:"parameters"`
+	LeafPkiDhParameters types.String `tfsdk:"parameters" json:"parameters,omitempty"`
 
 	// TagNodes
 
@@ -30,56 +27,6 @@ func (o *PkiDh) GetVyosPath() []string {
 		"pki",
 		"dh",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PkiDh) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "dh"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPkiDhParameters.IsNull() || o.LeafPkiDhParameters.IsUnknown()) {
-		vyosData["parameters"] = o.LeafPkiDhParameters.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PkiDh) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "dh"}})
-
-	// Leafs
-	if value, ok := vyosData["parameters"]; ok {
-		o.LeafPkiDhParameters = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiDhParameters = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "dh"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PkiDh) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"parameters": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -107,4 +54,49 @@ func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PkiDh) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPkiDhParameters.IsNull() && !o.LeafPkiDhParameters.IsUnknown() {
+		jsonData["parameters"] = o.LeafPkiDhParameters.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PkiDh) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["parameters"]; ok {
+		o.LeafPkiDhParameters = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiDhParameters = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

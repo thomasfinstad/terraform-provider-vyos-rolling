@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyFqCodel describes the resource data model.
@@ -17,12 +14,12 @@ type QosPolicyFqCodel struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyFqCodelDescrIPtion  types.String `tfsdk:"description"`
-	LeafQosPolicyFqCodelCodelQuantum types.String `tfsdk:"codel_quantum"`
-	LeafQosPolicyFqCodelFlows        types.String `tfsdk:"flows"`
-	LeafQosPolicyFqCodelInterval     types.String `tfsdk:"interval"`
-	LeafQosPolicyFqCodelQueueLimit   types.String `tfsdk:"queue_limit"`
-	LeafQosPolicyFqCodelTarget       types.String `tfsdk:"target"`
+	LeafQosPolicyFqCodelDescrIPtion  types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyFqCodelCodelQuantum types.String `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
+	LeafQosPolicyFqCodelFlows        types.String `tfsdk:"flows" json:"flows,omitempty"`
+	LeafQosPolicyFqCodelInterval     types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafQosPolicyFqCodelQueueLimit   types.String `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyFqCodelTarget       types.String `tfsdk:"target" json:"target,omitempty"`
 
 	// TagNodes
 
@@ -36,101 +33,6 @@ func (o *QosPolicyFqCodel) GetVyosPath() []string {
 		"policy",
 		"fq-codel",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyFqCodel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyFqCodelDescrIPtion.IsNull() || o.LeafQosPolicyFqCodelDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyFqCodelDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyFqCodelCodelQuantum.IsNull() || o.LeafQosPolicyFqCodelCodelQuantum.IsUnknown()) {
-		vyosData["codel-quantum"] = o.LeafQosPolicyFqCodelCodelQuantum.ValueString()
-	}
-	if !(o.LeafQosPolicyFqCodelFlows.IsNull() || o.LeafQosPolicyFqCodelFlows.IsUnknown()) {
-		vyosData["flows"] = o.LeafQosPolicyFqCodelFlows.ValueString()
-	}
-	if !(o.LeafQosPolicyFqCodelInterval.IsNull() || o.LeafQosPolicyFqCodelInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafQosPolicyFqCodelInterval.ValueString()
-	}
-	if !(o.LeafQosPolicyFqCodelQueueLimit.IsNull() || o.LeafQosPolicyFqCodelQueueLimit.IsUnknown()) {
-		vyosData["queue-limit"] = o.LeafQosPolicyFqCodelQueueLimit.ValueString()
-	}
-	if !(o.LeafQosPolicyFqCodelTarget.IsNull() || o.LeafQosPolicyFqCodelTarget.IsUnknown()) {
-		vyosData["target"] = o.LeafQosPolicyFqCodelTarget.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyFqCodel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["codel-quantum"]; ok {
-		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["flows"]; ok {
-		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-limit"]; ok {
-		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["target"]; ok {
-		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyFqCodel) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":   types.StringType,
-		"codel_quantum": types.StringType,
-		"flows":         types.StringType,
-		"interval":      types.StringType,
-		"queue_limit":   types.StringType,
-		"target":        types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -236,4 +138,99 @@ func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyFqCodel) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyFqCodelDescrIPtion.IsNull() && !o.LeafQosPolicyFqCodelDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyFqCodelDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyFqCodelCodelQuantum.IsNull() && !o.LeafQosPolicyFqCodelCodelQuantum.IsUnknown() {
+		jsonData["codel-quantum"] = o.LeafQosPolicyFqCodelCodelQuantum.ValueString()
+	}
+
+	if !o.LeafQosPolicyFqCodelFlows.IsNull() && !o.LeafQosPolicyFqCodelFlows.IsUnknown() {
+		jsonData["flows"] = o.LeafQosPolicyFqCodelFlows.ValueString()
+	}
+
+	if !o.LeafQosPolicyFqCodelInterval.IsNull() && !o.LeafQosPolicyFqCodelInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafQosPolicyFqCodelInterval.ValueString()
+	}
+
+	if !o.LeafQosPolicyFqCodelQueueLimit.IsNull() && !o.LeafQosPolicyFqCodelQueueLimit.IsUnknown() {
+		jsonData["queue-limit"] = o.LeafQosPolicyFqCodelQueueLimit.ValueString()
+	}
+
+	if !o.LeafQosPolicyFqCodelTarget.IsNull() && !o.LeafQosPolicyFqCodelTarget.IsUnknown() {
+		jsonData["target"] = o.LeafQosPolicyFqCodelTarget.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyFqCodel) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["codel-quantum"]; ok {
+		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["flows"]; ok {
+		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-limit"]; ok {
+		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["target"]; ok {
+		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

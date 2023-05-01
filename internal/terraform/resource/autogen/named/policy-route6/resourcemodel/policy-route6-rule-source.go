@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleSource describes the resource data model.
 type PolicyRoutesixRuleSource struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleSourceAddress    types.String `tfsdk:"address"`
-	LeafPolicyRoutesixRuleSourcePort       types.String `tfsdk:"port"`
-	LeafPolicyRoutesixRuleSourceMacAddress types.String `tfsdk:"mac_address"`
+	LeafPolicyRoutesixRuleSourceAddress    types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafPolicyRoutesixRuleSourcePort       types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafPolicyRoutesixRuleSourceMacAddress types.String `tfsdk:"mac_address" json:"mac-address,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyRoutesixRuleSourceGroup types.Object `tfsdk:"group"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRoutesixRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRoutesixRuleSourceAddress.IsNull() || o.LeafPolicyRoutesixRuleSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafPolicyRoutesixRuleSourceAddress.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleSourcePort.IsNull() || o.LeafPolicyRoutesixRuleSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafPolicyRoutesixRuleSourcePort.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleSourceMacAddress.IsNull() || o.LeafPolicyRoutesixRuleSourceMacAddress.IsUnknown()) {
-		vyosData["mac-address"] = o.LeafPolicyRoutesixRuleSourceMacAddress.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRoutesixRuleSourceGroup.IsNull() || o.NodePolicyRoutesixRuleSourceGroup.IsUnknown()) {
-		var subModel PolicyRoutesixRuleSourceGroup
-		diags.Append(o.NodePolicyRoutesixRuleSourceGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRoutesixRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac-address"]; ok {
-		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["group"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleSourceGroup{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRoutesixRuleSourceGroup = data
-
-	} else {
-		o.NodePolicyRoutesixRuleSourceGroup = basetypes.NewObjectNull(PolicyRoutesixRuleSourceGroup{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRoutesixRuleSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"port":        types.StringType,
-		"mac_address": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"group": types.ObjectType{AttrTypes: PolicyRoutesixRuleSourceGroup{}.AttributeTypes()},
-	}
+	NodePolicyRoutesixRuleSourceGroup *PolicyRoutesixRuleSourceGroup `tfsdk:"group" json:"group,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -165,4 +82,96 @@ func (o PolicyRoutesixRuleSource) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRoutesixRuleSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRoutesixRuleSourceAddress.IsNull() && !o.LeafPolicyRoutesixRuleSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafPolicyRoutesixRuleSourceAddress.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleSourcePort.IsNull() && !o.LeafPolicyRoutesixRuleSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafPolicyRoutesixRuleSourcePort.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleSourceMacAddress.IsNull() && !o.LeafPolicyRoutesixRuleSourceMacAddress.IsUnknown() {
+		jsonData["mac-address"] = o.LeafPolicyRoutesixRuleSourceMacAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRoutesixRuleSourceGroup).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRoutesixRuleSourceGroup)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["group"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRoutesixRuleSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac-address"]; ok {
+		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["group"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRoutesixRuleSourceGroup = &PolicyRoutesixRuleSourceGroup{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRoutesixRuleSourceGroup)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

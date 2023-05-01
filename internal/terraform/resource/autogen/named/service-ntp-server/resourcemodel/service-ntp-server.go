@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceNtpServer describes the resource data model.
@@ -17,9 +14,9 @@ type ServiceNtpServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceNtpServerNoselect types.String `tfsdk:"noselect"`
-	LeafServiceNtpServerPool     types.String `tfsdk:"pool"`
-	LeafServiceNtpServerPrefer   types.String `tfsdk:"prefer"`
+	LeafServiceNtpServerNoselect types.String `tfsdk:"noselect" json:"noselect,omitempty"`
+	LeafServiceNtpServerPool     types.String `tfsdk:"pool" json:"pool,omitempty"`
+	LeafServiceNtpServerPrefer   types.String `tfsdk:"prefer" json:"prefer,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *ServiceNtpServer) GetVyosPath() []string {
 		"ntp",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceNtpServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceNtpServerNoselect.IsNull() || o.LeafServiceNtpServerNoselect.IsUnknown()) {
-		vyosData["noselect"] = o.LeafServiceNtpServerNoselect.ValueString()
-	}
-	if !(o.LeafServiceNtpServerPool.IsNull() || o.LeafServiceNtpServerPool.IsUnknown()) {
-		vyosData["pool"] = o.LeafServiceNtpServerPool.ValueString()
-	}
-	if !(o.LeafServiceNtpServerPrefer.IsNull() || o.LeafServiceNtpServerPrefer.IsUnknown()) {
-		vyosData["prefer"] = o.LeafServiceNtpServerPrefer.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceNtpServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["noselect"]; ok {
-		o.LeafServiceNtpServerNoselect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerNoselect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["pool"]; ok {
-		o.LeafServiceNtpServerPool = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerPool = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["prefer"]; ok {
-		o.LeafServiceNtpServerPrefer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceNtpServerPrefer = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceNtpServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"noselect": types.StringType,
-		"pool":     types.StringType,
-		"prefer":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -148,4 +77,69 @@ func (o ServiceNtpServer) ResourceSchemaAttributes() map[string]schema.Attribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceNtpServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceNtpServerNoselect.IsNull() && !o.LeafServiceNtpServerNoselect.IsUnknown() {
+		jsonData["noselect"] = o.LeafServiceNtpServerNoselect.ValueString()
+	}
+
+	if !o.LeafServiceNtpServerPool.IsNull() && !o.LeafServiceNtpServerPool.IsUnknown() {
+		jsonData["pool"] = o.LeafServiceNtpServerPool.ValueString()
+	}
+
+	if !o.LeafServiceNtpServerPrefer.IsNull() && !o.LeafServiceNtpServerPrefer.IsUnknown() {
+		jsonData["prefer"] = o.LeafServiceNtpServerPrefer.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceNtpServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["noselect"]; ok {
+		o.LeafServiceNtpServerNoselect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerNoselect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["pool"]; ok {
+		o.LeafServiceNtpServerPool = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerPool = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["prefer"]; ok {
+		o.LeafServiceNtpServerPrefer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerPrefer = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

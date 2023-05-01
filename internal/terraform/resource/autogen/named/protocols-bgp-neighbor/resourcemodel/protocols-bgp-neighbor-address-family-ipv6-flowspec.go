@@ -2,143 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient types.String `tfsdk:"route_reflector_client"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient    types.String `tfsdk:"route_server_client"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient types.String `tfsdk:"route_reflector_client" json:"route-reflector-client,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient    types.String `tfsdk:"route_server_client" json:"route-server-client,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList          types.Object `tfsdk:"prefix_list"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList          types.Object `tfsdk:"filter_list"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap            types.Object `tfsdk:"route_map"`
-	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration types.Object `tfsdk:"soft_reconfiguration"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.IsUnknown()) {
-		vyosData["route-reflector-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.IsUnknown()) {
-		vyosData["route-server-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList.IsUnknown()) {
-		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList
-		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList.IsUnknown()) {
-		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList
-		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["filter-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap.IsUnknown()) {
-		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap
-		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration.IsUnknown()) {
-		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration
-		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["soft-reconfiguration"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec"}})
-
-	// Leafs
-	if value, ok := vyosData["route-reflector-client"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-server-client"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["prefix-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList = data
-
-	} else {
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList{}.AttributeTypes())
-	}
-	if value, ok := vyosData["filter-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList = data
-
-	} else {
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList{}.AttributeTypes())
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap = data
-
-	} else {
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap{}.AttributeTypes())
-	}
-	if value, ok := vyosData["soft-reconfiguration"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration = data
-
-	} else {
-		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-flowspec"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"route_reflector_client": types.StringType,
-		"route_server_client":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"prefix_list":          types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList{}.AttributeTypes()},
-		"filter_list":          types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList{}.AttributeTypes()},
-		"route_map":            types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap{}.AttributeTypes()},
-		"soft_reconfiguration": types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration{}.AttributeTypes()},
-	}
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList          *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList          `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList          *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList          `tfsdk:"filter_list" json:"filter-list,omitempty"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap            *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap            `tfsdk:"route_map" json:"route-map,omitempty"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration `tfsdk:"soft_reconfiguration" json:"soft-reconfiguration,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -196,4 +80,167 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) ResourceSchemaAttribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.IsUnknown() {
+		jsonData["route-reflector-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.IsUnknown() {
+		jsonData["route-server-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix-list"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["filter-list"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-map"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["soft-reconfiguration"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixFlowspec) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["route-reflector-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteReflectorClient = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-server-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteServerClient = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["prefix-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList = &ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecPrefixList)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["filter-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList = &ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecFilterList)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route-map"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap = &ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecRouteMap)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["soft-reconfiguration"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration = &ProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBgpNeighborAddressFamilyIPvsixFlowspecSoftReconfiguration)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

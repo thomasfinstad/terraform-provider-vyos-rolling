@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersDistanceGlobal describes the resource data model.
 type VrfNameProtocolsBgpParametersDistanceGlobal struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal types.String `tfsdk:"external"`
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal types.String `tfsdk:"internal"`
-	LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal    types.String `tfsdk:"local"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal types.String `tfsdk:"external" json:"external,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal types.String `tfsdk:"internal" json:"internal,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal    types.String `tfsdk:"local" json:"local,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpParametersDistanceGlobal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "distance", "global"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsNull() || o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsUnknown()) {
-		vyosData["external"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsNull() || o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsUnknown()) {
-		vyosData["internal"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsNull() || o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsUnknown()) {
-		vyosData["local"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpParametersDistanceGlobal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "distance", "global"}})
-
-	// Leafs
-	if value, ok := vyosData["external"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["internal"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "distance", "global"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpParametersDistanceGlobal) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"external": types.StringType,
-		"internal": types.StringType,
-		"local":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o VrfNameProtocolsBgpParametersDistanceGlobal) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpParametersDistanceGlobal) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.IsUnknown() {
+		jsonData["external"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.IsUnknown() {
+		jsonData["internal"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsNull() && !o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.IsUnknown() {
+		jsonData["local"] = o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpParametersDistanceGlobal) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["external"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalExternal = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["internal"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalInternal = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDistanceGlobalLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeAutoCost describes the resource data model.
 type VrfNameProtocolsOspfvthreeAutoCost struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth types.String `tfsdk:"reference_bandwidth"`
+	LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth types.String `tfsdk:"reference_bandwidth" json:"reference-bandwidth,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfvthreeAutoCost) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "auto-cost"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsNull() || o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsUnknown()) {
-		vyosData["reference-bandwidth"] = o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfvthreeAutoCost) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "auto-cost"}})
-
-	// Leafs
-	if value, ok := vyosData["reference-bandwidth"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "auto-cost"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfvthreeAutoCost) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"reference_bandwidth": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -96,4 +43,49 @@ func (o VrfNameProtocolsOspfvthreeAutoCost) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfvthreeAutoCost) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.IsUnknown() {
+		jsonData["reference-bandwidth"] = o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfvthreeAutoCost) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["reference-bandwidth"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeAutoCostReferenceBandwIDth = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

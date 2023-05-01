@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWireguard describes the resource data model.
@@ -17,23 +15,23 @@ type InterfacesWireguard struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesWireguardAddress     types.String `tfsdk:"address"`
-	LeafInterfacesWireguardDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesWireguardDisable     types.String `tfsdk:"disable"`
-	LeafInterfacesWireguardPort        types.String `tfsdk:"port"`
-	LeafInterfacesWireguardMtu         types.String `tfsdk:"mtu"`
-	LeafInterfacesWireguardFwmark      types.String `tfsdk:"fwmark"`
-	LeafInterfacesWireguardPrivateKey  types.String `tfsdk:"private_key"`
-	LeafInterfacesWireguardRedirect    types.String `tfsdk:"redirect"`
-	LeafInterfacesWireguardVrf         types.String `tfsdk:"vrf"`
+	LeafInterfacesWireguardAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesWireguardDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesWireguardDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesWireguardPort        types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafInterfacesWireguardMtu         types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesWireguardFwmark      types.String `tfsdk:"fwmark" json:"fwmark,omitempty"`
+	LeafInterfacesWireguardPrivateKey  types.String `tfsdk:"private_key" json:"private-key,omitempty"`
+	LeafInterfacesWireguardRedirect    types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesWireguardVrf         types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
-	TagInterfacesWireguardPeer types.Map `tfsdk:"peer"`
+	TagInterfacesWireguardPeer *map[string]InterfacesWireguardPeer `tfsdk:"peer" json:"peer,omitempty"`
 
 	// Nodes
-	NodeInterfacesWireguardMirror types.Object `tfsdk:"mirror"`
-	NodeInterfacesWireguardIP     types.Object `tfsdk:"ip"`
-	NodeInterfacesWireguardIPvsix types.Object `tfsdk:"ipv6"`
+	NodeInterfacesWireguardMirror *InterfacesWireguardMirror `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesWireguardIP     *InterfacesWireguardIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesWireguardIPvsix *InterfacesWireguardIPvsix `tfsdk:"ipv6" json:"ipv6,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -42,187 +40,6 @@ func (o *InterfacesWireguard) GetVyosPath() []string {
 		"interfaces",
 		"wireguard",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesWireguard) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireguard"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesWireguardAddress.IsNull() || o.LeafInterfacesWireguardAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesWireguardAddress.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardDescrIPtion.IsNull() || o.LeafInterfacesWireguardDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesWireguardDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardDisable.IsNull() || o.LeafInterfacesWireguardDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesWireguardDisable.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardPort.IsNull() || o.LeafInterfacesWireguardPort.IsUnknown()) {
-		vyosData["port"] = o.LeafInterfacesWireguardPort.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardMtu.IsNull() || o.LeafInterfacesWireguardMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesWireguardMtu.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardFwmark.IsNull() || o.LeafInterfacesWireguardFwmark.IsUnknown()) {
-		vyosData["fwmark"] = o.LeafInterfacesWireguardFwmark.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardPrivateKey.IsNull() || o.LeafInterfacesWireguardPrivateKey.IsUnknown()) {
-		vyosData["private-key"] = o.LeafInterfacesWireguardPrivateKey.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardRedirect.IsNull() || o.LeafInterfacesWireguardRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesWireguardRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesWireguardVrf.IsNull() || o.LeafInterfacesWireguardVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesWireguardVrf.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesWireguardPeer.IsNull() || o.TagInterfacesWireguardPeer.IsUnknown()) {
-		subModel := make(map[string]InterfacesWireguardPeer)
-		diags.Append(o.TagInterfacesWireguardPeer.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["peer"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeInterfacesWireguardMirror.IsNull() || o.NodeInterfacesWireguardMirror.IsUnknown()) {
-		var subModel InterfacesWireguardMirror
-		diags.Append(o.NodeInterfacesWireguardMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWireguardIP.IsNull() || o.NodeInterfacesWireguardIP.IsUnknown()) {
-		var subModel InterfacesWireguardIP
-		diags.Append(o.NodeInterfacesWireguardIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesWireguardIPvsix.IsNull() || o.NodeInterfacesWireguardIPvsix.IsUnknown()) {
-		var subModel InterfacesWireguardIPvsix
-		diags.Append(o.NodeInterfacesWireguardIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesWireguard) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireguard"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesWireguardAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesWireguardDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafInterfacesWireguardPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesWireguardMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fwmark"]; ok {
-		o.LeafInterfacesWireguardFwmark = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardFwmark = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["private-key"]; ok {
-		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesWireguardRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesWireguardVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesWireguardVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["peer"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesWireguardPeer{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesWireguardPeer = data
-	} else {
-		o.TagInterfacesWireguardPeer = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWireguardMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWireguardMirror = data
-
-	} else {
-		o.NodeInterfacesWireguardMirror = basetypes.NewObjectNull(InterfacesWireguardMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWireguardIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWireguardIP = data
-
-	} else {
-		o.NodeInterfacesWireguardIP = basetypes.NewObjectNull(InterfacesWireguardIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWireguardIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesWireguardIPvsix = data
-
-	} else {
-		o.NodeInterfacesWireguardIPvsix = basetypes.NewObjectNull(InterfacesWireguardIPvsix{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireguard"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesWireguard) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-		"disable":     types.StringType,
-		"port":        types.StringType,
-		"mtu":         types.StringType,
-		"fwmark":      types.StringType,
-		"private_key": types.StringType,
-		"redirect":    types.StringType,
-		"vrf":         types.StringType,
-
-		// Tags
-		"peer": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesWireguardPeer{}.AttributeTypes()}},
-
-		// Nodes
-		"mirror": types.ObjectType{AttrTypes: InterfacesWireguardMirror{}.AttributeTypes()},
-		"ip":     types.ObjectType{AttrTypes: InterfacesWireguardIP{}.AttributeTypes()},
-		"ipv6":   types.ObjectType{AttrTypes: InterfacesWireguardIPvsix{}.AttributeTypes()},
 	}
 }
 
@@ -378,4 +195,237 @@ func (o InterfacesWireguard) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesWireguard) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesWireguardAddress.IsNull() && !o.LeafInterfacesWireguardAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesWireguardAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardDescrIPtion.IsNull() && !o.LeafInterfacesWireguardDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesWireguardDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardDisable.IsNull() && !o.LeafInterfacesWireguardDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesWireguardDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardPort.IsNull() && !o.LeafInterfacesWireguardPort.IsUnknown() {
+		jsonData["port"] = o.LeafInterfacesWireguardPort.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardMtu.IsNull() && !o.LeafInterfacesWireguardMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesWireguardMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardFwmark.IsNull() && !o.LeafInterfacesWireguardFwmark.IsUnknown() {
+		jsonData["fwmark"] = o.LeafInterfacesWireguardFwmark.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardPrivateKey.IsNull() && !o.LeafInterfacesWireguardPrivateKey.IsUnknown() {
+		jsonData["private-key"] = o.LeafInterfacesWireguardPrivateKey.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardRedirect.IsNull() && !o.LeafInterfacesWireguardRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesWireguardRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesWireguardVrf.IsNull() && !o.LeafInterfacesWireguardVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesWireguardVrf.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesWireguardPeer).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesWireguardPeer)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["peer"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesWireguardMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWireguardIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesWireguardIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesWireguardIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesWireguard) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesWireguardAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesWireguardDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafInterfacesWireguardPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesWireguardMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fwmark"]; ok {
+		o.LeafInterfacesWireguardFwmark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardFwmark = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["private-key"]; ok {
+		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardPrivateKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesWireguardRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesWireguardVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWireguardVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["peer"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesWireguardPeer = &map[string]InterfacesWireguardPeer{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesWireguardPeer)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWireguardMirror = &InterfacesWireguardMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWireguardIP = &InterfacesWireguardIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesWireguardIPvsix = &InterfacesWireguardIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesWireguardIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

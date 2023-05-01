@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesLoopback describes the resource data model.
@@ -17,15 +15,15 @@ type InterfacesLoopback struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesLoopbackAddress     types.String `tfsdk:"address"`
-	LeafInterfacesLoopbackDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesLoopbackRedirect    types.String `tfsdk:"redirect"`
+	LeafInterfacesLoopbackAddress     types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesLoopbackDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesLoopbackRedirect    types.String `tfsdk:"redirect" json:"redirect,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesLoopbackIP     types.Object `tfsdk:"ip"`
-	NodeInterfacesLoopbackMirror types.Object `tfsdk:"mirror"`
+	NodeInterfacesLoopbackIP     *InterfacesLoopbackIP     `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesLoopbackMirror *InterfacesLoopbackMirror `tfsdk:"mirror" json:"mirror,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,101 +32,6 @@ func (o *InterfacesLoopback) GetVyosPath() []string {
 		"interfaces",
 		"loopback",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesLoopback) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesLoopbackAddress.IsNull() || o.LeafInterfacesLoopbackAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesLoopbackAddress.ValueString()
-	}
-	if !(o.LeafInterfacesLoopbackDescrIPtion.IsNull() || o.LeafInterfacesLoopbackDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesLoopbackDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesLoopbackRedirect.IsNull() || o.LeafInterfacesLoopbackRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesLoopbackRedirect.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesLoopbackIP.IsNull() || o.NodeInterfacesLoopbackIP.IsUnknown()) {
-		var subModel InterfacesLoopbackIP
-		diags.Append(o.NodeInterfacesLoopbackIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesLoopbackMirror.IsNull() || o.NodeInterfacesLoopbackMirror.IsUnknown()) {
-		var subModel InterfacesLoopbackMirror
-		diags.Append(o.NodeInterfacesLoopbackMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesLoopback) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesLoopbackAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesLoopbackIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesLoopbackIP = data
-
-	} else {
-		o.NodeInterfacesLoopbackIP = basetypes.NewObjectNull(InterfacesLoopbackIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesLoopbackMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesLoopbackMirror = data
-
-	} else {
-		o.NodeInterfacesLoopbackMirror = basetypes.NewObjectNull(InterfacesLoopbackMirror{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesLoopback) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":     types.StringType,
-		"description": types.StringType,
-		"redirect":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ip":     types.ObjectType{AttrTypes: InterfacesLoopbackIP{}.AttributeTypes()},
-		"mirror": types.ObjectType{AttrTypes: InterfacesLoopbackMirror{}.AttributeTypes()},
 	}
 }
 
@@ -202,4 +105,123 @@ func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesLoopback) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesLoopbackAddress.IsNull() && !o.LeafInterfacesLoopbackAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesLoopbackAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesLoopbackDescrIPtion.IsNull() && !o.LeafInterfacesLoopbackDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesLoopbackDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesLoopbackRedirect.IsNull() && !o.LeafInterfacesLoopbackRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesLoopbackRedirect.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesLoopbackIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesLoopbackIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesLoopbackMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesLoopbackMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesLoopback) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesLoopbackAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesLoopbackIP = &InterfacesLoopbackIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesLoopbackIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesLoopbackMirror = &InterfacesLoopbackMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesLoopbackMirror)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

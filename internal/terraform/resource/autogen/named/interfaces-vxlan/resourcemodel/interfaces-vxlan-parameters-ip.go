@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanParametersIP describes the resource data model.
 type InterfacesVxlanParametersIP struct {
 	// LeafNodes
-	LeafInterfacesVxlanParametersIPDf  types.String `tfsdk:"df"`
-	LeafInterfacesVxlanParametersIPTos types.String `tfsdk:"tos"`
-	LeafInterfacesVxlanParametersIPTTL types.String `tfsdk:"ttl"`
+	LeafInterfacesVxlanParametersIPDf  types.String `tfsdk:"df" json:"df,omitempty"`
+	LeafInterfacesVxlanParametersIPTos types.String `tfsdk:"tos" json:"tos,omitempty"`
+	LeafInterfacesVxlanParametersIPTTL types.String `tfsdk:"ttl" json:"ttl,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesVxlanParametersIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesVxlanParametersIPDf.IsNull() || o.LeafInterfacesVxlanParametersIPDf.IsUnknown()) {
-		vyosData["df"] = o.LeafInterfacesVxlanParametersIPDf.ValueString()
-	}
-	if !(o.LeafInterfacesVxlanParametersIPTos.IsNull() || o.LeafInterfacesVxlanParametersIPTos.IsUnknown()) {
-		vyosData["tos"] = o.LeafInterfacesVxlanParametersIPTos.ValueString()
-	}
-	if !(o.LeafInterfacesVxlanParametersIPTTL.IsNull() || o.LeafInterfacesVxlanParametersIPTTL.IsUnknown()) {
-		vyosData["ttl"] = o.LeafInterfacesVxlanParametersIPTTL.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesVxlanParametersIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
-
-	// Leafs
-	if value, ok := vyosData["df"]; ok {
-		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["tos"]; ok {
-		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ttl"]; ok {
-		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesVxlanParametersIP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"df":  types.StringType,
-		"tos": types.StringType,
-		"ttl": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -147,4 +76,69 @@ func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesVxlanParametersIP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesVxlanParametersIPDf.IsNull() && !o.LeafInterfacesVxlanParametersIPDf.IsUnknown() {
+		jsonData["df"] = o.LeafInterfacesVxlanParametersIPDf.ValueString()
+	}
+
+	if !o.LeafInterfacesVxlanParametersIPTos.IsNull() && !o.LeafInterfacesVxlanParametersIPTos.IsUnknown() {
+		jsonData["tos"] = o.LeafInterfacesVxlanParametersIPTos.ValueString()
+	}
+
+	if !o.LeafInterfacesVxlanParametersIPTTL.IsNull() && !o.LeafInterfacesVxlanParametersIPTTL.IsUnknown() {
+		jsonData["ttl"] = o.LeafInterfacesVxlanParametersIPTTL.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesVxlanParametersIP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["df"]; ok {
+		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["tos"]; ok {
+		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ttl"]; ok {
+		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

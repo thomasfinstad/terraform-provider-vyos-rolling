@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourVpnNetwork describes the resource data model.
@@ -17,8 +14,8 @@ type ProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd    types.String `tfsdk:"rd"`
-	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel types.String `tfsdk:"label"`
+	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd    types.String `tfsdk:"rd" json:"rd,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel types.String `tfsdk:"label" json:"label,omitempty"`
 
 	// TagNodes
 
@@ -34,65 +31,6 @@ func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetVyosPath() []string {
 		"ipv4-vpn",
 		"network",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsUnknown()) {
-		vyosData["rd"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.ValueString()
-	}
-	if !(o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsUnknown()) {
-		vyosData["label"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["rd"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["label"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"rd":    types.StringType,
-		"label": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -139,4 +77,59 @@ func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceSchemaAttributes() m
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsUnknown() {
+		jsonData["rd"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsUnknown() {
+		jsonData["label"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["rd"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["label"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

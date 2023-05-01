@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEventFilter describes the resource data model.
 type ServiceEventHandlerEventFilter struct {
 	// LeafNodes
-	LeafServiceEventHandlerEventFilterPattern          types.String `tfsdk:"pattern"`
-	LeafServiceEventHandlerEventFilterSyslogIDentifier types.String `tfsdk:"syslog_identifier"`
+	LeafServiceEventHandlerEventFilterPattern          types.String `tfsdk:"pattern" json:"pattern,omitempty"`
+	LeafServiceEventHandlerEventFilterSyslogIDentifier types.String `tfsdk:"syslog_identifier" json:"syslog-identifier,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceEventHandlerEventFilter) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceEventHandlerEventFilterPattern.IsNull() || o.LeafServiceEventHandlerEventFilterPattern.IsUnknown()) {
-		vyosData["pattern"] = o.LeafServiceEventHandlerEventFilterPattern.ValueString()
-	}
-	if !(o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsNull() || o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsUnknown()) {
-		vyosData["syslog-identifier"] = o.LeafServiceEventHandlerEventFilterSyslogIDentifier.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceEventHandlerEventFilter) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
-
-	// Leafs
-	if value, ok := vyosData["pattern"]; ok {
-		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["syslog-identifier"]; ok {
-		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceEventHandlerEventFilter) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"pattern":           types.StringType,
-		"syslog_identifier": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ServiceEventHandlerEventFilter) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceEventHandlerEventFilter) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceEventHandlerEventFilterPattern.IsNull() && !o.LeafServiceEventHandlerEventFilterPattern.IsUnknown() {
+		jsonData["pattern"] = o.LeafServiceEventHandlerEventFilterPattern.ValueString()
+	}
+
+	if !o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsNull() && !o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsUnknown() {
+		jsonData["syslog-identifier"] = o.LeafServiceEventHandlerEventFilterSyslogIDentifier.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceEventHandlerEventFilter) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["pattern"]; ok {
+		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["syslog-identifier"]; ok {
+		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

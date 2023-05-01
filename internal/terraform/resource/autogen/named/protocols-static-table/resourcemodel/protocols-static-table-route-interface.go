@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTableRouteInterface describes the resource data model.
 type ProtocolsStaticTableRouteInterface struct {
 	// LeafNodes
-	LeafProtocolsStaticTableRouteInterfaceDisable  types.String `tfsdk:"disable"`
-	LeafProtocolsStaticTableRouteInterfaceDistance types.String `tfsdk:"distance"`
-	LeafProtocolsStaticTableRouteInterfaceVrf      types.String `tfsdk:"vrf"`
+	LeafProtocolsStaticTableRouteInterfaceDisable  types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafProtocolsStaticTableRouteInterfaceDistance types.String `tfsdk:"distance" json:"distance,omitempty"`
+	LeafProtocolsStaticTableRouteInterfaceVrf      types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticTableRouteInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticTableRouteInterfaceDisable.IsNull() || o.LeafProtocolsStaticTableRouteInterfaceDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafProtocolsStaticTableRouteInterfaceDisable.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRouteInterfaceDistance.IsNull() || o.LeafProtocolsStaticTableRouteInterfaceDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsStaticTableRouteInterfaceDistance.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRouteInterfaceVrf.IsNull() || o.LeafProtocolsStaticTableRouteInterfaceVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafProtocolsStaticTableRouteInterfaceVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticTableRouteInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafProtocolsStaticTableRouteInterfaceDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRouteInterfaceDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsStaticTableRouteInterfaceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRouteInterfaceDistance = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafProtocolsStaticTableRouteInterfaceVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRouteInterfaceVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticTableRouteInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":  types.StringType,
-		"distance": types.StringType,
-		"vrf":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -131,4 +60,69 @@ func (o ProtocolsStaticTableRouteInterface) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticTableRouteInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticTableRouteInterfaceDisable.IsNull() && !o.LeafProtocolsStaticTableRouteInterfaceDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafProtocolsStaticTableRouteInterfaceDisable.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRouteInterfaceDistance.IsNull() && !o.LeafProtocolsStaticTableRouteInterfaceDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsStaticTableRouteInterfaceDistance.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRouteInterfaceVrf.IsNull() && !o.LeafProtocolsStaticTableRouteInterfaceVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafProtocolsStaticTableRouteInterfaceVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticTableRouteInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafProtocolsStaticTableRouteInterfaceDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRouteInterfaceDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsStaticTableRouteInterfaceDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRouteInterfaceDistance = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafProtocolsStaticTableRouteInterfaceVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRouteInterfaceVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemFlowAccountingSflowServer describes the resource data model.
@@ -17,7 +14,7 @@ type SystemFlowAccountingSflowServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafSystemFlowAccountingSflowServerPort types.String `tfsdk:"port"`
+	LeafSystemFlowAccountingSflowServerPort types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
@@ -32,56 +29,6 @@ func (o *SystemFlowAccountingSflowServer) GetVyosPath() []string {
 		"sflow",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemFlowAccountingSflowServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "flow-accounting", "sflow", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemFlowAccountingSflowServerPort.IsNull() || o.LeafSystemFlowAccountingSflowServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafSystemFlowAccountingSflowServerPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemFlowAccountingSflowServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "flow-accounting", "sflow", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["port"]; ok {
-		o.LeafSystemFlowAccountingSflowServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemFlowAccountingSflowServerPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "flow-accounting", "sflow", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemFlowAccountingSflowServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"port": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -121,4 +68,49 @@ func (o SystemFlowAccountingSflowServer) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemFlowAccountingSflowServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemFlowAccountingSflowServerPort.IsNull() && !o.LeafSystemFlowAccountingSflowServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafSystemFlowAccountingSflowServerPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemFlowAccountingSflowServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafSystemFlowAccountingSflowServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemFlowAccountingSflowServerPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

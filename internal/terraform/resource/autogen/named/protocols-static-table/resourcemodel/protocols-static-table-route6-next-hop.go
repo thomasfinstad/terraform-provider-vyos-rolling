@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTableRoutesixNextHop describes the resource data model.
 type ProtocolsStaticTableRoutesixNextHop struct {
 	// LeafNodes
-	LeafProtocolsStaticTableRoutesixNextHopDisable   types.String `tfsdk:"disable"`
-	LeafProtocolsStaticTableRoutesixNextHopDistance  types.String `tfsdk:"distance"`
-	LeafProtocolsStaticTableRoutesixNextHopInterface types.String `tfsdk:"interface"`
-	LeafProtocolsStaticTableRoutesixNextHopVrf       types.String `tfsdk:"vrf"`
+	LeafProtocolsStaticTableRoutesixNextHopDisable   types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafProtocolsStaticTableRoutesixNextHopDistance  types.String `tfsdk:"distance" json:"distance,omitempty"`
+	LeafProtocolsStaticTableRoutesixNextHopInterface types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafProtocolsStaticTableRoutesixNextHopVrf       types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticTableRoutesixNextHop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "next-hop"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticTableRoutesixNextHopDisable.IsNull() || o.LeafProtocolsStaticTableRoutesixNextHopDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafProtocolsStaticTableRoutesixNextHopDisable.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRoutesixNextHopDistance.IsNull() || o.LeafProtocolsStaticTableRoutesixNextHopDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsStaticTableRoutesixNextHopDistance.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRoutesixNextHopInterface.IsNull() || o.LeafProtocolsStaticTableRoutesixNextHopInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafProtocolsStaticTableRoutesixNextHopInterface.ValueString()
-	}
-	if !(o.LeafProtocolsStaticTableRoutesixNextHopVrf.IsNull() || o.LeafProtocolsStaticTableRoutesixNextHopVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafProtocolsStaticTableRoutesixNextHopVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticTableRoutesixNextHop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "next-hop"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafProtocolsStaticTableRoutesixNextHopDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixNextHopDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsStaticTableRoutesixNextHopDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixNextHopDistance = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafProtocolsStaticTableRoutesixNextHopInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixNextHopInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafProtocolsStaticTableRoutesixNextHopVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticTableRoutesixNextHopVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route6", "next-hop"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticTableRoutesixNextHop) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":   types.StringType,
-		"distance":  types.StringType,
-		"interface": types.StringType,
-		"vrf":       types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -152,4 +72,79 @@ func (o ProtocolsStaticTableRoutesixNextHop) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticTableRoutesixNextHop) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticTableRoutesixNextHopDisable.IsNull() && !o.LeafProtocolsStaticTableRoutesixNextHopDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafProtocolsStaticTableRoutesixNextHopDisable.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRoutesixNextHopDistance.IsNull() && !o.LeafProtocolsStaticTableRoutesixNextHopDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsStaticTableRoutesixNextHopDistance.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRoutesixNextHopInterface.IsNull() && !o.LeafProtocolsStaticTableRoutesixNextHopInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafProtocolsStaticTableRoutesixNextHopInterface.ValueString()
+	}
+
+	if !o.LeafProtocolsStaticTableRoutesixNextHopVrf.IsNull() && !o.LeafProtocolsStaticTableRoutesixNextHopVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafProtocolsStaticTableRoutesixNextHopVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticTableRoutesixNextHop) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafProtocolsStaticTableRoutesixNextHopDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixNextHopDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsStaticTableRoutesixNextHopDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixNextHopDistance = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafProtocolsStaticTableRoutesixNextHopInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixNextHopInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafProtocolsStaticTableRoutesixNextHopVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRoutesixNextHopVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

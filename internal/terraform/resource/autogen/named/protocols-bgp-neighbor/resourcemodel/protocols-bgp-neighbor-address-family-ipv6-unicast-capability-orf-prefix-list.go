@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend    types.String `tfsdk:"send"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive" json:"receive,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend    types.String `tfsdk:"send" json:"send,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf", "prefix-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsUnknown()) {
-		vyosData["receive"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsUnknown()) {
-		vyosData["send"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf", "prefix-list"}})
-
-	// Leafs
-	if value, ok := vyosData["receive"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["send"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-unicast", "capability", "orf", "prefix-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"receive": types.StringType,
-		"send":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) R
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.IsUnknown() {
+		jsonData["receive"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.IsUnknown() {
+		jsonData["send"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["receive"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["send"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixUnicastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

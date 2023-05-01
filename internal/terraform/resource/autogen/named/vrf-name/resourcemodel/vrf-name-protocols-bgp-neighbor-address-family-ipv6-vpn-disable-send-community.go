@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended types.String `tfsdk:"extended"`
-	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard types.String `tfsdk:"standard"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended types.String `tfsdk:"extended" json:"extended,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard types.String `tfsdk:"standard" json:"standard,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-vpn", "disable-send-community"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.IsUnknown()) {
-		vyosData["extended"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.IsUnknown()) {
-		vyosData["standard"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-vpn", "disable-send-community"}})
-
-	// Leafs
-	if value, ok := vyosData["extended"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["standard"]; ok {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv6-vpn", "disable-send-community"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"extended": types.StringType,
-		"standard": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) R
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.IsUnknown() {
+		jsonData["extended"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.IsNull() && !o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.IsUnknown() {
+		jsonData["standard"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["extended"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityExtended = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["standard"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpnDisableSendCommunityStandard = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

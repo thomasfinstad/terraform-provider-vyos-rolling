@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEvent describes the resource data model.
@@ -21,8 +18,8 @@ type ServiceEventHandlerEvent struct {
 	// TagNodes
 
 	// Nodes
-	NodeServiceEventHandlerEventFilter types.Object `tfsdk:"filter"`
-	NodeServiceEventHandlerEventScrIPt types.Object `tfsdk:"script"`
+	NodeServiceEventHandlerEventFilter *ServiceEventHandlerEventFilter `tfsdk:"filter" json:"filter,omitempty"`
+	NodeServiceEventHandlerEventScrIPt *ServiceEventHandlerEventScrIPt `tfsdk:"script" json:"script,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -32,74 +29,6 @@ func (o *ServiceEventHandlerEvent) GetVyosPath() []string {
 		"event-handler",
 		"event",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceEventHandlerEvent) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceEventHandlerEventFilter.IsNull() || o.NodeServiceEventHandlerEventFilter.IsUnknown()) {
-		var subModel ServiceEventHandlerEventFilter
-		diags.Append(o.NodeServiceEventHandlerEventFilter.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["filter"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeServiceEventHandlerEventScrIPt.IsNull() || o.NodeServiceEventHandlerEventScrIPt.IsUnknown()) {
-		var subModel ServiceEventHandlerEventScrIPt
-		diags.Append(o.NodeServiceEventHandlerEventScrIPt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["script"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceEventHandlerEvent) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["filter"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceEventHandlerEventFilter{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceEventHandlerEventFilter = data
-
-	} else {
-		o.NodeServiceEventHandlerEventFilter = basetypes.NewObjectNull(ServiceEventHandlerEventFilter{}.AttributeTypes())
-	}
-	if value, ok := vyosData["script"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceEventHandlerEventScrIPt{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceEventHandlerEventScrIPt = data
-
-	} else {
-		o.NodeServiceEventHandlerEventScrIPt = basetypes.NewObjectNull(ServiceEventHandlerEventScrIPt{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceEventHandlerEvent) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"filter": types.ObjectType{AttrTypes: ServiceEventHandlerEventFilter{}.AttributeTypes()},
-		"script": types.ObjectType{AttrTypes: ServiceEventHandlerEventScrIPt{}.AttributeTypes()},
 	}
 }
 
@@ -135,4 +64,93 @@ func (o ServiceEventHandlerEvent) ResourceSchemaAttributes() map[string]schema.A
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceEventHandlerEvent) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceEventHandlerEventFilter).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceEventHandlerEventFilter)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["filter"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeServiceEventHandlerEventScrIPt).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceEventHandlerEventScrIPt)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["script"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceEventHandlerEvent) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["filter"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceEventHandlerEventFilter = &ServiceEventHandlerEventFilter{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceEventHandlerEventFilter)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["script"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceEventHandlerEventScrIPt = &ServiceEventHandlerEventScrIPt{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceEventHandlerEventScrIPt)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

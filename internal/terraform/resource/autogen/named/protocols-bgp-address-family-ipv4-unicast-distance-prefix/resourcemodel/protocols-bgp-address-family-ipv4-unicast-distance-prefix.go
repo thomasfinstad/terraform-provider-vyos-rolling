@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix describes the resource data model.
@@ -17,7 +14,7 @@ type ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance types.String `tfsdk:"distance"`
+	LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance types.String `tfsdk:"distance" json:"distance,omitempty"`
 
 	// TagNodes
 
@@ -34,56 +31,6 @@ func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) GetVyosPath() []
 		"distance",
 		"prefix",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-unicast", "distance", "prefix"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-unicast", "distance", "prefix"}})
-
-	// Leafs
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-unicast", "distance", "prefix"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"distance": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -119,4 +66,49 @@ func (o ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) ResourceSchemaAtt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.IsNull() && !o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourUnicastDistancePrefixDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticMulticastInterfaceRouteNextHopInterface describes the resource data model.
 type ProtocolsStaticMulticastInterfaceRouteNextHopInterface struct {
 	// LeafNodes
-	LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance types.String `tfsdk:"distance"`
+	LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance types.String `tfsdk:"distance" json:"distance,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "interface-route", "next-hop-interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsNull() || o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "interface-route", "next-hop-interface"}})
-
-	// Leafs
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "interface-route", "next-hop-interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"distance": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o ProtocolsStaticMulticastInterfaceRouteNextHopInterface) ResourceSchemaAt
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsNull() && !o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsStaticMulticastInterfaceRouteNextHopInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticMulticastInterfaceRouteNextHopInterfaceDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleIPsec describes the resource data model.
 type PolicyRouteRuleIPsec struct {
 	// LeafNodes
-	LeafPolicyRouteRuleIPsecMatchIPsec types.String `tfsdk:"match_ipsec"`
-	LeafPolicyRouteRuleIPsecMatchNone  types.String `tfsdk:"match_none"`
+	LeafPolicyRouteRuleIPsecMatchIPsec types.String `tfsdk:"match_ipsec" json:"match-ipsec,omitempty"`
+	LeafPolicyRouteRuleIPsecMatchNone  types.String `tfsdk:"match_none" json:"match-none,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteRuleIPsec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteRuleIPsecMatchIPsec.IsNull() || o.LeafPolicyRouteRuleIPsecMatchIPsec.IsUnknown()) {
-		vyosData["match-ipsec"] = o.LeafPolicyRouteRuleIPsecMatchIPsec.ValueString()
-	}
-	if !(o.LeafPolicyRouteRuleIPsecMatchNone.IsNull() || o.LeafPolicyRouteRuleIPsecMatchNone.IsUnknown()) {
-		vyosData["match-none"] = o.LeafPolicyRouteRuleIPsecMatchNone.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteRuleIPsec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
-
-	// Leafs
-	if value, ok := vyosData["match-ipsec"]; ok {
-		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["match-none"]; ok {
-		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteRuleIPsec) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"match_ipsec": types.StringType,
-		"match_none":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o PolicyRouteRuleIPsec) ResourceSchemaAttributes() map[string]schema.Attri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteRuleIPsec) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteRuleIPsecMatchIPsec.IsNull() && !o.LeafPolicyRouteRuleIPsecMatchIPsec.IsUnknown() {
+		jsonData["match-ipsec"] = o.LeafPolicyRouteRuleIPsecMatchIPsec.ValueString()
+	}
+
+	if !o.LeafPolicyRouteRuleIPsecMatchNone.IsNull() && !o.LeafPolicyRouteRuleIPsecMatchNone.IsUnknown() {
+		jsonData["match-none"] = o.LeafPolicyRouteRuleIPsecMatchNone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteRuleIPsec) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["match-ipsec"]; ok {
+		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["match-none"]; ok {
+		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerAuthenticationXfivezeronine describes the resource data model.
 type VpnIPsecSiteToSitePeerAuthenticationXfivezeronine struct {
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate   types.String `tfsdk:"certificate"`
-	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase    types.String `tfsdk:"passphrase"`
-	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate types.String `tfsdk:"ca_certificate"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate   types.String `tfsdk:"certificate" json:"certificate,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase    types.String `tfsdk:"passphrase" json:"passphrase,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate types.String `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsUnknown()) {
-		vyosData["certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsUnknown()) {
-		vyosData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsUnknown()) {
-		vyosData["ca-certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
-
-	// Leafs
-	if value, ok := vyosData["certificate"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passphrase"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ca-certificate"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"certificate":    types.StringType,
-		"passphrase":     types.StringType,
-		"ca_certificate": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttribu
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsUnknown() {
+		jsonData["certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsUnknown() {
+		jsonData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsNull() && !o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsUnknown() {
+		jsonData["ca-certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["certificate"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passphrase"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ca-certificate"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

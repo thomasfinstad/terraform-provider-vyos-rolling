@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiter describes the resource data model.
@@ -17,13 +15,13 @@ type QosPolicyLimiter struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyLimiterDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyLimiterDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagQosPolicyLimiterClass types.Map `tfsdk:"class"`
+	TagQosPolicyLimiterClass *map[string]QosPolicyLimiterClass `tfsdk:"class" json:"class,omitempty"`
 
 	// Nodes
-	NodeQosPolicyLimiterDefault types.Object `tfsdk:"default"`
+	NodeQosPolicyLimiterDefault *QosPolicyLimiterDefault `tfsdk:"default" json:"default,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,87 +31,6 @@ func (o *QosPolicyLimiter) GetVyosPath() []string {
 		"policy",
 		"limiter",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiter) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterDescrIPtion.IsNull() || o.LeafQosPolicyLimiterDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyLimiterDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyLimiterClass.IsNull() || o.TagQosPolicyLimiterClass.IsUnknown()) {
-		subModel := make(map[string]QosPolicyLimiterClass)
-		diags.Append(o.TagQosPolicyLimiterClass.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["class"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeQosPolicyLimiterDefault.IsNull() || o.NodeQosPolicyLimiterDefault.IsUnknown()) {
-		var subModel QosPolicyLimiterDefault
-		diags.Append(o.NodeQosPolicyLimiterDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiter) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["class"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyLimiterClass{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyLimiterClass = data
-	} else {
-		o.TagQosPolicyLimiterClass = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["default"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterDefault{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyLimiterDefault = data
-
-	} else {
-		o.NodeQosPolicyLimiterDefault = basetypes.NewObjectNull(QosPolicyLimiterDefault{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiter) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyLimiterClass{}.AttributeTypes()}},
-
-		// Nodes
-		"default": types.ObjectType{AttrTypes: QosPolicyLimiterDefault{}.AttributeTypes()},
 	}
 }
 
@@ -170,4 +87,103 @@ func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiter) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterDescrIPtion.IsNull() && !o.LeafQosPolicyLimiterDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyLimiterDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyLimiterClass).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyLimiterClass)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["class"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyLimiterDefault).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyLimiterDefault)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiter) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["class"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyLimiterClass = &map[string]QosPolicyLimiterClass{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyLimiterClass)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["default"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyLimiterDefault = &QosPolicyLimiterDefault{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyLimiterDefault)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,134 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDgeVifDhcpOptions describes the resource data model.
 type InterfacesBrIDgeVifDhcpOptions struct {
 	// LeafNodes
-	LeafInterfacesBrIDgeVifDhcpOptionsClientID             types.String `tfsdk:"client_id"`
-	LeafInterfacesBrIDgeVifDhcpOptionsHostName             types.String `tfsdk:"host_name"`
-	LeafInterfacesBrIDgeVifDhcpOptionsMtu                  types.String `tfsdk:"mtu"`
-	LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID        types.String `tfsdk:"vendor_class_id"`
-	LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute       types.String `tfsdk:"no_default_route"`
-	LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance types.String `tfsdk:"default_route_distance"`
-	LeafInterfacesBrIDgeVifDhcpOptionsReject               types.String `tfsdk:"reject"`
+	LeafInterfacesBrIDgeVifDhcpOptionsClientID             types.String `tfsdk:"client_id" json:"client-id,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsHostName             types.String `tfsdk:"host_name" json:"host-name,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsMtu                  types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID        types.String `tfsdk:"vendor_class_id" json:"vendor-class-id,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute       types.String `tfsdk:"no_default_route" json:"no-default-route,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance types.String `tfsdk:"default_route_distance" json:"default-route-distance,omitempty"`
+	LeafInterfacesBrIDgeVifDhcpOptionsReject               types.String `tfsdk:"reject" json:"reject,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBrIDgeVifDhcpOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "dhcp-options"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.IsUnknown()) {
-		vyosData["client-id"] = o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.IsUnknown()) {
-		vyosData["host-name"] = o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.IsUnknown()) {
-		vyosData["vendor-class-id"] = o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.IsUnknown()) {
-		vyosData["no-default-route"] = o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.IsUnknown()) {
-		vyosData["default-route-distance"] = o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVifDhcpOptionsReject.IsNull() || o.LeafInterfacesBrIDgeVifDhcpOptionsReject.IsUnknown()) {
-		vyosData["reject"] = o.LeafInterfacesBrIDgeVifDhcpOptionsReject.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBrIDgeVifDhcpOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "dhcp-options"}})
-
-	// Leafs
-	if value, ok := vyosData["client-id"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsClientID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsClientID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["host-name"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsHostName = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsHostName = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vendor-class-id"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-default-route"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["default-route-distance"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["reject"]; ok {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsReject = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVifDhcpOptionsReject = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "dhcp-options"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBrIDgeVifDhcpOptions) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"client_id":              types.StringType,
-		"host_name":              types.StringType,
-		"mtu":                    types.StringType,
-		"vendor_class_id":        types.StringType,
-		"no_default_route":       types.StringType,
-		"default_route_distance": types.StringType,
-		"reject":                 types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -203,4 +96,109 @@ func (o InterfacesBrIDgeVifDhcpOptions) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBrIDgeVifDhcpOptions) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.IsUnknown() {
+		jsonData["client-id"] = o.LeafInterfacesBrIDgeVifDhcpOptionsClientID.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.IsUnknown() {
+		jsonData["host-name"] = o.LeafInterfacesBrIDgeVifDhcpOptionsHostName.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesBrIDgeVifDhcpOptionsMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.IsUnknown() {
+		jsonData["vendor-class-id"] = o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.IsUnknown() {
+		jsonData["no-default-route"] = o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.IsUnknown() {
+		jsonData["default-route-distance"] = o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVifDhcpOptionsReject.IsNull() && !o.LeafInterfacesBrIDgeVifDhcpOptionsReject.IsUnknown() {
+		jsonData["reject"] = o.LeafInterfacesBrIDgeVifDhcpOptionsReject.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBrIDgeVifDhcpOptions) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["client-id"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsClientID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsClientID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["host-name"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsHostName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsHostName = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vendor-class-id"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsVendorClassID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-default-route"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsNoDefaultRoute = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["default-route-distance"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["reject"]; ok {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsReject = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifDhcpOptionsReject = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsFailoverRouteNextHop describes the resource data model.
 type ProtocolsFailoverRouteNextHop struct {
 	// LeafNodes
-	LeafProtocolsFailoverRouteNextHopInterface types.String `tfsdk:"interface"`
-	LeafProtocolsFailoverRouteNextHopMetric    types.String `tfsdk:"metric"`
+	LeafProtocolsFailoverRouteNextHopInterface types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafProtocolsFailoverRouteNextHopMetric    types.String `tfsdk:"metric" json:"metric,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsFailoverRouteNextHopCheck types.Object `tfsdk:"check"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsFailoverRouteNextHop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsFailoverRouteNextHopInterface.IsNull() || o.LeafProtocolsFailoverRouteNextHopInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafProtocolsFailoverRouteNextHopInterface.ValueString()
-	}
-	if !(o.LeafProtocolsFailoverRouteNextHopMetric.IsNull() || o.LeafProtocolsFailoverRouteNextHopMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafProtocolsFailoverRouteNextHopMetric.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsFailoverRouteNextHopCheck.IsNull() || o.NodeProtocolsFailoverRouteNextHopCheck.IsUnknown()) {
-		var subModel ProtocolsFailoverRouteNextHopCheck
-		diags.Append(o.NodeProtocolsFailoverRouteNextHopCheck.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["check"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsFailoverRouteNextHop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop"}})
-
-	// Leafs
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafProtocolsFailoverRouteNextHopInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsFailoverRouteNextHopInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafProtocolsFailoverRouteNextHopMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsFailoverRouteNextHopMetric = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["check"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsFailoverRouteNextHopCheck{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsFailoverRouteNextHopCheck = data
-
-	} else {
-		o.NodeProtocolsFailoverRouteNextHopCheck = basetypes.NewObjectNull(ProtocolsFailoverRouteNextHopCheck{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsFailoverRouteNextHop) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"interface": types.StringType,
-		"metric":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"check": types.ObjectType{AttrTypes: ProtocolsFailoverRouteNextHopCheck{}.AttributeTypes()},
-	}
+	NodeProtocolsFailoverRouteNextHopCheck *ProtocolsFailoverRouteNextHopCheck `tfsdk:"check" json:"check,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -138,4 +64,86 @@ func (o ProtocolsFailoverRouteNextHop) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsFailoverRouteNextHop) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsFailoverRouteNextHopInterface.IsNull() && !o.LeafProtocolsFailoverRouteNextHopInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafProtocolsFailoverRouteNextHopInterface.ValueString()
+	}
+
+	if !o.LeafProtocolsFailoverRouteNextHopMetric.IsNull() && !o.LeafProtocolsFailoverRouteNextHopMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafProtocolsFailoverRouteNextHopMetric.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsFailoverRouteNextHopCheck).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsFailoverRouteNextHopCheck)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["check"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsFailoverRouteNextHop) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopMetric = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["check"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsFailoverRouteNextHopCheck = &ProtocolsFailoverRouteNextHopCheck{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsFailoverRouteNextHopCheck)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

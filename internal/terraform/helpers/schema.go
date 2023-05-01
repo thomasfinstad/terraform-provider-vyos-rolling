@@ -22,24 +22,24 @@ func iron(ctx context.Context, vyosPath []string, values map[string]interface{})
 		tflog.Error(ctx, "Value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
 
 		switch value := value.(type) {
+
+		// LeafNodes
 		case string:
 			ret = append(
 				ret,
 				append(cVyosPath, value),
 			)
+		// TagNodes and Nodes
 		case map[string]interface{}:
 			ret = append(
 				ret,
 				iron(ctx, cVyosPath, value)...,
 			)
-		//case []interface{}:
-		// ret = append(
-		// 	ret,
-		// 	iron(ctx, cVyosPath, value)...,
-		// )
+
+		// ERROR
 		default:
-			tflog.Error(ctx, "No handling of value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
-			panic("unhandled type")
+			tflog.Error(ctx, "No handling of value type", map[string]interface{}{"type": fmt.Sprintf("%T", value), "key": key, "cVyosPath": cVyosPath})
+			panic("unhandled type see last log entry")
 		}
 	}
 

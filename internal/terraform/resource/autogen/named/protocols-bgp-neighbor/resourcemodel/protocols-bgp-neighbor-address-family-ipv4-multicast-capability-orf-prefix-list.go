@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive"`
-	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend    types.String `tfsdk:"send"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive" json:"receive,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend    types.String `tfsdk:"send" json:"send,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "capability", "orf", "prefix-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.IsUnknown()) {
-		vyosData["receive"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.IsUnknown()) {
-		vyosData["send"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "capability", "orf", "prefix-list"}})
-
-	// Leafs
-	if value, ok := vyosData["receive"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["send"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "capability", "orf", "prefix-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"receive": types.StringType,
-		"send":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.IsUnknown() {
+		jsonData["receive"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.IsUnknown() {
+		jsonData["send"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["receive"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["send"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

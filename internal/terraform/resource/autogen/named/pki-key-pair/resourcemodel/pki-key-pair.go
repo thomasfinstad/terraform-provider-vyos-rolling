@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiKeyPair describes the resource data model.
@@ -21,8 +18,8 @@ type PkiKeyPair struct {
 	// TagNodes
 
 	// Nodes
-	NodePkiKeyPairPublic  types.Object `tfsdk:"public"`
-	NodePkiKeyPairPrivate types.Object `tfsdk:"private"`
+	NodePkiKeyPairPublic  *PkiKeyPairPublic  `tfsdk:"public" json:"public,omitempty"`
+	NodePkiKeyPairPrivate *PkiKeyPairPrivate `tfsdk:"private" json:"private,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -31,74 +28,6 @@ func (o *PkiKeyPair) GetVyosPath() []string {
 		"pki",
 		"key-pair",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PkiKeyPair) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "key-pair"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePkiKeyPairPublic.IsNull() || o.NodePkiKeyPairPublic.IsUnknown()) {
-		var subModel PkiKeyPairPublic
-		diags.Append(o.NodePkiKeyPairPublic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["public"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePkiKeyPairPrivate.IsNull() || o.NodePkiKeyPairPrivate.IsUnknown()) {
-		var subModel PkiKeyPairPrivate
-		diags.Append(o.NodePkiKeyPairPrivate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["private"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PkiKeyPair) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "key-pair"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["public"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PkiKeyPairPublic{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePkiKeyPairPublic = data
-
-	} else {
-		o.NodePkiKeyPairPublic = basetypes.NewObjectNull(PkiKeyPairPublic{}.AttributeTypes())
-	}
-	if value, ok := vyosData["private"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PkiKeyPairPrivate{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePkiKeyPairPrivate = data
-
-	} else {
-		o.NodePkiKeyPairPrivate = basetypes.NewObjectNull(PkiKeyPairPrivate{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "key-pair"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PkiKeyPair) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"public":  types.ObjectType{AttrTypes: PkiKeyPairPublic{}.AttributeTypes()},
-		"private": types.ObjectType{AttrTypes: PkiKeyPairPrivate{}.AttributeTypes()},
 	}
 }
 
@@ -134,4 +63,93 @@ func (o PkiKeyPair) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PkiKeyPair) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePkiKeyPairPublic).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePkiKeyPairPublic)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["public"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePkiKeyPairPrivate).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePkiKeyPairPrivate)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["private"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PkiKeyPair) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["public"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePkiKeyPairPublic = &PkiKeyPairPublic{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePkiKeyPairPublic)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["private"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePkiKeyPairPrivate = &PkiKeyPairPrivate{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePkiKeyPairPrivate)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerClientIPPoolName describes the resource data model.
@@ -17,8 +14,8 @@ type ServicePppoeServerClientIPPoolName struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServicePppoeServerClientIPPoolNameGatewayAddress types.String `tfsdk:"gateway_address"`
-	LeafServicePppoeServerClientIPPoolNameSubnet         types.String `tfsdk:"subnet"`
+	LeafServicePppoeServerClientIPPoolNameGatewayAddress types.String `tfsdk:"gateway_address" json:"gateway-address,omitempty"`
+	LeafServicePppoeServerClientIPPoolNameSubnet         types.String `tfsdk:"subnet" json:"subnet,omitempty"`
 
 	// TagNodes
 
@@ -33,65 +30,6 @@ func (o *ServicePppoeServerClientIPPoolName) GetVyosPath() []string {
 		"client-ip-pool",
 		"name",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServicePppoeServerClientIPPoolName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ip-pool", "name"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.IsNull() || o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.IsUnknown()) {
-		vyosData["gateway-address"] = o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.ValueString()
-	}
-	if !(o.LeafServicePppoeServerClientIPPoolNameSubnet.IsNull() || o.LeafServicePppoeServerClientIPPoolNameSubnet.IsUnknown()) {
-		vyosData["subnet"] = o.LeafServicePppoeServerClientIPPoolNameSubnet.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServicePppoeServerClientIPPoolName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ip-pool", "name"}})
-
-	// Leafs
-	if value, ok := vyosData["gateway-address"]; ok {
-		o.LeafServicePppoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["subnet"]; ok {
-		o.LeafServicePppoeServerClientIPPoolNameSubnet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerClientIPPoolNameSubnet = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ip-pool", "name"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServicePppoeServerClientIPPoolName) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"gateway_address": types.StringType,
-		"subnet":          types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -138,4 +76,59 @@ func (o ServicePppoeServerClientIPPoolName) ResourceSchemaAttributes() map[strin
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServicePppoeServerClientIPPoolName) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.IsNull() && !o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.IsUnknown() {
+		jsonData["gateway-address"] = o.LeafServicePppoeServerClientIPPoolNameGatewayAddress.ValueString()
+	}
+
+	if !o.LeafServicePppoeServerClientIPPoolNameSubnet.IsNull() && !o.LeafServicePppoeServerClientIPPoolNameSubnet.IsUnknown() {
+		jsonData["subnet"] = o.LeafServicePppoeServerClientIPPoolNameSubnet.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServicePppoeServerClientIPPoolName) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["gateway-address"]; ok {
+		o.LeafServicePppoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["subnet"]; ok {
+		o.LeafServicePppoeServerClientIPPoolNameSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerClientIPPoolNameSubnet = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetEapol describes the resource data model.
 type InterfacesEthernetEapol struct {
 	// LeafNodes
-	LeafInterfacesEthernetEapolCaCertificate types.String `tfsdk:"ca_certificate"`
-	LeafInterfacesEthernetEapolCertificate   types.String `tfsdk:"certificate"`
-	LeafInterfacesEthernetEapolPassphrase    types.String `tfsdk:"passphrase"`
+	LeafInterfacesEthernetEapolCaCertificate types.String `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
+	LeafInterfacesEthernetEapolCertificate   types.String `tfsdk:"certificate" json:"certificate,omitempty"`
+	LeafInterfacesEthernetEapolPassphrase    types.String `tfsdk:"passphrase" json:"passphrase,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesEthernetEapol) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesEthernetEapolCaCertificate.IsNull() || o.LeafInterfacesEthernetEapolCaCertificate.IsUnknown()) {
-		vyosData["ca-certificate"] = o.LeafInterfacesEthernetEapolCaCertificate.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetEapolCertificate.IsNull() || o.LeafInterfacesEthernetEapolCertificate.IsUnknown()) {
-		vyosData["certificate"] = o.LeafInterfacesEthernetEapolCertificate.ValueString()
-	}
-	if !(o.LeafInterfacesEthernetEapolPassphrase.IsNull() || o.LeafInterfacesEthernetEapolPassphrase.IsUnknown()) {
-		vyosData["passphrase"] = o.LeafInterfacesEthernetEapolPassphrase.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesEthernetEapol) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
-
-	// Leafs
-	if value, ok := vyosData["ca-certificate"]; ok {
-		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["certificate"]; ok {
-		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passphrase"]; ok {
-		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesEthernetEapol) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ca_certificate": types.StringType,
-		"certificate":    types.StringType,
-		"passphrase":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o InterfacesEthernetEapol) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesEthernetEapol) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesEthernetEapolCaCertificate.IsNull() && !o.LeafInterfacesEthernetEapolCaCertificate.IsUnknown() {
+		jsonData["ca-certificate"] = o.LeafInterfacesEthernetEapolCaCertificate.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetEapolCertificate.IsNull() && !o.LeafInterfacesEthernetEapolCertificate.IsUnknown() {
+		jsonData["certificate"] = o.LeafInterfacesEthernetEapolCertificate.ValueString()
+	}
+
+	if !o.LeafInterfacesEthernetEapolPassphrase.IsNull() && !o.LeafInterfacesEthernetEapolPassphrase.IsUnknown() {
+		jsonData["passphrase"] = o.LeafInterfacesEthernetEapolPassphrase.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesEthernetEapol) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ca-certificate"]; ok {
+		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["certificate"]; ok {
+		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passphrase"]; ok {
+		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

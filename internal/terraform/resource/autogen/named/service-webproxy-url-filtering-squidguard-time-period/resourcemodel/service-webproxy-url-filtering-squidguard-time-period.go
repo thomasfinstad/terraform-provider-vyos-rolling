@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriod describes the resource data model.
@@ -17,10 +15,10 @@ type ServiceWebproxyURLFilteringSquIDguardTimePeriod struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion types.String `tfsdk:"description"`
+	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays types.Map `tfsdk:"days"`
+	TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays *map[string]ServiceWebproxyURLFilteringSquIDguardTimePeriodDays `tfsdk:"days" json:"days,omitempty"`
 
 	// Nodes
 }
@@ -34,74 +32,6 @@ func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) GetVyosPath() []string
 		"squidguard",
 		"time-period",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays.IsNull() || o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays.IsUnknown()) {
-		subModel := make(map[string]ServiceWebproxyURLFilteringSquIDguardTimePeriodDays)
-		diags.Append(o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["days"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["days"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceWebproxyURLFilteringSquIDguardTimePeriodDays{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays = data
-	} else {
-		o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceWebproxyURLFilteringSquIDguardTimePeriod) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"days": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceWebproxyURLFilteringSquIDguardTimePeriodDays{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -152,4 +82,76 @@ func (o ServiceWebproxyURLFilteringSquIDguardTimePeriod) ResourceSchemaAttribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsNull() && !o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["days"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriod) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["days"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays = &map[string]ServiceWebproxyURLFilteringSquIDguardTimePeriodDays{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceWebproxyURLFilteringSquIDguardTimePeriodDays)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

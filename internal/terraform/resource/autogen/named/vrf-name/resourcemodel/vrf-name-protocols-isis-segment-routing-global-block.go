@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRoutingGlobalBlock describes the resource data model.
 type VrfNameProtocolsIsisSegmentRoutingGlobalBlock struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue  types.String `tfsdk:"low_label_value"`
-	LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue types.String `tfsdk:"high_label_value"`
+	LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue  types.String `tfsdk:"low_label_value" json:"low-label-value,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue types.String `tfsdk:"high_label_value" json:"high-label-value,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisSegmentRoutingGlobalBlock) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "global-block"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.IsUnknown()) {
-		vyosData["low-label-value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.IsUnknown()) {
-		vyosData["high-label-value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisSegmentRoutingGlobalBlock) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "global-block"}})
-
-	// Leafs
-	if value, ok := vyosData["low-label-value"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["high-label-value"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "global-block"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRoutingGlobalBlock) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"low_label_value":  types.StringType,
-		"high_label_value": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsIsisSegmentRoutingGlobalBlock) ResourceSchemaAttributes(
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisSegmentRoutingGlobalBlock) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.IsUnknown() {
+		jsonData["low-label-value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.IsUnknown() {
+		jsonData["high-label-value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisSegmentRoutingGlobalBlock) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["low-label-value"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockLowLabelValue = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["high-label-value"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingGlobalBlockHighLabelValue = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

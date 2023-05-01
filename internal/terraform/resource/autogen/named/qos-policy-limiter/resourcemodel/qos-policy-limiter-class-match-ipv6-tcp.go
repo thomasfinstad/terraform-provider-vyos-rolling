@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClassMatchIPvsixTCP describes the resource data model.
 type QosPolicyLimiterClassMatchIPvsixTCP struct {
 	// LeafNodes
-	LeafQosPolicyLimiterClassMatchIPvsixTCPAck types.String `tfsdk:"ack"`
-	LeafQosPolicyLimiterClassMatchIPvsixTCPSyn types.String `tfsdk:"syn"`
+	LeafQosPolicyLimiterClassMatchIPvsixTCPAck types.String `tfsdk:"ack" json:"ack,omitempty"`
+	LeafQosPolicyLimiterClassMatchIPvsixTCPSyn types.String `tfsdk:"syn" json:"syn,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyLimiterClassMatchIPvsixTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ipv6", "tcp"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsNull() || o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsUnknown()) {
-		vyosData["ack"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.ValueString()
-	}
-	if !(o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsNull() || o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsUnknown()) {
-		vyosData["syn"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyLimiterClassMatchIPvsixTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ipv6", "tcp"}})
-
-	// Leafs
-	if value, ok := vyosData["ack"]; ok {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["syn"]; ok {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ipv6", "tcp"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyLimiterClassMatchIPvsixTCP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ack": types.StringType,
-		"syn": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o QosPolicyLimiterClassMatchIPvsixTCP) ResourceSchemaAttributes() map[stri
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyLimiterClassMatchIPvsixTCP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsNull() && !o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.IsUnknown() {
+		jsonData["ack"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck.ValueString()
+	}
+
+	if !o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsNull() && !o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.IsUnknown() {
+		jsonData["syn"] = o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyLimiterClassMatchIPvsixTCP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ack"]; ok {
+		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchIPvsixTCPAck = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["syn"]; ok {
+		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchIPvsixTCPSyn = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

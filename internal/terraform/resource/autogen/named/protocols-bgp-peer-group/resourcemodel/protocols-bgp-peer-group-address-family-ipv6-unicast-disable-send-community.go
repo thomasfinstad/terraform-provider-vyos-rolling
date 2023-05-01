@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity struct {
 	// LeafNodes
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended types.String `tfsdk:"extended"`
-	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard types.String `tfsdk:"standard"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended types.String `tfsdk:"extended" json:"extended,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard types.String `tfsdk:"standard" json:"standard,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsUnknown()) {
-		vyosData["extended"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.ValueString()
-	}
-	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsUnknown()) {
-		vyosData["standard"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-
-	// Leafs
-	if value, ok := vyosData["extended"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["standard"]; ok {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"extended": types.StringType,
-		"standard": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) Res
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsUnknown() {
+		jsonData["extended"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsNull() && !o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsUnknown() {
+		jsonData["standard"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["extended"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["standard"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPNetworkDistance describes the resource data model.
@@ -17,8 +14,8 @@ type ProtocolsRIPNetworkDistance struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list"`
-	LeafProtocolsRIPNetworkDistanceDistance   types.String `tfsdk:"distance"`
+	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list" json:"access-list,omitempty"`
+	LeafProtocolsRIPNetworkDistanceDistance   types.String `tfsdk:"distance" json:"distance,omitempty"`
 
 	// TagNodes
 
@@ -32,65 +29,6 @@ func (o *ProtocolsRIPNetworkDistance) GetVyosPath() []string {
 		"rip",
 		"network-distance",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsRIPNetworkDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsRIPNetworkDistanceAccessList.IsNull() || o.LeafProtocolsRIPNetworkDistanceAccessList.IsUnknown()) {
-		vyosData["access-list"] = o.LeafProtocolsRIPNetworkDistanceAccessList.ValueString()
-	}
-	if !(o.LeafProtocolsRIPNetworkDistanceDistance.IsNull() || o.LeafProtocolsRIPNetworkDistanceDistance.IsUnknown()) {
-		vyosData["distance"] = o.LeafProtocolsRIPNetworkDistanceDistance.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsRIPNetworkDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
-
-	// Leafs
-	if value, ok := vyosData["access-list"]; ok {
-		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["distance"]; ok {
-		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsRIPNetworkDistance) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"access_list": types.StringType,
-		"distance":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -137,4 +75,59 @@ func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsRIPNetworkDistance) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsRIPNetworkDistanceAccessList.IsNull() && !o.LeafProtocolsRIPNetworkDistanceAccessList.IsUnknown() {
+		jsonData["access-list"] = o.LeafProtocolsRIPNetworkDistanceAccessList.ValueString()
+	}
+
+	if !o.LeafProtocolsRIPNetworkDistanceDistance.IsNull() && !o.LeafProtocolsRIPNetworkDistanceDistance.IsUnknown() {
+		jsonData["distance"] = o.LeafProtocolsRIPNetworkDistanceDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsRIPNetworkDistance) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["access-list"]; ok {
+		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["distance"]; ok {
+		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

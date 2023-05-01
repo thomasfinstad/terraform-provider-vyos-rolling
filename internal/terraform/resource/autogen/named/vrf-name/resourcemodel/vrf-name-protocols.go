@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocols describes the resource data model.
@@ -19,136 +15,12 @@ type VrfNameProtocols struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgp        types.Object `tfsdk:"bgp"`
-	NodeVrfNameProtocolsEigrp      types.Object `tfsdk:"eigrp"`
-	NodeVrfNameProtocolsIsis       types.Object `tfsdk:"isis"`
-	NodeVrfNameProtocolsOspf       types.Object `tfsdk:"ospf"`
-	NodeVrfNameProtocolsOspfvthree types.Object `tfsdk:"ospfv3"`
-	NodeVrfNameProtocolsStatic     types.Object `tfsdk:"static"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocols) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgp.IsNull() || o.NodeVrfNameProtocolsBgp.IsUnknown()) {
-		var subModel VrfNameProtocolsBgp
-		diags.Append(o.NodeVrfNameProtocolsBgp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bgp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsEigrp.IsNull() || o.NodeVrfNameProtocolsEigrp.IsUnknown()) {
-		var subModel VrfNameProtocolsEigrp
-		diags.Append(o.NodeVrfNameProtocolsEigrp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["eigrp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsis.IsNull() || o.NodeVrfNameProtocolsIsis.IsUnknown()) {
-		var subModel VrfNameProtocolsIsis
-		diags.Append(o.NodeVrfNameProtocolsIsis.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["isis"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspf.IsNull() || o.NodeVrfNameProtocolsOspf.IsUnknown()) {
-		var subModel VrfNameProtocolsOspf
-		diags.Append(o.NodeVrfNameProtocolsOspf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ospf"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsOspfvthree.IsNull() || o.NodeVrfNameProtocolsOspfvthree.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfvthree
-		diags.Append(o.NodeVrfNameProtocolsOspfvthree.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ospfv3"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsStatic.IsNull() || o.NodeVrfNameProtocolsStatic.IsUnknown()) {
-		var subModel VrfNameProtocolsStatic
-		diags.Append(o.NodeVrfNameProtocolsStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocols) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["bgp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgp = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgp = basetypes.NewObjectNull(VrfNameProtocolsBgp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["eigrp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsEigrp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsEigrp = data
-
-	} else {
-		o.NodeVrfNameProtocolsEigrp = basetypes.NewObjectNull(VrfNameProtocolsEigrp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["isis"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsis{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsis = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsis = basetypes.NewObjectNull(VrfNameProtocolsIsis{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ospf"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspf{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspf = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspf = basetypes.NewObjectNull(VrfNameProtocolsOspf{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ospfv3"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthree{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfvthree = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfvthree = basetypes.NewObjectNull(VrfNameProtocolsOspfvthree{}.AttributeTypes())
-	}
-	if value, ok := vyosData["static"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsStatic{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsStatic = data
-
-	} else {
-		o.NodeVrfNameProtocolsStatic = basetypes.NewObjectNull(VrfNameProtocolsStatic{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocols) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"bgp":    types.ObjectType{AttrTypes: VrfNameProtocolsBgp{}.AttributeTypes()},
-		"eigrp":  types.ObjectType{AttrTypes: VrfNameProtocolsEigrp{}.AttributeTypes()},
-		"isis":   types.ObjectType{AttrTypes: VrfNameProtocolsIsis{}.AttributeTypes()},
-		"ospf":   types.ObjectType{AttrTypes: VrfNameProtocolsOspf{}.AttributeTypes()},
-		"ospfv3": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthree{}.AttributeTypes()},
-		"static": types.ObjectType{AttrTypes: VrfNameProtocolsStatic{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgp        *VrfNameProtocolsBgp        `tfsdk:"bgp" json:"bgp,omitempty"`
+	NodeVrfNameProtocolsEigrp      *VrfNameProtocolsEigrp      `tfsdk:"eigrp" json:"eigrp,omitempty"`
+	NodeVrfNameProtocolsIsis       *VrfNameProtocolsIsis       `tfsdk:"isis" json:"isis,omitempty"`
+	NodeVrfNameProtocolsOspf       *VrfNameProtocolsOspf       `tfsdk:"ospf" json:"ospf,omitempty"`
+	NodeVrfNameProtocolsOspfvthree *VrfNameProtocolsOspfvthree `tfsdk:"ospfv3" json:"ospfv3,omitempty"`
+	NodeVrfNameProtocolsStatic     *VrfNameProtocolsStatic     `tfsdk:"static" json:"static,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -208,4 +80,201 @@ func (o VrfNameProtocols) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocols) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bgp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsEigrp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsEigrp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["eigrp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsis).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsis)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["isis"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspf).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspf)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ospf"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthree).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthree)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ospfv3"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsStatic).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsStatic)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["static"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocols) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["bgp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgp = &VrfNameProtocolsBgp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["eigrp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsEigrp = &VrfNameProtocolsEigrp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsEigrp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["isis"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsis = &VrfNameProtocolsIsis{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsis)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ospf"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspf = &VrfNameProtocolsOspf{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspf)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ospfv3"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfvthree = &VrfNameProtocolsOspfvthree{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthree)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["static"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsStatic = &VrfNameProtocolsStatic{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsStatic)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

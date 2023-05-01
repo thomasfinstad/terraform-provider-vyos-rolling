@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceConsoleServerDevice describes the resource data model.
@@ -17,17 +15,17 @@ type ServiceConsoleServerDevice struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceConsoleServerDeviceDescrIPtion types.String `tfsdk:"description"`
-	LeafServiceConsoleServerDeviceAlias       types.String `tfsdk:"alias"`
-	LeafServiceConsoleServerDeviceSpeed       types.String `tfsdk:"speed"`
-	LeafServiceConsoleServerDeviceDataBits    types.String `tfsdk:"data_bits"`
-	LeafServiceConsoleServerDeviceStopBits    types.String `tfsdk:"stop_bits"`
-	LeafServiceConsoleServerDeviceParity      types.String `tfsdk:"parity"`
+	LeafServiceConsoleServerDeviceDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafServiceConsoleServerDeviceAlias       types.String `tfsdk:"alias" json:"alias,omitempty"`
+	LeafServiceConsoleServerDeviceSpeed       types.String `tfsdk:"speed" json:"speed,omitempty"`
+	LeafServiceConsoleServerDeviceDataBits    types.String `tfsdk:"data_bits" json:"data-bits,omitempty"`
+	LeafServiceConsoleServerDeviceStopBits    types.String `tfsdk:"stop_bits" json:"stop-bits,omitempty"`
+	LeafServiceConsoleServerDeviceParity      types.String `tfsdk:"parity" json:"parity,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceConsoleServerDeviceTCP types.Object `tfsdk:"ssh"`
+	NodeServiceConsoleServerDeviceTCP *ServiceConsoleServerDeviceTCP `tfsdk:"ssh" json:"ssh,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -37,114 +35,6 @@ func (o *ServiceConsoleServerDevice) GetVyosPath() []string {
 		"console-server",
 		"device",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceConsoleServerDevice) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceConsoleServerDeviceDescrIPtion.IsNull() || o.LeafServiceConsoleServerDeviceDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafServiceConsoleServerDeviceDescrIPtion.ValueString()
-	}
-	if !(o.LeafServiceConsoleServerDeviceAlias.IsNull() || o.LeafServiceConsoleServerDeviceAlias.IsUnknown()) {
-		vyosData["alias"] = o.LeafServiceConsoleServerDeviceAlias.ValueString()
-	}
-	if !(o.LeafServiceConsoleServerDeviceSpeed.IsNull() || o.LeafServiceConsoleServerDeviceSpeed.IsUnknown()) {
-		vyosData["speed"] = o.LeafServiceConsoleServerDeviceSpeed.ValueString()
-	}
-	if !(o.LeafServiceConsoleServerDeviceDataBits.IsNull() || o.LeafServiceConsoleServerDeviceDataBits.IsUnknown()) {
-		vyosData["data-bits"] = o.LeafServiceConsoleServerDeviceDataBits.ValueString()
-	}
-	if !(o.LeafServiceConsoleServerDeviceStopBits.IsNull() || o.LeafServiceConsoleServerDeviceStopBits.IsUnknown()) {
-		vyosData["stop-bits"] = o.LeafServiceConsoleServerDeviceStopBits.ValueString()
-	}
-	if !(o.LeafServiceConsoleServerDeviceParity.IsNull() || o.LeafServiceConsoleServerDeviceParity.IsUnknown()) {
-		vyosData["parity"] = o.LeafServiceConsoleServerDeviceParity.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceConsoleServerDeviceTCP.IsNull() || o.NodeServiceConsoleServerDeviceTCP.IsUnknown()) {
-		var subModel ServiceConsoleServerDeviceTCP
-		diags.Append(o.NodeServiceConsoleServerDeviceTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ssh"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceConsoleServerDevice) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["alias"]; ok {
-		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["speed"]; ok {
-		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["data-bits"]; ok {
-		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stop-bits"]; ok {
-		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["parity"]; ok {
-		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["ssh"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceConsoleServerDeviceTCP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceConsoleServerDeviceTCP = data
-
-	} else {
-		o.NodeServiceConsoleServerDeviceTCP = basetypes.NewObjectNull(ServiceConsoleServerDeviceTCP{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceConsoleServerDevice) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"alias":       types.StringType,
-		"speed":       types.StringType,
-		"data_bits":   types.StringType,
-		"stop_bits":   types.StringType,
-		"parity":      types.StringType,
-
-		// Tags
-
-		// Nodes
-		"ssh": types.ObjectType{AttrTypes: ServiceConsoleServerDeviceTCP{}.AttributeTypes()},
 	}
 }
 
@@ -232,4 +122,126 @@ func (o ServiceConsoleServerDevice) ResourceSchemaAttributes() map[string]schema
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceConsoleServerDevice) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceConsoleServerDeviceDescrIPtion.IsNull() && !o.LeafServiceConsoleServerDeviceDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafServiceConsoleServerDeviceDescrIPtion.ValueString()
+	}
+
+	if !o.LeafServiceConsoleServerDeviceAlias.IsNull() && !o.LeafServiceConsoleServerDeviceAlias.IsUnknown() {
+		jsonData["alias"] = o.LeafServiceConsoleServerDeviceAlias.ValueString()
+	}
+
+	if !o.LeafServiceConsoleServerDeviceSpeed.IsNull() && !o.LeafServiceConsoleServerDeviceSpeed.IsUnknown() {
+		jsonData["speed"] = o.LeafServiceConsoleServerDeviceSpeed.ValueString()
+	}
+
+	if !o.LeafServiceConsoleServerDeviceDataBits.IsNull() && !o.LeafServiceConsoleServerDeviceDataBits.IsUnknown() {
+		jsonData["data-bits"] = o.LeafServiceConsoleServerDeviceDataBits.ValueString()
+	}
+
+	if !o.LeafServiceConsoleServerDeviceStopBits.IsNull() && !o.LeafServiceConsoleServerDeviceStopBits.IsUnknown() {
+		jsonData["stop-bits"] = o.LeafServiceConsoleServerDeviceStopBits.ValueString()
+	}
+
+	if !o.LeafServiceConsoleServerDeviceParity.IsNull() && !o.LeafServiceConsoleServerDeviceParity.IsUnknown() {
+		jsonData["parity"] = o.LeafServiceConsoleServerDeviceParity.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceConsoleServerDeviceTCP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceConsoleServerDeviceTCP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ssh"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceConsoleServerDevice) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["alias"]; ok {
+		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["speed"]; ok {
+		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["data-bits"]; ok {
+		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stop-bits"]; ok {
+		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["parity"]; ok {
+		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["ssh"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceConsoleServerDeviceTCP = &ServiceConsoleServerDeviceTCP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceConsoleServerDeviceTCP)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

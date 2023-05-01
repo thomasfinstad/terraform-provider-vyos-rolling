@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiCa describes the resource data model.
@@ -17,15 +15,15 @@ type PkiCa struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafPkiCaCertificate types.String `tfsdk:"certificate"`
-	LeafPkiCaDescrIPtion types.String `tfsdk:"description"`
-	LeafPkiCaCrl         types.String `tfsdk:"crl"`
-	LeafPkiCaRevoke      types.String `tfsdk:"revoke"`
+	LeafPkiCaCertificate types.String `tfsdk:"certificate" json:"certificate,omitempty"`
+	LeafPkiCaDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPkiCaCrl         types.String `tfsdk:"crl" json:"crl,omitempty"`
+	LeafPkiCaRevoke      types.String `tfsdk:"revoke" json:"revoke,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePkiCaPrivate types.Object `tfsdk:"private"`
+	NodePkiCaPrivate *PkiCaPrivate `tfsdk:"private" json:"private,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,96 +32,6 @@ func (o *PkiCa) GetVyosPath() []string {
 		"pki",
 		"ca",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PkiCa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "ca"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPkiCaCertificate.IsNull() || o.LeafPkiCaCertificate.IsUnknown()) {
-		vyosData["certificate"] = o.LeafPkiCaCertificate.ValueString()
-	}
-	if !(o.LeafPkiCaDescrIPtion.IsNull() || o.LeafPkiCaDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPkiCaDescrIPtion.ValueString()
-	}
-	if !(o.LeafPkiCaCrl.IsNull() || o.LeafPkiCaCrl.IsUnknown()) {
-		vyosData["crl"] = o.LeafPkiCaCrl.ValueString()
-	}
-	if !(o.LeafPkiCaRevoke.IsNull() || o.LeafPkiCaRevoke.IsUnknown()) {
-		vyosData["revoke"] = o.LeafPkiCaRevoke.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePkiCaPrivate.IsNull() || o.NodePkiCaPrivate.IsUnknown()) {
-		var subModel PkiCaPrivate
-		diags.Append(o.NodePkiCaPrivate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["private"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PkiCa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "ca"}})
-
-	// Leafs
-	if value, ok := vyosData["certificate"]; ok {
-		o.LeafPkiCaCertificate = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaCertificate = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPkiCaDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["crl"]; ok {
-		o.LeafPkiCaCrl = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaCrl = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["revoke"]; ok {
-		o.LeafPkiCaRevoke = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPkiCaRevoke = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["private"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PkiCaPrivate{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePkiCaPrivate = data
-
-	} else {
-		o.NodePkiCaPrivate = basetypes.NewObjectNull(PkiCaPrivate{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "ca"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PkiCa) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"certificate": types.StringType,
-		"description": types.StringType,
-		"crl":         types.StringType,
-		"revoke":      types.StringType,
-
-		// Tags
-
-		// Nodes
-		"private": types.ObjectType{AttrTypes: PkiCaPrivate{}.AttributeTypes()},
 	}
 }
 
@@ -179,4 +87,106 @@ func (o PkiCa) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PkiCa) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPkiCaCertificate.IsNull() && !o.LeafPkiCaCertificate.IsUnknown() {
+		jsonData["certificate"] = o.LeafPkiCaCertificate.ValueString()
+	}
+
+	if !o.LeafPkiCaDescrIPtion.IsNull() && !o.LeafPkiCaDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPkiCaDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPkiCaCrl.IsNull() && !o.LeafPkiCaCrl.IsUnknown() {
+		jsonData["crl"] = o.LeafPkiCaCrl.ValueString()
+	}
+
+	if !o.LeafPkiCaRevoke.IsNull() && !o.LeafPkiCaRevoke.IsUnknown() {
+		jsonData["revoke"] = o.LeafPkiCaRevoke.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePkiCaPrivate).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePkiCaPrivate)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["private"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PkiCa) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["certificate"]; ok {
+		o.LeafPkiCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCaCertificate = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPkiCaDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCaDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["crl"]; ok {
+		o.LeafPkiCaCrl = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCaCrl = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["revoke"]; ok {
+		o.LeafPkiCaRevoke = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCaRevoke = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["private"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePkiCaPrivate = &PkiCaPrivate{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePkiCaPrivate)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

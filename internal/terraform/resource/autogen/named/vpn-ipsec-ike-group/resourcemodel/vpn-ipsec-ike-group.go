@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecIkeGroup describes the resource data model.
@@ -17,18 +15,18 @@ type VpnIPsecIkeGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnIPsecIkeGroupCloseAction   types.String `tfsdk:"close_action"`
-	LeafVpnIPsecIkeGroupIkevtwoReauth types.String `tfsdk:"ikev2_reauth"`
-	LeafVpnIPsecIkeGroupKeyExchange   types.String `tfsdk:"key_exchange"`
-	LeafVpnIPsecIkeGroupLifetime      types.String `tfsdk:"lifetime"`
-	LeafVpnIPsecIkeGroupDisableMobike types.String `tfsdk:"disable_mobike"`
-	LeafVpnIPsecIkeGroupMode          types.String `tfsdk:"mode"`
+	LeafVpnIPsecIkeGroupCloseAction   types.String `tfsdk:"close_action" json:"close-action,omitempty"`
+	LeafVpnIPsecIkeGroupIkevtwoReauth types.String `tfsdk:"ikev2_reauth" json:"ikev2-reauth,omitempty"`
+	LeafVpnIPsecIkeGroupKeyExchange   types.String `tfsdk:"key_exchange" json:"key-exchange,omitempty"`
+	LeafVpnIPsecIkeGroupLifetime      types.String `tfsdk:"lifetime" json:"lifetime,omitempty"`
+	LeafVpnIPsecIkeGroupDisableMobike types.String `tfsdk:"disable_mobike" json:"disable-mobike,omitempty"`
+	LeafVpnIPsecIkeGroupMode          types.String `tfsdk:"mode" json:"mode,omitempty"`
 
 	// TagNodes
-	TagVpnIPsecIkeGroupProposal types.Map `tfsdk:"proposal"`
+	TagVpnIPsecIkeGroupProposal *map[string]VpnIPsecIkeGroupProposal `tfsdk:"proposal" json:"proposal,omitempty"`
 
 	// Nodes
-	NodeVpnIPsecIkeGroupDeadPeerDetection types.Object `tfsdk:"dead_peer_detection"`
+	NodeVpnIPsecIkeGroupDeadPeerDetection *VpnIPsecIkeGroupDeadPeerDetection `tfsdk:"dead_peer_detection" json:"dead-peer-detection,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -38,132 +36,6 @@ func (o *VpnIPsecIkeGroup) GetVyosPath() []string {
 		"ipsec",
 		"ike-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecIkeGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecIkeGroupCloseAction.IsNull() || o.LeafVpnIPsecIkeGroupCloseAction.IsUnknown()) {
-		vyosData["close-action"] = o.LeafVpnIPsecIkeGroupCloseAction.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsNull() || o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsUnknown()) {
-		vyosData["ikev2-reauth"] = o.LeafVpnIPsecIkeGroupIkevtwoReauth.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupKeyExchange.IsNull() || o.LeafVpnIPsecIkeGroupKeyExchange.IsUnknown()) {
-		vyosData["key-exchange"] = o.LeafVpnIPsecIkeGroupKeyExchange.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupLifetime.IsNull() || o.LeafVpnIPsecIkeGroupLifetime.IsUnknown()) {
-		vyosData["lifetime"] = o.LeafVpnIPsecIkeGroupLifetime.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupDisableMobike.IsNull() || o.LeafVpnIPsecIkeGroupDisableMobike.IsUnknown()) {
-		vyosData["disable-mobike"] = o.LeafVpnIPsecIkeGroupDisableMobike.ValueString()
-	}
-	if !(o.LeafVpnIPsecIkeGroupMode.IsNull() || o.LeafVpnIPsecIkeGroupMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafVpnIPsecIkeGroupMode.ValueString()
-	}
-
-	// Tags
-	if !(o.TagVpnIPsecIkeGroupProposal.IsNull() || o.TagVpnIPsecIkeGroupProposal.IsUnknown()) {
-		subModel := make(map[string]VpnIPsecIkeGroupProposal)
-		diags.Append(o.TagVpnIPsecIkeGroupProposal.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["proposal"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVpnIPsecIkeGroupDeadPeerDetection.IsNull() || o.NodeVpnIPsecIkeGroupDeadPeerDetection.IsUnknown()) {
-		var subModel VpnIPsecIkeGroupDeadPeerDetection
-		diags.Append(o.NodeVpnIPsecIkeGroupDeadPeerDetection.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dead-peer-detection"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecIkeGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
-
-	// Leafs
-	if value, ok := vyosData["close-action"]; ok {
-		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ikev2-reauth"]; ok {
-		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key-exchange"]; ok {
-		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["lifetime"]; ok {
-		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-mobike"]; ok {
-		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["proposal"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecIkeGroupProposal{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVpnIPsecIkeGroupProposal = data
-	} else {
-		o.TagVpnIPsecIkeGroupProposal = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["dead-peer-detection"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecIkeGroupDeadPeerDetection = data
-
-	} else {
-		o.NodeVpnIPsecIkeGroupDeadPeerDetection = basetypes.NewObjectNull(VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecIkeGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"close_action":   types.StringType,
-		"ikev2_reauth":   types.StringType,
-		"key_exchange":   types.StringType,
-		"lifetime":       types.StringType,
-		"disable_mobike": types.StringType,
-		"mode":           types.StringType,
-
-		// Tags
-		"proposal": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecIkeGroupProposal{}.AttributeTypes()}},
-
-		// Nodes
-		"dead_peer_detection": types.ObjectType{AttrTypes: VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes()},
 	}
 }
 
@@ -276,4 +148,153 @@ func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecIkeGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecIkeGroupCloseAction.IsNull() && !o.LeafVpnIPsecIkeGroupCloseAction.IsUnknown() {
+		jsonData["close-action"] = o.LeafVpnIPsecIkeGroupCloseAction.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsNull() && !o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsUnknown() {
+		jsonData["ikev2-reauth"] = o.LeafVpnIPsecIkeGroupIkevtwoReauth.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupKeyExchange.IsNull() && !o.LeafVpnIPsecIkeGroupKeyExchange.IsUnknown() {
+		jsonData["key-exchange"] = o.LeafVpnIPsecIkeGroupKeyExchange.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupLifetime.IsNull() && !o.LeafVpnIPsecIkeGroupLifetime.IsUnknown() {
+		jsonData["lifetime"] = o.LeafVpnIPsecIkeGroupLifetime.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupDisableMobike.IsNull() && !o.LeafVpnIPsecIkeGroupDisableMobike.IsUnknown() {
+		jsonData["disable-mobike"] = o.LeafVpnIPsecIkeGroupDisableMobike.ValueString()
+	}
+
+	if !o.LeafVpnIPsecIkeGroupMode.IsNull() && !o.LeafVpnIPsecIkeGroupMode.IsUnknown() {
+		jsonData["mode"] = o.LeafVpnIPsecIkeGroupMode.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVpnIPsecIkeGroupProposal).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVpnIPsecIkeGroupProposal)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["proposal"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnIPsecIkeGroupDeadPeerDetection).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecIkeGroupDeadPeerDetection)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dead-peer-detection"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecIkeGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["close-action"]; ok {
+		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ikev2-reauth"]; ok {
+		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key-exchange"]; ok {
+		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["lifetime"]; ok {
+		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-mobike"]; ok {
+		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["proposal"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVpnIPsecIkeGroupProposal = &map[string]VpnIPsecIkeGroupProposal{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVpnIPsecIkeGroupProposal)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["dead-peer-detection"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecIkeGroupDeadPeerDetection = &VpnIPsecIkeGroupDeadPeerDetection{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecIkeGroupDeadPeerDetection)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

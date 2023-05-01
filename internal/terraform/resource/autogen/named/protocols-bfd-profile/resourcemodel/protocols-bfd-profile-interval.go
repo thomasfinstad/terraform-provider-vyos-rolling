@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBfdProfileInterval describes the resource data model.
 type ProtocolsBfdProfileInterval struct {
 	// LeafNodes
-	LeafProtocolsBfdProfileIntervalReceive      types.String `tfsdk:"receive"`
-	LeafProtocolsBfdProfileIntervalTransmit     types.String `tfsdk:"transmit"`
-	LeafProtocolsBfdProfileIntervalMultIPlier   types.String `tfsdk:"multiplier"`
-	LeafProtocolsBfdProfileIntervalEchoInterval types.String `tfsdk:"echo_interval"`
+	LeafProtocolsBfdProfileIntervalReceive      types.String `tfsdk:"receive" json:"receive,omitempty"`
+	LeafProtocolsBfdProfileIntervalTransmit     types.String `tfsdk:"transmit" json:"transmit,omitempty"`
+	LeafProtocolsBfdProfileIntervalMultIPlier   types.String `tfsdk:"multiplier" json:"multiplier,omitempty"`
+	LeafProtocolsBfdProfileIntervalEchoInterval types.String `tfsdk:"echo_interval" json:"echo-interval,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBfdProfileInterval) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile", "interval"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBfdProfileIntervalReceive.IsNull() || o.LeafProtocolsBfdProfileIntervalReceive.IsUnknown()) {
-		vyosData["receive"] = o.LeafProtocolsBfdProfileIntervalReceive.ValueString()
-	}
-	if !(o.LeafProtocolsBfdProfileIntervalTransmit.IsNull() || o.LeafProtocolsBfdProfileIntervalTransmit.IsUnknown()) {
-		vyosData["transmit"] = o.LeafProtocolsBfdProfileIntervalTransmit.ValueString()
-	}
-	if !(o.LeafProtocolsBfdProfileIntervalMultIPlier.IsNull() || o.LeafProtocolsBfdProfileIntervalMultIPlier.IsUnknown()) {
-		vyosData["multiplier"] = o.LeafProtocolsBfdProfileIntervalMultIPlier.ValueString()
-	}
-	if !(o.LeafProtocolsBfdProfileIntervalEchoInterval.IsNull() || o.LeafProtocolsBfdProfileIntervalEchoInterval.IsUnknown()) {
-		vyosData["echo-interval"] = o.LeafProtocolsBfdProfileIntervalEchoInterval.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBfdProfileInterval) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile", "interval"}})
-
-	// Leafs
-	if value, ok := vyosData["receive"]; ok {
-		o.LeafProtocolsBfdProfileIntervalReceive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileIntervalReceive = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["transmit"]; ok {
-		o.LeafProtocolsBfdProfileIntervalTransmit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileIntervalTransmit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["multiplier"]; ok {
-		o.LeafProtocolsBfdProfileIntervalMultIPlier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileIntervalMultIPlier = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["echo-interval"]; ok {
-		o.LeafProtocolsBfdProfileIntervalEchoInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBfdProfileIntervalEchoInterval = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile", "interval"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBfdProfileInterval) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"receive":       types.StringType,
-		"transmit":      types.StringType,
-		"multiplier":    types.StringType,
-		"echo_interval": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -165,4 +85,79 @@ func (o ProtocolsBfdProfileInterval) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBfdProfileInterval) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBfdProfileIntervalReceive.IsNull() && !o.LeafProtocolsBfdProfileIntervalReceive.IsUnknown() {
+		jsonData["receive"] = o.LeafProtocolsBfdProfileIntervalReceive.ValueString()
+	}
+
+	if !o.LeafProtocolsBfdProfileIntervalTransmit.IsNull() && !o.LeafProtocolsBfdProfileIntervalTransmit.IsUnknown() {
+		jsonData["transmit"] = o.LeafProtocolsBfdProfileIntervalTransmit.ValueString()
+	}
+
+	if !o.LeafProtocolsBfdProfileIntervalMultIPlier.IsNull() && !o.LeafProtocolsBfdProfileIntervalMultIPlier.IsUnknown() {
+		jsonData["multiplier"] = o.LeafProtocolsBfdProfileIntervalMultIPlier.ValueString()
+	}
+
+	if !o.LeafProtocolsBfdProfileIntervalEchoInterval.IsNull() && !o.LeafProtocolsBfdProfileIntervalEchoInterval.IsUnknown() {
+		jsonData["echo-interval"] = o.LeafProtocolsBfdProfileIntervalEchoInterval.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBfdProfileInterval) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["receive"]; ok {
+		o.LeafProtocolsBfdProfileIntervalReceive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileIntervalReceive = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["transmit"]; ok {
+		o.LeafProtocolsBfdProfileIntervalTransmit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileIntervalTransmit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["multiplier"]; ok {
+		o.LeafProtocolsBfdProfileIntervalMultIPlier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileIntervalMultIPlier = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["echo-interval"]; ok {
+		o.LeafProtocolsBfdProfileIntervalEchoInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileIntervalEchoInterval = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

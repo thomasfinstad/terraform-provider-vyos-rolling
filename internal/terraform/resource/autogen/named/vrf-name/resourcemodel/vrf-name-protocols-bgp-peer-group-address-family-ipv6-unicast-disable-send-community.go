@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended types.String `tfsdk:"extended"`
-	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard types.String `tfsdk:"standard"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended types.String `tfsdk:"extended" json:"extended,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard types.String `tfsdk:"standard" json:"standard,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsUnknown()) {
-		vyosData["extended"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsUnknown()) {
-		vyosData["standard"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-
-	// Leafs
-	if value, ok := vyosData["extended"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["standard"]; ok {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "disable-send-community"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"extended": types.StringType,
-		"standard": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommuni
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.IsUnknown() {
+		jsonData["extended"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsNull() && !o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.IsUnknown() {
+		jsonData["standard"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunity) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["extended"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityExtended = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["standard"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastDisableSendCommunityStandard = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDge describes the resource data model.
@@ -17,33 +15,33 @@ type InterfacesBrIDge struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesBrIDgeAddress           types.String `tfsdk:"address"`
-	LeafInterfacesBrIDgeAging             types.String `tfsdk:"aging"`
-	LeafInterfacesBrIDgeDescrIPtion       types.String `tfsdk:"description"`
-	LeafInterfacesBrIDgeDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
-	LeafInterfacesBrIDgeDisable           types.String `tfsdk:"disable"`
-	LeafInterfacesBrIDgeVrf               types.String `tfsdk:"vrf"`
-	LeafInterfacesBrIDgeMtu               types.String `tfsdk:"mtu"`
-	LeafInterfacesBrIDgeForwardingDelay   types.String `tfsdk:"forwarding_delay"`
-	LeafInterfacesBrIDgeHelloTime         types.String `tfsdk:"hello_time"`
-	LeafInterfacesBrIDgeMac               types.String `tfsdk:"mac"`
-	LeafInterfacesBrIDgeEnableVlan        types.String `tfsdk:"enable_vlan"`
-	LeafInterfacesBrIDgeMaxAge            types.String `tfsdk:"max_age"`
-	LeafInterfacesBrIDgePriority          types.String `tfsdk:"priority"`
-	LeafInterfacesBrIDgeStp               types.String `tfsdk:"stp"`
-	LeafInterfacesBrIDgeRedirect          types.String `tfsdk:"redirect"`
+	LeafInterfacesBrIDgeAddress           types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesBrIDgeAging             types.String `tfsdk:"aging" json:"aging,omitempty"`
+	LeafInterfacesBrIDgeDescrIPtion       types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesBrIDgeDisableLinkDetect types.String `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
+	LeafInterfacesBrIDgeDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesBrIDgeVrf               types.String `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesBrIDgeMtu               types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesBrIDgeForwardingDelay   types.String `tfsdk:"forwarding_delay" json:"forwarding-delay,omitempty"`
+	LeafInterfacesBrIDgeHelloTime         types.String `tfsdk:"hello_time" json:"hello-time,omitempty"`
+	LeafInterfacesBrIDgeMac               types.String `tfsdk:"mac" json:"mac,omitempty"`
+	LeafInterfacesBrIDgeEnableVlan        types.String `tfsdk:"enable_vlan" json:"enable-vlan,omitempty"`
+	LeafInterfacesBrIDgeMaxAge            types.String `tfsdk:"max_age" json:"max-age,omitempty"`
+	LeafInterfacesBrIDgePriority          types.String `tfsdk:"priority" json:"priority,omitempty"`
+	LeafInterfacesBrIDgeStp               types.String `tfsdk:"stp" json:"stp,omitempty"`
+	LeafInterfacesBrIDgeRedirect          types.String `tfsdk:"redirect" json:"redirect,omitempty"`
 
 	// TagNodes
-	TagInterfacesBrIDgeVif types.Map `tfsdk:"vif"`
+	TagInterfacesBrIDgeVif *map[string]InterfacesBrIDgeVif `tfsdk:"vif" json:"vif,omitempty"`
 
 	// Nodes
-	NodeInterfacesBrIDgeDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesBrIDgeDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesBrIDgeIgmp            types.Object `tfsdk:"igmp"`
-	NodeInterfacesBrIDgeIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesBrIDgeIPvsix          types.Object `tfsdk:"ipv6"`
-	NodeInterfacesBrIDgeMirror          types.Object `tfsdk:"mirror"`
-	NodeInterfacesBrIDgeMember          types.Object `tfsdk:"member"`
+	NodeInterfacesBrIDgeDhcpOptions     *InterfacesBrIDgeDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesBrIDgeDhcpvsixOptions *InterfacesBrIDgeDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesBrIDgeIgmp            *InterfacesBrIDgeIgmp            `tfsdk:"igmp" json:"igmp,omitempty"`
+	NodeInterfacesBrIDgeIP              *InterfacesBrIDgeIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesBrIDgeIPvsix          *InterfacesBrIDgeIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesBrIDgeMirror          *InterfacesBrIDgeMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesBrIDgeMember          *InterfacesBrIDgeMember          `tfsdk:"member" json:"member,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -52,297 +50,6 @@ func (o *InterfacesBrIDge) GetVyosPath() []string {
 		"interfaces",
 		"bridge",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesBrIDge) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesBrIDgeAddress.IsNull() || o.LeafInterfacesBrIDgeAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesBrIDgeAddress.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeAging.IsNull() || o.LeafInterfacesBrIDgeAging.IsUnknown()) {
-		vyosData["aging"] = o.LeafInterfacesBrIDgeAging.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeDescrIPtion.IsNull() || o.LeafInterfacesBrIDgeDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesBrIDgeDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeDisableLinkDetect.IsNull() || o.LeafInterfacesBrIDgeDisableLinkDetect.IsUnknown()) {
-		vyosData["disable-link-detect"] = o.LeafInterfacesBrIDgeDisableLinkDetect.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeDisable.IsNull() || o.LeafInterfacesBrIDgeDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesBrIDgeDisable.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeVrf.IsNull() || o.LeafInterfacesBrIDgeVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesBrIDgeVrf.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeMtu.IsNull() || o.LeafInterfacesBrIDgeMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesBrIDgeMtu.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeForwardingDelay.IsNull() || o.LeafInterfacesBrIDgeForwardingDelay.IsUnknown()) {
-		vyosData["forwarding-delay"] = o.LeafInterfacesBrIDgeForwardingDelay.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeHelloTime.IsNull() || o.LeafInterfacesBrIDgeHelloTime.IsUnknown()) {
-		vyosData["hello-time"] = o.LeafInterfacesBrIDgeHelloTime.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeMac.IsNull() || o.LeafInterfacesBrIDgeMac.IsUnknown()) {
-		vyosData["mac"] = o.LeafInterfacesBrIDgeMac.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeEnableVlan.IsNull() || o.LeafInterfacesBrIDgeEnableVlan.IsUnknown()) {
-		vyosData["enable-vlan"] = o.LeafInterfacesBrIDgeEnableVlan.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeMaxAge.IsNull() || o.LeafInterfacesBrIDgeMaxAge.IsUnknown()) {
-		vyosData["max-age"] = o.LeafInterfacesBrIDgeMaxAge.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgePriority.IsNull() || o.LeafInterfacesBrIDgePriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafInterfacesBrIDgePriority.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeStp.IsNull() || o.LeafInterfacesBrIDgeStp.IsUnknown()) {
-		vyosData["stp"] = o.LeafInterfacesBrIDgeStp.ValueString()
-	}
-	if !(o.LeafInterfacesBrIDgeRedirect.IsNull() || o.LeafInterfacesBrIDgeRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesBrIDgeRedirect.ValueString()
-	}
-
-	// Tags
-	if !(o.TagInterfacesBrIDgeVif.IsNull() || o.TagInterfacesBrIDgeVif.IsUnknown()) {
-		subModel := make(map[string]InterfacesBrIDgeVif)
-		diags.Append(o.TagInterfacesBrIDgeVif.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["vif"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeInterfacesBrIDgeDhcpOptions.IsNull() || o.NodeInterfacesBrIDgeDhcpOptions.IsUnknown()) {
-		var subModel InterfacesBrIDgeDhcpOptions
-		diags.Append(o.NodeInterfacesBrIDgeDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeDhcpvsixOptions.IsNull() || o.NodeInterfacesBrIDgeDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesBrIDgeDhcpvsixOptions
-		diags.Append(o.NodeInterfacesBrIDgeDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeIgmp.IsNull() || o.NodeInterfacesBrIDgeIgmp.IsUnknown()) {
-		var subModel InterfacesBrIDgeIgmp
-		diags.Append(o.NodeInterfacesBrIDgeIgmp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["igmp"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeIP.IsNull() || o.NodeInterfacesBrIDgeIP.IsUnknown()) {
-		var subModel InterfacesBrIDgeIP
-		diags.Append(o.NodeInterfacesBrIDgeIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeIPvsix.IsNull() || o.NodeInterfacesBrIDgeIPvsix.IsUnknown()) {
-		var subModel InterfacesBrIDgeIPvsix
-		diags.Append(o.NodeInterfacesBrIDgeIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeMirror.IsNull() || o.NodeInterfacesBrIDgeMirror.IsUnknown()) {
-		var subModel InterfacesBrIDgeMirror
-		diags.Append(o.NodeInterfacesBrIDgeMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesBrIDgeMember.IsNull() || o.NodeInterfacesBrIDgeMember.IsUnknown()) {
-		var subModel InterfacesBrIDgeMember
-		diags.Append(o.NodeInterfacesBrIDgeMember.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["member"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesBrIDge) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["aging"]; ok {
-		o.LeafInterfacesBrIDgeAging = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeAging = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-link-detect"]; ok {
-		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["forwarding-delay"]; ok {
-		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-time"]; ok {
-		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac"]; ok {
-		o.LeafInterfacesBrIDgeMac = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMac = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-vlan"]; ok {
-		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["max-age"]; ok {
-		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafInterfacesBrIDgePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgePriority = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["stp"]; ok {
-		o.LeafInterfacesBrIDgeStp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeStp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["vif"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBrIDgeVif{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagInterfacesBrIDgeVif = data
-	} else {
-		o.TagInterfacesBrIDgeVif = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesBrIDgeDhcpOptions = basetypes.NewObjectNull(InterfacesBrIDgeDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesBrIDgeDhcpvsixOptions = basetypes.NewObjectNull(InterfacesBrIDgeDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["igmp"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeIgmp{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeIgmp = data
-
-	} else {
-		o.NodeInterfacesBrIDgeIgmp = basetypes.NewObjectNull(InterfacesBrIDgeIgmp{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeIP = data
-
-	} else {
-		o.NodeInterfacesBrIDgeIP = basetypes.NewObjectNull(InterfacesBrIDgeIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeIPvsix = data
-
-	} else {
-		o.NodeInterfacesBrIDgeIPvsix = basetypes.NewObjectNull(InterfacesBrIDgeIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeMirror = data
-
-	} else {
-		o.NodeInterfacesBrIDgeMirror = basetypes.NewObjectNull(InterfacesBrIDgeMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["member"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeMember{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesBrIDgeMember = data
-
-	} else {
-		o.NodeInterfacesBrIDgeMember = basetypes.NewObjectNull(InterfacesBrIDgeMember{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesBrIDge) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":             types.StringType,
-		"aging":               types.StringType,
-		"description":         types.StringType,
-		"disable_link_detect": types.StringType,
-		"disable":             types.StringType,
-		"vrf":                 types.StringType,
-		"mtu":                 types.StringType,
-		"forwarding_delay":    types.StringType,
-		"hello_time":          types.StringType,
-		"mac":                 types.StringType,
-		"enable_vlan":         types.StringType,
-		"max_age":             types.StringType,
-		"priority":            types.StringType,
-		"stp":                 types.StringType,
-		"redirect":            types.StringType,
-
-		// Tags
-		"vif": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBrIDgeVif{}.AttributeTypes()}},
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesBrIDgeDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesBrIDgeDhcpvsixOptions{}.AttributeTypes()},
-		"igmp":           types.ObjectType{AttrTypes: InterfacesBrIDgeIgmp{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesBrIDgeIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesBrIDgeIPvsix{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesBrIDgeMirror{}.AttributeTypes()},
-		"member":         types.ObjectType{AttrTypes: InterfacesBrIDgeMember{}.AttributeTypes()},
 	}
 }
 
@@ -607,4 +314,405 @@ func (o InterfacesBrIDge) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesBrIDge) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesBrIDgeAddress.IsNull() && !o.LeafInterfacesBrIDgeAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesBrIDgeAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeAging.IsNull() && !o.LeafInterfacesBrIDgeAging.IsUnknown() {
+		jsonData["aging"] = o.LeafInterfacesBrIDgeAging.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeDescrIPtion.IsNull() && !o.LeafInterfacesBrIDgeDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesBrIDgeDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeDisableLinkDetect.IsNull() && !o.LeafInterfacesBrIDgeDisableLinkDetect.IsUnknown() {
+		jsonData["disable-link-detect"] = o.LeafInterfacesBrIDgeDisableLinkDetect.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeDisable.IsNull() && !o.LeafInterfacesBrIDgeDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesBrIDgeDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeVrf.IsNull() && !o.LeafInterfacesBrIDgeVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesBrIDgeVrf.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeMtu.IsNull() && !o.LeafInterfacesBrIDgeMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesBrIDgeMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeForwardingDelay.IsNull() && !o.LeafInterfacesBrIDgeForwardingDelay.IsUnknown() {
+		jsonData["forwarding-delay"] = o.LeafInterfacesBrIDgeForwardingDelay.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeHelloTime.IsNull() && !o.LeafInterfacesBrIDgeHelloTime.IsUnknown() {
+		jsonData["hello-time"] = o.LeafInterfacesBrIDgeHelloTime.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeMac.IsNull() && !o.LeafInterfacesBrIDgeMac.IsUnknown() {
+		jsonData["mac"] = o.LeafInterfacesBrIDgeMac.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeEnableVlan.IsNull() && !o.LeafInterfacesBrIDgeEnableVlan.IsUnknown() {
+		jsonData["enable-vlan"] = o.LeafInterfacesBrIDgeEnableVlan.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeMaxAge.IsNull() && !o.LeafInterfacesBrIDgeMaxAge.IsUnknown() {
+		jsonData["max-age"] = o.LeafInterfacesBrIDgeMaxAge.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgePriority.IsNull() && !o.LeafInterfacesBrIDgePriority.IsUnknown() {
+		jsonData["priority"] = o.LeafInterfacesBrIDgePriority.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeStp.IsNull() && !o.LeafInterfacesBrIDgeStp.IsUnknown() {
+		jsonData["stp"] = o.LeafInterfacesBrIDgeStp.ValueString()
+	}
+
+	if !o.LeafInterfacesBrIDgeRedirect.IsNull() && !o.LeafInterfacesBrIDgeRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesBrIDgeRedirect.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagInterfacesBrIDgeVif).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagInterfacesBrIDgeVif)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["vif"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIgmp).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIgmp)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["igmp"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesBrIDgeMember).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesBrIDgeMember)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["member"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesBrIDge) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["aging"]; ok {
+		o.LeafInterfacesBrIDgeAging = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeAging = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-link-detect"]; ok {
+		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDisableLinkDetect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVrf = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["forwarding-delay"]; ok {
+		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeForwardingDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-time"]; ok {
+		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeHelloTime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac"]; ok {
+		o.LeafInterfacesBrIDgeMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMac = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-vlan"]; ok {
+		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeEnableVlan = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["max-age"]; ok {
+		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMaxAge = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafInterfacesBrIDgePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgePriority = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["stp"]; ok {
+		o.LeafInterfacesBrIDgeStp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeStp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["vif"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagInterfacesBrIDgeVif = &map[string]InterfacesBrIDgeVif{}
+
+		err = json.Unmarshal(subJSONStr, o.TagInterfacesBrIDgeVif)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeDhcpOptions = &InterfacesBrIDgeDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeDhcpvsixOptions = &InterfacesBrIDgeDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["igmp"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeIgmp = &InterfacesBrIDgeIgmp{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIgmp)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeIP = &InterfacesBrIDgeIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeIPvsix = &InterfacesBrIDgeIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeMirror = &InterfacesBrIDgeMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["member"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesBrIDgeMember = &InterfacesBrIDgeMember{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesBrIDgeMember)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

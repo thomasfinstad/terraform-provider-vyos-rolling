@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeTrapTarget describes the resource data model.
@@ -17,16 +15,16 @@ type ServiceSnmpVthreeTrapTarget struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceSnmpVthreeTrapTargetPort     types.String `tfsdk:"port"`
-	LeafServiceSnmpVthreeTrapTargetProtocol types.String `tfsdk:"protocol"`
-	LeafServiceSnmpVthreeTrapTargetType     types.String `tfsdk:"type"`
-	LeafServiceSnmpVthreeTrapTargetUser     types.String `tfsdk:"user"`
+	LeafServiceSnmpVthreeTrapTargetPort     types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceSnmpVthreeTrapTargetProtocol types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafServiceSnmpVthreeTrapTargetType     types.String `tfsdk:"type" json:"type,omitempty"`
+	LeafServiceSnmpVthreeTrapTargetUser     types.String `tfsdk:"user" json:"user,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceSnmpVthreeTrapTargetAuth    types.Object `tfsdk:"auth"`
-	NodeServiceSnmpVthreeTrapTargetPrivacy types.Object `tfsdk:"privacy"`
+	NodeServiceSnmpVthreeTrapTargetAuth    *ServiceSnmpVthreeTrapTargetAuth    `tfsdk:"auth" json:"auth,omitempty"`
+	NodeServiceSnmpVthreeTrapTargetPrivacy *ServiceSnmpVthreeTrapTargetPrivacy `tfsdk:"privacy" json:"privacy,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -37,110 +35,6 @@ func (o *ServiceSnmpVthreeTrapTarget) GetVyosPath() []string {
 		"v3",
 		"trap-target",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpVthreeTrapTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceSnmpVthreeTrapTargetPort.IsNull() || o.LeafServiceSnmpVthreeTrapTargetPort.IsUnknown()) {
-		vyosData["port"] = o.LeafServiceSnmpVthreeTrapTargetPort.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeTrapTargetProtocol.IsNull() || o.LeafServiceSnmpVthreeTrapTargetProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafServiceSnmpVthreeTrapTargetProtocol.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeTrapTargetType.IsNull() || o.LeafServiceSnmpVthreeTrapTargetType.IsUnknown()) {
-		vyosData["type"] = o.LeafServiceSnmpVthreeTrapTargetType.ValueString()
-	}
-	if !(o.LeafServiceSnmpVthreeTrapTargetUser.IsNull() || o.LeafServiceSnmpVthreeTrapTargetUser.IsUnknown()) {
-		vyosData["user"] = o.LeafServiceSnmpVthreeTrapTargetUser.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceSnmpVthreeTrapTargetAuth.IsNull() || o.NodeServiceSnmpVthreeTrapTargetAuth.IsUnknown()) {
-		var subModel ServiceSnmpVthreeTrapTargetAuth
-		diags.Append(o.NodeServiceSnmpVthreeTrapTargetAuth.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["auth"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeServiceSnmpVthreeTrapTargetPrivacy.IsNull() || o.NodeServiceSnmpVthreeTrapTargetPrivacy.IsUnknown()) {
-		var subModel ServiceSnmpVthreeTrapTargetPrivacy
-		diags.Append(o.NodeServiceSnmpVthreeTrapTargetPrivacy.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["privacy"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpVthreeTrapTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
-
-	// Leafs
-	if value, ok := vyosData["port"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["user"]; ok {
-		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["auth"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceSnmpVthreeTrapTargetAuth = data
-
-	} else {
-		o.NodeServiceSnmpVthreeTrapTargetAuth = basetypes.NewObjectNull(ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes())
-	}
-	if value, ok := vyosData["privacy"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceSnmpVthreeTrapTargetPrivacy = data
-
-	} else {
-		o.NodeServiceSnmpVthreeTrapTargetPrivacy = basetypes.NewObjectNull(ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpVthreeTrapTarget) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"port":     types.StringType,
-		"protocol": types.StringType,
-		"type":     types.StringType,
-		"user":     types.StringType,
-
-		// Tags
-
-		// Nodes
-		"auth":    types.ObjectType{AttrTypes: ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes()},
-		"privacy": types.ObjectType{AttrTypes: ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes()},
 	}
 }
 
@@ -232,4 +126,133 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schem
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpVthreeTrapTarget) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceSnmpVthreeTrapTargetPort.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetPort.IsUnknown() {
+		jsonData["port"] = o.LeafServiceSnmpVthreeTrapTargetPort.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeTrapTargetProtocol.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafServiceSnmpVthreeTrapTargetProtocol.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeTrapTargetType.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetType.IsUnknown() {
+		jsonData["type"] = o.LeafServiceSnmpVthreeTrapTargetType.ValueString()
+	}
+
+	if !o.LeafServiceSnmpVthreeTrapTargetUser.IsNull() && !o.LeafServiceSnmpVthreeTrapTargetUser.IsUnknown() {
+		jsonData["user"] = o.LeafServiceSnmpVthreeTrapTargetUser.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceSnmpVthreeTrapTargetAuth).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeTrapTargetAuth)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["auth"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeServiceSnmpVthreeTrapTargetPrivacy).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceSnmpVthreeTrapTargetPrivacy)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["privacy"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpVthreeTrapTarget) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["user"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["auth"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceSnmpVthreeTrapTargetAuth = &ServiceSnmpVthreeTrapTargetAuth{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeTrapTargetAuth)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["privacy"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceSnmpVthreeTrapTargetPrivacy = &ServiceSnmpVthreeTrapTargetPrivacy{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceSnmpVthreeTrapTargetPrivacy)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

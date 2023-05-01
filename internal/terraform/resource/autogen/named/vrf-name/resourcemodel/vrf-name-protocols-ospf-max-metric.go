@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfMaxMetric describes the resource data model.
@@ -19,61 +15,7 @@ type VrfNameProtocolsOspfMaxMetric struct {
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsOspfMaxMetricRouterLsa types.Object `tfsdk:"router_lsa"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfMaxMetric) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.IsNull() || o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfMaxMetricRouterLsa
-		diags.Append(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["router-lsa"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfMaxMetric) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["router-lsa"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = basetypes.NewObjectNull(VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfMaxMetric) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"router_lsa": types.ObjectType{AttrTypes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfMaxMetricRouterLsa *VrfNameProtocolsOspfMaxMetricRouterLsa `tfsdk:"router_lsa" json:"router-lsa,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +35,66 @@ func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfMaxMetric) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["router-lsa"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfMaxMetric) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["router-lsa"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = &VrfNameProtocolsOspfMaxMetricRouterLsa{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

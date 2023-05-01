@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfaceRoute describes the resource data model.
 type ServiceRouterAdvertInterfaceRoute struct {
 	// LeafNodes
-	LeafServiceRouterAdvertInterfaceRouteValIDLifetime   types.String `tfsdk:"valid_lifetime"`
-	LeafServiceRouterAdvertInterfaceRouteRoutePreference types.String `tfsdk:"route_preference"`
-	LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute   types.String `tfsdk:"no_remove_route"`
+	LeafServiceRouterAdvertInterfaceRouteValIDLifetime   types.String `tfsdk:"valid_lifetime" json:"valid-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfaceRouteRoutePreference types.String `tfsdk:"route_preference" json:"route-preference,omitempty"`
+	LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute   types.String `tfsdk:"no_remove_route" json:"no-remove-route,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceRouterAdvertInterfaceRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsUnknown()) {
-		vyosData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsUnknown()) {
-		vyosData["route-preference"] = o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.ValueString()
-	}
-	if !(o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsUnknown()) {
-		vyosData["no-remove-route"] = o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceRouterAdvertInterfaceRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
-
-	// Leafs
-	if value, ok := vyosData["valid-lifetime"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-preference"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-remove-route"]; ok {
-		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceRouterAdvertInterfaceRoute) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"valid_lifetime":   types.StringType,
-		"route_preference": types.StringType,
-		"no_remove_route":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -140,4 +69,69 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceRouterAdvertInterfaceRoute) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsUnknown() {
+		jsonData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsUnknown() {
+		jsonData["route-preference"] = o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.ValueString()
+	}
+
+	if !o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsNull() && !o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsUnknown() {
+		jsonData["no-remove-route"] = o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceRouterAdvertInterfaceRoute) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["valid-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-preference"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-remove-route"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

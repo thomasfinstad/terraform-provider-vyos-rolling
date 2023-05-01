@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetEvpnGateway describes the resource data model.
 type PolicyRouteMapRuleSetEvpnGateway struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour types.String `tfsdk:"ipv4"`
-	LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix  types.String `tfsdk:"ipv6"`
+	LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour types.String `tfsdk:"ipv4" json:"ipv4,omitempty"`
+	LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix  types.String `tfsdk:"ipv6" json:"ipv6,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleSetEvpnGateway) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsNull() || o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsUnknown()) {
-		vyosData["ipv4"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsNull() || o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsUnknown()) {
-		vyosData["ipv6"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleSetEvpnGateway) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
-
-	// Leafs
-	if value, ok := vyosData["ipv4"]; ok {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleSetEvpnGateway) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"ipv4": types.StringType,
-		"ipv6": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleSetEvpnGateway) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsNull() && !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsUnknown() {
+		jsonData["ipv4"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsNull() && !o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsUnknown() {
+		jsonData["ipv6"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleSetEvpnGateway) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["ipv4"]; ok {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ipv6"]; ok {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

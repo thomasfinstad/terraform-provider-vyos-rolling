@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyCommunityListRule describes the resource data model.
 type PolicyCommunityListRule struct {
 	// LeafNodes
-	LeafPolicyCommunityListRuleAction      types.String `tfsdk:"action"`
-	LeafPolicyCommunityListRuleDescrIPtion types.String `tfsdk:"description"`
-	LeafPolicyCommunityListRuleRegex       types.String `tfsdk:"regex"`
+	LeafPolicyCommunityListRuleAction      types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafPolicyCommunityListRuleDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyCommunityListRuleRegex       types.String `tfsdk:"regex" json:"regex,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyCommunityListRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyCommunityListRuleAction.IsNull() || o.LeafPolicyCommunityListRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafPolicyCommunityListRuleAction.ValueString()
-	}
-	if !(o.LeafPolicyCommunityListRuleDescrIPtion.IsNull() || o.LeafPolicyCommunityListRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyCommunityListRuleDescrIPtion.ValueString()
-	}
-	if !(o.LeafPolicyCommunityListRuleRegex.IsNull() || o.LeafPolicyCommunityListRuleRegex.IsUnknown()) {
-		vyosData["regex"] = o.LeafPolicyCommunityListRuleRegex.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyCommunityListRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["regex"]; ok {
-		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyCommunityListRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":      types.StringType,
-		"description": types.StringType,
-		"regex":       types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -141,4 +70,69 @@ func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyCommunityListRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyCommunityListRuleAction.IsNull() && !o.LeafPolicyCommunityListRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafPolicyCommunityListRuleAction.ValueString()
+	}
+
+	if !o.LeafPolicyCommunityListRuleDescrIPtion.IsNull() && !o.LeafPolicyCommunityListRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyCommunityListRuleDescrIPtion.ValueString()
+	}
+
+	if !o.LeafPolicyCommunityListRuleRegex.IsNull() && !o.LeafPolicyCommunityListRuleRegex.IsUnknown() {
+		jsonData["regex"] = o.LeafPolicyCommunityListRuleRegex.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyCommunityListRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["regex"]; ok {
+		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

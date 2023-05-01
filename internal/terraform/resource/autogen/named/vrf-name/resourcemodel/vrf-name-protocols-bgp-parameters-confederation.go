@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersConfederation describes the resource data model.
 type VrfNameProtocolsBgpParametersConfederation struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpParametersConfederationIDentifier types.String `tfsdk:"identifier"`
-	LeafVrfNameProtocolsBgpParametersConfederationPeers      types.String `tfsdk:"peers"`
+	LeafVrfNameProtocolsBgpParametersConfederationIDentifier types.String `tfsdk:"identifier" json:"identifier,omitempty"`
+	LeafVrfNameProtocolsBgpParametersConfederationPeers      types.String `tfsdk:"peers" json:"peers,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpParametersConfederation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsNull() || o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsUnknown()) {
-		vyosData["identifier"] = o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsNull() || o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsUnknown()) {
-		vyosData["peers"] = o.LeafVrfNameProtocolsBgpParametersConfederationPeers.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpParametersConfederation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
-
-	// Leafs
-	if value, ok := vyosData["identifier"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["peers"]; ok {
-		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpParametersConfederation) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"identifier": types.StringType,
-		"peers":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() m
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpParametersConfederation) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsNull() && !o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsUnknown() {
+		jsonData["identifier"] = o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsNull() && !o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsUnknown() {
+		jsonData["peers"] = o.LeafVrfNameProtocolsBgpParametersConfederationPeers.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpParametersConfederation) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["identifier"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["peers"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

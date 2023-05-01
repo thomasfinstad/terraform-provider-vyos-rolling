@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPInterfaceAuthenticationMdfive describes the resource data model.
 type ProtocolsRIPInterfaceAuthenticationMdfive struct {
 	// LeafNodes
-	LeafProtocolsRIPInterfaceAuthenticationMdfivePassword types.String `tfsdk:"password"`
+	LeafProtocolsRIPInterfaceAuthenticationMdfivePassword types.String `tfsdk:"password" json:"password,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsRIPInterfaceAuthenticationMdfive) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication", "md5"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsNull() || o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsUnknown()) {
-		vyosData["password"] = o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsRIPInterfaceAuthenticationMdfive) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication", "md5"}})
-
-	// Leafs
-	if value, ok := vyosData["password"]; ok {
-		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication", "md5"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsRIPInterfaceAuthenticationMdfive) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"password": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o ProtocolsRIPInterfaceAuthenticationMdfive) ResourceSchemaAttributes() ma
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsRIPInterfaceAuthenticationMdfive) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsNull() && !o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.IsUnknown() {
+		jsonData["password"] = o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsRIPInterfaceAuthenticationMdfive) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["password"]; ok {
+		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPInterfaceAuthenticationMdfivePassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

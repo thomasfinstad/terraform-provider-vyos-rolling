@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnPptpRemoteAccessAuthenticationRadiusServer describes the resource data model.
@@ -17,12 +14,12 @@ type VpnPptpRemoteAccessAuthenticationRadiusServer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable           types.String `tfsdk:"disable"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey               types.String `tfsdk:"key"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort              types.String `tfsdk:"port"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
-	LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable           types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey               types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort              types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port" json:"acct-port,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
+	LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time" json:"fail-time,omitempty"`
 
 	// TagNodes
 
@@ -39,101 +36,6 @@ func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) GetVyosPath() []string {
 		"radius",
 		"server",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "pptp", "remote-access", "authentication", "radius", "server"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.ValueString()
-	}
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsUnknown()) {
-		vyosData["key"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.ValueString()
-	}
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsUnknown()) {
-		vyosData["port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.ValueString()
-	}
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsUnknown()) {
-		vyosData["acct-port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.ValueString()
-	}
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsUnknown()) {
-		vyosData["disable-accounting"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.ValueString()
-	}
-	if !(o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsNull() || o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsUnknown()) {
-		vyosData["fail-time"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "pptp", "remote-access", "authentication", "radius", "server"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["key"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["acct-port"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable-accounting"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["fail-time"]; ok {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "pptp", "remote-access", "authentication", "radius", "server"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnPptpRemoteAccessAuthenticationRadiusServer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":            types.StringType,
-		"key":                types.StringType,
-		"port":               types.StringType,
-		"acct_port":          types.StringType,
-		"disable_accounting": types.StringType,
-		"fail_time":          types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -221,4 +123,99 @@ func (o VpnPptpRemoteAccessAuthenticationRadiusServer) ResourceSchemaAttributes(
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable.ValueString()
+	}
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.IsUnknown() {
+		jsonData["key"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey.ValueString()
+	}
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.IsUnknown() {
+		jsonData["port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort.ValueString()
+	}
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.IsUnknown() {
+		jsonData["acct-port"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort.ValueString()
+	}
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.IsUnknown() {
+		jsonData["disable-accounting"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting.ValueString()
+	}
+
+	if !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsNull() && !o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.IsUnknown() {
+		jsonData["fail-time"] = o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnPptpRemoteAccessAuthenticationRadiusServer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["acct-port"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable-accounting"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["fail-time"]; ok {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnPptpRemoteAccessAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

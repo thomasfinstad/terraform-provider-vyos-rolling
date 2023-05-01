@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPInterface describes the resource data model.
@@ -21,10 +18,10 @@ type ProtocolsRIPInterface struct {
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsRIPInterfaceSplitHorizon   types.Object `tfsdk:"split_horizon"`
-	NodeProtocolsRIPInterfaceAuthentication types.Object `tfsdk:"authentication"`
-	NodeProtocolsRIPInterfaceReceive        types.Object `tfsdk:"receive"`
-	NodeProtocolsRIPInterfaceSend           types.Object `tfsdk:"send"`
+	NodeProtocolsRIPInterfaceSplitHorizon   *ProtocolsRIPInterfaceSplitHorizon   `tfsdk:"split_horizon" json:"split-horizon,omitempty"`
+	NodeProtocolsRIPInterfaceAuthentication *ProtocolsRIPInterfaceAuthentication `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeProtocolsRIPInterfaceReceive        *ProtocolsRIPInterfaceReceive        `tfsdk:"receive" json:"receive,omitempty"`
+	NodeProtocolsRIPInterfaceSend           *ProtocolsRIPInterfaceSend           `tfsdk:"send" json:"send,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,102 +31,6 @@ func (o *ProtocolsRIPInterface) GetVyosPath() []string {
 		"rip",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsRIPInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsRIPInterfaceSplitHorizon.IsNull() || o.NodeProtocolsRIPInterfaceSplitHorizon.IsUnknown()) {
-		var subModel ProtocolsRIPInterfaceSplitHorizon
-		diags.Append(o.NodeProtocolsRIPInterfaceSplitHorizon.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["split-horizon"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsRIPInterfaceAuthentication.IsNull() || o.NodeProtocolsRIPInterfaceAuthentication.IsUnknown()) {
-		var subModel ProtocolsRIPInterfaceAuthentication
-		diags.Append(o.NodeProtocolsRIPInterfaceAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsRIPInterfaceReceive.IsNull() || o.NodeProtocolsRIPInterfaceReceive.IsUnknown()) {
-		var subModel ProtocolsRIPInterfaceReceive
-		diags.Append(o.NodeProtocolsRIPInterfaceReceive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["receive"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsRIPInterfaceSend.IsNull() || o.NodeProtocolsRIPInterfaceSend.IsUnknown()) {
-		var subModel ProtocolsRIPInterfaceSend
-		diags.Append(o.NodeProtocolsRIPInterfaceSend.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["send"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsRIPInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "interface"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["split-horizon"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPInterfaceSplitHorizon{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPInterfaceSplitHorizon = data
-
-	} else {
-		o.NodeProtocolsRIPInterfaceSplitHorizon = basetypes.NewObjectNull(ProtocolsRIPInterfaceSplitHorizon{}.AttributeTypes())
-	}
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPInterfaceAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPInterfaceAuthentication = data
-
-	} else {
-		o.NodeProtocolsRIPInterfaceAuthentication = basetypes.NewObjectNull(ProtocolsRIPInterfaceAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["receive"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPInterfaceReceive{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPInterfaceReceive = data
-
-	} else {
-		o.NodeProtocolsRIPInterfaceReceive = basetypes.NewObjectNull(ProtocolsRIPInterfaceReceive{}.AttributeTypes())
-	}
-	if value, ok := vyosData["send"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPInterfaceSend{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsRIPInterfaceSend = data
-
-	} else {
-		o.NodeProtocolsRIPInterfaceSend = basetypes.NewObjectNull(ProtocolsRIPInterfaceSend{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsRIPInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"split_horizon":  types.ObjectType{AttrTypes: ProtocolsRIPInterfaceSplitHorizon{}.AttributeTypes()},
-		"authentication": types.ObjectType{AttrTypes: ProtocolsRIPInterfaceAuthentication{}.AttributeTypes()},
-		"receive":        types.ObjectType{AttrTypes: ProtocolsRIPInterfaceReceive{}.AttributeTypes()},
-		"send":           types.ObjectType{AttrTypes: ProtocolsRIPInterfaceSend{}.AttributeTypes()},
 	}
 }
 
@@ -185,4 +86,147 @@ func (o ProtocolsRIPInterface) ResourceSchemaAttributes() map[string]schema.Attr
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsRIPInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceSplitHorizon).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceSplitHorizon)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["split-horizon"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceReceive).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceReceive)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["receive"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsRIPInterfaceSend).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsRIPInterfaceSend)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["send"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsRIPInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["split-horizon"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPInterfaceSplitHorizon = &ProtocolsRIPInterfaceSplitHorizon{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceSplitHorizon)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPInterfaceAuthentication = &ProtocolsRIPInterfaceAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["receive"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPInterfaceReceive = &ProtocolsRIPInterfaceReceive{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceReceive)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["send"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsRIPInterfaceSend = &ProtocolsRIPInterfaceSend{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsRIPInterfaceSend)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

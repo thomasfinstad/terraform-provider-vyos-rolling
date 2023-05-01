@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPngDistributeListInterfaceAccessList describes the resource data model.
 type ProtocolsRIPngDistributeListInterfaceAccessList struct {
 	// LeafNodes
-	LeafProtocolsRIPngDistributeListInterfaceAccessListIn  types.String `tfsdk:"in"`
-	LeafProtocolsRIPngDistributeListInterfaceAccessListOut types.String `tfsdk:"out"`
+	LeafProtocolsRIPngDistributeListInterfaceAccessListIn  types.String `tfsdk:"in" json:"in,omitempty"`
+	LeafProtocolsRIPngDistributeListInterfaceAccessListOut types.String `tfsdk:"out" json:"out,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsRIPngDistributeListInterfaceAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface", "access-list"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.IsNull() || o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.IsUnknown()) {
-		vyosData["in"] = o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.ValueString()
-	}
-	if !(o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.IsNull() || o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.IsUnknown()) {
-		vyosData["out"] = o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsRIPngDistributeListInterfaceAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface", "access-list"}})
-
-	// Leafs
-	if value, ok := vyosData["in"]; ok {
-		o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["out"]; ok {
-		o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ripng", "distribute-list", "interface", "access-list"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsRIPngDistributeListInterfaceAccessList) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"in":  types.StringType,
-		"out": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ProtocolsRIPngDistributeListInterfaceAccessList) ResourceSchemaAttribute
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsRIPngDistributeListInterfaceAccessList) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.IsNull() && !o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.IsUnknown() {
+		jsonData["in"] = o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn.ValueString()
+	}
+
+	if !o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.IsNull() && !o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.IsUnknown() {
+		jsonData["out"] = o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsRIPngDistributeListInterfaceAccessList) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["in"]; ok {
+		o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPngDistributeListInterfaceAccessListIn = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["out"]; ok {
+		o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPngDistributeListInterfaceAccessListOut = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

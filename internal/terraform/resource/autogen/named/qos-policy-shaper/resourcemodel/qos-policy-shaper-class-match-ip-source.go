@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperClassMatchIPSource describes the resource data model.
 type QosPolicyShaperClassMatchIPSource struct {
 	// LeafNodes
-	LeafQosPolicyShaperClassMatchIPSourceAddress types.String `tfsdk:"address"`
-	LeafQosPolicyShaperClassMatchIPSourcePort    types.String `tfsdk:"port"`
+	LeafQosPolicyShaperClassMatchIPSourceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafQosPolicyShaperClassMatchIPSourcePort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperClassMatchIPSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ip", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperClassMatchIPSourceAddress.IsNull() || o.LeafQosPolicyShaperClassMatchIPSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafQosPolicyShaperClassMatchIPSourceAddress.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperClassMatchIPSourcePort.IsNull() || o.LeafQosPolicyShaperClassMatchIPSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafQosPolicyShaperClassMatchIPSourcePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperClassMatchIPSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ip", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafQosPolicyShaperClassMatchIPSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassMatchIPSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafQosPolicyShaperClassMatchIPSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperClassMatchIPSourcePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ip", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperClassMatchIPSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -115,4 +53,59 @@ func (o QosPolicyShaperClassMatchIPSource) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperClassMatchIPSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperClassMatchIPSourceAddress.IsNull() && !o.LeafQosPolicyShaperClassMatchIPSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafQosPolicyShaperClassMatchIPSourceAddress.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperClassMatchIPSourcePort.IsNull() && !o.LeafQosPolicyShaperClassMatchIPSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafQosPolicyShaperClassMatchIPSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperClassMatchIPSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafQosPolicyShaperClassMatchIPSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassMatchIPSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafQosPolicyShaperClassMatchIPSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassMatchIPSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

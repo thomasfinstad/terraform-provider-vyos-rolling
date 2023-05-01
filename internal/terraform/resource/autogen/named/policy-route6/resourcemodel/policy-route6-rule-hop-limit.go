@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleHopLimit describes the resource data model.
 type PolicyRoutesixRuleHopLimit struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleHopLimitEq types.String `tfsdk:"eq"`
-	LeafPolicyRoutesixRuleHopLimitGt types.String `tfsdk:"gt"`
-	LeafPolicyRoutesixRuleHopLimitLt types.String `tfsdk:"lt"`
+	LeafPolicyRoutesixRuleHopLimitEq types.String `tfsdk:"eq" json:"eq,omitempty"`
+	LeafPolicyRoutesixRuleHopLimitGt types.String `tfsdk:"gt" json:"gt,omitempty"`
+	LeafPolicyRoutesixRuleHopLimitLt types.String `tfsdk:"lt" json:"lt,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRoutesixRuleHopLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "hop-limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRoutesixRuleHopLimitEq.IsNull() || o.LeafPolicyRoutesixRuleHopLimitEq.IsUnknown()) {
-		vyosData["eq"] = o.LeafPolicyRoutesixRuleHopLimitEq.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleHopLimitGt.IsNull() || o.LeafPolicyRoutesixRuleHopLimitGt.IsUnknown()) {
-		vyosData["gt"] = o.LeafPolicyRoutesixRuleHopLimitGt.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleHopLimitLt.IsNull() || o.LeafPolicyRoutesixRuleHopLimitLt.IsUnknown()) {
-		vyosData["lt"] = o.LeafPolicyRoutesixRuleHopLimitLt.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRoutesixRuleHopLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "hop-limit"}})
-
-	// Leafs
-	if value, ok := vyosData["eq"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["gt"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["lt"]; ok {
-		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "hop-limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRoutesixRuleHopLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"eq": types.StringType,
-		"gt": types.StringType,
-		"lt": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -135,4 +64,69 @@ func (o PolicyRoutesixRuleHopLimit) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRoutesixRuleHopLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRoutesixRuleHopLimitEq.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitEq.IsUnknown() {
+		jsonData["eq"] = o.LeafPolicyRoutesixRuleHopLimitEq.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleHopLimitGt.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitGt.IsUnknown() {
+		jsonData["gt"] = o.LeafPolicyRoutesixRuleHopLimitGt.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleHopLimitLt.IsNull() && !o.LeafPolicyRoutesixRuleHopLimitLt.IsUnknown() {
+		jsonData["lt"] = o.LeafPolicyRoutesixRuleHopLimitLt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRoutesixRuleHopLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["eq"]; ok {
+		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleHopLimitEq = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["gt"]; ok {
+		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleHopLimitGt = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["lt"]; ok {
+		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleHopLimitLt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

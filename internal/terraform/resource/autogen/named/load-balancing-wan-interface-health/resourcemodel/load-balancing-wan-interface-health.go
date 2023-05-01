@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
@@ -17,12 +15,12 @@ type LoadBalancingWanInterfaceHealth struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafLoadBalancingWanInterfaceHealthFailureCount types.String `tfsdk:"failure_count"`
-	LeafLoadBalancingWanInterfaceHealthNexthop      types.String `tfsdk:"nexthop"`
-	LeafLoadBalancingWanInterfaceHealthSuccessCount types.String `tfsdk:"success_count"`
+	LeafLoadBalancingWanInterfaceHealthFailureCount types.String `tfsdk:"failure_count" json:"failure-count,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthNexthop      types.String `tfsdk:"nexthop" json:"nexthop,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthSuccessCount types.String `tfsdk:"success_count" json:"success-count,omitempty"`
 
 	// TagNodes
-	TagLoadBalancingWanInterfaceHealthTest types.Map `tfsdk:"test"`
+	TagLoadBalancingWanInterfaceHealthTest *map[string]LoadBalancingWanInterfaceHealthTest `tfsdk:"test" json:"test,omitempty"`
 
 	// Nodes
 }
@@ -34,92 +32,6 @@ func (o *LoadBalancingWanInterfaceHealth) GetVyosPath() []string {
 		"wan",
 		"interface-health",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *LoadBalancingWanInterfaceHealth) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsNull() || o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsUnknown()) {
-		vyosData["failure-count"] = o.LeafLoadBalancingWanInterfaceHealthFailureCount.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanInterfaceHealthNexthop.IsNull() || o.LeafLoadBalancingWanInterfaceHealthNexthop.IsUnknown()) {
-		vyosData["nexthop"] = o.LeafLoadBalancingWanInterfaceHealthNexthop.ValueString()
-	}
-	if !(o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsNull() || o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsUnknown()) {
-		vyosData["success-count"] = o.LeafLoadBalancingWanInterfaceHealthSuccessCount.ValueString()
-	}
-
-	// Tags
-	if !(o.TagLoadBalancingWanInterfaceHealthTest.IsNull() || o.TagLoadBalancingWanInterfaceHealthTest.IsUnknown()) {
-		subModel := make(map[string]LoadBalancingWanInterfaceHealthTest)
-		diags.Append(o.TagLoadBalancingWanInterfaceHealthTest.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["test"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *LoadBalancingWanInterfaceHealth) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
-
-	// Leafs
-	if value, ok := vyosData["failure-count"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["nexthop"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["success-count"]; ok {
-		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["test"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: LoadBalancingWanInterfaceHealthTest{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagLoadBalancingWanInterfaceHealthTest = data
-	} else {
-		o.TagLoadBalancingWanInterfaceHealthTest = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o LoadBalancingWanInterfaceHealth) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"failure_count": types.StringType,
-		"nexthop":       types.StringType,
-		"success_count": types.StringType,
-
-		// Tags
-		"test": types.MapType{ElemType: types.ObjectType{AttrTypes: LoadBalancingWanInterfaceHealthTest{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -188,4 +100,96 @@ func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *LoadBalancingWanInterfaceHealth) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsUnknown() {
+		jsonData["failure-count"] = o.LeafLoadBalancingWanInterfaceHealthFailureCount.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanInterfaceHealthNexthop.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthNexthop.IsUnknown() {
+		jsonData["nexthop"] = o.LeafLoadBalancingWanInterfaceHealthNexthop.ValueString()
+	}
+
+	if !o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsNull() && !o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsUnknown() {
+		jsonData["success-count"] = o.LeafLoadBalancingWanInterfaceHealthSuccessCount.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagLoadBalancingWanInterfaceHealthTest).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagLoadBalancingWanInterfaceHealthTest)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["test"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *LoadBalancingWanInterfaceHealth) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["failure-count"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["nexthop"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["success-count"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["test"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagLoadBalancingWanInterfaceHealthTest = &map[string]LoadBalancingWanInterfaceHealthTest{}
+
+		err = json.Unmarshal(subJSONStr, o.TagLoadBalancingWanInterfaceHealthTest)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

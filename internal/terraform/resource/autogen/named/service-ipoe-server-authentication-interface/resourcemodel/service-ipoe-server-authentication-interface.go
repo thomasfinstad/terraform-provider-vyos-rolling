@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerAuthenticationInterface describes the resource data model.
@@ -19,7 +16,7 @@ type ServiceIPoeServerAuthenticationInterface struct {
 	// LeafNodes
 
 	// TagNodes
-	TagServiceIPoeServerAuthenticationInterfaceMac types.Map `tfsdk:"mac"`
+	TagServiceIPoeServerAuthenticationInterfaceMac *map[string]ServiceIPoeServerAuthenticationInterfaceMac `tfsdk:"mac" json:"mac,omitempty"`
 
 	// Nodes
 }
@@ -32,65 +29,6 @@ func (o *ServiceIPoeServerAuthenticationInterface) GetVyosPath() []string {
 		"authentication",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerAuthenticationInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagServiceIPoeServerAuthenticationInterfaceMac.IsNull() || o.TagServiceIPoeServerAuthenticationInterfaceMac.IsUnknown()) {
-		subModel := make(map[string]ServiceIPoeServerAuthenticationInterfaceMac)
-		diags.Append(o.TagServiceIPoeServerAuthenticationInterfaceMac.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["mac"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerAuthenticationInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["mac"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceIPoeServerAuthenticationInterfaceMac{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceIPoeServerAuthenticationInterfaceMac = data
-	} else {
-		o.TagServiceIPoeServerAuthenticationInterfaceMac = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerAuthenticationInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"mac": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceIPoeServerAuthenticationInterfaceMac{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -125,4 +63,66 @@ func (o ServiceIPoeServerAuthenticationInterface) ResourceSchemaAttributes() map
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerAuthenticationInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceIPoeServerAuthenticationInterfaceMac).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceIPoeServerAuthenticationInterfaceMac)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mac"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerAuthenticationInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["mac"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceIPoeServerAuthenticationInterfaceMac = &map[string]ServiceIPoeServerAuthenticationInterfaceMac{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceIPoeServerAuthenticationInterfaceMac)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

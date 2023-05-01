@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemConntrackIgnoreRuleDestination describes the resource data model.
 type SystemConntrackIgnoreRuleDestination struct {
 	// LeafNodes
-	LeafSystemConntrackIgnoreRuleDestinationAddress types.String `tfsdk:"address"`
-	LeafSystemConntrackIgnoreRuleDestinationPort    types.String `tfsdk:"port"`
+	LeafSystemConntrackIgnoreRuleDestinationAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafSystemConntrackIgnoreRuleDestinationPort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemConntrackIgnoreRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsNull() || o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafSystemConntrackIgnoreRuleDestinationAddress.ValueString()
-	}
-	if !(o.LeafSystemConntrackIgnoreRuleDestinationPort.IsNull() || o.LeafSystemConntrackIgnoreRuleDestinationPort.IsUnknown()) {
-		vyosData["port"] = o.LeafSystemConntrackIgnoreRuleDestinationPort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemConntrackIgnoreRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemConntrackIgnoreRuleDestination) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -122,4 +60,59 @@ func (o SystemConntrackIgnoreRuleDestination) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemConntrackIgnoreRuleDestination) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsNull() && !o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsUnknown() {
+		jsonData["address"] = o.LeafSystemConntrackIgnoreRuleDestinationAddress.ValueString()
+	}
+
+	if !o.LeafSystemConntrackIgnoreRuleDestinationPort.IsNull() && !o.LeafSystemConntrackIgnoreRuleDestinationPort.IsUnknown() {
+		jsonData["port"] = o.LeafSystemConntrackIgnoreRuleDestinationPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemConntrackIgnoreRuleDestination) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

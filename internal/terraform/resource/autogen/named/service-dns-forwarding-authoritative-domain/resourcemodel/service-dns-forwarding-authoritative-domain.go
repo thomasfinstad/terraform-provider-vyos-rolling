@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomain describes the resource data model.
@@ -17,12 +15,12 @@ type ServiceDNSForwardingAuthoritativeDomain struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceDNSForwardingAuthoritativeDomainDisable types.String `tfsdk:"disable"`
+	LeafServiceDNSForwardingAuthoritativeDomainDisable types.String `tfsdk:"disable" json:"disable,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceDNSForwardingAuthoritativeDomainRecords types.Object `tfsdk:"records"`
+	NodeServiceDNSForwardingAuthoritativeDomainRecords *ServiceDNSForwardingAuthoritativeDomainRecords `tfsdk:"records" json:"records,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,69 +31,6 @@ func (o *ServiceDNSForwardingAuthoritativeDomain) GetVyosPath() []string {
 		"forwarding",
 		"authoritative-domain",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSForwardingAuthoritativeDomain) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSForwardingAuthoritativeDomainDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainDisable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceDNSForwardingAuthoritativeDomainRecords.IsNull() || o.NodeServiceDNSForwardingAuthoritativeDomainRecords.IsUnknown()) {
-		var subModel ServiceDNSForwardingAuthoritativeDomainRecords
-		diags.Append(o.NodeServiceDNSForwardingAuthoritativeDomainRecords.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["records"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSForwardingAuthoritativeDomain) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafServiceDNSForwardingAuthoritativeDomainDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSForwardingAuthoritativeDomainDisable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["records"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceDNSForwardingAuthoritativeDomainRecords{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceDNSForwardingAuthoritativeDomainRecords = data
-
-	} else {
-		o.NodeServiceDNSForwardingAuthoritativeDomainRecords = basetypes.NewObjectNull(ServiceDNSForwardingAuthoritativeDomainRecords{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomain) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"records": types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecords{}.AttributeTypes()},
 	}
 }
 
@@ -134,4 +69,76 @@ func (o ServiceDNSForwardingAuthoritativeDomain) ResourceSchemaAttributes() map[
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSForwardingAuthoritativeDomain) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSForwardingAuthoritativeDomainDisable.IsNull() && !o.LeafServiceDNSForwardingAuthoritativeDomainDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceDNSForwardingAuthoritativeDomainRecords).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceDNSForwardingAuthoritativeDomainRecords)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["records"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSForwardingAuthoritativeDomain) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["records"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceDNSForwardingAuthoritativeDomainRecords = &ServiceDNSForwardingAuthoritativeDomainRecords{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceDNSForwardingAuthoritativeDomainRecords)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

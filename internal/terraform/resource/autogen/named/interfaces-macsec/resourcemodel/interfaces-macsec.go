@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesMacsec describes the resource data model.
@@ -17,23 +15,23 @@ type InterfacesMacsec struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesMacsecAddress         types.String `tfsdk:"address"`
-	LeafInterfacesMacsecDescrIPtion     types.String `tfsdk:"description"`
-	LeafInterfacesMacsecDisable         types.String `tfsdk:"disable"`
-	LeafInterfacesMacsecMtu             types.String `tfsdk:"mtu"`
-	LeafInterfacesMacsecSourceInterface types.String `tfsdk:"source_interface"`
-	LeafInterfacesMacsecRedirect        types.String `tfsdk:"redirect"`
-	LeafInterfacesMacsecVrf             types.String `tfsdk:"vrf"`
+	LeafInterfacesMacsecAddress         types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafInterfacesMacsecDescrIPtion     types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesMacsecDisable         types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesMacsecMtu             types.String `tfsdk:"mtu" json:"mtu,omitempty"`
+	LeafInterfacesMacsecSourceInterface types.String `tfsdk:"source_interface" json:"source-interface,omitempty"`
+	LeafInterfacesMacsecRedirect        types.String `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesMacsecVrf             types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeInterfacesMacsecDhcpOptions     types.Object `tfsdk:"dhcp_options"`
-	NodeInterfacesMacsecDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
-	NodeInterfacesMacsecIP              types.Object `tfsdk:"ip"`
-	NodeInterfacesMacsecIPvsix          types.Object `tfsdk:"ipv6"`
-	NodeInterfacesMacsecMirror          types.Object `tfsdk:"mirror"`
-	NodeInterfacesMacsecSecURIty        types.Object `tfsdk:"security"`
+	NodeInterfacesMacsecDhcpOptions     *InterfacesMacsecDhcpOptions     `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
+	NodeInterfacesMacsecDhcpvsixOptions *InterfacesMacsecDhcpvsixOptions `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
+	NodeInterfacesMacsecIP              *InterfacesMacsecIP              `tfsdk:"ip" json:"ip,omitempty"`
+	NodeInterfacesMacsecIPvsix          *InterfacesMacsecIPvsix          `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesMacsecMirror          *InterfacesMacsecMirror          `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesMacsecSecURIty        *InterfacesMacsecSecURIty        `tfsdk:"security" json:"security,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -42,193 +40,6 @@ func (o *InterfacesMacsec) GetVyosPath() []string {
 		"interfaces",
 		"macsec",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesMacsec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "macsec"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesMacsecAddress.IsNull() || o.LeafInterfacesMacsecAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafInterfacesMacsecAddress.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecDescrIPtion.IsNull() || o.LeafInterfacesMacsecDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesMacsecDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecDisable.IsNull() || o.LeafInterfacesMacsecDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesMacsecDisable.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecMtu.IsNull() || o.LeafInterfacesMacsecMtu.IsUnknown()) {
-		vyosData["mtu"] = o.LeafInterfacesMacsecMtu.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecSourceInterface.IsNull() || o.LeafInterfacesMacsecSourceInterface.IsUnknown()) {
-		vyosData["source-interface"] = o.LeafInterfacesMacsecSourceInterface.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecRedirect.IsNull() || o.LeafInterfacesMacsecRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesMacsecRedirect.ValueString()
-	}
-	if !(o.LeafInterfacesMacsecVrf.IsNull() || o.LeafInterfacesMacsecVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafInterfacesMacsecVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeInterfacesMacsecDhcpOptions.IsNull() || o.NodeInterfacesMacsecDhcpOptions.IsUnknown()) {
-		var subModel InterfacesMacsecDhcpOptions
-		diags.Append(o.NodeInterfacesMacsecDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesMacsecDhcpvsixOptions.IsNull() || o.NodeInterfacesMacsecDhcpvsixOptions.IsUnknown()) {
-		var subModel InterfacesMacsecDhcpvsixOptions
-		diags.Append(o.NodeInterfacesMacsecDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesMacsecIP.IsNull() || o.NodeInterfacesMacsecIP.IsUnknown()) {
-		var subModel InterfacesMacsecIP
-		diags.Append(o.NodeInterfacesMacsecIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesMacsecIPvsix.IsNull() || o.NodeInterfacesMacsecIPvsix.IsUnknown()) {
-		var subModel InterfacesMacsecIPvsix
-		diags.Append(o.NodeInterfacesMacsecIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesMacsecMirror.IsNull() || o.NodeInterfacesMacsecMirror.IsUnknown()) {
-		var subModel InterfacesMacsecMirror
-		diags.Append(o.NodeInterfacesMacsecMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeInterfacesMacsecSecURIty.IsNull() || o.NodeInterfacesMacsecSecURIty.IsUnknown()) {
-		var subModel InterfacesMacsecSecURIty
-		diags.Append(o.NodeInterfacesMacsecSecURIty.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["security"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesMacsec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "macsec"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafInterfacesMacsecAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesMacsecDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesMacsecDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu"]; ok {
-		o.LeafInterfacesMacsecMtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecMtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["source-interface"]; ok {
-		o.LeafInterfacesMacsecSourceInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecSourceInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesMacsecRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecRedirect = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafInterfacesMacsecVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesMacsecVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["dhcp-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecDhcpOptions = data
-
-	} else {
-		o.NodeInterfacesMacsecDhcpOptions = basetypes.NewObjectNull(InterfacesMacsecDhcpOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["dhcpv6-options"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecDhcpvsixOptions = data
-
-	} else {
-		o.NodeInterfacesMacsecDhcpvsixOptions = basetypes.NewObjectNull(InterfacesMacsecDhcpvsixOptions{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ip"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecIP{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecIP = data
-
-	} else {
-		o.NodeInterfacesMacsecIP = basetypes.NewObjectNull(InterfacesMacsecIP{}.AttributeTypes())
-	}
-	if value, ok := vyosData["ipv6"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecIPvsix = data
-
-	} else {
-		o.NodeInterfacesMacsecIPvsix = basetypes.NewObjectNull(InterfacesMacsecIPvsix{}.AttributeTypes())
-	}
-	if value, ok := vyosData["mirror"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecMirror{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecMirror = data
-
-	} else {
-		o.NodeInterfacesMacsecMirror = basetypes.NewObjectNull(InterfacesMacsecMirror{}.AttributeTypes())
-	}
-	if value, ok := vyosData["security"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecSecURIty{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeInterfacesMacsecSecURIty = data
-
-	} else {
-		o.NodeInterfacesMacsecSecURIty = basetypes.NewObjectNull(InterfacesMacsecSecURIty{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "macsec"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesMacsec) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":          types.StringType,
-		"description":      types.StringType,
-		"disable":          types.StringType,
-		"mtu":              types.StringType,
-		"source_interface": types.StringType,
-		"redirect":         types.StringType,
-		"vrf":              types.StringType,
-
-		// Tags
-
-		// Nodes
-		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesMacsecDhcpOptions{}.AttributeTypes()},
-		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesMacsecDhcpvsixOptions{}.AttributeTypes()},
-		"ip":             types.ObjectType{AttrTypes: InterfacesMacsecIP{}.AttributeTypes()},
-		"ipv6":           types.ObjectType{AttrTypes: InterfacesMacsecIPvsix{}.AttributeTypes()},
-		"mirror":         types.ObjectType{AttrTypes: InterfacesMacsecMirror{}.AttributeTypes()},
-		"security":       types.ObjectType{AttrTypes: InterfacesMacsecSecURIty{}.AttributeTypes()},
 	}
 }
 
@@ -379,4 +190,271 @@ func (o InterfacesMacsec) ResourceSchemaAttributes() map[string]schema.Attribute
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesMacsec) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesMacsecAddress.IsNull() && !o.LeafInterfacesMacsecAddress.IsUnknown() {
+		jsonData["address"] = o.LeafInterfacesMacsecAddress.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecDescrIPtion.IsNull() && !o.LeafInterfacesMacsecDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesMacsecDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecDisable.IsNull() && !o.LeafInterfacesMacsecDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesMacsecDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecMtu.IsNull() && !o.LeafInterfacesMacsecMtu.IsUnknown() {
+		jsonData["mtu"] = o.LeafInterfacesMacsecMtu.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecSourceInterface.IsNull() && !o.LeafInterfacesMacsecSourceInterface.IsUnknown() {
+		jsonData["source-interface"] = o.LeafInterfacesMacsecSourceInterface.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecRedirect.IsNull() && !o.LeafInterfacesMacsecRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesMacsecRedirect.ValueString()
+	}
+
+	if !o.LeafInterfacesMacsecVrf.IsNull() && !o.LeafInterfacesMacsecVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafInterfacesMacsecVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecDhcpOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecDhcpOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcp-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecDhcpvsixOptions).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecDhcpvsixOptions)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["dhcpv6-options"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecIP).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecIP)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ip"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecIPvsix).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecIPvsix)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["ipv6"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecMirror).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecMirror)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["mirror"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeInterfacesMacsecSecURIty).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeInterfacesMacsecSecURIty)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["security"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesMacsec) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafInterfacesMacsecAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesMacsecDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesMacsecDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu"]; ok {
+		o.LeafInterfacesMacsecMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecMtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["source-interface"]; ok {
+		o.LeafInterfacesMacsecSourceInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSourceInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesMacsecRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecRedirect = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafInterfacesMacsecVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["dhcp-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecDhcpOptions = &InterfacesMacsecDhcpOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecDhcpOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["dhcpv6-options"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecDhcpvsixOptions = &InterfacesMacsecDhcpvsixOptions{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecDhcpvsixOptions)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ip"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecIP = &InterfacesMacsecIP{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecIP)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["ipv6"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecIPvsix = &InterfacesMacsecIPvsix{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecIPvsix)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["mirror"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecMirror = &InterfacesMacsecMirror{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecMirror)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["security"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeInterfacesMacsecSecURIty = &InterfacesMacsecSecURIty{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeInterfacesMacsecSecURIty)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

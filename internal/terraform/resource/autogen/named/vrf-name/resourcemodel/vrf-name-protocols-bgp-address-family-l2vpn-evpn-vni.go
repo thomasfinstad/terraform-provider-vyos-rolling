@@ -2,108 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni struct {
 	// LeafNodes
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.String `tfsdk:"advertise_default_gw"`
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP     types.String `tfsdk:"advertise_svi_ip"`
-	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd                 types.String `tfsdk:"rd"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw types.String `tfsdk:"advertise_default_gw" json:"advertise-default-gw,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP     types.String `tfsdk:"advertise_svi_ip" json:"advertise-svi-ip,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd                 types.String `tfsdk:"rd" json:"rd,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget types.Object `tfsdk:"route_target"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "vni"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsUnknown()) {
-		vyosData["advertise-default-gw"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsUnknown()) {
-		vyosData["advertise-svi-ip"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsUnknown()) {
-		vyosData["rd"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-target"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "vni"}})
-
-	// Leafs
-	if value, ok := vyosData["advertise-default-gw"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["advertise-svi-ip"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rd"]; ok {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["route-target"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "vni"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"advertise_default_gw": types.StringType,
-		"advertise_svi_ip":     types.StringType,
-		"rd":                   types.StringType,
-
-		// Tags
-
-		// Nodes
-		"route_target": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget `tfsdk:"route_target" json:"route-target,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -148,4 +65,96 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) ResourceSchemaAttributes
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.IsUnknown() {
+		jsonData["advertise-default-gw"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.IsUnknown() {
+		jsonData["advertise-svi-ip"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsNull() && !o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.IsUnknown() {
+		jsonData["rd"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-target"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["advertise-default-gw"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseDefaultGw = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["advertise-svi-ip"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniAdvertiseSviIP = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rd"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRd = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["route-target"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget = &VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

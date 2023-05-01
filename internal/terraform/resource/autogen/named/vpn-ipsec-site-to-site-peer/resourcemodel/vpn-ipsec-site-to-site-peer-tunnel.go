@@ -2,133 +2,27 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnel struct {
 	// LeafNodes
-	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.String `tfsdk:"disable"`
-	LeafVpnIPsecSiteToSitePeerTunnelEspGroup types.String `tfsdk:"esp_group"`
-	LeafVpnIPsecSiteToSitePeerTunnelProtocol types.String `tfsdk:"protocol"`
-	LeafVpnIPsecSiteToSitePeerTunnelPriority types.String `tfsdk:"priority"`
+	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelEspGroup types.String `tfsdk:"esp_group" json:"esp-group,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelProtocol types.String `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelPriority types.String `tfsdk:"priority" json:"priority,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVpnIPsecSiteToSitePeerTunnelLocal  types.Object `tfsdk:"local"`
-	NodeVpnIPsecSiteToSitePeerTunnelRemote types.Object `tfsdk:"remote"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecSiteToSitePeerTunnel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnIPsecSiteToSitePeerTunnelDisable.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsUnknown()) {
-		vyosData["esp-group"] = o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsUnknown()) {
-		vyosData["protocol"] = o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.ValueString()
-	}
-	if !(o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafVpnIPsecSiteToSitePeerTunnelPriority.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVpnIPsecSiteToSitePeerTunnelLocal.IsNull() || o.NodeVpnIPsecSiteToSitePeerTunnelLocal.IsUnknown()) {
-		var subModel VpnIPsecSiteToSitePeerTunnelLocal
-		diags.Append(o.NodeVpnIPsecSiteToSitePeerTunnelLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["local"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVpnIPsecSiteToSitePeerTunnelRemote.IsNull() || o.NodeVpnIPsecSiteToSitePeerTunnelRemote.IsUnknown()) {
-		var subModel VpnIPsecSiteToSitePeerTunnelRemote
-		diags.Append(o.NodeVpnIPsecSiteToSitePeerTunnelRemote.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["remote"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecSiteToSitePeerTunnel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
-
-	// Leafs
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["esp-group"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["protocol"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["local"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = data
-
-	} else {
-		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes())
-	}
-	if value, ok := vyosData["remote"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = data
-
-	} else {
-		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecSiteToSitePeerTunnel) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"disable":   types.StringType,
-		"esp_group": types.StringType,
-		"protocol":  types.StringType,
-		"priority":  types.StringType,
-
-		// Tags
-
-		// Nodes
-		"local":  types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes()},
-		"remote": types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes()},
-	}
+	NodeVpnIPsecSiteToSitePeerTunnelLocal  *VpnIPsecSiteToSitePeerTunnelLocal  `tfsdk:"local" json:"local,omitempty"`
+	NodeVpnIPsecSiteToSitePeerTunnelRemote *VpnIPsecSiteToSitePeerTunnelRemote `tfsdk:"remote" json:"remote,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -192,4 +86,133 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecSiteToSitePeerTunnel) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnIPsecSiteToSitePeerTunnelDisable.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsUnknown() {
+		jsonData["esp-group"] = o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsUnknown() {
+		jsonData["protocol"] = o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.ValueString()
+	}
+
+	if !o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsNull() && !o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafVpnIPsecSiteToSitePeerTunnelPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerTunnelLocal).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerTunnelLocal)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVpnIPsecSiteToSitePeerTunnelRemote).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecSiteToSitePeerTunnelRemote)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["remote"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecSiteToSitePeerTunnel) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["esp-group"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["protocol"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["local"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = &VpnIPsecSiteToSitePeerTunnelLocal{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerTunnelLocal)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["remote"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = &VpnIPsecSiteToSitePeerTunnelRemote{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecSiteToSitePeerTunnelRemote)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

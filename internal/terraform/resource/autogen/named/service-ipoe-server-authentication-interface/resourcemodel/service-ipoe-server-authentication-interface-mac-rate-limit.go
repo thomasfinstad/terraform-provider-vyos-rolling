@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerAuthenticationInterfaceMacRateLimit describes the resource data model.
 type ServiceIPoeServerAuthenticationInterfaceMacRateLimit struct {
 	// LeafNodes
-	LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload   types.String `tfsdk:"upload"`
-	LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload types.String `tfsdk:"download"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload   types.String `tfsdk:"upload" json:"upload,omitempty"`
+	LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload types.String `tfsdk:"download" json:"download,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac", "rate-limit"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsNull() || o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsUnknown()) {
-		vyosData["upload"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.ValueString()
-	}
-	if !(o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsNull() || o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsUnknown()) {
-		vyosData["download"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac", "rate-limit"}})
-
-	// Leafs
-	if value, ok := vyosData["upload"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["download"]; ok {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface", "mac", "rate-limit"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceIPoeServerAuthenticationInterfaceMacRateLimit) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"upload":   types.StringType,
-		"download": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o ServiceIPoeServerAuthenticationInterfaceMacRateLimit) ResourceSchemaAttr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.IsUnknown() {
+		jsonData["upload"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload.ValueString()
+	}
+
+	if !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsNull() && !o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.IsUnknown() {
+		jsonData["download"] = o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceIPoeServerAuthenticationInterfaceMacRateLimit) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["upload"]; ok {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitUpload = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["download"]; ok {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerAuthenticationInterfaceMacRateLimitDownload = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

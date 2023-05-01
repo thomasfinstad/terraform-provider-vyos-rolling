@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaper describes the resource data model.
@@ -17,14 +15,14 @@ type QosPolicyShaper struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyShaperDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyShaperBandwIDth   types.String `tfsdk:"bandwidth"`
+	LeafQosPolicyShaperDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyShaperBandwIDth   types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
 
 	// TagNodes
-	TagQosPolicyShaperClass types.Map `tfsdk:"class"`
+	TagQosPolicyShaperClass *map[string]QosPolicyShaperClass `tfsdk:"class" json:"class,omitempty"`
 
 	// Nodes
-	NodeQosPolicyShaperDefault types.Object `tfsdk:"default"`
+	NodeQosPolicyShaperDefault *QosPolicyShaperDefault `tfsdk:"default" json:"default,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,96 +32,6 @@ func (o *QosPolicyShaper) GetVyosPath() []string {
 		"policy",
 		"shaper",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaper) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperDescrIPtion.IsNull() || o.LeafQosPolicyShaperDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyShaperDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperBandwIDth.IsNull() || o.LeafQosPolicyShaperBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyShaperBandwIDth.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyShaperClass.IsNull() || o.TagQosPolicyShaperClass.IsUnknown()) {
-		subModel := make(map[string]QosPolicyShaperClass)
-		diags.Append(o.TagQosPolicyShaperClass.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["class"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeQosPolicyShaperDefault.IsNull() || o.NodeQosPolicyShaperDefault.IsUnknown()) {
-		var subModel QosPolicyShaperDefault
-		diags.Append(o.NodeQosPolicyShaperDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaper) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["class"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyShaperClass{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyShaperClass = data
-	} else {
-		o.TagQosPolicyShaperClass = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["default"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperDefault{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyShaperDefault = data
-
-	} else {
-		o.NodeQosPolicyShaperDefault = basetypes.NewObjectNull(QosPolicyShaperDefault{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaper) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"bandwidth":   types.StringType,
-
-		// Tags
-		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyShaperClass{}.AttributeTypes()}},
-
-		// Nodes
-		"default": types.ObjectType{AttrTypes: QosPolicyShaperDefault{}.AttributeTypes()},
 	}
 }
 
@@ -201,4 +109,113 @@ func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute 
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaper) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperDescrIPtion.IsNull() && !o.LeafQosPolicyShaperDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyShaperDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperBandwIDth.IsNull() && !o.LeafQosPolicyShaperBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyShaperBandwIDth.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyShaperClass).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyShaperClass)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["class"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyShaperDefault).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyShaperDefault)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaper) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["class"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyShaperClass = &map[string]QosPolicyShaperClass{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyShaperClass)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["default"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyShaperDefault = &QosPolicyShaperDefault{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyShaperDefault)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBabelDistributeListIPvfourInterface describes the resource data model.
@@ -21,8 +18,8 @@ type ProtocolsBabelDistributeListIPvfourInterface struct {
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList types.Object `tfsdk:"access_list"`
-	NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList types.Object `tfsdk:"prefix_list"`
+	NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList *ProtocolsBabelDistributeListIPvfourInterfaceAccessList `tfsdk:"access_list" json:"access-list,omitempty"`
+	NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList *ProtocolsBabelDistributeListIPvfourInterfacePrefixList `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,74 +31,6 @@ func (o *ProtocolsBabelDistributeListIPvfourInterface) GetVyosPath() []string {
 		"ipv4",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBabelDistributeListIPvfourInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.IsNull() || o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.IsUnknown()) {
-		var subModel ProtocolsBabelDistributeListIPvfourInterfaceAccessList
-		diags.Append(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["access-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.IsNull() || o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.IsUnknown()) {
-		var subModel ProtocolsBabelDistributeListIPvfourInterfacePrefixList
-		diags.Append(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBabelDistributeListIPvfourInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["access-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = data
-
-	} else {
-		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = basetypes.NewObjectNull(ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes())
-	}
-	if value, ok := vyosData["prefix-list"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = data
-
-	} else {
-		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = basetypes.NewObjectNull(ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBabelDistributeListIPvfourInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"access_list": types.ObjectType{AttrTypes: ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes()},
-		"prefix_list": types.ObjectType{AttrTypes: ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes()},
 	}
 }
 
@@ -141,4 +70,93 @@ func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceSchemaAttributes()
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBabelDistributeListIPvfourInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["access-list"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["prefix-list"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBabelDistributeListIPvfourInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["access-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = &ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["prefix-list"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = &ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

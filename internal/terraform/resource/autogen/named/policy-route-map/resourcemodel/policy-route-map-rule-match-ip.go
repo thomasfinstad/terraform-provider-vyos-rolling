@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatchIP describes the resource data model.
@@ -19,91 +15,9 @@ type PolicyRouteMapRuleMatchIP struct {
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleMatchIPAddress     types.Object `tfsdk:"address"`
-	NodePolicyRouteMapRuleMatchIPNexthop     types.Object `tfsdk:"nexthop"`
-	NodePolicyRouteMapRuleMatchIPRouteSource types.Object `tfsdk:"route_source"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRuleMatchIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteMapRuleMatchIPAddress.IsNull() || o.NodePolicyRouteMapRuleMatchIPAddress.IsUnknown()) {
-		var subModel PolicyRouteMapRuleMatchIPAddress
-		diags.Append(o.NodePolicyRouteMapRuleMatchIPAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteMapRuleMatchIPNexthop.IsNull() || o.NodePolicyRouteMapRuleMatchIPNexthop.IsUnknown()) {
-		var subModel PolicyRouteMapRuleMatchIPNexthop
-		diags.Append(o.NodePolicyRouteMapRuleMatchIPNexthop.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["nexthop"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteMapRuleMatchIPRouteSource.IsNull() || o.NodePolicyRouteMapRuleMatchIPRouteSource.IsUnknown()) {
-		var subModel PolicyRouteMapRuleMatchIPRouteSource
-		diags.Append(o.NodePolicyRouteMapRuleMatchIPRouteSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-source"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRuleMatchIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
-
-	// Leafs
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["address"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleMatchIPAddress = data
-
-	} else {
-		o.NodePolicyRouteMapRuleMatchIPAddress = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes())
-	}
-	if value, ok := vyosData["nexthop"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleMatchIPNexthop = data
-
-	} else {
-		o.NodePolicyRouteMapRuleMatchIPNexthop = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes())
-	}
-	if value, ok := vyosData["route-source"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleMatchIPRouteSource = data
-
-	} else {
-		o.NodePolicyRouteMapRuleMatchIPRouteSource = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRuleMatchIP) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-
-		// Nodes
-		"address":      types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes()},
-		"nexthop":      types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes()},
-		"route_source": types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes()},
-	}
+	NodePolicyRouteMapRuleMatchIPAddress     *PolicyRouteMapRuleMatchIPAddress     `tfsdk:"address" json:"address,omitempty"`
+	NodePolicyRouteMapRuleMatchIPNexthop     *PolicyRouteMapRuleMatchIPNexthop     `tfsdk:"nexthop" json:"nexthop,omitempty"`
+	NodePolicyRouteMapRuleMatchIPRouteSource *PolicyRouteMapRuleMatchIPRouteSource `tfsdk:"route_source" json:"route-source,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -139,4 +53,120 @@ func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRuleMatchIP) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["address"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPNexthop).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPNexthop)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["nexthop"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatchIPRouteSource).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatchIPRouteSource)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-source"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRuleMatchIP) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleMatchIPAddress = &PolicyRouteMapRuleMatchIPAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPAddress)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["nexthop"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleMatchIPNexthop = &PolicyRouteMapRuleMatchIPNexthop{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPNexthop)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route-source"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleMatchIPRouteSource = &PolicyRouteMapRuleMatchIPRouteSource{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatchIPRouteSource)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

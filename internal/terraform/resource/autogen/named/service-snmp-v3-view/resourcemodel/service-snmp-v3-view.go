@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeView describes the resource data model.
@@ -19,7 +16,7 @@ type ServiceSnmpVthreeView struct {
 	// LeafNodes
 
 	// TagNodes
-	TagServiceSnmpVthreeViewOID types.Map `tfsdk:"oid"`
+	TagServiceSnmpVthreeViewOID *map[string]ServiceSnmpVthreeViewOID `tfsdk:"oid" json:"oid,omitempty"`
 
 	// Nodes
 }
@@ -32,65 +29,6 @@ func (o *ServiceSnmpVthreeView) GetVyosPath() []string {
 		"v3",
 		"view",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceSnmpVthreeView) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "view"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagServiceSnmpVthreeViewOID.IsNull() || o.TagServiceSnmpVthreeViewOID.IsUnknown()) {
-		subModel := make(map[string]ServiceSnmpVthreeViewOID)
-		diags.Append(o.TagServiceSnmpVthreeViewOID.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["oid"] = subData
-	}
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceSnmpVthreeView) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "view"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["oid"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceSnmpVthreeViewOID{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagServiceSnmpVthreeViewOID = data
-	} else {
-		o.TagServiceSnmpVthreeViewOID = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "view"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceSnmpVthreeView) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"oid": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceSnmpVthreeViewOID{}.AttributeTypes()}},
-
-		// Nodes
-
 	}
 }
 
@@ -121,4 +59,66 @@ func (o ServiceSnmpVthreeView) ResourceSchemaAttributes() map[string]schema.Attr
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceSnmpVthreeView) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagServiceSnmpVthreeViewOID).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagServiceSnmpVthreeViewOID)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["oid"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceSnmpVthreeView) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["oid"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagServiceSnmpVthreeViewOID = &map[string]ServiceSnmpVthreeViewOID{}
+
+		err = json.Unmarshal(subJSONStr, o.TagServiceSnmpVthreeViewOID)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+
+	return nil
 }

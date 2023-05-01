@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerNameVolume describes the resource data model.
 type ContainerNameVolume struct {
 	// LeafNodes
-	LeafContainerNameVolumeSource      types.String `tfsdk:"source"`
-	LeafContainerNameVolumeDestination types.String `tfsdk:"destination"`
-	LeafContainerNameVolumeMode        types.String `tfsdk:"mode"`
+	LeafContainerNameVolumeSource      types.String `tfsdk:"source" json:"source,omitempty"`
+	LeafContainerNameVolumeDestination types.String `tfsdk:"destination" json:"destination,omitempty"`
+	LeafContainerNameVolumeMode        types.String `tfsdk:"mode" json:"mode,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerNameVolume) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "name", "volume"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerNameVolumeSource.IsNull() || o.LeafContainerNameVolumeSource.IsUnknown()) {
-		vyosData["source"] = o.LeafContainerNameVolumeSource.ValueString()
-	}
-	if !(o.LeafContainerNameVolumeDestination.IsNull() || o.LeafContainerNameVolumeDestination.IsUnknown()) {
-		vyosData["destination"] = o.LeafContainerNameVolumeDestination.ValueString()
-	}
-	if !(o.LeafContainerNameVolumeMode.IsNull() || o.LeafContainerNameVolumeMode.IsUnknown()) {
-		vyosData["mode"] = o.LeafContainerNameVolumeMode.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerNameVolume) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "name", "volume"}})
-
-	// Leafs
-	if value, ok := vyosData["source"]; ok {
-		o.LeafContainerNameVolumeSource = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeSource = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["destination"]; ok {
-		o.LeafContainerNameVolumeDestination = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeDestination = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mode"]; ok {
-		o.LeafContainerNameVolumeMode = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerNameVolumeMode = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "name", "volume"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerNameVolume) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"source":      types.StringType,
-		"destination": types.StringType,
-		"mode":        types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -139,4 +68,69 @@ func (o ContainerNameVolume) ResourceSchemaAttributes() map[string]schema.Attrib
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerNameVolume) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerNameVolumeSource.IsNull() && !o.LeafContainerNameVolumeSource.IsUnknown() {
+		jsonData["source"] = o.LeafContainerNameVolumeSource.ValueString()
+	}
+
+	if !o.LeafContainerNameVolumeDestination.IsNull() && !o.LeafContainerNameVolumeDestination.IsUnknown() {
+		jsonData["destination"] = o.LeafContainerNameVolumeDestination.ValueString()
+	}
+
+	if !o.LeafContainerNameVolumeMode.IsNull() && !o.LeafContainerNameVolumeMode.IsUnknown() {
+		jsonData["mode"] = o.LeafContainerNameVolumeMode.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerNameVolume) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["source"]; ok {
+		o.LeafContainerNameVolumeSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameVolumeSource = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["destination"]; ok {
+		o.LeafContainerNameVolumeDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameVolumeDestination = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mode"]; ok {
+		o.LeafContainerNameVolumeMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNameVolumeMode = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

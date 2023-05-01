@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRoutingPrefixIndex describes the resource data model.
 type VrfNameProtocolsIsisSegmentRoutingPrefixIndex struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue        types.String `tfsdk:"value"`
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull types.String `tfsdk:"explicit_null"`
-	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag    types.String `tfsdk:"no_php_flag"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue        types.String `tfsdk:"value" json:"value,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull types.String `tfsdk:"explicit_null" json:"explicit-null,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag    types.String `tfsdk:"no_php_flag" json:"no-php-flag,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefixIndex) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix", "index"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.IsUnknown()) {
-		vyosData["value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsUnknown()) {
-		vyosData["explicit-null"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsUnknown()) {
-		vyosData["no-php-flag"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisSegmentRoutingPrefixIndex) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix", "index"}})
-
-	// Leafs
-	if value, ok := vyosData["value"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["explicit-null"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-php-flag"]; ok {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix", "index"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"value":         types.StringType,
-		"explicit_null": types.StringType,
-		"no_php_flag":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -127,4 +56,69 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefixIndex) ResourceSchemaAttributes(
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefixIndex) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.IsUnknown() {
+		jsonData["value"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.IsUnknown() {
+		jsonData["explicit-null"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsNull() && !o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.IsUnknown() {
+		jsonData["no-php-flag"] = o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefixIndex) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["value"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexValue = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["explicit-null"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexExplicitNull = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-php-flag"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingPrefixIndexNoPhpFlag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,103 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaAreaType describes the resource data model.
 type ProtocolsOspfAreaAreaType struct {
 	// LeafNodes
-	LeafProtocolsOspfAreaAreaTypeNormal types.String `tfsdk:"normal"`
+	LeafProtocolsOspfAreaAreaTypeNormal types.String `tfsdk:"normal" json:"normal,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeProtocolsOspfAreaAreaTypeNssa types.Object `tfsdk:"nssa"`
-	NodeProtocolsOspfAreaAreaTypeStub types.Object `tfsdk:"stub"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsOspfAreaAreaType) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsOspfAreaAreaTypeNormal.IsNull() || o.LeafProtocolsOspfAreaAreaTypeNormal.IsUnknown()) {
-		vyosData["normal"] = o.LeafProtocolsOspfAreaAreaTypeNormal.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeProtocolsOspfAreaAreaTypeNssa.IsNull() || o.NodeProtocolsOspfAreaAreaTypeNssa.IsUnknown()) {
-		var subModel ProtocolsOspfAreaAreaTypeNssa
-		diags.Append(o.NodeProtocolsOspfAreaAreaTypeNssa.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["nssa"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeProtocolsOspfAreaAreaTypeStub.IsNull() || o.NodeProtocolsOspfAreaAreaTypeStub.IsUnknown()) {
-		var subModel ProtocolsOspfAreaAreaTypeStub
-		diags.Append(o.NodeProtocolsOspfAreaAreaTypeStub.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["stub"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsOspfAreaAreaType) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
-
-	// Leafs
-	if value, ok := vyosData["normal"]; ok {
-		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["nssa"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsOspfAreaAreaTypeNssa = data
-
-	} else {
-		o.NodeProtocolsOspfAreaAreaTypeNssa = basetypes.NewObjectNull(ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes())
-	}
-	if value, ok := vyosData["stub"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeProtocolsOspfAreaAreaTypeStub = data
-
-	} else {
-		o.NodeProtocolsOspfAreaAreaTypeStub = basetypes.NewObjectNull(ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsOspfAreaAreaType) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"normal": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"nssa": types.ObjectType{AttrTypes: ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes()},
-		"stub": types.ObjectType{AttrTypes: ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes()},
-	}
+	NodeProtocolsOspfAreaAreaTypeNssa *ProtocolsOspfAreaAreaTypeNssa `tfsdk:"nssa" json:"nssa,omitempty"`
+	NodeProtocolsOspfAreaAreaTypeStub *ProtocolsOspfAreaAreaTypeStub `tfsdk:"stub" json:"stub,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -133,4 +54,103 @@ func (o ProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]schema.
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsOspfAreaAreaType) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsOspfAreaAreaTypeNormal.IsNull() && !o.LeafProtocolsOspfAreaAreaTypeNormal.IsUnknown() {
+		jsonData["normal"] = o.LeafProtocolsOspfAreaAreaTypeNormal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeProtocolsOspfAreaAreaTypeNssa).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfAreaAreaTypeNssa)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["nssa"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeProtocolsOspfAreaAreaTypeStub).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeProtocolsOspfAreaAreaTypeStub)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["stub"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsOspfAreaAreaType) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["normal"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["nssa"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsOspfAreaAreaTypeNssa = &ProtocolsOspfAreaAreaTypeNssa{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfAreaAreaTypeNssa)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["stub"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeProtocolsOspfAreaAreaTypeStub = &ProtocolsOspfAreaAreaTypeStub{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeProtocolsOspfAreaAreaTypeStub)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

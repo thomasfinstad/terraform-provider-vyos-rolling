@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessConnection describes the resource data model.
@@ -17,20 +15,20 @@ type VpnIPsecRemoteAccessConnection struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafVpnIPsecRemoteAccessConnectionDescrIPtion  types.String `tfsdk:"description"`
-	LeafVpnIPsecRemoteAccessConnectionDisable      types.String `tfsdk:"disable"`
-	LeafVpnIPsecRemoteAccessConnectionEspGroup     types.String `tfsdk:"esp_group"`
-	LeafVpnIPsecRemoteAccessConnectionIkeGroup     types.String `tfsdk:"ike_group"`
-	LeafVpnIPsecRemoteAccessConnectionLocalAddress types.String `tfsdk:"local_address"`
-	LeafVpnIPsecRemoteAccessConnectionTimeout      types.String `tfsdk:"timeout"`
-	LeafVpnIPsecRemoteAccessConnectionPool         types.String `tfsdk:"pool"`
-	LeafVpnIPsecRemoteAccessConnectionUnique       types.String `tfsdk:"unique"`
+	LeafVpnIPsecRemoteAccessConnectionDescrIPtion  types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionDisable      types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionEspGroup     types.String `tfsdk:"esp_group" json:"esp-group,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionIkeGroup     types.String `tfsdk:"ike_group" json:"ike-group,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionLocalAddress types.String `tfsdk:"local_address" json:"local-address,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionTimeout      types.String `tfsdk:"timeout" json:"timeout,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionPool         types.String `tfsdk:"pool" json:"pool,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionUnique       types.String `tfsdk:"unique" json:"unique,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVpnIPsecRemoteAccessConnectionAuthentication types.Object `tfsdk:"authentication"`
-	NodeVpnIPsecRemoteAccessConnectionLocal          types.Object `tfsdk:"local"`
+	NodeVpnIPsecRemoteAccessConnectionAuthentication *VpnIPsecRemoteAccessConnectionAuthentication `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeVpnIPsecRemoteAccessConnectionLocal          *VpnIPsecRemoteAccessConnectionLocal          `tfsdk:"local" json:"local,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -41,146 +39,6 @@ func (o *VpnIPsecRemoteAccessConnection) GetVyosPath() []string {
 		"remote-access",
 		"connection",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VpnIPsecRemoteAccessConnection) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionDisable.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafVpnIPsecRemoteAccessConnectionDisable.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionEspGroup.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionEspGroup.IsUnknown()) {
-		vyosData["esp-group"] = o.LeafVpnIPsecRemoteAccessConnectionEspGroup.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.IsUnknown()) {
-		vyosData["ike-group"] = o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.IsUnknown()) {
-		vyosData["local-address"] = o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionTimeout.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionTimeout.IsUnknown()) {
-		vyosData["timeout"] = o.LeafVpnIPsecRemoteAccessConnectionTimeout.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionPool.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionPool.IsUnknown()) {
-		vyosData["pool"] = o.LeafVpnIPsecRemoteAccessConnectionPool.ValueString()
-	}
-	if !(o.LeafVpnIPsecRemoteAccessConnectionUnique.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionUnique.IsUnknown()) {
-		vyosData["unique"] = o.LeafVpnIPsecRemoteAccessConnectionUnique.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVpnIPsecRemoteAccessConnectionAuthentication.IsNull() || o.NodeVpnIPsecRemoteAccessConnectionAuthentication.IsUnknown()) {
-		var subModel VpnIPsecRemoteAccessConnectionAuthentication
-		diags.Append(o.NodeVpnIPsecRemoteAccessConnectionAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVpnIPsecRemoteAccessConnectionLocal.IsNull() || o.NodeVpnIPsecRemoteAccessConnectionLocal.IsUnknown()) {
-		var subModel VpnIPsecRemoteAccessConnectionLocal
-		diags.Append(o.NodeVpnIPsecRemoteAccessConnectionLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["local"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VpnIPsecRemoteAccessConnection) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["esp-group"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionEspGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionEspGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ike-group"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionIkeGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionIkeGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local-address"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionLocalAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["timeout"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionTimeout = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionTimeout = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["pool"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionPool = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionPool = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["unique"]; ok {
-		o.LeafVpnIPsecRemoteAccessConnectionUnique = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVpnIPsecRemoteAccessConnectionUnique = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["authentication"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecRemoteAccessConnectionAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecRemoteAccessConnectionAuthentication = data
-
-	} else {
-		o.NodeVpnIPsecRemoteAccessConnectionAuthentication = basetypes.NewObjectNull(VpnIPsecRemoteAccessConnectionAuthentication{}.AttributeTypes())
-	}
-	if value, ok := vyosData["local"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecRemoteAccessConnectionLocal{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVpnIPsecRemoteAccessConnectionLocal = data
-
-	} else {
-		o.NodeVpnIPsecRemoteAccessConnectionLocal = basetypes.NewObjectNull(VpnIPsecRemoteAccessConnectionLocal{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VpnIPsecRemoteAccessConnection) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":   types.StringType,
-		"disable":       types.StringType,
-		"esp_group":     types.StringType,
-		"ike_group":     types.StringType,
-		"local_address": types.StringType,
-		"timeout":       types.StringType,
-		"pool":          types.StringType,
-		"unique":        types.StringType,
-
-		// Tags
-
-		// Nodes
-		"authentication": types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionAuthentication{}.AttributeTypes()},
-		"local":          types.ObjectType{AttrTypes: VpnIPsecRemoteAccessConnectionLocal{}.AttributeTypes()},
 	}
 }
 
@@ -306,4 +164,173 @@ func (o VpnIPsecRemoteAccessConnection) ResourceSchemaAttributes() map[string]sc
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VpnIPsecRemoteAccessConnection) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionDisable.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafVpnIPsecRemoteAccessConnectionDisable.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionEspGroup.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionEspGroup.IsUnknown() {
+		jsonData["esp-group"] = o.LeafVpnIPsecRemoteAccessConnectionEspGroup.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.IsUnknown() {
+		jsonData["ike-group"] = o.LeafVpnIPsecRemoteAccessConnectionIkeGroup.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.IsUnknown() {
+		jsonData["local-address"] = o.LeafVpnIPsecRemoteAccessConnectionLocalAddress.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionTimeout.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionTimeout.IsUnknown() {
+		jsonData["timeout"] = o.LeafVpnIPsecRemoteAccessConnectionTimeout.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionPool.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionPool.IsUnknown() {
+		jsonData["pool"] = o.LeafVpnIPsecRemoteAccessConnectionPool.ValueString()
+	}
+
+	if !o.LeafVpnIPsecRemoteAccessConnectionUnique.IsNull() && !o.LeafVpnIPsecRemoteAccessConnectionUnique.IsUnknown() {
+		jsonData["unique"] = o.LeafVpnIPsecRemoteAccessConnectionUnique.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionAuthentication).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionAuthentication)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["authentication"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVpnIPsecRemoteAccessConnectionLocal).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVpnIPsecRemoteAccessConnectionLocal)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["local"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VpnIPsecRemoteAccessConnection) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["esp-group"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionEspGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionEspGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ike-group"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionIkeGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionIkeGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local-address"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionLocalAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionLocalAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["timeout"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionTimeout = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["pool"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionPool = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionPool = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["unique"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionUnique = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionUnique = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["authentication"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecRemoteAccessConnectionAuthentication = &VpnIPsecRemoteAccessConnectionAuthentication{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionAuthentication)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["local"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVpnIPsecRemoteAccessConnectionLocal = &VpnIPsecRemoteAccessConnectionLocal{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVpnIPsecRemoteAccessConnectionLocal)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

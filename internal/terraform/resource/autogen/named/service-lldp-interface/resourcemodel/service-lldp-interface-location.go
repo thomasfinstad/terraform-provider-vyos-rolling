@@ -2,88 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterfaceLocation describes the resource data model.
 type ServiceLldpInterfaceLocation struct {
 	// LeafNodes
-	LeafServiceLldpInterfaceLocationElin types.String `tfsdk:"elin"`
+	LeafServiceLldpInterfaceLocationElin types.String `tfsdk:"elin" json:"elin,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeServiceLldpInterfaceLocationCoordinateBased types.Object `tfsdk:"coordinate_based"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceLldpInterfaceLocation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceLldpInterfaceLocationElin.IsNull() || o.LeafServiceLldpInterfaceLocationElin.IsUnknown()) {
-		vyosData["elin"] = o.LeafServiceLldpInterfaceLocationElin.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeServiceLldpInterfaceLocationCoordinateBased.IsNull() || o.NodeServiceLldpInterfaceLocationCoordinateBased.IsUnknown()) {
-		var subModel ServiceLldpInterfaceLocationCoordinateBased
-		diags.Append(o.NodeServiceLldpInterfaceLocationCoordinateBased.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["coordinate-based"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceLldpInterfaceLocation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
-
-	// Leafs
-	if value, ok := vyosData["elin"]; ok {
-		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["coordinate-based"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeServiceLldpInterfaceLocationCoordinateBased = data
-
-	} else {
-		o.NodeServiceLldpInterfaceLocationCoordinateBased = basetypes.NewObjectNull(ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceLldpInterfaceLocation) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"elin": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"coordinate_based": types.ObjectType{AttrTypes: ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes()},
-	}
+	NodeServiceLldpInterfaceLocationCoordinateBased *ServiceLldpInterfaceLocationCoordinateBased `tfsdk:"coordinate_based" json:"coordinate-based,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +49,76 @@ func (o ServiceLldpInterfaceLocation) ResourceSchemaAttributes() map[string]sche
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceLldpInterfaceLocation) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceLldpInterfaceLocationElin.IsNull() && !o.LeafServiceLldpInterfaceLocationElin.IsUnknown() {
+		jsonData["elin"] = o.LeafServiceLldpInterfaceLocationElin.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeServiceLldpInterfaceLocationCoordinateBased).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeServiceLldpInterfaceLocationCoordinateBased)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["coordinate-based"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceLldpInterfaceLocation) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["elin"]; ok {
+		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["coordinate-based"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeServiceLldpInterfaceLocationCoordinateBased = &ServiceLldpInterfaceLocationCoordinateBased{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeServiceLldpInterfaceLocationCoordinateBased)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

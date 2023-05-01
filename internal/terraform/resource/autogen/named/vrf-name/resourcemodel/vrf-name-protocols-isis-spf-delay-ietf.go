@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSpfDelayIetf describes the resource data model.
 type VrfNameProtocolsIsisSpfDelayIetf struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay   types.String `tfsdk:"init_delay"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay  types.String `tfsdk:"short_delay"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay   types.String `tfsdk:"long_delay"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfHolddown    types.String `tfsdk:"holddown"`
-	LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn types.String `tfsdk:"time_to_learn"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay   types.String `tfsdk:"init_delay" json:"init-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay  types.String `tfsdk:"short_delay" json:"short-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay   types.String `tfsdk:"long_delay" json:"long-delay,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfHolddown    types.String `tfsdk:"holddown" json:"holddown,omitempty"`
+	LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn types.String `tfsdk:"time_to_learn" json:"time-to-learn,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisSpfDelayIetf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "spf-delay-ietf"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsNull() || o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsUnknown()) {
-		vyosData["init-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsNull() || o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsUnknown()) {
-		vyosData["short-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsNull() || o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsUnknown()) {
-		vyosData["long-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsNull() || o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsUnknown()) {
-		vyosData["holddown"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsNull() || o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsUnknown()) {
-		vyosData["time-to-learn"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisSpfDelayIetf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "spf-delay-ietf"}})
-
-	// Leafs
-	if value, ok := vyosData["init-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["short-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["long-delay"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["holddown"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["time-to-learn"]; ok {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "spf-delay-ietf"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisSpfDelayIetf) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"init_delay":    types.StringType,
-		"short_delay":   types.StringType,
-		"long_delay":    types.StringType,
-		"holddown":      types.StringType,
-		"time_to_learn": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -177,4 +88,89 @@ func (o VrfNameProtocolsIsisSpfDelayIetf) ResourceSchemaAttributes() map[string]
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisSpfDelayIetf) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.IsUnknown() {
+		jsonData["init-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.IsUnknown() {
+		jsonData["short-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.IsUnknown() {
+		jsonData["long-delay"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.IsUnknown() {
+		jsonData["holddown"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsNull() && !o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.IsUnknown() {
+		jsonData["time-to-learn"] = o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisSpfDelayIetf) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["init-delay"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfInitDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["short-delay"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfShortDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["long-delay"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfLongDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["holddown"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfHolddown = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["time-to-learn"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfDelayIetfTimeToLearn = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

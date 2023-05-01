@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceTftpServerListenAddress describes the resource data model.
@@ -17,7 +14,7 @@ type ServiceTftpServerListenAddress struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceTftpServerListenAddressVrf types.String `tfsdk:"vrf"`
+	LeafServiceTftpServerListenAddressVrf types.String `tfsdk:"vrf" json:"vrf,omitempty"`
 
 	// TagNodes
 
@@ -31,56 +28,6 @@ func (o *ServiceTftpServerListenAddress) GetVyosPath() []string {
 		"tftp-server",
 		"listen-address",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceTftpServerListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceTftpServerListenAddressVrf.IsNull() || o.LeafServiceTftpServerListenAddressVrf.IsUnknown()) {
-		vyosData["vrf"] = o.LeafServiceTftpServerListenAddressVrf.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceTftpServerListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
-
-	// Leafs
-	if value, ok := vyosData["vrf"]; ok {
-		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceTftpServerListenAddress) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"vrf": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -117,4 +64,49 @@ func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes() map[string]sc
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceTftpServerListenAddress) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceTftpServerListenAddressVrf.IsNull() && !o.LeafServiceTftpServerListenAddressVrf.IsUnknown() {
+		jsonData["vrf"] = o.LeafServiceTftpServerListenAddressVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceTftpServerListenAddress) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["vrf"]; ok {
+		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

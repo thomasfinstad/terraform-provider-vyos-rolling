@@ -2,98 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatSourceRuleSource describes the resource data model.
 type NatSourceRuleSource struct {
 	// LeafNodes
-	LeafNatSourceRuleSourceAddress types.String `tfsdk:"address"`
-	LeafNatSourceRuleSourcePort    types.String `tfsdk:"port"`
+	LeafNatSourceRuleSourceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafNatSourceRuleSourcePort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeNatSourceRuleSourceGroup types.Object `tfsdk:"group"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatSourceRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "source", "rule", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatSourceRuleSourceAddress.IsNull() || o.LeafNatSourceRuleSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafNatSourceRuleSourceAddress.ValueString()
-	}
-	if !(o.LeafNatSourceRuleSourcePort.IsNull() || o.LeafNatSourceRuleSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafNatSourceRuleSourcePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeNatSourceRuleSourceGroup.IsNull() || o.NodeNatSourceRuleSourceGroup.IsUnknown()) {
-		var subModel NatSourceRuleSourceGroup
-		diags.Append(o.NodeNatSourceRuleSourceGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatSourceRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "source", "rule", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafNatSourceRuleSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafNatSourceRuleSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleSourcePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["group"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, NatSourceRuleSourceGroup{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeNatSourceRuleSourceGroup = data
-
-	} else {
-		o.NodeNatSourceRuleSourceGroup = basetypes.NewObjectNull(NatSourceRuleSourceGroup{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "source", "rule", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatSourceRuleSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-		"group": types.ObjectType{AttrTypes: NatSourceRuleSourceGroup{}.AttributeTypes()},
-	}
+	NodeNatSourceRuleSourceGroup *NatSourceRuleSourceGroup `tfsdk:"group" json:"group,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -143,4 +69,86 @@ func (o NatSourceRuleSource) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatSourceRuleSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatSourceRuleSourceAddress.IsNull() && !o.LeafNatSourceRuleSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafNatSourceRuleSourceAddress.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleSourcePort.IsNull() && !o.LeafNatSourceRuleSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafNatSourceRuleSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeNatSourceRuleSourceGroup).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeNatSourceRuleSourceGroup)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["group"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatSourceRuleSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafNatSourceRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafNatSourceRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["group"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeNatSourceRuleSourceGroup = &NatSourceRuleSourceGroup{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeNatSourceRuleSourceGroup)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

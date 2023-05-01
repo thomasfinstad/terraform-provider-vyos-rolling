@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyLocalRoutesixRuleSet describes the resource data model.
 type PolicyLocalRoutesixRuleSet struct {
 	// LeafNodes
-	LeafPolicyLocalRoutesixRuleSetTable types.String `tfsdk:"table"`
+	LeafPolicyLocalRoutesixRuleSetTable types.String `tfsdk:"table" json:"table,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyLocalRoutesixRuleSet) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule", "set"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyLocalRoutesixRuleSetTable.IsNull() || o.LeafPolicyLocalRoutesixRuleSetTable.IsUnknown()) {
-		vyosData["table"] = o.LeafPolicyLocalRoutesixRuleSetTable.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyLocalRoutesixRuleSet) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule", "set"}})
-
-	// Leafs
-	if value, ok := vyosData["table"]; ok {
-		o.LeafPolicyLocalRoutesixRuleSetTable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyLocalRoutesixRuleSetTable = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule", "set"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyLocalRoutesixRuleSet) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"table": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -93,4 +40,49 @@ func (o PolicyLocalRoutesixRuleSet) ResourceSchemaAttributes() map[string]schema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyLocalRoutesixRuleSet) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyLocalRoutesixRuleSetTable.IsNull() && !o.LeafPolicyLocalRoutesixRuleSetTable.IsUnknown() {
+		jsonData["table"] = o.LeafPolicyLocalRoutesixRuleSetTable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyLocalRoutesixRuleSet) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["table"]; ok {
+		o.LeafPolicyLocalRoutesixRuleSetTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLocalRoutesixRuleSetTable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

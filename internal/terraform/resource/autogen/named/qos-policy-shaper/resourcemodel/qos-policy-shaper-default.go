@@ -2,174 +2,31 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperDefault describes the resource data model.
 type QosPolicyShaperDefault struct {
 	// LeafNodes
-	LeafQosPolicyShaperDefaultBandwIDth    types.String `tfsdk:"bandwidth"`
-	LeafQosPolicyShaperDefaultBurst        types.String `tfsdk:"burst"`
-	LeafQosPolicyShaperDefaultCeiling      types.String `tfsdk:"ceiling"`
-	LeafQosPolicyShaperDefaultCodelQuantum types.String `tfsdk:"codel_quantum"`
-	LeafQosPolicyShaperDefaultFlows        types.String `tfsdk:"flows"`
-	LeafQosPolicyShaperDefaultInterval     types.String `tfsdk:"interval"`
-	LeafQosPolicyShaperDefaultPriority     types.String `tfsdk:"priority"`
-	LeafQosPolicyShaperDefaultQueueLimit   types.String `tfsdk:"queue_limit"`
-	LeafQosPolicyShaperDefaultQueueType    types.String `tfsdk:"queue_type"`
-	LeafQosPolicyShaperDefaultSetDscp      types.String `tfsdk:"set_dscp"`
-	LeafQosPolicyShaperDefaultTarget       types.String `tfsdk:"target"`
+	LeafQosPolicyShaperDefaultBandwIDth    types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyShaperDefaultBurst        types.String `tfsdk:"burst" json:"burst,omitempty"`
+	LeafQosPolicyShaperDefaultCeiling      types.String `tfsdk:"ceiling" json:"ceiling,omitempty"`
+	LeafQosPolicyShaperDefaultCodelQuantum types.String `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
+	LeafQosPolicyShaperDefaultFlows        types.String `tfsdk:"flows" json:"flows,omitempty"`
+	LeafQosPolicyShaperDefaultInterval     types.String `tfsdk:"interval" json:"interval,omitempty"`
+	LeafQosPolicyShaperDefaultPriority     types.String `tfsdk:"priority" json:"priority,omitempty"`
+	LeafQosPolicyShaperDefaultQueueLimit   types.String `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyShaperDefaultQueueType    types.String `tfsdk:"queue_type" json:"queue-type,omitempty"`
+	LeafQosPolicyShaperDefaultSetDscp      types.String `tfsdk:"set_dscp" json:"set-dscp,omitempty"`
+	LeafQosPolicyShaperDefaultTarget       types.String `tfsdk:"target" json:"target,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyShaperDefault) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "default"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyShaperDefaultBandwIDth.IsNull() || o.LeafQosPolicyShaperDefaultBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyShaperDefaultBandwIDth.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultBurst.IsNull() || o.LeafQosPolicyShaperDefaultBurst.IsUnknown()) {
-		vyosData["burst"] = o.LeafQosPolicyShaperDefaultBurst.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultCeiling.IsNull() || o.LeafQosPolicyShaperDefaultCeiling.IsUnknown()) {
-		vyosData["ceiling"] = o.LeafQosPolicyShaperDefaultCeiling.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultCodelQuantum.IsNull() || o.LeafQosPolicyShaperDefaultCodelQuantum.IsUnknown()) {
-		vyosData["codel-quantum"] = o.LeafQosPolicyShaperDefaultCodelQuantum.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultFlows.IsNull() || o.LeafQosPolicyShaperDefaultFlows.IsUnknown()) {
-		vyosData["flows"] = o.LeafQosPolicyShaperDefaultFlows.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultInterval.IsNull() || o.LeafQosPolicyShaperDefaultInterval.IsUnknown()) {
-		vyosData["interval"] = o.LeafQosPolicyShaperDefaultInterval.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultPriority.IsNull() || o.LeafQosPolicyShaperDefaultPriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafQosPolicyShaperDefaultPriority.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultQueueLimit.IsNull() || o.LeafQosPolicyShaperDefaultQueueLimit.IsUnknown()) {
-		vyosData["queue-limit"] = o.LeafQosPolicyShaperDefaultQueueLimit.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultQueueType.IsNull() || o.LeafQosPolicyShaperDefaultQueueType.IsUnknown()) {
-		vyosData["queue-type"] = o.LeafQosPolicyShaperDefaultQueueType.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultSetDscp.IsNull() || o.LeafQosPolicyShaperDefaultSetDscp.IsUnknown()) {
-		vyosData["set-dscp"] = o.LeafQosPolicyShaperDefaultSetDscp.ValueString()
-	}
-	if !(o.LeafQosPolicyShaperDefaultTarget.IsNull() || o.LeafQosPolicyShaperDefaultTarget.IsUnknown()) {
-		vyosData["target"] = o.LeafQosPolicyShaperDefaultTarget.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyShaperDefault) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "default"}})
-
-	// Leafs
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyShaperDefaultBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["burst"]; ok {
-		o.LeafQosPolicyShaperDefaultBurst = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultBurst = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ceiling"]; ok {
-		o.LeafQosPolicyShaperDefaultCeiling = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultCeiling = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["codel-quantum"]; ok {
-		o.LeafQosPolicyShaperDefaultCodelQuantum = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultCodelQuantum = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["flows"]; ok {
-		o.LeafQosPolicyShaperDefaultFlows = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultFlows = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interval"]; ok {
-		o.LeafQosPolicyShaperDefaultInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafQosPolicyShaperDefaultPriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultPriority = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-limit"]; ok {
-		o.LeafQosPolicyShaperDefaultQueueLimit = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultQueueLimit = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["queue-type"]; ok {
-		o.LeafQosPolicyShaperDefaultQueueType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultQueueType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["set-dscp"]; ok {
-		o.LeafQosPolicyShaperDefaultSetDscp = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultSetDscp = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["target"]; ok {
-		o.LeafQosPolicyShaperDefaultTarget = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyShaperDefaultTarget = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "default"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyShaperDefault) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"bandwidth":     types.StringType,
-		"burst":         types.StringType,
-		"ceiling":       types.StringType,
-		"codel_quantum": types.StringType,
-		"flows":         types.StringType,
-		"interval":      types.StringType,
-		"priority":      types.StringType,
-		"queue_limit":   types.StringType,
-		"queue_type":    types.StringType,
-		"set_dscp":      types.StringType,
-		"target":        types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -371,4 +228,149 @@ func (o QosPolicyShaperDefault) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyShaperDefault) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyShaperDefaultBandwIDth.IsNull() && !o.LeafQosPolicyShaperDefaultBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyShaperDefaultBandwIDth.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultBurst.IsNull() && !o.LeafQosPolicyShaperDefaultBurst.IsUnknown() {
+		jsonData["burst"] = o.LeafQosPolicyShaperDefaultBurst.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultCeiling.IsNull() && !o.LeafQosPolicyShaperDefaultCeiling.IsUnknown() {
+		jsonData["ceiling"] = o.LeafQosPolicyShaperDefaultCeiling.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultCodelQuantum.IsNull() && !o.LeafQosPolicyShaperDefaultCodelQuantum.IsUnknown() {
+		jsonData["codel-quantum"] = o.LeafQosPolicyShaperDefaultCodelQuantum.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultFlows.IsNull() && !o.LeafQosPolicyShaperDefaultFlows.IsUnknown() {
+		jsonData["flows"] = o.LeafQosPolicyShaperDefaultFlows.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultInterval.IsNull() && !o.LeafQosPolicyShaperDefaultInterval.IsUnknown() {
+		jsonData["interval"] = o.LeafQosPolicyShaperDefaultInterval.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultPriority.IsNull() && !o.LeafQosPolicyShaperDefaultPriority.IsUnknown() {
+		jsonData["priority"] = o.LeafQosPolicyShaperDefaultPriority.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultQueueLimit.IsNull() && !o.LeafQosPolicyShaperDefaultQueueLimit.IsUnknown() {
+		jsonData["queue-limit"] = o.LeafQosPolicyShaperDefaultQueueLimit.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultQueueType.IsNull() && !o.LeafQosPolicyShaperDefaultQueueType.IsUnknown() {
+		jsonData["queue-type"] = o.LeafQosPolicyShaperDefaultQueueType.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultSetDscp.IsNull() && !o.LeafQosPolicyShaperDefaultSetDscp.IsUnknown() {
+		jsonData["set-dscp"] = o.LeafQosPolicyShaperDefaultSetDscp.ValueString()
+	}
+
+	if !o.LeafQosPolicyShaperDefaultTarget.IsNull() && !o.LeafQosPolicyShaperDefaultTarget.IsUnknown() {
+		jsonData["target"] = o.LeafQosPolicyShaperDefaultTarget.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyShaperDefault) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyShaperDefaultBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["burst"]; ok {
+		o.LeafQosPolicyShaperDefaultBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultBurst = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ceiling"]; ok {
+		o.LeafQosPolicyShaperDefaultCeiling = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultCeiling = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["codel-quantum"]; ok {
+		o.LeafQosPolicyShaperDefaultCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultCodelQuantum = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["flows"]; ok {
+		o.LeafQosPolicyShaperDefaultFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultFlows = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interval"]; ok {
+		o.LeafQosPolicyShaperDefaultInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafQosPolicyShaperDefaultPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultPriority = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-limit"]; ok {
+		o.LeafQosPolicyShaperDefaultQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultQueueLimit = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["queue-type"]; ok {
+		o.LeafQosPolicyShaperDefaultQueueType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultQueueType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["set-dscp"]; ok {
+		o.LeafQosPolicyShaperDefaultSetDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultSetDscp = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["target"]; ok {
+		o.LeafQosPolicyShaperDefaultTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDefaultTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterfaceRfctwoonethreesix describes the resource data model.
 type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
 	// LeafNodes
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey    types.String `tfsdk:"key"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord types.String `tfsdk:"record"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer types.String `tfsdk:"server"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL    types.String `tfsdk:"ttl"`
-	LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone   types.String `tfsdk:"zone"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey    types.String `tfsdk:"key" json:"key,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord types.String `tfsdk:"record" json:"record,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer types.String `tfsdk:"server" json:"server,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL    types.String `tfsdk:"ttl" json:"ttl,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone   types.String `tfsdk:"zone" json:"zone,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsUnknown()) {
-		vyosData["key"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.ValueString()
-	}
-	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsUnknown()) {
-		vyosData["record"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.ValueString()
-	}
-	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsUnknown()) {
-		vyosData["server"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.ValueString()
-	}
-	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsUnknown()) {
-		vyosData["ttl"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.ValueString()
-	}
-	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsUnknown()) {
-		vyosData["zone"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
-
-	// Leafs
-	if value, ok := vyosData["key"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["record"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["server"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ttl"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["zone"]; ok {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"key":    types.StringType,
-		"record": types.StringType,
-		"server": types.StringType,
-		"ttl":    types.StringType,
-		"zone":   types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -168,4 +79,89 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsUnknown() {
+		jsonData["key"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.ValueString()
+	}
+
+	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsUnknown() {
+		jsonData["record"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.ValueString()
+	}
+
+	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsUnknown() {
+		jsonData["server"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.ValueString()
+	}
+
+	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsUnknown() {
+		jsonData["ttl"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.ValueString()
+	}
+
+	if !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsNull() && !o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsUnknown() {
+		jsonData["zone"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["key"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["record"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["server"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ttl"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["zone"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

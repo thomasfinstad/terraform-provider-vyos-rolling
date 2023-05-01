@@ -2,148 +2,28 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRule describes the resource data model.
 type PolicyRouteMapRule struct {
 	// LeafNodes
-	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action"`
-	LeafPolicyRouteMapRuleCall        types.String `tfsdk:"call"`
-	LeafPolicyRouteMapRuleContinue    types.String `tfsdk:"continue"`
-	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action" json:"action,omitempty"`
+	LeafPolicyRouteMapRuleCall        types.String `tfsdk:"call" json:"call,omitempty"`
+	LeafPolicyRouteMapRuleContinue    types.String `tfsdk:"continue" json:"continue,omitempty"`
+	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodePolicyRouteMapRuleMatch   types.Object `tfsdk:"match"`
-	NodePolicyRouteMapRuleOnMatch types.Object `tfsdk:"on_match"`
-	NodePolicyRouteMapRuleSet     types.Object `tfsdk:"set"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRouteMapRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRouteMapRuleAction.IsNull() || o.LeafPolicyRouteMapRuleAction.IsUnknown()) {
-		vyosData["action"] = o.LeafPolicyRouteMapRuleAction.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleCall.IsNull() || o.LeafPolicyRouteMapRuleCall.IsUnknown()) {
-		vyosData["call"] = o.LeafPolicyRouteMapRuleCall.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleContinue.IsNull() || o.LeafPolicyRouteMapRuleContinue.IsUnknown()) {
-		vyosData["continue"] = o.LeafPolicyRouteMapRuleContinue.ValueString()
-	}
-	if !(o.LeafPolicyRouteMapRuleDescrIPtion.IsNull() || o.LeafPolicyRouteMapRuleDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafPolicyRouteMapRuleDescrIPtion.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodePolicyRouteMapRuleMatch.IsNull() || o.NodePolicyRouteMapRuleMatch.IsUnknown()) {
-		var subModel PolicyRouteMapRuleMatch
-		diags.Append(o.NodePolicyRouteMapRuleMatch.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["match"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteMapRuleOnMatch.IsNull() || o.NodePolicyRouteMapRuleOnMatch.IsUnknown()) {
-		var subModel PolicyRouteMapRuleOnMatch
-		diags.Append(o.NodePolicyRouteMapRuleOnMatch.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["on-match"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodePolicyRouteMapRuleSet.IsNull() || o.NodePolicyRouteMapRuleSet.IsUnknown()) {
-		var subModel PolicyRouteMapRuleSet
-		diags.Append(o.NodePolicyRouteMapRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRouteMapRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
-
-	// Leafs
-	if value, ok := vyosData["action"]; ok {
-		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["call"]; ok {
-		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["continue"]; ok {
-		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["description"]; ok {
-		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["match"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatch{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleMatch = data
-
-	} else {
-		o.NodePolicyRouteMapRuleMatch = basetypes.NewObjectNull(PolicyRouteMapRuleMatch{}.AttributeTypes())
-	}
-	if value, ok := vyosData["on-match"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleOnMatch{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleOnMatch = data
-
-	} else {
-		o.NodePolicyRouteMapRuleOnMatch = basetypes.NewObjectNull(PolicyRouteMapRuleOnMatch{}.AttributeTypes())
-	}
-	if value, ok := vyosData["set"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodePolicyRouteMapRuleSet = data
-
-	} else {
-		o.NodePolicyRouteMapRuleSet = basetypes.NewObjectNull(PolicyRouteMapRuleSet{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRouteMapRule) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"action":      types.StringType,
-		"call":        types.StringType,
-		"continue":    types.StringType,
-		"description": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"match":    types.ObjectType{AttrTypes: PolicyRouteMapRuleMatch{}.AttributeTypes()},
-		"on_match": types.ObjectType{AttrTypes: PolicyRouteMapRuleOnMatch{}.AttributeTypes()},
-		"set":      types.ObjectType{AttrTypes: PolicyRouteMapRuleSet{}.AttributeTypes()},
-	}
+	NodePolicyRouteMapRuleMatch   *PolicyRouteMapRuleMatch   `tfsdk:"match" json:"match,omitempty"`
+	NodePolicyRouteMapRuleOnMatch *PolicyRouteMapRuleOnMatch `tfsdk:"on_match" json:"on-match,omitempty"`
+	NodePolicyRouteMapRuleSet     *PolicyRouteMapRuleSet     `tfsdk:"set" json:"set,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -224,4 +104,160 @@ func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribu
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRouteMapRule) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRouteMapRuleAction.IsNull() && !o.LeafPolicyRouteMapRuleAction.IsUnknown() {
+		jsonData["action"] = o.LeafPolicyRouteMapRuleAction.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleCall.IsNull() && !o.LeafPolicyRouteMapRuleCall.IsUnknown() {
+		jsonData["call"] = o.LeafPolicyRouteMapRuleCall.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleContinue.IsNull() && !o.LeafPolicyRouteMapRuleContinue.IsUnknown() {
+		jsonData["continue"] = o.LeafPolicyRouteMapRuleContinue.ValueString()
+	}
+
+	if !o.LeafPolicyRouteMapRuleDescrIPtion.IsNull() && !o.LeafPolicyRouteMapRuleDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafPolicyRouteMapRuleDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleMatch).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleMatch)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["match"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleOnMatch).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleOnMatch)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["on-match"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodePolicyRouteMapRuleSet).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodePolicyRouteMapRuleSet)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["set"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRouteMapRule) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["action"]; ok {
+		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["call"]; ok {
+		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["continue"]; ok {
+		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["match"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleMatch = &PolicyRouteMapRuleMatch{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleMatch)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["on-match"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleOnMatch = &PolicyRouteMapRuleOnMatch{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleOnMatch)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["set"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodePolicyRouteMapRuleSet = &PolicyRouteMapRuleSet{}
+
+		err = json.Unmarshal(subJSONStr, o.NodePolicyRouteMapRuleSet)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

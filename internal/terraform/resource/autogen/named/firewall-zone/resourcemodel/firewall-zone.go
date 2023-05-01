@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallZone describes the resource data model.
@@ -17,17 +15,17 @@ type FirewallZone struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description"`
-	LeafFirewallZoneEnableDefaultLog types.String `tfsdk:"enable_default_log"`
-	LeafFirewallZoneDefaultAction    types.String `tfsdk:"default_action"`
-	LeafFirewallZoneInterface        types.String `tfsdk:"interface"`
-	LeafFirewallZoneLocalZone        types.String `tfsdk:"local_zone"`
+	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafFirewallZoneEnableDefaultLog types.String `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
+	LeafFirewallZoneDefaultAction    types.String `tfsdk:"default_action" json:"default-action,omitempty"`
+	LeafFirewallZoneInterface        types.String `tfsdk:"interface" json:"interface,omitempty"`
+	LeafFirewallZoneLocalZone        types.String `tfsdk:"local_zone" json:"local-zone,omitempty"`
 
 	// TagNodes
-	TagFirewallZoneFrom types.Map `tfsdk:"from"`
+	TagFirewallZoneFrom *map[string]FirewallZoneFrom `tfsdk:"from" json:"from,omitempty"`
 
 	// Nodes
-	NodeFirewallZoneIntraZoneFiltering types.Object `tfsdk:"intra_zone_filtering"`
+	NodeFirewallZoneIntraZoneFiltering *FirewallZoneIntraZoneFiltering `tfsdk:"intra_zone_filtering" json:"intra-zone-filtering,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -36,123 +34,6 @@ func (o *FirewallZone) GetVyosPath() []string {
 		"firewall",
 		"zone",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallZone) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "zone"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallZoneDescrIPtion.IsNull() || o.LeafFirewallZoneDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafFirewallZoneDescrIPtion.ValueString()
-	}
-	if !(o.LeafFirewallZoneEnableDefaultLog.IsNull() || o.LeafFirewallZoneEnableDefaultLog.IsUnknown()) {
-		vyosData["enable-default-log"] = o.LeafFirewallZoneEnableDefaultLog.ValueString()
-	}
-	if !(o.LeafFirewallZoneDefaultAction.IsNull() || o.LeafFirewallZoneDefaultAction.IsUnknown()) {
-		vyosData["default-action"] = o.LeafFirewallZoneDefaultAction.ValueString()
-	}
-	if !(o.LeafFirewallZoneInterface.IsNull() || o.LeafFirewallZoneInterface.IsUnknown()) {
-		vyosData["interface"] = o.LeafFirewallZoneInterface.ValueString()
-	}
-	if !(o.LeafFirewallZoneLocalZone.IsNull() || o.LeafFirewallZoneLocalZone.IsUnknown()) {
-		vyosData["local-zone"] = o.LeafFirewallZoneLocalZone.ValueString()
-	}
-
-	// Tags
-	if !(o.TagFirewallZoneFrom.IsNull() || o.TagFirewallZoneFrom.IsUnknown()) {
-		subModel := make(map[string]FirewallZoneFrom)
-		diags.Append(o.TagFirewallZoneFrom.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["from"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeFirewallZoneIntraZoneFiltering.IsNull() || o.NodeFirewallZoneIntraZoneFiltering.IsUnknown()) {
-		var subModel FirewallZoneIntraZoneFiltering
-		diags.Append(o.NodeFirewallZoneIntraZoneFiltering.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["intra-zone-filtering"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallZone) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "zone"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["enable-default-log"]; ok {
-		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["default-action"]; ok {
-		o.LeafFirewallZoneDefaultAction = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneDefaultAction = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["interface"]; ok {
-		o.LeafFirewallZoneInterface = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneInterface = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["local-zone"]; ok {
-		o.LeafFirewallZoneLocalZone = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallZoneLocalZone = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["from"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: FirewallZoneFrom{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagFirewallZoneFrom = data
-	} else {
-		o.TagFirewallZoneFrom = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["intra-zone-filtering"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, FirewallZoneIntraZoneFiltering{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeFirewallZoneIntraZoneFiltering = data
-
-	} else {
-		o.NodeFirewallZoneIntraZoneFiltering = basetypes.NewObjectNull(FirewallZoneIntraZoneFiltering{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "zone"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallZone) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description":        types.StringType,
-		"enable_default_log": types.StringType,
-		"default_action":     types.StringType,
-		"interface":          types.StringType,
-		"local_zone":         types.StringType,
-
-		// Tags
-		"from": types.MapType{ElemType: types.ObjectType{AttrTypes: FirewallZoneFrom{}.AttributeTypes()}},
-
-		// Nodes
-		"intra_zone_filtering": types.ObjectType{AttrTypes: FirewallZoneIntraZoneFiltering{}.AttributeTypes()},
 	}
 }
 
@@ -245,4 +126,143 @@ func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallZone) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallZoneDescrIPtion.IsNull() && !o.LeafFirewallZoneDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafFirewallZoneDescrIPtion.ValueString()
+	}
+
+	if !o.LeafFirewallZoneEnableDefaultLog.IsNull() && !o.LeafFirewallZoneEnableDefaultLog.IsUnknown() {
+		jsonData["enable-default-log"] = o.LeafFirewallZoneEnableDefaultLog.ValueString()
+	}
+
+	if !o.LeafFirewallZoneDefaultAction.IsNull() && !o.LeafFirewallZoneDefaultAction.IsUnknown() {
+		jsonData["default-action"] = o.LeafFirewallZoneDefaultAction.ValueString()
+	}
+
+	if !o.LeafFirewallZoneInterface.IsNull() && !o.LeafFirewallZoneInterface.IsUnknown() {
+		jsonData["interface"] = o.LeafFirewallZoneInterface.ValueString()
+	}
+
+	if !o.LeafFirewallZoneLocalZone.IsNull() && !o.LeafFirewallZoneLocalZone.IsUnknown() {
+		jsonData["local-zone"] = o.LeafFirewallZoneLocalZone.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagFirewallZoneFrom).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagFirewallZoneFrom)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["from"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeFirewallZoneIntraZoneFiltering).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeFirewallZoneIntraZoneFiltering)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["intra-zone-filtering"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallZone) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["enable-default-log"]; ok {
+		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["default-action"]; ok {
+		o.LeafFirewallZoneDefaultAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneDefaultAction = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["interface"]; ok {
+		o.LeafFirewallZoneInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneInterface = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["local-zone"]; ok {
+		o.LeafFirewallZoneLocalZone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneLocalZone = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["from"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagFirewallZoneFrom = &map[string]FirewallZoneFrom{}
+
+		err = json.Unmarshal(subJSONStr, o.TagFirewallZoneFrom)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["intra-zone-filtering"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeFirewallZoneIntraZoneFiltering = &FirewallZoneIntraZoneFiltering{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeFirewallZoneIntraZoneFiltering)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

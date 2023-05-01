@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchIPSource describes the resource data model.
 type QosPolicyRoundRobinClassMatchIPSource struct {
 	// LeafNodes
-	LeafQosPolicyRoundRobinClassMatchIPSourceAddress types.String `tfsdk:"address"`
-	LeafQosPolicyRoundRobinClassMatchIPSourcePort    types.String `tfsdk:"port"`
+	LeafQosPolicyRoundRobinClassMatchIPSourceAddress types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPSourcePort    types.String `tfsdk:"port" json:"port,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRoundRobinClassMatchIPSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "source"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.ValueString()
-	}
-	if !(o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.IsUnknown()) {
-		vyosData["port"] = o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRoundRobinClassMatchIPSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "source"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafQosPolicyRoundRobinClassMatchIPSourcePort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinClassMatchIPSourcePort = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip", "source"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRoundRobinClassMatchIPSource) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address": types.StringType,
-		"port":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -115,4 +53,59 @@ func (o QosPolicyRoundRobinClassMatchIPSource) ResourceSchemaAttributes() map[st
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRoundRobinClassMatchIPSource) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.IsUnknown() {
+		jsonData["address"] = o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress.ValueString()
+	}
+
+	if !o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.IsNull() && !o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.IsUnknown() {
+		jsonData["port"] = o.LeafQosPolicyRoundRobinClassMatchIPSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRoundRobinClassMatchIPSource) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPSourceAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

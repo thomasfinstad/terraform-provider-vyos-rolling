@@ -2,198 +2,34 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeInterface describes the resource data model.
 type VrfNameProtocolsOspfvthreeInterface struct {
 	// LeafNodes
-	LeafVrfNameProtocolsOspfvthreeInterfaceArea               types.String `tfsdk:"area"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval       types.String `tfsdk:"dead_interval"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval      types.String `tfsdk:"hello_interval"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval types.String `tfsdk:"retransmit_interval"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay      types.String `tfsdk:"transmit_delay"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceCost               types.String `tfsdk:"cost"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore          types.String `tfsdk:"mtu_ignore"`
-	LeafVrfNameProtocolsOspfvthreeInterfacePriority           types.String `tfsdk:"priority"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu              types.String `tfsdk:"ifmtu"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID         types.String `tfsdk:"instance_id"`
-	LeafVrfNameProtocolsOspfvthreeInterfaceNetwork            types.String `tfsdk:"network"`
-	LeafVrfNameProtocolsOspfvthreeInterfacePassive            types.String `tfsdk:"passive"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceArea               types.String `tfsdk:"area" json:"area,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval       types.String `tfsdk:"dead_interval" json:"dead-interval,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval      types.String `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval types.String `tfsdk:"retransmit_interval" json:"retransmit-interval,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay      types.String `tfsdk:"transmit_delay" json:"transmit-delay,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceCost               types.String `tfsdk:"cost" json:"cost,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore          types.String `tfsdk:"mtu_ignore" json:"mtu-ignore,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfacePriority           types.String `tfsdk:"priority" json:"priority,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu              types.String `tfsdk:"ifmtu" json:"ifmtu,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID         types.String `tfsdk:"instance_id" json:"instance-id,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceNetwork            types.String `tfsdk:"network" json:"network,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfacePassive            types.String `tfsdk:"passive" json:"passive,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsOspfvthreeInterfaceBfd types.Object `tfsdk:"bfd"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsOspfvthreeInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsUnknown()) {
-		vyosData["area"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsUnknown()) {
-		vyosData["dead-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsUnknown()) {
-		vyosData["hello-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsUnknown()) {
-		vyosData["retransmit-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsUnknown()) {
-		vyosData["transmit-delay"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsUnknown()) {
-		vyosData["cost"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsUnknown()) {
-		vyosData["mtu-ignore"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsUnknown()) {
-		vyosData["ifmtu"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsUnknown()) {
-		vyosData["instance-id"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsUnknown()) {
-		vyosData["network"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsUnknown()) {
-		vyosData["passive"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.IsNull() || o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.IsUnknown()) {
-		var subModel VrfNameProtocolsOspfvthreeInterfaceBfd
-		diags.Append(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsOspfvthreeInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["area"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["dead-interval"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-interval"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["retransmit-interval"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["transmit-delay"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["cost"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mtu-ignore"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["ifmtu"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["instance-id"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passive"]; ok {
-		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["bfd"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd = data
-
-	} else {
-		o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsOspfvthreeInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"area":                types.StringType,
-		"dead_interval":       types.StringType,
-		"hello_interval":      types.StringType,
-		"retransmit_interval": types.StringType,
-		"transmit_delay":      types.StringType,
-		"cost":                types.StringType,
-		"mtu_ignore":          types.StringType,
-		"priority":            types.StringType,
-		"ifmtu":               types.StringType,
-		"instance_id":         types.StringType,
-		"network":             types.StringType,
-		"passive":             types.StringType,
-
-		// Tags
-
-		// Nodes
-		"bfd": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsOspfvthreeInterfaceBfd *VrfNameProtocolsOspfvthreeInterfaceBfd `tfsdk:"bfd" json:"bfd,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -357,4 +193,186 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes() map[stri
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsOspfvthreeInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsUnknown() {
+		jsonData["area"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsUnknown() {
+		jsonData["dead-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsUnknown() {
+		jsonData["hello-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsUnknown() {
+		jsonData["retransmit-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsUnknown() {
+		jsonData["transmit-delay"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsUnknown() {
+		jsonData["cost"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsUnknown() {
+		jsonData["mtu-ignore"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsUnknown() {
+		jsonData["priority"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsUnknown() {
+		jsonData["ifmtu"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsUnknown() {
+		jsonData["instance-id"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsUnknown() {
+		jsonData["network"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsNull() && !o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsUnknown() {
+		jsonData["passive"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bfd"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsOspfvthreeInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["area"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["dead-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["retransmit-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["transmit-delay"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["cost"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mtu-ignore"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["ifmtu"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["instance-id"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passive"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["bfd"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd = &VrfNameProtocolsOspfvthreeInterfaceBfd{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

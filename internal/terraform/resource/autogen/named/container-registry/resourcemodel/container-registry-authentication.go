@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerRegistryAuthentication describes the resource data model.
 type ContainerRegistryAuthentication struct {
 	// LeafNodes
-	LeafContainerRegistryAuthenticationUsername types.String `tfsdk:"username"`
-	LeafContainerRegistryAuthenticationPassword types.String `tfsdk:"password"`
+	LeafContainerRegistryAuthenticationUsername types.String `tfsdk:"username" json:"username,omitempty"`
+	LeafContainerRegistryAuthenticationPassword types.String `tfsdk:"password" json:"password,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ContainerRegistryAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "registry", "authentication"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafContainerRegistryAuthenticationUsername.IsNull() || o.LeafContainerRegistryAuthenticationUsername.IsUnknown()) {
-		vyosData["username"] = o.LeafContainerRegistryAuthenticationUsername.ValueString()
-	}
-	if !(o.LeafContainerRegistryAuthenticationPassword.IsNull() || o.LeafContainerRegistryAuthenticationPassword.IsUnknown()) {
-		vyosData["password"] = o.LeafContainerRegistryAuthenticationPassword.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ContainerRegistryAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "registry", "authentication"}})
-
-	// Leafs
-	if value, ok := vyosData["username"]; ok {
-		o.LeafContainerRegistryAuthenticationUsername = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerRegistryAuthenticationUsername = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["password"]; ok {
-		o.LeafContainerRegistryAuthenticationPassword = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafContainerRegistryAuthenticationPassword = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "registry", "authentication"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ContainerRegistryAuthentication) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"username": types.StringType,
-		"password": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o ContainerRegistryAuthentication) ResourceSchemaAttributes() map[string]s
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ContainerRegistryAuthentication) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafContainerRegistryAuthenticationUsername.IsNull() && !o.LeafContainerRegistryAuthenticationUsername.IsUnknown() {
+		jsonData["username"] = o.LeafContainerRegistryAuthenticationUsername.ValueString()
+	}
+
+	if !o.LeafContainerRegistryAuthenticationPassword.IsNull() && !o.LeafContainerRegistryAuthenticationPassword.IsUnknown() {
+		jsonData["password"] = o.LeafContainerRegistryAuthenticationPassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ContainerRegistryAuthentication) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["username"]; ok {
+		o.LeafContainerRegistryAuthenticationUsername = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerRegistryAuthenticationUsername = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["password"]; ok {
+		o.LeafContainerRegistryAuthenticationPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerRegistryAuthenticationPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

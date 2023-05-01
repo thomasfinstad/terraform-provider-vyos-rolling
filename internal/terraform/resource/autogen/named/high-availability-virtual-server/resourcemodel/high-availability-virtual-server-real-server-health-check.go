@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVirtualServerRealServerHealthCheck describes the resource data model.
 type HighAvailabilityVirtualServerRealServerHealthCheck struct {
 	// LeafNodes
-	LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt types.String `tfsdk:"script"`
+	LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt types.String `tfsdk:"script" json:"script,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *HighAvailabilityVirtualServerRealServerHealthCheck) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server", "health-check"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.IsNull() || o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.IsUnknown()) {
-		vyosData["script"] = o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *HighAvailabilityVirtualServerRealServerHealthCheck) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server", "health-check"}})
-
-	// Leafs
-	if value, ok := vyosData["script"]; ok {
-		o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server", "health-check"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o HighAvailabilityVirtualServerRealServerHealthCheck) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"script": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,4 +36,49 @@ func (o HighAvailabilityVirtualServerRealServerHealthCheck) ResourceSchemaAttrib
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *HighAvailabilityVirtualServerRealServerHealthCheck) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.IsNull() && !o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.IsUnknown() {
+		jsonData["script"] = o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *HighAvailabilityVirtualServerRealServerHealthCheck) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["script"]; ok {
+		o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVirtualServerRealServerHealthCheckScrIPt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

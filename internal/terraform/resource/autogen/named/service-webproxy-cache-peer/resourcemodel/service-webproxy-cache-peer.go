@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyCachePeer describes the resource data model.
@@ -17,11 +14,11 @@ type ServiceWebproxyCachePeer struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServiceWebproxyCachePeerAddress  types.String `tfsdk:"address"`
-	LeafServiceWebproxyCachePeerHTTPPort types.String `tfsdk:"http_port"`
-	LeafServiceWebproxyCachePeerIcpPort  types.String `tfsdk:"icp_port"`
-	LeafServiceWebproxyCachePeerOptions  types.String `tfsdk:"options"`
-	LeafServiceWebproxyCachePeerType     types.String `tfsdk:"type"`
+	LeafServiceWebproxyCachePeerAddress  types.String `tfsdk:"address" json:"address,omitempty"`
+	LeafServiceWebproxyCachePeerHTTPPort types.String `tfsdk:"http_port" json:"http-port,omitempty"`
+	LeafServiceWebproxyCachePeerIcpPort  types.String `tfsdk:"icp_port" json:"icp-port,omitempty"`
+	LeafServiceWebproxyCachePeerOptions  types.String `tfsdk:"options" json:"options,omitempty"`
+	LeafServiceWebproxyCachePeerType     types.String `tfsdk:"type" json:"type,omitempty"`
 
 	// TagNodes
 
@@ -35,92 +32,6 @@ func (o *ServiceWebproxyCachePeer) GetVyosPath() []string {
 		"webproxy",
 		"cache-peer",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServiceWebproxyCachePeer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServiceWebproxyCachePeerAddress.IsNull() || o.LeafServiceWebproxyCachePeerAddress.IsUnknown()) {
-		vyosData["address"] = o.LeafServiceWebproxyCachePeerAddress.ValueString()
-	}
-	if !(o.LeafServiceWebproxyCachePeerHTTPPort.IsNull() || o.LeafServiceWebproxyCachePeerHTTPPort.IsUnknown()) {
-		vyosData["http-port"] = o.LeafServiceWebproxyCachePeerHTTPPort.ValueString()
-	}
-	if !(o.LeafServiceWebproxyCachePeerIcpPort.IsNull() || o.LeafServiceWebproxyCachePeerIcpPort.IsUnknown()) {
-		vyosData["icp-port"] = o.LeafServiceWebproxyCachePeerIcpPort.ValueString()
-	}
-	if !(o.LeafServiceWebproxyCachePeerOptions.IsNull() || o.LeafServiceWebproxyCachePeerOptions.IsUnknown()) {
-		vyosData["options"] = o.LeafServiceWebproxyCachePeerOptions.ValueString()
-	}
-	if !(o.LeafServiceWebproxyCachePeerType.IsNull() || o.LeafServiceWebproxyCachePeerType.IsUnknown()) {
-		vyosData["type"] = o.LeafServiceWebproxyCachePeerType.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServiceWebproxyCachePeer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
-
-	// Leafs
-	if value, ok := vyosData["address"]; ok {
-		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["http-port"]; ok {
-		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["icp-port"]; ok {
-		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["options"]; ok {
-		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["type"]; ok {
-		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServiceWebproxyCachePeer) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address":   types.StringType,
-		"http_port": types.StringType,
-		"icp_port":  types.StringType,
-		"options":   types.StringType,
-		"type":      types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -216,4 +127,89 @@ func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.A
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServiceWebproxyCachePeer) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServiceWebproxyCachePeerAddress.IsNull() && !o.LeafServiceWebproxyCachePeerAddress.IsUnknown() {
+		jsonData["address"] = o.LeafServiceWebproxyCachePeerAddress.ValueString()
+	}
+
+	if !o.LeafServiceWebproxyCachePeerHTTPPort.IsNull() && !o.LeafServiceWebproxyCachePeerHTTPPort.IsUnknown() {
+		jsonData["http-port"] = o.LeafServiceWebproxyCachePeerHTTPPort.ValueString()
+	}
+
+	if !o.LeafServiceWebproxyCachePeerIcpPort.IsNull() && !o.LeafServiceWebproxyCachePeerIcpPort.IsUnknown() {
+		jsonData["icp-port"] = o.LeafServiceWebproxyCachePeerIcpPort.ValueString()
+	}
+
+	if !o.LeafServiceWebproxyCachePeerOptions.IsNull() && !o.LeafServiceWebproxyCachePeerOptions.IsUnknown() {
+		jsonData["options"] = o.LeafServiceWebproxyCachePeerOptions.ValueString()
+	}
+
+	if !o.LeafServiceWebproxyCachePeerType.IsNull() && !o.LeafServiceWebproxyCachePeerType.IsUnknown() {
+		jsonData["type"] = o.LeafServiceWebproxyCachePeerType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServiceWebproxyCachePeer) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address"]; ok {
+		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["http-port"]; ok {
+		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["icp-port"]; ok {
+		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["options"]; ok {
+		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["type"]; ok {
+		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

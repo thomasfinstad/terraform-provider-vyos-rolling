@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesInput describes the resource data model.
@@ -17,9 +14,9 @@ type InterfacesInput struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafInterfacesInputDescrIPtion types.String `tfsdk:"description"`
-	LeafInterfacesInputDisable     types.String `tfsdk:"disable"`
-	LeafInterfacesInputRedirect    types.String `tfsdk:"redirect"`
+	LeafInterfacesInputDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafInterfacesInputDisable     types.String `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesInputRedirect    types.String `tfsdk:"redirect" json:"redirect,omitempty"`
 
 	// TagNodes
 
@@ -32,74 +29,6 @@ func (o *InterfacesInput) GetVyosPath() []string {
 		"interfaces",
 		"input",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *InterfacesInput) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "input"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafInterfacesInputDescrIPtion.IsNull() || o.LeafInterfacesInputDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafInterfacesInputDescrIPtion.ValueString()
-	}
-	if !(o.LeafInterfacesInputDisable.IsNull() || o.LeafInterfacesInputDisable.IsUnknown()) {
-		vyosData["disable"] = o.LeafInterfacesInputDisable.ValueString()
-	}
-	if !(o.LeafInterfacesInputRedirect.IsNull() || o.LeafInterfacesInputRedirect.IsUnknown()) {
-		vyosData["redirect"] = o.LeafInterfacesInputRedirect.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *InterfacesInput) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "input"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["disable"]; ok {
-		o.LeafInterfacesInputDisable = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputDisable = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["redirect"]; ok {
-		o.LeafInterfacesInputRedirect = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafInterfacesInputRedirect = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "input"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o InterfacesInput) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"disable":     types.StringType,
-		"redirect":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -153,4 +82,69 @@ func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute 
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *InterfacesInput) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafInterfacesInputDescrIPtion.IsNull() && !o.LeafInterfacesInputDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafInterfacesInputDescrIPtion.ValueString()
+	}
+
+	if !o.LeafInterfacesInputDisable.IsNull() && !o.LeafInterfacesInputDisable.IsUnknown() {
+		jsonData["disable"] = o.LeafInterfacesInputDisable.ValueString()
+	}
+
+	if !o.LeafInterfacesInputRedirect.IsNull() && !o.LeafInterfacesInputRedirect.IsUnknown() {
+		jsonData["redirect"] = o.LeafInterfacesInputRedirect.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *InterfacesInput) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["disable"]; ok {
+		o.LeafInterfacesInputDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputDisable = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["redirect"]; ok {
+		o.LeafInterfacesInputRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

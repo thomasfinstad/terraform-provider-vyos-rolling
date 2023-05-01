@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemTaskSchedulerTaskExecutable describes the resource data model.
 type SystemTaskSchedulerTaskExecutable struct {
 	// LeafNodes
-	LeafSystemTaskSchedulerTaskExecutablePath      types.String `tfsdk:"path"`
-	LeafSystemTaskSchedulerTaskExecutableArguments types.String `tfsdk:"arguments"`
+	LeafSystemTaskSchedulerTaskExecutablePath      types.String `tfsdk:"path" json:"path,omitempty"`
+	LeafSystemTaskSchedulerTaskExecutableArguments types.String `tfsdk:"arguments" json:"arguments,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *SystemTaskSchedulerTaskExecutable) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafSystemTaskSchedulerTaskExecutablePath.IsNull() || o.LeafSystemTaskSchedulerTaskExecutablePath.IsUnknown()) {
-		vyosData["path"] = o.LeafSystemTaskSchedulerTaskExecutablePath.ValueString()
-	}
-	if !(o.LeafSystemTaskSchedulerTaskExecutableArguments.IsNull() || o.LeafSystemTaskSchedulerTaskExecutableArguments.IsUnknown()) {
-		vyosData["arguments"] = o.LeafSystemTaskSchedulerTaskExecutableArguments.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *SystemTaskSchedulerTaskExecutable) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
-
-	// Leafs
-	if value, ok := vyosData["path"]; ok {
-		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["arguments"]; ok {
-		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o SystemTaskSchedulerTaskExecutable) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"path":      types.StringType,
-		"arguments": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -106,4 +44,59 @@ func (o SystemTaskSchedulerTaskExecutable) ResourceSchemaAttributes() map[string
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *SystemTaskSchedulerTaskExecutable) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafSystemTaskSchedulerTaskExecutablePath.IsNull() && !o.LeafSystemTaskSchedulerTaskExecutablePath.IsUnknown() {
+		jsonData["path"] = o.LeafSystemTaskSchedulerTaskExecutablePath.ValueString()
+	}
+
+	if !o.LeafSystemTaskSchedulerTaskExecutableArguments.IsNull() && !o.LeafSystemTaskSchedulerTaskExecutableArguments.IsUnknown() {
+		jsonData["arguments"] = o.LeafSystemTaskSchedulerTaskExecutableArguments.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *SystemTaskSchedulerTaskExecutable) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["path"]; ok {
+		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["arguments"]; ok {
+		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

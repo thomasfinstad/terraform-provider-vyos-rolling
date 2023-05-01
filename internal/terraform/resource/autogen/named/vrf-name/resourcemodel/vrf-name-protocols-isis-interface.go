@@ -2,198 +2,33 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisInterface describes the resource data model.
 type VrfNameProtocolsIsisInterface struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type"`
-	LeafVrfNameProtocolsIsisInterfaceHelloPadding        types.String `tfsdk:"hello_padding"`
-	LeafVrfNameProtocolsIsisInterfaceHelloInterval       types.String `tfsdk:"hello_interval"`
-	LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier     types.String `tfsdk:"hello_multiplier"`
-	LeafVrfNameProtocolsIsisInterfaceMetric              types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsIsisInterfacePassive             types.String `tfsdk:"passive"`
-	LeafVrfNameProtocolsIsisInterfacePriority            types.String `tfsdk:"priority"`
-	LeafVrfNameProtocolsIsisInterfacePsnpInterval        types.String `tfsdk:"psnp_interval"`
-	LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake types.String `tfsdk:"no_three_way_handshake"`
+	LeafVrfNameProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type" json:"circuit-type,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceHelloPadding        types.String `tfsdk:"hello_padding" json:"hello-padding,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceHelloInterval       types.String `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier     types.String `tfsdk:"hello_multiplier" json:"hello-multiplier,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceMetric              types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisInterfacePassive             types.String `tfsdk:"passive" json:"passive,omitempty"`
+	LeafVrfNameProtocolsIsisInterfacePriority            types.String `tfsdk:"priority" json:"priority,omitempty"`
+	LeafVrfNameProtocolsIsisInterfacePsnpInterval        types.String `tfsdk:"psnp_interval" json:"psnp-interval,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake types.String `tfsdk:"no_three_way_handshake" json:"no-three-way-handshake,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeVrfNameProtocolsIsisInterfaceBfd      types.Object `tfsdk:"bfd"`
-	NodeVrfNameProtocolsIsisInterfaceNetwork  types.Object `tfsdk:"network"`
-	NodeVrfNameProtocolsIsisInterfacePassword types.Object `tfsdk:"password"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsUnknown()) {
-		vyosData["circuit-type"] = o.LeafVrfNameProtocolsIsisInterfaceCircuitType.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsUnknown()) {
-		vyosData["hello-padding"] = o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsUnknown()) {
-		vyosData["hello-interval"] = o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsUnknown()) {
-		vyosData["hello-multiplier"] = o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfaceMetric.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsIsisInterfaceMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfacePassive.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePassive.IsUnknown()) {
-		vyosData["passive"] = o.LeafVrfNameProtocolsIsisInterfacePassive.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfacePriority.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePriority.IsUnknown()) {
-		vyosData["priority"] = o.LeafVrfNameProtocolsIsisInterfacePriority.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsUnknown()) {
-		vyosData["psnp-interval"] = o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsUnknown()) {
-		vyosData["no-three-way-handshake"] = o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsIsisInterfaceBfd.IsNull() || o.NodeVrfNameProtocolsIsisInterfaceBfd.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisInterfaceBfd
-		diags.Append(o.NodeVrfNameProtocolsIsisInterfaceBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisInterfaceNetwork.IsNull() || o.NodeVrfNameProtocolsIsisInterfaceNetwork.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisInterfaceNetwork
-		diags.Append(o.NodeVrfNameProtocolsIsisInterfaceNetwork.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["network"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsIsisInterfacePassword.IsNull() || o.NodeVrfNameProtocolsIsisInterfacePassword.IsUnknown()) {
-		var subModel VrfNameProtocolsIsisInterfacePassword
-		diags.Append(o.NodeVrfNameProtocolsIsisInterfacePassword.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["password"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["circuit-type"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-padding"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-interval"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["hello-multiplier"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["passive"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["priority"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["psnp-interval"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["no-three-way-handshake"]; ok {
-		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["bfd"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisInterfaceBfd = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisInterfaceBfd = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes())
-	}
-	if value, ok := vyosData["network"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisInterfaceNetwork = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisInterfaceNetwork = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes())
-	}
-	if value, ok := vyosData["password"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsIsisInterfacePassword = data
-
-	} else {
-		o.NodeVrfNameProtocolsIsisInterfacePassword = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"circuit_type":           types.StringType,
-		"hello_padding":          types.StringType,
-		"hello_interval":         types.StringType,
-		"hello_multiplier":       types.StringType,
-		"metric":                 types.StringType,
-		"passive":                types.StringType,
-		"priority":               types.StringType,
-		"psnp_interval":          types.StringType,
-		"no_three_way_handshake": types.StringType,
-
-		// Tags
-
-		// Nodes
-		"bfd":      types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes()},
-		"network":  types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes()},
-		"password": types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsIsisInterfaceBfd      *VrfNameProtocolsIsisInterfaceBfd      `tfsdk:"bfd" json:"bfd,omitempty"`
+	NodeVrfNameProtocolsIsisInterfaceNetwork  *VrfNameProtocolsIsisInterfaceNetwork  `tfsdk:"network" json:"network,omitempty"`
+	NodeVrfNameProtocolsIsisInterfacePassword *VrfNameProtocolsIsisInterfacePassword `tfsdk:"password" json:"password,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -318,4 +153,210 @@ func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]sch
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsUnknown() {
+		jsonData["circuit-type"] = o.LeafVrfNameProtocolsIsisInterfaceCircuitType.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsUnknown() {
+		jsonData["hello-padding"] = o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsUnknown() {
+		jsonData["hello-interval"] = o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsUnknown() {
+		jsonData["hello-multiplier"] = o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceMetric.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsIsisInterfaceMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfacePassive.IsNull() && !o.LeafVrfNameProtocolsIsisInterfacePassive.IsUnknown() {
+		jsonData["passive"] = o.LeafVrfNameProtocolsIsisInterfacePassive.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfacePriority.IsNull() && !o.LeafVrfNameProtocolsIsisInterfacePriority.IsUnknown() {
+		jsonData["priority"] = o.LeafVrfNameProtocolsIsisInterfacePriority.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsNull() && !o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsUnknown() {
+		jsonData["psnp-interval"] = o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsNull() && !o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsUnknown() {
+		jsonData["no-three-way-handshake"] = o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisInterfaceBfd).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisInterfaceBfd)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["bfd"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisInterfaceNetwork).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisInterfaceNetwork)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["network"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsIsisInterfacePassword).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsIsisInterfacePassword)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["password"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["circuit-type"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-padding"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["hello-multiplier"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["passive"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["priority"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["psnp-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["no-three-way-handshake"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["bfd"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisInterfaceBfd = &VrfNameProtocolsIsisInterfaceBfd{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisInterfaceBfd)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["network"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisInterfaceNetwork = &VrfNameProtocolsIsisInterfaceNetwork{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisInterfaceNetwork)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["password"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsIsisInterfacePassword = &VrfNameProtocolsIsisInterfacePassword{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsIsisInterfacePassword)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

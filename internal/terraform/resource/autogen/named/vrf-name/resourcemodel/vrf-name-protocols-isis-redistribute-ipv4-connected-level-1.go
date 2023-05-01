@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne describes the resource data model.
 type VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne struct {
 	// LeafNodes
-	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric   types.String `tfsdk:"metric"`
-	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric   types.String `tfsdk:"metric" json:"metric,omitempty"`
+	LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap types.String `tfsdk:"route_map" json:"route-map,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected", "level-1"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.IsNull() || o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.IsUnknown()) {
-		vyosData["metric"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.ValueString()
-	}
-	if !(o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.IsNull() || o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.IsUnknown()) {
-		vyosData["route-map"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected", "level-1"}})
-
-	// Leafs
-	if value, ok := vyosData["metric"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "connected", "level-1"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"metric":    types.StringType,
-		"route_map": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -114,4 +52,59 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) ResourceSchema
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.IsUnknown() {
+		jsonData["metric"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric.ValueString()
+	}
+
+	if !o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.IsNull() && !o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.IsUnknown() {
+		jsonData["route-map"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOne) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneMetric = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["route-map"]; ok {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourConnectedLevelOneRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

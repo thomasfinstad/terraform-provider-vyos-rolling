@@ -2,114 +2,25 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatSourceRuleDestinationGroup describes the resource data model.
 type NatSourceRuleDestinationGroup struct {
 	// LeafNodes
-	LeafNatSourceRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group"`
-	LeafNatSourceRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group"`
-	LeafNatSourceRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group"`
-	LeafNatSourceRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group"`
-	LeafNatSourceRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group"`
+	LeafNatSourceRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group" json:"address-group,omitempty"`
+	LeafNatSourceRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group" json:"domain-group,omitempty"`
+	LeafNatSourceRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group" json:"mac-group,omitempty"`
+	LeafNatSourceRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group" json:"network-group,omitempty"`
+	LeafNatSourceRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group" json:"port-group,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatSourceRuleDestinationGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination", "group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatSourceRuleDestinationGroupAddressGroup.IsNull() || o.LeafNatSourceRuleDestinationGroupAddressGroup.IsUnknown()) {
-		vyosData["address-group"] = o.LeafNatSourceRuleDestinationGroupAddressGroup.ValueString()
-	}
-	if !(o.LeafNatSourceRuleDestinationGroupDomainGroup.IsNull() || o.LeafNatSourceRuleDestinationGroupDomainGroup.IsUnknown()) {
-		vyosData["domain-group"] = o.LeafNatSourceRuleDestinationGroupDomainGroup.ValueString()
-	}
-	if !(o.LeafNatSourceRuleDestinationGroupMacGroup.IsNull() || o.LeafNatSourceRuleDestinationGroupMacGroup.IsUnknown()) {
-		vyosData["mac-group"] = o.LeafNatSourceRuleDestinationGroupMacGroup.ValueString()
-	}
-	if !(o.LeafNatSourceRuleDestinationGroupNetworkGroup.IsNull() || o.LeafNatSourceRuleDestinationGroupNetworkGroup.IsUnknown()) {
-		vyosData["network-group"] = o.LeafNatSourceRuleDestinationGroupNetworkGroup.ValueString()
-	}
-	if !(o.LeafNatSourceRuleDestinationGroupPortGroup.IsNull() || o.LeafNatSourceRuleDestinationGroupPortGroup.IsUnknown()) {
-		vyosData["port-group"] = o.LeafNatSourceRuleDestinationGroupPortGroup.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatSourceRuleDestinationGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination", "group"}})
-
-	// Leafs
-	if value, ok := vyosData["address-group"]; ok {
-		o.LeafNatSourceRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["domain-group"]; ok {
-		o.LeafNatSourceRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["mac-group"]; ok {
-		o.LeafNatSourceRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationGroupMacGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["network-group"]; ok {
-		o.LeafNatSourceRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port-group"]; ok {
-		o.LeafNatSourceRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatSourceRuleDestinationGroupPortGroup = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "source", "rule", "destination", "group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatSourceRuleDestinationGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address_group": types.StringType,
-		"domain_group":  types.StringType,
-		"mac_group":     types.StringType,
-		"network_group": types.StringType,
-		"port_group":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -157,4 +68,89 @@ func (o NatSourceRuleDestinationGroup) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatSourceRuleDestinationGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatSourceRuleDestinationGroupAddressGroup.IsNull() && !o.LeafNatSourceRuleDestinationGroupAddressGroup.IsUnknown() {
+		jsonData["address-group"] = o.LeafNatSourceRuleDestinationGroupAddressGroup.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleDestinationGroupDomainGroup.IsNull() && !o.LeafNatSourceRuleDestinationGroupDomainGroup.IsUnknown() {
+		jsonData["domain-group"] = o.LeafNatSourceRuleDestinationGroupDomainGroup.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleDestinationGroupMacGroup.IsNull() && !o.LeafNatSourceRuleDestinationGroupMacGroup.IsUnknown() {
+		jsonData["mac-group"] = o.LeafNatSourceRuleDestinationGroupMacGroup.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleDestinationGroupNetworkGroup.IsNull() && !o.LeafNatSourceRuleDestinationGroupNetworkGroup.IsUnknown() {
+		jsonData["network-group"] = o.LeafNatSourceRuleDestinationGroupNetworkGroup.ValueString()
+	}
+
+	if !o.LeafNatSourceRuleDestinationGroupPortGroup.IsNull() && !o.LeafNatSourceRuleDestinationGroupPortGroup.IsUnknown() {
+		jsonData["port-group"] = o.LeafNatSourceRuleDestinationGroupPortGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatSourceRuleDestinationGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address-group"]; ok {
+		o.LeafNatSourceRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["domain-group"]; ok {
+		o.LeafNatSourceRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["mac-group"]; ok {
+		o.LeafNatSourceRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationGroupMacGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["network-group"]; ok {
+		o.LeafNatSourceRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port-group"]; ok {
+		o.LeafNatSourceRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDestinationGroupPortGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

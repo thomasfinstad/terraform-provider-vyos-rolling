@@ -2,14 +2,10 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixUnicast describes the resource data model.
@@ -17,221 +13,19 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixUnicast struct {
 	// LeafNodes
 
 	// TagNodes
-	TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress types.Map `tfsdk:"aggregate_address"`
-	TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork          types.Map `tfsdk:"network"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress *map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress `tfsdk:"aggregate_address" json:"aggregate-address,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork          *map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork          `tfsdk:"network" json:"network,omitempty"`
 
 	// Nodes
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     types.Object `tfsdk:"distance"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport       types.Object `tfsdk:"export"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport       types.Object `tfsdk:"import"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel        types.Object `tfsdk:"label"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths types.Object `tfsdk:"maximum_paths"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd           types.Object `tfsdk:"rd"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap     types.Object `tfsdk:"route_map"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget  types.Object `tfsdk:"route_target"`
-	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute types.Object `tfsdk:"redistribute"`
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-
-	// Tags
-	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress)
-		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["aggregate-address"] = subData
-	}
-	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork.IsUnknown()) {
-		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork)
-		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["network"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["export"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["import"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["label"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["maximum-paths"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["rd"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["route-target"] = subModel.TerraformToVyos(ctx, diags)
-	}
-	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute.IsUnknown()) {
-		var subModel VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute
-		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["redistribute"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast"}})
-
-	// Leafs
-
-	// Tags
-	if value, ok := vyosData["aggregate-address"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress = data
-	} else {
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress = basetypes.NewMapNull(types.ObjectType{})
-	}
-	if value, ok := vyosData["network"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork = data
-	} else {
-		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["distance"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}.AttributeTypes())
-	}
-	if value, ok := vyosData["export"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}.AttributeTypes())
-	}
-	if value, ok := vyosData["import"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}.AttributeTypes())
-	}
-	if value, ok := vyosData["label"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.AttributeTypes())
-	}
-	if value, ok := vyosData["maximum-paths"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}.AttributeTypes())
-	}
-	if value, ok := vyosData["rd"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}.AttributeTypes())
-	}
-	if value, ok := vyosData["route-map"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.AttributeTypes())
-	}
-	if value, ok := vyosData["route-target"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.AttributeTypes())
-	}
-	if value, ok := vyosData["redistribute"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute = data
-
-	} else {
-		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-unicast"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-
-		// Tags
-		"aggregate_address": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress{}.AttributeTypes()}},
-		"network":           types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork{}.AttributeTypes()}},
-
-		// Nodes
-		"distance":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}.AttributeTypes()},
-		"export":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}.AttributeTypes()},
-		"import":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}.AttributeTypes()},
-		"label":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}.AttributeTypes()},
-		"maximum_paths": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}.AttributeTypes()},
-		"rd":            types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}.AttributeTypes()},
-		"route_map":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}.AttributeTypes()},
-		"route_target":  types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}.AttributeTypes()},
-		"redistribute":  types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}.AttributeTypes()},
-	}
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance     `tfsdk:"distance" json:"distance,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport       *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport       `tfsdk:"export" json:"export,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport       *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport       `tfsdk:"import" json:"import,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel        *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel        `tfsdk:"label" json:"label,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths `tfsdk:"maximum_paths" json:"maximum-paths,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd           *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd           `tfsdk:"rd" json:"rd,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap     *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap     `tfsdk:"route_map" json:"route-map,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget  *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget  `tfsdk:"route_target" json:"route-target,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute *VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute `tfsdk:"redistribute" json:"redistribute,omitempty"`
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -343,4 +137,336 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) ResourceSchemaAttributes(
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["aggregate-address"] = subData
+	}
+
+	if !reflect.ValueOf(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["network"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["distance"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["export"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["import"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["label"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["maximum-paths"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["rd"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-map"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["route-target"] = subData
+	}
+
+	if !reflect.ValueOf(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["redistribute"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixUnicast) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	// Tags
+	if value, ok := jsonData["aggregate-address"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress = &map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastAggregateAddress)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["network"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork = &map[string]VrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork{}
+
+		err = json.Unmarshal(subJSONStr, o.TagVrfNameProtocolsBgpAddressFamilyIPvsixUnicastNetwork)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["distance"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastDistance)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["export"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastExport)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["import"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastImport)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["label"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastLabel)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["maximum-paths"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastMaximumPaths)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["rd"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRd)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route-map"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteMap)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["route-target"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRouteTarget)
+		if err != nil {
+			return err
+		}
+	}
+	if value, ok := jsonData["redistribute"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute = &VrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeVrfNameProtocolsBgpAddressFamilyIPvsixUnicastRedistribute)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupPortGroup describes the resource data model.
@@ -17,9 +14,9 @@ type FirewallGroupPortGroup struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafFirewallGroupPortGroupDescrIPtion types.String `tfsdk:"description"`
-	LeafFirewallGroupPortGroupPort        types.String `tfsdk:"port"`
-	LeafFirewallGroupPortGroupInclude     types.String `tfsdk:"include"`
+	LeafFirewallGroupPortGroupDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafFirewallGroupPortGroupPort        types.String `tfsdk:"port" json:"port,omitempty"`
+	LeafFirewallGroupPortGroupInclude     types.String `tfsdk:"include" json:"include,omitempty"`
 
 	// TagNodes
 
@@ -33,74 +30,6 @@ func (o *FirewallGroupPortGroup) GetVyosPath() []string {
 		"group",
 		"port-group",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *FirewallGroupPortGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "port-group"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafFirewallGroupPortGroupDescrIPtion.IsNull() || o.LeafFirewallGroupPortGroupDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafFirewallGroupPortGroupDescrIPtion.ValueString()
-	}
-	if !(o.LeafFirewallGroupPortGroupPort.IsNull() || o.LeafFirewallGroupPortGroupPort.IsUnknown()) {
-		vyosData["port"] = o.LeafFirewallGroupPortGroupPort.ValueString()
-	}
-	if !(o.LeafFirewallGroupPortGroupInclude.IsNull() || o.LeafFirewallGroupPortGroupInclude.IsUnknown()) {
-		vyosData["include"] = o.LeafFirewallGroupPortGroupInclude.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *FirewallGroupPortGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "port-group"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port"]; ok {
-		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["include"]; ok {
-		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "port-group"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o FirewallGroupPortGroup) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"port":        types.StringType,
-		"include":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -152,4 +81,69 @@ func (o FirewallGroupPortGroup) ResourceSchemaAttributes() map[string]schema.Att
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *FirewallGroupPortGroup) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafFirewallGroupPortGroupDescrIPtion.IsNull() && !o.LeafFirewallGroupPortGroupDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafFirewallGroupPortGroupDescrIPtion.ValueString()
+	}
+
+	if !o.LeafFirewallGroupPortGroupPort.IsNull() && !o.LeafFirewallGroupPortGroupPort.IsUnknown() {
+		jsonData["port"] = o.LeafFirewallGroupPortGroupPort.ValueString()
+	}
+
+	if !o.LeafFirewallGroupPortGroupInclude.IsNull() && !o.LeafFirewallGroupPortGroupInclude.IsUnknown() {
+		jsonData["include"] = o.LeafFirewallGroupPortGroupInclude.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *FirewallGroupPortGroup) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupPortGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port"]; ok {
+		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupPortGroupPort = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["include"]; ok {
+		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupPortGroupInclude = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

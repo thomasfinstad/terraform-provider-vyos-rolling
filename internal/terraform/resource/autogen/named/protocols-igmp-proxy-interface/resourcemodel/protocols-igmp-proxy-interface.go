@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIgmpProxyInterface describes the resource data model.
@@ -17,10 +14,10 @@ type ProtocolsIgmpProxyInterface struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafProtocolsIgmpProxyInterfaceAltSubnet types.String `tfsdk:"alt_subnet"`
-	LeafProtocolsIgmpProxyInterfaceRole      types.String `tfsdk:"role"`
-	LeafProtocolsIgmpProxyInterfaceThreshold types.String `tfsdk:"threshold"`
-	LeafProtocolsIgmpProxyInterfaceWhitelist types.String `tfsdk:"whitelist"`
+	LeafProtocolsIgmpProxyInterfaceAltSubnet types.String `tfsdk:"alt_subnet" json:"alt-subnet,omitempty"`
+	LeafProtocolsIgmpProxyInterfaceRole      types.String `tfsdk:"role" json:"role,omitempty"`
+	LeafProtocolsIgmpProxyInterfaceThreshold types.String `tfsdk:"threshold" json:"threshold,omitempty"`
+	LeafProtocolsIgmpProxyInterfaceWhitelist types.String `tfsdk:"whitelist" json:"whitelist,omitempty"`
 
 	// TagNodes
 
@@ -34,83 +31,6 @@ func (o *ProtocolsIgmpProxyInterface) GetVyosPath() []string {
 		"igmp-proxy",
 		"interface",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsIgmpProxyInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsNull() || o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsUnknown()) {
-		vyosData["alt-subnet"] = o.LeafProtocolsIgmpProxyInterfaceAltSubnet.ValueString()
-	}
-	if !(o.LeafProtocolsIgmpProxyInterfaceRole.IsNull() || o.LeafProtocolsIgmpProxyInterfaceRole.IsUnknown()) {
-		vyosData["role"] = o.LeafProtocolsIgmpProxyInterfaceRole.ValueString()
-	}
-	if !(o.LeafProtocolsIgmpProxyInterfaceThreshold.IsNull() || o.LeafProtocolsIgmpProxyInterfaceThreshold.IsUnknown()) {
-		vyosData["threshold"] = o.LeafProtocolsIgmpProxyInterfaceThreshold.ValueString()
-	}
-	if !(o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsNull() || o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsUnknown()) {
-		vyosData["whitelist"] = o.LeafProtocolsIgmpProxyInterfaceWhitelist.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsIgmpProxyInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
-
-	// Leafs
-	if value, ok := vyosData["alt-subnet"]; ok {
-		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["role"]; ok {
-		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["threshold"]; ok {
-		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["whitelist"]; ok {
-		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsIgmpProxyInterface) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"alt_subnet": types.StringType,
-		"role":       types.StringType,
-		"threshold":  types.StringType,
-		"whitelist":  types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -183,4 +103,79 @@ func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schem
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsIgmpProxyInterface) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsNull() && !o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsUnknown() {
+		jsonData["alt-subnet"] = o.LeafProtocolsIgmpProxyInterfaceAltSubnet.ValueString()
+	}
+
+	if !o.LeafProtocolsIgmpProxyInterfaceRole.IsNull() && !o.LeafProtocolsIgmpProxyInterfaceRole.IsUnknown() {
+		jsonData["role"] = o.LeafProtocolsIgmpProxyInterfaceRole.ValueString()
+	}
+
+	if !o.LeafProtocolsIgmpProxyInterfaceThreshold.IsNull() && !o.LeafProtocolsIgmpProxyInterfaceThreshold.IsUnknown() {
+		jsonData["threshold"] = o.LeafProtocolsIgmpProxyInterfaceThreshold.ValueString()
+	}
+
+	if !o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsNull() && !o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsUnknown() {
+		jsonData["whitelist"] = o.LeafProtocolsIgmpProxyInterfaceWhitelist.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsIgmpProxyInterface) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["alt-subnet"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["role"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["threshold"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["whitelist"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

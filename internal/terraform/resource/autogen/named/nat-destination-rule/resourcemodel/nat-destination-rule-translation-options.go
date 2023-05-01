@@ -2,84 +2,22 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatDestinationRuleTranSLAtionOptions describes the resource data model.
 type NatDestinationRuleTranSLAtionOptions struct {
 	// LeafNodes
-	LeafNatDestinationRuleTranSLAtionOptionsAddressMapping types.String `tfsdk:"address_mapping"`
-	LeafNatDestinationRuleTranSLAtionOptionsPortMapping    types.String `tfsdk:"port_mapping"`
+	LeafNatDestinationRuleTranSLAtionOptionsAddressMapping types.String `tfsdk:"address_mapping" json:"address-mapping,omitempty"`
+	LeafNatDestinationRuleTranSLAtionOptionsPortMapping    types.String `tfsdk:"port_mapping" json:"port-mapping,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *NatDestinationRuleTranSLAtionOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "translation", "options"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.IsNull() || o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.IsUnknown()) {
-		vyosData["address-mapping"] = o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.ValueString()
-	}
-	if !(o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.IsNull() || o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.IsUnknown()) {
-		vyosData["port-mapping"] = o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *NatDestinationRuleTranSLAtionOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "translation", "options"}})
-
-	// Leafs
-	if value, ok := vyosData["address-mapping"]; ok {
-		o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["port-mapping"]; ok {
-		o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "translation", "options"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o NatDestinationRuleTranSLAtionOptions) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"address_mapping": types.StringType,
-		"port_mapping":    types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -123,4 +61,59 @@ func (o NatDestinationRuleTranSLAtionOptions) ResourceSchemaAttributes() map[str
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *NatDestinationRuleTranSLAtionOptions) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.IsNull() && !o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.IsUnknown() {
+		jsonData["address-mapping"] = o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping.ValueString()
+	}
+
+	if !o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.IsNull() && !o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.IsUnknown() {
+		jsonData["port-mapping"] = o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *NatDestinationRuleTranSLAtionOptions) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["address-mapping"]; ok {
+		o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["port-mapping"]; ok {
+		o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleTranSLAtionOptionsPortMapping = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

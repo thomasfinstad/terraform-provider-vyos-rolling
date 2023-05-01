@@ -2,94 +2,23 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged struct {
 	// LeafNodes
-	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath  types.String `tfsdk:"as_path"`
-	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed     types.String `tfsdk:"med"`
-	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop types.String `tfsdk:"next_hop"`
+	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath  types.String `tfsdk:"as_path" json:"as-path,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed     types.String `tfsdk:"med" json:"med,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop types.String `tfsdk:"next_hop" json:"next-hop,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "attribute-unchanged"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.IsUnknown()) {
-		vyosData["as-path"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.IsUnknown()) {
-		vyosData["med"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.ValueString()
-	}
-	if !(o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.IsUnknown()) {
-		vyosData["next-hop"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "attribute-unchanged"}})
-
-	// Leafs
-	if value, ok := vyosData["as-path"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["med"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["next-hop"]; ok {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "attribute-unchanged"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"as_path":  types.StringType,
-		"med":      types.StringType,
-		"next_hop": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -123,4 +52,69 @@ func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) Resource
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.IsUnknown() {
+		jsonData["as-path"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.IsUnknown() {
+		jsonData["med"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed.ValueString()
+	}
+
+	if !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.IsNull() && !o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.IsUnknown() {
+		jsonData["next-hop"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchanged) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["as-path"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedAsPath = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["med"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedMed = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["next-hop"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnAttributeUnchangedNextHop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

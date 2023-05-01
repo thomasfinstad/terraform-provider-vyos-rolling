@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobin describes the resource data model.
@@ -17,13 +15,13 @@ type QosPolicyRoundRobin struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyRoundRobinDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyRoundRobinDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
 
 	// TagNodes
-	TagQosPolicyRoundRobinClass types.Map `tfsdk:"class"`
+	TagQosPolicyRoundRobinClass *map[string]QosPolicyRoundRobinClass `tfsdk:"class" json:"class,omitempty"`
 
 	// Nodes
-	NodeQosPolicyRoundRobinDefault types.Object `tfsdk:"default"`
+	NodeQosPolicyRoundRobinDefault *QosPolicyRoundRobinDefault `tfsdk:"default" json:"default,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -33,87 +31,6 @@ func (o *QosPolicyRoundRobin) GetVyosPath() []string {
 		"policy",
 		"round-robin",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyRoundRobin) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyRoundRobinDescrIPtion.IsNull() || o.LeafQosPolicyRoundRobinDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyRoundRobinDescrIPtion.ValueString()
-	}
-
-	// Tags
-	if !(o.TagQosPolicyRoundRobinClass.IsNull() || o.TagQosPolicyRoundRobinClass.IsUnknown()) {
-		subModel := make(map[string]QosPolicyRoundRobinClass)
-		diags.Append(o.TagQosPolicyRoundRobinClass.ElementsAs(ctx, &subModel, false)...)
-
-		subData := make(map[string]interface{})
-		for k, v := range subModel {
-			subData[k] = v.TerraformToVyos(ctx, diags)
-		}
-		vyosData["class"] = subData
-	}
-
-	// Nodes
-	if !(o.NodeQosPolicyRoundRobinDefault.IsNull() || o.NodeQosPolicyRoundRobinDefault.IsUnknown()) {
-		var subModel QosPolicyRoundRobinDefault
-		diags.Append(o.NodeQosPolicyRoundRobinDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyRoundRobin) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringNull()
-	}
-
-	// Tags
-	if value, ok := vyosData["class"]; ok {
-		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyRoundRobinClass{}.AttributeTypes()}, value.(map[string]interface{}))
-		diags.Append(d...)
-		o.TagQosPolicyRoundRobinClass = data
-	} else {
-		o.TagQosPolicyRoundRobinClass = basetypes.NewMapNull(types.ObjectType{})
-	}
-
-	// Nodes
-	if value, ok := vyosData["default"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinDefault{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyRoundRobinDefault = data
-
-	} else {
-		o.NodeQosPolicyRoundRobinDefault = basetypes.NewObjectNull(QosPolicyRoundRobinDefault{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyRoundRobin) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-
-		// Tags
-		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyRoundRobinClass{}.AttributeTypes()}},
-
-		// Nodes
-		"default": types.ObjectType{AttrTypes: QosPolicyRoundRobinDefault{}.AttributeTypes()},
 	}
 }
 
@@ -170,4 +87,103 @@ func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attrib
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyRoundRobin) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyRoundRobinDescrIPtion.IsNull() && !o.LeafQosPolicyRoundRobinDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyRoundRobinDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	if !reflect.ValueOf(o.TagQosPolicyRoundRobinClass).IsZero() {
+		subJSONStr, err := json.Marshal(o.TagQosPolicyRoundRobinClass)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["class"] = subData
+	}
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyRoundRobinDefault).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyRoundRobinDefault)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["default"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyRoundRobin) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := jsonData["class"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.TagQosPolicyRoundRobinClass = &map[string]QosPolicyRoundRobinClass{}
+
+		err = json.Unmarshal(subJSONStr, o.TagQosPolicyRoundRobinClass)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Nodes
+	if value, ok := jsonData["default"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyRoundRobinDefault = &QosPolicyRoundRobinDefault{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyRoundRobinDefault)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -2,14 +2,12 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
+	"reflect"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyCake describes the resource data model.
@@ -17,14 +15,14 @@ type QosPolicyCake struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description"`
-	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth"`
-	LeafQosPolicyCakeRtt         types.String `tfsdk:"rtt"`
+	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyCakeRtt         types.String `tfsdk:"rtt" json:"rtt,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-	NodeQosPolicyCakeFlowIsolation types.Object `tfsdk:"flow_isolation"`
+	NodeQosPolicyCakeFlowIsolation *QosPolicyCakeFlowIsolation `tfsdk:"flow_isolation" json:"flow-isolation,omitempty"`
 }
 
 // GetVyosPath returns the list of strings to use to get to the correct vyos configuration
@@ -34,87 +32,6 @@ func (o *QosPolicyCake) GetVyosPath() []string {
 		"policy",
 		"cake",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *QosPolicyCake) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafQosPolicyCakeDescrIPtion.IsNull() || o.LeafQosPolicyCakeDescrIPtion.IsUnknown()) {
-		vyosData["description"] = o.LeafQosPolicyCakeDescrIPtion.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeBandwIDth.IsNull() || o.LeafQosPolicyCakeBandwIDth.IsUnknown()) {
-		vyosData["bandwidth"] = o.LeafQosPolicyCakeBandwIDth.ValueString()
-	}
-	if !(o.LeafQosPolicyCakeRtt.IsNull() || o.LeafQosPolicyCakeRtt.IsUnknown()) {
-		vyosData["rtt"] = o.LeafQosPolicyCakeRtt.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-	if !(o.NodeQosPolicyCakeFlowIsolation.IsNull() || o.NodeQosPolicyCakeFlowIsolation.IsUnknown()) {
-		var subModel QosPolicyCakeFlowIsolation
-		diags.Append(o.NodeQosPolicyCakeFlowIsolation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
-		vyosData["flow-isolation"] = subModel.TerraformToVyos(ctx, diags)
-	}
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *QosPolicyCake) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
-
-	// Leafs
-	if value, ok := vyosData["description"]; ok {
-		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["bandwidth"]; ok {
-		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["rtt"]; ok {
-		o.LeafQosPolicyCakeRtt = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafQosPolicyCakeRtt = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-	if value, ok := vyosData["flow-isolation"]; ok {
-		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyCakeFlowIsolation{}.AttributeTypes(), value.(map[string]interface{}))
-		diags.Append(d...)
-		o.NodeQosPolicyCakeFlowIsolation = data
-
-	} else {
-		o.NodeQosPolicyCakeFlowIsolation = basetypes.NewObjectNull(QosPolicyCakeFlowIsolation{}.AttributeTypes())
-	}
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o QosPolicyCake) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"description": types.StringType,
-		"bandwidth":   types.StringType,
-		"rtt":         types.StringType,
-
-		// Tags
-
-		// Nodes
-		"flow_isolation": types.ObjectType{AttrTypes: QosPolicyCakeFlowIsolation{}.AttributeTypes()},
 	}
 }
 
@@ -188,4 +105,96 @@ func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 `,
 		},
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *QosPolicyCake) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafQosPolicyCakeDescrIPtion.IsNull() && !o.LeafQosPolicyCakeDescrIPtion.IsUnknown() {
+		jsonData["description"] = o.LeafQosPolicyCakeDescrIPtion.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeBandwIDth.IsNull() && !o.LeafQosPolicyCakeBandwIDth.IsUnknown() {
+		jsonData["bandwidth"] = o.LeafQosPolicyCakeBandwIDth.ValueString()
+	}
+
+	if !o.LeafQosPolicyCakeRtt.IsNull() && !o.LeafQosPolicyCakeRtt.IsUnknown() {
+		jsonData["rtt"] = o.LeafQosPolicyCakeRtt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	if !reflect.ValueOf(o.NodeQosPolicyCakeFlowIsolation).IsZero() {
+		subJSONStr, err := json.Marshal(o.NodeQosPolicyCakeFlowIsolation)
+		if err != nil {
+			return nil, err
+		}
+
+		subData := make(map[string]interface{})
+		err = json.Unmarshal(subJSONStr, &subData)
+		if err != nil {
+			return nil, err
+		}
+		jsonData["flow-isolation"] = subData
+	}
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *QosPolicyCake) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["description"]; ok {
+		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["bandwidth"]; ok {
+		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["rtt"]; ok {
+		o.LeafQosPolicyCakeRtt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeRtt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := jsonData["flow-isolation"]; ok {
+		subJSONStr, err := json.Marshal(value)
+		if err != nil {
+			return err
+		}
+
+		o.NodeQosPolicyCakeFlowIsolation = &QosPolicyCakeFlowIsolation{}
+
+		err = json.Unmarshal(subJSONStr, o.NodeQosPolicyCakeFlowIsolation)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

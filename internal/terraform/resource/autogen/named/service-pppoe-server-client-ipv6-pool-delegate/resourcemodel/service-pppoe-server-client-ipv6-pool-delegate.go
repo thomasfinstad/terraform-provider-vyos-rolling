@@ -2,14 +2,11 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerClientIPvsixPoolDelegate describes the resource data model.
@@ -17,7 +14,7 @@ type ServicePppoeServerClientIPvsixPoolDelegate struct {
 	ID types.String `tfsdk:"identifier"`
 
 	// LeafNodes
-	LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix types.String `tfsdk:"delegation_prefix"`
+	LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix types.String `tfsdk:"delegation_prefix" json:"delegation-prefix,omitempty"`
 
 	// TagNodes
 
@@ -32,56 +29,6 @@ func (o *ServicePppoeServerClientIPvsixPoolDelegate) GetVyosPath() []string {
 		"client-ipv6-pool",
 		"delegate",
 		o.ID.ValueString(),
-	}
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ServicePppoeServerClientIPvsixPoolDelegate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsNull() || o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsUnknown()) {
-		vyosData["delegation-prefix"] = o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ServicePppoeServerClientIPvsixPoolDelegate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
-
-	// Leafs
-	if value, ok := vyosData["delegation-prefix"]; ok {
-		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ServicePppoeServerClientIPvsixPoolDelegate) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"delegation_prefix": types.StringType,
-
-		// Tags
-
-		// Nodes
-
 	}
 }
 
@@ -117,4 +64,49 @@ func (o ServicePppoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() m
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ServicePppoeServerClientIPvsixPoolDelegate) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsNull() && !o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsUnknown() {
+		jsonData["delegation-prefix"] = o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ServicePppoeServerClientIPvsixPoolDelegate) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["delegation-prefix"]; ok {
+		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

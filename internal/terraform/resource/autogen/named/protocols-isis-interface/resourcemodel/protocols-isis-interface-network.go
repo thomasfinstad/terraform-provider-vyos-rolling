@@ -2,74 +2,21 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIsisInterfaceNetwork describes the resource data model.
 type ProtocolsIsisInterfaceNetwork struct {
 	// LeafNodes
-	LeafProtocolsIsisInterfaceNetworkPointToPoint types.String `tfsdk:"point_to_point"`
+	LeafProtocolsIsisInterfaceNetworkPointToPoint types.String `tfsdk:"point_to_point" json:"point-to-point,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *ProtocolsIsisInterfaceNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "network"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafProtocolsIsisInterfaceNetworkPointToPoint.IsNull() || o.LeafProtocolsIsisInterfaceNetworkPointToPoint.IsUnknown()) {
-		vyosData["point-to-point"] = o.LeafProtocolsIsisInterfaceNetworkPointToPoint.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *ProtocolsIsisInterfaceNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "network"}})
-
-	// Leafs
-	if value, ok := vyosData["point-to-point"]; ok {
-		o.LeafProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "isis", "interface", "network"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o ProtocolsIsisInterfaceNetwork) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"point_to_point": types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -89,4 +36,49 @@ func (o ProtocolsIsisInterfaceNetwork) ResourceSchemaAttributes() map[string]sch
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *ProtocolsIsisInterfaceNetwork) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafProtocolsIsisInterfaceNetworkPointToPoint.IsNull() && !o.LeafProtocolsIsisInterfaceNetworkPointToPoint.IsUnknown() {
+		jsonData["point-to-point"] = o.LeafProtocolsIsisInterfaceNetworkPointToPoint.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *ProtocolsIsisInterfaceNetwork) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["point-to-point"]; ok {
+		o.LeafProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIsisInterfaceNetworkPointToPoint = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }

@@ -2,104 +2,24 @@
 package resourcemodel
 
 import (
-	"context"
+	"encoding/json"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleState describes the resource data model.
 type PolicyRoutesixRuleState struct {
 	// LeafNodes
-	LeafPolicyRoutesixRuleStateEstablished types.String `tfsdk:"established"`
-	LeafPolicyRoutesixRuleStateInvalID     types.String `tfsdk:"invalid"`
-	LeafPolicyRoutesixRuleStateNew         types.String `tfsdk:"new"`
-	LeafPolicyRoutesixRuleStateRelated     types.String `tfsdk:"related"`
+	LeafPolicyRoutesixRuleStateEstablished types.String `tfsdk:"established" json:"established,omitempty"`
+	LeafPolicyRoutesixRuleStateInvalID     types.String `tfsdk:"invalid" json:"invalid,omitempty"`
+	LeafPolicyRoutesixRuleStateNew         types.String `tfsdk:"new" json:"new,omitempty"`
+	LeafPolicyRoutesixRuleStateRelated     types.String `tfsdk:"related" json:"related,omitempty"`
 
 	// TagNodes
 
 	// Nodes
-}
-
-// TerraformToVyos converts terraform data to vyos data
-func (o *PolicyRoutesixRuleState) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
-	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "state"}})
-
-	vyosData := make(map[string]interface{})
-
-	// Leafs
-	if !(o.LeafPolicyRoutesixRuleStateEstablished.IsNull() || o.LeafPolicyRoutesixRuleStateEstablished.IsUnknown()) {
-		vyosData["established"] = o.LeafPolicyRoutesixRuleStateEstablished.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleStateInvalID.IsNull() || o.LeafPolicyRoutesixRuleStateInvalID.IsUnknown()) {
-		vyosData["invalid"] = o.LeafPolicyRoutesixRuleStateInvalID.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleStateNew.IsNull() || o.LeafPolicyRoutesixRuleStateNew.IsUnknown()) {
-		vyosData["new"] = o.LeafPolicyRoutesixRuleStateNew.ValueString()
-	}
-	if !(o.LeafPolicyRoutesixRuleStateRelated.IsNull() || o.LeafPolicyRoutesixRuleStateRelated.IsUnknown()) {
-		vyosData["related"] = o.LeafPolicyRoutesixRuleStateRelated.ValueString()
-	}
-
-	// Tags
-
-	// Nodes
-
-	// Return compiled data
-	return vyosData
-}
-
-// VyosToTerraform converts vyos data to terraform data
-func (o *PolicyRoutesixRuleState) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "state"}})
-
-	// Leafs
-	if value, ok := vyosData["established"]; ok {
-		o.LeafPolicyRoutesixRuleStateEstablished = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleStateEstablished = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["invalid"]; ok {
-		o.LeafPolicyRoutesixRuleStateInvalID = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleStateInvalID = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["new"]; ok {
-		o.LeafPolicyRoutesixRuleStateNew = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleStateNew = basetypes.NewStringNull()
-	}
-	if value, ok := vyosData["related"]; ok {
-		o.LeafPolicyRoutesixRuleStateRelated = basetypes.NewStringValue(value.(string))
-	} else {
-		o.LeafPolicyRoutesixRuleStateRelated = basetypes.NewStringNull()
-	}
-
-	// Tags
-
-	// Nodes
-
-	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "state"}})
-}
-
-// AttributeTypes generates the attribute types for the resource at this level
-func (o PolicyRoutesixRuleState) AttributeTypes() map[string]attr.Type {
-	return map[string]attr.Type{
-		// Leafs
-		"established": types.StringType,
-		"invalid":     types.StringType,
-		"new":         types.StringType,
-		"related":     types.StringType,
-
-		// Tags
-
-		// Nodes
-
-	}
 }
 
 // ResourceSchemaAttributes generates the schema attributes for the resource at this level
@@ -160,4 +80,79 @@ func (o PolicyRoutesixRuleState) ResourceSchemaAttributes() map[string]schema.At
 		// Nodes
 
 	}
+}
+
+// MarshalJSON returns json encoded string as bytes or error if marshalling did not go well
+func (o *PolicyRoutesixRuleState) MarshalJSON() ([]byte, error) {
+	jsonData := make(map[string]interface{})
+
+	// Leafs
+
+	if !o.LeafPolicyRoutesixRuleStateEstablished.IsNull() && !o.LeafPolicyRoutesixRuleStateEstablished.IsUnknown() {
+		jsonData["established"] = o.LeafPolicyRoutesixRuleStateEstablished.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleStateInvalID.IsNull() && !o.LeafPolicyRoutesixRuleStateInvalID.IsUnknown() {
+		jsonData["invalid"] = o.LeafPolicyRoutesixRuleStateInvalID.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleStateNew.IsNull() && !o.LeafPolicyRoutesixRuleStateNew.IsUnknown() {
+		jsonData["new"] = o.LeafPolicyRoutesixRuleStateNew.ValueString()
+	}
+
+	if !o.LeafPolicyRoutesixRuleStateRelated.IsNull() && !o.LeafPolicyRoutesixRuleStateRelated.IsUnknown() {
+		jsonData["related"] = o.LeafPolicyRoutesixRuleStateRelated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	ret, err := json.Marshal(jsonData)
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+// UnmarshalJSON unmarshals json byte array into this object
+func (o *PolicyRoutesixRuleState) UnmarshalJSON(jsonStr []byte) error {
+	jsonData := make(map[string]interface{})
+	err := json.Unmarshal(jsonStr, &jsonData)
+	if err != nil {
+		return err
+	}
+
+	// Leafs
+
+	if value, ok := jsonData["established"]; ok {
+		o.LeafPolicyRoutesixRuleStateEstablished = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleStateEstablished = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["invalid"]; ok {
+		o.LeafPolicyRoutesixRuleStateInvalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleStateInvalID = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["new"]; ok {
+		o.LeafPolicyRoutesixRuleStateNew = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleStateNew = basetypes.NewStringNull()
+	}
+
+	if value, ok := jsonData["related"]; ok {
+		o.LeafPolicyRoutesixRuleStateRelated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleStateRelated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	return nil
 }
