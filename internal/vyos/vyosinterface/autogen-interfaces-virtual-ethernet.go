@@ -14,6 +14,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				TagNode: []*interfacedefinition.TagNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "tagNode",
 					},
@@ -54,6 +56,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -69,6 +72,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -80,6 +84,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										Help: []string{"Identifier used by client to identify itself to the DHCP server"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -91,6 +96,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										Help: []string{"Override system host-name sent to DHCP server"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -107,6 +113,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -118,6 +125,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										Help: []string{"Identify the vendor client type to the DHCP server"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -134,6 +142,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -165,6 +174,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -212,6 +222,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -227,6 +238,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -261,6 +273,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -282,6 +295,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -312,6 +326,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -345,6 +360,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -379,6 +395,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -408,6 +425,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -424,6 +442,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -440,6 +459,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -459,6 +479,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -518,6 +539,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -543,6 +565,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -559,6 +582,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -583,6 +607,7 @@ func interfacesvirtualethernet() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

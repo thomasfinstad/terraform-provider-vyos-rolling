@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetEapol describes the resource data model.
 type InterfacesEthernetEapol struct {
 	// LeafNodes
-	InterfacesEthernetEapolCaCertificate customtypes.CustomStringValue `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
-	InterfacesEthernetEapolCertificate   customtypes.CustomStringValue `tfsdk:"certificate" json:"certificate,omitempty"`
-	InterfacesEthernetEapolPassphrase    customtypes.CustomStringValue `tfsdk:"passphrase" json:"passphrase,omitempty"`
+	LeafInterfacesEthernetEapolCaCertificate types.String `tfsdk:"ca_certificate"`
+	LeafInterfacesEthernetEapolCertificate   types.String `tfsdk:"certificate"`
+	LeafInterfacesEthernetEapolPassphrase    types.String `tfsdk:"passphrase"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesEthernetEapol) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesEthernetEapol) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesEthernetEapolCaCertificate.IsNull() || o.LeafInterfacesEthernetEapolCaCertificate.IsUnknown()) {
+		vyosData["ca-certificate"] = o.LeafInterfacesEthernetEapolCaCertificate.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetEapolCertificate.IsNull() || o.LeafInterfacesEthernetEapolCertificate.IsUnknown()) {
+		vyosData["certificate"] = o.LeafInterfacesEthernetEapolCertificate.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetEapolPassphrase.IsNull() || o.LeafInterfacesEthernetEapolPassphrase.IsUnknown()) {
+		vyosData["passphrase"] = o.LeafInterfacesEthernetEapolPassphrase.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesEthernetEapol) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
+
+	// Leafs
+	if value, ok := vyosData["ca-certificate"]; ok {
+		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolCaCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["certificate"]; ok {
+		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passphrase"]; ok {
+		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetEapolPassphrase = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "eapol"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesEthernetEapol) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ca_certificate": types.StringType,
+		"certificate":    types.StringType,
+		"passphrase":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesEthernetEapol) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ca_certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o InterfacesEthernetEapol) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o InterfacesEthernetEapol) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"passphrase": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Private key passphrase
 
 |  Format  |  Description  |

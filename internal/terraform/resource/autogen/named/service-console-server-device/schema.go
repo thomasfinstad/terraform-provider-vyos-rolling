@@ -22,6 +22,6 @@ System serial interface name (ttyS or ttyUSB)
 |  usbxbxpx  |  USB based serial interface  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

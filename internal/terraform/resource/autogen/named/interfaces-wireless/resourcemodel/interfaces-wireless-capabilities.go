@@ -2,41 +2,129 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilities describes the resource data model.
 type InterfacesWirelessCapabilities struct {
 	// LeafNodes
-	InterfacesWirelessCapabilitiesRequireHt  customtypes.CustomStringValue `tfsdk:"require_ht" json:"require-ht,omitempty"`
-	InterfacesWirelessCapabilitiesRequireVht customtypes.CustomStringValue `tfsdk:"require_vht" json:"require-vht,omitempty"`
+	LeafInterfacesWirelessCapabilitiesRequireHt  types.String `tfsdk:"require_ht"`
+	LeafInterfacesWirelessCapabilitiesRequireVht types.String `tfsdk:"require_vht"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesWirelessCapabilitiesHt  types.Object `tfsdk:"ht" json:"ht,omitempty"`
-	InterfacesWirelessCapabilitiesVht types.Object `tfsdk:"vht" json:"vht,omitempty"`
+	NodeInterfacesWirelessCapabilitiesHt  types.Object `tfsdk:"ht"`
+	NodeInterfacesWirelessCapabilitiesVht types.Object `tfsdk:"vht"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesWirelessCapabilities) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesWirelessCapabilities) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesWirelessCapabilitiesRequireHt.IsNull() || o.LeafInterfacesWirelessCapabilitiesRequireHt.IsUnknown()) {
+		vyosData["require-ht"] = o.LeafInterfacesWirelessCapabilitiesRequireHt.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesRequireVht.IsNull() || o.LeafInterfacesWirelessCapabilitiesRequireVht.IsUnknown()) {
+		vyosData["require-vht"] = o.LeafInterfacesWirelessCapabilitiesRequireVht.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesWirelessCapabilitiesHt.IsNull() || o.NodeInterfacesWirelessCapabilitiesHt.IsUnknown()) {
+		var subModel InterfacesWirelessCapabilitiesHt
+		diags.Append(o.NodeInterfacesWirelessCapabilitiesHt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ht"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesWirelessCapabilitiesVht.IsNull() || o.NodeInterfacesWirelessCapabilitiesVht.IsUnknown()) {
+		var subModel InterfacesWirelessCapabilitiesVht
+		diags.Append(o.NodeInterfacesWirelessCapabilitiesVht.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["vht"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesWirelessCapabilities) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
+
+	// Leafs
+	if value, ok := vyosData["require-ht"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesRequireHt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["require-vht"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesRequireVht = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ht"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilitiesHt{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesWirelessCapabilitiesHt = data
+
+	} else {
+		o.NodeInterfacesWirelessCapabilitiesHt = basetypes.NewObjectNull(InterfacesWirelessCapabilitiesHt{}.AttributeTypes())
+	}
+	if value, ok := vyosData["vht"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilitiesVht{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesWirelessCapabilitiesVht = data
+
+	} else {
+		o.NodeInterfacesWirelessCapabilitiesVht = basetypes.NewObjectNull(InterfacesWirelessCapabilitiesVht{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesWirelessCapabilities) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"require_ht":  types.StringType,
+		"require_vht": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ht":  types.ObjectType{AttrTypes: InterfacesWirelessCapabilitiesHt{}.AttributeTypes()},
+		"vht": types.ObjectType{AttrTypes: InterfacesWirelessCapabilitiesVht{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesWirelessCapabilities) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"require_ht": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Require stations to support HT PHY (reject association if they do not)
 
 `,
 		},
 
 		"require_vht": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Require stations to support VHT PHY (reject association if they do not)
 
 `,
@@ -47,7 +135,7 @@ func (o InterfacesWirelessCapabilities) ResourceAttributes() map[string]schema.A
 		// Nodes
 
 		"ht": schema.SingleNestedAttribute{
-			Attributes: InterfacesWirelessCapabilitiesHt{}.ResourceAttributes(),
+			Attributes: InterfacesWirelessCapabilitiesHt{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `HT (High Throughput) settings
 
@@ -55,7 +143,7 @@ func (o InterfacesWirelessCapabilities) ResourceAttributes() map[string]schema.A
 		},
 
 		"vht": schema.SingleNestedAttribute{
-			Attributes: InterfacesWirelessCapabilitiesVht{}.ResourceAttributes(),
+			Attributes: InterfacesWirelessCapabilitiesVht{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VHT (Very High Throughput) settings
 

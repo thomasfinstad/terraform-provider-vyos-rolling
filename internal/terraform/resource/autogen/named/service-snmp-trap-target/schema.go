@@ -22,6 +22,6 @@ Address of trap target
 |  ipv6  |  IPv6 address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

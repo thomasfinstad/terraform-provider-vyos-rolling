@@ -2,31 +2,122 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupNetworkGroup describes the resource data model.
 type FirewallGroupNetworkGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallGroupNetworkGroupDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	FirewallGroupNetworkGroupNetwork     customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
-	FirewallGroupNetworkGroupInclude     customtypes.CustomStringValue `tfsdk:"include" json:"include,omitempty"`
+	LeafFirewallGroupNetworkGroupDescrIPtion types.String `tfsdk:"description"`
+	LeafFirewallGroupNetworkGroupNetwork     types.String `tfsdk:"network"`
+	LeafFirewallGroupNetworkGroupInclude     types.String `tfsdk:"include"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallGroupNetworkGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallGroupNetworkGroup) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"group",
+		"network-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallGroupNetworkGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "network-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallGroupNetworkGroupDescrIPtion.IsNull() || o.LeafFirewallGroupNetworkGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallGroupNetworkGroupDescrIPtion.ValueString()
+	}
+	if !(o.LeafFirewallGroupNetworkGroupNetwork.IsNull() || o.LeafFirewallGroupNetworkGroupNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafFirewallGroupNetworkGroupNetwork.ValueString()
+	}
+	if !(o.LeafFirewallGroupNetworkGroupInclude.IsNull() || o.LeafFirewallGroupNetworkGroupInclude.IsUnknown()) {
+		vyosData["include"] = o.LeafFirewallGroupNetworkGroupInclude.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallGroupNetworkGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "network-group"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallGroupNetworkGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupNetworkGroupDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafFirewallGroupNetworkGroupNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupNetworkGroupNetwork = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["include"]; ok {
+		o.LeafFirewallGroupNetworkGroupInclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupNetworkGroupInclude = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "network-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallGroupNetworkGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"network":     types.StringType,
+		"include":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallGroupNetworkGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Firewall network-group
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -37,8 +128,7 @@ func (o FirewallGroupNetworkGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network-group member
 
 |  Format  |  Description  |
@@ -49,8 +139,7 @@ func (o FirewallGroupNetworkGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"include": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Include another network-group
 
 `,

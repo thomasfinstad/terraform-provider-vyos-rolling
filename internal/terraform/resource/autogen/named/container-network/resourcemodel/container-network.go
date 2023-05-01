@@ -2,38 +2,118 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerNetwork describes the resource data model.
 type ContainerNetwork struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ContainerNetworkDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	ContainerNetworkPrefix      customtypes.CustomStringValue `tfsdk:"prefix" json:"prefix,omitempty"`
+	LeafContainerNetworkDescrIPtion types.String `tfsdk:"description"`
+	LeafContainerNetworkPrefix      types.String `tfsdk:"prefix"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ContainerNetwork) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ContainerNetwork) GetVyosPath() []string {
+	return []string{
+		"container",
+		"network",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ContainerNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "network"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafContainerNetworkDescrIPtion.IsNull() || o.LeafContainerNetworkDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafContainerNetworkDescrIPtion.ValueString()
+	}
+	if !(o.LeafContainerNetworkPrefix.IsNull() || o.LeafContainerNetworkPrefix.IsUnknown()) {
+		vyosData["prefix"] = o.LeafContainerNetworkPrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ContainerNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "network"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNetworkDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix"]; ok {
+		o.LeafContainerNetworkPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNetworkPrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "network"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ContainerNetwork) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"prefix":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ContainerNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Network name
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network description
 
 `,
 		},
 
 		"prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix which allocated to that network
 
 |  Format  |  Description  |

@@ -2,32 +2,139 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiter describes the resource data model.
 type QosPolicyLimiter struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyLimiterDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyLimiterDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	QosPolicyLimiterClass types.Map `tfsdk:"class" json:"class,omitempty"`
+	TagQosPolicyLimiterClass types.Map `tfsdk:"class"`
 
 	// Nodes
-	QosPolicyLimiterDefault types.Object `tfsdk:"default" json:"default,omitempty"`
+	NodeQosPolicyLimiterDefault types.Object `tfsdk:"default"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyLimiter) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyLimiter) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"limiter",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyLimiter) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyLimiterDescrIPtion.IsNull() || o.LeafQosPolicyLimiterDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyLimiterDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyLimiterClass.IsNull() || o.TagQosPolicyLimiterClass.IsUnknown()) {
+		subModel := make(map[string]QosPolicyLimiterClass)
+		diags.Append(o.TagQosPolicyLimiterClass.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["class"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeQosPolicyLimiterDefault.IsNull() || o.NodeQosPolicyLimiterDefault.IsUnknown()) {
+		var subModel QosPolicyLimiterDefault
+		diags.Append(o.NodeQosPolicyLimiterDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyLimiter) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["class"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyLimiterClass{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyLimiterClass = data
+	} else {
+		o.TagQosPolicyLimiterClass = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["default"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterDefault{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterDefault = data
+
+	} else {
+		o.NodeQosPolicyLimiterDefault = basetypes.NewObjectNull(QosPolicyLimiterDefault{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyLimiter) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyLimiterClass{}.AttributeTypes()}},
+
+		// Nodes
+		"default": types.ObjectType{AttrTypes: QosPolicyLimiterDefault{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyLimiter) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Traffic input limiting policy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -41,7 +148,7 @@ func (o QosPolicyLimiter) ResourceAttributes() map[string]schema.Attribute {
 
 		"class": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyLimiterClass{}.ResourceAttributes(),
+				Attributes: QosPolicyLimiterClass{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class ID
@@ -56,7 +163,7 @@ func (o QosPolicyLimiter) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterDefault{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default policy
 

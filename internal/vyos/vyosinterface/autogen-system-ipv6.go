@@ -14,6 +14,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -73,6 +77,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -88,6 +93,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -115,6 +121,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -131,6 +138,7 @@ func systemipv6() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

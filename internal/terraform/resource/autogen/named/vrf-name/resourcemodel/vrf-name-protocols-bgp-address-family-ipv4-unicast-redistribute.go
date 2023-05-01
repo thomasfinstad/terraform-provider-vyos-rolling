@@ -2,37 +2,187 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable customtypes.CustomStringValue `tfsdk:"table" json:"table,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable types.String `tfsdk:"table"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected types.Object `tfsdk:"connected" json:"connected,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      types.Object `tfsdk:"isis" json:"isis,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    types.Object `tfsdk:"kernel" json:"kernel,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      types.Object `tfsdk:"ospf" json:"ospf,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       types.Object `tfsdk:"rip" json:"rip,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     types.Object `tfsdk:"babel" json:"babel,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    types.Object `tfsdk:"static" json:"static,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected types.Object `tfsdk:"connected"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis      types.Object `tfsdk:"isis"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel    types.Object `tfsdk:"kernel"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf      types.Object `tfsdk:"ospf"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP       types.Object `tfsdk:"rip"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel     types.Object `tfsdk:"babel"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic    types.Object `tfsdk:"static"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.IsUnknown()) {
+		vyosData["table"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["isis"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ospf"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["rip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
+
+	// Leafs
+	if value, ok := vyosData["table"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeTable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["connected"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes())
+	}
+	if value, ok := vyosData["isis"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes())
+	}
+	if value, ok := vyosData["kernel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ospf"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes())
+	}
+	if value, ok := vyosData["rip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["babel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["static"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "redistribute"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"table": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.AttributeTypes()},
+		"isis":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.AttributeTypes()},
+		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.AttributeTypes()},
+		"ospf":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.AttributeTypes()},
+		"rip":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.AttributeTypes()},
+		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.AttributeTypes()},
+		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"table": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redistribute non-main Kernel Routing Table
 
 `,
@@ -43,7 +193,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		// Nodes
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into BGP
 
@@ -51,7 +201,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"isis": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeIsis{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IS-IS routes into BGP
 
@@ -59,7 +209,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into BGP
 
@@ -67,7 +217,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"ospf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeOspf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPF routes into BGP
 
@@ -75,7 +225,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"rip": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeRIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIP routes into BGP
 
@@ -83,7 +233,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeBabel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes into BGP
 
@@ -91,7 +241,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute) ResourceAttr
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into BGP
 

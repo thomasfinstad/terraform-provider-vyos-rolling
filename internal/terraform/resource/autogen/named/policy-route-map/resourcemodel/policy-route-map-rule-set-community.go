@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetCommunity describes the resource data model.
 type PolicyRouteMapRuleSetCommunity struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetCommunityAdd     customtypes.CustomStringValue `tfsdk:"add" json:"add,omitempty"`
-	PolicyRouteMapRuleSetCommunityReplace customtypes.CustomStringValue `tfsdk:"replace" json:"replace,omitempty"`
-	PolicyRouteMapRuleSetCommunityNone    customtypes.CustomStringValue `tfsdk:"none" json:"none,omitempty"`
-	PolicyRouteMapRuleSetCommunityDelete  customtypes.CustomStringValue `tfsdk:"delete" json:"delete,omitempty"`
+	LeafPolicyRouteMapRuleSetCommunityAdd     types.String `tfsdk:"add"`
+	LeafPolicyRouteMapRuleSetCommunityReplace types.String `tfsdk:"replace"`
+	LeafPolicyRouteMapRuleSetCommunityNone    types.String `tfsdk:"none"`
+	LeafPolicyRouteMapRuleSetCommunityDelete  types.String `tfsdk:"delete"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetCommunityAdd.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityAdd.IsUnknown()) {
+		vyosData["add"] = o.LeafPolicyRouteMapRuleSetCommunityAdd.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetCommunityReplace.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityReplace.IsUnknown()) {
+		vyosData["replace"] = o.LeafPolicyRouteMapRuleSetCommunityReplace.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetCommunityNone.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityNone.IsUnknown()) {
+		vyosData["none"] = o.LeafPolicyRouteMapRuleSetCommunityNone.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetCommunityDelete.IsNull() || o.LeafPolicyRouteMapRuleSetCommunityDelete.IsUnknown()) {
+		vyosData["delete"] = o.LeafPolicyRouteMapRuleSetCommunityDelete.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
+
+	// Leafs
+	if value, ok := vyosData["add"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityAdd = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["replace"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityReplace = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["none"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityNone = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["delete"]; ok {
+		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetCommunityDelete = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "community"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetCommunity) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"add":     types.StringType,
+		"replace": types.StringType,
+		"none":    types.StringType,
+		"delete":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"add": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Add communities to a prefix
 
 |  Format  |  Description  |
@@ -53,8 +134,7 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.A
 		},
 
 		"replace": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set communities for a prefix
 
 |  Format  |  Description  |
@@ -80,16 +160,14 @@ func (o PolicyRouteMapRuleSetCommunity) ResourceAttributes() map[string]schema.A
 		},
 
 		"none": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
 
 `,
 		},
 
 		"delete": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove communities defined in a list from a prefix
 
 |  Format  |  Description  |

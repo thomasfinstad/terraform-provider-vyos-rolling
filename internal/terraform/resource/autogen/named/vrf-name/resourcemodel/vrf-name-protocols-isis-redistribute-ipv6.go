@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvsix describes the resource data model.
@@ -13,17 +19,155 @@ type VrfNameProtocolsIsisRedistributeIPvsix struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsIsisRedistributeIPvsixBgp       types.Object `tfsdk:"bgp" json:"bgp,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixConnected types.Object `tfsdk:"connected" json:"connected,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixKernel    types.Object `tfsdk:"kernel" json:"kernel,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixOspfsix   types.Object `tfsdk:"ospf6" json:"ospf6,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixRIPng     types.Object `tfsdk:"ripng" json:"ripng,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixBabel     types.Object `tfsdk:"babel" json:"babel,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsixStatic    types.Object `tfsdk:"static" json:"static,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixBgp       types.Object `tfsdk:"bgp"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixConnected types.Object `tfsdk:"connected"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixKernel    types.Object `tfsdk:"kernel"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix   types.Object `tfsdk:"ospf6"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng     types.Object `tfsdk:"ripng"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixBabel     types.Object `tfsdk:"babel"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsixStatic    types.Object `tfsdk:"static"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisRedistributeIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixBgp
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bgp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixConnected
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixKernel
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixOspfsix
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ospf6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixRIPng
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ripng"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixBabel
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsixStatic
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisRedistributeIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["bgp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBgp = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes())
+	}
+	if value, ok := vyosData["connected"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixConnected = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes())
+	}
+	if value, ok := vyosData["kernel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixKernel = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ospf6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixOspfsix = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ripng"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixRIPng = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes())
+	}
+	if value, ok := vyosData["babel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixBabel = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["static"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsixStatic = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"bgp":       types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.AttributeTypes()},
+		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.AttributeTypes()},
+		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.AttributeTypes()},
+		"ospf6":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.AttributeTypes()},
+		"ripng":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.AttributeTypes()},
+		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.AttributeTypes()},
+		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -32,7 +176,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBgp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes into IS-IS
 
@@ -40,7 +184,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes into IS-IS
 
@@ -48,7 +192,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes into IS-IS
 
@@ -56,7 +200,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"ospf6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixOspfsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute OSPFv3 routes into IS-IS
 
@@ -64,7 +208,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"ripng": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixRIPng{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPng routes into IS-IS
 
@@ -72,7 +216,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixBabel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes into IS-IS
 
@@ -80,7 +224,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvsix) ResourceAttributes() map[string]
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsixStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes into IS-IS
 

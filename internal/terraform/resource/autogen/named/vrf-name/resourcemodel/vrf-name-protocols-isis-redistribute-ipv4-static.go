@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvfourStatic describes the resource data model.
@@ -13,12 +19,80 @@ type VrfNameProtocolsIsisRedistributeIPvfourStatic struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne types.Object `tfsdk:"level_1" json:"level-1,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo types.Object `tfsdk:"level_2" json:"level-2,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne types.Object `tfsdk:"level_1"`
+	NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo types.Object `tfsdk:"level_2"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfourStatic) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisRedistributeIPvfourStatic) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "static"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["level-1"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["level-2"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisRedistributeIPvfourStatic) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "static"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["level-1"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne{}.AttributeTypes())
+	}
+	if value, ok := vyosData["level-2"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "static"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvfourStatic) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"level_1": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne{}.AttributeTypes()},
+		"level_2": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvfourStatic) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -27,7 +101,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStatic) ResourceAttributes() map[
 		// Nodes
 
 		"level_1": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelOne{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-1
 
@@ -35,7 +109,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourStatic) ResourceAttributes() map[
 		},
 
 		"level_2": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfourStaticLevelTwo{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute into level-2
 

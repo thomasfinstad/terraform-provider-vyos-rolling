@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport types.String `tfsdk:"export"`
+	LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "route-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport.IsUnknown()) {
+		vyosData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport.IsUnknown()) {
+		vyosData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "route-map"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "l2vpn-evpn", "route-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsBgpNeighborAddressFamilyLtwovpnEvpnRouteMap) ResourceAttributes
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |

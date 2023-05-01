@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleTCP describes the resource data model.
 type PolicyRouteRuleTCP struct {
 	// LeafNodes
-	PolicyRouteRuleTCPMss customtypes.CustomStringValue `tfsdk:"mss" json:"mss,omitempty"`
+	LeafPolicyRouteRuleTCPMss types.String `tfsdk:"mss"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteRuleTCPFlags types.Object `tfsdk:"flags" json:"flags,omitempty"`
+	NodePolicyRouteRuleTCPFlags types.Object `tfsdk:"flags"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleTCP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleTCPMss.IsNull() || o.LeafPolicyRouteRuleTCPMss.IsUnknown()) {
+		vyosData["mss"] = o.LeafPolicyRouteRuleTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteRuleTCPFlags.IsNull() || o.NodePolicyRouteRuleTCPFlags.IsUnknown()) {
+		var subModel PolicyRouteRuleTCPFlags
+		diags.Append(o.NodePolicyRouteRuleTCPFlags.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["flags"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
+
+	// Leafs
+	if value, ok := vyosData["mss"]; ok {
+		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["flags"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTCPFlags{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleTCPFlags = data
+
+	} else {
+		o.NodePolicyRouteRuleTCPFlags = basetypes.NewObjectNull(PolicyRouteRuleTCPFlags{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "tcp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleTCP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"mss": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"flags": types.ObjectType{AttrTypes: PolicyRouteRuleTCPFlags{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
 
 |  Format  |  Description  |
@@ -42,7 +108,7 @@ func (o PolicyRouteRuleTCP) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"flags": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleTCPFlags{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleTCPFlags{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 

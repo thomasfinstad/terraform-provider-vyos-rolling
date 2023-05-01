@@ -25,6 +25,6 @@ BGP network
 |  ipv4net  |  BGP network  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

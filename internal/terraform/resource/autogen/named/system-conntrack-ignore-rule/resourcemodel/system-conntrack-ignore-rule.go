@@ -2,34 +2,156 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemConntrackIgnoreRule describes the resource data model.
 type SystemConntrackIgnoreRule struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemConntrackIgnoreRuleDescrIPtion      customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	SystemConntrackIgnoreRuleInboundInterface customtypes.CustomStringValue `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
-	SystemConntrackIgnoreRuleProtocol         customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafSystemConntrackIgnoreRuleDescrIPtion      types.String `tfsdk:"description"`
+	LeafSystemConntrackIgnoreRuleInboundInterface types.String `tfsdk:"inbound_interface"`
+	LeafSystemConntrackIgnoreRuleProtocol         types.String `tfsdk:"protocol"`
 
 	// TagNodes
 
 	// Nodes
-	SystemConntrackIgnoreRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	SystemConntrackIgnoreRuleSource      types.Object `tfsdk:"source" json:"source,omitempty"`
+	NodeSystemConntrackIgnoreRuleDestination types.Object `tfsdk:"destination"`
+	NodeSystemConntrackIgnoreRuleSource      types.Object `tfsdk:"source"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemConntrackIgnoreRule) GetVyosPath() []string {
+	return []string{
+		"system",
+		"conntrack",
+		"ignore",
+		"rule",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemConntrackIgnoreRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsNull() || o.LeafSystemConntrackIgnoreRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafSystemConntrackIgnoreRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafSystemConntrackIgnoreRuleInboundInterface.IsNull() || o.LeafSystemConntrackIgnoreRuleInboundInterface.IsUnknown()) {
+		vyosData["inbound-interface"] = o.LeafSystemConntrackIgnoreRuleInboundInterface.ValueString()
+	}
+	if !(o.LeafSystemConntrackIgnoreRuleProtocol.IsNull() || o.LeafSystemConntrackIgnoreRuleProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafSystemConntrackIgnoreRuleProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeSystemConntrackIgnoreRuleDestination.IsNull() || o.NodeSystemConntrackIgnoreRuleDestination.IsUnknown()) {
+		var subModel SystemConntrackIgnoreRuleDestination
+		diags.Append(o.NodeSystemConntrackIgnoreRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeSystemConntrackIgnoreRuleSource.IsNull() || o.NodeSystemConntrackIgnoreRuleSource.IsUnknown()) {
+		var subModel SystemConntrackIgnoreRuleSource
+		diags.Append(o.NodeSystemConntrackIgnoreRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemConntrackIgnoreRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inbound-interface"]; ok {
+		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleInboundInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemConntrackIgnoreRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemConntrackIgnoreRuleDestination = data
+
+	} else {
+		o.NodeSystemConntrackIgnoreRuleDestination = basetypes.NewObjectNull(SystemConntrackIgnoreRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemConntrackIgnoreRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemConntrackIgnoreRuleSource = data
+
+	} else {
+		o.NodeSystemConntrackIgnoreRuleSource = basetypes.NewObjectNull(SystemConntrackIgnoreRuleSource{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemConntrackIgnoreRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":       types.StringType,
+		"inbound_interface": types.StringType,
+		"protocol":          types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: SystemConntrackIgnoreRuleDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: SystemConntrackIgnoreRuleSource{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemConntrackIgnoreRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Rule number
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-999999  |  Number of conntrack ignore rule  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,16 +162,14 @@ func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"inbound_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to ignore connections tracking on
 
 `,
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol
 
 |  Format  |  Description  |
@@ -64,7 +184,7 @@ func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackIgnoreRuleDestination{}.ResourceAttributes(),
+			Attributes: SystemConntrackIgnoreRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -72,7 +192,7 @@ func (o SystemConntrackIgnoreRule) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: SystemConntrackIgnoreRuleSource{}.ResourceAttributes(),
+			Attributes: SystemConntrackIgnoreRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 

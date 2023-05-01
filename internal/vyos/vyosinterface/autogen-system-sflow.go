@@ -14,6 +14,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -84,6 +87,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -119,6 +123,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -171,6 +176,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -207,6 +213,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -237,6 +244,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -278,6 +286,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -309,6 +318,7 @@ func systemsflow() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

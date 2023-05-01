@@ -2,46 +2,280 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroup describes the resource data model.
 type VrfNameProtocolsBgpPeerGroup struct {
 	// LeafNodes
-	VrfNameProtocolsBgpPeerGroupDescrIPtion                  customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	VrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation customtypes.CustomStringValue `tfsdk:"disable_capability_negotiation" json:"disable-capability-negotiation,omitempty"`
-	VrfNameProtocolsBgpPeerGroupDisableConnectedCheck        customtypes.CustomStringValue `tfsdk:"disable_connected_check" json:"disable-connected-check,omitempty"`
-	VrfNameProtocolsBgpPeerGroupEbgpMultihop                 customtypes.CustomStringValue `tfsdk:"ebgp_multihop" json:"ebgp-multihop,omitempty"`
-	VrfNameProtocolsBgpPeerGroupGracefulRestart              customtypes.CustomStringValue `tfsdk:"graceful_restart" json:"graceful-restart,omitempty"`
-	VrfNameProtocolsBgpPeerGroupOverrIDeCapability           customtypes.CustomStringValue `tfsdk:"override_capability" json:"override-capability,omitempty"`
-	VrfNameProtocolsBgpPeerGroupPassive                      customtypes.CustomStringValue `tfsdk:"passive" json:"passive,omitempty"`
-	VrfNameProtocolsBgpPeerGroupPassword                     customtypes.CustomStringValue `tfsdk:"password" json:"password,omitempty"`
-	VrfNameProtocolsBgpPeerGroupRemoteAs                     customtypes.CustomStringValue `tfsdk:"remote_as" json:"remote-as,omitempty"`
-	VrfNameProtocolsBgpPeerGroupShutdown                     customtypes.CustomStringValue `tfsdk:"shutdown" json:"shutdown,omitempty"`
-	VrfNameProtocolsBgpPeerGroupUpdateSource                 customtypes.CustomStringValue `tfsdk:"update_source" json:"update-source,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupDescrIPtion                  types.String `tfsdk:"description"`
+	LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation types.String `tfsdk:"disable_capability_negotiation"`
+	LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck        types.String `tfsdk:"disable_connected_check"`
+	LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop                 types.String `tfsdk:"ebgp_multihop"`
+	LeafVrfNameProtocolsBgpPeerGroupGracefulRestart              types.String `tfsdk:"graceful_restart"`
+	LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability           types.String `tfsdk:"override_capability"`
+	LeafVrfNameProtocolsBgpPeerGroupPassive                      types.String `tfsdk:"passive"`
+	LeafVrfNameProtocolsBgpPeerGroupPassword                     types.String `tfsdk:"password"`
+	LeafVrfNameProtocolsBgpPeerGroupRemoteAs                     types.String `tfsdk:"remote_as"`
+	LeafVrfNameProtocolsBgpPeerGroupShutdown                     types.String `tfsdk:"shutdown"`
+	LeafVrfNameProtocolsBgpPeerGroupUpdateSource                 types.String `tfsdk:"update_source"`
 
 	// TagNodes
-	VrfNameProtocolsBgpPeerGroupLocalAs   types.Map `tfsdk:"local_as" json:"local-as,omitempty"`
-	VrfNameProtocolsBgpPeerGroupLocalRole types.Map `tfsdk:"local_role" json:"local-role,omitempty"`
+	TagVrfNameProtocolsBgpPeerGroupLocalAs   types.Map `tfsdk:"local_as"`
+	TagVrfNameProtocolsBgpPeerGroupLocalRole types.Map `tfsdk:"local_role"`
 
 	// Nodes
-	VrfNameProtocolsBgpPeerGroupAddressFamily types.Object `tfsdk:"address_family" json:"address-family,omitempty"`
-	VrfNameProtocolsBgpPeerGroupBfd           types.Object `tfsdk:"bfd" json:"bfd,omitempty"`
-	VrfNameProtocolsBgpPeerGroupCapability    types.Object `tfsdk:"capability" json:"capability,omitempty"`
-	VrfNameProtocolsBgpPeerGroupTTLSecURIty   types.Object `tfsdk:"ttl_security" json:"ttl-security,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamily types.Object `tfsdk:"address_family"`
+	NodeVrfNameProtocolsBgpPeerGroupBfd           types.Object `tfsdk:"bfd"`
+	NodeVrfNameProtocolsBgpPeerGroupCapability    types.Object `tfsdk:"capability"`
+	NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty   types.Object `tfsdk:"ttl_security"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupDescrIPtion.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafVrfNameProtocolsBgpPeerGroupDescrIPtion.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation.IsUnknown()) {
+		vyosData["disable-capability-negotiation"] = o.LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck.IsUnknown()) {
+		vyosData["disable-connected-check"] = o.LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop.IsUnknown()) {
+		vyosData["ebgp-multihop"] = o.LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupGracefulRestart.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupGracefulRestart.IsUnknown()) {
+		vyosData["graceful-restart"] = o.LeafVrfNameProtocolsBgpPeerGroupGracefulRestart.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability.IsUnknown()) {
+		vyosData["override-capability"] = o.LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupPassive.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupPassive.IsUnknown()) {
+		vyosData["passive"] = o.LeafVrfNameProtocolsBgpPeerGroupPassive.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupPassword.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupPassword.IsUnknown()) {
+		vyosData["password"] = o.LeafVrfNameProtocolsBgpPeerGroupPassword.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupRemoteAs.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupRemoteAs.IsUnknown()) {
+		vyosData["remote-as"] = o.LeafVrfNameProtocolsBgpPeerGroupRemoteAs.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupShutdown.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupShutdown.IsUnknown()) {
+		vyosData["shutdown"] = o.LeafVrfNameProtocolsBgpPeerGroupShutdown.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupUpdateSource.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupUpdateSource.IsUnknown()) {
+		vyosData["update-source"] = o.LeafVrfNameProtocolsBgpPeerGroupUpdateSource.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpPeerGroupLocalAs.IsNull() || o.TagVrfNameProtocolsBgpPeerGroupLocalAs.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpPeerGroupLocalAs)
+		diags.Append(o.TagVrfNameProtocolsBgpPeerGroupLocalAs.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["local-as"] = subData
+	}
+	if !(o.TagVrfNameProtocolsBgpPeerGroupLocalRole.IsNull() || o.TagVrfNameProtocolsBgpPeerGroupLocalRole.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpPeerGroupLocalRole)
+		diags.Append(o.TagVrfNameProtocolsBgpPeerGroupLocalRole.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["local-role"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamily.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamily.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupAddressFamily
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamily.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address-family"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupBfd.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupBfd.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupBfd
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupCapability.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupCapability.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupCapability
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupCapability.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["capability"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupTTLSecURIty
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ttl-security"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-capability-negotiation"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupDisableCapabilityNegotiation = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-connected-check"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupDisableConnectedCheck = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ebgp-multihop"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupEbgpMultihop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["graceful-restart"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupGracefulRestart = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupGracefulRestart = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["override-capability"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupOverrIDeCapability = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupPassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupPassive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["password"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupPassword = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remote-as"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupRemoteAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupRemoteAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["shutdown"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupShutdown = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["update-source"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupUpdateSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupUpdateSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["local-as"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupLocalAs{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpPeerGroupLocalAs = data
+	} else {
+		o.TagVrfNameProtocolsBgpPeerGroupLocalAs = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["local-role"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupLocalRole{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpPeerGroupLocalRole = data
+	} else {
+		o.TagVrfNameProtocolsBgpPeerGroupLocalRole = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["address-family"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamily{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamily = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamily = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamily{}.AttributeTypes())
+	}
+	if value, ok := vyosData["bfd"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupBfd{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupBfd = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupBfd = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupBfd{}.AttributeTypes())
+	}
+	if value, ok := vyosData["capability"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupCapability{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupCapability = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupCapability = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupCapability{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ttl-security"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupTTLSecURIty = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":                    types.StringType,
+		"disable_capability_negotiation": types.StringType,
+		"disable_connected_check":        types.StringType,
+		"ebgp_multihop":                  types.StringType,
+		"graceful_restart":               types.StringType,
+		"override_capability":            types.StringType,
+		"passive":                        types.StringType,
+		"password":                       types.StringType,
+		"remote_as":                      types.StringType,
+		"shutdown":                       types.StringType,
+		"update_source":                  types.StringType,
+
+		// Tags
+		"local_as":   types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupLocalAs{}.AttributeTypes()}},
+		"local_role": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupLocalRole{}.AttributeTypes()}},
+
+		// Nodes
+		"address_family": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamily{}.AttributeTypes()},
+		"bfd":            types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupBfd{}.AttributeTypes()},
+		"capability":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupCapability{}.AttributeTypes()},
+		"ttl_security":   types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -52,24 +286,21 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"disable_capability_negotiation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable capability negotiation with this neighbor
 
 `,
 		},
 
 		"disable_connected_check": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable check to see if eBGP peer address is a connected route
 
 `,
 		},
 
 		"ebgp_multihop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow this EBGP neighbor to not be on a directly connected network
 
 |  Format  |  Description  |
@@ -80,8 +311,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"graceful_restart": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP graceful restart functionality
 
 |  Format  |  Description  |
@@ -94,32 +324,28 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"override_capability": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore capability negotiation with specified neighbor
 
 `,
 		},
 
 		"passive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not initiate a session with this neighbor
 
 `,
 		},
 
 		"password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP MD5 password
 
 `,
 		},
 
 		"remote_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
 |  Format  |  Description  |
@@ -132,16 +358,14 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively shutdown this neighbor
 
 `,
 		},
 
 		"update_source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source IP of routing updates
 
 |  Format  |  Description  |
@@ -157,7 +381,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 
 		"local_as": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpPeerGroupLocalAs{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpPeerGroupLocalAs{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Specify alternate ASN for this BGP process
@@ -171,7 +395,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 
 		"local_role": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpPeerGroupLocalRole{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpPeerGroupLocalRole{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Local role for BGP neighbor (RFC9234)
@@ -190,7 +414,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamily{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamily{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Address-family parameters
 
@@ -198,7 +422,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupBfd{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD) support
 
@@ -206,7 +430,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupCapability{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupCapability{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this peer-group
 
@@ -214,7 +438,7 @@ func (o VrfNameProtocolsBgpPeerGroup) ResourceAttributes() map[string]schema.Att
 		},
 
 		"ttl_security": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupTTLSecURIty{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ttl security mechanism
 

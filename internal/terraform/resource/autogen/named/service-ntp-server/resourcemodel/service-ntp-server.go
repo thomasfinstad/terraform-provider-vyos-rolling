@@ -2,47 +2,142 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceNtpServer describes the resource data model.
 type ServiceNtpServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceNtpServerNoselect customtypes.CustomStringValue `tfsdk:"noselect" json:"noselect,omitempty"`
-	ServiceNtpServerPool     customtypes.CustomStringValue `tfsdk:"pool" json:"pool,omitempty"`
-	ServiceNtpServerPrefer   customtypes.CustomStringValue `tfsdk:"prefer" json:"prefer,omitempty"`
+	LeafServiceNtpServerNoselect types.String `tfsdk:"noselect"`
+	LeafServiceNtpServerPool     types.String `tfsdk:"pool"`
+	LeafServiceNtpServerPrefer   types.String `tfsdk:"prefer"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceNtpServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceNtpServer) GetVyosPath() []string {
+	return []string{
+		"service",
+		"ntp",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceNtpServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceNtpServerNoselect.IsNull() || o.LeafServiceNtpServerNoselect.IsUnknown()) {
+		vyosData["noselect"] = o.LeafServiceNtpServerNoselect.ValueString()
+	}
+	if !(o.LeafServiceNtpServerPool.IsNull() || o.LeafServiceNtpServerPool.IsUnknown()) {
+		vyosData["pool"] = o.LeafServiceNtpServerPool.ValueString()
+	}
+	if !(o.LeafServiceNtpServerPrefer.IsNull() || o.LeafServiceNtpServerPrefer.IsUnknown()) {
+		vyosData["prefer"] = o.LeafServiceNtpServerPrefer.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceNtpServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["noselect"]; ok {
+		o.LeafServiceNtpServerNoselect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerNoselect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["pool"]; ok {
+		o.LeafServiceNtpServerPool = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerPool = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefer"]; ok {
+		o.LeafServiceNtpServerPrefer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceNtpServerPrefer = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ntp", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceNtpServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"noselect": types.StringType,
+		"pool":     types.StringType,
+		"prefer":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceNtpServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Network Time Protocol (NTP) server
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IP address of NTP server  |
+|  ipv6  |  IPv6 address of NTP server  |
+|  hostname  |  Fully qualified domain name of NTP server  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"noselect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Marks the server as unused
 
 `,
 		},
 
 		"pool": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Associate with a number of remote servers
 
 `,
 		},
 
 		"prefer": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Marks the server as preferred
 
 `,

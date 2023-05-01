@@ -21,6 +21,6 @@ Scheduled task
 |  txt  |  Task name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

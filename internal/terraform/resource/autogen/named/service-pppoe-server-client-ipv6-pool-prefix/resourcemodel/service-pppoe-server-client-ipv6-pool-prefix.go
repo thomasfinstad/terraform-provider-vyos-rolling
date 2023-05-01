@@ -2,29 +2,107 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerClientIPvsixPoolPrefix describes the resource data model.
 type ServicePppoeServerClientIPvsixPoolPrefix struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServicePppoeServerClientIPvsixPoolPrefixMask customtypes.CustomStringValue `tfsdk:"mask" json:"mask,omitempty"`
+	LeafServicePppoeServerClientIPvsixPoolPrefixMask types.String `tfsdk:"mask"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServicePppoeServerClientIPvsixPoolPrefix) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServicePppoeServerClientIPvsixPoolPrefix) GetVyosPath() []string {
+	return []string{
+		"service",
+		"pppoe-server",
+		"client-ipv6-pool",
+		"prefix",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServicePppoeServerClientIPvsixPoolPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "prefix"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServicePppoeServerClientIPvsixPoolPrefixMask.IsNull() || o.LeafServicePppoeServerClientIPvsixPoolPrefixMask.IsUnknown()) {
+		vyosData["mask"] = o.LeafServicePppoeServerClientIPvsixPoolPrefixMask.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServicePppoeServerClientIPvsixPoolPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "prefix"}})
+
+	// Leafs
+	if value, ok := vyosData["mask"]; ok {
+		o.LeafServicePppoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerClientIPvsixPoolPrefixMask = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "prefix"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServicePppoeServerClientIPvsixPoolPrefix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"mask": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServicePppoeServerClientIPvsixPoolPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Pool of addresses used to assign to clients
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv6net  |  IPv6 address and prefix length  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"mask": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix length used for individual client
 
 |  Format  |  Description  |

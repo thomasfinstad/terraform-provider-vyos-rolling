@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfMaxMetricRouterLsa describes the resource data model.
 type VrfNameProtocolsOspfMaxMetricRouterLsa struct {
 	// LeafNodes
-	VrfNameProtocolsOspfMaxMetricRouterLsaAdministrative customtypes.CustomStringValue `tfsdk:"administrative" json:"administrative,omitempty"`
-	VrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown     customtypes.CustomStringValue `tfsdk:"on_shutdown" json:"on-shutdown,omitempty"`
-	VrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      customtypes.CustomStringValue `tfsdk:"on_startup" json:"on-startup,omitempty"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative types.String `tfsdk:"administrative"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown     types.String `tfsdk:"on_shutdown"`
+	LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup      types.String `tfsdk:"on_startup"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfMaxMetricRouterLsa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric", "router-lsa"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.IsNull() || o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.IsUnknown()) {
+		vyosData["administrative"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.IsNull() || o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.IsUnknown()) {
+		vyosData["on-shutdown"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.IsNull() || o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.IsUnknown()) {
+		vyosData["on-startup"] = o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfMaxMetricRouterLsa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric", "router-lsa"}})
+
+	// Leafs
+	if value, ok := vyosData["administrative"]; ok {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaAdministrative = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["on-shutdown"]; ok {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnShutdown = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["on-startup"]; ok {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMaxMetricRouterLsaOnStartup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric", "router-lsa"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfMaxMetricRouterLsa) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"administrative": types.StringType,
+		"on_shutdown":    types.StringType,
+		"on_startup":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"administrative": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively apply, for an indefinite period
 
 `,
 		},
 
 		"on_shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise stub-router prior to full shutdown of OSPF
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o VrfNameProtocolsOspfMaxMetricRouterLsa) ResourceAttributes() map[string]
 		},
 
 		"on_startup": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Automatically advertise stub Router-LSA on startup of OSPF
 
 |  Format  |  Description  |

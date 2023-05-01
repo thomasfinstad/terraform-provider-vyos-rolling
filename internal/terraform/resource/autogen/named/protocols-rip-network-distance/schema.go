@@ -21,6 +21,6 @@ Source network
 |  ipv4net  |  Source network  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget describes the resource data model.
 type ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget struct {
 	// LeafNodes
-	ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth   customtypes.CustomStringValue `tfsdk:"both" json:"both,omitempty"`
-	ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
-	ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
+	LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth   types.String `tfsdk:"both"`
+	LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport types.String `tfsdk:"import"`
+	LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport types.String `tfsdk:"export"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "l2vpn-evpn", "vni", "route-target"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth.IsNull() || o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth.IsUnknown()) {
+		vyosData["both"] = o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport.IsNull() || o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport.IsUnknown()) {
+		vyosData["import"] = o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport.IsNull() || o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport.IsUnknown()) {
+		vyosData["export"] = o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "l2vpn-evpn", "vni", "route-target"}})
+
+	// Leafs
+	if value, ok := vyosData["both"]; ok {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetBoth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetImport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["export"]; ok {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTargetExport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "l2vpn-evpn", "vni", "route-target"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"both":   types.StringType,
+		"import": types.StringType,
+		"export": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"both": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route Target both import and export
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes()
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route Target import
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o ProtocolsBgpAddressFamilyLtwovpnEvpnVniRouteTarget) ResourceAttributes()
 		},
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route Target export
 
 |  Format  |  Description  |

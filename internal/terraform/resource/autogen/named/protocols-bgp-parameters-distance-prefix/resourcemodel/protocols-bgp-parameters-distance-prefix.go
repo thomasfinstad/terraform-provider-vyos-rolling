@@ -2,29 +2,108 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpParametersDistancePrefix describes the resource data model.
 type ProtocolsBgpParametersDistancePrefix struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpParametersDistancePrefixDistance customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
+	LeafProtocolsBgpParametersDistancePrefixDistance types.String `tfsdk:"distance"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpParametersDistancePrefix) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpParametersDistancePrefix) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"parameters",
+		"distance",
+		"prefix",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpParametersDistancePrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpParametersDistancePrefixDistance.IsNull() || o.LeafProtocolsBgpParametersDistancePrefixDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsBgpParametersDistancePrefixDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpParametersDistancePrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
+
+	// Leafs
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpParametersDistancePrefixDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "parameters", "distance", "prefix"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpParametersDistancePrefix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"distance": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpParametersDistancePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Administrative distance for a specific BGP prefix
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Administrative distance for a specific BGP prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administrative distance for prefix
 
 |  Format  |  Description  |

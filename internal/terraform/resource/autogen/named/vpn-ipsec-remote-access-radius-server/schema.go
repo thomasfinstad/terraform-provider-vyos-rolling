@@ -27,6 +27,6 @@ RADIUS server configuration
 |  ipv4  |  RADIUS server IPv4 address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,30 +2,116 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPNetworkDistance describes the resource data model.
 type ProtocolsRIPNetworkDistance struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsRIPNetworkDistanceAccessList customtypes.CustomStringValue `tfsdk:"access_list" json:"access-list,omitempty"`
-	ProtocolsRIPNetworkDistanceDistance   customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
+	LeafProtocolsRIPNetworkDistanceAccessList types.String `tfsdk:"access_list"`
+	LeafProtocolsRIPNetworkDistanceDistance   types.String `tfsdk:"distance"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRIPNetworkDistance) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsRIPNetworkDistance) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"rip",
+		"network-distance",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRIPNetworkDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRIPNetworkDistanceAccessList.IsNull() || o.LeafProtocolsRIPNetworkDistanceAccessList.IsUnknown()) {
+		vyosData["access-list"] = o.LeafProtocolsRIPNetworkDistanceAccessList.ValueString()
+	}
+	if !(o.LeafProtocolsRIPNetworkDistanceDistance.IsNull() || o.LeafProtocolsRIPNetworkDistanceDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsRIPNetworkDistanceDistance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRIPNetworkDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
+
+	// Leafs
+	if value, ok := vyosData["access-list"]; ok {
+		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPNetworkDistanceAccessList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPNetworkDistanceDistance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "network-distance"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRIPNetworkDistance) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"access_list": types.StringType,
+		"distance":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRIPNetworkDistance) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Source network
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Source network  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"access_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Access list
 
 |  Format  |  Description  |
@@ -36,8 +122,7 @@ func (o ProtocolsRIPNetworkDistance) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |

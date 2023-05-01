@@ -2,29 +2,107 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpListenAddress describes the resource data model.
 type ServiceSnmpListenAddress struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpListenAddressPort customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceSnmpListenAddressPort types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpListenAddress) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpListenAddress) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"listen-address",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpListenAddressPort.IsNull() || o.LeafServiceSnmpListenAddressPort.IsUnknown()) {
+		vyosData["port"] = o.LeafServiceSnmpListenAddressPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpListenAddressPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "listen-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpListenAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP address to listen for incoming SNMP requests
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
+|  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |

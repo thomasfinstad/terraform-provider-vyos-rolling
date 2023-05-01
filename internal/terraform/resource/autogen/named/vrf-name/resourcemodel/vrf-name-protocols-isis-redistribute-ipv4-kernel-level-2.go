@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo describes the resource data model.
 type VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo struct {
 	// LeafNodes
-	VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric   customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric   types.String `tfsdk:"metric"`
+	LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "kernel", "level-2"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric.IsNull() || o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap.IsNull() || o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "kernel", "level-2"}})
+
+	// Leafs
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwoRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute", "ipv4", "kernel", "level-2"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"metric":    types.StringType,
+		"route_map": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsIsisRedistributeIPvfourKernelLevelTwo) ResourceAttribute
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

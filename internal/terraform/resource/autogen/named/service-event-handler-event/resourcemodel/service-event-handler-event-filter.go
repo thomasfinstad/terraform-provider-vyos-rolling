@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEventFilter describes the resource data model.
 type ServiceEventHandlerEventFilter struct {
 	// LeafNodes
-	ServiceEventHandlerEventFilterPattern          customtypes.CustomStringValue `tfsdk:"pattern" json:"pattern,omitempty"`
-	ServiceEventHandlerEventFilterSyslogIDentifier customtypes.CustomStringValue `tfsdk:"syslog_identifier" json:"syslog-identifier,omitempty"`
+	LeafServiceEventHandlerEventFilterPattern          types.String `tfsdk:"pattern"`
+	LeafServiceEventHandlerEventFilterSyslogIDentifier types.String `tfsdk:"syslog_identifier"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceEventHandlerEventFilter) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceEventHandlerEventFilter) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceEventHandlerEventFilterPattern.IsNull() || o.LeafServiceEventHandlerEventFilterPattern.IsUnknown()) {
+		vyosData["pattern"] = o.LeafServiceEventHandlerEventFilterPattern.ValueString()
+	}
+	if !(o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsNull() || o.LeafServiceEventHandlerEventFilterSyslogIDentifier.IsUnknown()) {
+		vyosData["syslog-identifier"] = o.LeafServiceEventHandlerEventFilterSyslogIDentifier.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceEventHandlerEventFilter) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
+
+	// Leafs
+	if value, ok := vyosData["pattern"]; ok {
+		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventFilterPattern = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["syslog-identifier"]; ok {
+		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventFilterSyslogIDentifier = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "filter"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceEventHandlerEventFilter) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"pattern":           types.StringType,
+		"syslog_identifier": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceEventHandlerEventFilter) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"pattern": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match pattern (regex)
 
 `,
 		},
 
 		"syslog_identifier": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Identifier of a process in syslog (string)
 
 `,

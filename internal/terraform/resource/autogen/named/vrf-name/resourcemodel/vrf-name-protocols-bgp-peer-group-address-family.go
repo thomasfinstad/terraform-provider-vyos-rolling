@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamily describes the resource data model.
@@ -13,13 +19,95 @@ type VrfNameProtocolsBgpPeerGroupAddressFamily struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast types.Object `tfsdk:"ipv4_unicast" json:"ipv4-unicast,omitempty"`
-	VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast  types.Object `tfsdk:"ipv6_unicast" json:"ipv6-unicast,omitempty"`
-	VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn    types.Object `tfsdk:"l2vpn_evpn" json:"l2vpn-evpn,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast types.Object `tfsdk:"ipv4_unicast"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast  types.Object `tfsdk:"ipv6_unicast"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn    types.Object `tfsdk:"l2vpn_evpn"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamily) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["l2vpn-evpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamily) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ipv4-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["l2vpn-evpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamily) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"ipv4_unicast": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.AttributeTypes()},
+		"ipv6_unicast": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.AttributeTypes()},
+		"l2vpn_evpn":   types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -28,7 +116,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceAttributes() map[stri
 		// Nodes
 
 		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 BGP neighbor parameters
 
@@ -36,7 +124,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceAttributes() map[stri
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 BGP neighbor parameters
 
@@ -44,7 +132,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamily) ResourceAttributes() map[stri
 		},
 
 		"l2vpn_evpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `L2VPN EVPN BGP settings
 

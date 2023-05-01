@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnKeepAlive describes the resource data model.
 type InterfacesOpenvpnKeepAlive struct {
 	// LeafNodes
-	InterfacesOpenvpnKeepAliveFailureCount customtypes.CustomStringValue `tfsdk:"failure_count" json:"failure-count,omitempty"`
-	InterfacesOpenvpnKeepAliveInterval     customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
+	LeafInterfacesOpenvpnKeepAliveFailureCount types.String `tfsdk:"failure_count"`
+	LeafInterfacesOpenvpnKeepAliveInterval     types.String `tfsdk:"interval"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnKeepAlive) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnKeepAlive) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "keep-alive"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnKeepAliveFailureCount.IsNull() || o.LeafInterfacesOpenvpnKeepAliveFailureCount.IsUnknown()) {
+		vyosData["failure-count"] = o.LeafInterfacesOpenvpnKeepAliveFailureCount.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnKeepAliveInterval.IsNull() || o.LeafInterfacesOpenvpnKeepAliveInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafInterfacesOpenvpnKeepAliveInterval.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnKeepAlive) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "keep-alive"}})
+
+	// Leafs
+	if value, ok := vyosData["failure-count"]; ok {
+		o.LeafInterfacesOpenvpnKeepAliveFailureCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnKeepAliveFailureCount = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafInterfacesOpenvpnKeepAliveInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnKeepAliveInterval = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "keep-alive"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnKeepAlive) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"failure_count": types.StringType,
+		"interval":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnKeepAlive) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"failure_count": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of keepalive packet failures
 
 |  Format  |  Description  |
@@ -39,8 +102,7 @@ func (o InterfacesOpenvpnKeepAlive) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Keepalive packet interval in seconds
 
 |  Format  |  Description  |

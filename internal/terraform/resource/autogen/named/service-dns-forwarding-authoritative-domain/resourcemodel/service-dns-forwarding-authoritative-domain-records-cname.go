@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsCname describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsCname struct {
 	// LeafNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget  customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL     customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget  types.String `tfsdk:"target"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL     types.String `tfsdk:"ttl"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsCname) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "cname"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsCname) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "cname"}})
+
+	// Leafs
+	if value, ok := vyosData["target"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTarget = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameTTL = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsCnameDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "cname"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"target":  types.StringType,
+		"ttl":     types.StringType,
+		"disable": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Target DNS name
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceAttributes(
 		},
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
 |  Format  |  Description  |
@@ -52,8 +123,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsCname) ResourceAttributes(
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,

@@ -2,47 +2,136 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupInterfaceGroup describes the resource data model.
 type FirewallGroupInterfaceGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallGroupInterfaceGroupInterface   customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	FirewallGroupInterfaceGroupInclude     customtypes.CustomStringValue `tfsdk:"include" json:"include,omitempty"`
-	FirewallGroupInterfaceGroupDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafFirewallGroupInterfaceGroupInterface   types.String `tfsdk:"interface"`
+	LeafFirewallGroupInterfaceGroupInclude     types.String `tfsdk:"include"`
+	LeafFirewallGroupInterfaceGroupDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallGroupInterfaceGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallGroupInterfaceGroup) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"group",
+		"interface-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallGroupInterfaceGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallGroupInterfaceGroupInterface.IsNull() || o.LeafFirewallGroupInterfaceGroupInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafFirewallGroupInterfaceGroupInterface.ValueString()
+	}
+	if !(o.LeafFirewallGroupInterfaceGroupInclude.IsNull() || o.LeafFirewallGroupInterfaceGroupInclude.IsUnknown()) {
+		vyosData["include"] = o.LeafFirewallGroupInterfaceGroupInclude.ValueString()
+	}
+	if !(o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsNull() || o.LeafFirewallGroupInterfaceGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallGroupInterfaceGroupDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallGroupInterfaceGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
+
+	// Leafs
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["include"]; ok {
+		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupInclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupInterfaceGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "interface-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallGroupInterfaceGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interface":   types.StringType,
+		"include":     types.StringType,
+		"description": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallGroupInterfaceGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Firewall interface-group
+
+`,
+		},
+
 		// LeafNodes
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface-group member
 
 `,
 		},
 
 		"include": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Include another interface-group
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |

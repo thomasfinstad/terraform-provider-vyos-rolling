@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterfaceLocationCoordinateBased describes the resource data model.
 type ServiceLldpInterfaceLocationCoordinateBased struct {
 	// LeafNodes
-	ServiceLldpInterfaceLocationCoordinateBasedAltitude  customtypes.CustomStringValue `tfsdk:"altitude" json:"altitude,omitempty"`
-	ServiceLldpInterfaceLocationCoordinateBasedDatum     customtypes.CustomStringValue `tfsdk:"datum" json:"datum,omitempty"`
-	ServiceLldpInterfaceLocationCoordinateBasedLatitude  customtypes.CustomStringValue `tfsdk:"latitude" json:"latitude,omitempty"`
-	ServiceLldpInterfaceLocationCoordinateBasedLongitude customtypes.CustomStringValue `tfsdk:"longitude" json:"longitude,omitempty"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedAltitude  types.String `tfsdk:"altitude"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedDatum     types.String `tfsdk:"datum"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedLatitude  types.String `tfsdk:"latitude"`
+	LeafServiceLldpInterfaceLocationCoordinateBasedLongitude types.String `tfsdk:"longitude"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceLldpInterfaceLocationCoordinateBased) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.IsUnknown()) {
+		vyosData["altitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude.ValueString()
+	}
+	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.IsUnknown()) {
+		vyosData["datum"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum.ValueString()
+	}
+	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.IsUnknown()) {
+		vyosData["latitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude.ValueString()
+	}
+	if !(o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsNull() || o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.IsUnknown()) {
+		vyosData["longitude"] = o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceLldpInterfaceLocationCoordinateBased) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
+
+	// Leafs
+	if value, ok := vyosData["altitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedAltitude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["datum"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedDatum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["latitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLatitude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["longitude"]; ok {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationCoordinateBasedLongitude = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location", "coordinate-based"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceLldpInterfaceLocationCoordinateBased) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"altitude":  types.StringType,
+		"datum":     types.StringType,
+		"latitude":  types.StringType,
+		"longitude": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"altitude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Altitude in meters
 
 |  Format  |  Description  |
@@ -42,8 +123,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 		},
 
 		"datum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Coordinate datum type
 
 |  Format  |  Description  |
@@ -59,8 +139,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 		},
 
 		"latitude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Latitude
 
 |  Format  |  Description  |
@@ -71,8 +150,7 @@ func (o ServiceLldpInterfaceLocationCoordinateBased) ResourceAttributes() map[st
 		},
 
 		"longitude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Longitude
 
 |  Format  |  Description  |

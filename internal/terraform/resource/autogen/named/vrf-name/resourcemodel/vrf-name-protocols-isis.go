@@ -2,59 +2,343 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsis describes the resource data model.
 type VrfNameProtocolsIsis struct {
 	// LeafNodes
-	VrfNameProtocolsIsisDynamicHostname     customtypes.CustomStringValue `tfsdk:"dynamic_hostname" json:"dynamic-hostname,omitempty"`
-	VrfNameProtocolsIsisLevel               customtypes.CustomStringValue `tfsdk:"level" json:"level,omitempty"`
-	VrfNameProtocolsIsisLogAdjacencyChanges customtypes.CustomStringValue `tfsdk:"log_adjacency_changes" json:"log-adjacency-changes,omitempty"`
-	VrfNameProtocolsIsisLspGenInterval      customtypes.CustomStringValue `tfsdk:"lsp_gen_interval" json:"lsp-gen-interval,omitempty"`
-	VrfNameProtocolsIsisLspMtu              customtypes.CustomStringValue `tfsdk:"lsp_mtu" json:"lsp-mtu,omitempty"`
-	VrfNameProtocolsIsisLspRefreshInterval  customtypes.CustomStringValue `tfsdk:"lsp_refresh_interval" json:"lsp-refresh-interval,omitempty"`
-	VrfNameProtocolsIsisMaxLspLifetime      customtypes.CustomStringValue `tfsdk:"max_lsp_lifetime" json:"max-lsp-lifetime,omitempty"`
-	VrfNameProtocolsIsisMetricStyle         customtypes.CustomStringValue `tfsdk:"metric_style" json:"metric-style,omitempty"`
-	VrfNameProtocolsIsisNet                 customtypes.CustomStringValue `tfsdk:"net" json:"net,omitempty"`
-	VrfNameProtocolsIsisPurgeOriginator     customtypes.CustomStringValue `tfsdk:"purge_originator" json:"purge-originator,omitempty"`
-	VrfNameProtocolsIsisSetAttachedBit      customtypes.CustomStringValue `tfsdk:"set_attached_bit" json:"set-attached-bit,omitempty"`
-	VrfNameProtocolsIsisSetOverloadBit      customtypes.CustomStringValue `tfsdk:"set_overload_bit" json:"set-overload-bit,omitempty"`
-	VrfNameProtocolsIsisSpfInterval         customtypes.CustomStringValue `tfsdk:"spf_interval" json:"spf-interval,omitempty"`
-	VrfNameProtocolsIsisRouteMap            customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsIsisDynamicHostname     types.String `tfsdk:"dynamic_hostname"`
+	LeafVrfNameProtocolsIsisLevel               types.String `tfsdk:"level"`
+	LeafVrfNameProtocolsIsisLogAdjacencyChanges types.String `tfsdk:"log_adjacency_changes"`
+	LeafVrfNameProtocolsIsisLspGenInterval      types.String `tfsdk:"lsp_gen_interval"`
+	LeafVrfNameProtocolsIsisLspMtu              types.String `tfsdk:"lsp_mtu"`
+	LeafVrfNameProtocolsIsisLspRefreshInterval  types.String `tfsdk:"lsp_refresh_interval"`
+	LeafVrfNameProtocolsIsisMaxLspLifetime      types.String `tfsdk:"max_lsp_lifetime"`
+	LeafVrfNameProtocolsIsisMetricStyle         types.String `tfsdk:"metric_style"`
+	LeafVrfNameProtocolsIsisNet                 types.String `tfsdk:"net"`
+	LeafVrfNameProtocolsIsisPurgeOriginator     types.String `tfsdk:"purge_originator"`
+	LeafVrfNameProtocolsIsisSetAttachedBit      types.String `tfsdk:"set_attached_bit"`
+	LeafVrfNameProtocolsIsisSetOverloadBit      types.String `tfsdk:"set_overload_bit"`
+	LeafVrfNameProtocolsIsisSpfInterval         types.String `tfsdk:"spf_interval"`
+	LeafVrfNameProtocolsIsisRouteMap            types.String `tfsdk:"route_map"`
 
 	// TagNodes
-	VrfNameProtocolsIsisInterface types.Map `tfsdk:"interface" json:"interface,omitempty"`
+	TagVrfNameProtocolsIsisInterface types.Map `tfsdk:"interface"`
 
 	// Nodes
-	VrfNameProtocolsIsisAreaPassword       types.Object `tfsdk:"area_password" json:"area-password,omitempty"`
-	VrfNameProtocolsIsisDefaultInformation types.Object `tfsdk:"default_information" json:"default-information,omitempty"`
-	VrfNameProtocolsIsisDomainPassword     types.Object `tfsdk:"domain_password" json:"domain-password,omitempty"`
-	VrfNameProtocolsIsisTrafficEngineering types.Object `tfsdk:"traffic_engineering" json:"traffic-engineering,omitempty"`
-	VrfNameProtocolsIsisSegmentRouting     types.Object `tfsdk:"segment_routing" json:"segment-routing,omitempty"`
-	VrfNameProtocolsIsisRedistribute       types.Object `tfsdk:"redistribute" json:"redistribute,omitempty"`
-	VrfNameProtocolsIsisSpfDelayIetf       types.Object `tfsdk:"spf_delay_ietf" json:"spf-delay-ietf,omitempty"`
+	NodeVrfNameProtocolsIsisAreaPassword       types.Object `tfsdk:"area_password"`
+	NodeVrfNameProtocolsIsisDefaultInformation types.Object `tfsdk:"default_information"`
+	NodeVrfNameProtocolsIsisDomainPassword     types.Object `tfsdk:"domain_password"`
+	NodeVrfNameProtocolsIsisTrafficEngineering types.Object `tfsdk:"traffic_engineering"`
+	NodeVrfNameProtocolsIsisSegmentRouting     types.Object `tfsdk:"segment_routing"`
+	NodeVrfNameProtocolsIsisRedistribute       types.Object `tfsdk:"redistribute"`
+	NodeVrfNameProtocolsIsisSpfDelayIetf       types.Object `tfsdk:"spf_delay_ietf"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsis) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisDynamicHostname.IsNull() || o.LeafVrfNameProtocolsIsisDynamicHostname.IsUnknown()) {
+		vyosData["dynamic-hostname"] = o.LeafVrfNameProtocolsIsisDynamicHostname.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisLevel.IsNull() || o.LeafVrfNameProtocolsIsisLevel.IsUnknown()) {
+		vyosData["level"] = o.LeafVrfNameProtocolsIsisLevel.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisLogAdjacencyChanges.IsNull() || o.LeafVrfNameProtocolsIsisLogAdjacencyChanges.IsUnknown()) {
+		vyosData["log-adjacency-changes"] = o.LeafVrfNameProtocolsIsisLogAdjacencyChanges.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisLspGenInterval.IsNull() || o.LeafVrfNameProtocolsIsisLspGenInterval.IsUnknown()) {
+		vyosData["lsp-gen-interval"] = o.LeafVrfNameProtocolsIsisLspGenInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisLspMtu.IsNull() || o.LeafVrfNameProtocolsIsisLspMtu.IsUnknown()) {
+		vyosData["lsp-mtu"] = o.LeafVrfNameProtocolsIsisLspMtu.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisLspRefreshInterval.IsNull() || o.LeafVrfNameProtocolsIsisLspRefreshInterval.IsUnknown()) {
+		vyosData["lsp-refresh-interval"] = o.LeafVrfNameProtocolsIsisLspRefreshInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisMaxLspLifetime.IsNull() || o.LeafVrfNameProtocolsIsisMaxLspLifetime.IsUnknown()) {
+		vyosData["max-lsp-lifetime"] = o.LeafVrfNameProtocolsIsisMaxLspLifetime.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisMetricStyle.IsNull() || o.LeafVrfNameProtocolsIsisMetricStyle.IsUnknown()) {
+		vyosData["metric-style"] = o.LeafVrfNameProtocolsIsisMetricStyle.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisNet.IsNull() || o.LeafVrfNameProtocolsIsisNet.IsUnknown()) {
+		vyosData["net"] = o.LeafVrfNameProtocolsIsisNet.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisPurgeOriginator.IsNull() || o.LeafVrfNameProtocolsIsisPurgeOriginator.IsUnknown()) {
+		vyosData["purge-originator"] = o.LeafVrfNameProtocolsIsisPurgeOriginator.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisSetAttachedBit.IsNull() || o.LeafVrfNameProtocolsIsisSetAttachedBit.IsUnknown()) {
+		vyosData["set-attached-bit"] = o.LeafVrfNameProtocolsIsisSetAttachedBit.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisSetOverloadBit.IsNull() || o.LeafVrfNameProtocolsIsisSetOverloadBit.IsUnknown()) {
+		vyosData["set-overload-bit"] = o.LeafVrfNameProtocolsIsisSetOverloadBit.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisSpfInterval.IsNull() || o.LeafVrfNameProtocolsIsisSpfInterval.IsUnknown()) {
+		vyosData["spf-interval"] = o.LeafVrfNameProtocolsIsisSpfInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisRouteMap.IsNull() || o.LeafVrfNameProtocolsIsisRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsIsisRouteMap.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsIsisInterface.IsNull() || o.TagVrfNameProtocolsIsisInterface.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsIsisInterface)
+		diags.Append(o.TagVrfNameProtocolsIsisInterface.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["interface"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisAreaPassword.IsNull() || o.NodeVrfNameProtocolsIsisAreaPassword.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisAreaPassword
+		diags.Append(o.NodeVrfNameProtocolsIsisAreaPassword.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["area-password"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisDefaultInformation.IsNull() || o.NodeVrfNameProtocolsIsisDefaultInformation.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisDefaultInformation
+		diags.Append(o.NodeVrfNameProtocolsIsisDefaultInformation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default-information"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisDomainPassword.IsNull() || o.NodeVrfNameProtocolsIsisDomainPassword.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisDomainPassword
+		diags.Append(o.NodeVrfNameProtocolsIsisDomainPassword.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["domain-password"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisTrafficEngineering.IsNull() || o.NodeVrfNameProtocolsIsisTrafficEngineering.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisTrafficEngineering
+		diags.Append(o.NodeVrfNameProtocolsIsisTrafficEngineering.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["traffic-engineering"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisSegmentRouting.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRouting.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSegmentRouting
+		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRouting.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["segment-routing"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistribute.IsNull() || o.NodeVrfNameProtocolsIsisRedistribute.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistribute
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistribute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["redistribute"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisSpfDelayIetf.IsNull() || o.NodeVrfNameProtocolsIsisSpfDelayIetf.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSpfDelayIetf
+		diags.Append(o.NodeVrfNameProtocolsIsisSpfDelayIetf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["spf-delay-ietf"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsis) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis"}})
+
+	// Leafs
+	if value, ok := vyosData["dynamic-hostname"]; ok {
+		o.LeafVrfNameProtocolsIsisDynamicHostname = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDynamicHostname = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["level"]; ok {
+		o.LeafVrfNameProtocolsIsisLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisLevel = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["log-adjacency-changes"]; ok {
+		o.LeafVrfNameProtocolsIsisLogAdjacencyChanges = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisLogAdjacencyChanges = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lsp-gen-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisLspGenInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisLspGenInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lsp-mtu"]; ok {
+		o.LeafVrfNameProtocolsIsisLspMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisLspMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lsp-refresh-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisLspRefreshInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisLspRefreshInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-lsp-lifetime"]; ok {
+		o.LeafVrfNameProtocolsIsisMaxLspLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisMaxLspLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric-style"]; ok {
+		o.LeafVrfNameProtocolsIsisMetricStyle = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisMetricStyle = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["net"]; ok {
+		o.LeafVrfNameProtocolsIsisNet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisNet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["purge-originator"]; ok {
+		o.LeafVrfNameProtocolsIsisPurgeOriginator = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisPurgeOriginator = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["set-attached-bit"]; ok {
+		o.LeafVrfNameProtocolsIsisSetAttachedBit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSetAttachedBit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["set-overload-bit"]; ok {
+		o.LeafVrfNameProtocolsIsisSetOverloadBit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSetOverloadBit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["spf-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisSpfInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSpfInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsIsisRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["interface"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterface{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsIsisInterface = data
+	} else {
+		o.TagVrfNameProtocolsIsisInterface = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["area-password"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisAreaPassword{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisAreaPassword = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisAreaPassword = basetypes.NewObjectNull(VrfNameProtocolsIsisAreaPassword{}.AttributeTypes())
+	}
+	if value, ok := vyosData["default-information"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisDefaultInformation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisDefaultInformation = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisDefaultInformation = basetypes.NewObjectNull(VrfNameProtocolsIsisDefaultInformation{}.AttributeTypes())
+	}
+	if value, ok := vyosData["domain-password"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisDomainPassword{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisDomainPassword = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisDomainPassword = basetypes.NewObjectNull(VrfNameProtocolsIsisDomainPassword{}.AttributeTypes())
+	}
+	if value, ok := vyosData["traffic-engineering"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisTrafficEngineering{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisTrafficEngineering = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisTrafficEngineering = basetypes.NewObjectNull(VrfNameProtocolsIsisTrafficEngineering{}.AttributeTypes())
+	}
+	if value, ok := vyosData["segment-routing"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRouting{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSegmentRouting = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSegmentRouting = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRouting{}.AttributeTypes())
+	}
+	if value, ok := vyosData["redistribute"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistribute{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistribute = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistribute = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistribute{}.AttributeTypes())
+	}
+	if value, ok := vyosData["spf-delay-ietf"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSpfDelayIetf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSpfDelayIetf = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSpfDelayIetf = basetypes.NewObjectNull(VrfNameProtocolsIsisSpfDelayIetf{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsis) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dynamic_hostname":      types.StringType,
+		"level":                 types.StringType,
+		"log_adjacency_changes": types.StringType,
+		"lsp_gen_interval":      types.StringType,
+		"lsp_mtu":               types.StringType,
+		"lsp_refresh_interval":  types.StringType,
+		"max_lsp_lifetime":      types.StringType,
+		"metric_style":          types.StringType,
+		"net":                   types.StringType,
+		"purge_originator":      types.StringType,
+		"set_attached_bit":      types.StringType,
+		"set_overload_bit":      types.StringType,
+		"spf_interval":          types.StringType,
+		"route_map":             types.StringType,
+
+		// Tags
+		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterface{}.AttributeTypes()}},
+
+		// Nodes
+		"area_password":       types.ObjectType{AttrTypes: VrfNameProtocolsIsisAreaPassword{}.AttributeTypes()},
+		"default_information": types.ObjectType{AttrTypes: VrfNameProtocolsIsisDefaultInformation{}.AttributeTypes()},
+		"domain_password":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisDomainPassword{}.AttributeTypes()},
+		"traffic_engineering": types.ObjectType{AttrTypes: VrfNameProtocolsIsisTrafficEngineering{}.AttributeTypes()},
+		"segment_routing":     types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRouting{}.AttributeTypes()},
+		"redistribute":        types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistribute{}.AttributeTypes()},
+		"spf_delay_ietf":      types.ObjectType{AttrTypes: VrfNameProtocolsIsisSpfDelayIetf{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsis) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dynamic_hostname": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Dynamic hostname for IS-IS
 
 `,
 		},
 
 		"level": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IS-IS level number
 
 |  Format  |  Description  |
@@ -67,16 +351,14 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"log_adjacency_changes": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log adjacency state changes
 
 `,
 		},
 
 		"lsp_gen_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum interval between regenerating same LSP
 
 |  Format  |  Description  |
@@ -87,8 +369,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lsp_mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Configure the maximum size of generated LSPs
 
 |  Format  |  Description  |
@@ -102,8 +383,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lsp_refresh_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `LSP refresh interval
 
 |  Format  |  Description  |
@@ -114,8 +394,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"max_lsp_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum LSP lifetime
 
 |  Format  |  Description  |
@@ -126,8 +405,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"metric_style": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use old-style (ISO 10589) or new-style packet formats
 
 |  Format  |  Description  |
@@ -140,8 +418,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"net": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `A Network Entity Title for this process (ISO only)
 
 |  Format  |  Description  |
@@ -152,32 +429,28 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"purge_originator": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use the RFC 6232 purge-originator
 
 `,
 		},
 
 		"set_attached_bit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set attached bit to identify as L1/L2 router for inter-area traffic
 
 `,
 		},
 
 		"set_overload_bit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set overload bit to avoid any transit traffic
 
 `,
 		},
 
 		"spf_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum interval between SPF calculations
 
 |  Format  |  Description  |
@@ -188,8 +461,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -203,7 +475,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 
 		"interface": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsIsisInterface{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsIsisInterface{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Interface params
@@ -214,7 +486,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"area_password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisAreaPassword{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisAreaPassword{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure the authentication password for an area
 
@@ -222,7 +494,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"default_information": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDefaultInformation{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisDefaultInformation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Control distribution of default information
 
@@ -230,7 +502,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"domain_password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisDomainPassword{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisDomainPassword{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Set the authentication password for a routing domain
 
@@ -238,7 +510,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"traffic_engineering": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisTrafficEngineering{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisTrafficEngineering{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Show IS-IS neighbor adjacencies
 
@@ -246,7 +518,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"segment_routing": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRouting{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRouting{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing (SPRING) settings
 
@@ -254,7 +526,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistribute{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistribute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
@@ -262,7 +534,7 @@ func (o VrfNameProtocolsIsis) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"spf_delay_ietf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSpfDelayIetf{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSpfDelayIetf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IETF SPF delay algorithm
 

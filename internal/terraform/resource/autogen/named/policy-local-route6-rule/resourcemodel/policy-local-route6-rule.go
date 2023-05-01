@@ -2,34 +2,150 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyLocalRoutesixRule describes the resource data model.
 type PolicyLocalRoutesixRule struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyLocalRoutesixRuleFwmark           customtypes.CustomStringValue `tfsdk:"fwmark" json:"fwmark,omitempty"`
-	PolicyLocalRoutesixRuleSource           customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
-	PolicyLocalRoutesixRuleDestination      customtypes.CustomStringValue `tfsdk:"destination" json:"destination,omitempty"`
-	PolicyLocalRoutesixRuleInboundInterface customtypes.CustomStringValue `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
+	LeafPolicyLocalRoutesixRuleFwmark           types.String `tfsdk:"fwmark"`
+	LeafPolicyLocalRoutesixRuleSource           types.String `tfsdk:"source"`
+	LeafPolicyLocalRoutesixRuleDestination      types.String `tfsdk:"destination"`
+	LeafPolicyLocalRoutesixRuleInboundInterface types.String `tfsdk:"inbound_interface"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyLocalRoutesixRuleSet types.Object `tfsdk:"set" json:"set,omitempty"`
+	NodePolicyLocalRoutesixRuleSet types.Object `tfsdk:"set"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyLocalRoutesixRule) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"local-route6",
+		"rule",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyLocalRoutesixRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyLocalRoutesixRuleFwmark.IsNull() || o.LeafPolicyLocalRoutesixRuleFwmark.IsUnknown()) {
+		vyosData["fwmark"] = o.LeafPolicyLocalRoutesixRuleFwmark.ValueString()
+	}
+	if !(o.LeafPolicyLocalRoutesixRuleSource.IsNull() || o.LeafPolicyLocalRoutesixRuleSource.IsUnknown()) {
+		vyosData["source"] = o.LeafPolicyLocalRoutesixRuleSource.ValueString()
+	}
+	if !(o.LeafPolicyLocalRoutesixRuleDestination.IsNull() || o.LeafPolicyLocalRoutesixRuleDestination.IsUnknown()) {
+		vyosData["destination"] = o.LeafPolicyLocalRoutesixRuleDestination.ValueString()
+	}
+	if !(o.LeafPolicyLocalRoutesixRuleInboundInterface.IsNull() || o.LeafPolicyLocalRoutesixRuleInboundInterface.IsUnknown()) {
+		vyosData["inbound-interface"] = o.LeafPolicyLocalRoutesixRuleInboundInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyLocalRoutesixRuleSet.IsNull() || o.NodePolicyLocalRoutesixRuleSet.IsUnknown()) {
+		var subModel PolicyLocalRoutesixRuleSet
+		diags.Append(o.NodePolicyLocalRoutesixRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyLocalRoutesixRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["fwmark"]; ok {
+		o.LeafPolicyLocalRoutesixRuleFwmark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLocalRoutesixRuleFwmark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source"]; ok {
+		o.LeafPolicyLocalRoutesixRuleSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLocalRoutesixRuleSource = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["destination"]; ok {
+		o.LeafPolicyLocalRoutesixRuleDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLocalRoutesixRuleDestination = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inbound-interface"]; ok {
+		o.LeafPolicyLocalRoutesixRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyLocalRoutesixRuleInboundInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["set"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyLocalRoutesixRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyLocalRoutesixRuleSet = data
+
+	} else {
+		o.NodePolicyLocalRoutesixRuleSet = basetypes.NewObjectNull(PolicyLocalRoutesixRuleSet{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "local-route6", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyLocalRoutesixRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"fwmark":            types.StringType,
+		"source":            types.StringType,
+		"destination":       types.StringType,
+		"inbound_interface": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"set": types.ObjectType{AttrTypes: PolicyLocalRoutesixRuleSet{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyLocalRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 policy local-route rule set number
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-32765  |  Local-route rule number (1-32765)  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"fwmark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match fwmark value
 
 |  Format  |  Description  |
@@ -40,8 +156,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source address or prefix
 
 |  Format  |  Description  |
@@ -53,8 +168,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"destination": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Destination address or prefix
 
 |  Format  |  Description  |
@@ -66,8 +180,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"inbound_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound Interface
 
 `,
@@ -78,7 +191,7 @@ func (o PolicyLocalRoutesixRule) ResourceAttributes() map[string]schema.Attribut
 		// Nodes
 
 		"set": schema.SingleNestedAttribute{
-			Attributes: PolicyLocalRoutesixRuleSet{}.ResourceAttributes(),
+			Attributes: PolicyLocalRoutesixRuleSet{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Packet modifications
 

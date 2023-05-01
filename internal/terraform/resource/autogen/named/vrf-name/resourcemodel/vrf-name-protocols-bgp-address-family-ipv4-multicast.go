@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourMulticast describes the resource data model.
@@ -11,15 +17,105 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourMulticast struct {
 	// LeafNodes
 
 	// TagNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress types.Map `tfsdk:"aggregate_address" json:"aggregate-address,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork          types.Map `tfsdk:"network" json:"network,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress types.Map `tfsdk:"aggregate_address"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork          types.Map `tfsdk:"network"`
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance types.Object `tfsdk:"distance" json:"distance,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance types.Object `tfsdk:"distance"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["aggregate-address"] = subData
+	}
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["network"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["aggregate-address"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["network"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["distance"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"aggregate_address": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{}.AttributeTypes()}},
+		"network":           types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork{}.AttributeTypes()}},
+
+		// Nodes
+		"distance": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -27,7 +123,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() m
 
 		"aggregate_address": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastAggregateAddress{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `BGP aggregate network/prefix
@@ -41,7 +137,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() m
 
 		"network": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastNetwork{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Import BGP network/prefix into multicast IPv4 RIB
@@ -56,7 +152,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticast) ResourceAttributes() m
 		// Nodes
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administrative distances for BGP routes
 

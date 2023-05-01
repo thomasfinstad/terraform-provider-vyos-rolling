@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiKeyPairPublic describes the resource data model.
 type PkiKeyPairPublic struct {
 	// LeafNodes
-	PkiKeyPairPublicKey customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
+	LeafPkiKeyPairPublicKey types.String `tfsdk:"key"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PkiKeyPairPublic) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PkiKeyPairPublic) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "key-pair", "public"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPkiKeyPairPublicKey.IsNull() || o.LeafPkiKeyPairPublicKey.IsUnknown()) {
+		vyosData["key"] = o.LeafPkiKeyPairPublicKey.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PkiKeyPairPublic) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "key-pair", "public"}})
+
+	// Leafs
+	if value, ok := vyosData["key"]; ok {
+		o.LeafPkiKeyPairPublicKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiKeyPairPublicKey = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "key-pair", "public"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PkiKeyPairPublic) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"key": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PkiKeyPairPublic) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Public key in PEM format
 
 `,

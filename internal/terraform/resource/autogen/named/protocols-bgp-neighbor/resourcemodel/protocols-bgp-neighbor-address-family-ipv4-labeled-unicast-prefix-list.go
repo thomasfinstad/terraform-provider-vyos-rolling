@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport types.String `tfsdk:"export"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "prefix-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport.IsUnknown()) {
+		vyosData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport.IsUnknown()) {
+		vyosData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "prefix-list"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixListImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "prefix-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter outgoing route updates to this peer
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastPrefixList) Resour
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv4-Prefix-list to filter incoming route updates from this peer
 
 |  Format  |  Description  |

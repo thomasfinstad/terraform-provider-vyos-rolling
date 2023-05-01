@@ -2,37 +2,186 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBfdPeer describes the resource data model.
 type ProtocolsBfdPeer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBfdPeerProfile  customtypes.CustomStringValue `tfsdk:"profile" json:"profile,omitempty"`
-	ProtocolsBfdPeerEchoMode customtypes.CustomStringValue `tfsdk:"echo_mode" json:"echo-mode,omitempty"`
-	ProtocolsBfdPeerPassive  customtypes.CustomStringValue `tfsdk:"passive" json:"passive,omitempty"`
-	ProtocolsBfdPeerShutdown customtypes.CustomStringValue `tfsdk:"shutdown" json:"shutdown,omitempty"`
-	ProtocolsBfdPeerMultihop customtypes.CustomStringValue `tfsdk:"multihop" json:"multihop,omitempty"`
-	ProtocolsBfdPeerVrf      customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafProtocolsBfdPeerProfile  types.String `tfsdk:"profile"`
+	LeafProtocolsBfdPeerEchoMode types.String `tfsdk:"echo_mode"`
+	LeafProtocolsBfdPeerPassive  types.String `tfsdk:"passive"`
+	LeafProtocolsBfdPeerShutdown types.String `tfsdk:"shutdown"`
+	LeafProtocolsBfdPeerMultihop types.String `tfsdk:"multihop"`
+	LeafProtocolsBfdPeerVrf      types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsBfdPeerSource   types.Object `tfsdk:"source" json:"source,omitempty"`
-	ProtocolsBfdPeerInterval types.Object `tfsdk:"interval" json:"interval,omitempty"`
+	NodeProtocolsBfdPeerSource   types.Object `tfsdk:"source"`
+	NodeProtocolsBfdPeerInterval types.Object `tfsdk:"interval"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBfdPeer) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bfd",
+		"peer",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBfdPeer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBfdPeerProfile.IsNull() || o.LeafProtocolsBfdPeerProfile.IsUnknown()) {
+		vyosData["profile"] = o.LeafProtocolsBfdPeerProfile.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerEchoMode.IsNull() || o.LeafProtocolsBfdPeerEchoMode.IsUnknown()) {
+		vyosData["echo-mode"] = o.LeafProtocolsBfdPeerEchoMode.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerPassive.IsNull() || o.LeafProtocolsBfdPeerPassive.IsUnknown()) {
+		vyosData["passive"] = o.LeafProtocolsBfdPeerPassive.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerShutdown.IsNull() || o.LeafProtocolsBfdPeerShutdown.IsUnknown()) {
+		vyosData["shutdown"] = o.LeafProtocolsBfdPeerShutdown.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerMultihop.IsNull() || o.LeafProtocolsBfdPeerMultihop.IsUnknown()) {
+		vyosData["multihop"] = o.LeafProtocolsBfdPeerMultihop.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerVrf.IsNull() || o.LeafProtocolsBfdPeerVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafProtocolsBfdPeerVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBfdPeerSource.IsNull() || o.NodeProtocolsBfdPeerSource.IsUnknown()) {
+		var subModel ProtocolsBfdPeerSource
+		diags.Append(o.NodeProtocolsBfdPeerSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBfdPeerInterval.IsNull() || o.NodeProtocolsBfdPeerInterval.IsUnknown()) {
+		var subModel ProtocolsBfdPeerInterval
+		diags.Append(o.NodeProtocolsBfdPeerInterval.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["interval"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBfdPeer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer"}})
+
+	// Leafs
+	if value, ok := vyosData["profile"]; ok {
+		o.LeafProtocolsBfdPeerProfile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerProfile = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["echo-mode"]; ok {
+		o.LeafProtocolsBfdPeerEchoMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerEchoMode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive"]; ok {
+		o.LeafProtocolsBfdPeerPassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerPassive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["shutdown"]; ok {
+		o.LeafProtocolsBfdPeerShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerShutdown = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["multihop"]; ok {
+		o.LeafProtocolsBfdPeerMultihop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerMultihop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafProtocolsBfdPeerVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBfdPeerSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBfdPeerSource = data
+
+	} else {
+		o.NodeProtocolsBfdPeerSource = basetypes.NewObjectNull(ProtocolsBfdPeerSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["interval"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBfdPeerInterval{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBfdPeerInterval = data
+
+	} else {
+		o.NodeProtocolsBfdPeerInterval = basetypes.NewObjectNull(ProtocolsBfdPeerInterval{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBfdPeer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"profile":   types.StringType,
+		"echo_mode": types.StringType,
+		"passive":   types.StringType,
+		"shutdown":  types.StringType,
+		"multihop":  types.StringType,
+		"vrf":       types.StringType,
+
+		// Tags
+
+		// Nodes
+		"source":   types.ObjectType{AttrTypes: ProtocolsBfdPeerSource{}.AttributeTypes()},
+		"interval": types.ObjectType{AttrTypes: ProtocolsBfdPeerInterval{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBfdPeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Configures BFD peer to listen and talk to
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  BFD peer IPv4 address  |
+|  ipv6  |  BFD peer IPv6 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"profile": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
 |  Format  |  Description  |
@@ -43,40 +192,35 @@ func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"echo_mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enables the echo transmission mode
 
 `,
 		},
 
 		"passive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not attempt to start sessions
 
 `,
 		},
 
 		"shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable this peer
 
 `,
 		},
 
 		"multihop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow this BFD peer to not be directly connected
 
 `,
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -91,7 +235,7 @@ func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBfdPeerSource{}.ResourceAttributes(),
+			Attributes: ProtocolsBfdPeerSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Bind listener to specified interface/address, mandatory for IPv6
 
@@ -99,7 +243,7 @@ func (o ProtocolsBfdPeer) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"interval": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBfdPeerInterval{}.ResourceAttributes(),
+			Attributes: ProtocolsBfdPeerInterval{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure timer intervals
 

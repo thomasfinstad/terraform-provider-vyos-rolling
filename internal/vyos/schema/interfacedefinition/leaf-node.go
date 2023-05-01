@@ -164,12 +164,10 @@ func (o *LeafNode) AncestorDescription() string {
 	return desc
 }
 
-// TfType returns the terraform type to use in the schema
-func (o *LeafNode) TfType() string {
-	return "customtypes.CustomStringType"
-}
-
-// TfValue returns terraform value to use in resource model
-func (o *LeafNode) TfValue() string {
-	return "customtypes.CustomStringValue"
+// ValueType the type of value that can be expected for this node, one of:
+// string
+// number (not implemented)
+// bool (not implemented)
+func (o *LeafNode) ValueType() string {
+	return "string"
 }

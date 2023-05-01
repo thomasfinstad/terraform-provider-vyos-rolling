@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisTrafficEngineering describes the resource data model.
 type VrfNameProtocolsIsisTrafficEngineering struct {
 	// LeafNodes
-	VrfNameProtocolsIsisTrafficEngineeringEnable  customtypes.CustomStringValue `tfsdk:"enable" json:"enable,omitempty"`
-	VrfNameProtocolsIsisTrafficEngineeringAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
+	LeafVrfNameProtocolsIsisTrafficEngineeringEnable  types.String `tfsdk:"enable"`
+	LeafVrfNameProtocolsIsisTrafficEngineeringAddress types.String `tfsdk:"address"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisTrafficEngineering) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisTrafficEngineering) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "traffic-engineering"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.IsNull() || o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.IsUnknown()) {
+		vyosData["enable"] = o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.IsNull() || o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisTrafficEngineering) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "traffic-engineering"}})
+
+	// Leafs
+	if value, ok := vyosData["enable"]; ok {
+		o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisTrafficEngineeringEnable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["address"]; ok {
+		o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisTrafficEngineeringAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "traffic-engineering"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisTrafficEngineering) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"enable":  types.StringType,
+		"address": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisTrafficEngineering) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"enable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable MPLS traffic engineering extensions
 
 `,
 		},
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MPLS traffic engineering router ID
 
 |  Format  |  Description  |

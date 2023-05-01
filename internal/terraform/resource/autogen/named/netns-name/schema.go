@@ -17,6 +17,6 @@ func (r netnsName) Schema(ctx context.Context, req resource.SchemaRequest, resp 
 Network namespace name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

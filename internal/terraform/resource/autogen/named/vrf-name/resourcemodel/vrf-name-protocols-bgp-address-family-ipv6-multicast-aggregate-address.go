@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       customtypes.CustomStringValue `tfsdk:"as_set" json:"as-set,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly customtypes.CustomStringValue `tfsdk:"summary_only" json:"summary-only,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       types.String `tfsdk:"as_set"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsUnknown()) {
+		vyosData["as-set"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsUnknown()) {
+		vyosData["summary-only"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+
+	// Leafs
+	if value, ok := vyosData["as-set"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["summary-only"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_set":       types.StringType,
+		"route_map":    types.StringType,
+		"summary_only": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as_set": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Generate AS-set path information for this aggregate address
 
 `,
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) Resourc
 		},
 
 		"summary_only": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Announce the aggregate summary network only
 
 `,

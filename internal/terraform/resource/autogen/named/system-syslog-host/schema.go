@@ -22,6 +22,6 @@ Logging to a remote host
 |  hostname  |  Remote syslog server FQDN  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

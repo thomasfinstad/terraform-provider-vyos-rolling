@@ -2,31 +2,102 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetVifSDhcpvsixOptionsPd describes the resource data model.
 type InterfacesPseudoEthernetVifSDhcpvsixOptionsPd struct {
 	// LeafNodes
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength customtypes.CustomStringValue `tfsdk:"length" json:"length,omitempty"`
+	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength types.String `tfsdk:"length"`
 
 	// TagNodes
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface types.Map `tfsdk:"interface" json:"interface,omitempty"`
+	TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface types.Map `tfsdk:"interface"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options", "pd"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength.IsNull() || o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength.IsUnknown()) {
+		vyosData["length"] = o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength.ValueString()
+	}
+
+	// Tags
+	if !(o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface.IsNull() || o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface.IsUnknown()) {
+		subModel := make(map[string]InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface)
+		diags.Append(o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["interface"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options", "pd"}})
+
+	// Leafs
+	if value, ok := vyosData["length"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsPdLength = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["interface"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface = data
+	} else {
+		o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options", "pd"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"length": types.StringType,
+
+		// Tags
+		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Request IPv6 prefix length from peer
 
 |  Format  |  Description  |
@@ -43,7 +114,7 @@ func (o InterfacesPseudoEthernetVifSDhcpvsixOptionsPd) ResourceAttributes() map[
 
 		"interface": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface{}.ResourceAttributes(),
+				Attributes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPdInterface{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Delegate IPv6 prefix from provider to this interface

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticArpInterfaceAddress describes the resource data model.
 type ProtocolsStaticArpInterfaceAddress struct {
 	// LeafNodes
-	ProtocolsStaticArpInterfaceAddressDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	ProtocolsStaticArpInterfaceAddressMac         customtypes.CustomStringValue `tfsdk:"mac" json:"mac,omitempty"`
+	LeafProtocolsStaticArpInterfaceAddressDescrIPtion types.String `tfsdk:"description"`
+	LeafProtocolsStaticArpInterfaceAddressMac         types.String `tfsdk:"mac"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticArpInterfaceAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticArpInterfaceAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsNull() || o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion.ValueString()
+	}
+	if !(o.LeafProtocolsStaticArpInterfaceAddressMac.IsNull() || o.LeafProtocolsStaticArpInterfaceAddressMac.IsUnknown()) {
+		vyosData["mac"] = o.LeafProtocolsStaticArpInterfaceAddressMac.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticArpInterfaceAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticArpInterfaceAddressDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac"]; ok {
+		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticArpInterfaceAddressMac = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "arp", "interface", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticArpInterfaceAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"mac":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticArpInterfaceAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsStaticArpInterfaceAddress) ResourceAttributes() map[string]sche
 		},
 
 		"mac": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |

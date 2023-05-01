@@ -14,6 +14,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -92,6 +96,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -114,6 +119,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -129,6 +135,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -159,6 +166,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -187,6 +195,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -224,6 +233,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -257,6 +267,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -272,6 +283,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -305,6 +317,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -323,6 +336,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -356,6 +370,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -389,6 +404,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -404,6 +420,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -434,6 +451,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -464,6 +482,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -496,6 +515,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -511,6 +531,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -544,6 +565,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -575,6 +597,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Delegated prefix length must be between 32 and 64"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -608,6 +631,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -623,6 +647,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -638,6 +663,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -677,6 +703,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -699,6 +726,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -715,6 +743,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -740,6 +769,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Invalid DUID, must be in the format h[[:h]...]"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -769,6 +799,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -801,6 +832,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -829,6 +861,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -863,6 +896,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -881,6 +915,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Invalid NIS domain name"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -915,6 +950,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -933,6 +969,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Invalid NIS+ domain name. May only contain letters, numbers and .-_"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -967,6 +1004,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1012,6 +1050,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1042,6 +1081,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1058,6 +1098,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1086,6 +1127,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1102,6 +1144,7 @@ func dhcpv6server() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

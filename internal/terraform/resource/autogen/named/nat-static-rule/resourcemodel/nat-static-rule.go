@@ -2,33 +2,141 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatStaticRule describes the resource data model.
 type NatStaticRule struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	NatStaticRuleDescrIPtion      customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	NatStaticRuleInboundInterface customtypes.CustomStringValue `tfsdk:"inbound_interface" json:"inbound-interface,omitempty"`
+	LeafNatStaticRuleDescrIPtion      types.String `tfsdk:"description"`
+	LeafNatStaticRuleInboundInterface types.String `tfsdk:"inbound_interface"`
 
 	// TagNodes
 
 	// Nodes
-	NatStaticRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	NatStaticRuleTranSLAtion types.Object `tfsdk:"translation" json:"translation,omitempty"`
+	NodeNatStaticRuleDestination types.Object `tfsdk:"destination"`
+	NodeNatStaticRuleTranSLAtion types.Object `tfsdk:"translation"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o NatStaticRule) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *NatStaticRule) GetVyosPath() []string {
+	return []string{
+		"nat",
+		"static",
+		"rule",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *NatStaticRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafNatStaticRuleDescrIPtion.IsNull() || o.LeafNatStaticRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafNatStaticRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafNatStaticRuleInboundInterface.IsNull() || o.LeafNatStaticRuleInboundInterface.IsUnknown()) {
+		vyosData["inbound-interface"] = o.LeafNatStaticRuleInboundInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeNatStaticRuleDestination.IsNull() || o.NodeNatStaticRuleDestination.IsUnknown()) {
+		var subModel NatStaticRuleDestination
+		diags.Append(o.NodeNatStaticRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeNatStaticRuleTranSLAtion.IsNull() || o.NodeNatStaticRuleTranSLAtion.IsUnknown()) {
+		var subModel NatStaticRuleTranSLAtion
+		diags.Append(o.NodeNatStaticRuleTranSLAtion.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["translation"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *NatStaticRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatStaticRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inbound-interface"]; ok {
+		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatStaticRuleInboundInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatStaticRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatStaticRuleDestination = data
+
+	} else {
+		o.NodeNatStaticRuleDestination = basetypes.NewObjectNull(NatStaticRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["translation"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatStaticRuleTranSLAtion{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatStaticRuleTranSLAtion = data
+
+	} else {
+		o.NodeNatStaticRuleTranSLAtion = basetypes.NewObjectNull(NatStaticRuleTranSLAtion{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "static", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o NatStaticRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":       types.StringType,
+		"inbound_interface": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: NatStaticRuleDestination{}.AttributeTypes()},
+		"translation": types.ObjectType{AttrTypes: NatStaticRuleTranSLAtion{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o NatStaticRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Rule number for NAT
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -39,8 +147,7 @@ func (o NatStaticRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"inbound_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound interface of NAT traffic
 
 `,
@@ -51,7 +158,7 @@ func (o NatStaticRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: NatStaticRuleDestination{}.ResourceAttributes(),
+			Attributes: NatStaticRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `NAT destination parameters
 
@@ -59,7 +166,7 @@ func (o NatStaticRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"translation": schema.SingleNestedAttribute{
-			Attributes: NatStaticRuleTranSLAtion{}.ResourceAttributes(),
+			Attributes: NatStaticRuleTranSLAtion{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Translation address or prefix
 

@@ -14,6 +14,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -31,6 +32,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -46,6 +48,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -75,6 +78,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -90,6 +94,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -106,6 +111,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -122,6 +128,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -138,6 +145,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -154,6 +162,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -170,6 +179,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -186,6 +196,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -202,6 +213,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -221,6 +233,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -246,6 +259,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -313,6 +327,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -347,6 +362,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -376,6 +392,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -401,6 +418,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -434,6 +452,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -463,6 +482,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -488,6 +508,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -526,6 +547,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Interval must be in range 0 to 127"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -560,6 +582,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -589,6 +612,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -614,6 +638,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -646,6 +671,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -678,6 +704,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -710,6 +737,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -742,6 +770,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Queue limit must greater than 1 and less than 11000"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -776,6 +805,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -805,6 +835,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -820,6 +851,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -887,6 +919,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -912,6 +945,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -967,6 +1001,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1025,6 +1060,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -1060,6 +1096,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -1082,6 +1119,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1097,6 +1135,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1126,6 +1165,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1209,6 +1249,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1240,6 +1281,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1255,6 +1297,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1270,6 +1313,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1310,6 +1354,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1343,6 +1388,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1358,6 +1404,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1398,6 +1445,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1431,6 +1479,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1446,6 +1495,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1462,6 +1512,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1481,6 +1532,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1703,6 +1755,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1734,6 +1787,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1771,6 +1825,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1786,6 +1841,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1801,6 +1857,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1830,6 +1887,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1863,6 +1921,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1878,6 +1937,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1907,6 +1967,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1940,6 +2001,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1955,6 +2017,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1971,6 +2034,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1990,6 +2054,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -2212,6 +2277,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -2243,6 +2309,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -2281,6 +2348,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2306,6 +2374,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2342,6 +2411,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2372,6 +2442,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2406,6 +2477,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2431,6 +2503,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2498,6 +2571,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2523,6 +2597,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2578,6 +2653,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2633,6 +2709,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -2668,6 +2745,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2695,6 +2773,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -2724,6 +2803,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2749,6 +2829,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2816,6 +2897,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2847,6 +2929,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2878,6 +2961,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Priority must be between 0 and 100"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2909,6 +2993,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Priority must be between 0 and 100"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2940,6 +3025,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Must be between 0 and 100"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2971,6 +3057,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Must be between 0 and 100"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -3004,6 +3091,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -3033,6 +3121,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -3048,6 +3137,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3080,6 +3170,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3112,6 +3203,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3144,6 +3236,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3175,6 +3268,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3230,6 +3324,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3265,6 +3360,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -3300,6 +3396,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -3322,6 +3419,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -3337,6 +3435,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -3366,6 +3465,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -3449,6 +3549,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -3480,6 +3581,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -3495,6 +3597,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -3510,6 +3613,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3550,6 +3654,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3583,6 +3688,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -3598,6 +3704,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3638,6 +3745,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3671,6 +3779,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -3686,6 +3795,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3702,6 +3812,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3721,6 +3832,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -3943,6 +4055,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -3974,6 +4087,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4011,6 +4125,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -4026,6 +4141,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4041,6 +4157,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4070,6 +4187,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4103,6 +4221,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4118,6 +4237,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4147,6 +4267,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4180,6 +4301,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4195,6 +4317,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4211,6 +4334,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4230,6 +4354,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4452,6 +4577,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4483,6 +4609,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4521,6 +4648,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -4546,6 +4674,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -4582,6 +4711,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -4612,6 +4742,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -4646,6 +4777,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4671,6 +4803,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4703,6 +4836,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4735,6 +4869,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4767,6 +4902,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4798,6 +4934,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4853,6 +4990,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4888,6 +5026,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4915,6 +5054,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -4944,6 +5084,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -4979,6 +5120,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5010,6 +5152,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5042,6 +5185,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Average packet size must be between 16 and 10240"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5074,6 +5218,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Mark probability must be greater than 0"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5106,6 +5251,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Threshold must be between 0 and 4096"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5140,6 +5286,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5165,6 +5312,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5247,6 +5395,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -5276,6 +5425,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5301,6 +5451,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5368,6 +5519,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5393,6 +5545,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -5427,6 +5580,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -5456,6 +5610,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -5471,6 +5626,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5503,6 +5659,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5535,6 +5692,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5567,6 +5725,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5598,6 +5757,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5653,6 +5813,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5688,6 +5849,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -5723,6 +5885,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -5745,6 +5908,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5760,6 +5924,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5789,6 +5954,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5872,6 +6038,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5903,6 +6070,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5918,6 +6086,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -5933,6 +6102,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5973,6 +6143,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6006,6 +6177,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6021,6 +6193,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6061,6 +6234,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6094,6 +6268,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6109,6 +6284,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6125,6 +6301,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6144,6 +6321,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6366,6 +6544,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6397,6 +6576,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6434,6 +6614,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -6449,6 +6630,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6464,6 +6646,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6493,6 +6676,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6526,6 +6710,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6541,6 +6726,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6570,6 +6756,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6603,6 +6790,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6618,6 +6806,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6634,6 +6823,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -6653,6 +6843,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6875,6 +7066,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6906,6 +7098,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6944,6 +7137,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6969,6 +7163,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -7005,6 +7200,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -7035,6 +7231,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -7069,6 +7266,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7094,6 +7292,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7126,6 +7325,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7158,6 +7358,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7190,6 +7391,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7221,6 +7423,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Quantum must be in range 1 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7252,6 +7455,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7307,6 +7511,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7342,6 +7547,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -7369,6 +7575,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -7398,6 +7605,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -7413,6 +7621,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7480,6 +7689,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7505,6 +7715,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7553,6 +7764,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7585,6 +7797,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7617,6 +7830,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7649,6 +7863,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7681,6 +7896,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Priority must be between 0 and 7"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7712,6 +7928,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7767,6 +7984,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -7990,6 +8208,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -8025,6 +8244,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -8060,6 +8280,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -8082,6 +8303,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -8097,6 +8319,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8126,6 +8349,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8209,6 +8433,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8240,6 +8465,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -8255,6 +8481,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8270,6 +8497,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8310,6 +8538,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8343,6 +8572,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8358,6 +8588,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8398,6 +8629,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8431,6 +8663,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8446,6 +8679,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8462,6 +8696,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8481,6 +8716,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8703,6 +8939,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8734,6 +8971,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -8771,6 +9009,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -8786,6 +9025,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8801,6 +9041,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8830,6 +9071,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8863,6 +9105,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8878,6 +9121,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8907,6 +9151,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8940,6 +9185,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8955,6 +9201,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8971,6 +9218,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8990,6 +9238,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -9212,6 +9461,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -9243,6 +9493,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -9281,6 +9532,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -9306,6 +9558,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -9342,6 +9595,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -9372,6 +9626,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -9406,6 +9661,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9431,6 +9687,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9511,6 +9768,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9536,6 +9794,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9584,6 +9843,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9616,6 +9876,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 1048576"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9648,6 +9909,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 1 to 65536"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9680,6 +9942,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Interval must be in range 0 to 4294967295"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9711,6 +9974,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Priority must be between 0 and 20"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9742,6 +10006,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Queue limit must be greater than zero"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -9797,6 +10062,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -10020,6 +10286,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -10055,6 +10322,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -10080,6 +10348,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -10162,6 +10431,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -10191,6 +10461,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -10206,6 +10477,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10221,6 +10493,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10252,6 +10525,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10301,6 +10575,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10352,6 +10627,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10367,6 +10643,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10398,6 +10675,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10447,6 +10725,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10498,6 +10777,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10513,6 +10793,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10544,6 +10825,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10593,6 +10875,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10647,6 +10930,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -10682,6 +10966,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10697,6 +10982,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10728,6 +11014,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10777,6 +11064,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10828,6 +11116,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10843,6 +11132,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10874,6 +11164,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10923,6 +11214,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -10974,6 +11266,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -10989,6 +11282,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -11020,6 +11314,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Priority must be between 0 and 65535"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -11069,6 +11364,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -11121,6 +11417,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -11143,6 +11440,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -11158,6 +11456,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11187,6 +11486,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11270,6 +11570,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11301,6 +11602,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -11316,6 +11618,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11331,6 +11634,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11371,6 +11675,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11404,6 +11709,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11419,6 +11725,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11459,6 +11766,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11492,6 +11800,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11507,6 +11816,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11523,6 +11833,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11542,6 +11853,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11764,6 +12076,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11795,6 +12108,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -11832,6 +12146,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -11847,6 +12162,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11862,6 +12178,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11891,6 +12208,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11924,6 +12242,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11939,6 +12258,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11968,6 +12288,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12001,6 +12322,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -12016,6 +12338,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12032,6 +12355,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12051,6 +12375,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -12273,6 +12598,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -12304,6 +12630,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Maximum packet length is 65535"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -12342,6 +12669,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -12367,6 +12695,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -12403,6 +12732,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -12433,6 +12763,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -12467,6 +12798,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -12495,6 +12827,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -12520,6 +12853,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -12605,6 +12939,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 					}},
 				}},
 				TagNode: []*interfacedefinition.TagNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "tagNode",
 					},
@@ -12645,6 +12980,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -12676,6 +13012,7 @@ func qos() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

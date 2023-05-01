@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogHostFacility describes the resource data model.
 type SystemSyslogHostFacility struct {
 	// LeafNodes
-	SystemSyslogHostFacilityProtocol customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	SystemSyslogHostFacilityLevel    customtypes.CustomStringValue `tfsdk:"level" json:"level,omitempty"`
+	LeafSystemSyslogHostFacilityProtocol types.String `tfsdk:"protocol"`
+	LeafSystemSyslogHostFacilityLevel    types.String `tfsdk:"level"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogHostFacility) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogHostFacility) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemSyslogHostFacilityProtocol.IsNull() || o.LeafSystemSyslogHostFacilityProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafSystemSyslogHostFacilityProtocol.ValueString()
+	}
+	if !(o.LeafSystemSyslogHostFacilityLevel.IsNull() || o.LeafSystemSyslogHostFacilityLevel.IsUnknown()) {
+		vyosData["level"] = o.LeafSystemSyslogHostFacilityLevel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogHostFacility) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
+
+	// Leafs
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostFacilityProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["level"]; ok {
+		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostFacilityLevel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "host", "facility"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogHostFacility) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"protocol": types.StringType,
+		"level":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogHostFacility) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `syslog communication protocol
 
 |  Format  |  Description  |
@@ -37,8 +100,7 @@ func (o SystemSyslogHostFacility) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"level": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Logging level
 
 |  Format  |  Description  |

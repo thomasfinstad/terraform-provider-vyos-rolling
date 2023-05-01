@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfTimers describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsOspfTimers struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfTimersThroTTLe types.Object `tfsdk:"throttle" json:"throttle,omitempty"`
+	NodeVrfNameProtocolsOspfTimersThroTTLe types.Object `tfsdk:"throttle"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfTimers) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfTimers) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfTimersThroTTLe.IsNull() || o.NodeVrfNameProtocolsOspfTimersThroTTLe.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfTimersThroTTLe
+		diags.Append(o.NodeVrfNameProtocolsOspfTimersThroTTLe.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["throttle"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfTimers) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["throttle"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfTimersThroTTLe{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfTimersThroTTLe = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfTimersThroTTLe = basetypes.NewObjectNull(VrfNameProtocolsOspfTimersThroTTLe{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "timers"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfTimers) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"throttle": types.ObjectType{AttrTypes: VrfNameProtocolsOspfTimersThroTTLe{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfTimers) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsOspfTimers) ResourceAttributes() map[string]schema.Attri
 		// Nodes
 
 		"throttle": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfTimersThroTTLe{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfTimersThroTTLe{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Throttling adaptive timers
 

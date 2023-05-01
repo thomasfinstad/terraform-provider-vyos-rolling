@@ -2,40 +2,214 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesSstpc describes the resource data model.
 type InterfacesSstpc struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesSstpcDescrIPtion          customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesSstpcDisable              customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesSstpcNoDefaultRoute       customtypes.CustomStringValue `tfsdk:"no_default_route" json:"no-default-route,omitempty"`
-	InterfacesSstpcDefaultRouteDistance customtypes.CustomStringValue `tfsdk:"default_route_distance" json:"default-route-distance,omitempty"`
-	InterfacesSstpcNoPeerDNS            customtypes.CustomStringValue `tfsdk:"no_peer_dns" json:"no-peer-dns,omitempty"`
-	InterfacesSstpcMtu                  customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesSstpcServer               customtypes.CustomStringValue `tfsdk:"server" json:"server,omitempty"`
-	InterfacesSstpcPort                 customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	InterfacesSstpcVrf                  customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesSstpcDescrIPtion          types.String `tfsdk:"description"`
+	LeafInterfacesSstpcDisable              types.String `tfsdk:"disable"`
+	LeafInterfacesSstpcNoDefaultRoute       types.String `tfsdk:"no_default_route"`
+	LeafInterfacesSstpcDefaultRouteDistance types.String `tfsdk:"default_route_distance"`
+	LeafInterfacesSstpcNoPeerDNS            types.String `tfsdk:"no_peer_dns"`
+	LeafInterfacesSstpcMtu                  types.String `tfsdk:"mtu"`
+	LeafInterfacesSstpcServer               types.String `tfsdk:"server"`
+	LeafInterfacesSstpcPort                 types.String `tfsdk:"port"`
+	LeafInterfacesSstpcVrf                  types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesSstpcAuthentication types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
-	InterfacesSstpcSsl            types.Object `tfsdk:"ssl" json:"ssl,omitempty"`
+	NodeInterfacesSstpcAuthentication types.Object `tfsdk:"authentication"`
+	NodeInterfacesSstpcSsl            types.Object `tfsdk:"ssl"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesSstpc) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"sstpc",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesSstpc) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesSstpcDescrIPtion.IsNull() || o.LeafInterfacesSstpcDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesSstpcDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcDisable.IsNull() || o.LeafInterfacesSstpcDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesSstpcDisable.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcNoDefaultRoute.IsNull() || o.LeafInterfacesSstpcNoDefaultRoute.IsUnknown()) {
+		vyosData["no-default-route"] = o.LeafInterfacesSstpcNoDefaultRoute.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcDefaultRouteDistance.IsNull() || o.LeafInterfacesSstpcDefaultRouteDistance.IsUnknown()) {
+		vyosData["default-route-distance"] = o.LeafInterfacesSstpcDefaultRouteDistance.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcNoPeerDNS.IsNull() || o.LeafInterfacesSstpcNoPeerDNS.IsUnknown()) {
+		vyosData["no-peer-dns"] = o.LeafInterfacesSstpcNoPeerDNS.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcMtu.IsNull() || o.LeafInterfacesSstpcMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesSstpcMtu.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcServer.IsNull() || o.LeafInterfacesSstpcServer.IsUnknown()) {
+		vyosData["server"] = o.LeafInterfacesSstpcServer.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcPort.IsNull() || o.LeafInterfacesSstpcPort.IsUnknown()) {
+		vyosData["port"] = o.LeafInterfacesSstpcPort.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcVrf.IsNull() || o.LeafInterfacesSstpcVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesSstpcVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesSstpcAuthentication.IsNull() || o.NodeInterfacesSstpcAuthentication.IsUnknown()) {
+		var subModel InterfacesSstpcAuthentication
+		diags.Append(o.NodeInterfacesSstpcAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesSstpcSsl.IsNull() || o.NodeInterfacesSstpcSsl.IsUnknown()) {
+		var subModel InterfacesSstpcSsl
+		diags.Append(o.NodeInterfacesSstpcSsl.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ssl"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesSstpc) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesSstpcDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-default-route"]; ok {
+		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcNoDefaultRoute = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-route-distance"]; ok {
+		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcDefaultRouteDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-peer-dns"]; ok {
+		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcNoPeerDNS = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesSstpcMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["server"]; ok {
+		o.LeafInterfacesSstpcServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcServer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafInterfacesSstpcPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesSstpcVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesSstpcAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesSstpcAuthentication = data
+
+	} else {
+		o.NodeInterfacesSstpcAuthentication = basetypes.NewObjectNull(InterfacesSstpcAuthentication{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ssl"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesSstpcSsl{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesSstpcSsl = data
+
+	} else {
+		o.NodeInterfacesSstpcSsl = basetypes.NewObjectNull(InterfacesSstpcSsl{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "sstpc"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesSstpc) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":            types.StringType,
+		"disable":                types.StringType,
+		"no_default_route":       types.StringType,
+		"default_route_distance": types.StringType,
+		"no_peer_dns":            types.StringType,
+		"mtu":                    types.StringType,
+		"server":                 types.StringType,
+		"port":                   types.StringType,
+		"vrf":                    types.StringType,
+
+		// Tags
+
+		// Nodes
+		"authentication": types.ObjectType{AttrTypes: InterfacesSstpcAuthentication{}.AttributeTypes()},
+		"ssl":            types.ObjectType{AttrTypes: InterfacesSstpcSsl{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesSstpc) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Secure Socket Tunneling Protocol (SSTP) client Interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -46,24 +220,21 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"no_default_route": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not install default route to system
 
 `,
 		},
 
 		"default_route_distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
 |  Format  |  Description  |
@@ -77,16 +248,14 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"no_peer_dns": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not use DNS servers provided by the peer
 
 `,
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -100,8 +269,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remote server to connect to
 
 |  Format  |  Description  |
@@ -113,8 +281,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -128,8 +295,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -144,7 +310,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: InterfacesSstpcAuthentication{}.ResourceAttributes(),
+			Attributes: InterfacesSstpcAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Authentication settings
 
@@ -152,7 +318,7 @@ func (o InterfacesSstpc) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ssl": schema.SingleNestedAttribute{
-			Attributes: InterfacesSstpcSsl{}.ResourceAttributes(),
+			Attributes: InterfacesSstpcSsl{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Secure Sockets Layer (SSL) configuration
 

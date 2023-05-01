@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfRedistributeKernel describes the resource data model.
 type VrfNameProtocolsOspfRedistributeKernel struct {
 	// LeafNodes
-	VrfNameProtocolsOspfRedistributeKernelMetric     customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	VrfNameProtocolsOspfRedistributeKernelMetricType customtypes.CustomStringValue `tfsdk:"metric_type" json:"metric-type,omitempty"`
-	VrfNameProtocolsOspfRedistributeKernelRouteMap   customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsOspfRedistributeKernelMetric     types.String `tfsdk:"metric"`
+	LeafVrfNameProtocolsOspfRedistributeKernelMetricType types.String `tfsdk:"metric_type"`
+	LeafVrfNameProtocolsOspfRedistributeKernelRouteMap   types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfRedistributeKernel) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfRedistributeKernel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "kernel"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfRedistributeKernelMetric.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeKernelMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafVrfNameProtocolsOspfRedistributeKernelMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfRedistributeKernelMetricType.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeKernelMetricType.IsUnknown()) {
+		vyosData["metric-type"] = o.LeafVrfNameProtocolsOspfRedistributeKernelMetricType.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfRedistributeKernelRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfRedistributeKernelRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfRedistributeKernelRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfRedistributeKernel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "kernel"}})
+
+	// Leafs
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric-type"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelMetricType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelMetricType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRedistributeKernelRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "redistribute", "kernel"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfRedistributeKernel) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"metric":      types.StringType,
+		"metric_type": types.StringType,
+		"route_map":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfRedistributeKernel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o VrfNameProtocolsOspfRedistributeKernel) ResourceAttributes() map[string]
 		},
 
 		"metric_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
 |  Format  |  Description  |
@@ -52,8 +123,7 @@ func (o VrfNameProtocolsOspfRedistributeKernel) ResourceAttributes() map[string]
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

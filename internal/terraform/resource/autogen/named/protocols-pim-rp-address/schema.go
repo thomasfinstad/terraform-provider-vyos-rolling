@@ -23,6 +23,6 @@ Rendezvous Point address
 |  ipv4  |  Rendezvous Point address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

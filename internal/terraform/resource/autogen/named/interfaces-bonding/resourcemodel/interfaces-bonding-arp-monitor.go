@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingArpMonitor describes the resource data model.
 type InterfacesBondingArpMonitor struct {
 	// LeafNodes
-	InterfacesBondingArpMonitorInterval customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	InterfacesBondingArpMonitorTarget   customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
+	LeafInterfacesBondingArpMonitorInterval types.String `tfsdk:"interval"`
+	LeafInterfacesBondingArpMonitorTarget   types.String `tfsdk:"target"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBondingArpMonitor) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBondingArpMonitor) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "arp-monitor"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBondingArpMonitorInterval.IsNull() || o.LeafInterfacesBondingArpMonitorInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafInterfacesBondingArpMonitorInterval.ValueString()
+	}
+	if !(o.LeafInterfacesBondingArpMonitorTarget.IsNull() || o.LeafInterfacesBondingArpMonitorTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafInterfacesBondingArpMonitorTarget.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBondingArpMonitor) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "arp-monitor"}})
+
+	// Leafs
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafInterfacesBondingArpMonitorInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingArpMonitorInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafInterfacesBondingArpMonitorTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingArpMonitorTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "arp-monitor"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBondingArpMonitor) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interval": types.StringType,
+		"target":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBondingArpMonitor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ARP link monitoring interval
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesBondingArpMonitor) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address used for ARP monitoring
 
 |  Format  |  Description  |

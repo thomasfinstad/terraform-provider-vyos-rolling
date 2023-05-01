@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilitiesHtStbc describes the resource data model.
 type InterfacesWirelessCapabilitiesHtStbc struct {
 	// LeafNodes
-	InterfacesWirelessCapabilitiesHtStbcRx customtypes.CustomStringValue `tfsdk:"rx" json:"rx,omitempty"`
-	InterfacesWirelessCapabilitiesHtStbcTx customtypes.CustomStringValue `tfsdk:"tx" json:"tx,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtStbcRx types.String `tfsdk:"rx"`
+	LeafInterfacesWirelessCapabilitiesHtStbcTx types.String `tfsdk:"tx"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesWirelessCapabilitiesHtStbc) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesWirelessCapabilitiesHtStbc) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht", "stbc"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesWirelessCapabilitiesHtStbcRx.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtStbcRx.IsUnknown()) {
+		vyosData["rx"] = o.LeafInterfacesWirelessCapabilitiesHtStbcRx.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtStbcTx.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtStbcTx.IsUnknown()) {
+		vyosData["tx"] = o.LeafInterfacesWirelessCapabilitiesHtStbcTx.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesWirelessCapabilitiesHtStbc) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht", "stbc"}})
+
+	// Leafs
+	if value, ok := vyosData["rx"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtStbcRx = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtStbcRx = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tx"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtStbcTx = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtStbcTx = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht", "stbc"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesWirelessCapabilitiesHtStbc) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"rx": types.StringType,
+		"tx": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesWirelessCapabilitiesHtStbc) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"rx": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable receiving PPDU using STBC (Space Time Block Coding)
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesWirelessCapabilitiesHtStbc) ResourceAttributes() map[string]sc
 		},
 
 		"tx": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable sending PPDU using STBC (Space Time Block Coding)
 
 `,

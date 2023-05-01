@@ -2,34 +2,150 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixName describes the resource data model.
 type FirewallIPvsixName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallIPvsixNameDefaultAction     customtypes.CustomStringValue `tfsdk:"default_action" json:"default-action,omitempty"`
-	FirewallIPvsixNameEnableDefaultLog  customtypes.CustomStringValue `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
-	FirewallIPvsixNameDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	FirewallIPvsixNameDefaultJumpTarget customtypes.CustomStringValue `tfsdk:"default_jump_target" json:"default-jump-target,omitempty"`
+	LeafFirewallIPvsixNameDefaultAction     types.String `tfsdk:"default_action"`
+	LeafFirewallIPvsixNameEnableDefaultLog  types.String `tfsdk:"enable_default_log"`
+	LeafFirewallIPvsixNameDescrIPtion       types.String `tfsdk:"description"`
+	LeafFirewallIPvsixNameDefaultJumpTarget types.String `tfsdk:"default_jump_target"`
 
 	// TagNodes
-	FirewallIPvsixNameRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagFirewallIPvsixNameRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallIPvsixName) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"ipv6-name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameDefaultAction.IsNull() || o.LeafFirewallIPvsixNameDefaultAction.IsUnknown()) {
+		vyosData["default-action"] = o.LeafFirewallIPvsixNameDefaultAction.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameEnableDefaultLog.IsNull() || o.LeafFirewallIPvsixNameEnableDefaultLog.IsUnknown()) {
+		vyosData["enable-default-log"] = o.LeafFirewallIPvsixNameEnableDefaultLog.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameDescrIPtion.IsNull() || o.LeafFirewallIPvsixNameDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallIPvsixNameDescrIPtion.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameDefaultJumpTarget.IsNull() || o.LeafFirewallIPvsixNameDefaultJumpTarget.IsUnknown()) {
+		vyosData["default-jump-target"] = o.LeafFirewallIPvsixNameDefaultJumpTarget.ValueString()
+	}
+
+	// Tags
+	if !(o.TagFirewallIPvsixNameRule.IsNull() || o.TagFirewallIPvsixNameRule.IsUnknown()) {
+		subModel := make(map[string]FirewallIPvsixNameRule)
+		diags.Append(o.TagFirewallIPvsixNameRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name"}})
+
+	// Leafs
+	if value, ok := vyosData["default-action"]; ok {
+		o.LeafFirewallIPvsixNameDefaultAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameDefaultAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-default-log"]; ok {
+		o.LeafFirewallIPvsixNameEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameEnableDefaultLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallIPvsixNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-jump-target"]; ok {
+		o.LeafFirewallIPvsixNameDefaultJumpTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameDefaultJumpTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: FirewallIPvsixNameRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagFirewallIPvsixNameRule = data
+	} else {
+		o.TagFirewallIPvsixNameRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_action":      types.StringType,
+		"enable_default_log":  types.StringType,
+		"description":         types.StringType,
+		"default_jump_target": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: FirewallIPvsixNameRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 firewall rule-set name
+
+`,
+		},
+
 		// LeafNodes
 
 		"default_action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
 |  Format  |  Description  |
@@ -47,16 +163,14 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"enable_default_log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -67,8 +181,7 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"default_jump_target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined in default-action to use this
                 setting
 
@@ -79,7 +192,7 @@ func (o FirewallIPvsixName) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: FirewallIPvsixNameRule{}.ResourceAttributes(),
+				Attributes: FirewallIPvsixNameRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Firewall rule number (IPv6)

@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleSet describes the resource data model.
 type PolicyRoutesixRuleSet struct {
 	// LeafNodes
-	PolicyRoutesixRuleSetConnectionMark customtypes.CustomStringValue `tfsdk:"connection_mark" json:"connection-mark,omitempty"`
-	PolicyRoutesixRuleSetDscp           customtypes.CustomStringValue `tfsdk:"dscp" json:"dscp,omitempty"`
-	PolicyRoutesixRuleSetMark           customtypes.CustomStringValue `tfsdk:"mark" json:"mark,omitempty"`
-	PolicyRoutesixRuleSetTable          customtypes.CustomStringValue `tfsdk:"table" json:"table,omitempty"`
-	PolicyRoutesixRuleSetTCPMss         customtypes.CustomStringValue `tfsdk:"tcp_mss" json:"tcp-mss,omitempty"`
+	LeafPolicyRoutesixRuleSetConnectionMark types.String `tfsdk:"connection_mark"`
+	LeafPolicyRoutesixRuleSetDscp           types.String `tfsdk:"dscp"`
+	LeafPolicyRoutesixRuleSetMark           types.String `tfsdk:"mark"`
+	LeafPolicyRoutesixRuleSetTable          types.String `tfsdk:"table"`
+	LeafPolicyRoutesixRuleSetTCPMss         types.String `tfsdk:"tcp_mss"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleSet) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleSet) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "set"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleSetConnectionMark.IsNull() || o.LeafPolicyRoutesixRuleSetConnectionMark.IsUnknown()) {
+		vyosData["connection-mark"] = o.LeafPolicyRoutesixRuleSetConnectionMark.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSetDscp.IsNull() || o.LeafPolicyRoutesixRuleSetDscp.IsUnknown()) {
+		vyosData["dscp"] = o.LeafPolicyRoutesixRuleSetDscp.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSetMark.IsNull() || o.LeafPolicyRoutesixRuleSetMark.IsUnknown()) {
+		vyosData["mark"] = o.LeafPolicyRoutesixRuleSetMark.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSetTable.IsNull() || o.LeafPolicyRoutesixRuleSetTable.IsUnknown()) {
+		vyosData["table"] = o.LeafPolicyRoutesixRuleSetTable.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSetTCPMss.IsNull() || o.LeafPolicyRoutesixRuleSetTCPMss.IsUnknown()) {
+		vyosData["tcp-mss"] = o.LeafPolicyRoutesixRuleSetTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleSet) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "set"}})
+
+	// Leafs
+	if value, ok := vyosData["connection-mark"]; ok {
+		o.LeafPolicyRoutesixRuleSetConnectionMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSetConnectionMark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dscp"]; ok {
+		o.LeafPolicyRoutesixRuleSetDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSetDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mark"]; ok {
+		o.LeafPolicyRoutesixRuleSetMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSetMark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["table"]; ok {
+		o.LeafPolicyRoutesixRuleSetTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSetTable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tcp-mss"]; ok {
+		o.LeafPolicyRoutesixRuleSetTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSetTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "set"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleSet) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"connection_mark": types.StringType,
+		"dscp":            types.StringType,
+		"mark":            types.StringType,
+		"table":           types.StringType,
+		"tcp_mss":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleSet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"connection_mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Connection marking
 
 |  Format  |  Description  |
@@ -39,8 +129,7 @@ func (o PolicyRoutesixRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet Differentiated Services Codepoint (DSCP)
 
 |  Format  |  Description  |
@@ -51,8 +140,7 @@ func (o PolicyRoutesixRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet marking
 
 |  Format  |  Description  |
@@ -63,8 +151,7 @@ func (o PolicyRoutesixRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"table": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Routing table to forward packet with
 
 |  Format  |  Description  |
@@ -76,8 +163,7 @@ func (o PolicyRoutesixRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"tcp_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `TCP Maximum Segment Size
 
 |  Format  |  Description  |

@@ -2,31 +2,122 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallGroupIPvsixAddressGroup describes the resource data model.
 type FirewallGroupIPvsixAddressGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallGroupIPvsixAddressGroupAddress     customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	FirewallGroupIPvsixAddressGroupInclude     customtypes.CustomStringValue `tfsdk:"include" json:"include,omitempty"`
-	FirewallGroupIPvsixAddressGroupDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafFirewallGroupIPvsixAddressGroupAddress     types.String `tfsdk:"address"`
+	LeafFirewallGroupIPvsixAddressGroupInclude     types.String `tfsdk:"include"`
+	LeafFirewallGroupIPvsixAddressGroupDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallGroupIPvsixAddressGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallGroupIPvsixAddressGroup) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"group",
+		"ipv6-address-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallGroupIPvsixAddressGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "group", "ipv6-address-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallGroupIPvsixAddressGroupAddress.IsNull() || o.LeafFirewallGroupIPvsixAddressGroupAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafFirewallGroupIPvsixAddressGroupAddress.ValueString()
+	}
+	if !(o.LeafFirewallGroupIPvsixAddressGroupInclude.IsNull() || o.LeafFirewallGroupIPvsixAddressGroupInclude.IsUnknown()) {
+		vyosData["include"] = o.LeafFirewallGroupIPvsixAddressGroupInclude.ValueString()
+	}
+	if !(o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.IsNull() || o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallGroupIPvsixAddressGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "group", "ipv6-address-group"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafFirewallGroupIPvsixAddressGroupAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupIPvsixAddressGroupAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["include"]; ok {
+		o.LeafFirewallGroupIPvsixAddressGroupInclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupIPvsixAddressGroupInclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallGroupIPvsixAddressGroupDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "group", "ipv6-address-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallGroupIPvsixAddressGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"include":     types.StringType,
+		"description": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallGroupIPvsixAddressGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Firewall ipv6-address-group
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Address-group member
 
 |  Format  |  Description  |
@@ -38,16 +129,14 @@ func (o FirewallGroupIPvsixAddressGroup) ResourceAttributes() map[string]schema.
 		},
 
 		"include": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Include another ipv6-address-group
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |

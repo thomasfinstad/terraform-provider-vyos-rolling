@@ -14,6 +14,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -90,6 +94,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -119,6 +124,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -137,6 +143,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Invalid failover peer name. May only contain letters, numbers and .-_"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -177,6 +184,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -199,6 +207,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -233,6 +242,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -248,6 +258,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -263,6 +274,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -297,6 +309,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -319,6 +332,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -348,6 +362,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -379,6 +394,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -401,6 +417,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -417,6 +434,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -446,6 +464,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -475,6 +494,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -493,6 +513,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -526,6 +547,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -558,6 +580,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -575,6 +598,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -615,6 +639,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -645,6 +670,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -676,6 +702,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"DHCP client prefix length must be 0 to 32"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -705,6 +732,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -728,6 +756,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Invalid domain name (RFC 1123 section 2).\\nMay only contain letters, numbers and .-_"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -756,6 +785,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -781,6 +811,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -815,6 +846,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -831,6 +863,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -865,6 +898,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -881,6 +915,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -913,6 +948,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"DHCP lease time must be between 0 and 4294967295 (49 days)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -947,6 +983,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -963,6 +1000,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -997,6 +1035,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1026,6 +1065,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1060,6 +1100,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1091,6 +1132,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Seconds must be between 0 and 4294967295 (49 days)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1107,6 +1149,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1147,6 +1190,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1172,6 +1216,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Invalid time offset value"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1206,6 +1251,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1240,6 +1286,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1254,6 +1301,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1270,6 +1318,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1293,6 +1342,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Invalid domain name (RFC 1123 section 2).\\nMay only contain letters, numbers and .-_"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1321,6 +1371,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1355,6 +1406,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1371,6 +1423,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1396,6 +1449,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1412,6 +1466,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1446,6 +1501,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1465,6 +1521,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1481,6 +1538,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1497,6 +1555,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1513,6 +1572,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1529,6 +1589,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -1545,6 +1606,7 @@ func dhcpserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClientIPvsixPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPvsixPool struct {
 	// LeafNodes
-	InterfacesOpenvpnServerClientIPvsixPoolBase    customtypes.CustomStringValue `tfsdk:"base" json:"base,omitempty"`
-	InterfacesOpenvpnServerClientIPvsixPoolDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPvsixPoolBase    types.String `tfsdk:"base"`
+	LeafInterfacesOpenvpnServerClientIPvsixPoolDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnServerClientIPvsixPool) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsNull() || o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.IsUnknown()) {
+		vyosData["base"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnServerClientIPvsixPool) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
+
+	// Leafs
+	if value, ok := vyosData["base"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolBase = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPvsixPoolDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ipv6-pool"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnServerClientIPvsixPool) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"base":    types.StringType,
+		"disable": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"base": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Client IPv6 pool base address with optional prefix length
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesOpenvpnServerClientIPvsixPool) ResourceAttributes() map[string
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,

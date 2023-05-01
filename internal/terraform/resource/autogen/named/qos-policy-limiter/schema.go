@@ -23,6 +23,6 @@ Traffic input limiting policy
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

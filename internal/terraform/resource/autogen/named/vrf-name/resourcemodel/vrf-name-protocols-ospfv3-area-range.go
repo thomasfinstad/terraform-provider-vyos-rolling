@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeAreaRange describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaRange struct {
 	// LeafNodes
-	VrfNameProtocolsOspfvthreeAreaRangeAdvertise    customtypes.CustomStringValue `tfsdk:"advertise" json:"advertise,omitempty"`
-	VrfNameProtocolsOspfvthreeAreaRangeNotAdvertise customtypes.CustomStringValue `tfsdk:"not_advertise" json:"not-advertise,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise    types.String `tfsdk:"advertise"`
+	LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise types.String `tfsdk:"not_advertise"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfvthreeAreaRange) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "range"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.IsNull() || o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.IsUnknown()) {
+		vyosData["advertise"] = o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.IsNull() || o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.IsUnknown()) {
+		vyosData["not-advertise"] = o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfvthreeAreaRange) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "range"}})
+
+	// Leafs
+	if value, ok := vyosData["advertise"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeAreaRangeAdvertise = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["not-advertise"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeAreaRangeNotAdvertise = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "range"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfvthreeAreaRange) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"advertise":     types.StringType,
+		"not_advertise": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfvthreeAreaRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"advertise": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise this range
 
 `,
 		},
 
 		"not_advertise": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not advertise this range
 
 `,

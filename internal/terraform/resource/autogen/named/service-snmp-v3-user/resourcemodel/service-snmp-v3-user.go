@@ -2,41 +2,149 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeUser describes the resource data model.
 type ServiceSnmpVthreeUser struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpVthreeUserGroup customtypes.CustomStringValue `tfsdk:"group" json:"group,omitempty"`
-	ServiceSnmpVthreeUserMode  customtypes.CustomStringValue `tfsdk:"mode" json:"mode,omitempty"`
+	LeafServiceSnmpVthreeUserGroup types.String `tfsdk:"group"`
+	LeafServiceSnmpVthreeUserMode  types.String `tfsdk:"mode"`
 
 	// TagNodes
 
 	// Nodes
-	ServiceSnmpVthreeUserAuth    types.Object `tfsdk:"auth" json:"auth,omitempty"`
-	ServiceSnmpVthreeUserPrivacy types.Object `tfsdk:"privacy" json:"privacy,omitempty"`
+	NodeServiceSnmpVthreeUserAuth    types.Object `tfsdk:"auth"`
+	NodeServiceSnmpVthreeUserPrivacy types.Object `tfsdk:"privacy"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpVthreeUser) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpVthreeUser) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"v3",
+		"user",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpVthreeUser) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpVthreeUserGroup.IsNull() || o.LeafServiceSnmpVthreeUserGroup.IsUnknown()) {
+		vyosData["group"] = o.LeafServiceSnmpVthreeUserGroup.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeUserMode.IsNull() || o.LeafServiceSnmpVthreeUserMode.IsUnknown()) {
+		vyosData["mode"] = o.LeafServiceSnmpVthreeUserMode.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceSnmpVthreeUserAuth.IsNull() || o.NodeServiceSnmpVthreeUserAuth.IsUnknown()) {
+		var subModel ServiceSnmpVthreeUserAuth
+		diags.Append(o.NodeServiceSnmpVthreeUserAuth.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["auth"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeServiceSnmpVthreeUserPrivacy.IsNull() || o.NodeServiceSnmpVthreeUserPrivacy.IsUnknown()) {
+		var subModel ServiceSnmpVthreeUserPrivacy
+		diags.Append(o.NodeServiceSnmpVthreeUserPrivacy.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["privacy"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpVthreeUser) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
+
+	// Leafs
+	if value, ok := vyosData["group"]; ok {
+		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mode"]; ok {
+		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserMode = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["auth"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeUserAuth{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceSnmpVthreeUserAuth = data
+
+	} else {
+		o.NodeServiceSnmpVthreeUserAuth = basetypes.NewObjectNull(ServiceSnmpVthreeUserAuth{}.AttributeTypes())
+	}
+	if value, ok := vyosData["privacy"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeUserPrivacy{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceSnmpVthreeUserPrivacy = data
+
+	} else {
+		o.NodeServiceSnmpVthreeUserPrivacy = basetypes.NewObjectNull(ServiceSnmpVthreeUserPrivacy{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpVthreeUser) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"group": types.StringType,
+		"mode":  types.StringType,
+
+		// Tags
+
+		// Nodes
+		"auth":    types.ObjectType{AttrTypes: ServiceSnmpVthreeUserAuth{}.AttributeTypes()},
+		"privacy": types.ObjectType{AttrTypes: ServiceSnmpVthreeUserPrivacy{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpVthreeUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Specifies the user with name username
+
+`,
+		},
+
 		// LeafNodes
 
 		"group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies group for user name
 
 `,
 		},
 
 		"mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Define access permission
 
 |  Format  |  Description  |
@@ -55,7 +163,7 @@ func (o ServiceSnmpVthreeUser) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"auth": schema.SingleNestedAttribute{
-			Attributes: ServiceSnmpVthreeUserAuth{}.ResourceAttributes(),
+			Attributes: ServiceSnmpVthreeUserAuth{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specifies the auth
 
@@ -63,7 +171,7 @@ func (o ServiceSnmpVthreeUser) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"privacy": schema.SingleNestedAttribute{
-			Attributes: ServiceSnmpVthreeUserPrivacy{}.ResourceAttributes(),
+			Attributes: ServiceSnmpVthreeUserPrivacy{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Defines the privacy
 

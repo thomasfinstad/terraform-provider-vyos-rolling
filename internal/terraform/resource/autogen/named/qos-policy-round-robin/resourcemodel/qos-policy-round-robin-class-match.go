@@ -2,36 +2,157 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatch describes the resource data model.
 type QosPolicyRoundRobinClassMatch struct {
 	// LeafNodes
-	QosPolicyRoundRobinClassMatchDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyRoundRobinClassMatchInterface   customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	QosPolicyRoundRobinClassMatchMark        customtypes.CustomStringValue `tfsdk:"mark" json:"mark,omitempty"`
-	QosPolicyRoundRobinClassMatchVif         customtypes.CustomStringValue `tfsdk:"vif" json:"vif,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyRoundRobinClassMatchInterface   types.String `tfsdk:"interface"`
+	LeafQosPolicyRoundRobinClassMatchMark        types.String `tfsdk:"mark"`
+	LeafQosPolicyRoundRobinClassMatchVif         types.String `tfsdk:"vif"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyRoundRobinClassMatchEther  types.Object `tfsdk:"ether" json:"ether,omitempty"`
-	QosPolicyRoundRobinClassMatchIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	QosPolicyRoundRobinClassMatchIPvsix types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeQosPolicyRoundRobinClassMatchEther  types.Object `tfsdk:"ether"`
+	NodeQosPolicyRoundRobinClassMatchIP     types.Object `tfsdk:"ip"`
+	NodeQosPolicyRoundRobinClassMatchIPvsix types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRoundRobinClassMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRoundRobinClassMatchDescrIPtion.IsNull() || o.LeafQosPolicyRoundRobinClassMatchDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyRoundRobinClassMatchDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchInterface.IsNull() || o.LeafQosPolicyRoundRobinClassMatchInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafQosPolicyRoundRobinClassMatchInterface.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchMark.IsNull() || o.LeafQosPolicyRoundRobinClassMatchMark.IsUnknown()) {
+		vyosData["mark"] = o.LeafQosPolicyRoundRobinClassMatchMark.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchVif.IsNull() || o.LeafQosPolicyRoundRobinClassMatchVif.IsUnknown()) {
+		vyosData["vif"] = o.LeafQosPolicyRoundRobinClassMatchVif.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyRoundRobinClassMatchEther.IsNull() || o.NodeQosPolicyRoundRobinClassMatchEther.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchEther
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchEther.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ether"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyRoundRobinClassMatchIP.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIP.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchIP
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyRoundRobinClassMatchIPvsix.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPvsix.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchIPvsix
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRoundRobinClassMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mark"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchMark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vif"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchVif = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchVif = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ether"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchEther{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchEther = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchEther = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchEther{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchIP = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchIP = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchIPvsix = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchIPvsix = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRoundRobinClassMatch) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"interface":   types.StringType,
+		"mark":        types.StringType,
+		"vif":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ether": types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchEther{}.AttributeTypes()},
+		"ip":    types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIP{}.AttributeTypes()},
+		"ipv6":  types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRoundRobinClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,8 +163,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
@@ -54,8 +174,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
 |  Format  |  Description  |
@@ -66,8 +185,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"vif": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
 |  Format  |  Description  |
@@ -82,7 +200,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"ether": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchEther{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchEther{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet header match
 
@@ -90,7 +208,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIP{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IP protocol header
 
@@ -98,7 +216,7 @@ func (o QosPolicyRoundRobinClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPvsix{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IPv6 protocol header
 

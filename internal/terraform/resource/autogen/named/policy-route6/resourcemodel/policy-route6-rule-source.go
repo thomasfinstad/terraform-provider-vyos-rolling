@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleSource describes the resource data model.
 type PolicyRoutesixRuleSource struct {
 	// LeafNodes
-	PolicyRoutesixRuleSourceAddress    customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	PolicyRoutesixRuleSourcePort       customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	PolicyRoutesixRuleSourceMacAddress customtypes.CustomStringValue `tfsdk:"mac_address" json:"mac-address,omitempty"`
+	LeafPolicyRoutesixRuleSourceAddress    types.String `tfsdk:"address"`
+	LeafPolicyRoutesixRuleSourcePort       types.String `tfsdk:"port"`
+	LeafPolicyRoutesixRuleSourceMacAddress types.String `tfsdk:"mac_address"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRoutesixRuleSourceGroup types.Object `tfsdk:"group" json:"group,omitempty"`
+	NodePolicyRoutesixRuleSourceGroup types.Object `tfsdk:"group"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleSourceAddress.IsNull() || o.LeafPolicyRoutesixRuleSourceAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafPolicyRoutesixRuleSourceAddress.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSourcePort.IsNull() || o.LeafPolicyRoutesixRuleSourcePort.IsUnknown()) {
+		vyosData["port"] = o.LeafPolicyRoutesixRuleSourcePort.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleSourceMacAddress.IsNull() || o.LeafPolicyRoutesixRuleSourceMacAddress.IsUnknown()) {
+		vyosData["mac-address"] = o.LeafPolicyRoutesixRuleSourceMacAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRoutesixRuleSourceGroup.IsNull() || o.NodePolicyRoutesixRuleSourceGroup.IsUnknown()) {
+		var subModel PolicyRoutesixRuleSourceGroup
+		diags.Append(o.NodePolicyRoutesixRuleSourceGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourcePort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-address"]; ok {
+		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleSourceMacAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["group"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleSourceGroup{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleSourceGroup = data
+
+	} else {
+		o.NodePolicyRoutesixRuleSourceGroup = basetypes.NewObjectNull(PolicyRoutesixRuleSourceGroup{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"port":        types.StringType,
+		"mac_address": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"group": types.ObjectType{AttrTypes: PolicyRoutesixRuleSourceGroup{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -44,8 +128,7 @@ func (o PolicyRoutesixRuleSource) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port
 
 |  Format  |  Description  |
@@ -59,8 +142,7 @@ func (o PolicyRoutesixRuleSource) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"mac_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MAC address
 
 |  Format  |  Description  |
@@ -76,7 +158,7 @@ func (o PolicyRoutesixRuleSource) ResourceAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleSourceGroup{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleSourceGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
 

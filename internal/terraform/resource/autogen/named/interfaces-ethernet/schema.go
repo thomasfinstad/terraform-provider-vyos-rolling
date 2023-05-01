@@ -21,6 +21,6 @@ Ethernet Interface
 |  ethN  |  Ethernet interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

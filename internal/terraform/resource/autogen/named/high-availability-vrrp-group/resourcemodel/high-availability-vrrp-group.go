@@ -2,47 +2,305 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpGroup describes the resource data model.
 type HighAvailabilityVrrpGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	HighAvailabilityVrrpGroupInterface                          customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	HighAvailabilityVrrpGroupAdvertiseInterval                  customtypes.CustomStringValue `tfsdk:"advertise_interval" json:"advertise-interval,omitempty"`
-	HighAvailabilityVrrpGroupDescrIPtion                        customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	HighAvailabilityVrrpGroupDisable                            customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	HighAvailabilityVrrpGroupHelloSourceAddress                 customtypes.CustomStringValue `tfsdk:"hello_source_address" json:"hello-source-address,omitempty"`
-	HighAvailabilityVrrpGroupPeerAddress                        customtypes.CustomStringValue `tfsdk:"peer_address" json:"peer-address,omitempty"`
-	HighAvailabilityVrrpGroupNoPreempt                          customtypes.CustomStringValue `tfsdk:"no_preempt" json:"no-preempt,omitempty"`
-	HighAvailabilityVrrpGroupPreemptDelay                       customtypes.CustomStringValue `tfsdk:"preempt_delay" json:"preempt-delay,omitempty"`
-	HighAvailabilityVrrpGroupPriority                           customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	HighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility customtypes.CustomStringValue `tfsdk:"rfc3768_compatibility" json:"rfc3768-compatibility,omitempty"`
-	HighAvailabilityVrrpGroupExcludedAddress                    customtypes.CustomStringValue `tfsdk:"excluded_address" json:"excluded-address,omitempty"`
-	HighAvailabilityVrrpGroupVrID                               customtypes.CustomStringValue `tfsdk:"vrid" json:"vrid,omitempty"`
+	LeafHighAvailabilityVrrpGroupInterface                          types.String `tfsdk:"interface"`
+	LeafHighAvailabilityVrrpGroupAdvertiseInterval                  types.String `tfsdk:"advertise_interval"`
+	LeafHighAvailabilityVrrpGroupDescrIPtion                        types.String `tfsdk:"description"`
+	LeafHighAvailabilityVrrpGroupDisable                            types.String `tfsdk:"disable"`
+	LeafHighAvailabilityVrrpGroupHelloSourceAddress                 types.String `tfsdk:"hello_source_address"`
+	LeafHighAvailabilityVrrpGroupPeerAddress                        types.String `tfsdk:"peer_address"`
+	LeafHighAvailabilityVrrpGroupNoPreempt                          types.String `tfsdk:"no_preempt"`
+	LeafHighAvailabilityVrrpGroupPreemptDelay                       types.String `tfsdk:"preempt_delay"`
+	LeafHighAvailabilityVrrpGroupPriority                           types.String `tfsdk:"priority"`
+	LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility types.String `tfsdk:"rfc3768_compatibility"`
+	LeafHighAvailabilityVrrpGroupExcludedAddress                    types.String `tfsdk:"excluded_address"`
+	LeafHighAvailabilityVrrpGroupVrID                               types.String `tfsdk:"vrid"`
 
 	// TagNodes
-	HighAvailabilityVrrpGroupAddress types.Map `tfsdk:"address" json:"address,omitempty"`
+	TagHighAvailabilityVrrpGroupAddress types.Map `tfsdk:"address"`
 
 	// Nodes
-	HighAvailabilityVrrpGroupGarp             types.Object `tfsdk:"garp" json:"garp,omitempty"`
-	HighAvailabilityVrrpGroupAuthentication   types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
-	HighAvailabilityVrrpGroupHealthCheck      types.Object `tfsdk:"health_check" json:"health-check,omitempty"`
-	HighAvailabilityVrrpGroupTrack            types.Object `tfsdk:"track" json:"track,omitempty"`
-	HighAvailabilityVrrpGroupTransitionScrIPt types.Object `tfsdk:"transition_script" json:"transition-script,omitempty"`
+	NodeHighAvailabilityVrrpGroupGarp             types.Object `tfsdk:"garp"`
+	NodeHighAvailabilityVrrpGroupAuthentication   types.Object `tfsdk:"authentication"`
+	NodeHighAvailabilityVrrpGroupHealthCheck      types.Object `tfsdk:"health_check"`
+	NodeHighAvailabilityVrrpGroupTrack            types.Object `tfsdk:"track"`
+	NodeHighAvailabilityVrrpGroupTransitionScrIPt types.Object `tfsdk:"transition_script"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *HighAvailabilityVrrpGroup) GetVyosPath() []string {
+	return []string{
+		"high-availability",
+		"vrrp",
+		"group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *HighAvailabilityVrrpGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafHighAvailabilityVrrpGroupInterface.IsNull() || o.LeafHighAvailabilityVrrpGroupInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafHighAvailabilityVrrpGroupInterface.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsNull() || o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.IsUnknown()) {
+		vyosData["advertise-interval"] = o.LeafHighAvailabilityVrrpGroupAdvertiseInterval.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsNull() || o.LeafHighAvailabilityVrrpGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafHighAvailabilityVrrpGroupDescrIPtion.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupDisable.IsNull() || o.LeafHighAvailabilityVrrpGroupDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafHighAvailabilityVrrpGroupDisable.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.IsUnknown()) {
+		vyosData["hello-source-address"] = o.LeafHighAvailabilityVrrpGroupHelloSourceAddress.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupPeerAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupPeerAddress.IsUnknown()) {
+		vyosData["peer-address"] = o.LeafHighAvailabilityVrrpGroupPeerAddress.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupNoPreempt.IsNull() || o.LeafHighAvailabilityVrrpGroupNoPreempt.IsUnknown()) {
+		vyosData["no-preempt"] = o.LeafHighAvailabilityVrrpGroupNoPreempt.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsNull() || o.LeafHighAvailabilityVrrpGroupPreemptDelay.IsUnknown()) {
+		vyosData["preempt-delay"] = o.LeafHighAvailabilityVrrpGroupPreemptDelay.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupPriority.IsNull() || o.LeafHighAvailabilityVrrpGroupPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafHighAvailabilityVrrpGroupPriority.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsNull() || o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.IsUnknown()) {
+		vyosData["rfc3768-compatibility"] = o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsNull() || o.LeafHighAvailabilityVrrpGroupExcludedAddress.IsUnknown()) {
+		vyosData["excluded-address"] = o.LeafHighAvailabilityVrrpGroupExcludedAddress.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupVrID.IsNull() || o.LeafHighAvailabilityVrrpGroupVrID.IsUnknown()) {
+		vyosData["vrid"] = o.LeafHighAvailabilityVrrpGroupVrID.ValueString()
+	}
+
+	// Tags
+	if !(o.TagHighAvailabilityVrrpGroupAddress.IsNull() || o.TagHighAvailabilityVrrpGroupAddress.IsUnknown()) {
+		subModel := make(map[string]HighAvailabilityVrrpGroupAddress)
+		diags.Append(o.TagHighAvailabilityVrrpGroupAddress.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["address"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeHighAvailabilityVrrpGroupGarp.IsNull() || o.NodeHighAvailabilityVrrpGroupGarp.IsUnknown()) {
+		var subModel HighAvailabilityVrrpGroupGarp
+		diags.Append(o.NodeHighAvailabilityVrrpGroupGarp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["garp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeHighAvailabilityVrrpGroupAuthentication.IsNull() || o.NodeHighAvailabilityVrrpGroupAuthentication.IsUnknown()) {
+		var subModel HighAvailabilityVrrpGroupAuthentication
+		diags.Append(o.NodeHighAvailabilityVrrpGroupAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeHighAvailabilityVrrpGroupHealthCheck.IsNull() || o.NodeHighAvailabilityVrrpGroupHealthCheck.IsUnknown()) {
+		var subModel HighAvailabilityVrrpGroupHealthCheck
+		diags.Append(o.NodeHighAvailabilityVrrpGroupHealthCheck.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["health-check"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeHighAvailabilityVrrpGroupTrack.IsNull() || o.NodeHighAvailabilityVrrpGroupTrack.IsUnknown()) {
+		var subModel HighAvailabilityVrrpGroupTrack
+		diags.Append(o.NodeHighAvailabilityVrrpGroupTrack.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["track"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.IsNull() || o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.IsUnknown()) {
+		var subModel HighAvailabilityVrrpGroupTransitionScrIPt
+		diags.Append(o.NodeHighAvailabilityVrrpGroupTransitionScrIPt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["transition-script"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *HighAvailabilityVrrpGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
+
+	// Leafs
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["advertise-interval"]; ok {
+		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupAdvertiseInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-source-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupHelloSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["peer-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPeerAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-preempt"]; ok {
+		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupNoPreempt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["preempt-delay"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPreemptDelay = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupPriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rfc3768-compatibility"]; ok {
+		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupRfcthreesevensixeightCompatibility = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["excluded-address"]; ok {
+		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupExcludedAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrid"]; ok {
+		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupVrID = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["address"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAddress{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagHighAvailabilityVrrpGroupAddress = data
+	} else {
+		o.TagHighAvailabilityVrrpGroupAddress = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["garp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupGarp{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVrrpGroupGarp = data
+
+	} else {
+		o.NodeHighAvailabilityVrrpGroupGarp = basetypes.NewObjectNull(HighAvailabilityVrrpGroupGarp{}.AttributeTypes())
+	}
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVrrpGroupAuthentication = data
+
+	} else {
+		o.NodeHighAvailabilityVrrpGroupAuthentication = basetypes.NewObjectNull(HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes())
+	}
+	if value, ok := vyosData["health-check"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVrrpGroupHealthCheck = data
+
+	} else {
+		o.NodeHighAvailabilityVrrpGroupHealthCheck = basetypes.NewObjectNull(HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes())
+	}
+	if value, ok := vyosData["track"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupTrack{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVrrpGroupTrack = data
+
+	} else {
+		o.NodeHighAvailabilityVrrpGroupTrack = basetypes.NewObjectNull(HighAvailabilityVrrpGroupTrack{}.AttributeTypes())
+	}
+	if value, ok := vyosData["transition-script"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = data
+
+	} else {
+		o.NodeHighAvailabilityVrrpGroupTransitionScrIPt = basetypes.NewObjectNull(HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o HighAvailabilityVrrpGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interface":             types.StringType,
+		"advertise_interval":    types.StringType,
+		"description":           types.StringType,
+		"disable":               types.StringType,
+		"hello_source_address":  types.StringType,
+		"peer_address":          types.StringType,
+		"no_preempt":            types.StringType,
+		"preempt_delay":         types.StringType,
+		"priority":              types.StringType,
+		"rfc3768_compatibility": types.StringType,
+		"excluded_address":      types.StringType,
+		"vrid":                  types.StringType,
+
+		// Tags
+		"address": types.MapType{ElemType: types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAddress{}.AttributeTypes()}},
+
+		// Nodes
+		"garp":              types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupGarp{}.AttributeTypes()},
+		"authentication":    types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupAuthentication{}.AttributeTypes()},
+		"health_check":      types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupHealthCheck{}.AttributeTypes()},
+		"track":             types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupTrack{}.AttributeTypes()},
+		"transition_script": types.ObjectType{AttrTypes: HighAvailabilityVrrpGroupTransitionScrIPt{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o HighAvailabilityVrrpGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `VRRP group
+
+`,
+		},
+
 		// LeafNodes
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface Name to use
 
 |  Format  |  Description  |
@@ -53,8 +311,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"advertise_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise interval
 
 |  Format  |  Description  |
@@ -68,8 +325,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -80,16 +336,14 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"hello_source_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRRP hello source address
 
 |  Format  |  Description  |
@@ -101,8 +355,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"peer_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Unicast VRRP peer address
 
 |  Format  |  Description  |
@@ -114,16 +367,14 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"no_preempt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable master preemption
 
 `,
 		},
 
 		"preempt_delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Preempt delay (in seconds)
 
 |  Format  |  Description  |
@@ -137,8 +388,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Router priority
 
 |  Format  |  Description  |
@@ -152,16 +402,14 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"rfc3768_compatibility": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use VRRP virtual MAC address as per RFC3768
 
 `,
 		},
 
 		"excluded_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual address (If you need additional IPv4 and IPv6 in same group)
 
 |  Format  |  Description  |
@@ -173,8 +421,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"vrid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual router identifier
 
 |  Format  |  Description  |
@@ -188,7 +435,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 
 		"address": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: HighAvailabilityVrrpGroupAddress{}.ResourceAttributes(),
+				Attributes: HighAvailabilityVrrpGroupAddress{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Virtual IP address
@@ -204,7 +451,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"garp": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupGarp{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVrrpGroupGarp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Gratuitous ARP parameters
 
@@ -212,7 +459,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupAuthentication{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVrrpGroupAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VRRP authentication
 
@@ -220,7 +467,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"health_check": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupHealthCheck{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVrrpGroupHealthCheck{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Health check script
 
@@ -228,7 +475,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"track": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupTrack{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVrrpGroupTrack{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Track settings
 
@@ -236,7 +483,7 @@ func (o HighAvailabilityVrrpGroup) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"transition_script": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVrrpGroupTransitionScrIPt{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVrrpGroupTransitionScrIPt{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `VRRP transition scripts
 

@@ -21,6 +21,6 @@ Authentication
 Pre-shared key name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

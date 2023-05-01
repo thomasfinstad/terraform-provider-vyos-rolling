@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleSource describes the resource data model.
 type PolicyRouteRuleSource struct {
 	// LeafNodes
-	PolicyRouteRuleSourceAddress    customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	PolicyRouteRuleSourcePort       customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	PolicyRouteRuleSourceMacAddress customtypes.CustomStringValue `tfsdk:"mac_address" json:"mac-address,omitempty"`
+	LeafPolicyRouteRuleSourceAddress    types.String `tfsdk:"address"`
+	LeafPolicyRouteRuleSourcePort       types.String `tfsdk:"port"`
+	LeafPolicyRouteRuleSourceMacAddress types.String `tfsdk:"mac_address"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteRuleSourceGroup types.Object `tfsdk:"group" json:"group,omitempty"`
+	NodePolicyRouteRuleSourceGroup types.Object `tfsdk:"group"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleSourceAddress.IsNull() || o.LeafPolicyRouteRuleSourceAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafPolicyRouteRuleSourceAddress.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleSourcePort.IsNull() || o.LeafPolicyRouteRuleSourcePort.IsUnknown()) {
+		vyosData["port"] = o.LeafPolicyRouteRuleSourcePort.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleSourceMacAddress.IsNull() || o.LeafPolicyRouteRuleSourceMacAddress.IsUnknown()) {
+		vyosData["mac-address"] = o.LeafPolicyRouteRuleSourceMacAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteRuleSourceGroup.IsNull() || o.NodePolicyRouteRuleSourceGroup.IsUnknown()) {
+		var subModel PolicyRouteRuleSourceGroup
+		diags.Append(o.NodePolicyRouteRuleSourceGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafPolicyRouteRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafPolicyRouteRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourcePort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-address"]; ok {
+		o.LeafPolicyRouteRuleSourceMacAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleSourceMacAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["group"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleSourceGroup{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleSourceGroup = data
+
+	} else {
+		o.NodePolicyRouteRuleSourceGroup = basetypes.NewObjectNull(PolicyRouteRuleSourceGroup{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"port":        types.StringType,
+		"mac_address": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"group": types.ObjectType{AttrTypes: PolicyRouteRuleSourceGroup{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -44,8 +128,7 @@ func (o PolicyRouteRuleSource) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port
 
 |  Format  |  Description  |
@@ -59,8 +142,7 @@ func (o PolicyRouteRuleSource) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"mac_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MAC address
 
 |  Format  |  Description  |
@@ -76,7 +158,7 @@ func (o PolicyRouteRuleSource) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleSourceGroup{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleSourceGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
 

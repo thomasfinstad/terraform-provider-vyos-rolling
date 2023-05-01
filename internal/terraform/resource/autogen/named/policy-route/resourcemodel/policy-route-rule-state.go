@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleState describes the resource data model.
 type PolicyRouteRuleState struct {
 	// LeafNodes
-	PolicyRouteRuleStateEstablished customtypes.CustomStringValue `tfsdk:"established" json:"established,omitempty"`
-	PolicyRouteRuleStateInvalID     customtypes.CustomStringValue `tfsdk:"invalid" json:"invalid,omitempty"`
-	PolicyRouteRuleStateNew         customtypes.CustomStringValue `tfsdk:"new" json:"new,omitempty"`
-	PolicyRouteRuleStateRelated     customtypes.CustomStringValue `tfsdk:"related" json:"related,omitempty"`
+	LeafPolicyRouteRuleStateEstablished types.String `tfsdk:"established"`
+	LeafPolicyRouteRuleStateInvalID     types.String `tfsdk:"invalid"`
+	LeafPolicyRouteRuleStateNew         types.String `tfsdk:"new"`
+	LeafPolicyRouteRuleStateRelated     types.String `tfsdk:"related"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleState) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "state"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleStateEstablished.IsNull() || o.LeafPolicyRouteRuleStateEstablished.IsUnknown()) {
+		vyosData["established"] = o.LeafPolicyRouteRuleStateEstablished.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleStateInvalID.IsNull() || o.LeafPolicyRouteRuleStateInvalID.IsUnknown()) {
+		vyosData["invalid"] = o.LeafPolicyRouteRuleStateInvalID.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleStateNew.IsNull() || o.LeafPolicyRouteRuleStateNew.IsUnknown()) {
+		vyosData["new"] = o.LeafPolicyRouteRuleStateNew.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleStateRelated.IsNull() || o.LeafPolicyRouteRuleStateRelated.IsUnknown()) {
+		vyosData["related"] = o.LeafPolicyRouteRuleStateRelated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleState) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "state"}})
+
+	// Leafs
+	if value, ok := vyosData["established"]; ok {
+		o.LeafPolicyRouteRuleStateEstablished = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleStateEstablished = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["invalid"]; ok {
+		o.LeafPolicyRouteRuleStateInvalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleStateInvalID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["new"]; ok {
+		o.LeafPolicyRouteRuleStateNew = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleStateNew = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["related"]; ok {
+		o.LeafPolicyRouteRuleStateRelated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleStateRelated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "state"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleState) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"established": types.StringType,
+		"invalid":     types.StringType,
+		"new":         types.StringType,
+		"related":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleState) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"established": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Established state
 
 |  Format  |  Description  |
@@ -39,8 +120,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"invalid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Invalid state
 
 |  Format  |  Description  |
@@ -52,8 +132,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"new": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `New state
 
 |  Format  |  Description  |
@@ -65,8 +144,7 @@ func (o PolicyRouteRuleState) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"related": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Related state
 
 |  Format  |  Description  |

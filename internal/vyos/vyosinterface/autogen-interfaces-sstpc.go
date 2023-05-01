@@ -14,6 +14,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				TagNode: []*interfacedefinition.TagNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "tagNode",
 					},
@@ -54,6 +56,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -69,6 +72,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -94,6 +98,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Username is limited to ASCII characters only, with a total length of 128"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -121,6 +126,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -136,6 +142,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -163,6 +170,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -188,6 +196,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -204,6 +213,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -220,6 +230,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -251,6 +262,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -267,6 +279,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -299,6 +312,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"MTU must be between 68 and 1500"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -323,6 +337,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -355,6 +370,7 @@ func interfacessstpc() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

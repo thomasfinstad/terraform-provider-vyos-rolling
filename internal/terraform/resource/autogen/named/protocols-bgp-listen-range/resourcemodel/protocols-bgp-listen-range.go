@@ -2,29 +2,108 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpListenRange describes the resource data model.
 type ProtocolsBgpListenRange struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpListenRangePeerGroup customtypes.CustomStringValue `tfsdk:"peer_group" json:"peer-group,omitempty"`
+	LeafProtocolsBgpListenRangePeerGroup types.String `tfsdk:"peer_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpListenRange) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpListenRange) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"listen",
+		"range",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpListenRange) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "listen", "range"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpListenRangePeerGroup.IsNull() || o.LeafProtocolsBgpListenRangePeerGroup.IsUnknown()) {
+		vyosData["peer-group"] = o.LeafProtocolsBgpListenRangePeerGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpListenRange) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "listen", "range"}})
+
+	// Leafs
+	if value, ok := vyosData["peer-group"]; ok {
+		o.LeafProtocolsBgpListenRangePeerGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpListenRangePeerGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "listen", "range"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpListenRange) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"peer_group": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpListenRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `BGP dynamic neighbors listen range
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  IPv4 dynamic neighbors listen range  |
+|  ipv6net  |  IPv6 dynamic neighbors listen range  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"peer_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
 |  Format  |  Description  |

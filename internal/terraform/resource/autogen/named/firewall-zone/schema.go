@@ -21,6 +21,6 @@ Zone-policy
 |  txt  |  Zone name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

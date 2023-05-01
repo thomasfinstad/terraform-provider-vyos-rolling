@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBabelDistributeListIPvsixInterfaceAccessList describes the resource data model.
 type ProtocolsBabelDistributeListIPvsixInterfaceAccessList struct {
 	// LeafNodes
-	ProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  customtypes.CustomStringValue `tfsdk:"in" json:"in,omitempty"`
-	ProtocolsBabelDistributeListIPvsixInterfaceAccessListOut customtypes.CustomStringValue `tfsdk:"out" json:"out,omitempty"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn  types.String `tfsdk:"in"`
+	LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut types.String `tfsdk:"out"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsNull() || o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.IsUnknown()) {
+		vyosData["in"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn.ValueString()
+	}
+	if !(o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsNull() || o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.IsUnknown()) {
+		vyosData["out"] = o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBabelDistributeListIPvsixInterfaceAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
+
+	// Leafs
+	if value, ok := vyosData["in"]; ok {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListIn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["out"]; ok {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBabelDistributeListIPvsixInterfaceAccessListOut = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv6", "interface", "access-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"in":  types.StringType,
+		"out": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"in": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsBabelDistributeListIPvsixInterfaceAccessList) ResourceAttribute
 		},
 
 		"out": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
 |  Format  |  Description  |

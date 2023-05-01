@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPppoeIPvsixAddress describes the resource data model.
 type InterfacesPppoeIPvsixAddress struct {
 	// LeafNodes
-	InterfacesPppoeIPvsixAddressAutoconf customtypes.CustomStringValue `tfsdk:"autoconf" json:"autoconf,omitempty"`
+	LeafInterfacesPppoeIPvsixAddressAutoconf types.String `tfsdk:"autoconf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPppoeIPvsixAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPppoeIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ipv6", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPppoeIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesPppoeIPvsixAddressAutoconf.IsUnknown()) {
+		vyosData["autoconf"] = o.LeafInterfacesPppoeIPvsixAddressAutoconf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPppoeIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ipv6", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["autoconf"]; ok {
+		o.LeafInterfacesPppoeIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPppoeIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ipv6", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPppoeIPvsixAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"autoconf": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPppoeIPvsixAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"autoconf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 `,

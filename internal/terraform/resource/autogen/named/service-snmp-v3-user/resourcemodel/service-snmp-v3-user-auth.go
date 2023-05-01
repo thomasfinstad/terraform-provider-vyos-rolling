@@ -2,47 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeUserAuth describes the resource data model.
 type ServiceSnmpVthreeUserAuth struct {
 	// LeafNodes
-	ServiceSnmpVthreeUserAuthEncryptedPassword customtypes.CustomStringValue `tfsdk:"encrypted_password" json:"encrypted-password,omitempty"`
-	ServiceSnmpVthreeUserAuthPlaintextPassword customtypes.CustomStringValue `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
-	ServiceSnmpVthreeUserAuthType              customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
+	LeafServiceSnmpVthreeUserAuthEncryptedPassword types.String `tfsdk:"encrypted_password"`
+	LeafServiceSnmpVthreeUserAuthPlaintextPassword types.String `tfsdk:"plaintext_password"`
+	LeafServiceSnmpVthreeUserAuthType              types.String `tfsdk:"type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpVthreeUserAuth) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpVthreeUserAuth) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsNull() || o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.IsUnknown()) {
+		vyosData["encrypted-password"] = o.LeafServiceSnmpVthreeUserAuthEncryptedPassword.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsNull() || o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.IsUnknown()) {
+		vyosData["plaintext-password"] = o.LeafServiceSnmpVthreeUserAuthPlaintextPassword.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeUserAuthType.IsNull() || o.LeafServiceSnmpVthreeUserAuthType.IsUnknown()) {
+		vyosData["type"] = o.LeafServiceSnmpVthreeUserAuthType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpVthreeUserAuth) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
+
+	// Leafs
+	if value, ok := vyosData["encrypted-password"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthEncryptedPassword = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["plaintext-password"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthPlaintextPassword = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeUserAuthType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "user", "auth"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpVthreeUserAuth) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"encrypted_password": types.StringType,
+		"plaintext_password": types.StringType,
+		"type":               types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpVthreeUserAuth) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"encrypted_password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Defines the encrypted key for authentication
 
 `,
 		},
 
 		"plaintext_password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Defines the clear text key for authentication
 
 `,
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Define used protocol
 
 |  Format  |  Description  |

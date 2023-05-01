@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetLargeCommunity describes the resource data model.
 type PolicyRouteMapRuleSetLargeCommunity struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetLargeCommunityAdd     customtypes.CustomStringValue `tfsdk:"add" json:"add,omitempty"`
-	PolicyRouteMapRuleSetLargeCommunityReplace customtypes.CustomStringValue `tfsdk:"replace" json:"replace,omitempty"`
-	PolicyRouteMapRuleSetLargeCommunityNone    customtypes.CustomStringValue `tfsdk:"none" json:"none,omitempty"`
-	PolicyRouteMapRuleSetLargeCommunityDelete  customtypes.CustomStringValue `tfsdk:"delete" json:"delete,omitempty"`
+	LeafPolicyRouteMapRuleSetLargeCommunityAdd     types.String `tfsdk:"add"`
+	LeafPolicyRouteMapRuleSetLargeCommunityReplace types.String `tfsdk:"replace"`
+	LeafPolicyRouteMapRuleSetLargeCommunityNone    types.String `tfsdk:"none"`
+	LeafPolicyRouteMapRuleSetLargeCommunityDelete  types.String `tfsdk:"delete"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetLargeCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "large-community"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.IsNull() || o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.IsUnknown()) {
+		vyosData["add"] = o.LeafPolicyRouteMapRuleSetLargeCommunityAdd.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.IsNull() || o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.IsUnknown()) {
+		vyosData["replace"] = o.LeafPolicyRouteMapRuleSetLargeCommunityReplace.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetLargeCommunityNone.IsNull() || o.LeafPolicyRouteMapRuleSetLargeCommunityNone.IsUnknown()) {
+		vyosData["none"] = o.LeafPolicyRouteMapRuleSetLargeCommunityNone.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.IsNull() || o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.IsUnknown()) {
+		vyosData["delete"] = o.LeafPolicyRouteMapRuleSetLargeCommunityDelete.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetLargeCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "large-community"}})
+
+	// Leafs
+	if value, ok := vyosData["add"]; ok {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityAdd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityAdd = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["replace"]; ok {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityReplace = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityReplace = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["none"]; ok {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityNone = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["delete"]; ok {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityDelete = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetLargeCommunityDelete = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "large-community"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetLargeCommunity) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"add":     types.StringType,
+		"replace": types.StringType,
+		"none":    types.StringType,
+		"delete":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetLargeCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"add": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Add large communities to a prefix ;
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]sch
 		},
 
 		"replace": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set large communities for a prefix
 
 |  Format  |  Description  |
@@ -50,16 +130,14 @@ func (o PolicyRouteMapRuleSetLargeCommunity) ResourceAttributes() map[string]sch
 		},
 
 		"none": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Completely remove communities attribute from a prefix
 
 `,
 		},
 
 		"delete": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove communities defined in a list from a prefix
 
 |  Format  |  Description  |

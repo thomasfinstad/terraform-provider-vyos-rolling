@@ -2,36 +2,157 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClassMatch describes the resource data model.
 type QosPolicyLimiterClassMatch struct {
 	// LeafNodes
-	QosPolicyLimiterClassMatchDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyLimiterClassMatchInterface   customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	QosPolicyLimiterClassMatchMark        customtypes.CustomStringValue `tfsdk:"mark" json:"mark,omitempty"`
-	QosPolicyLimiterClassMatchVif         customtypes.CustomStringValue `tfsdk:"vif" json:"vif,omitempty"`
+	LeafQosPolicyLimiterClassMatchDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyLimiterClassMatchInterface   types.String `tfsdk:"interface"`
+	LeafQosPolicyLimiterClassMatchMark        types.String `tfsdk:"mark"`
+	LeafQosPolicyLimiterClassMatchVif         types.String `tfsdk:"vif"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyLimiterClassMatchEther  types.Object `tfsdk:"ether" json:"ether,omitempty"`
-	QosPolicyLimiterClassMatchIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	QosPolicyLimiterClassMatchIPvsix types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeQosPolicyLimiterClassMatchEther  types.Object `tfsdk:"ether"`
+	NodeQosPolicyLimiterClassMatchIP     types.Object `tfsdk:"ip"`
+	NodeQosPolicyLimiterClassMatchIPvsix types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyLimiterClassMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsNull() || o.LeafQosPolicyLimiterClassMatchDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyLimiterClassMatchDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyLimiterClassMatchInterface.IsNull() || o.LeafQosPolicyLimiterClassMatchInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafQosPolicyLimiterClassMatchInterface.ValueString()
+	}
+	if !(o.LeafQosPolicyLimiterClassMatchMark.IsNull() || o.LeafQosPolicyLimiterClassMatchMark.IsUnknown()) {
+		vyosData["mark"] = o.LeafQosPolicyLimiterClassMatchMark.ValueString()
+	}
+	if !(o.LeafQosPolicyLimiterClassMatchVif.IsNull() || o.LeafQosPolicyLimiterClassMatchVif.IsUnknown()) {
+		vyosData["vif"] = o.LeafQosPolicyLimiterClassMatchVif.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyLimiterClassMatchEther.IsNull() || o.NodeQosPolicyLimiterClassMatchEther.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchEther
+		diags.Append(o.NodeQosPolicyLimiterClassMatchEther.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ether"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyLimiterClassMatchIP.IsNull() || o.NodeQosPolicyLimiterClassMatchIP.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchIP
+		diags.Append(o.NodeQosPolicyLimiterClassMatchIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyLimiterClassMatchIPvsix.IsNull() || o.NodeQosPolicyLimiterClassMatchIPvsix.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchIPvsix
+		diags.Append(o.NodeQosPolicyLimiterClassMatchIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyLimiterClassMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mark"]; ok {
+		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchMark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vif"]; ok {
+		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchVif = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ether"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchEther{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchEther = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchEther = basetypes.NewObjectNull(QosPolicyLimiterClassMatchEther{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchIP = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchIP = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchIPvsix = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchIPvsix = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyLimiterClassMatch) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"interface":   types.StringType,
+		"mark":        types.StringType,
+		"vif":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ether": types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchEther{}.AttributeTypes()},
+		"ip":    types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIP{}.AttributeTypes()},
+		"ipv6":  types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyLimiterClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,8 +163,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
@@ -54,8 +174,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
 |  Format  |  Description  |
@@ -66,8 +185,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"vif": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
 |  Format  |  Description  |
@@ -82,7 +200,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		// Nodes
 
 		"ether": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchEther{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchEther{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet header match
 
@@ -90,7 +208,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIP{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IP protocol header
 
@@ -98,7 +216,7 @@ func (o QosPolicyLimiterClassMatch) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPvsix{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IPv6 protocol header
 

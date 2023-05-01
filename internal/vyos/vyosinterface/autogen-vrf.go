@@ -14,6 +14,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -31,6 +32,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				TagNode: []*interfacedefinition.TagNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "tagNode",
 					},
@@ -65,6 +67,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -80,6 +83,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -98,6 +102,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -113,6 +118,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -131,6 +137,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -146,6 +153,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -163,6 +171,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -178,6 +187,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -193,6 +203,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -208,6 +219,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -241,6 +253,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -274,6 +287,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -304,6 +318,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -334,6 +349,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -366,6 +382,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -381,6 +398,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -399,6 +417,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -414,6 +433,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -430,6 +450,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -461,6 +482,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -476,6 +498,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -491,6 +514,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -538,6 +562,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -553,6 +578,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -583,6 +609,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -615,6 +642,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -630,6 +658,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -645,6 +674,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -679,6 +709,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -694,6 +725,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -709,6 +741,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -740,6 +773,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -775,6 +809,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -790,6 +825,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -805,6 +841,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -835,6 +872,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -865,6 +903,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -899,6 +938,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -914,6 +954,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -929,6 +970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -947,6 +989,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -980,6 +1023,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -995,6 +1039,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1013,6 +1058,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1046,6 +1092,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1061,6 +1108,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1079,6 +1127,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1112,6 +1161,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1127,6 +1177,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1145,6 +1196,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1178,6 +1230,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1193,6 +1246,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1211,6 +1265,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1244,6 +1299,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1259,6 +1315,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1277,6 +1334,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1310,6 +1368,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1325,6 +1384,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1343,6 +1403,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1377,6 +1438,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1391,6 +1453,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1424,6 +1487,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1440,6 +1504,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1471,6 +1536,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1489,6 +1555,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1522,6 +1589,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1538,6 +1606,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1573,6 +1642,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1588,6 +1658,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1603,6 +1674,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -1636,6 +1708,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1669,6 +1742,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1699,6 +1773,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1729,6 +1804,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1762,6 +1838,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1795,6 +1872,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1811,6 +1889,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1842,6 +1921,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1860,6 +1940,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1893,6 +1974,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1909,6 +1991,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1944,6 +2027,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1959,6 +2043,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1992,6 +2077,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2008,6 +2094,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2039,6 +2126,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2057,6 +2145,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -2090,6 +2179,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2106,6 +2196,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2141,6 +2232,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -2156,6 +2248,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2171,6 +2264,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2197,6 +2291,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -2212,6 +2307,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -2245,6 +2341,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2275,6 +2372,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2309,6 +2407,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -2324,6 +2423,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2339,6 +2439,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -2372,6 +2473,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2405,6 +2507,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2435,6 +2538,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2465,6 +2569,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2497,6 +2602,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2512,6 +2618,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2530,6 +2637,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2545,6 +2653,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2561,6 +2670,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2592,6 +2702,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2607,6 +2718,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -2622,6 +2734,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2669,6 +2782,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2684,6 +2798,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2714,6 +2829,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -2746,6 +2862,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2761,6 +2878,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -2776,6 +2894,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2810,6 +2929,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2825,6 +2945,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -2840,6 +2961,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2871,6 +2993,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2906,6 +3029,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -2921,6 +3045,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -2936,6 +3061,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2966,6 +3092,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2996,6 +3123,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3030,6 +3158,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -3045,6 +3174,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3060,6 +3190,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3078,6 +3209,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3111,6 +3243,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3126,6 +3259,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3144,6 +3278,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3177,6 +3312,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3192,6 +3328,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3210,6 +3347,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3243,6 +3381,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3258,6 +3397,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3276,6 +3416,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3309,6 +3450,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3324,6 +3466,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3342,6 +3485,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3375,6 +3519,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -3390,6 +3535,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3408,6 +3554,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3442,6 +3589,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3456,6 +3604,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -3489,6 +3638,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3505,6 +3655,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3536,6 +3687,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3554,6 +3706,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -3587,6 +3740,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3617,6 +3771,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3652,6 +3807,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -3667,6 +3823,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -3682,6 +3839,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -3715,6 +3873,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3748,6 +3907,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3778,6 +3938,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3808,6 +3969,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3841,6 +4003,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -3874,6 +4037,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3890,6 +4054,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3921,6 +4086,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -3939,6 +4105,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -3972,6 +4139,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4002,6 +4170,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4037,6 +4206,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -4052,6 +4222,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -4085,6 +4256,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4101,6 +4273,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4132,6 +4305,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4150,6 +4324,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -4183,6 +4358,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4199,6 +4375,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4234,6 +4411,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -4249,6 +4427,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4264,6 +4443,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4290,6 +4470,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -4305,6 +4486,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -4338,6 +4520,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4368,6 +4551,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4402,6 +4586,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -4417,6 +4602,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4432,6 +4618,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -4447,6 +4634,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -4462,6 +4650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -4497,6 +4686,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -4512,6 +4702,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -4527,6 +4718,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -4564,6 +4756,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4579,6 +4772,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4614,6 +4808,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4649,6 +4844,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4686,6 +4882,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -4701,6 +4898,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4717,6 +4915,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4736,6 +4935,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -4770,6 +4970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -4785,6 +4986,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -4820,6 +5022,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -4855,6 +5058,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -4893,6 +5097,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4909,6 +5114,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4925,6 +5131,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -4958,6 +5165,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4974,6 +5182,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -4990,6 +5199,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5006,6 +5216,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5036,6 +5247,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5065,6 +5277,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5085,6 +5298,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -5100,6 +5314,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -5144,6 +5359,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5171,6 +5387,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -5203,6 +5420,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -5218,6 +5436,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5233,6 +5452,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -5248,6 +5468,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5264,6 +5485,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5280,6 +5502,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5298,6 +5521,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -5313,6 +5537,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5329,6 +5554,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5347,6 +5573,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -5362,6 +5589,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5381,6 +5609,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5423,6 +5652,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5441,6 +5671,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5456,6 +5687,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5486,6 +5718,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5523,6 +5756,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5538,6 +5772,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5571,6 +5806,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5586,6 +5822,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5616,6 +5853,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5646,6 +5884,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5676,6 +5915,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5708,6 +5948,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5723,6 +5964,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5755,6 +5997,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5770,6 +6013,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -5785,6 +6029,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5815,6 +6060,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5845,6 +6091,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5878,6 +6125,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -5911,6 +6159,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -5945,6 +6194,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -5960,6 +6210,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -5993,6 +6244,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6009,6 +6261,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6038,6 +6291,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6054,6 +6308,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6070,6 +6325,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6086,6 +6342,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6102,6 +6359,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6118,6 +6376,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6148,6 +6407,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6164,6 +6424,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6180,6 +6441,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6196,6 +6458,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6212,6 +6475,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6228,6 +6492,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6244,6 +6509,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6260,6 +6526,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6276,6 +6543,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6307,6 +6575,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -6322,6 +6591,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6358,6 +6628,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6391,6 +6662,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -6447,6 +6719,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -6462,6 +6735,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -6477,6 +6751,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6492,6 +6767,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -6507,6 +6783,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -6522,6 +6799,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -6538,6 +6816,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -6560,6 +6839,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6575,6 +6855,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6606,6 +6887,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6639,6 +6921,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6654,6 +6937,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6685,6 +6969,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6716,6 +7001,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6749,6 +7035,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6764,6 +7051,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6796,6 +7084,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6811,6 +7100,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6827,6 +7117,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6843,6 +7134,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6861,6 +7153,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6876,6 +7169,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6892,6 +7186,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6910,6 +7205,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -6925,6 +7221,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6961,6 +7258,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -6999,6 +7297,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7014,6 +7313,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7031,6 +7331,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7050,6 +7351,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7065,6 +7367,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7083,6 +7386,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7098,6 +7402,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7129,6 +7434,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7162,6 +7468,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7177,6 +7484,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7195,6 +7503,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7210,6 +7519,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7244,6 +7554,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7260,6 +7571,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7276,6 +7588,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7292,6 +7605,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7322,6 +7636,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7352,6 +7667,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7368,6 +7684,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7384,6 +7701,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7400,6 +7718,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7431,6 +7750,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -7463,6 +7783,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -7478,6 +7799,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7493,6 +7815,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -7508,6 +7831,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -7523,6 +7847,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -7539,6 +7864,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -7561,6 +7887,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7576,6 +7903,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7594,6 +7922,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7609,6 +7938,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7640,6 +7970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7673,6 +8004,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7688,6 +8020,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7719,6 +8052,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7750,6 +8084,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7783,6 +8118,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7798,6 +8134,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7830,6 +8167,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7845,6 +8183,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7861,6 +8200,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7877,6 +8217,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7895,6 +8236,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7910,6 +8252,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7926,6 +8269,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7944,6 +8288,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -7959,6 +8304,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -7995,6 +8341,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8033,6 +8380,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8048,6 +8396,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8065,6 +8414,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8084,6 +8434,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8099,6 +8450,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8117,6 +8469,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8132,6 +8485,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8163,6 +8517,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8196,6 +8551,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8211,6 +8567,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8229,6 +8586,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8244,6 +8602,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8278,6 +8637,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8294,6 +8654,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8310,6 +8671,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8326,6 +8688,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8356,6 +8719,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8386,6 +8750,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8402,6 +8767,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8418,6 +8784,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8434,6 +8801,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8465,6 +8833,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -8497,6 +8866,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -8512,6 +8882,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8527,6 +8898,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -8542,6 +8914,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -8557,6 +8930,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -8573,6 +8947,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -8595,6 +8970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8610,6 +8986,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8641,6 +9018,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8674,6 +9052,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8689,6 +9068,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8720,6 +9100,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8751,6 +9132,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8784,6 +9166,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8799,6 +9182,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8831,6 +9215,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8846,6 +9231,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8862,6 +9248,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8878,6 +9265,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8896,6 +9284,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8911,6 +9300,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8927,6 +9317,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8945,6 +9336,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -8960,6 +9352,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -8996,6 +9389,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9034,6 +9428,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9049,6 +9444,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9066,6 +9462,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9085,6 +9482,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9100,6 +9498,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9118,6 +9517,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9133,6 +9533,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9164,6 +9565,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9197,6 +9599,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9212,6 +9615,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9230,6 +9634,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9245,6 +9650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9279,6 +9685,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9295,6 +9702,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9311,6 +9719,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9327,6 +9736,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9357,6 +9767,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9387,6 +9798,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9403,6 +9815,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9419,6 +9832,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9435,6 +9849,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9466,6 +9881,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -9498,6 +9914,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -9513,6 +9930,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9528,6 +9946,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -9543,6 +9962,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -9558,6 +9978,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -9574,6 +9995,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -9596,6 +10018,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9611,6 +10034,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9629,6 +10053,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9644,6 +10069,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9675,6 +10101,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9708,6 +10135,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9723,6 +10151,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9754,6 +10183,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9785,6 +10215,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9818,6 +10249,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9833,6 +10265,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9865,6 +10298,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9880,6 +10314,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9896,6 +10331,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9912,6 +10348,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9930,6 +10367,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9945,6 +10383,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9961,6 +10400,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -9979,6 +10419,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -9994,6 +10435,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10030,6 +10472,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10068,6 +10511,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10083,6 +10527,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10100,6 +10545,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10119,6 +10565,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10134,6 +10581,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10152,6 +10600,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10167,6 +10616,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10198,6 +10648,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10231,6 +10682,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10246,6 +10698,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10264,6 +10717,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10279,6 +10733,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10313,6 +10768,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10329,6 +10785,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10345,6 +10802,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10361,6 +10819,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10391,6 +10850,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10421,6 +10881,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10437,6 +10898,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10453,6 +10915,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10469,6 +10932,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10500,6 +10964,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -10532,6 +10997,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -10547,6 +11013,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10562,6 +11029,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10593,6 +11061,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10626,6 +11095,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10641,6 +11111,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10672,6 +11143,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10703,6 +11175,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10736,6 +11209,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10751,6 +11225,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10783,6 +11258,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10798,6 +11274,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10814,6 +11291,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10830,6 +11308,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10848,6 +11327,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10863,6 +11343,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10879,6 +11360,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10897,6 +11379,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -10912,6 +11395,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10948,6 +11432,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -10986,6 +11471,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11001,6 +11487,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11018,6 +11505,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11037,6 +11525,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11052,6 +11541,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11070,6 +11560,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11085,6 +11576,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11116,6 +11608,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11149,6 +11642,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11164,6 +11658,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11183,6 +11678,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11199,6 +11695,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11215,6 +11712,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11231,6 +11729,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11261,6 +11760,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11291,6 +11791,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11307,6 +11808,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11323,6 +11825,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11339,6 +11842,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11370,6 +11874,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -11402,6 +11907,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -11417,6 +11923,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11432,6 +11939,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11450,6 +11958,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11465,6 +11974,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11496,6 +12006,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11529,6 +12040,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11544,6 +12056,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11575,6 +12088,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11606,6 +12120,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11639,6 +12154,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11654,6 +12170,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11686,6 +12203,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11701,6 +12219,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11717,6 +12236,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11733,6 +12253,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11751,6 +12272,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11766,6 +12288,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11782,6 +12305,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11800,6 +12324,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11815,6 +12340,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11851,6 +12377,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11889,6 +12416,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11904,6 +12432,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11921,6 +12450,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11940,6 +12470,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11955,6 +12486,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -11973,6 +12505,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -11988,6 +12521,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12019,6 +12553,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12052,6 +12587,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12067,6 +12603,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12086,6 +12623,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12102,6 +12640,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12118,6 +12657,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12134,6 +12674,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12164,6 +12705,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12194,6 +12736,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12210,6 +12753,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12226,6 +12770,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12242,6 +12787,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12273,6 +12819,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12305,6 +12852,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -12320,6 +12868,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12335,6 +12884,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12366,6 +12916,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12399,6 +12950,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12414,6 +12966,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12431,6 +12984,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12450,6 +13004,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12465,6 +13020,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12496,6 +13052,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12529,6 +13086,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12544,6 +13102,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12563,6 +13122,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12579,6 +13139,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12597,6 +13158,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -12612,6 +13174,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12627,6 +13190,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12658,6 +13222,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12691,6 +13256,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12706,6 +13272,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12723,6 +13290,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12742,6 +13310,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12757,6 +13326,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12788,6 +13358,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12821,6 +13392,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12836,6 +13408,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -12855,6 +13428,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12871,6 +13445,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -12889,6 +13464,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -12904,6 +13480,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -12919,6 +13496,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -12934,6 +13512,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -12949,6 +13528,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -12965,6 +13545,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -12987,6 +13568,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13002,6 +13584,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13033,6 +13616,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13066,6 +13650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13081,6 +13666,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13112,6 +13698,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13143,6 +13730,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13176,6 +13764,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13191,6 +13780,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13223,6 +13813,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13238,6 +13829,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13254,6 +13846,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13270,6 +13863,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13288,6 +13882,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13303,6 +13898,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13319,6 +13915,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13337,6 +13934,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13352,6 +13950,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13388,6 +13987,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13426,6 +14026,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13441,6 +14042,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13458,6 +14060,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13477,6 +14080,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13492,6 +14096,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13510,6 +14115,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13525,6 +14131,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13556,6 +14163,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13589,6 +14197,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13604,6 +14213,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13622,6 +14232,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13637,6 +14248,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13671,6 +14283,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13687,6 +14300,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13703,6 +14317,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13719,6 +14334,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13749,6 +14365,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13779,6 +14396,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13795,6 +14413,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13811,6 +14430,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13827,6 +14447,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13858,6 +14479,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -13890,6 +14512,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -13905,6 +14528,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13920,6 +14544,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13938,6 +14563,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -13953,6 +14579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -13984,6 +14611,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14017,6 +14645,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14032,6 +14661,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14063,6 +14693,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14094,6 +14725,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14127,6 +14759,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14142,6 +14775,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14174,6 +14808,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14189,6 +14824,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14205,6 +14841,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14221,6 +14858,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14239,6 +14877,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14254,6 +14893,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14270,6 +14910,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14288,6 +14929,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14303,6 +14945,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14339,6 +14982,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14377,6 +15021,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14392,6 +15037,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14409,6 +15055,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14428,6 +15075,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14443,6 +15091,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14461,6 +15110,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14476,6 +15126,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14507,6 +15158,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14540,6 +15192,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14555,6 +15208,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14573,6 +15227,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14588,6 +15243,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14622,6 +15278,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14638,6 +15295,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14654,6 +15312,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14670,6 +15329,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14700,6 +15360,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14730,6 +15391,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14746,6 +15408,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14762,6 +15425,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14778,6 +15442,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14809,6 +15474,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -14841,6 +15507,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -14856,6 +15523,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14871,6 +15539,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14903,6 +15572,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14918,6 +15588,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14934,6 +15605,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14950,6 +15622,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -14968,6 +15641,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -14983,6 +15657,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -15001,6 +15676,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -15016,6 +15692,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -15047,6 +15724,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -15080,6 +15758,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -15095,6 +15774,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -15114,6 +15794,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -15130,6 +15811,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -15150,6 +15832,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -15165,6 +15848,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15189,6 +15873,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15207,6 +15892,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -15222,6 +15908,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15238,6 +15925,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15256,6 +15944,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -15271,6 +15960,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -15286,6 +15976,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -15310,6 +16001,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -15363,6 +16055,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15387,6 +16080,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15437,6 +16131,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15475,6 +16170,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -15490,6 +16186,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15526,6 +16223,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15562,6 +16260,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15594,6 +16293,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -15609,6 +16309,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15642,6 +16343,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -15676,6 +16378,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -15691,6 +16394,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -15711,6 +16415,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -15770,6 +16475,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -15789,6 +16495,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15819,6 +16526,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15844,6 +16552,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15860,6 +16569,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15876,6 +16586,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15906,6 +16617,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15948,6 +16660,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15964,6 +16677,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15980,6 +16694,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -15991,6 +16706,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														Help: []string{"BGP MD5 password"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16015,6 +16731,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16045,6 +16762,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16095,6 +16813,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16111,6 +16830,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16127,6 +16847,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16143,6 +16864,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -16203,6 +16925,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -16224,6 +16947,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -16239,6 +16963,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -16254,6 +16979,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16269,6 +16995,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -16284,6 +17011,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -16299,6 +17027,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -16315,6 +17044,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -16337,6 +17067,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16352,6 +17083,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16383,6 +17115,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16416,6 +17149,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16431,6 +17165,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16462,6 +17197,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16493,6 +17229,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16526,6 +17263,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16541,6 +17279,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16573,6 +17312,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16588,6 +17328,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16604,6 +17345,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16620,6 +17362,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16638,6 +17381,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16653,6 +17397,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16669,6 +17414,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16687,6 +17433,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16702,6 +17449,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16738,6 +17486,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16776,6 +17525,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16791,6 +17541,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16808,6 +17559,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16827,6 +17579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16842,6 +17595,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16860,6 +17614,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16875,6 +17630,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16906,6 +17662,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16939,6 +17696,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16954,6 +17712,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -16972,6 +17731,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -16987,6 +17747,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17021,6 +17782,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17037,6 +17799,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17053,6 +17816,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17069,6 +17833,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17099,6 +17864,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17129,6 +17895,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17145,6 +17912,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17161,6 +17929,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17177,6 +17946,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17208,6 +17978,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -17240,6 +18011,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -17255,6 +18027,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17270,6 +18043,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -17285,6 +18059,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				Node: []*interfacedefinition.Node{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "node",
 																					},
@@ -17300,6 +18075,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																							Local: "children",
 																						},
 																						LeafNode: []*interfacedefinition.LeafNode{{
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -17316,6 +18092,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																								}},
 																							}},
 																						}, {
+																							IsBaseNode: false,
 																							XMLName: xml.Name{
 																								Local: "leafNode",
 																							},
@@ -17338,6 +18115,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17353,6 +18131,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17371,6 +18150,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17386,6 +18166,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17417,6 +18198,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17450,6 +18232,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17465,6 +18248,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17496,6 +18280,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17527,6 +18312,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17560,6 +18346,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17575,6 +18362,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17607,6 +18395,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17622,6 +18411,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17638,6 +18428,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17654,6 +18445,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17672,6 +18464,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17687,6 +18480,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17703,6 +18497,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17721,6 +18516,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17736,6 +18532,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17772,6 +18569,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17810,6 +18608,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17825,6 +18624,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17842,6 +18642,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17861,6 +18662,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17876,6 +18678,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17894,6 +18697,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17909,6 +18713,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17940,6 +18745,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -17973,6 +18779,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -17988,6 +18795,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18006,6 +18814,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18021,6 +18830,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18055,6 +18865,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18071,6 +18882,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18087,6 +18899,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18103,6 +18916,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18133,6 +18947,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18163,6 +18978,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18179,6 +18995,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18195,6 +19012,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18211,6 +19029,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18242,6 +19061,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18274,6 +19094,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -18289,6 +19110,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18304,6 +19126,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18336,6 +19159,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18351,6 +19175,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18367,6 +19192,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18383,6 +19209,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18401,6 +19228,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18416,6 +19244,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18434,6 +19263,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18449,6 +19279,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18480,6 +19311,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18513,6 +19345,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -18528,6 +19361,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -18547,6 +19381,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18563,6 +19398,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18583,6 +19419,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -18598,6 +19435,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18622,6 +19460,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18640,6 +19479,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -18655,6 +19495,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18671,6 +19512,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18689,6 +19531,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -18704,6 +19547,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18737,6 +19581,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -18771,6 +19616,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -18786,6 +19632,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -18806,6 +19653,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -18865,6 +19713,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -18884,6 +19733,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -18909,6 +19759,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -18925,6 +19776,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -18941,6 +19793,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -18971,6 +19824,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19013,6 +19867,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19029,6 +19884,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19045,6 +19901,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19056,6 +19913,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														Help: []string{"BGP MD5 password"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19106,6 +19964,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19122,6 +19981,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19183,6 +20043,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19213,6 +20074,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19246,6 +20108,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -19263,6 +20126,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -19278,6 +20142,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19311,6 +20176,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19341,6 +20207,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19371,6 +20238,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19405,6 +20273,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19422,6 +20291,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19499,6 +20369,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19530,6 +20401,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19559,6 +20431,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -19591,6 +20464,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -19608,6 +20482,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -19623,6 +20498,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19641,6 +20517,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -19661,6 +20538,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -19676,6 +20554,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -19691,6 +20570,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -19706,6 +20586,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -19721,6 +20602,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19737,6 +20619,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19767,6 +20650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19800,6 +20684,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -19815,6 +20700,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19831,6 +20717,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19861,6 +20748,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19896,6 +20784,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -19911,6 +20800,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -19926,6 +20816,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19942,6 +20833,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -19972,6 +20864,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20005,6 +20898,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -20020,6 +20914,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20036,6 +20931,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20066,6 +20962,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20105,6 +21002,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -20120,6 +21018,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -20138,6 +21037,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -20158,6 +21058,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -20173,6 +21074,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -20189,6 +21091,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -20220,6 +21123,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -20235,6 +21139,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -20250,6 +21155,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -20280,6 +21186,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -20312,6 +21219,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -20327,6 +21235,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -20357,6 +21266,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -20390,6 +21300,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -20434,6 +21345,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -20449,6 +21361,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20479,6 +21392,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20495,6 +21409,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20513,6 +21428,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -20528,6 +21444,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20558,6 +21475,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20574,6 +21492,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -20595,6 +21514,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -20627,6 +21547,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -20642,6 +21563,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -20657,6 +21579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -20672,6 +21595,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -20687,6 +21611,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20717,6 +21642,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20750,6 +21676,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -20765,6 +21692,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20795,6 +21723,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20830,6 +21759,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -20845,6 +21775,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -20860,6 +21791,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20890,6 +21822,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20923,6 +21856,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -20938,6 +21872,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -20968,6 +21903,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21003,6 +21939,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21018,6 +21955,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21033,6 +21971,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21063,6 +22002,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21096,6 +22036,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21111,6 +22052,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21141,6 +22083,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21176,6 +22119,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21191,6 +22135,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21206,6 +22151,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21236,6 +22182,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21269,6 +22216,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21284,6 +22232,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21314,6 +22263,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21349,6 +22299,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21364,6 +22315,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21379,6 +22331,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21409,6 +22362,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21442,6 +22396,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21457,6 +22412,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21487,6 +22443,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21522,6 +22479,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21537,6 +22495,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21552,6 +22511,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21582,6 +22542,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21615,6 +22576,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21630,6 +22592,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21660,6 +22623,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21695,6 +22659,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21710,6 +22675,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21725,6 +22691,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21755,6 +22722,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21788,6 +22756,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21803,6 +22772,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21833,6 +22803,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21870,6 +22841,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -21885,6 +22857,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -21900,6 +22873,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21915,6 +22889,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21945,6 +22920,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -21978,6 +22954,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -21993,6 +22970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22023,6 +23001,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22058,6 +23037,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22073,6 +23053,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22088,6 +23069,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22118,6 +23100,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22151,6 +23134,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22166,6 +23150,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22196,6 +23181,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22231,6 +23217,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22246,6 +23233,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22261,6 +23249,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22291,6 +23280,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22324,6 +23314,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22339,6 +23330,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22369,6 +23361,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22404,6 +23397,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22419,6 +23413,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22434,6 +23429,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22464,6 +23460,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22497,6 +23494,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22512,6 +23510,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22542,6 +23541,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22577,6 +23577,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22592,6 +23593,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22607,6 +23609,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22637,6 +23640,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22670,6 +23674,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22685,6 +23690,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22715,6 +23721,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22750,6 +23757,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22765,6 +23773,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22780,6 +23789,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22810,6 +23820,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22843,6 +23854,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22858,6 +23870,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22888,6 +23901,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22923,6 +23937,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -22938,6 +23953,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -22953,6 +23969,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -22983,6 +24000,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -23016,6 +24034,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -23031,6 +24050,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -23061,6 +24081,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -23100,6 +24121,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -23115,6 +24137,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23145,6 +24168,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23175,6 +24199,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23205,6 +24230,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23235,6 +24261,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23268,6 +24295,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -23289,6 +24317,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -23304,6 +24333,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -23330,6 +24360,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -23345,6 +24376,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -23363,6 +24395,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -23378,6 +24411,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -23396,6 +24430,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -23417,6 +24452,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23459,6 +24495,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23475,6 +24512,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23505,6 +24543,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23535,6 +24574,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23565,6 +24605,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23581,6 +24622,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23611,6 +24653,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23641,6 +24684,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -23660,6 +24704,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23676,6 +24721,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23718,6 +24764,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23734,6 +24781,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23764,6 +24812,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23795,6 +24844,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23825,6 +24875,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23855,6 +24906,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23897,6 +24949,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23921,6 +24974,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23937,6 +24991,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23953,6 +25008,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23969,6 +25025,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -23999,6 +25056,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -24032,6 +25090,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -24049,6 +25108,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24064,6 +25124,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24097,6 +25158,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24112,6 +25174,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -24127,6 +25190,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24143,6 +25207,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24173,6 +25238,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24204,6 +25270,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24239,6 +25306,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24254,6 +25322,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -24269,6 +25338,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24299,6 +25369,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24329,6 +25400,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24362,6 +25434,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24394,6 +25467,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24409,6 +25483,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24427,6 +25502,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24442,6 +25518,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -24457,6 +25534,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24473,6 +25551,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24503,6 +25582,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24537,6 +25617,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24552,6 +25633,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24568,6 +25650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24600,6 +25683,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24615,6 +25699,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24664,6 +25749,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24680,6 +25766,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24696,6 +25783,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -24727,6 +25815,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -24742,6 +25831,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -24757,6 +25847,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24787,6 +25878,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24819,6 +25911,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -24834,6 +25927,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24864,6 +25958,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -24897,6 +25992,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -24930,6 +26026,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -24945,6 +26042,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -24975,6 +26073,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -24991,6 +26090,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -25012,6 +26112,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -25044,6 +26145,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -25059,6 +26161,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25074,6 +26177,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25104,6 +26208,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25135,6 +26240,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25168,6 +26274,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25183,6 +26290,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25213,6 +26321,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25244,6 +26353,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25277,6 +26387,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25292,6 +26403,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25322,6 +26434,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25353,6 +26466,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25386,6 +26500,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25401,6 +26516,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25431,6 +26547,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25462,6 +26579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25495,6 +26613,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25510,6 +26629,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25540,6 +26660,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25571,6 +26692,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25604,6 +26726,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25619,6 +26742,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25649,6 +26773,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25680,6 +26805,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25713,6 +26839,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -25728,6 +26855,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25758,6 +26886,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25789,6 +26918,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25823,6 +26953,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -25851,6 +26982,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25881,6 +27013,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25912,6 +27045,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -25947,6 +27081,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -25962,6 +27097,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -25994,6 +27130,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -26009,6 +27146,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -26024,6 +27162,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -26039,6 +27178,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26070,6 +27210,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26101,6 +27242,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26139,6 +27281,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -26179,6 +27322,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -26247,6 +27391,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -26292,6 +27437,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -26307,6 +27453,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -26322,6 +27469,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26352,6 +27500,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26368,6 +27517,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26413,6 +27563,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -26428,6 +27579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26458,6 +27610,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26477,6 +27630,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26496,6 +27650,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -26529,6 +27684,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26559,6 +27715,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26575,6 +27732,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26606,6 +27764,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -26645,6 +27804,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -26660,6 +27820,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -26675,6 +27836,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		TagNode: []*interfacedefinition.TagNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "tagNode",
 																			},
@@ -26709,6 +27871,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -26739,6 +27902,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -26767,6 +27931,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26798,6 +27963,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26829,6 +27995,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26860,6 +28027,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -26894,6 +28062,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -26930,6 +28099,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -26964,6 +28134,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27006,6 +28177,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27042,6 +28214,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27080,6 +28253,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -27120,6 +28294,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -27135,6 +28310,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -27150,6 +28326,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																TagNode: []*interfacedefinition.TagNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -27184,6 +28361,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -27214,6 +28392,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -27241,6 +28420,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -27256,6 +28436,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -27282,6 +28463,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -27297,6 +28479,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -27316,6 +28499,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27363,6 +28547,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27394,6 +28579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27425,6 +28611,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27456,6 +28643,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27487,6 +28675,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27517,6 +28706,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27533,6 +28723,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27564,6 +28755,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27594,6 +28786,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27624,6 +28817,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27675,6 +28869,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -27708,6 +28903,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27739,6 +28935,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27773,6 +28970,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -27803,6 +29001,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -27833,6 +29032,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -27863,6 +29063,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -27896,6 +29097,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -27913,6 +29115,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -27928,6 +29131,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -27961,6 +29165,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -27976,6 +29181,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -27991,6 +29197,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28007,6 +29214,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28037,6 +29245,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28068,6 +29277,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28103,6 +29313,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -28118,6 +29329,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28133,6 +29345,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28163,6 +29376,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28193,6 +29407,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28226,6 +29441,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -28258,6 +29474,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -28273,6 +29490,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -28291,6 +29509,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -28306,6 +29525,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -28337,6 +29557,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -28352,6 +29573,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28367,6 +29589,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28400,6 +29623,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28415,6 +29639,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28448,6 +29673,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28463,6 +29689,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28496,6 +29723,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28511,6 +29739,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28544,6 +29773,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28559,6 +29789,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28592,6 +29823,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28607,6 +29839,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28643,6 +29876,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -28688,6 +29922,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28703,6 +29938,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -28718,6 +29954,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -28734,6 +29971,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -28752,6 +29990,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -28767,6 +30006,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -28788,6 +30028,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -28821,6 +30062,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28837,6 +30079,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28856,6 +30099,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -28873,6 +30117,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -28892,6 +30137,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -28932,6 +30178,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -28947,6 +30194,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -28974,6 +30222,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29021,6 +30270,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29052,6 +30302,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29083,6 +30334,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29114,6 +30366,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29145,6 +30398,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29175,6 +30429,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29191,6 +30446,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29222,6 +30478,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29252,6 +30509,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29283,6 +30541,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29320,6 +30579,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29339,6 +30599,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -29372,6 +30633,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -29389,6 +30651,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -29422,6 +30685,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -29437,6 +30701,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29467,6 +30732,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29499,6 +30765,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -29514,6 +30781,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29544,6 +30812,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29577,6 +30846,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -29617,6 +30887,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29633,6 +30904,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29663,6 +30935,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29702,6 +30975,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -29735,6 +31009,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29751,6 +31026,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29781,6 +31057,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29817,6 +31094,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29857,6 +31135,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29893,6 +31172,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -29920,6 +31200,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -29953,6 +31234,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -29968,6 +31250,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -29998,6 +31281,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30030,6 +31314,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -30045,6 +31330,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30075,6 +31361,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30108,6 +31395,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -30148,6 +31436,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30164,6 +31453,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30194,6 +31484,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30233,6 +31524,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -30266,6 +31558,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30282,6 +31575,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30312,6 +31606,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30348,6 +31643,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -30388,6 +31684,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -30420,6 +31717,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -30445,6 +31743,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -30461,6 +31760,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -30492,6 +31792,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"VRF routing table must be in range from 100 to 65535"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -30527,6 +31828,7 @@ func vrf() interfacedefinition.InterfaceDefinition {
 					}},
 				}},
 				LeafNode: []*interfacedefinition.LeafNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "leafNode",
 					},

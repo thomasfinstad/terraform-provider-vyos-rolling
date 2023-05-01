@@ -2,30 +2,118 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixMulticastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixMulticastNetwork struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit customtypes.CustomStringValue `tfsdk:"path_limit" json:"path-limit,omitempty"`
-	ProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap  customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit types.String `tfsdk:"path_limit"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap  types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"address-family",
+		"ipv6-multicast",
+		"network",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.IsUnknown()) {
+		vyosData["path-limit"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
+
+	// Leafs
+	if value, ok := vyosData["path-limit"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkPathLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastNetworkRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "network"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"path_limit": types.StringType,
+		"route_map":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Import BGP network/prefix into multicast IPv6 RIB
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"path_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `AS-path hopcount limit
 
 |  Format  |  Description  |
@@ -36,8 +124,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixMulticastNetwork) ResourceAttributes() ma
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

@@ -57,6 +57,9 @@ internal/vyos/schema/interfacedefinition/autogen-structs.go: .build/vyos/schema/
 	# Convert any undefined value as string type to stop unmarshaling from breaking
 	sed -i 's|interface{}|string|' internal/vyos/schema/interfacedefinition/autogen-structs.go
 
+	# Add option to set if this is used as a root node
+	sed -i 's|\(type [A-Za-z]*Node struct {\)|\1\nIsBaseNode bool|' internal/vyos/schema/interfacedefinition/autogen-structs.go
+
 	# Add a parent value to node structs
 	sed -i 's|\(type [A-Za-z]*Node struct {\)|\1\nParent NodeParent|' internal/vyos/schema/interfacedefinition/autogen-structs.go
 
@@ -88,6 +91,7 @@ internal/vyos/vyosinterface/auto-package.go: .build/vyos/interface-definitions t
 	@rm -fv internal/vyos/vyosinterface/auto-package.go
 	@rm -fv internal/vyos/vyosinterface/autogen-*.go
 
+	# Generate interfaces, skip xml component version metadata file
 	for xmlFile in $(shell ls ".build/vyos/interface-definitions/" | grep -v "xml-component-version.xml"); do \
 		echo -en "Input xml: '$${xmlFile}'\t"; \
 		go run tools/build-vyos-infterface-definition-structs/*.go ".build/vyos/interface-definitions/$${xmlFile}" "internal/vyos/vyosinterface" "vyosinterface" || exit 1; \

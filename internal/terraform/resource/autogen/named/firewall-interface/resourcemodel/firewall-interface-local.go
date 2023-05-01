@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallInterfaceLocal describes the resource data model.
 type FirewallInterfaceLocal struct {
 	// LeafNodes
-	FirewallInterfaceLocalName       customtypes.CustomStringValue `tfsdk:"name" json:"name,omitempty"`
-	FirewallInterfaceLocalIPvsixName customtypes.CustomStringValue `tfsdk:"ipv6_name" json:"ipv6-name,omitempty"`
+	LeafFirewallInterfaceLocalName       types.String `tfsdk:"name"`
+	LeafFirewallInterfaceLocalIPvsixName types.String `tfsdk:"ipv6_name"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallInterfaceLocal) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallInterfaceLocal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallInterfaceLocalName.IsNull() || o.LeafFirewallInterfaceLocalName.IsUnknown()) {
+		vyosData["name"] = o.LeafFirewallInterfaceLocalName.ValueString()
+	}
+	if !(o.LeafFirewallInterfaceLocalIPvsixName.IsNull() || o.LeafFirewallInterfaceLocalIPvsixName.IsUnknown()) {
+		vyosData["ipv6-name"] = o.LeafFirewallInterfaceLocalIPvsixName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallInterfaceLocal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
+
+	// Leafs
+	if value, ok := vyosData["name"]; ok {
+		o.LeafFirewallInterfaceLocalName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallInterfaceLocalName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ipv6-name"]; ok {
+		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallInterfaceLocalIPvsixName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "interface", "local"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallInterfaceLocal) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"name":      types.StringType,
+		"ipv6_name": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallInterfaceLocal) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local IPv4 firewall ruleset name for interface
 
 `,
 		},
 
 		"ipv6_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local IPv6 firewall ruleset name for interface
 
 `,

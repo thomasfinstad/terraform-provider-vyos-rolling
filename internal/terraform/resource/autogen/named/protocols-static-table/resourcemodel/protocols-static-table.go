@@ -2,32 +2,144 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTable describes the resource data model.
 type ProtocolsStaticTable struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsStaticTableDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafProtocolsStaticTableDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	ProtocolsStaticTableRoute    types.Map `tfsdk:"route" json:"route,omitempty"`
-	ProtocolsStaticTableRoutesix types.Map `tfsdk:"route6" json:"route6,omitempty"`
+	TagProtocolsStaticTableRoute    types.Map `tfsdk:"route"`
+	TagProtocolsStaticTableRoutesix types.Map `tfsdk:"route6"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsStaticTable) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"static",
+		"table",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticTable) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticTableDescrIPtion.IsNull() || o.LeafProtocolsStaticTableDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafProtocolsStaticTableDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagProtocolsStaticTableRoute.IsNull() || o.TagProtocolsStaticTableRoute.IsUnknown()) {
+		subModel := make(map[string]ProtocolsStaticTableRoute)
+		diags.Append(o.TagProtocolsStaticTableRoute.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["route"] = subData
+	}
+	if !(o.TagProtocolsStaticTableRoutesix.IsNull() || o.TagProtocolsStaticTableRoutesix.IsUnknown()) {
+		subModel := make(map[string]ProtocolsStaticTableRoutesix)
+		diags.Append(o.TagProtocolsStaticTableRoutesix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["route6"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticTable) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["route"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticTableRoute{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsStaticTableRoute = data
+	} else {
+		o.TagProtocolsStaticTableRoute = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["route6"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticTableRoutesix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsStaticTableRoutesix = data
+	} else {
+		o.TagProtocolsStaticTableRoutesix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticTable) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"route":  types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticTableRoute{}.AttributeTypes()}},
+		"route6": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticTableRoutesix{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticTable) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Policy route table number
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-200  |  Policy route table number  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -41,7 +153,7 @@ func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
 
 		"route": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsStaticTableRoute{}.ResourceAttributes(),
+				Attributes: ProtocolsStaticTableRoute{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv4 route
@@ -55,7 +167,7 @@ func (o ProtocolsStaticTable) ResourceAttributes() map[string]schema.Attribute {
 
 		"route6": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsStaticTableRoutesix{}.ResourceAttributes(),
+				Attributes: ProtocolsStaticTableRoutesix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv6 route

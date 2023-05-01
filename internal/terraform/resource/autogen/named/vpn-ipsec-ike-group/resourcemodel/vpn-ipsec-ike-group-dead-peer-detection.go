@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecIkeGroupDeadPeerDetection describes the resource data model.
 type VpnIPsecIkeGroupDeadPeerDetection struct {
 	// LeafNodes
-	VpnIPsecIkeGroupDeadPeerDetectionAction   customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	VpnIPsecIkeGroupDeadPeerDetectionInterval customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	VpnIPsecIkeGroupDeadPeerDetectionTimeout  customtypes.CustomStringValue `tfsdk:"timeout" json:"timeout,omitempty"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionAction   types.String `tfsdk:"action"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionInterval types.String `tfsdk:"interval"`
+	LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout  types.String `tfsdk:"timeout"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecIkeGroupDeadPeerDetection) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.IsUnknown()) {
+		vyosData["action"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsNull() || o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.IsUnknown()) {
+		vyosData["timeout"] = o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecIkeGroupDeadPeerDetection) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["timeout"]; ok {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDeadPeerDetectionTimeout = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "dead-peer-detection"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecIkeGroupDeadPeerDetection) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":   types.StringType,
+		"interval": types.StringType,
+		"timeout":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Keep-alive failure action
 
 |  Format  |  Description  |
@@ -42,8 +114,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schem
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Keep-alive interval
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o VpnIPsecIkeGroupDeadPeerDetection) ResourceAttributes() map[string]schem
 		},
 
 		"timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Dead Peer Detection keep-alive timeout (IKEv1 only)
 
 |  Format  |  Description  |

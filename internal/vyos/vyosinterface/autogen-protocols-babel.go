@@ -14,6 +14,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -71,6 +75,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -102,6 +107,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -133,6 +139,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -166,6 +173,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -181,6 +189,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -196,6 +205,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -212,6 +222,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -228,6 +239,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -244,6 +256,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -260,6 +273,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -276,6 +290,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -292,6 +307,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -308,6 +324,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -324,6 +341,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -342,6 +360,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -357,6 +376,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -373,6 +393,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -389,6 +410,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -405,6 +427,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -421,6 +444,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -437,6 +461,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -453,6 +478,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -469,6 +495,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -489,6 +516,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -504,6 +532,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -519,6 +548,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -534,6 +564,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -570,6 +601,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -608,6 +640,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -623,6 +656,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -647,6 +681,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -674,6 +709,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -714,6 +750,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -729,6 +766,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -765,6 +803,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -803,6 +842,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -818,6 +858,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -842,6 +883,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -872,6 +914,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -887,6 +930,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -902,6 +946,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -938,6 +983,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -976,6 +1022,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -991,6 +1038,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -1015,6 +1063,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -1042,6 +1091,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -1082,6 +1132,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1097,6 +1148,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1133,6 +1185,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1171,6 +1224,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1186,6 +1240,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1210,6 +1265,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1243,6 +1299,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -1283,6 +1340,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1326,6 +1384,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1369,6 +1428,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1400,6 +1460,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1431,6 +1492,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1461,6 +1523,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1492,6 +1555,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1523,6 +1587,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1554,6 +1619,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1585,6 +1651,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1601,6 +1668,7 @@ func protocolsbabel() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},

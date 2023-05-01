@@ -25,6 +25,6 @@ IKEv2 VPN connection name
 |  txt  |  Connection name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

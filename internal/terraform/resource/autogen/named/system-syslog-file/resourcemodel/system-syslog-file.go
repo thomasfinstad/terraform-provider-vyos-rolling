@@ -2,31 +2,128 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogFile describes the resource data model.
 type SystemSyslogFile struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
-	SystemSyslogFileFacility types.Map `tfsdk:"facility" json:"facility,omitempty"`
+	TagSystemSyslogFileFacility types.Map `tfsdk:"facility"`
 
 	// Nodes
-	SystemSyslogFileArchive types.Object `tfsdk:"archive" json:"archive,omitempty"`
+	NodeSystemSyslogFileArchive types.Object `tfsdk:"archive"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogFile) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemSyslogFile) GetVyosPath() []string {
+	return []string{
+		"system",
+		"syslog",
+		"file",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogFile) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagSystemSyslogFileFacility.IsNull() || o.TagSystemSyslogFileFacility.IsUnknown()) {
+		subModel := make(map[string]SystemSyslogFileFacility)
+		diags.Append(o.TagSystemSyslogFileFacility.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["facility"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeSystemSyslogFileArchive.IsNull() || o.NodeSystemSyslogFileArchive.IsUnknown()) {
+		var subModel SystemSyslogFileArchive
+		diags.Append(o.NodeSystemSyslogFileArchive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["archive"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogFile) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["facility"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: SystemSyslogFileFacility{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagSystemSyslogFileFacility = data
+	} else {
+		o.TagSystemSyslogFileFacility = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["archive"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemSyslogFileArchive{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemSyslogFileArchive = data
+
+	} else {
+		o.NodeSystemSyslogFileArchive = basetypes.NewObjectNull(SystemSyslogFileArchive{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "file"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogFile) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"facility": types.MapType{ElemType: types.ObjectType{AttrTypes: SystemSyslogFileFacility{}.AttributeTypes()}},
+
+		// Nodes
+		"archive": types.ObjectType{AttrTypes: SystemSyslogFileArchive{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogFile) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to a file
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
 
 		"facility": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: SystemSyslogFileFacility{}.ResourceAttributes(),
+				Attributes: SystemSyslogFileFacility{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Facility for logging
@@ -63,7 +160,7 @@ func (o SystemSyslogFile) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"archive": schema.SingleNestedAttribute{
-			Attributes: SystemSyslogFileArchive{}.ResourceAttributes(),
+			Attributes: SystemSyslogFileArchive{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Log file size and rotation characteristics
 

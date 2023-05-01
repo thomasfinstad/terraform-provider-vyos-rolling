@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ContainerNamePort describes the resource data model.
 type ContainerNamePort struct {
 	// LeafNodes
-	ContainerNamePortSource      customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
-	ContainerNamePortDestination customtypes.CustomStringValue `tfsdk:"destination" json:"destination,omitempty"`
-	ContainerNamePortProtocol    customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafContainerNamePortSource      types.String `tfsdk:"source"`
+	LeafContainerNamePortDestination types.String `tfsdk:"destination"`
+	LeafContainerNamePortProtocol    types.String `tfsdk:"protocol"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ContainerNamePort) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"container", "name", "port"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafContainerNamePortSource.IsNull() || o.LeafContainerNamePortSource.IsUnknown()) {
+		vyosData["source"] = o.LeafContainerNamePortSource.ValueString()
+	}
+	if !(o.LeafContainerNamePortDestination.IsNull() || o.LeafContainerNamePortDestination.IsUnknown()) {
+		vyosData["destination"] = o.LeafContainerNamePortDestination.ValueString()
+	}
+	if !(o.LeafContainerNamePortProtocol.IsNull() || o.LeafContainerNamePortProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafContainerNamePortProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ContainerNamePort) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"container", "name", "port"}})
+
+	// Leafs
+	if value, ok := vyosData["source"]; ok {
+		o.LeafContainerNamePortSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNamePortSource = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["destination"]; ok {
+		o.LeafContainerNamePortDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNamePortDestination = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafContainerNamePortProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafContainerNamePortProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"container", "name", "port"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ContainerNamePort) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"source":      types.StringType,
+		"destination": types.StringType,
+		"protocol":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ContainerNamePort) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source host port
 
 |  Format  |  Description  |
@@ -38,8 +110,7 @@ func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"destination": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Destination container port
 
 |  Format  |  Description  |
@@ -51,8 +122,7 @@ func (o ContainerNamePort) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Transport protocol used for port mapping
 
 |  Format  |  Description  |

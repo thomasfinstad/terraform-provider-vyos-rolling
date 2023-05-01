@@ -14,6 +14,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -32,6 +34,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -48,6 +51,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -88,6 +92,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -121,6 +126,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -146,6 +152,7 @@ func protocolsstaticarp() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Description too long (limit 256 characters)"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},

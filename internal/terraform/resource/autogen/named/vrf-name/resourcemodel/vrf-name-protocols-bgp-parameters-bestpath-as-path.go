@@ -2,47 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpathAsPath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathAsPath struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersBestpathAsPathConfed         customtypes.CustomStringValue `tfsdk:"confed" json:"confed,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathAsPathIgnore         customtypes.CustomStringValue `tfsdk:"ignore" json:"ignore,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax customtypes.CustomStringValue `tfsdk:"multipath_relax" json:"multipath-relax,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed         types.String `tfsdk:"confed"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore         types.String `tfsdk:"ignore"`
+	LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax types.String `tfsdk:"multipath_relax"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersBestpathAsPath) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.IsUnknown()) {
+		vyosData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.IsUnknown()) {
+		vyosData["ignore"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.IsUnknown()) {
+		vyosData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersBestpathAsPath) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
+
+	// Leafs
+	if value, ok := vyosData["confed"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathConfed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ignore"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathIgnore = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["multipath-relax"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathAsPathMultIPathRelax = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "as-path"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathAsPath) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"confed":          types.StringType,
+		"ignore":          types.StringType,
+		"multipath_relax": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathAsPath) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"confed": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Compare AS-path lengths including confederation sets and sequences
 
 `,
 		},
 
 		"ignore": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore AS-path length in selecting a route
 
 `,
 		},
 
 		"multipath_relax": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes that have different AS paths (but same length)
 
 `,

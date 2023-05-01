@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisRedistribute describes the resource data model.
@@ -13,12 +19,80 @@ type VrfNameProtocolsIsisRedistribute struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsIsisRedistributeIPvfour types.Object `tfsdk:"ipv4" json:"ipv4,omitempty"`
-	VrfNameProtocolsIsisRedistributeIPvsix  types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeVrfNameProtocolsIsisRedistributeIPvfour types.Object `tfsdk:"ipv4"`
+	NodeVrfNameProtocolsIsisRedistributeIPvsix  types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisRedistribute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisRedistribute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvfour.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvfour.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvfour
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvfour.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisRedistributeIPvsix.IsNull() || o.NodeVrfNameProtocolsIsisRedistributeIPvsix.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisRedistributeIPvsix
+		diags.Append(o.NodeVrfNameProtocolsIsisRedistributeIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisRedistribute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ipv4"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvfour{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfour = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvfour = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvfour{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisRedistributeIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsix = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisRedistributeIPvsix = basetypes.NewObjectNull(VrfNameProtocolsIsisRedistributeIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "redistribute"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisRedistribute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"ipv4": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvfour{}.AttributeTypes()},
+		"ipv6": types.ObjectType{AttrTypes: VrfNameProtocolsIsisRedistributeIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -27,7 +101,7 @@ func (o VrfNameProtocolsIsisRedistribute) ResourceAttributes() map[string]schema
 		// Nodes
 
 		"ipv4": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvfour{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvfour{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IPv4 routes
 
@@ -35,7 +109,7 @@ func (o VrfNameProtocolsIsisRedistribute) ResourceAttributes() map[string]schema
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisRedistributeIPvsix{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisRedistributeIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute IPv6 routes
 

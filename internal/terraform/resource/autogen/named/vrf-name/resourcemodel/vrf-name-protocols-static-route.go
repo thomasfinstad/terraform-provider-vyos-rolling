@@ -2,35 +2,160 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsStaticRoute describes the resource data model.
 type VrfNameProtocolsStaticRoute struct {
 	// LeafNodes
-	VrfNameProtocolsStaticRouteDhcpInterface customtypes.CustomStringValue `tfsdk:"dhcp_interface" json:"dhcp-interface,omitempty"`
-	VrfNameProtocolsStaticRouteDescrIPtion   customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafVrfNameProtocolsStaticRouteDhcpInterface types.String `tfsdk:"dhcp_interface"`
+	LeafVrfNameProtocolsStaticRouteDescrIPtion   types.String `tfsdk:"description"`
 
 	// TagNodes
-	VrfNameProtocolsStaticRouteInterface types.Map `tfsdk:"interface" json:"interface,omitempty"`
-	VrfNameProtocolsStaticRouteNextHop   types.Map `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	TagVrfNameProtocolsStaticRouteInterface types.Map `tfsdk:"interface"`
+	TagVrfNameProtocolsStaticRouteNextHop   types.Map `tfsdk:"next_hop"`
 
 	// Nodes
-	VrfNameProtocolsStaticRouteBlackhole types.Object `tfsdk:"blackhole" json:"blackhole,omitempty"`
-	VrfNameProtocolsStaticRouteReject    types.Object `tfsdk:"reject" json:"reject,omitempty"`
+	NodeVrfNameProtocolsStaticRouteBlackhole types.Object `tfsdk:"blackhole"`
+	NodeVrfNameProtocolsStaticRouteReject    types.Object `tfsdk:"reject"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsStaticRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsStaticRouteDhcpInterface.IsNull() || o.LeafVrfNameProtocolsStaticRouteDhcpInterface.IsUnknown()) {
+		vyosData["dhcp-interface"] = o.LeafVrfNameProtocolsStaticRouteDhcpInterface.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsStaticRouteDescrIPtion.IsNull() || o.LeafVrfNameProtocolsStaticRouteDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafVrfNameProtocolsStaticRouteDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsStaticRouteInterface.IsNull() || o.TagVrfNameProtocolsStaticRouteInterface.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRouteInterface)
+		diags.Append(o.TagVrfNameProtocolsStaticRouteInterface.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["interface"] = subData
+	}
+	if !(o.TagVrfNameProtocolsStaticRouteNextHop.IsNull() || o.TagVrfNameProtocolsStaticRouteNextHop.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRouteNextHop)
+		diags.Append(o.TagVrfNameProtocolsStaticRouteNextHop.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["next-hop"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsStaticRouteBlackhole.IsNull() || o.NodeVrfNameProtocolsStaticRouteBlackhole.IsUnknown()) {
+		var subModel VrfNameProtocolsStaticRouteBlackhole
+		diags.Append(o.NodeVrfNameProtocolsStaticRouteBlackhole.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["blackhole"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsStaticRouteReject.IsNull() || o.NodeVrfNameProtocolsStaticRouteReject.IsUnknown()) {
+		var subModel VrfNameProtocolsStaticRouteReject
+		diags.Append(o.NodeVrfNameProtocolsStaticRouteReject.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["reject"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsStaticRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route"}})
+
+	// Leafs
+	if value, ok := vyosData["dhcp-interface"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteDhcpInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteDhcpInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["interface"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteInterface{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRouteInterface = data
+	} else {
+		o.TagVrfNameProtocolsStaticRouteInterface = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["next-hop"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteNextHop{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRouteNextHop = data
+	} else {
+		o.TagVrfNameProtocolsStaticRouteNextHop = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["blackhole"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsStaticRouteBlackhole{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsStaticRouteBlackhole = data
+
+	} else {
+		o.NodeVrfNameProtocolsStaticRouteBlackhole = basetypes.NewObjectNull(VrfNameProtocolsStaticRouteBlackhole{}.AttributeTypes())
+	}
+	if value, ok := vyosData["reject"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsStaticRouteReject{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsStaticRouteReject = data
+
+	} else {
+		o.NodeVrfNameProtocolsStaticRouteReject = basetypes.NewObjectNull(VrfNameProtocolsStaticRouteReject{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsStaticRoute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dhcp_interface": types.StringType,
+		"description":    types.StringType,
+
+		// Tags
+		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteInterface{}.AttributeTypes()}},
+		"next_hop":  types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteNextHop{}.AttributeTypes()}},
+
+		// Nodes
+		"blackhole": types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteBlackhole{}.AttributeTypes()},
+		"reject":    types.ObjectType{AttrTypes: VrfNameProtocolsStaticRouteReject{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dhcp_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
 |  Format  |  Description  |
@@ -41,8 +166,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -56,7 +180,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attr
 
 		"interface": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRouteInterface{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRouteInterface{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Next-hop IPv4 router interface
@@ -70,7 +194,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attr
 
 		"next_hop": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRouteNextHop{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRouteNextHop{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Next-hop IPv4 router address
@@ -85,7 +209,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attr
 		// Nodes
 
 		"blackhole": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteBlackhole{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsStaticRouteBlackhole{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Silently discard pkts when matched
 
@@ -93,7 +217,7 @@ func (o VrfNameProtocolsStaticRoute) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"reject": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRouteReject{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsStaticRouteReject{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Emit an ICMP unreachable when matched
 

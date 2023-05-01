@@ -68,15 +68,19 @@ func main() {
 
 			// Key/Value map of template-name = template-data
 			templateRuns := map[string]any{
-				"validate": rootTagNode,
-				"resource": rootTagNode,
-				"metadata": rootTagNode,
-				"schema":   rootTagNode,
-				"crud":     rootTagNode,
+				"validate":                    rootTagNode,
+				"resource-tagnode-based-full": rootTagNode,
+				"metadata":                    rootTagNode,
+				"schema":                      rootTagNode,
+				"crud":                        rootTagNode,
 			}
 
 			for templateName, data := range templateRuns {
-				outputFile := fmt.Sprintf("%s/%s.go", resourceOutputDir, templateName)
+				outputFile := fmt.Sprintf(
+					"%s/%s.go",
+					resourceOutputDir,
+					strings.Split(templateName, "-")[0],
+				)
 				fmt.Printf("Creating: %s\n", outputFile)
 				file, err := os.Create(outputFile)
 				if err != nil {
@@ -92,7 +96,7 @@ func main() {
 
 				// Write Imports
 				var importExtra []string
-				if templateName == "resource" {
+				if templateName == "resource-tagnode-based-full" {
 					importExtra = []string{
 						fmt.Sprintf("%s/%s/%s", selfImportRoot, resourceOutputDir, resourceModelSubDir),
 					}

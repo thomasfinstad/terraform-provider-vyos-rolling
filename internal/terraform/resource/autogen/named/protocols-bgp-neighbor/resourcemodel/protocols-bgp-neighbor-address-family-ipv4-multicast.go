@@ -2,75 +2,373 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourMulticast describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourMulticast struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll         customtypes.CustomStringValue `tfsdk:"addpath_tx_all" json:"addpath-tx-all,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs       customtypes.CustomStringValue `tfsdk:"addpath_tx_per_as" json:"addpath-tx-per-as,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe           customtypes.CustomStringValue `tfsdk:"as_override" json:"as-override,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix        customtypes.CustomStringValue `tfsdk:"maximum_prefix" json:"maximum-prefix,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut     customtypes.CustomStringValue `tfsdk:"maximum_prefix_out" json:"maximum-prefix-out,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs      customtypes.CustomStringValue `tfsdk:"remove_private_as" json:"remove-private-as,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient customtypes.CustomStringValue `tfsdk:"route_reflector_client" json:"route-reflector-client,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient    customtypes.CustomStringValue `tfsdk:"route_server_client" json:"route-server-client,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap        customtypes.CustomStringValue `tfsdk:"unsuppress_map" json:"unsuppress-map,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight               customtypes.CustomStringValue `tfsdk:"weight" json:"weight,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll         types.String `tfsdk:"addpath_tx_all"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs       types.String `tfsdk:"addpath_tx_per_as"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe           types.String `tfsdk:"as_override"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix        types.String `tfsdk:"maximum_prefix"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut     types.String `tfsdk:"maximum_prefix_out"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs      types.String `tfsdk:"remove_private_as"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient types.String `tfsdk:"route_reflector_client"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient    types.String `tfsdk:"route_server_client"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap        types.String `tfsdk:"unsuppress_map"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight               types.String `tfsdk:"weight"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability             types.Object `tfsdk:"capability" json:"capability,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList             types.Object `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise types.Object `tfsdk:"conditionally_advertise" json:"conditionally-advertise,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn              types.Object `tfsdk:"allowas_in" json:"allowas-in,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged     types.Object `tfsdk:"attribute_unchanged" json:"attribute-unchanged,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity   types.Object `tfsdk:"disable_send_community" json:"disable-send-community,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         types.Object `tfsdk:"distribute_list" json:"distribute-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             types.Object `tfsdk:"filter_list" json:"filter-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            types.Object `tfsdk:"nexthop_self" json:"nexthop-self,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               types.Object `tfsdk:"route_map" json:"route-map,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    types.Object `tfsdk:"soft_reconfiguration" json:"soft-reconfiguration,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       types.Object `tfsdk:"default_originate" json:"default-originate,omitempty"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability             types.Object `tfsdk:"capability"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList             types.Object `tfsdk:"prefix_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise types.Object `tfsdk:"conditionally_advertise"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn              types.Object `tfsdk:"allowas_in"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged     types.Object `tfsdk:"attribute_unchanged"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity   types.Object `tfsdk:"disable_send_community"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList         types.Object `tfsdk:"distribute_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList             types.Object `tfsdk:"filter_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf            types.Object `tfsdk:"nexthop_self"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap               types.Object `tfsdk:"route_map"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration    types.Object `tfsdk:"soft_reconfiguration"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate       types.Object `tfsdk:"default_originate"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.IsUnknown()) {
+		vyosData["addpath-tx-all"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.IsUnknown()) {
+		vyosData["addpath-tx-per-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.IsUnknown()) {
+		vyosData["as-override"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.IsUnknown()) {
+		vyosData["maximum-prefix"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.IsUnknown()) {
+		vyosData["maximum-prefix-out"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.IsUnknown()) {
+		vyosData["remove-private-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.IsUnknown()) {
+		vyosData["route-reflector-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.IsUnknown()) {
+		vyosData["route-server-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.IsUnknown()) {
+		vyosData["unsuppress-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.IsUnknown()) {
+		vyosData["weight"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["capability"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["conditionally-advertise"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["allowas-in"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["attribute-unchanged"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["disable-send-community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distribute-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["filter-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["nexthop-self"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["soft-reconfiguration"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default-originate"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast"}})
+
+	// Leafs
+	if value, ok := vyosData["addpath-tx-all"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxAll = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["addpath-tx-per-as"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAddpathTxPerAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["as-override"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastAsOverrIDe = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-prefix"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-prefix-out"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastMaximumPrefixOut = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remove-private-as"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRemovePrivateAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-reflector-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteReflectorClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-server-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteServerClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["unsuppress-map"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastUnsuppressMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["weight"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourMulticastWeight = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["capability"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}.AttributeTypes())
+	}
+	if value, ok := vyosData["prefix-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["conditionally-advertise"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}.AttributeTypes())
+	}
+	if value, ok := vyosData["allowas-in"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["attribute-unchanged"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}.AttributeTypes())
+	}
+	if value, ok := vyosData["disable-send-community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["distribute-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["filter-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["nexthop-self"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}.AttributeTypes())
+	}
+	if value, ok := vyosData["soft-reconfiguration"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}.AttributeTypes())
+	}
+	if value, ok := vyosData["default-originate"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-multicast"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"addpath_tx_all":         types.StringType,
+		"addpath_tx_per_as":      types.StringType,
+		"as_override":            types.StringType,
+		"maximum_prefix":         types.StringType,
+		"maximum_prefix_out":     types.StringType,
+		"remove_private_as":      types.StringType,
+		"route_reflector_client": types.StringType,
+		"route_server_client":    types.StringType,
+		"unsuppress_map":         types.StringType,
+		"weight":                 types.StringType,
+
+		// Tags
+
+		// Nodes
+		"capability":              types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}.AttributeTypes()},
+		"prefix_list":             types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}.AttributeTypes()},
+		"conditionally_advertise": types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}.AttributeTypes()},
+		"allowas_in":              types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}.AttributeTypes()},
+		"attribute_unchanged":     types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}.AttributeTypes()},
+		"disable_send_community":  types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}.AttributeTypes()},
+		"distribute_list":         types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}.AttributeTypes()},
+		"filter_list":             types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}.AttributeTypes()},
+		"nexthop_self":            types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.AttributeTypes()},
+		"route_map":               types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}.AttributeTypes()},
+		"soft_reconfiguration":    types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}.AttributeTypes()},
+		"default_originate":       types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"addpath_tx_all": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use addpath to advertise all paths to a neighbor
 
 `,
 		},
 
 		"addpath_tx_per_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
 
 `,
 		},
 
 		"as_override": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
 
 `,
 		},
 
 		"maximum_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
 |  Format  |  Description  |
@@ -81,8 +379,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"maximum_prefix_out": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
 |  Format  |  Description  |
@@ -93,32 +390,28 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"remove_private_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
 		},
 
 		"route_reflector_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
 		},
 
 		"route_server_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route server client
 
 `,
 		},
 
 		"unsuppress_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
 |  Format  |  Description  |
@@ -129,8 +422,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"weight": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
 
 |  Format  |  Description  |
@@ -145,7 +437,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		// Nodes
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastCapability{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this neighbor (IPv4)
 
@@ -153,7 +445,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastPrefixList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
@@ -161,7 +453,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"conditionally_advertise": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastConditionallyAdvertise{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Use route-map to conditionally advertise routes
 
@@ -169,7 +461,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"allowas_in": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAllowasIn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Accept route that contains the local-as in the as-path
 
@@ -177,7 +469,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"attribute_unchanged": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP attributes are sent unchanged
 
@@ -185,7 +477,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"disable_send_community": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDisableSendCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable sending community attributes to this peer
 
@@ -193,7 +485,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"distribute_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDistributeList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
@@ -201,7 +493,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastFilterList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
@@ -209,7 +501,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"nexthop_self": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastNexthopSelf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
 
@@ -217,7 +509,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastRouteMap{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -225,7 +517,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastSoftReconfiguration{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
 
@@ -233,7 +525,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvfourMulticast) ResourceAttributes() 
 		},
 
 		"default_originate": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvfourMulticastDefaultOriginate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Originate default route to this peer
 

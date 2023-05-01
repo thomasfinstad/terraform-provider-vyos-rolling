@@ -2,49 +2,149 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiCertificate describes the resource data model.
 type PkiCertificate struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PkiCertificateCertificate customtypes.CustomStringValue `tfsdk:"certificate" json:"certificate,omitempty"`
-	PkiCertificateDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PkiCertificateRevoke      customtypes.CustomStringValue `tfsdk:"revoke" json:"revoke,omitempty"`
+	LeafPkiCertificateCertificate types.String `tfsdk:"certificate"`
+	LeafPkiCertificateDescrIPtion types.String `tfsdk:"description"`
+	LeafPkiCertificateRevoke      types.String `tfsdk:"revoke"`
 
 	// TagNodes
 
 	// Nodes
-	PkiCertificatePrivate types.Object `tfsdk:"private" json:"private,omitempty"`
+	NodePkiCertificatePrivate types.Object `tfsdk:"private"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PkiCertificate) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PkiCertificate) GetVyosPath() []string {
+	return []string{
+		"pki",
+		"certificate",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PkiCertificate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "certificate"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPkiCertificateCertificate.IsNull() || o.LeafPkiCertificateCertificate.IsUnknown()) {
+		vyosData["certificate"] = o.LeafPkiCertificateCertificate.ValueString()
+	}
+	if !(o.LeafPkiCertificateDescrIPtion.IsNull() || o.LeafPkiCertificateDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPkiCertificateDescrIPtion.ValueString()
+	}
+	if !(o.LeafPkiCertificateRevoke.IsNull() || o.LeafPkiCertificateRevoke.IsUnknown()) {
+		vyosData["revoke"] = o.LeafPkiCertificateRevoke.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePkiCertificatePrivate.IsNull() || o.NodePkiCertificatePrivate.IsUnknown()) {
+		var subModel PkiCertificatePrivate
+		diags.Append(o.NodePkiCertificatePrivate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["private"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PkiCertificate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "certificate"}})
+
+	// Leafs
+	if value, ok := vyosData["certificate"]; ok {
+		o.LeafPkiCertificateCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["revoke"]; ok {
+		o.LeafPkiCertificateRevoke = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiCertificateRevoke = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["private"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PkiCertificatePrivate{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePkiCertificatePrivate = data
+
+	} else {
+		o.NodePkiCertificatePrivate = basetypes.NewObjectNull(PkiCertificatePrivate{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "certificate"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PkiCertificate) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"certificate": types.StringType,
+		"description": types.StringType,
+		"revoke":      types.StringType,
+
+		// Tags
+
+		// Nodes
+		"private": types.ObjectType{AttrTypes: PkiCertificatePrivate{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PkiCertificate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Certificate
+
+`,
+		},
+
 		// LeafNodes
 
 		"certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate in PEM format
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 `,
 		},
 
 		"revoke": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `If CA is present, this certificate will be included in generated CRLs
 
 `,
@@ -55,7 +155,7 @@ func (o PkiCertificate) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"private": schema.SingleNestedAttribute{
-			Attributes: PkiCertificatePrivate{}.ResourceAttributes(),
+			Attributes: PkiCertificatePrivate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Certificate private key
 

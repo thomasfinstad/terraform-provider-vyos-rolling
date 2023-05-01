@@ -21,6 +21,6 @@ Specify other caches in a hierarchy
 |  hostname  |  Cache peers FQDN  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupCapability describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupCapability struct {
 	// LeafNodes
-	VrfNameProtocolsBgpPeerGroupCapabilityDynamic         customtypes.CustomStringValue `tfsdk:"dynamic" json:"dynamic,omitempty"`
-	VrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop customtypes.CustomStringValue `tfsdk:"extended_nexthop" json:"extended-nexthop,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic         types.String `tfsdk:"dynamic"`
+	LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop types.String `tfsdk:"extended_nexthop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupCapability) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroupCapability) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "capability"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.IsUnknown()) {
+		vyosData["dynamic"] = o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.IsUnknown()) {
+		vyosData["extended-nexthop"] = o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroupCapability) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "capability"}})
+
+	// Leafs
+	if value, ok := vyosData["dynamic"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityDynamic = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["extended-nexthop"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupCapabilityExtendedNexthop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "capability"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupCapability) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dynamic":          types.StringType,
+		"extended_nexthop": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupCapability) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dynamic": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise dynamic capability to this neighbor
 
 `,
 		},
 
 		"extended_nexthop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise extended-nexthop capability to this neighbor
 
 `,

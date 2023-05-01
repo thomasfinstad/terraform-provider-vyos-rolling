@@ -2,75 +2,178 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessVifDhcpOptions describes the resource data model.
 type InterfacesWirelessVifDhcpOptions struct {
 	// LeafNodes
-	InterfacesWirelessVifDhcpOptionsClientID             customtypes.CustomStringValue `tfsdk:"client_id" json:"client-id,omitempty"`
-	InterfacesWirelessVifDhcpOptionsHostName             customtypes.CustomStringValue `tfsdk:"host_name" json:"host-name,omitempty"`
-	InterfacesWirelessVifDhcpOptionsMtu                  customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesWirelessVifDhcpOptionsVendorClassID        customtypes.CustomStringValue `tfsdk:"vendor_class_id" json:"vendor-class-id,omitempty"`
-	InterfacesWirelessVifDhcpOptionsNoDefaultRoute       customtypes.CustomStringValue `tfsdk:"no_default_route" json:"no-default-route,omitempty"`
-	InterfacesWirelessVifDhcpOptionsDefaultRouteDistance customtypes.CustomStringValue `tfsdk:"default_route_distance" json:"default-route-distance,omitempty"`
-	InterfacesWirelessVifDhcpOptionsReject               customtypes.CustomStringValue `tfsdk:"reject" json:"reject,omitempty"`
+	LeafInterfacesWirelessVifDhcpOptionsClientID             types.String `tfsdk:"client_id"`
+	LeafInterfacesWirelessVifDhcpOptionsHostName             types.String `tfsdk:"host_name"`
+	LeafInterfacesWirelessVifDhcpOptionsMtu                  types.String `tfsdk:"mtu"`
+	LeafInterfacesWirelessVifDhcpOptionsVendorClassID        types.String `tfsdk:"vendor_class_id"`
+	LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute       types.String `tfsdk:"no_default_route"`
+	LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance types.String `tfsdk:"default_route_distance"`
+	LeafInterfacesWirelessVifDhcpOptionsReject               types.String `tfsdk:"reject"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesWirelessVifDhcpOptions) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesWirelessVifDhcpOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif", "dhcp-options"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsClientID.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsClientID.IsUnknown()) {
+		vyosData["client-id"] = o.LeafInterfacesWirelessVifDhcpOptionsClientID.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsHostName.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsHostName.IsUnknown()) {
+		vyosData["host-name"] = o.LeafInterfacesWirelessVifDhcpOptionsHostName.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsMtu.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesWirelessVifDhcpOptionsMtu.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsVendorClassID.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsVendorClassID.IsUnknown()) {
+		vyosData["vendor-class-id"] = o.LeafInterfacesWirelessVifDhcpOptionsVendorClassID.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute.IsUnknown()) {
+		vyosData["no-default-route"] = o.LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance.IsUnknown()) {
+		vyosData["default-route-distance"] = o.LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessVifDhcpOptionsReject.IsNull() || o.LeafInterfacesWirelessVifDhcpOptionsReject.IsUnknown()) {
+		vyosData["reject"] = o.LeafInterfacesWirelessVifDhcpOptionsReject.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesWirelessVifDhcpOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif", "dhcp-options"}})
+
+	// Leafs
+	if value, ok := vyosData["client-id"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsClientID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsClientID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["host-name"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsHostName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsHostName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vendor-class-id"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsVendorClassID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsVendorClassID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-default-route"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsNoDefaultRoute = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-route-distance"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsDefaultRouteDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["reject"]; ok {
+		o.LeafInterfacesWirelessVifDhcpOptionsReject = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessVifDhcpOptionsReject = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "vif", "dhcp-options"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesWirelessVifDhcpOptions) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"client_id":              types.StringType,
+		"host_name":              types.StringType,
+		"mtu":                    types.StringType,
+		"vendor_class_id":        types.StringType,
+		"no_default_route":       types.StringType,
+		"default_route_distance": types.StringType,
+		"reject":                 types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesWirelessVifDhcpOptions) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"client_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Identifier used by client to identify itself to the DHCP server
 
 `,
 		},
 
 		"host_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Override system host-name sent to DHCP server
 
 `,
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use MTU value from DHCP server - ignore interface setting
 
 `,
 		},
 
 		"vendor_class_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Identify the vendor client type to the DHCP server
 
 `,
 		},
 
 		"no_default_route": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not install default route to system
 
 `,
 		},
 
 		"default_route_distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for installed default route
 
 |  Format  |  Description  |
@@ -84,8 +187,7 @@ func (o InterfacesWirelessVifDhcpOptions) ResourceAttributes() map[string]schema
 		},
 
 		"reject": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP addresses or subnets from which to reject DHCP leases
 
 |  Format  |  Description  |

@@ -14,6 +14,7 @@ func netns() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -31,6 +32,7 @@ func netns() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				TagNode: []*interfacedefinition.TagNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "tagNode",
 					},
@@ -53,6 +55,7 @@ func netns() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

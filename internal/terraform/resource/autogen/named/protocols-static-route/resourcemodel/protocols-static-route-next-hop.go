@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticRouteNextHop describes the resource data model.
 type ProtocolsStaticRouteNextHop struct {
 	// LeafNodes
-	ProtocolsStaticRouteNextHopDisable   customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	ProtocolsStaticRouteNextHopDistance  customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	ProtocolsStaticRouteNextHopInterface customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	ProtocolsStaticRouteNextHopVrf       customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafProtocolsStaticRouteNextHopDisable   types.String `tfsdk:"disable"`
+	LeafProtocolsStaticRouteNextHopDistance  types.String `tfsdk:"distance"`
+	LeafProtocolsStaticRouteNextHopInterface types.String `tfsdk:"interface"`
+	LeafProtocolsStaticRouteNextHopVrf       types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticRouteNextHop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "route", "next-hop"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticRouteNextHopDisable.IsNull() || o.LeafProtocolsStaticRouteNextHopDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafProtocolsStaticRouteNextHopDisable.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRouteNextHopDistance.IsNull() || o.LeafProtocolsStaticRouteNextHopDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsStaticRouteNextHopDistance.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRouteNextHopInterface.IsNull() || o.LeafProtocolsStaticRouteNextHopInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafProtocolsStaticRouteNextHopInterface.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRouteNextHopVrf.IsNull() || o.LeafProtocolsStaticRouteNextHopVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafProtocolsStaticRouteNextHopVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticRouteNextHop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "route", "next-hop"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafProtocolsStaticRouteNextHopDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRouteNextHopDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsStaticRouteNextHopDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRouteNextHopDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafProtocolsStaticRouteNextHopInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRouteNextHopInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafProtocolsStaticRouteNextHopVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRouteNextHopVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "route", "next-hop"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticRouteNextHop) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":   types.StringType,
+		"distance":  types.StringType,
+		"interface": types.StringType,
+		"vrf":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
 |  Format  |  Description  |
@@ -58,8 +137,7 @@ func (o ProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |

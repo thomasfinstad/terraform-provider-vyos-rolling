@@ -17,6 +17,6 @@ func (r systemLoginUser) Schema(ctx context.Context, req resource.SchemaRequest,
 Local user account information
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

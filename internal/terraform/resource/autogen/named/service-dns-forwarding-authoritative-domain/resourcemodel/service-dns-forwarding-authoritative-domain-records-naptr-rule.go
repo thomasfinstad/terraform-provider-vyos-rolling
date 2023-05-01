@@ -2,37 +2,163 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule struct {
 	// LeafNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder            customtypes.CustomStringValue `tfsdk:"order" json:"order,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference       customtypes.CustomStringValue `tfsdk:"preference" json:"preference,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv        customtypes.CustomStringValue `tfsdk:"lookup_srv" json:"lookup-srv,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA          customtypes.CustomStringValue `tfsdk:"lookup_a" json:"lookup-a,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI       customtypes.CustomStringValue `tfsdk:"resolve_uri" json:"resolve-uri,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific customtypes.CustomStringValue `tfsdk:"protocol_specific" json:"protocol-specific,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService          customtypes.CustomStringValue `tfsdk:"service" json:"service,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp           customtypes.CustomStringValue `tfsdk:"regexp" json:"regexp,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement      customtypes.CustomStringValue `tfsdk:"replacement" json:"replacement,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder            types.String `tfsdk:"order"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference       types.String `tfsdk:"preference"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv        types.String `tfsdk:"lookup_srv"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA          types.String `tfsdk:"lookup_a"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI       types.String `tfsdk:"resolve_uri"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific types.String `tfsdk:"protocol_specific"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService          types.String `tfsdk:"service"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp           types.String `tfsdk:"regexp"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement      types.String `tfsdk:"replacement"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.IsUnknown()) {
+		vyosData["order"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.IsUnknown()) {
+		vyosData["preference"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.IsUnknown()) {
+		vyosData["lookup-srv"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.IsUnknown()) {
+		vyosData["lookup-a"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.IsUnknown()) {
+		vyosData["resolve-uri"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.IsUnknown()) {
+		vyosData["protocol-specific"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.IsUnknown()) {
+		vyosData["service"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.IsUnknown()) {
+		vyosData["regexp"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.IsUnknown()) {
+		vyosData["replacement"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["order"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleOrder = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["preference"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRulePreference = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lookup-srv"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupSrv = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lookup-a"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleLookupA = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["resolve-uri"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleResolveURI = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol-specific"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleProtocolSpecific = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["service"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleService = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["regexp"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleRegexp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["replacement"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrRuleReplacement = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"order":             types.StringType,
+		"preference":        types.StringType,
+		"lookup_srv":        types.StringType,
+		"lookup_a":          types.StringType,
+		"resolve_uri":       types.StringType,
+		"protocol_specific": types.StringType,
+		"service":           types.StringType,
+		"regexp":            types.StringType,
+		"replacement":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"order": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rule order
 
 |  Format  |  Description  |
@@ -43,8 +169,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttribu
 		},
 
 		"preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rule preference
 
 |  Format  |  Description  |
@@ -58,56 +183,49 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule) ResourceAttribu
 		},
 
 		"lookup_srv": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `"S" flag
 
 `,
 		},
 
 		"lookup_a": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `"A" flag
 
 `,
 		},
 
 		"resolve_uri": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `"U" flag
 
 `,
 		},
 
 		"protocol_specific": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `"P" flag
 
 `,
 		},
 
 		"service": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Service type
 
 `,
 		},
 
 		"regexp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Regular expression
 
 `,
 		},
 
 		"replacement": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Replacement DNS name
 
 |  Format  |  Description  |

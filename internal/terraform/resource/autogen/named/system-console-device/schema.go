@@ -23,6 +23,6 @@ Serial console device name
 |  hvcN  |  Xen console  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

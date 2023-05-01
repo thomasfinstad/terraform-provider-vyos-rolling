@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupLocalAs describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsBgpPeerGroupLocalAs struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend types.Object `tfsdk:"no_prepend" json:"no-prepend,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend types.Object `tfsdk:"no_prepend"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroupLocalAs) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "local-as"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["no-prepend"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroupLocalAs) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "local-as"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["no-prepend"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupLocalAsNoPrepend = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "local-as"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupLocalAs) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"no_prepend": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsBgpPeerGroupLocalAs) ResourceAttributes() map[string]sch
 		// Nodes
 
 		"no_prepend": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupLocalAsNoPrepend{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable prepending local-as from/to updates for eBGP peers
 

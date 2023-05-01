@@ -2,33 +2,141 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanInterfaceHealth describes the resource data model.
 type LoadBalancingWanInterfaceHealth struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	LoadBalancingWanInterfaceHealthFailureCount customtypes.CustomStringValue `tfsdk:"failure_count" json:"failure-count,omitempty"`
-	LoadBalancingWanInterfaceHealthNexthop      customtypes.CustomStringValue `tfsdk:"nexthop" json:"nexthop,omitempty"`
-	LoadBalancingWanInterfaceHealthSuccessCount customtypes.CustomStringValue `tfsdk:"success_count" json:"success-count,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthFailureCount types.String `tfsdk:"failure_count"`
+	LeafLoadBalancingWanInterfaceHealthNexthop      types.String `tfsdk:"nexthop"`
+	LeafLoadBalancingWanInterfaceHealthSuccessCount types.String `tfsdk:"success_count"`
 
 	// TagNodes
-	LoadBalancingWanInterfaceHealthTest types.Map `tfsdk:"test" json:"test,omitempty"`
+	TagLoadBalancingWanInterfaceHealthTest types.Map `tfsdk:"test"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *LoadBalancingWanInterfaceHealth) GetVyosPath() []string {
+	return []string{
+		"load-balancing",
+		"wan",
+		"interface-health",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *LoadBalancingWanInterfaceHealth) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsNull() || o.LeafLoadBalancingWanInterfaceHealthFailureCount.IsUnknown()) {
+		vyosData["failure-count"] = o.LeafLoadBalancingWanInterfaceHealthFailureCount.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthNexthop.IsNull() || o.LeafLoadBalancingWanInterfaceHealthNexthop.IsUnknown()) {
+		vyosData["nexthop"] = o.LeafLoadBalancingWanInterfaceHealthNexthop.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsNull() || o.LeafLoadBalancingWanInterfaceHealthSuccessCount.IsUnknown()) {
+		vyosData["success-count"] = o.LeafLoadBalancingWanInterfaceHealthSuccessCount.ValueString()
+	}
+
+	// Tags
+	if !(o.TagLoadBalancingWanInterfaceHealthTest.IsNull() || o.TagLoadBalancingWanInterfaceHealthTest.IsUnknown()) {
+		subModel := make(map[string]LoadBalancingWanInterfaceHealthTest)
+		diags.Append(o.TagLoadBalancingWanInterfaceHealthTest.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["test"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *LoadBalancingWanInterfaceHealth) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
+
+	// Leafs
+	if value, ok := vyosData["failure-count"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthFailureCount = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["nexthop"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthNexthop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["success-count"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthSuccessCount = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["test"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: LoadBalancingWanInterfaceHealthTest{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagLoadBalancingWanInterfaceHealthTest = data
+	} else {
+		o.TagLoadBalancingWanInterfaceHealthTest = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o LoadBalancingWanInterfaceHealth) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"failure_count": types.StringType,
+		"nexthop":       types.StringType,
+		"success_count": types.StringType,
+
+		// Tags
+		"test": types.MapType{ElemType: types.ObjectType{AttrTypes: LoadBalancingWanInterfaceHealthTest{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o LoadBalancingWanInterfaceHealth) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface name
+
+`,
+		},
+
 		// LeafNodes
 
 		"failure_count": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Failure count
 
 |  Format  |  Description  |
@@ -39,8 +147,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 		},
 
 		"nexthop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Outbound interface nexthop address. Can be 'DHCP or IPv4 address' [REQUIRED]
 
 |  Format  |  Description  |
@@ -52,8 +159,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 		},
 
 		"success_count": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Success count
 
 |  Format  |  Description  |
@@ -67,7 +173,7 @@ func (o LoadBalancingWanInterfaceHealth) ResourceAttributes() map[string]schema.
 
 		"test": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: LoadBalancingWanInterfaceHealthTest{}.ResourceAttributes(),
+				Attributes: LoadBalancingWanInterfaceHealthTest{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Rule number

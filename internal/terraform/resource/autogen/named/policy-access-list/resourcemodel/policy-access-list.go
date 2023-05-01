@@ -2,31 +2,127 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessList describes the resource data model.
 type PolicyAccessList struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyAccessListDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyAccessListDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	PolicyAccessListRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagPolicyAccessListRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessList) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyAccessList) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"access-list",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListDescrIPtion.IsNull() || o.LeafPolicyAccessListDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyAccessListDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagPolicyAccessListRule.IsNull() || o.TagPolicyAccessListRule.IsUnknown()) {
+		subModel := make(map[string]PolicyAccessListRule)
+		diags.Append(o.TagPolicyAccessListRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyAccessListRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagPolicyAccessListRule = data
+	} else {
+		o.TagPolicyAccessListRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyAccessListRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP access-list filter
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-99  |  IP standard access list  |
+|  u32:100-199  |  IP extended access list  |
+|  u32:1300-1999  |  IP standard access list (expanded range)  |
+|  u32:2000-2699  |  IP extended access list (expanded range)  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,7 +136,7 @@ func (o PolicyAccessList) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: PolicyAccessListRule{}.ResourceAttributes(),
+				Attributes: PolicyAccessListRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Rule for this access-list

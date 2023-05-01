@@ -2,30 +2,116 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyListenAddress describes the resource data model.
 type ServiceWebproxyListenAddress struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceWebproxyListenAddressPort               customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	ServiceWebproxyListenAddressDisableTransparent customtypes.CustomStringValue `tfsdk:"disable_transparent" json:"disable-transparent,omitempty"`
+	LeafServiceWebproxyListenAddressPort               types.String `tfsdk:"port"`
+	LeafServiceWebproxyListenAddressDisableTransparent types.String `tfsdk:"disable_transparent"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceWebproxyListenAddress) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceWebproxyListenAddress) GetVyosPath() []string {
+	return []string{
+		"service",
+		"webproxy",
+		"listen-address",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceWebproxyListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceWebproxyListenAddressPort.IsNull() || o.LeafServiceWebproxyListenAddressPort.IsUnknown()) {
+		vyosData["port"] = o.LeafServiceWebproxyListenAddressPort.ValueString()
+	}
+	if !(o.LeafServiceWebproxyListenAddressDisableTransparent.IsNull() || o.LeafServiceWebproxyListenAddressDisableTransparent.IsUnknown()) {
+		vyosData["disable-transparent"] = o.LeafServiceWebproxyListenAddressDisableTransparent.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceWebproxyListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyListenAddressPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-transparent"]; ok {
+		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyListenAddressDisableTransparent = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "listen-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceWebproxyListenAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":                types.StringType,
+		"disable_transparent": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceWebproxyListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv4 listen-address for WebProxy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IPv4 address listen on  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default Proxy Port
 
 |  Format  |  Description  |
@@ -36,8 +122,7 @@ func (o ServiceWebproxyListenAddress) ResourceAttributes() map[string]schema.Att
 		},
 
 		"disable_transparent": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable transparent mode
 
 `,

@@ -17,6 +17,6 @@ func (r serviceDhcpServerSharedNetworkName) Schema(ctx context.Context, req reso
 Name of DHCP shared network
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

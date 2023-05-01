@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfaceInterval describes the resource data model.
 type ServiceRouterAdvertInterfaceInterval struct {
 	// LeafNodes
-	ServiceRouterAdvertInterfaceIntervalMax customtypes.CustomStringValue `tfsdk:"max" json:"max,omitempty"`
-	ServiceRouterAdvertInterfaceIntervalMin customtypes.CustomStringValue `tfsdk:"min" json:"min,omitempty"`
+	LeafServiceRouterAdvertInterfaceIntervalMax types.String `tfsdk:"max"`
+	LeafServiceRouterAdvertInterfaceIntervalMin types.String `tfsdk:"min"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceRouterAdvertInterfaceInterval) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceRouterAdvertInterfaceInterval) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceRouterAdvertInterfaceIntervalMax.IsNull() || o.LeafServiceRouterAdvertInterfaceIntervalMax.IsUnknown()) {
+		vyosData["max"] = o.LeafServiceRouterAdvertInterfaceIntervalMax.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceIntervalMin.IsNull() || o.LeafServiceRouterAdvertInterfaceIntervalMin.IsUnknown()) {
+		vyosData["min"] = o.LeafServiceRouterAdvertInterfaceIntervalMin.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceRouterAdvertInterfaceInterval) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
+
+	// Leafs
+	if value, ok := vyosData["max"]; ok {
+		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceIntervalMax = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["min"]; ok {
+		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceIntervalMin = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "interval"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceRouterAdvertInterfaceInterval) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"max": types.StringType,
+		"min": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceRouterAdvertInterfaceInterval) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"max": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum interval between unsolicited multicast RAs
 
 |  Format  |  Description  |
@@ -39,8 +102,7 @@ func (o ServiceRouterAdvertInterfaceInterval) ResourceAttributes() map[string]sc
 		},
 
 		"min": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum interval between unsolicited multicast RAs
 
 |  Format  |  Description  |

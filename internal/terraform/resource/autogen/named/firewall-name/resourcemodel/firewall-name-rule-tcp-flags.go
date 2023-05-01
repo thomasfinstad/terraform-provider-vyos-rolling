@@ -2,94 +2,216 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleTCPFlags describes the resource data model.
 type FirewallNameRuleTCPFlags struct {
 	// LeafNodes
-	FirewallNameRuleTCPFlagsSyn customtypes.CustomStringValue `tfsdk:"syn" json:"syn,omitempty"`
-	FirewallNameRuleTCPFlagsAck customtypes.CustomStringValue `tfsdk:"ack" json:"ack,omitempty"`
-	FirewallNameRuleTCPFlagsFin customtypes.CustomStringValue `tfsdk:"fin" json:"fin,omitempty"`
-	FirewallNameRuleTCPFlagsRst customtypes.CustomStringValue `tfsdk:"rst" json:"rst,omitempty"`
-	FirewallNameRuleTCPFlagsUrg customtypes.CustomStringValue `tfsdk:"urg" json:"urg,omitempty"`
-	FirewallNameRuleTCPFlagsPsh customtypes.CustomStringValue `tfsdk:"psh" json:"psh,omitempty"`
-	FirewallNameRuleTCPFlagsEcn customtypes.CustomStringValue `tfsdk:"ecn" json:"ecn,omitempty"`
-	FirewallNameRuleTCPFlagsCwr customtypes.CustomStringValue `tfsdk:"cwr" json:"cwr,omitempty"`
+	LeafFirewallNameRuleTCPFlagsSyn types.String `tfsdk:"syn"`
+	LeafFirewallNameRuleTCPFlagsAck types.String `tfsdk:"ack"`
+	LeafFirewallNameRuleTCPFlagsFin types.String `tfsdk:"fin"`
+	LeafFirewallNameRuleTCPFlagsRst types.String `tfsdk:"rst"`
+	LeafFirewallNameRuleTCPFlagsUrg types.String `tfsdk:"urg"`
+	LeafFirewallNameRuleTCPFlagsPsh types.String `tfsdk:"psh"`
+	LeafFirewallNameRuleTCPFlagsEcn types.String `tfsdk:"ecn"`
+	LeafFirewallNameRuleTCPFlagsCwr types.String `tfsdk:"cwr"`
 
 	// TagNodes
 
 	// Nodes
-	FirewallNameRuleTCPFlagsNot types.Object `tfsdk:"not" json:"not,omitempty"`
+	NodeFirewallNameRuleTCPFlagsNot types.Object `tfsdk:"not"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleTCPFlags) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleTCPFlags) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp", "flags"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleTCPFlagsSyn.IsNull() || o.LeafFirewallNameRuleTCPFlagsSyn.IsUnknown()) {
+		vyosData["syn"] = o.LeafFirewallNameRuleTCPFlagsSyn.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsAck.IsNull() || o.LeafFirewallNameRuleTCPFlagsAck.IsUnknown()) {
+		vyosData["ack"] = o.LeafFirewallNameRuleTCPFlagsAck.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsFin.IsNull() || o.LeafFirewallNameRuleTCPFlagsFin.IsUnknown()) {
+		vyosData["fin"] = o.LeafFirewallNameRuleTCPFlagsFin.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsRst.IsNull() || o.LeafFirewallNameRuleTCPFlagsRst.IsUnknown()) {
+		vyosData["rst"] = o.LeafFirewallNameRuleTCPFlagsRst.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsUrg.IsNull() || o.LeafFirewallNameRuleTCPFlagsUrg.IsUnknown()) {
+		vyosData["urg"] = o.LeafFirewallNameRuleTCPFlagsUrg.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsPsh.IsNull() || o.LeafFirewallNameRuleTCPFlagsPsh.IsUnknown()) {
+		vyosData["psh"] = o.LeafFirewallNameRuleTCPFlagsPsh.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsEcn.IsNull() || o.LeafFirewallNameRuleTCPFlagsEcn.IsUnknown()) {
+		vyosData["ecn"] = o.LeafFirewallNameRuleTCPFlagsEcn.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTCPFlagsCwr.IsNull() || o.LeafFirewallNameRuleTCPFlagsCwr.IsUnknown()) {
+		vyosData["cwr"] = o.LeafFirewallNameRuleTCPFlagsCwr.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallNameRuleTCPFlagsNot.IsNull() || o.NodeFirewallNameRuleTCPFlagsNot.IsUnknown()) {
+		var subModel FirewallNameRuleTCPFlagsNot
+		diags.Append(o.NodeFirewallNameRuleTCPFlagsNot.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["not"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleTCPFlags) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp", "flags"}})
+
+	// Leafs
+	if value, ok := vyosData["syn"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsSyn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ack"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsAck = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fin"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsFin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsFin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rst"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsRst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsRst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["urg"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsUrg = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsUrg = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["psh"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsPsh = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsPsh = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ecn"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsEcn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsEcn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cwr"]; ok {
+		o.LeafFirewallNameRuleTCPFlagsCwr = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPFlagsCwr = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["not"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTCPFlagsNot{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallNameRuleTCPFlagsNot = data
+
+	} else {
+		o.NodeFirewallNameRuleTCPFlagsNot = basetypes.NewObjectNull(FirewallNameRuleTCPFlagsNot{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp", "flags"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleTCPFlags) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"syn": types.StringType,
+		"ack": types.StringType,
+		"fin": types.StringType,
+		"rst": types.StringType,
+		"urg": types.StringType,
+		"psh": types.StringType,
+		"ecn": types.StringType,
+		"cwr": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"not": types.ObjectType{AttrTypes: FirewallNameRuleTCPFlagsNot{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleTCPFlags) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"syn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Synchronise flag
 
 `,
 		},
 
 		"ack": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acknowledge flag
 
 `,
 		},
 
 		"fin": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Finish flag
 
 `,
 		},
 
 		"rst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Reset flag
 
 `,
 		},
 
 		"urg": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Urgent flag
 
 `,
 		},
 
 		"psh": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Push flag
 
 `,
 		},
 
 		"ecn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
 		},
 
 		"cwr": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
 
 `,
@@ -100,7 +222,7 @@ func (o FirewallNameRuleTCPFlags) ResourceAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"not": schema.SingleNestedAttribute{
-			Attributes: FirewallNameRuleTCPFlagsNot{}.ResourceAttributes(),
+			Attributes: FirewallNameRuleTCPFlagsNot{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match flags not set
 

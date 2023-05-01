@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDgeMemberInterface describes the resource data model.
 type InterfacesBrIDgeMemberInterface struct {
 	// LeafNodes
-	InterfacesBrIDgeMemberInterfaceNativeVlan  customtypes.CustomStringValue `tfsdk:"native_vlan" json:"native-vlan,omitempty"`
-	InterfacesBrIDgeMemberInterfaceAllowedVlan customtypes.CustomStringValue `tfsdk:"allowed_vlan" json:"allowed-vlan,omitempty"`
-	InterfacesBrIDgeMemberInterfaceCost        customtypes.CustomStringValue `tfsdk:"cost" json:"cost,omitempty"`
-	InterfacesBrIDgeMemberInterfacePriority    customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	InterfacesBrIDgeMemberInterfaceIsolated    customtypes.CustomStringValue `tfsdk:"isolated" json:"isolated,omitempty"`
+	LeafInterfacesBrIDgeMemberInterfaceNativeVlan  types.String `tfsdk:"native_vlan"`
+	LeafInterfacesBrIDgeMemberInterfaceAllowedVlan types.String `tfsdk:"allowed_vlan"`
+	LeafInterfacesBrIDgeMemberInterfaceCost        types.String `tfsdk:"cost"`
+	LeafInterfacesBrIDgeMemberInterfacePriority    types.String `tfsdk:"priority"`
+	LeafInterfacesBrIDgeMemberInterfaceIsolated    types.String `tfsdk:"isolated"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBrIDgeMemberInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge", "member", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.IsNull() || o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.IsUnknown()) {
+		vyosData["native-vlan"] = o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.IsNull() || o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.IsUnknown()) {
+		vyosData["allowed-vlan"] = o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeMemberInterfaceCost.IsNull() || o.LeafInterfacesBrIDgeMemberInterfaceCost.IsUnknown()) {
+		vyosData["cost"] = o.LeafInterfacesBrIDgeMemberInterfaceCost.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeMemberInterfacePriority.IsNull() || o.LeafInterfacesBrIDgeMemberInterfacePriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafInterfacesBrIDgeMemberInterfacePriority.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeMemberInterfaceIsolated.IsNull() || o.LeafInterfacesBrIDgeMemberInterfaceIsolated.IsUnknown()) {
+		vyosData["isolated"] = o.LeafInterfacesBrIDgeMemberInterfaceIsolated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBrIDgeMemberInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge", "member", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["native-vlan"]; ok {
+		o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMemberInterfaceNativeVlan = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["allowed-vlan"]; ok {
+		o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMemberInterfaceAllowedVlan = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cost"]; ok {
+		o.LeafInterfacesBrIDgeMemberInterfaceCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMemberInterfaceCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafInterfacesBrIDgeMemberInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMemberInterfacePriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["isolated"]; ok {
+		o.LeafInterfacesBrIDgeMemberInterfaceIsolated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeMemberInterfaceIsolated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge", "member", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBrIDgeMemberInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"native_vlan":  types.StringType,
+		"allowed_vlan": types.StringType,
+		"cost":         types.StringType,
+		"priority":     types.StringType,
+		"isolated":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBrIDgeMemberInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"native_vlan": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify VLAN id which should natively be present on the link
 
 |  Format  |  Description  |
@@ -39,8 +129,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 		},
 
 		"allowed_vlan": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify VLAN id which is allowed in this trunk interface
 
 |  Format  |  Description  |
@@ -52,8 +141,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 		},
 
 		"cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Bridge port cost
 
 |  Format  |  Description  |
@@ -67,8 +155,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Bridge port priority
 
 |  Format  |  Description  |
@@ -82,8 +169,7 @@ func (o InterfacesBrIDgeMemberInterface) ResourceAttributes() map[string]schema.
 		},
 
 		"isolated": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port is isolated (also known as Private-VLAN)
 
 `,

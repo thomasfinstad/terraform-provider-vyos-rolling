@@ -14,6 +14,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -38,6 +40,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -70,6 +74,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -115,6 +120,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -131,6 +137,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -149,6 +156,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -177,6 +185,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -192,6 +201,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -232,6 +242,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -266,6 +277,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -297,6 +309,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -315,6 +328,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -355,6 +369,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -389,6 +404,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -420,6 +436,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -438,6 +455,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -472,6 +490,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -496,6 +515,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -527,6 +547,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -545,6 +566,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -579,6 +601,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -607,6 +630,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -641,6 +665,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -672,6 +697,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -690,6 +716,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -724,6 +751,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -748,6 +776,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -779,6 +808,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -797,6 +827,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -831,6 +862,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -854,6 +886,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -885,6 +918,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -903,6 +937,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -937,6 +972,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -955,6 +991,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -986,6 +1023,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1004,6 +1042,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -1038,6 +1077,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1072,6 +1112,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1096,6 +1137,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1126,6 +1168,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1157,6 +1200,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1191,6 +1235,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1222,6 +1267,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1240,6 +1286,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -1274,6 +1321,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														TagNode: []*interfacedefinition.TagNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "tagNode",
 															},
@@ -1308,6 +1356,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1338,6 +1387,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1369,6 +1419,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1385,6 +1436,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1401,6 +1453,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1417,6 +1470,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1433,6 +1487,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1450,6 +1505,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1461,6 +1517,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																		Help: []string{"Regular expression"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1488,6 +1545,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1519,6 +1577,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1540,6 +1599,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1559,6 +1619,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1590,6 +1651,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1612,6 +1674,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1641,6 +1704,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1696,6 +1760,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1712,6 +1777,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1728,6 +1794,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1768,6 +1835,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1824,6 +1892,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1856,6 +1925,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1887,6 +1957,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1918,6 +1989,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1963,6 +2035,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -2015,6 +2088,7 @@ func dnsforwarding() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},

@@ -21,6 +21,6 @@ Configure BFD profile used by individual peer
 |  txt  |  Name of BFD profile  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -17,6 +17,6 @@ func (r highAvailabilityVirtualServer) Schema(ctx context.Context, req resource.
 Load-balancing virtual server address
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

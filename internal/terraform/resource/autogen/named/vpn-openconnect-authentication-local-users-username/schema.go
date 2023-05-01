@@ -25,6 +25,6 @@ Username used for authentication
 |  txt  |  Username used for authentication  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,29 +2,107 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsPimRpAddress describes the resource data model.
 type ProtocolsPimRpAddress struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsPimRpAddressGroup customtypes.CustomStringValue `tfsdk:"group" json:"group,omitempty"`
+	LeafProtocolsPimRpAddressGroup types.String `tfsdk:"group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsPimRpAddress) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsPimRpAddress) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"pim",
+		"rp",
+		"address",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsPimRpAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsPimRpAddressGroup.IsNull() || o.LeafProtocolsPimRpAddressGroup.IsUnknown()) {
+		vyosData["group"] = o.LeafProtocolsPimRpAddressGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsPimRpAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["group"]; ok {
+		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsPimRpAddressGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "pim", "rp", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsPimRpAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"group": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsPimRpAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Rendezvous Point address
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  Rendezvous Point address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group Address range
 
 |  Format  |  Description  |

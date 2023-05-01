@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive customtypes.CustomStringValue `tfsdk:"receive" json:"receive,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend    customtypes.CustomStringValue `tfsdk:"send" json:"send,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive types.String `tfsdk:"receive"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend    types.String `tfsdk:"send"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "capability", "orf", "prefix-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive.IsUnknown()) {
+		vyosData["receive"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend.IsUnknown()) {
+		vyosData["send"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "capability", "orf", "prefix-list"}})
+
+	// Leafs
+	if value, ok := vyosData["receive"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListReceive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["send"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixListSend = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast", "capability", "orf", "prefix-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"receive": types.StringType,
+		"send":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapabilityOrfPrefixList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"receive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Capability to receive the ORF
 
 `,
 		},
 
 		"send": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Capability to send the ORF
 
 `,

@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleOutboundInterface describes the resource data model.
 type FirewallNameRuleOutboundInterface struct {
 	// LeafNodes
-	FirewallNameRuleOutboundInterfaceInterfaceName  customtypes.CustomStringValue `tfsdk:"interface_name" json:"interface-name,omitempty"`
-	FirewallNameRuleOutboundInterfaceInterfaceGroup customtypes.CustomStringValue `tfsdk:"interface_group" json:"interface-group,omitempty"`
+	LeafFirewallNameRuleOutboundInterfaceInterfaceName  types.String `tfsdk:"interface_name"`
+	LeafFirewallNameRuleOutboundInterfaceInterfaceGroup types.String `tfsdk:"interface_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleOutboundInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleOutboundInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "outbound-interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.IsNull() || o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.IsUnknown()) {
+		vyosData["interface-name"] = o.LeafFirewallNameRuleOutboundInterfaceInterfaceName.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.IsNull() || o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.IsUnknown()) {
+		vyosData["interface-group"] = o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleOutboundInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "outbound-interface"}})
+
+	// Leafs
+	if value, ok := vyosData["interface-name"]; ok {
+		o.LeafFirewallNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface-group"]; ok {
+		o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "outbound-interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleOutboundInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interface_name":  types.StringType,
+		"interface_group": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleOutboundInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"interface_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match interface
 
 `,
 		},
 
 		"interface_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match interface-group
 
 `,

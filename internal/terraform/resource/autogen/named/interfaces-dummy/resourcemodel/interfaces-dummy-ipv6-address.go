@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesDummyIPvsixAddress describes the resource data model.
 type InterfacesDummyIPvsixAddress struct {
 	// LeafNodes
-	InterfacesDummyIPvsixAddressEuisixfour         customtypes.CustomStringValue `tfsdk:"eui64" json:"eui64,omitempty"`
-	InterfacesDummyIPvsixAddressNoDefaultLinkLocal customtypes.CustomStringValue `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
+	LeafInterfacesDummyIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
+	LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesDummyIPvsixAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesDummyIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesDummyIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesDummyIPvsixAddressEuisixfour.IsUnknown()) {
+		vyosData["eui64"] = o.LeafInterfacesDummyIPvsixAddressEuisixfour.ValueString()
+	}
+	if !(o.LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
+		vyosData["no-default-link-local"] = o.LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesDummyIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["eui64"]; ok {
+		o.LeafInterfacesDummyIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-default-link-local"]; ok {
+		o.LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesDummyIPvsixAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"eui64":                 types.StringType,
+		"no_default_link_local": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesDummyIPvsixAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"eui64": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix for IPv6 address with MAC-based EUI-64
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesDummyIPvsixAddress) ResourceAttributes() map[string]schema.Att
 		},
 
 		"no_default_link_local": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove the default link-local address from the interface
 
 `,

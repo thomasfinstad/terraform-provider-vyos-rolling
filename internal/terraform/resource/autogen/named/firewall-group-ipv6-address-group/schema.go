@@ -19,6 +19,6 @@ Firewall group
 Firewall ipv6-address-group
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

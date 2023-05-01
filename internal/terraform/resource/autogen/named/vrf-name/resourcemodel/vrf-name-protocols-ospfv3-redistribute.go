@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeRedistribute describes the resource data model.
@@ -13,16 +19,140 @@ type VrfNameProtocolsOspfvthreeRedistribute struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfvthreeRedistributeBgp       types.Object `tfsdk:"bgp" json:"bgp,omitempty"`
-	VrfNameProtocolsOspfvthreeRedistributeConnected types.Object `tfsdk:"connected" json:"connected,omitempty"`
-	VrfNameProtocolsOspfvthreeRedistributeKernel    types.Object `tfsdk:"kernel" json:"kernel,omitempty"`
-	VrfNameProtocolsOspfvthreeRedistributeRIPng     types.Object `tfsdk:"ripng" json:"ripng,omitempty"`
-	VrfNameProtocolsOspfvthreeRedistributeBabel     types.Object `tfsdk:"babel" json:"babel,omitempty"`
-	VrfNameProtocolsOspfvthreeRedistributeStatic    types.Object `tfsdk:"static" json:"static,omitempty"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeBgp       types.Object `tfsdk:"bgp"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeConnected types.Object `tfsdk:"connected"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeKernel    types.Object `tfsdk:"kernel"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeRIPng     types.Object `tfsdk:"ripng"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeBabel     types.Object `tfsdk:"babel"`
+	NodeVrfNameProtocolsOspfvthreeRedistributeStatic    types.Object `tfsdk:"static"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfvthreeRedistribute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "redistribute"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeBgp.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeBgp.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeBgp
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeBgp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bgp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeConnected.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeConnected.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeConnected
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeConnected.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["connected"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeKernel.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeKernel.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeKernel
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeKernel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["kernel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeRIPng.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeRIPng.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeRIPng
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeRIPng.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ripng"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeBabel.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeBabel.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeBabel
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeBabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["babel"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfvthreeRedistributeStatic.IsNull() || o.NodeVrfNameProtocolsOspfvthreeRedistributeStatic.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeRedistributeStatic
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeRedistributeStatic.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["static"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfvthreeRedistribute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "redistribute"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["bgp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeBgp{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeBgp = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeBgp = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeBgp{}.AttributeTypes())
+	}
+	if value, ok := vyosData["connected"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeConnected{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeConnected = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeConnected = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeConnected{}.AttributeTypes())
+	}
+	if value, ok := vyosData["kernel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeKernel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeKernel = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeKernel = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeKernel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ripng"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeRIPng{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeRIPng = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeRIPng = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeRIPng{}.AttributeTypes())
+	}
+	if value, ok := vyosData["babel"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeBabel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeBabel = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeBabel = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeBabel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["static"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeRedistributeStatic{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeStatic = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeRedistributeStatic = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeRedistributeStatic{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "redistribute"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfvthreeRedistribute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"bgp":       types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.AttributeTypes()},
+		"connected": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeConnected{}.AttributeTypes()},
+		"kernel":    types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.AttributeTypes()},
+		"ripng":     types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.AttributeTypes()},
+		"babel":     types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.AttributeTypes()},
+		"static":    types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -31,7 +161,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		// Nodes
 
 		"bgp": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeBgp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute BGP routes
 
@@ -39,7 +169,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		},
 
 		"connected": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeConnected{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeConnected{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute connected routes
 
@@ -47,7 +177,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		},
 
 		"kernel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeKernel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute kernel routes
 
@@ -55,7 +185,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		},
 
 		"ripng": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeRIPng{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute RIPNG routes
 
@@ -63,7 +193,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		},
 
 		"babel": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeBabel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute Babel routes
 
@@ -71,7 +201,7 @@ func (o VrfNameProtocolsOspfvthreeRedistribute) ResourceAttributes() map[string]
 		},
 
 		"static": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeRedistributeStatic{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute static routes
 

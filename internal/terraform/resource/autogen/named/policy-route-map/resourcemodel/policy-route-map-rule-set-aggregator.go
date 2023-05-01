@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetAggregator describes the resource data model.
 type PolicyRouteMapRuleSetAggregator struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetAggregatorAs customtypes.CustomStringValue `tfsdk:"as" json:"as,omitempty"`
-	PolicyRouteMapRuleSetAggregatorIP customtypes.CustomStringValue `tfsdk:"ip" json:"ip,omitempty"`
+	LeafPolicyRouteMapRuleSetAggregatorAs types.String `tfsdk:"as"`
+	LeafPolicyRouteMapRuleSetAggregatorIP types.String `tfsdk:"ip"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetAggregator) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetAggregator) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "aggregator"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetAggregatorAs.IsNull() || o.LeafPolicyRouteMapRuleSetAggregatorAs.IsUnknown()) {
+		vyosData["as"] = o.LeafPolicyRouteMapRuleSetAggregatorAs.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetAggregatorIP.IsNull() || o.LeafPolicyRouteMapRuleSetAggregatorIP.IsUnknown()) {
+		vyosData["ip"] = o.LeafPolicyRouteMapRuleSetAggregatorIP.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetAggregator) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "aggregator"}})
+
+	// Leafs
+	if value, ok := vyosData["as"]; ok {
+		o.LeafPolicyRouteMapRuleSetAggregatorAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAggregatorAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ip"]; ok {
+		o.LeafPolicyRouteMapRuleSetAggregatorIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAggregatorIP = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "aggregator"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetAggregator) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as": types.StringType,
+		"ip": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetAggregator) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `AS number of an aggregation
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o PolicyRouteMapRuleSetAggregator) ResourceAttributes() map[string]schema.
 		},
 
 		"ip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address of an aggregation
 
 |  Format  |  Description  |

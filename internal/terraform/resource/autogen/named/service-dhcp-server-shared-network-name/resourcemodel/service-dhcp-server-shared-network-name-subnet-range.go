@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetRange describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetRange struct {
 	// LeafNodes
-	ServiceDhcpServerSharedNetworkNameSubnetRangeStart customtypes.CustomStringValue `tfsdk:"start" json:"start,omitempty"`
-	ServiceDhcpServerSharedNetworkNameSubnetRangeStop  customtypes.CustomStringValue `tfsdk:"stop" json:"stop,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart types.String `tfsdk:"start"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop  types.String `tfsdk:"stop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "range"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.IsUnknown()) {
+		vyosData["start"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart.ValueString()
+	}
+	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.IsUnknown()) {
+		vyosData["stop"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetRange) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "range"}})
+
+	// Leafs
+	if value, ok := vyosData["start"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStart = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stop"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetRangeStop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "range"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetRange) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"start": types.StringType,
+		"stop":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"start": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `First IP address for DHCP lease range
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ServiceDhcpServerSharedNetworkNameSubnetRange) ResourceAttributes() map[
 		},
 
 		"stop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Last IP address for DHCP lease range
 
 |  Format  |  Description  |

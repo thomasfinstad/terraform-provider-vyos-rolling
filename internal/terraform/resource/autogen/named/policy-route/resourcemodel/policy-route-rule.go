@@ -2,52 +2,362 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRule describes the resource data model.
 type PolicyRouteRule struct {
 	// LeafNodes
-	PolicyRouteRuleAction              customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyRouteRuleDescrIPtion         customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyRouteRuleDisable             customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	PolicyRouteRuleLog                 customtypes.CustomStringValue `tfsdk:"log" json:"log,omitempty"`
-	PolicyRouteRuleProtocol            customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	PolicyRouteRuleDscp                customtypes.CustomStringValue `tfsdk:"dscp" json:"dscp,omitempty"`
-	PolicyRouteRuleDscpExclude         customtypes.CustomStringValue `tfsdk:"dscp_exclude" json:"dscp-exclude,omitempty"`
-	PolicyRouteRulePacketLength        customtypes.CustomStringValue `tfsdk:"packet_length" json:"packet-length,omitempty"`
-	PolicyRouteRulePacketLengthExclude customtypes.CustomStringValue `tfsdk:"packet_length_exclude" json:"packet-length-exclude,omitempty"`
-	PolicyRouteRulePacketType          customtypes.CustomStringValue `tfsdk:"packet_type" json:"packet-type,omitempty"`
-	PolicyRouteRuleConnectionMark      customtypes.CustomStringValue `tfsdk:"connection_mark" json:"connection-mark,omitempty"`
+	LeafPolicyRouteRuleAction              types.String `tfsdk:"action"`
+	LeafPolicyRouteRuleDescrIPtion         types.String `tfsdk:"description"`
+	LeafPolicyRouteRuleDisable             types.String `tfsdk:"disable"`
+	LeafPolicyRouteRuleLog                 types.String `tfsdk:"log"`
+	LeafPolicyRouteRuleProtocol            types.String `tfsdk:"protocol"`
+	LeafPolicyRouteRuleDscp                types.String `tfsdk:"dscp"`
+	LeafPolicyRouteRuleDscpExclude         types.String `tfsdk:"dscp_exclude"`
+	LeafPolicyRouteRulePacketLength        types.String `tfsdk:"packet_length"`
+	LeafPolicyRouteRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude"`
+	LeafPolicyRouteRulePacketType          types.String `tfsdk:"packet_type"`
+	LeafPolicyRouteRuleConnectionMark      types.String `tfsdk:"connection_mark"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	PolicyRouteRuleSource      types.Object `tfsdk:"source" json:"source,omitempty"`
-	PolicyRouteRuleFragment    types.Object `tfsdk:"fragment" json:"fragment,omitempty"`
-	PolicyRouteRuleIPsec       types.Object `tfsdk:"ipsec" json:"ipsec,omitempty"`
-	PolicyRouteRuleLimit       types.Object `tfsdk:"limit" json:"limit,omitempty"`
-	PolicyRouteRuleRecent      types.Object `tfsdk:"recent" json:"recent,omitempty"`
-	PolicyRouteRuleSet         types.Object `tfsdk:"set" json:"set,omitempty"`
-	PolicyRouteRuleState       types.Object `tfsdk:"state" json:"state,omitempty"`
-	PolicyRouteRuleTCP         types.Object `tfsdk:"tcp" json:"tcp,omitempty"`
-	PolicyRouteRuleTime        types.Object `tfsdk:"time" json:"time,omitempty"`
-	PolicyRouteRuleIcmp        types.Object `tfsdk:"icmp" json:"icmp,omitempty"`
-	PolicyRouteRuleTTL         types.Object `tfsdk:"ttl" json:"ttl,omitempty"`
+	NodePolicyRouteRuleDestination types.Object `tfsdk:"destination"`
+	NodePolicyRouteRuleSource      types.Object `tfsdk:"source"`
+	NodePolicyRouteRuleFragment    types.Object `tfsdk:"fragment"`
+	NodePolicyRouteRuleIPsec       types.Object `tfsdk:"ipsec"`
+	NodePolicyRouteRuleLimit       types.Object `tfsdk:"limit"`
+	NodePolicyRouteRuleRecent      types.Object `tfsdk:"recent"`
+	NodePolicyRouteRuleSet         types.Object `tfsdk:"set"`
+	NodePolicyRouteRuleState       types.Object `tfsdk:"state"`
+	NodePolicyRouteRuleTCP         types.Object `tfsdk:"tcp"`
+	NodePolicyRouteRuleTime        types.Object `tfsdk:"time"`
+	NodePolicyRouteRuleIcmp        types.Object `tfsdk:"icmp"`
+	NodePolicyRouteRuleTTL         types.Object `tfsdk:"ttl"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleAction.IsNull() || o.LeafPolicyRouteRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyRouteRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDescrIPtion.IsNull() || o.LeafPolicyRouteRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyRouteRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDisable.IsNull() || o.LeafPolicyRouteRuleDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafPolicyRouteRuleDisable.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleLog.IsNull() || o.LeafPolicyRouteRuleLog.IsUnknown()) {
+		vyosData["log"] = o.LeafPolicyRouteRuleLog.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleProtocol.IsNull() || o.LeafPolicyRouteRuleProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafPolicyRouteRuleProtocol.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDscp.IsNull() || o.LeafPolicyRouteRuleDscp.IsUnknown()) {
+		vyosData["dscp"] = o.LeafPolicyRouteRuleDscp.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDscpExclude.IsNull() || o.LeafPolicyRouteRuleDscpExclude.IsUnknown()) {
+		vyosData["dscp-exclude"] = o.LeafPolicyRouteRuleDscpExclude.ValueString()
+	}
+	if !(o.LeafPolicyRouteRulePacketLength.IsNull() || o.LeafPolicyRouteRulePacketLength.IsUnknown()) {
+		vyosData["packet-length"] = o.LeafPolicyRouteRulePacketLength.ValueString()
+	}
+	if !(o.LeafPolicyRouteRulePacketLengthExclude.IsNull() || o.LeafPolicyRouteRulePacketLengthExclude.IsUnknown()) {
+		vyosData["packet-length-exclude"] = o.LeafPolicyRouteRulePacketLengthExclude.ValueString()
+	}
+	if !(o.LeafPolicyRouteRulePacketType.IsNull() || o.LeafPolicyRouteRulePacketType.IsUnknown()) {
+		vyosData["packet-type"] = o.LeafPolicyRouteRulePacketType.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleConnectionMark.IsNull() || o.LeafPolicyRouteRuleConnectionMark.IsUnknown()) {
+		vyosData["connection-mark"] = o.LeafPolicyRouteRuleConnectionMark.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteRuleDestination.IsNull() || o.NodePolicyRouteRuleDestination.IsUnknown()) {
+		var subModel PolicyRouteRuleDestination
+		diags.Append(o.NodePolicyRouteRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleSource.IsNull() || o.NodePolicyRouteRuleSource.IsUnknown()) {
+		var subModel PolicyRouteRuleSource
+		diags.Append(o.NodePolicyRouteRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleFragment.IsNull() || o.NodePolicyRouteRuleFragment.IsUnknown()) {
+		var subModel PolicyRouteRuleFragment
+		diags.Append(o.NodePolicyRouteRuleFragment.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["fragment"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleIPsec.IsNull() || o.NodePolicyRouteRuleIPsec.IsUnknown()) {
+		var subModel PolicyRouteRuleIPsec
+		diags.Append(o.NodePolicyRouteRuleIPsec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipsec"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleLimit.IsNull() || o.NodePolicyRouteRuleLimit.IsUnknown()) {
+		var subModel PolicyRouteRuleLimit
+		diags.Append(o.NodePolicyRouteRuleLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["limit"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleRecent.IsNull() || o.NodePolicyRouteRuleRecent.IsUnknown()) {
+		var subModel PolicyRouteRuleRecent
+		diags.Append(o.NodePolicyRouteRuleRecent.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["recent"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleSet.IsNull() || o.NodePolicyRouteRuleSet.IsUnknown()) {
+		var subModel PolicyRouteRuleSet
+		diags.Append(o.NodePolicyRouteRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleState.IsNull() || o.NodePolicyRouteRuleState.IsUnknown()) {
+		var subModel PolicyRouteRuleState
+		diags.Append(o.NodePolicyRouteRuleState.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["state"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleTCP.IsNull() || o.NodePolicyRouteRuleTCP.IsUnknown()) {
+		var subModel PolicyRouteRuleTCP
+		diags.Append(o.NodePolicyRouteRuleTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleTime.IsNull() || o.NodePolicyRouteRuleTime.IsUnknown()) {
+		var subModel PolicyRouteRuleTime
+		diags.Append(o.NodePolicyRouteRuleTime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["time"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleIcmp.IsNull() || o.NodePolicyRouteRuleIcmp.IsUnknown()) {
+		var subModel PolicyRouteRuleIcmp
+		diags.Append(o.NodePolicyRouteRuleIcmp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["icmp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteRuleTTL.IsNull() || o.NodePolicyRouteRuleTTL.IsUnknown()) {
+		var subModel PolicyRouteRuleTTL
+		diags.Append(o.NodePolicyRouteRuleTTL.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ttl"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyRouteRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafPolicyRouteRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["log"]; ok {
+		o.LeafPolicyRouteRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dscp"]; ok {
+		o.LeafPolicyRouteRuleDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dscp-exclude"]; ok {
+		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDscpExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-length"]; ok {
+		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketLength = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-length-exclude"]; ok {
+		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketLengthExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-type"]; ok {
+		o.LeafPolicyRouteRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRulePacketType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["connection-mark"]; ok {
+		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleConnectionMark = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleDestination = data
+
+	} else {
+		o.NodePolicyRouteRuleDestination = basetypes.NewObjectNull(PolicyRouteRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleSource = data
+
+	} else {
+		o.NodePolicyRouteRuleSource = basetypes.NewObjectNull(PolicyRouteRuleSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["fragment"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleFragment{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleFragment = data
+
+	} else {
+		o.NodePolicyRouteRuleFragment = basetypes.NewObjectNull(PolicyRouteRuleFragment{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipsec"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleIPsec{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleIPsec = data
+
+	} else {
+		o.NodePolicyRouteRuleIPsec = basetypes.NewObjectNull(PolicyRouteRuleIPsec{}.AttributeTypes())
+	}
+	if value, ok := vyosData["limit"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleLimit{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleLimit = data
+
+	} else {
+		o.NodePolicyRouteRuleLimit = basetypes.NewObjectNull(PolicyRouteRuleLimit{}.AttributeTypes())
+	}
+	if value, ok := vyosData["recent"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleRecent{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleRecent = data
+
+	} else {
+		o.NodePolicyRouteRuleRecent = basetypes.NewObjectNull(PolicyRouteRuleRecent{}.AttributeTypes())
+	}
+	if value, ok := vyosData["set"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleSet = data
+
+	} else {
+		o.NodePolicyRouteRuleSet = basetypes.NewObjectNull(PolicyRouteRuleSet{}.AttributeTypes())
+	}
+	if value, ok := vyosData["state"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleState{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleState = data
+
+	} else {
+		o.NodePolicyRouteRuleState = basetypes.NewObjectNull(PolicyRouteRuleState{}.AttributeTypes())
+	}
+	if value, ok := vyosData["tcp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleTCP = data
+
+	} else {
+		o.NodePolicyRouteRuleTCP = basetypes.NewObjectNull(PolicyRouteRuleTCP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["time"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTime{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleTime = data
+
+	} else {
+		o.NodePolicyRouteRuleTime = basetypes.NewObjectNull(PolicyRouteRuleTime{}.AttributeTypes())
+	}
+	if value, ok := vyosData["icmp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleIcmp{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleIcmp = data
+
+	} else {
+		o.NodePolicyRouteRuleIcmp = basetypes.NewObjectNull(PolicyRouteRuleIcmp{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteRuleTTL{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteRuleTTL = data
+
+	} else {
+		o.NodePolicyRouteRuleTTL = basetypes.NewObjectNull(PolicyRouteRuleTTL{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":                types.StringType,
+		"description":           types.StringType,
+		"disable":               types.StringType,
+		"log":                   types.StringType,
+		"protocol":              types.StringType,
+		"dscp":                  types.StringType,
+		"dscp_exclude":          types.StringType,
+		"packet_length":         types.StringType,
+		"packet_length_exclude": types.StringType,
+		"packet_type":           types.StringType,
+		"connection_mark":       types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: PolicyRouteRuleDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: PolicyRouteRuleSource{}.AttributeTypes()},
+		"fragment":    types.ObjectType{AttrTypes: PolicyRouteRuleFragment{}.AttributeTypes()},
+		"ipsec":       types.ObjectType{AttrTypes: PolicyRouteRuleIPsec{}.AttributeTypes()},
+		"limit":       types.ObjectType{AttrTypes: PolicyRouteRuleLimit{}.AttributeTypes()},
+		"recent":      types.ObjectType{AttrTypes: PolicyRouteRuleRecent{}.AttributeTypes()},
+		"set":         types.ObjectType{AttrTypes: PolicyRouteRuleSet{}.AttributeTypes()},
+		"state":       types.ObjectType{AttrTypes: PolicyRouteRuleState{}.AttributeTypes()},
+		"tcp":         types.ObjectType{AttrTypes: PolicyRouteRuleTCP{}.AttributeTypes()},
+		"time":        types.ObjectType{AttrTypes: PolicyRouteRuleTime{}.AttributeTypes()},
+		"icmp":        types.ObjectType{AttrTypes: PolicyRouteRuleIcmp{}.AttributeTypes()},
+		"ttl":         types.ObjectType{AttrTypes: PolicyRouteRuleTTL{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rule action
 
 |  Format  |  Description  |
@@ -61,8 +371,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -73,16 +382,14 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Option to disable firewall rule
 
 `,
 		},
 
 		"log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Option to log packets matching rule
 
 |  Format  |  Description  |
@@ -94,8 +401,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
 |  Format  |  Description  |
@@ -112,8 +418,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DSCP value
 
 |  Format  |  Description  |
@@ -125,8 +430,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dscp_exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DSCP value not to match
 
 |  Format  |  Description  |
@@ -138,8 +442,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
 |  Format  |  Description  |
@@ -151,8 +454,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_length_exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
 |  Format  |  Description  |
@@ -164,8 +466,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet type
 
 |  Format  |  Description  |
@@ -179,8 +480,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"connection_mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Connection mark
 
 |  Format  |  Description  |
@@ -195,7 +495,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleDestination{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -203,7 +503,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleSource{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -211,7 +511,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"fragment": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleFragment{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleFragment{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IP fragment match
 
@@ -219,7 +519,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipsec": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleIPsec{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleIPsec{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Inbound IPsec packets
 
@@ -227,7 +527,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"limit": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleLimit{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleLimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Rate limit using a token bucket filter
 
@@ -235,7 +535,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"recent": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleRecent{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleRecent{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Parameters for matching recently seen sources
 
@@ -243,7 +543,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"set": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleSet{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleSet{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Packet modifications
 
@@ -251,7 +551,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"state": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleState{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleState{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Session state
 
@@ -259,7 +559,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleTCP{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 
@@ -267,7 +567,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"time": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleTime{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleTime{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Time to match rule
 
@@ -275,7 +575,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"icmp": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleIcmp{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleIcmp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `ICMP type and code information
 
@@ -283,7 +583,7 @@ func (o PolicyRouteRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ttl": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteRuleTTL{}.ResourceAttributes(),
+			Attributes: PolicyRouteRuleTTL{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Time to live limit
 

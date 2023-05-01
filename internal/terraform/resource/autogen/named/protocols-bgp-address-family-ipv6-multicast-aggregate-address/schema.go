@@ -25,6 +25,6 @@ BGP aggregate network/prefix
 |  ipv6net  |  BGP aggregate network/prefix  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

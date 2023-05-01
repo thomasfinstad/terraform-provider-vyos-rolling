@@ -21,6 +21,6 @@ IP route-map
 |  txt  |  Route map name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

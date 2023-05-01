@@ -17,6 +17,6 @@ func (r firewallInterface) Schema(ctx context.Context, req resource.SchemaReques
 Interface name to apply firewall configuration
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

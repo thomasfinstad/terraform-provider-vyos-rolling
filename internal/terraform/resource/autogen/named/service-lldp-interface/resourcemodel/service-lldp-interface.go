@@ -2,31 +2,121 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterface describes the resource data model.
 type ServiceLldpInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceLldpInterfaceDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceLldpInterfaceDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
 
 	// Nodes
-	ServiceLldpInterfaceLocation types.Object `tfsdk:"location" json:"location,omitempty"`
+	NodeServiceLldpInterfaceLocation types.Object `tfsdk:"location"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceLldpInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceLldpInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"lldp",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceLldpInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceLldpInterfaceDisable.IsNull() || o.LeafServiceLldpInterfaceDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceLldpInterfaceDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceLldpInterfaceLocation.IsNull() || o.NodeServiceLldpInterfaceLocation.IsUnknown()) {
+		var subModel ServiceLldpInterfaceLocation
+		diags.Append(o.NodeServiceLldpInterfaceLocation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["location"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceLldpInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["location"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceLldpInterfaceLocation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceLldpInterfaceLocation = data
+
+	} else {
+		o.NodeServiceLldpInterfaceLocation = basetypes.NewObjectNull(ServiceLldpInterfaceLocation{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceLldpInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"location": types.ObjectType{AttrTypes: ServiceLldpInterfaceLocation{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceLldpInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Location data for interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  all  |  Location data all interfaces  |
+|  txt  |  Location data for a specific interface  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
@@ -37,7 +127,7 @@ func (o ServiceLldpInterface) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"location": schema.SingleNestedAttribute{
-			Attributes: ServiceLldpInterfaceLocation{}.ResourceAttributes(),
+			Attributes: ServiceLldpInterfaceLocation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `LLDP-MED location data
 

@@ -2,30 +2,118 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogUser describes the resource data model.
 type SystemSyslogUser struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
-	SystemSyslogUserFacility types.Map `tfsdk:"facility" json:"facility,omitempty"`
+	TagSystemSyslogUserFacility types.Map `tfsdk:"facility"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogUser) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemSyslogUser) GetVyosPath() []string {
+	return []string{
+		"system",
+		"syslog",
+		"user",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogUser) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "user"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagSystemSyslogUserFacility.IsNull() || o.TagSystemSyslogUserFacility.IsUnknown()) {
+		subModel := make(map[string]SystemSyslogUserFacility)
+		diags.Append(o.TagSystemSyslogUserFacility.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["facility"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogUser) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "user"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["facility"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: SystemSyslogUserFacility{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagSystemSyslogUserFacility = data
+	} else {
+		o.TagSystemSyslogUserFacility = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "user"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogUser) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"facility": types.MapType{ElemType: types.ObjectType{AttrTypes: SystemSyslogUserFacility{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to specific terminal of given user
+
+|  Format  |  Description  |
+|----------|---------------|
+|  username  |  user login name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
 
 		"facility": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: SystemSyslogUserFacility{}.ResourceAttributes(),
+				Attributes: SystemSyslogUserFacility{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Facility for logging

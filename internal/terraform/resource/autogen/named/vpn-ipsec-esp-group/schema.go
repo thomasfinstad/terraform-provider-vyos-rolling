@@ -19,6 +19,6 @@ VPN IP security (IPsec) parameters
 Encapsulating Security Payload (ESP) group name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

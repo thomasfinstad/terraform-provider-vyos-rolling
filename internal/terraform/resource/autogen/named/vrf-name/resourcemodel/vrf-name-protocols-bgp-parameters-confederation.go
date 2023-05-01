@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersConfederation describes the resource data model.
 type VrfNameProtocolsBgpParametersConfederation struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersConfederationIDentifier customtypes.CustomStringValue `tfsdk:"identifier" json:"identifier,omitempty"`
-	VrfNameProtocolsBgpParametersConfederationPeers      customtypes.CustomStringValue `tfsdk:"peers" json:"peers,omitempty"`
+	LeafVrfNameProtocolsBgpParametersConfederationIDentifier types.String `tfsdk:"identifier"`
+	LeafVrfNameProtocolsBgpParametersConfederationPeers      types.String `tfsdk:"peers"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersConfederation) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersConfederation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsNull() || o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.IsUnknown()) {
+		vyosData["identifier"] = o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsNull() || o.LeafVrfNameProtocolsBgpParametersConfederationPeers.IsUnknown()) {
+		vyosData["peers"] = o.LeafVrfNameProtocolsBgpParametersConfederationPeers.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersConfederation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
+
+	// Leafs
+	if value, ok := vyosData["identifier"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersConfederationIDentifier = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["peers"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersConfederationPeers = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "confederation"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersConfederation) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"identifier": types.StringType,
+		"peers":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersConfederation) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"identifier": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Confederation AS identifier
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsBgpParametersConfederation) ResourceAttributes() map[str
 		},
 
 		"peers": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer ASs in the BGP confederation
 
 |  Format  |  Description  |

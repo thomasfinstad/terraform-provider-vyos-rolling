@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleHopLimit describes the resource data model.
 type FirewallIPvsixNameRuleHopLimit struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleHopLimitEq customtypes.CustomStringValue `tfsdk:"eq" json:"eq,omitempty"`
-	FirewallIPvsixNameRuleHopLimitGt customtypes.CustomStringValue `tfsdk:"gt" json:"gt,omitempty"`
-	FirewallIPvsixNameRuleHopLimitLt customtypes.CustomStringValue `tfsdk:"lt" json:"lt,omitempty"`
+	LeafFirewallIPvsixNameRuleHopLimitEq types.String `tfsdk:"eq"`
+	LeafFirewallIPvsixNameRuleHopLimitGt types.String `tfsdk:"gt"`
+	LeafFirewallIPvsixNameRuleHopLimitLt types.String `tfsdk:"lt"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleHopLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleHopLimitEq.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitEq.IsUnknown()) {
+		vyosData["eq"] = o.LeafFirewallIPvsixNameRuleHopLimitEq.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleHopLimitGt.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitGt.IsUnknown()) {
+		vyosData["gt"] = o.LeafFirewallIPvsixNameRuleHopLimitGt.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleHopLimitLt.IsNull() || o.LeafFirewallIPvsixNameRuleHopLimitLt.IsUnknown()) {
+		vyosData["lt"] = o.LeafFirewallIPvsixNameRuleHopLimitLt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleHopLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
+
+	// Leafs
+	if value, ok := vyosData["eq"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitEq = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["gt"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitGt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lt"]; ok {
+		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleHopLimitLt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "hop-limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleHopLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"eq": types.StringType,
+		"gt": types.StringType,
+		"lt": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleHopLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"eq": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on equal value
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.A
 		},
 
 		"gt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o FirewallIPvsixNameRuleHopLimit) ResourceAttributes() map[string]schema.A
 		},
 
 		"lt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on less then value
 
 |  Format  |  Description  |

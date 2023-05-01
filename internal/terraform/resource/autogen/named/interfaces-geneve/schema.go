@@ -19,6 +19,6 @@ func (r interfacesGeneve) Schema(ctx context.Context, req resource.SchemaRequest
 |  gnvN  |  GENEVE interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

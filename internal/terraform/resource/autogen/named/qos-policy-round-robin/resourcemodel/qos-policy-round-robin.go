@@ -2,32 +2,139 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobin describes the resource data model.
 type QosPolicyRoundRobin struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyRoundRobinDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyRoundRobinDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	QosPolicyRoundRobinClass types.Map `tfsdk:"class" json:"class,omitempty"`
+	TagQosPolicyRoundRobinClass types.Map `tfsdk:"class"`
 
 	// Nodes
-	QosPolicyRoundRobinDefault types.Object `tfsdk:"default" json:"default,omitempty"`
+	NodeQosPolicyRoundRobinDefault types.Object `tfsdk:"default"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRoundRobin) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyRoundRobin) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"round-robin",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRoundRobin) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRoundRobinDescrIPtion.IsNull() || o.LeafQosPolicyRoundRobinDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyRoundRobinDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyRoundRobinClass.IsNull() || o.TagQosPolicyRoundRobinClass.IsUnknown()) {
+		subModel := make(map[string]QosPolicyRoundRobinClass)
+		diags.Append(o.TagQosPolicyRoundRobinClass.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["class"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeQosPolicyRoundRobinDefault.IsNull() || o.NodeQosPolicyRoundRobinDefault.IsUnknown()) {
+		var subModel QosPolicyRoundRobinDefault
+		diags.Append(o.NodeQosPolicyRoundRobinDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRoundRobin) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["class"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyRoundRobinClass{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyRoundRobinClass = data
+	} else {
+		o.TagQosPolicyRoundRobinClass = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["default"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinDefault{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinDefault = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinDefault = basetypes.NewObjectNull(QosPolicyRoundRobinDefault{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRoundRobin) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyRoundRobinClass{}.AttributeTypes()}},
+
+		// Nodes
+		"default": types.ObjectType{AttrTypes: QosPolicyRoundRobinDefault{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRoundRobin) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Deficit Round Robin Scheduler
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -41,7 +148,7 @@ func (o QosPolicyRoundRobin) ResourceAttributes() map[string]schema.Attribute {
 
 		"class": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyRoundRobinClass{}.ResourceAttributes(),
+				Attributes: QosPolicyRoundRobinClass{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class ID
@@ -56,7 +163,7 @@ func (o QosPolicyRoundRobin) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinDefault{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default policy
 

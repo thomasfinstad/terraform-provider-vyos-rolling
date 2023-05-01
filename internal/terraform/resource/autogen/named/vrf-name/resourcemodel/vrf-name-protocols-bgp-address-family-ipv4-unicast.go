@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicast describes the resource data model.
@@ -11,23 +17,225 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicast struct {
 	// LeafNodes
 
 	// TagNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress types.Map `tfsdk:"aggregate_address" json:"aggregate-address,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork          types.Map `tfsdk:"network" json:"network,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress types.Map `tfsdk:"aggregate_address"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork          types.Map `tfsdk:"network"`
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance     types.Object `tfsdk:"distance" json:"distance,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport       types.Object `tfsdk:"export" json:"export,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport       types.Object `tfsdk:"import" json:"import,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel        types.Object `tfsdk:"label" json:"label,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths types.Object `tfsdk:"maximum_paths" json:"maximum-paths,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd           types.Object `tfsdk:"rd" json:"rd,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap     types.Object `tfsdk:"route_map" json:"route-map,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget  types.Object `tfsdk:"route_target" json:"route-target,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute types.Object `tfsdk:"redistribute" json:"redistribute,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance     types.Object `tfsdk:"distance"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport       types.Object `tfsdk:"export"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport       types.Object `tfsdk:"import"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel        types.Object `tfsdk:"label"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths types.Object `tfsdk:"maximum_paths"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd           types.Object `tfsdk:"rd"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap     types.Object `tfsdk:"route_map"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget  types.Object `tfsdk:"route_target"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute types.Object `tfsdk:"redistribute"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["aggregate-address"] = subData
+	}
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["network"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["export"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["import"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["label"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["maximum-paths"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["rd"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-target"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["redistribute"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["aggregate-address"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["network"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["distance"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance{}.AttributeTypes())
+	}
+	if value, ok := vyosData["export"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.AttributeTypes())
+	}
+	if value, ok := vyosData["import"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}.AttributeTypes())
+	}
+	if value, ok := vyosData["label"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.AttributeTypes())
+	}
+	if value, ok := vyosData["maximum-paths"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}.AttributeTypes())
+	}
+	if value, ok := vyosData["rd"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-target"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.AttributeTypes())
+	}
+	if value, ok := vyosData["redistribute"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"aggregate_address": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress{}.AttributeTypes()}},
+		"network":           types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork{}.AttributeTypes()}},
+
+		// Nodes
+		"distance":      types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance{}.AttributeTypes()},
+		"export":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.AttributeTypes()},
+		"import":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}.AttributeTypes()},
+		"label":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.AttributeTypes()},
+		"maximum_paths": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}.AttributeTypes()},
+		"rd":            types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.AttributeTypes()},
+		"route_map":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap{}.AttributeTypes()},
+		"route_target":  types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.AttributeTypes()},
+		"redistribute":  types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -35,7 +243,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 
 		"aggregate_address": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastAggregateAddress{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `BGP aggregate network
@@ -49,7 +257,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 
 		"network": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastNetwork{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `BGP network
@@ -64,7 +272,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		// Nodes
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administrative distances for BGP routes
 
@@ -72,7 +280,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"export": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastExport{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Export routes from this address-family
 
@@ -80,7 +288,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"import": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Import routes to this address-family
 
@@ -88,7 +296,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"label": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastLabel{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Label value for VRF
 
@@ -96,7 +304,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"maximum_paths": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastMaximumPaths{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Forward packets over multiple paths
 
@@ -104,7 +312,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"rd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify route distinguisher
 
@@ -112,7 +320,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -120,7 +328,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteTarget{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify route target list
 
@@ -128,7 +336,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicast) ResourceAttributes() map
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRedistribute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute routes from other protocols into BGP
 

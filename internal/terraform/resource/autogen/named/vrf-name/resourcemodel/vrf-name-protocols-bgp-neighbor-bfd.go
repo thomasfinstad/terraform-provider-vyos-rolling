@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborBfd describes the resource data model.
 type VrfNameProtocolsBgpNeighborBfd struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborBfdProfile                  customtypes.CustomStringValue `tfsdk:"profile" json:"profile,omitempty"`
-	VrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure customtypes.CustomStringValue `tfsdk:"check_control_plane_failure" json:"check-control-plane-failure,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborBfdProfile                  types.String `tfsdk:"profile"`
+	LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure types.String `tfsdk:"check_control_plane_failure"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborBfd) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborBfd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsNull() || o.LeafVrfNameProtocolsBgpNeighborBfdProfile.IsUnknown()) {
+		vyosData["profile"] = o.LeafVrfNameProtocolsBgpNeighborBfdProfile.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsNull() || o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.IsUnknown()) {
+		vyosData["check-control-plane-failure"] = o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborBfd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
+
+	// Leafs
+	if value, ok := vyosData["profile"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborBfdProfile = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["check-control-plane-failure"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborBfdCheckControlPlaneFailure = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "bfd"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborBfd) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"profile":                     types.StringType,
+		"check_control_plane_failure": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborBfd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"profile": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use settings from BFD profile
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsBgpNeighborBfd) ResourceAttributes() map[string]schema.A
 		},
 
 		"check_control_plane_failure": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
 
 `,

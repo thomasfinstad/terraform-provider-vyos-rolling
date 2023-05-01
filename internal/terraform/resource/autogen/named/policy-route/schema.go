@@ -15,6 +15,6 @@ func (r policyRoute) Schema(ctx context.Context, req resource.SchemaRequest, res
 		MarkdownDescription: `Policy route rule set name for IPv4
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

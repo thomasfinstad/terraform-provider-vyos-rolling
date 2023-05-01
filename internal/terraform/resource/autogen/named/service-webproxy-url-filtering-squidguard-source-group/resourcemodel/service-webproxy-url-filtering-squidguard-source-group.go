@@ -2,34 +2,158 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardSourceGroup describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardSourceGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupAddress        customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion    customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupDomain         customtypes.CustomStringValue `tfsdk:"domain" json:"domain,omitempty"`
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch   customtypes.CustomStringValue `tfsdk:"ldap_ip_search" json:"ldap-ip-search,omitempty"`
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch customtypes.CustomStringValue `tfsdk:"ldap_user_search" json:"ldap-user-search,omitempty"`
-	ServiceWebproxyURLFilteringSquIDguardSourceGroupUser           customtypes.CustomStringValue `tfsdk:"user" json:"user,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress        types.String `tfsdk:"address"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion    types.String `tfsdk:"description"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain         types.String `tfsdk:"domain"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch   types.String `tfsdk:"ldap_ip_search"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch types.String `tfsdk:"ldap_user_search"`
+	LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser           types.String `tfsdk:"user"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) GetVyosPath() []string {
+	return []string{
+		"service",
+		"webproxy",
+		"url-filtering",
+		"squidguard",
+		"source-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "source-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress.ValueString()
+	}
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion.ValueString()
+	}
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.IsUnknown()) {
+		vyosData["domain"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain.ValueString()
+	}
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.IsUnknown()) {
+		vyosData["ldap-ip-search"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch.ValueString()
+	}
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.IsUnknown()) {
+		vyosData["ldap-user-search"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch.ValueString()
+	}
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.IsUnknown()) {
+		vyosData["user"] = o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceWebproxyURLFilteringSquIDguardSourceGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "source-group"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["domain"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupDomain = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ldap-ip-search"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapIPSearch = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ldap-user-search"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupLdapUserSearch = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["user"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardSourceGroupUser = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "source-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":          types.StringType,
+		"description":      types.StringType,
+		"domain":           types.StringType,
+		"ldap_ip_search":   types.StringType,
+		"ldap_user_search": types.StringType,
+		"user":             types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Source group name
+
+|  Format  |  Description  |
+|----------|---------------|
+|  name  |  Name of source group  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Address for source-group
 
 |  Format  |  Description  |
@@ -42,16 +166,14 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceAttributes() m
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description for source-group
 
 `,
 		},
 
 		"domain": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Domain for source-group
 
 |  Format  |  Description  |
@@ -62,24 +184,21 @@ func (o ServiceWebproxyURLFilteringSquIDguardSourceGroup) ResourceAttributes() m
 		},
 
 		"ldap_ip_search": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `LDAP search expression for an IP address list
 
 `,
 		},
 
 		"ldap_user_search": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `LDAP search expression for a user group
 
 `,
 		},
 
 		"user": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `List of user names
 
 `,

@@ -2,31 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecAuthenticationPsk describes the resource data model.
 type VpnIPsecAuthenticationPsk struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecAuthenticationPskDhcpInterface customtypes.CustomStringValue `tfsdk:"dhcp_interface" json:"dhcp-interface,omitempty"`
-	VpnIPsecAuthenticationPskID            customtypes.CustomStringValue `tfsdk:"id" json:"id,omitempty"`
-	VpnIPsecAuthenticationPskSecret        customtypes.CustomStringValue `tfsdk:"secret" json:"secret,omitempty"`
+	LeafVpnIPsecAuthenticationPskDhcpInterface types.String `tfsdk:"dhcp_interface"`
+	LeafVpnIPsecAuthenticationPskID            types.String `tfsdk:"id"`
+	LeafVpnIPsecAuthenticationPskSecret        types.String `tfsdk:"secret"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecAuthenticationPsk) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"authentication",
+		"psk",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecAuthenticationPsk) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "authentication", "psk"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecAuthenticationPskDhcpInterface.IsNull() || o.LeafVpnIPsecAuthenticationPskDhcpInterface.IsUnknown()) {
+		vyosData["dhcp-interface"] = o.LeafVpnIPsecAuthenticationPskDhcpInterface.ValueString()
+	}
+	if !(o.LeafVpnIPsecAuthenticationPskID.IsNull() || o.LeafVpnIPsecAuthenticationPskID.IsUnknown()) {
+		vyosData["id"] = o.LeafVpnIPsecAuthenticationPskID.ValueString()
+	}
+	if !(o.LeafVpnIPsecAuthenticationPskSecret.IsNull() || o.LeafVpnIPsecAuthenticationPskSecret.IsUnknown()) {
+		vyosData["secret"] = o.LeafVpnIPsecAuthenticationPskSecret.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecAuthenticationPsk) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "authentication", "psk"}})
+
+	// Leafs
+	if value, ok := vyosData["dhcp-interface"]; ok {
+		o.LeafVpnIPsecAuthenticationPskDhcpInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecAuthenticationPskDhcpInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["id"]; ok {
+		o.LeafVpnIPsecAuthenticationPskID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecAuthenticationPskID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["secret"]; ok {
+		o.LeafVpnIPsecAuthenticationPskSecret = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecAuthenticationPskSecret = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "authentication", "psk"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecAuthenticationPsk) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dhcp_interface": types.StringType,
+		"id":             types.StringType,
+		"secret":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecAuthenticationPsk) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Pre-shared key name
+
+`,
+		},
+
 		// LeafNodes
 
 		"dhcp_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
 |  Format  |  Description  |
@@ -37,8 +129,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ID for authentication
 
 |  Format  |  Description  |
@@ -49,8 +140,7 @@ func (o VpnIPsecAuthenticationPsk) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"secret": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IKE pre-shared secret key
 
 |  Format  |  Description  |

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport types.String `tfsdk:"export"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "route-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport.IsUnknown()) {
+		vyosData["export"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport.IsUnknown()) {
+		vyosData["import"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "route-map"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-unicast", "route-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicastRouteMap) Resource
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |

@@ -2,25 +2,131 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallInterface describes the resource data model.
 type FirewallInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
 
 	// Nodes
-	FirewallInterfaceIn    types.Object `tfsdk:"in" json:"in,omitempty"`
-	FirewallInterfaceOut   types.Object `tfsdk:"out" json:"out,omitempty"`
-	FirewallInterfaceLocal types.Object `tfsdk:"local" json:"local,omitempty"`
+	NodeFirewallInterfaceIn    types.Object `tfsdk:"in"`
+	NodeFirewallInterfaceOut   types.Object `tfsdk:"out"`
+	NodeFirewallInterfaceLocal types.Object `tfsdk:"local"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallInterface) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallInterfaceIn.IsNull() || o.NodeFirewallInterfaceIn.IsUnknown()) {
+		var subModel FirewallInterfaceIn
+		diags.Append(o.NodeFirewallInterfaceIn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["in"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeFirewallInterfaceOut.IsNull() || o.NodeFirewallInterfaceOut.IsUnknown()) {
+		var subModel FirewallInterfaceOut
+		diags.Append(o.NodeFirewallInterfaceOut.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["out"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeFirewallInterfaceLocal.IsNull() || o.NodeFirewallInterfaceLocal.IsUnknown()) {
+		var subModel FirewallInterfaceLocal
+		diags.Append(o.NodeFirewallInterfaceLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["local"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "interface"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["in"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceIn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallInterfaceIn = data
+
+	} else {
+		o.NodeFirewallInterfaceIn = basetypes.NewObjectNull(FirewallInterfaceIn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["out"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceOut{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallInterfaceOut = data
+
+	} else {
+		o.NodeFirewallInterfaceOut = basetypes.NewObjectNull(FirewallInterfaceOut{}.AttributeTypes())
+	}
+	if value, ok := vyosData["local"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallInterfaceLocal{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallInterfaceLocal = data
+
+	} else {
+		o.NodeFirewallInterfaceLocal = basetypes.NewObjectNull(FirewallInterfaceLocal{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"in":    types.ObjectType{AttrTypes: FirewallInterfaceIn{}.AttributeTypes()},
+		"out":   types.ObjectType{AttrTypes: FirewallInterfaceOut{}.AttributeTypes()},
+		"local": types.ObjectType{AttrTypes: FirewallInterfaceLocal{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface name to apply firewall configuration
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
@@ -28,7 +134,7 @@ func (o FirewallInterface) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"in": schema.SingleNestedAttribute{
-			Attributes: FirewallInterfaceIn{}.ResourceAttributes(),
+			Attributes: FirewallInterfaceIn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Forwarded packets on inbound interface
 
@@ -36,7 +142,7 @@ func (o FirewallInterface) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"out": schema.SingleNestedAttribute{
-			Attributes: FirewallInterfaceOut{}.ResourceAttributes(),
+			Attributes: FirewallInterfaceOut{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Forwarded packets on outbound interface
 
@@ -44,7 +150,7 @@ func (o FirewallInterface) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"local": schema.SingleNestedAttribute{
-			Attributes: FirewallInterfaceLocal{}.ResourceAttributes(),
+			Attributes: FirewallInterfaceLocal{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Packets destined for this router
 

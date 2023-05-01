@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperClassMatchIPvsixSource describes the resource data model.
 type QosPolicyShaperClassMatchIPvsixSource struct {
 	// LeafNodes
-	QosPolicyShaperClassMatchIPvsixSourceAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	QosPolicyShaperClassMatchIPvsixSourcePort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafQosPolicyShaperClassMatchIPvsixSourceAddress types.String `tfsdk:"address"`
+	LeafQosPolicyShaperClassMatchIPvsixSourcePort    types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperClassMatchIPvsixSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperClassMatchIPvsixSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ipv6", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperClassMatchIPvsixSourceAddress.IsNull() || o.LeafQosPolicyShaperClassMatchIPvsixSourceAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafQosPolicyShaperClassMatchIPvsixSourceAddress.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassMatchIPvsixSourcePort.IsNull() || o.LeafQosPolicyShaperClassMatchIPvsixSourcePort.IsUnknown()) {
+		vyosData["port"] = o.LeafQosPolicyShaperClassMatchIPvsixSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperClassMatchIPvsixSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ipv6", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafQosPolicyShaperClassMatchIPvsixSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassMatchIPvsixSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafQosPolicyShaperClassMatchIPvsixSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassMatchIPvsixSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class", "match", "ipv6", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperClassMatchIPvsixSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+		"port":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperClassMatchIPvsixSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 destination address for this match
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o QosPolicyShaperClassMatchIPvsixSource) ResourceAttributes() map[string]s
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |

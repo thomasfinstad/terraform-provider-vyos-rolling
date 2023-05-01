@@ -3,16 +3,86 @@ package namednatdestinationrule
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
+
+	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/helpers"
 )
 
 // Create method to define the logic which creates the resource and sets its initial Terraform state.
 func (r natDestinationRule) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	data := r.model
+
+	// Read Terraform plan data into the model
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	vyosData := data.TerraformToVyos(ctx, &resp.Diagnostics)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	tflog.Error(ctx, "Compiled terraform to vyos data", map[string]interface{}{"vyosData": vyosData})
+
+	// Create vyos api ops
+	vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
+	tflog.Error(ctx, "Compiled vyos operations", map[string]interface{}{"vyosOps": vyosOps})
+
+	// Stage changes
+	r.client.StageSet(ctx, vyosOps)
+
+	// Commit changes
+	response, err := r.client.CommitChanges(ctx)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
+
+	// Save ID into the Terraform state.
+	data.ID = types.StringValue(data.ID.ValueString())
+
+	// Save data to Terraform state
+	tflog.Trace(ctx, "resource created")
+	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 // Read method to define the logic which refreshes the Terraform state for the resource.
 func (r natDestinationRule) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	data := r.model
+
+	// Read Terraform prior state data into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	vyosPath := data.GetVyosPath()
+
+	// Fetch live state from Vyos
+	response, err := r.client.Read(ctx, vyosPath)
+	if err != nil {
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+		return
+	}
+	if response != nil {
+		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+	}
+
+	data.VyosToTerraform(ctx, &resp.Diagnostics, response.(map[string]interface{}))
+
+	// Save updated data into Terraform state
+	tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 // Update method to define the logic which updates the resource and sets the updated Terraform state on success.

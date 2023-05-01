@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAsPathListRule describes the resource data model.
 type PolicyAsPathListRule struct {
 	// LeafNodes
-	PolicyAsPathListRuleAction      customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyAsPathListRuleDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyAsPathListRuleRegex       customtypes.CustomStringValue `tfsdk:"regex" json:"regex,omitempty"`
+	LeafPolicyAsPathListRuleAction      types.String `tfsdk:"action"`
+	LeafPolicyAsPathListRuleDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyAsPathListRuleRegex       types.String `tfsdk:"regex"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAsPathListRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "as-path-list", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAsPathListRuleAction.IsNull() || o.LeafPolicyAsPathListRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyAsPathListRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyAsPathListRuleDescrIPtion.IsNull() || o.LeafPolicyAsPathListRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyAsPathListRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyAsPathListRuleRegex.IsNull() || o.LeafPolicyAsPathListRuleRegex.IsUnknown()) {
+		vyosData["regex"] = o.LeafPolicyAsPathListRuleRegex.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAsPathListRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "as-path-list", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyAsPathListRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAsPathListRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyAsPathListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAsPathListRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["regex"]; ok {
+		o.LeafPolicyAsPathListRuleRegex = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAsPathListRuleRegex = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "as-path-list", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAsPathListRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":      types.StringType,
+		"description": types.StringType,
+		"regex":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAsPathListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -38,8 +110,7 @@ func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -50,8 +121,7 @@ func (o PolicyAsPathListRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"regex": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Regular expression to match against an AS path
 
 |  Format  |  Description  |

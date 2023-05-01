@@ -2,33 +2,149 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaper describes the resource data model.
 type QosPolicyShaper struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyShaperDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyShaperBandwIDth   customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyShaperDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyShaperBandwIDth   types.String `tfsdk:"bandwidth"`
 
 	// TagNodes
-	QosPolicyShaperClass types.Map `tfsdk:"class" json:"class,omitempty"`
+	TagQosPolicyShaperClass types.Map `tfsdk:"class"`
 
 	// Nodes
-	QosPolicyShaperDefault types.Object `tfsdk:"default" json:"default,omitempty"`
+	NodeQosPolicyShaperDefault types.Object `tfsdk:"default"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaper) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyShaper) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"shaper",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaper) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperDescrIPtion.IsNull() || o.LeafQosPolicyShaperDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyShaperDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperBandwIDth.IsNull() || o.LeafQosPolicyShaperBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafQosPolicyShaperBandwIDth.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyShaperClass.IsNull() || o.TagQosPolicyShaperClass.IsUnknown()) {
+		subModel := make(map[string]QosPolicyShaperClass)
+		diags.Append(o.TagQosPolicyShaperClass.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["class"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeQosPolicyShaperDefault.IsNull() || o.NodeQosPolicyShaperDefault.IsUnknown()) {
+		var subModel QosPolicyShaperDefault
+		diags.Append(o.NodeQosPolicyShaperDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaper) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperBandwIDth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["class"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyShaperClass{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyShaperClass = data
+	} else {
+		o.TagQosPolicyShaperClass = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["default"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperDefault{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperDefault = data
+
+	} else {
+		o.NodeQosPolicyShaperDefault = basetypes.NewObjectNull(QosPolicyShaperDefault{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaper) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"bandwidth":   types.StringType,
+
+		// Tags
+		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyShaperClass{}.AttributeTypes()}},
+
+		// Nodes
+		"default": types.ObjectType{AttrTypes: QosPolicyShaperDefault{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaper) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Traffic shaping based policy (Hierarchy Token Bucket)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -39,8 +155,7 @@ func (o QosPolicyShaper) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
 |  Format  |  Description  |
@@ -64,7 +179,7 @@ func (o QosPolicyShaper) ResourceAttributes() map[string]schema.Attribute {
 
 		"class": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyShaperClass{}.ResourceAttributes(),
+				Attributes: QosPolicyShaperClass{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class ID
@@ -79,7 +194,7 @@ func (o QosPolicyShaper) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperDefault{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default policy
 

@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIgmpInterfaceJoin describes the resource data model.
 type ProtocolsIgmpInterfaceJoin struct {
 	// LeafNodes
-	ProtocolsIgmpInterfaceJoinSource customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
+	LeafProtocolsIgmpInterfaceJoinSource types.String `tfsdk:"source"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsIgmpInterfaceJoin) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsIgmpInterfaceJoin) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface", "join"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsIgmpInterfaceJoinSource.IsNull() || o.LeafProtocolsIgmpInterfaceJoinSource.IsUnknown()) {
+		vyosData["source"] = o.LeafProtocolsIgmpInterfaceJoinSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsIgmpInterfaceJoin) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface", "join"}})
+
+	// Leafs
+	if value, ok := vyosData["source"]; ok {
+		o.LeafProtocolsIgmpInterfaceJoinSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceJoinSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface", "join"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsIgmpInterfaceJoin) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"source": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsIgmpInterfaceJoin) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source address
 
 |  Format  |  Description  |

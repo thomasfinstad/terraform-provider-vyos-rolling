@@ -2,31 +2,122 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpCommunity describes the resource data model.
 type ServiceSnmpCommunity struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpCommunityAuthorization customtypes.CustomStringValue `tfsdk:"authorization" json:"authorization,omitempty"`
-	ServiceSnmpCommunityClient        customtypes.CustomStringValue `tfsdk:"client" json:"client,omitempty"`
-	ServiceSnmpCommunityNetwork       customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
+	LeafServiceSnmpCommunityAuthorization types.String `tfsdk:"authorization"`
+	LeafServiceSnmpCommunityClient        types.String `tfsdk:"client"`
+	LeafServiceSnmpCommunityNetwork       types.String `tfsdk:"network"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpCommunity) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpCommunity) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"community",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpCommunityAuthorization.IsNull() || o.LeafServiceSnmpCommunityAuthorization.IsUnknown()) {
+		vyosData["authorization"] = o.LeafServiceSnmpCommunityAuthorization.ValueString()
+	}
+	if !(o.LeafServiceSnmpCommunityClient.IsNull() || o.LeafServiceSnmpCommunityClient.IsUnknown()) {
+		vyosData["client"] = o.LeafServiceSnmpCommunityClient.ValueString()
+	}
+	if !(o.LeafServiceSnmpCommunityNetwork.IsNull() || o.LeafServiceSnmpCommunityNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafServiceSnmpCommunityNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
+
+	// Leafs
+	if value, ok := vyosData["authorization"]; ok {
+		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityAuthorization = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["client"]; ok {
+		o.LeafServiceSnmpCommunityClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpCommunityNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "community"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpCommunity) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"authorization": types.StringType,
+		"client":        types.StringType,
+		"network":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Community name
+
+`,
+		},
+
 		// LeafNodes
 
 		"authorization": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Authorization type
 
 |  Format  |  Description  |
@@ -41,16 +132,14 @@ func (o ServiceSnmpCommunity) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address of SNMP client allowed to contact system
 
 `,
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Subnet of SNMP client(s) allowed to contact system
 
 |  Format  |  Description  |

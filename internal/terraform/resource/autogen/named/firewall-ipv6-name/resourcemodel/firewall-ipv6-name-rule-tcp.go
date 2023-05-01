@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleTCP describes the resource data model.
 type FirewallIPvsixNameRuleTCP struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleTCPMss customtypes.CustomStringValue `tfsdk:"mss" json:"mss,omitempty"`
+	LeafFirewallIPvsixNameRuleTCPMss types.String `tfsdk:"mss"`
 
 	// TagNodes
 
 	// Nodes
-	FirewallIPvsixNameRuleTCPFlags types.Object `tfsdk:"flags" json:"flags,omitempty"`
+	NodeFirewallIPvsixNameRuleTCPFlags types.Object `tfsdk:"flags"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleTCP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleTCPMss.IsNull() || o.LeafFirewallIPvsixNameRuleTCPMss.IsUnknown()) {
+		vyosData["mss"] = o.LeafFirewallIPvsixNameRuleTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallIPvsixNameRuleTCPFlags.IsNull() || o.NodeFirewallIPvsixNameRuleTCPFlags.IsUnknown()) {
+		var subModel FirewallIPvsixNameRuleTCPFlags
+		diags.Append(o.NodeFirewallIPvsixNameRuleTCPFlags.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["flags"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp"}})
+
+	// Leafs
+	if value, ok := vyosData["mss"]; ok {
+		o.LeafFirewallIPvsixNameRuleTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["flags"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallIPvsixNameRuleTCPFlags{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallIPvsixNameRuleTCPFlags = data
+
+	} else {
+		o.NodeFirewallIPvsixNameRuleTCPFlags = basetypes.NewObjectNull(FirewallIPvsixNameRuleTCPFlags{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "tcp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleTCP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"mss": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"flags": types.ObjectType{AttrTypes: FirewallIPvsixNameRuleTCPFlags{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
 
 |  Format  |  Description  |
@@ -42,7 +108,7 @@ func (o FirewallIPvsixNameRuleTCP) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"flags": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixNameRuleTCPFlags{}.ResourceAttributes(),
+			Attributes: FirewallIPvsixNameRuleTCPFlags{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 

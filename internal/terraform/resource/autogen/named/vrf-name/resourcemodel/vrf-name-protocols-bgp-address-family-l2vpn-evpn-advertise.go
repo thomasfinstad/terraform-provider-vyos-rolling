@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise describes the resource data model.
@@ -13,12 +19,80 @@ type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour types.Object `tfsdk:"ipv4" json:"ipv4,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix  types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour types.Object `tfsdk:"ipv4"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix  types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ipv4"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn", "advertise"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"ipv4": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.AttributeTypes()},
+		"ipv6": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -27,7 +101,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceAttributes
 		// Nodes
 
 		"ipv4": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvfour{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 address family
 
@@ -35,7 +109,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise) ResourceAttributes
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address family
 

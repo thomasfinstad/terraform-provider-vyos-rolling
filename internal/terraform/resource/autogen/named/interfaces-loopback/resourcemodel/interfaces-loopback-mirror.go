@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesLoopbackMirror describes the resource data model.
 type InterfacesLoopbackMirror struct {
 	// LeafNodes
-	InterfacesLoopbackMirrorIngress customtypes.CustomStringValue `tfsdk:"ingress" json:"ingress,omitempty"`
-	InterfacesLoopbackMirrorEgress  customtypes.CustomStringValue `tfsdk:"egress" json:"egress,omitempty"`
+	LeafInterfacesLoopbackMirrorIngress types.String `tfsdk:"ingress"`
+	LeafInterfacesLoopbackMirrorEgress  types.String `tfsdk:"egress"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesLoopbackMirror) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesLoopbackMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "loopback", "mirror"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesLoopbackMirrorIngress.IsNull() || o.LeafInterfacesLoopbackMirrorIngress.IsUnknown()) {
+		vyosData["ingress"] = o.LeafInterfacesLoopbackMirrorIngress.ValueString()
+	}
+	if !(o.LeafInterfacesLoopbackMirrorEgress.IsNull() || o.LeafInterfacesLoopbackMirrorEgress.IsUnknown()) {
+		vyosData["egress"] = o.LeafInterfacesLoopbackMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesLoopbackMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "loopback", "mirror"}})
+
+	// Leafs
+	if value, ok := vyosData["ingress"]; ok {
+		o.LeafInterfacesLoopbackMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackMirrorIngress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["egress"]; ok {
+		o.LeafInterfacesLoopbackMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "loopback", "mirror"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesLoopbackMirror) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ingress": types.StringType,
+		"egress":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesLoopbackMirror) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ingress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror ingress traffic to destination interface
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesLoopbackMirror) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"egress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror egress traffic to destination interface
 
 |  Format  |  Description  |

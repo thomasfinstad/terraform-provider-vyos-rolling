@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleTCP describes the resource data model.
 type FirewallNameRuleTCP struct {
 	// LeafNodes
-	FirewallNameRuleTCPMss customtypes.CustomStringValue `tfsdk:"mss" json:"mss,omitempty"`
+	LeafFirewallNameRuleTCPMss types.String `tfsdk:"mss"`
 
 	// TagNodes
 
 	// Nodes
-	FirewallNameRuleTCPFlags types.Object `tfsdk:"flags" json:"flags,omitempty"`
+	NodeFirewallNameRuleTCPFlags types.Object `tfsdk:"flags"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleTCP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleTCPMss.IsNull() || o.LeafFirewallNameRuleTCPMss.IsUnknown()) {
+		vyosData["mss"] = o.LeafFirewallNameRuleTCPMss.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallNameRuleTCPFlags.IsNull() || o.NodeFirewallNameRuleTCPFlags.IsUnknown()) {
+		var subModel FirewallNameRuleTCPFlags
+		diags.Append(o.NodeFirewallNameRuleTCPFlags.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["flags"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
+
+	// Leafs
+	if value, ok := vyosData["mss"]; ok {
+		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTCPMss = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["flags"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallNameRuleTCPFlags{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallNameRuleTCPFlags = data
+
+	} else {
+		o.NodeFirewallNameRuleTCPFlags = basetypes.NewObjectNull(FirewallNameRuleTCPFlags{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "tcp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleTCP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"mss": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"flags": types.ObjectType{AttrTypes: FirewallNameRuleTCPFlags{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum segment size (MSS)
 
 |  Format  |  Description  |
@@ -42,7 +108,7 @@ func (o FirewallNameRuleTCP) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"flags": schema.SingleNestedAttribute{
-			Attributes: FirewallNameRuleTCPFlags{}.ResourceAttributes(),
+			Attributes: FirewallNameRuleTCPFlags{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 

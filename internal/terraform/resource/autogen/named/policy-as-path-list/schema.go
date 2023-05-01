@@ -21,6 +21,6 @@ Add a BGP autonomous system path filter
 |  txt  |  AS path list name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

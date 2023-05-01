@@ -19,6 +19,6 @@ func (r interfacesVxlan) Schema(ctx context.Context, req resource.SchemaRequest,
 |  vxlanN  |  VXLAN interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

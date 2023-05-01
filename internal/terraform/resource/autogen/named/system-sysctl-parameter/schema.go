@@ -23,6 +23,6 @@ Sysctl key name
 |  txt  |  Sysctl key name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

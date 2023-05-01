@@ -2,36 +2,176 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyNetworkEmulator describes the resource data model.
 type QosPolicyNetworkEmulator struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyNetworkEmulatorDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyNetworkEmulatorBandwIDth   customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
-	QosPolicyNetworkEmulatorDelay       customtypes.CustomStringValue `tfsdk:"delay" json:"delay,omitempty"`
-	QosPolicyNetworkEmulatorCorruption  customtypes.CustomStringValue `tfsdk:"corruption" json:"corruption,omitempty"`
-	QosPolicyNetworkEmulatorDuplicate   customtypes.CustomStringValue `tfsdk:"duplicate" json:"duplicate,omitempty"`
-	QosPolicyNetworkEmulatorLoss        customtypes.CustomStringValue `tfsdk:"loss" json:"loss,omitempty"`
-	QosPolicyNetworkEmulatorReordering  customtypes.CustomStringValue `tfsdk:"reordering" json:"reordering,omitempty"`
-	QosPolicyNetworkEmulatorQueueLimit  customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyNetworkEmulatorDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyNetworkEmulatorBandwIDth   types.String `tfsdk:"bandwidth"`
+	LeafQosPolicyNetworkEmulatorDelay       types.String `tfsdk:"delay"`
+	LeafQosPolicyNetworkEmulatorCorruption  types.String `tfsdk:"corruption"`
+	LeafQosPolicyNetworkEmulatorDuplicate   types.String `tfsdk:"duplicate"`
+	LeafQosPolicyNetworkEmulatorLoss        types.String `tfsdk:"loss"`
+	LeafQosPolicyNetworkEmulatorReordering  types.String `tfsdk:"reordering"`
+	LeafQosPolicyNetworkEmulatorQueueLimit  types.String `tfsdk:"queue_limit"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyNetworkEmulator) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"network-emulator",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyNetworkEmulator) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "network-emulator"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyNetworkEmulatorDescrIPtion.IsNull() || o.LeafQosPolicyNetworkEmulatorDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyNetworkEmulatorDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorBandwIDth.IsNull() || o.LeafQosPolicyNetworkEmulatorBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafQosPolicyNetworkEmulatorBandwIDth.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorDelay.IsNull() || o.LeafQosPolicyNetworkEmulatorDelay.IsUnknown()) {
+		vyosData["delay"] = o.LeafQosPolicyNetworkEmulatorDelay.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorCorruption.IsNull() || o.LeafQosPolicyNetworkEmulatorCorruption.IsUnknown()) {
+		vyosData["corruption"] = o.LeafQosPolicyNetworkEmulatorCorruption.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorDuplicate.IsNull() || o.LeafQosPolicyNetworkEmulatorDuplicate.IsUnknown()) {
+		vyosData["duplicate"] = o.LeafQosPolicyNetworkEmulatorDuplicate.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorLoss.IsNull() || o.LeafQosPolicyNetworkEmulatorLoss.IsUnknown()) {
+		vyosData["loss"] = o.LeafQosPolicyNetworkEmulatorLoss.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorReordering.IsNull() || o.LeafQosPolicyNetworkEmulatorReordering.IsUnknown()) {
+		vyosData["reordering"] = o.LeafQosPolicyNetworkEmulatorReordering.ValueString()
+	}
+	if !(o.LeafQosPolicyNetworkEmulatorQueueLimit.IsNull() || o.LeafQosPolicyNetworkEmulatorQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyNetworkEmulatorQueueLimit.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyNetworkEmulator) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "network-emulator"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyNetworkEmulatorDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafQosPolicyNetworkEmulatorBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorBandwIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["delay"]; ok {
+		o.LeafQosPolicyNetworkEmulatorDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorDelay = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["corruption"]; ok {
+		o.LeafQosPolicyNetworkEmulatorCorruption = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorCorruption = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["duplicate"]; ok {
+		o.LeafQosPolicyNetworkEmulatorDuplicate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorDuplicate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["loss"]; ok {
+		o.LeafQosPolicyNetworkEmulatorLoss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorLoss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["reordering"]; ok {
+		o.LeafQosPolicyNetworkEmulatorReordering = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorReordering = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyNetworkEmulatorQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyNetworkEmulatorQueueLimit = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "network-emulator"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyNetworkEmulator) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"bandwidth":   types.StringType,
+		"delay":       types.StringType,
+		"corruption":  types.StringType,
+		"duplicate":   types.StringType,
+		"loss":        types.StringType,
+		"reordering":  types.StringType,
+		"queue_limit": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyNetworkEmulator) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Network emulator policy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,8 +182,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
 |  Format  |  Description  |
@@ -60,8 +199,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adds delay to packets outgoing to chosen network interface
 
 |  Format  |  Description  |
@@ -72,8 +210,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"corruption": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Introducing error in a random position for chosen percent of packets
 
 |  Format  |  Description  |
@@ -84,8 +221,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"duplicate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Cosen percent of packets is duplicated before queuing them
 
 |  Format  |  Description  |
@@ -96,8 +232,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"loss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Add independent loss probability to the packets outgoing to chosen network interface
 
 |  Format  |  Description  |
@@ -108,8 +243,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"reordering": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Emulated packet reordering percentage
 
 |  Format  |  Description  |
@@ -120,8 +254,7 @@ func (o QosPolicyNetworkEmulator) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |

@@ -2,59 +2,251 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatch describes the resource data model.
 type PolicyRouteMapRuleMatch struct {
 	// LeafNodes
-	PolicyRouteMapRuleMatchAsPath          customtypes.CustomStringValue `tfsdk:"as_path" json:"as-path,omitempty"`
-	PolicyRouteMapRuleMatchExtcommunity    customtypes.CustomStringValue `tfsdk:"extcommunity" json:"extcommunity,omitempty"`
-	PolicyRouteMapRuleMatchInterface       customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	PolicyRouteMapRuleMatchLocalPreference customtypes.CustomStringValue `tfsdk:"local_preference" json:"local-preference,omitempty"`
-	PolicyRouteMapRuleMatchMetric          customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	PolicyRouteMapRuleMatchOrigin          customtypes.CustomStringValue `tfsdk:"origin" json:"origin,omitempty"`
-	PolicyRouteMapRuleMatchPeer            customtypes.CustomStringValue `tfsdk:"peer" json:"peer,omitempty"`
-	PolicyRouteMapRuleMatchRpki            customtypes.CustomStringValue `tfsdk:"rpki" json:"rpki,omitempty"`
-	PolicyRouteMapRuleMatchTag             customtypes.CustomStringValue `tfsdk:"tag" json:"tag,omitempty"`
+	LeafPolicyRouteMapRuleMatchAsPath          types.String `tfsdk:"as_path"`
+	LeafPolicyRouteMapRuleMatchExtcommunity    types.String `tfsdk:"extcommunity"`
+	LeafPolicyRouteMapRuleMatchInterface       types.String `tfsdk:"interface"`
+	LeafPolicyRouteMapRuleMatchLocalPreference types.String `tfsdk:"local_preference"`
+	LeafPolicyRouteMapRuleMatchMetric          types.String `tfsdk:"metric"`
+	LeafPolicyRouteMapRuleMatchOrigin          types.String `tfsdk:"origin"`
+	LeafPolicyRouteMapRuleMatchPeer            types.String `tfsdk:"peer"`
+	LeafPolicyRouteMapRuleMatchRpki            types.String `tfsdk:"rpki"`
+	LeafPolicyRouteMapRuleMatchTag             types.String `tfsdk:"tag"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteMapRuleMatchCommunity      types.Object `tfsdk:"community" json:"community,omitempty"`
-	PolicyRouteMapRuleMatchEvpn           types.Object `tfsdk:"evpn" json:"evpn,omitempty"`
-	PolicyRouteMapRuleMatchIP             types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	PolicyRouteMapRuleMatchIPvsix         types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	PolicyRouteMapRuleMatchLargeCommunity types.Object `tfsdk:"large_community" json:"large-community,omitempty"`
+	NodePolicyRouteMapRuleMatchCommunity      types.Object `tfsdk:"community"`
+	NodePolicyRouteMapRuleMatchEvpn           types.Object `tfsdk:"evpn"`
+	NodePolicyRouteMapRuleMatchIP             types.Object `tfsdk:"ip"`
+	NodePolicyRouteMapRuleMatchIPvsix         types.Object `tfsdk:"ipv6"`
+	NodePolicyRouteMapRuleMatchLargeCommunity types.Object `tfsdk:"large_community"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleMatchAsPath.IsNull() || o.LeafPolicyRouteMapRuleMatchAsPath.IsUnknown()) {
+		vyosData["as-path"] = o.LeafPolicyRouteMapRuleMatchAsPath.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchExtcommunity.IsNull() || o.LeafPolicyRouteMapRuleMatchExtcommunity.IsUnknown()) {
+		vyosData["extcommunity"] = o.LeafPolicyRouteMapRuleMatchExtcommunity.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchInterface.IsNull() || o.LeafPolicyRouteMapRuleMatchInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafPolicyRouteMapRuleMatchInterface.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchLocalPreference.IsNull() || o.LeafPolicyRouteMapRuleMatchLocalPreference.IsUnknown()) {
+		vyosData["local-preference"] = o.LeafPolicyRouteMapRuleMatchLocalPreference.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchMetric.IsNull() || o.LeafPolicyRouteMapRuleMatchMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafPolicyRouteMapRuleMatchMetric.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchOrigin.IsNull() || o.LeafPolicyRouteMapRuleMatchOrigin.IsUnknown()) {
+		vyosData["origin"] = o.LeafPolicyRouteMapRuleMatchOrigin.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchPeer.IsNull() || o.LeafPolicyRouteMapRuleMatchPeer.IsUnknown()) {
+		vyosData["peer"] = o.LeafPolicyRouteMapRuleMatchPeer.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchRpki.IsNull() || o.LeafPolicyRouteMapRuleMatchRpki.IsUnknown()) {
+		vyosData["rpki"] = o.LeafPolicyRouteMapRuleMatchRpki.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchTag.IsNull() || o.LeafPolicyRouteMapRuleMatchTag.IsUnknown()) {
+		vyosData["tag"] = o.LeafPolicyRouteMapRuleMatchTag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteMapRuleMatchCommunity.IsNull() || o.NodePolicyRouteMapRuleMatchCommunity.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchCommunity
+		diags.Append(o.NodePolicyRouteMapRuleMatchCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchEvpn.IsNull() || o.NodePolicyRouteMapRuleMatchEvpn.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchEvpn
+		diags.Append(o.NodePolicyRouteMapRuleMatchEvpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["evpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchIP.IsNull() || o.NodePolicyRouteMapRuleMatchIP.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchIP
+		diags.Append(o.NodePolicyRouteMapRuleMatchIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchIPvsix.IsNull() || o.NodePolicyRouteMapRuleMatchIPvsix.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchIPvsix
+		diags.Append(o.NodePolicyRouteMapRuleMatchIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchLargeCommunity.IsNull() || o.NodePolicyRouteMapRuleMatchLargeCommunity.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchLargeCommunity
+		diags.Append(o.NodePolicyRouteMapRuleMatchLargeCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["large-community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match"}})
+
+	// Leafs
+	if value, ok := vyosData["as-path"]; ok {
+		o.LeafPolicyRouteMapRuleMatchAsPath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchAsPath = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["extcommunity"]; ok {
+		o.LeafPolicyRouteMapRuleMatchExtcommunity = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchExtcommunity = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafPolicyRouteMapRuleMatchInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local-preference"]; ok {
+		o.LeafPolicyRouteMapRuleMatchLocalPreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchLocalPreference = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafPolicyRouteMapRuleMatchMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["origin"]; ok {
+		o.LeafPolicyRouteMapRuleMatchOrigin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchOrigin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["peer"]; ok {
+		o.LeafPolicyRouteMapRuleMatchPeer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchPeer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rpki"]; ok {
+		o.LeafPolicyRouteMapRuleMatchRpki = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchRpki = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tag"]; ok {
+		o.LeafPolicyRouteMapRuleMatchTag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchTag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchCommunity = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchCommunity = basetypes.NewObjectNull(PolicyRouteMapRuleMatchCommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["evpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchEvpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchEvpn = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchEvpn = basetypes.NewObjectNull(PolicyRouteMapRuleMatchEvpn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchIP = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchIP = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchIPvsix = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchIPvsix = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["large-community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchLargeCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchLargeCommunity = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchLargeCommunity = basetypes.NewObjectNull(PolicyRouteMapRuleMatchLargeCommunity{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleMatch) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_path":          types.StringType,
+		"extcommunity":     types.StringType,
+		"interface":        types.StringType,
+		"local_preference": types.StringType,
+		"metric":           types.StringType,
+		"origin":           types.StringType,
+		"peer":             types.StringType,
+		"rpki":             types.StringType,
+		"tag":              types.StringType,
+
+		// Tags
+
+		// Nodes
+		"community":       types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchCommunity{}.AttributeTypes()},
+		"evpn":            types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchEvpn{}.AttributeTypes()},
+		"ip":              types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIP{}.AttributeTypes()},
+		"ipv6":            types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPvsix{}.AttributeTypes()},
+		"large_community": types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchLargeCommunity{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as_path": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP as-path-list to match
 
 `,
 		},
 
 		"extcommunity": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP extended community to match
 
 `,
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
@@ -65,8 +257,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"local_preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local Preference
 
 |  Format  |  Description  |
@@ -77,8 +268,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Metric of route to match
 
 |  Format  |  Description  |
@@ -89,8 +279,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"origin": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP origin code to match
 
 |  Format  |  Description  |
@@ -103,8 +292,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"peer": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer address to match
 
 |  Format  |  Description  |
@@ -116,8 +304,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"rpki": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match RPKI validation result
 
 |  Format  |  Description  |
@@ -130,8 +317,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"tag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route tag to match
 
 |  Format  |  Description  |
@@ -146,7 +332,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		// Nodes
 
 		"community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchCommunity{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP community-list to match
 
@@ -154,7 +340,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"evpn": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchEvpn{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
 
@@ -162,7 +348,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIP{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IP prefix parameters to match
 
@@ -170,7 +356,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPvsix{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 prefix parameters to match
 
@@ -178,7 +364,7 @@ func (o PolicyRouteMapRuleMatch) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"large_community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchLargeCommunity{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchLargeCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match BGP large communities
 

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerTunnelRemote describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnelRemote struct {
 	// LeafNodes
-	VpnIPsecSiteToSitePeerTunnelRemotePort   customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	VpnIPsecSiteToSitePeerTunnelRemotePrefix customtypes.CustomStringValue `tfsdk:"prefix" json:"prefix,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelRemotePort   types.String `tfsdk:"port"`
+	LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix types.String `tfsdk:"prefix"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecSiteToSitePeerTunnelRemote) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecSiteToSitePeerTunnelRemote) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel", "remote"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelRemotePort.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelRemotePort.IsUnknown()) {
+		vyosData["port"] = o.LeafVpnIPsecSiteToSitePeerTunnelRemotePort.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix.IsUnknown()) {
+		vyosData["prefix"] = o.LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecSiteToSitePeerTunnelRemote) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel", "remote"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelRemotePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelRemotePort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelRemotePrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel", "remote"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecSiteToSitePeerTunnelRemote) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":   types.StringType,
+		"prefix": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecSiteToSitePeerTunnelRemote) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VpnIPsecSiteToSitePeerTunnelRemote) ResourceAttributes() map[string]sche
 		},
 
 		"prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remote IPv4 or IPv6 prefix
 
 |  Format  |  Description  |

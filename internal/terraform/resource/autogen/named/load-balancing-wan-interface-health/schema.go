@@ -19,6 +19,6 @@ Configure Wide Area Network (WAN) load-balancing
 Interface name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

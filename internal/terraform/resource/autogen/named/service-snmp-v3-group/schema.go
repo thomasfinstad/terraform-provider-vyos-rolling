@@ -19,6 +19,6 @@ Simple Network Management Protocol (SNMP) v3
 Specifies the group with name groupname
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeAreaAreaTypeNssa describes the resource data model.
 type VrfNameProtocolsOspfvthreeAreaAreaTypeNssa struct {
 	// LeafNodes
-	VrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate customtypes.CustomStringValue `tfsdk:"default_information_originate" json:"default-information-originate,omitempty"`
-	VrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary                   customtypes.CustomStringValue `tfsdk:"no_summary" json:"no-summary,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate types.String `tfsdk:"default_information_originate"`
+	LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary                   types.String `tfsdk:"no_summary"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "area-type", "nssa"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.IsNull() || o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.IsUnknown()) {
+		vyosData["default-information-originate"] = o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.IsNull() || o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.IsUnknown()) {
+		vyosData["no-summary"] = o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "area-type", "nssa"}})
+
+	// Leafs
+	if value, ok := vyosData["default-information-originate"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaDefaultInformationOriginate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-summary"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "area", "area-type", "nssa"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_information_originate": types.StringType,
+		"no_summary":                    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfvthreeAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"default_information_originate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Originate Type 7 default into NSSA area
 
 `,
 		},
 
 		"no_summary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,

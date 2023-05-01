@@ -2,37 +2,199 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfArea describes the resource data model.
 type ProtocolsOspfArea struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsOspfAreaAuthentication customtypes.CustomStringValue `tfsdk:"authentication" json:"authentication,omitempty"`
-	ProtocolsOspfAreaNetwork        customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
-	ProtocolsOspfAreaShortcut       customtypes.CustomStringValue `tfsdk:"shortcut" json:"shortcut,omitempty"`
-	ProtocolsOspfAreaExportList     customtypes.CustomStringValue `tfsdk:"export_list" json:"export-list,omitempty"`
-	ProtocolsOspfAreaImportList     customtypes.CustomStringValue `tfsdk:"import_list" json:"import-list,omitempty"`
+	LeafProtocolsOspfAreaAuthentication types.String `tfsdk:"authentication"`
+	LeafProtocolsOspfAreaNetwork        types.String `tfsdk:"network"`
+	LeafProtocolsOspfAreaShortcut       types.String `tfsdk:"shortcut"`
+	LeafProtocolsOspfAreaExportList     types.String `tfsdk:"export_list"`
+	LeafProtocolsOspfAreaImportList     types.String `tfsdk:"import_list"`
 
 	// TagNodes
-	ProtocolsOspfAreaRange       types.Map `tfsdk:"range" json:"range,omitempty"`
-	ProtocolsOspfAreaVirtualLink types.Map `tfsdk:"virtual_link" json:"virtual-link,omitempty"`
+	TagProtocolsOspfAreaRange       types.Map `tfsdk:"range"`
+	TagProtocolsOspfAreaVirtualLink types.Map `tfsdk:"virtual_link"`
 
 	// Nodes
-	ProtocolsOspfAreaAreaType types.Object `tfsdk:"area_type" json:"area-type,omitempty"`
+	NodeProtocolsOspfAreaAreaType types.Object `tfsdk:"area_type"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsOspfArea) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"ospf",
+		"area",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfArea) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaAuthentication.IsNull() || o.LeafProtocolsOspfAreaAuthentication.IsUnknown()) {
+		vyosData["authentication"] = o.LeafProtocolsOspfAreaAuthentication.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaNetwork.IsNull() || o.LeafProtocolsOspfAreaNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafProtocolsOspfAreaNetwork.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaShortcut.IsNull() || o.LeafProtocolsOspfAreaShortcut.IsUnknown()) {
+		vyosData["shortcut"] = o.LeafProtocolsOspfAreaShortcut.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaExportList.IsNull() || o.LeafProtocolsOspfAreaExportList.IsUnknown()) {
+		vyosData["export-list"] = o.LeafProtocolsOspfAreaExportList.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaImportList.IsNull() || o.LeafProtocolsOspfAreaImportList.IsUnknown()) {
+		vyosData["import-list"] = o.LeafProtocolsOspfAreaImportList.ValueString()
+	}
+
+	// Tags
+	if !(o.TagProtocolsOspfAreaRange.IsNull() || o.TagProtocolsOspfAreaRange.IsUnknown()) {
+		subModel := make(map[string]ProtocolsOspfAreaRange)
+		diags.Append(o.TagProtocolsOspfAreaRange.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["range"] = subData
+	}
+	if !(o.TagProtocolsOspfAreaVirtualLink.IsNull() || o.TagProtocolsOspfAreaVirtualLink.IsUnknown()) {
+		subModel := make(map[string]ProtocolsOspfAreaVirtualLink)
+		diags.Append(o.TagProtocolsOspfAreaVirtualLink.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["virtual-link"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeProtocolsOspfAreaAreaType.IsNull() || o.NodeProtocolsOspfAreaAreaType.IsUnknown()) {
+		var subModel ProtocolsOspfAreaAreaType
+		diags.Append(o.NodeProtocolsOspfAreaAreaType.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["area-type"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfArea) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area"}})
+
+	// Leafs
+	if value, ok := vyosData["authentication"]; ok {
+		o.LeafProtocolsOspfAreaAuthentication = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAuthentication = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafProtocolsOspfAreaNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaNetwork = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["shortcut"]; ok {
+		o.LeafProtocolsOspfAreaShortcut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaShortcut = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["export-list"]; ok {
+		o.LeafProtocolsOspfAreaExportList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaExportList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import-list"]; ok {
+		o.LeafProtocolsOspfAreaImportList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaImportList = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["range"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsOspfAreaRange{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsOspfAreaRange = data
+	} else {
+		o.TagProtocolsOspfAreaRange = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["virtual-link"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLink{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsOspfAreaVirtualLink = data
+	} else {
+		o.TagProtocolsOspfAreaVirtualLink = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["area-type"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaAreaType{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsOspfAreaAreaType = data
+
+	} else {
+		o.NodeProtocolsOspfAreaAreaType = basetypes.NewObjectNull(ProtocolsOspfAreaAreaType{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfArea) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"authentication": types.StringType,
+		"network":        types.StringType,
+		"shortcut":       types.StringType,
+		"export_list":    types.StringType,
+		"import_list":    types.StringType,
+
+		// Tags
+		"range":        types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsOspfAreaRange{}.AttributeTypes()}},
+		"virtual_link": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLink{}.AttributeTypes()}},
+
+		// Nodes
+		"area_type": types.ObjectType{AttrTypes: ProtocolsOspfAreaAreaType{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfArea) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OSPF area settings
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32  |  OSPF area number in decimal notation  |
+|  ipv4  |  OSPF area number in dotted decimal notation  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"authentication": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF area authentication type
 
 |  Format  |  Description  |
@@ -44,8 +206,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF network
 
 |  Format  |  Description  |
@@ -56,8 +217,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"shortcut": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Area shortcut mode
 
 |  Format  |  Description  |
@@ -70,8 +230,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"export_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set the filter for networks announced to other areas
 
 |  Format  |  Description  |
@@ -82,8 +241,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"import_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set the filter for networks from other areas announced
 
 |  Format  |  Description  |
@@ -97,7 +255,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 
 		"range": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsOspfAreaRange{}.ResourceAttributes(),
+				Attributes: ProtocolsOspfAreaRange{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Summarize routes matching a prefix (border routers only)
@@ -111,7 +269,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 
 		"virtual_link": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsOspfAreaVirtualLink{}.ResourceAttributes(),
+				Attributes: ProtocolsOspfAreaVirtualLink{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Virtual link
@@ -126,7 +284,7 @@ func (o ProtocolsOspfArea) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"area_type": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfAreaAreaType{}.ResourceAttributes(),
+			Attributes: ProtocolsOspfAreaAreaType{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Area type
 

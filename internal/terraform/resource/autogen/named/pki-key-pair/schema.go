@@ -17,6 +17,6 @@ func (r pkiKeyPair) Schema(ctx context.Context, req resource.SchemaRequest, resp
 Public and private keys
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

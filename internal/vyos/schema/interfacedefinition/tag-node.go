@@ -200,13 +200,3 @@ func (o *TagNode) AncestorDescription() string {
 
 	return desc
 }
-
-// TfType returns the intended terraform framework type as a string
-func (o *TagNode) TfType() string {
-	return "types.Map"
-}
-
-// TfValue returns terraform value to use in resource model
-func (o *TagNode) TfValue() string {
-	return "types.Map"
-}

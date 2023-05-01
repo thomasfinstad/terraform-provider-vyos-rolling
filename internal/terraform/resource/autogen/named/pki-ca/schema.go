@@ -17,6 +17,6 @@ func (r pkiCa) Schema(ctx context.Context, req resource.SchemaRequest, resp *res
 Certificate Authority
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

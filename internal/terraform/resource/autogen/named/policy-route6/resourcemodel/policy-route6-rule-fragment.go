@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleFragment describes the resource data model.
 type PolicyRoutesixRuleFragment struct {
 	// LeafNodes
-	PolicyRoutesixRuleFragmentMatchFrag    customtypes.CustomStringValue `tfsdk:"match_frag" json:"match-frag,omitempty"`
-	PolicyRoutesixRuleFragmentMatchNonFrag customtypes.CustomStringValue `tfsdk:"match_non_frag" json:"match-non-frag,omitempty"`
+	LeafPolicyRoutesixRuleFragmentMatchFrag    types.String `tfsdk:"match_frag"`
+	LeafPolicyRoutesixRuleFragmentMatchNonFrag types.String `tfsdk:"match_non_frag"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleFragment) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleFragment) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "fragment"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleFragmentMatchFrag.IsNull() || o.LeafPolicyRoutesixRuleFragmentMatchFrag.IsUnknown()) {
+		vyosData["match-frag"] = o.LeafPolicyRoutesixRuleFragmentMatchFrag.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleFragmentMatchNonFrag.IsNull() || o.LeafPolicyRoutesixRuleFragmentMatchNonFrag.IsUnknown()) {
+		vyosData["match-non-frag"] = o.LeafPolicyRoutesixRuleFragmentMatchNonFrag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleFragment) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "fragment"}})
+
+	// Leafs
+	if value, ok := vyosData["match-frag"]; ok {
+		o.LeafPolicyRoutesixRuleFragmentMatchFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleFragmentMatchFrag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["match-non-frag"]; ok {
+		o.LeafPolicyRoutesixRuleFragmentMatchNonFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleFragmentMatchNonFrag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "fragment"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleFragment) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"match_frag":     types.StringType,
+		"match_non_frag": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleFragment) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"match_frag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Second and further fragments of fragmented packets
 
 `,
 		},
 
 		"match_non_frag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Head fragments or unfragmented packets
 
 `,

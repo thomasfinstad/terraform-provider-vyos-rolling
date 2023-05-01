@@ -19,6 +19,6 @@ SNMP script extensions
 Extension name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

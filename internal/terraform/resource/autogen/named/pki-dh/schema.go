@@ -17,6 +17,6 @@ func (r pkiDh) Schema(ctx context.Context, req resource.SchemaRequest, resp *res
 Diffie-Hellman parameters
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

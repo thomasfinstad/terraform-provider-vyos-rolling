@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn customtypes.CustomStringValue `tfsdk:"vpn" json:"vpn,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn types.String `tfsdk:"vpn"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "import"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.IsUnknown()) {
+		vyosData["vpn"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "import"}})
+
+	// Leafs
+	if value, ok := vyosData["vpn"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVpn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourUnicastImportVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "import"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"vpn": types.StringType,
+		"vrf": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastImport) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"vpn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `to/from default instance VPN RIB
 
 `,
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF to import from
 
 |  Format  |  Description  |

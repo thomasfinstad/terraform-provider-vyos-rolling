@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpGroupGarp describes the resource data model.
 type HighAvailabilityVrrpGroupGarp struct {
 	// LeafNodes
-	HighAvailabilityVrrpGroupGarpInterval            customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	HighAvailabilityVrrpGroupGarpMasterDelay         customtypes.CustomStringValue `tfsdk:"master_delay" json:"master-delay,omitempty"`
-	HighAvailabilityVrrpGroupGarpMasterRefresh       customtypes.CustomStringValue `tfsdk:"master_refresh" json:"master-refresh,omitempty"`
-	HighAvailabilityVrrpGroupGarpMasterRefreshRepeat customtypes.CustomStringValue `tfsdk:"master_refresh_repeat" json:"master-refresh-repeat,omitempty"`
-	HighAvailabilityVrrpGroupGarpMasterRepeat        customtypes.CustomStringValue `tfsdk:"master_repeat" json:"master-repeat,omitempty"`
+	LeafHighAvailabilityVrrpGroupGarpInterval            types.String `tfsdk:"interval"`
+	LeafHighAvailabilityVrrpGroupGarpMasterDelay         types.String `tfsdk:"master_delay"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefresh       types.String `tfsdk:"master_refresh"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat types.String `tfsdk:"master_refresh_repeat"`
+	LeafHighAvailabilityVrrpGroupGarpMasterRepeat        types.String `tfsdk:"master_repeat"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *HighAvailabilityVrrpGroupGarp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafHighAvailabilityVrrpGroupGarpInterval.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafHighAvailabilityVrrpGroupGarpInterval.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.IsUnknown()) {
+		vyosData["master-delay"] = o.LeafHighAvailabilityVrrpGroupGarpMasterDelay.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.IsUnknown()) {
+		vyosData["master-refresh"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.IsUnknown()) {
+		vyosData["master-refresh-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsNull() || o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.IsUnknown()) {
+		vyosData["master-repeat"] = o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *HighAvailabilityVrrpGroupGarp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
+
+	// Leafs
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["master-delay"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterDelay = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["master-refresh"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefresh = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["master-refresh-repeat"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRefreshRepeat = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["master-repeat"]; ok {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupGarpMasterRepeat = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "garp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o HighAvailabilityVrrpGroupGarp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interval":              types.StringType,
+		"master_delay":          types.StringType,
+		"master_refresh":        types.StringType,
+		"master_refresh_repeat": types.StringType,
+		"master_repeat":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o HighAvailabilityVrrpGroupGarp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between Gratuitous ARP
 
 |  Format  |  Description  |
@@ -42,8 +132,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 		},
 
 		"master_delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Delay for second set of gratuitous ARPs after transition to master
 
 |  Format  |  Description  |
@@ -57,8 +146,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 		},
 
 		"master_refresh": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum time interval for refreshing gratuitous ARPs while beeing master
 
 |  Format  |  Description  |
@@ -73,8 +161,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 		},
 
 		"master_refresh_repeat": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time while beeing master
 
 |  Format  |  Description  |
@@ -88,8 +175,7 @@ func (o HighAvailabilityVrrpGroupGarp) ResourceAttributes() map[string]schema.At
 		},
 
 		"master_repeat": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of gratuitous ARP messages to send at a time after transition to master
 
 |  Format  |  Description  |

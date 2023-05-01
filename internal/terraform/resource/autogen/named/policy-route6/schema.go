@@ -15,6 +15,6 @@ func (r policyRoutesix) Schema(ctx context.Context, req resource.SchemaRequest, 
 		MarkdownDescription: `Policy route rule set name for IPv6
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

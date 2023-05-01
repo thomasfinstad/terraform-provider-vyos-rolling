@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfAreaRange describes the resource data model.
 type VrfNameProtocolsOspfAreaRange struct {
 	// LeafNodes
-	VrfNameProtocolsOspfAreaRangeCost         customtypes.CustomStringValue `tfsdk:"cost" json:"cost,omitempty"`
-	VrfNameProtocolsOspfAreaRangeNotAdvertise customtypes.CustomStringValue `tfsdk:"not_advertise" json:"not-advertise,omitempty"`
-	VrfNameProtocolsOspfAreaRangeSubstitute   customtypes.CustomStringValue `tfsdk:"substitute" json:"substitute,omitempty"`
+	LeafVrfNameProtocolsOspfAreaRangeCost         types.String `tfsdk:"cost"`
+	LeafVrfNameProtocolsOspfAreaRangeNotAdvertise types.String `tfsdk:"not_advertise"`
+	LeafVrfNameProtocolsOspfAreaRangeSubstitute   types.String `tfsdk:"substitute"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfAreaRange) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfAreaRange) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "range"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfAreaRangeCost.IsNull() || o.LeafVrfNameProtocolsOspfAreaRangeCost.IsUnknown()) {
+		vyosData["cost"] = o.LeafVrfNameProtocolsOspfAreaRangeCost.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.IsNull() || o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.IsUnknown()) {
+		vyosData["not-advertise"] = o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.IsNull() || o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.IsUnknown()) {
+		vyosData["substitute"] = o.LeafVrfNameProtocolsOspfAreaRangeSubstitute.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfAreaRange) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "range"}})
+
+	// Leafs
+	if value, ok := vyosData["cost"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaRangeCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaRangeCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["not-advertise"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaRangeNotAdvertise = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["substitute"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaRangeSubstitute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaRangeSubstitute = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "range"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfAreaRange) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"cost":          types.StringType,
+		"not_advertise": types.StringType,
+		"substitute":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfAreaRange) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Metric for this range
 
 |  Format  |  Description  |
@@ -37,16 +109,14 @@ func (o VrfNameProtocolsOspfAreaRange) ResourceAttributes() map[string]schema.At
 		},
 
 		"not_advertise": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not advertise this range
 
 `,
 		},
 
 		"substitute": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise area range as another prefix
 
 |  Format  |  Description  |

@@ -2,32 +2,112 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaAreaType describes the resource data model.
 type ProtocolsOspfAreaAreaType struct {
 	// LeafNodes
-	ProtocolsOspfAreaAreaTypeNormal customtypes.CustomStringValue `tfsdk:"normal" json:"normal,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeNormal types.String `tfsdk:"normal"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsOspfAreaAreaTypeNssa types.Object `tfsdk:"nssa" json:"nssa,omitempty"`
-	ProtocolsOspfAreaAreaTypeStub types.Object `tfsdk:"stub" json:"stub,omitempty"`
+	NodeProtocolsOspfAreaAreaTypeNssa types.Object `tfsdk:"nssa"`
+	NodeProtocolsOspfAreaAreaTypeStub types.Object `tfsdk:"stub"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaAreaType) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaAreaType) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaAreaTypeNormal.IsNull() || o.LeafProtocolsOspfAreaAreaTypeNormal.IsUnknown()) {
+		vyosData["normal"] = o.LeafProtocolsOspfAreaAreaTypeNormal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsOspfAreaAreaTypeNssa.IsNull() || o.NodeProtocolsOspfAreaAreaTypeNssa.IsUnknown()) {
+		var subModel ProtocolsOspfAreaAreaTypeNssa
+		diags.Append(o.NodeProtocolsOspfAreaAreaTypeNssa.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["nssa"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsOspfAreaAreaTypeStub.IsNull() || o.NodeProtocolsOspfAreaAreaTypeStub.IsUnknown()) {
+		var subModel ProtocolsOspfAreaAreaTypeStub
+		diags.Append(o.NodeProtocolsOspfAreaAreaTypeStub.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["stub"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaAreaType) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
+
+	// Leafs
+	if value, ok := vyosData["normal"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeNormal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["nssa"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsOspfAreaAreaTypeNssa = data
+
+	} else {
+		o.NodeProtocolsOspfAreaAreaTypeNssa = basetypes.NewObjectNull(ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes())
+	}
+	if value, ok := vyosData["stub"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsOspfAreaAreaTypeStub = data
+
+	} else {
+		o.NodeProtocolsOspfAreaAreaTypeStub = basetypes.NewObjectNull(ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaAreaType) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"normal": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"nssa": types.ObjectType{AttrTypes: ProtocolsOspfAreaAreaTypeNssa{}.AttributeTypes()},
+		"stub": types.ObjectType{AttrTypes: ProtocolsOspfAreaAreaTypeStub{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaAreaType) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"normal": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Normal OSPF area
 
 `,
@@ -38,7 +118,7 @@ func (o ProtocolsOspfAreaAreaType) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"nssa": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfAreaAreaTypeNssa{}.ResourceAttributes(),
+			Attributes: ProtocolsOspfAreaAreaTypeNssa{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Not-So-Stubby OSPF area
 
@@ -46,7 +126,7 @@ func (o ProtocolsOspfAreaAreaType) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"stub": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfAreaAreaTypeStub{}.ResourceAttributes(),
+			Attributes: ProtocolsOspfAreaAreaTypeStub{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Stub OSPF area
 

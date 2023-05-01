@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleLimit describes the resource data model.
 type PolicyRoutesixRuleLimit struct {
 	// LeafNodes
-	PolicyRoutesixRuleLimitBurst customtypes.CustomStringValue `tfsdk:"burst" json:"burst,omitempty"`
-	PolicyRoutesixRuleLimitRate  customtypes.CustomStringValue `tfsdk:"rate" json:"rate,omitempty"`
+	LeafPolicyRoutesixRuleLimitBurst types.String `tfsdk:"burst"`
+	LeafPolicyRoutesixRuleLimitRate  types.String `tfsdk:"rate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleLimitBurst.IsNull() || o.LeafPolicyRoutesixRuleLimitBurst.IsUnknown()) {
+		vyosData["burst"] = o.LeafPolicyRoutesixRuleLimitBurst.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleLimitRate.IsNull() || o.LeafPolicyRoutesixRuleLimitRate.IsUnknown()) {
+		vyosData["rate"] = o.LeafPolicyRoutesixRuleLimitRate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "limit"}})
+
+	// Leafs
+	if value, ok := vyosData["burst"]; ok {
+		o.LeafPolicyRoutesixRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleLimitBurst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rate"]; ok {
+		o.LeafPolicyRoutesixRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"burst": types.StringType,
+		"rate":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"burst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o PolicyRoutesixRuleLimit) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"rate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
 |  Format  |  Description  |

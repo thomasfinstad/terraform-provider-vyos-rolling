@@ -2,53 +2,387 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBonding describes the resource data model.
 type InterfacesBonding struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesBondingAddress           customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesBondingDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesBondingDisableLinkDetect customtypes.CustomStringValue `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
-	InterfacesBondingDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesBondingVrf               customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
-	InterfacesBondingHashPolicy        customtypes.CustomStringValue `tfsdk:"hash_policy" json:"hash-policy,omitempty"`
-	InterfacesBondingMac               customtypes.CustomStringValue `tfsdk:"mac" json:"mac,omitempty"`
-	InterfacesBondingMiiMonInterval    customtypes.CustomStringValue `tfsdk:"mii_mon_interval" json:"mii-mon-interval,omitempty"`
-	InterfacesBondingMinLinks          customtypes.CustomStringValue `tfsdk:"min_links" json:"min-links,omitempty"`
-	InterfacesBondingLacpRate          customtypes.CustomStringValue `tfsdk:"lacp_rate" json:"lacp-rate,omitempty"`
-	InterfacesBondingMode              customtypes.CustomStringValue `tfsdk:"mode" json:"mode,omitempty"`
-	InterfacesBondingMtu               customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesBondingPrimary           customtypes.CustomStringValue `tfsdk:"primary" json:"primary,omitempty"`
-	InterfacesBondingRedirect          customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
-	InterfacesBondingXdp               customtypes.CustomStringValue `tfsdk:"xdp" json:"xdp,omitempty"`
+	LeafInterfacesBondingAddress           types.String `tfsdk:"address"`
+	LeafInterfacesBondingDescrIPtion       types.String `tfsdk:"description"`
+	LeafInterfacesBondingDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
+	LeafInterfacesBondingDisable           types.String `tfsdk:"disable"`
+	LeafInterfacesBondingVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesBondingHashPolicy        types.String `tfsdk:"hash_policy"`
+	LeafInterfacesBondingMac               types.String `tfsdk:"mac"`
+	LeafInterfacesBondingMiiMonInterval    types.String `tfsdk:"mii_mon_interval"`
+	LeafInterfacesBondingMinLinks          types.String `tfsdk:"min_links"`
+	LeafInterfacesBondingLacpRate          types.String `tfsdk:"lacp_rate"`
+	LeafInterfacesBondingMode              types.String `tfsdk:"mode"`
+	LeafInterfacesBondingMtu               types.String `tfsdk:"mtu"`
+	LeafInterfacesBondingPrimary           types.String `tfsdk:"primary"`
+	LeafInterfacesBondingRedirect          types.String `tfsdk:"redirect"`
+	LeafInterfacesBondingXdp               types.String `tfsdk:"xdp"`
 
 	// TagNodes
-	InterfacesBondingVifS types.Map `tfsdk:"vif_s" json:"vif-s,omitempty"`
-	InterfacesBondingVif  types.Map `tfsdk:"vif" json:"vif,omitempty"`
+	TagInterfacesBondingVifS types.Map `tfsdk:"vif_s"`
+	TagInterfacesBondingVif  types.Map `tfsdk:"vif"`
 
 	// Nodes
-	InterfacesBondingArpMonitor      types.Object `tfsdk:"arp_monitor" json:"arp-monitor,omitempty"`
-	InterfacesBondingDhcpOptions     types.Object `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
-	InterfacesBondingDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
-	InterfacesBondingMirror          types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
-	InterfacesBondingIP              types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesBondingIPvsix          types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesBondingMember          types.Object `tfsdk:"member" json:"member,omitempty"`
+	NodeInterfacesBondingArpMonitor      types.Object `tfsdk:"arp_monitor"`
+	NodeInterfacesBondingDhcpOptions     types.Object `tfsdk:"dhcp_options"`
+	NodeInterfacesBondingDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
+	NodeInterfacesBondingMirror          types.Object `tfsdk:"mirror"`
+	NodeInterfacesBondingIP              types.Object `tfsdk:"ip"`
+	NodeInterfacesBondingIPvsix          types.Object `tfsdk:"ipv6"`
+	NodeInterfacesBondingMember          types.Object `tfsdk:"member"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesBonding) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"bonding",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBonding) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBondingAddress.IsNull() || o.LeafInterfacesBondingAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesBondingAddress.ValueString()
+	}
+	if !(o.LeafInterfacesBondingDescrIPtion.IsNull() || o.LeafInterfacesBondingDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesBondingDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesBondingDisableLinkDetect.IsNull() || o.LeafInterfacesBondingDisableLinkDetect.IsUnknown()) {
+		vyosData["disable-link-detect"] = o.LeafInterfacesBondingDisableLinkDetect.ValueString()
+	}
+	if !(o.LeafInterfacesBondingDisable.IsNull() || o.LeafInterfacesBondingDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesBondingDisable.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVrf.IsNull() || o.LeafInterfacesBondingVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesBondingVrf.ValueString()
+	}
+	if !(o.LeafInterfacesBondingHashPolicy.IsNull() || o.LeafInterfacesBondingHashPolicy.IsUnknown()) {
+		vyosData["hash-policy"] = o.LeafInterfacesBondingHashPolicy.ValueString()
+	}
+	if !(o.LeafInterfacesBondingMac.IsNull() || o.LeafInterfacesBondingMac.IsUnknown()) {
+		vyosData["mac"] = o.LeafInterfacesBondingMac.ValueString()
+	}
+	if !(o.LeafInterfacesBondingMiiMonInterval.IsNull() || o.LeafInterfacesBondingMiiMonInterval.IsUnknown()) {
+		vyosData["mii-mon-interval"] = o.LeafInterfacesBondingMiiMonInterval.ValueString()
+	}
+	if !(o.LeafInterfacesBondingMinLinks.IsNull() || o.LeafInterfacesBondingMinLinks.IsUnknown()) {
+		vyosData["min-links"] = o.LeafInterfacesBondingMinLinks.ValueString()
+	}
+	if !(o.LeafInterfacesBondingLacpRate.IsNull() || o.LeafInterfacesBondingLacpRate.IsUnknown()) {
+		vyosData["lacp-rate"] = o.LeafInterfacesBondingLacpRate.ValueString()
+	}
+	if !(o.LeafInterfacesBondingMode.IsNull() || o.LeafInterfacesBondingMode.IsUnknown()) {
+		vyosData["mode"] = o.LeafInterfacesBondingMode.ValueString()
+	}
+	if !(o.LeafInterfacesBondingMtu.IsNull() || o.LeafInterfacesBondingMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesBondingMtu.ValueString()
+	}
+	if !(o.LeafInterfacesBondingPrimary.IsNull() || o.LeafInterfacesBondingPrimary.IsUnknown()) {
+		vyosData["primary"] = o.LeafInterfacesBondingPrimary.ValueString()
+	}
+	if !(o.LeafInterfacesBondingRedirect.IsNull() || o.LeafInterfacesBondingRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesBondingRedirect.ValueString()
+	}
+	if !(o.LeafInterfacesBondingXdp.IsNull() || o.LeafInterfacesBondingXdp.IsUnknown()) {
+		vyosData["xdp"] = o.LeafInterfacesBondingXdp.ValueString()
+	}
+
+	// Tags
+	if !(o.TagInterfacesBondingVifS.IsNull() || o.TagInterfacesBondingVifS.IsUnknown()) {
+		subModel := make(map[string]InterfacesBondingVifS)
+		diags.Append(o.TagInterfacesBondingVifS.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["vif-s"] = subData
+	}
+	if !(o.TagInterfacesBondingVif.IsNull() || o.TagInterfacesBondingVif.IsUnknown()) {
+		subModel := make(map[string]InterfacesBondingVif)
+		diags.Append(o.TagInterfacesBondingVif.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["vif"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeInterfacesBondingArpMonitor.IsNull() || o.NodeInterfacesBondingArpMonitor.IsUnknown()) {
+		var subModel InterfacesBondingArpMonitor
+		diags.Append(o.NodeInterfacesBondingArpMonitor.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["arp-monitor"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingDhcpOptions.IsNull() || o.NodeInterfacesBondingDhcpOptions.IsUnknown()) {
+		var subModel InterfacesBondingDhcpOptions
+		diags.Append(o.NodeInterfacesBondingDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingDhcpvsixOptions.IsNull() || o.NodeInterfacesBondingDhcpvsixOptions.IsUnknown()) {
+		var subModel InterfacesBondingDhcpvsixOptions
+		diags.Append(o.NodeInterfacesBondingDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingMirror.IsNull() || o.NodeInterfacesBondingMirror.IsUnknown()) {
+		var subModel InterfacesBondingMirror
+		diags.Append(o.NodeInterfacesBondingMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingIP.IsNull() || o.NodeInterfacesBondingIP.IsUnknown()) {
+		var subModel InterfacesBondingIP
+		diags.Append(o.NodeInterfacesBondingIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingIPvsix.IsNull() || o.NodeInterfacesBondingIPvsix.IsUnknown()) {
+		var subModel InterfacesBondingIPvsix
+		diags.Append(o.NodeInterfacesBondingIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingMember.IsNull() || o.NodeInterfacesBondingMember.IsUnknown()) {
+		var subModel InterfacesBondingMember
+		diags.Append(o.NodeInterfacesBondingMember.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["member"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBonding) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesBondingAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesBondingDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-link-detect"]; ok {
+		o.LeafInterfacesBondingDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingDisableLinkDetect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesBondingDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesBondingVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVrf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hash-policy"]; ok {
+		o.LeafInterfacesBondingHashPolicy = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingHashPolicy = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac"]; ok {
+		o.LeafInterfacesBondingMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingMac = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mii-mon-interval"]; ok {
+		o.LeafInterfacesBondingMiiMonInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingMiiMonInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["min-links"]; ok {
+		o.LeafInterfacesBondingMinLinks = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingMinLinks = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lacp-rate"]; ok {
+		o.LeafInterfacesBondingLacpRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingLacpRate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mode"]; ok {
+		o.LeafInterfacesBondingMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingMode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesBondingMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["primary"]; ok {
+		o.LeafInterfacesBondingPrimary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingPrimary = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesBondingRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingRedirect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["xdp"]; ok {
+		o.LeafInterfacesBondingXdp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingXdp = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["vif-s"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBondingVifS{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesBondingVifS = data
+	} else {
+		o.TagInterfacesBondingVifS = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["vif"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBondingVif{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesBondingVif = data
+	} else {
+		o.TagInterfacesBondingVif = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["arp-monitor"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingArpMonitor{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingArpMonitor = data
+
+	} else {
+		o.NodeInterfacesBondingArpMonitor = basetypes.NewObjectNull(InterfacesBondingArpMonitor{}.AttributeTypes())
+	}
+	if value, ok := vyosData["dhcp-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingDhcpOptions = data
+
+	} else {
+		o.NodeInterfacesBondingDhcpOptions = basetypes.NewObjectNull(InterfacesBondingDhcpOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["dhcpv6-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingDhcpvsixOptions = data
+
+	} else {
+		o.NodeInterfacesBondingDhcpvsixOptions = basetypes.NewObjectNull(InterfacesBondingDhcpvsixOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingMirror = data
+
+	} else {
+		o.NodeInterfacesBondingMirror = basetypes.NewObjectNull(InterfacesBondingMirror{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingIP = data
+
+	} else {
+		o.NodeInterfacesBondingIP = basetypes.NewObjectNull(InterfacesBondingIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingIPvsix = data
+
+	} else {
+		o.NodeInterfacesBondingIPvsix = basetypes.NewObjectNull(InterfacesBondingIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["member"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingMember{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingMember = data
+
+	} else {
+		o.NodeInterfacesBondingMember = basetypes.NewObjectNull(InterfacesBondingMember{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBonding) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":             types.StringType,
+		"description":         types.StringType,
+		"disable_link_detect": types.StringType,
+		"disable":             types.StringType,
+		"vrf":                 types.StringType,
+		"hash_policy":         types.StringType,
+		"mac":                 types.StringType,
+		"mii_mon_interval":    types.StringType,
+		"min_links":           types.StringType,
+		"lacp_rate":           types.StringType,
+		"mode":                types.StringType,
+		"mtu":                 types.StringType,
+		"primary":             types.StringType,
+		"redirect":            types.StringType,
+		"xdp":                 types.StringType,
+
+		// Tags
+		"vif_s": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBondingVifS{}.AttributeTypes()}},
+		"vif":   types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBondingVif{}.AttributeTypes()}},
+
+		// Nodes
+		"arp_monitor":    types.ObjectType{AttrTypes: InterfacesBondingArpMonitor{}.AttributeTypes()},
+		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesBondingDhcpOptions{}.AttributeTypes()},
+		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesBondingDhcpvsixOptions{}.AttributeTypes()},
+		"mirror":         types.ObjectType{AttrTypes: InterfacesBondingMirror{}.AttributeTypes()},
+		"ip":             types.ObjectType{AttrTypes: InterfacesBondingIP{}.AttributeTypes()},
+		"ipv6":           types.ObjectType{AttrTypes: InterfacesBondingIPvsix{}.AttributeTypes()},
+		"member":         types.ObjectType{AttrTypes: InterfacesBondingMember{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBonding) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Bonding Interface/Link Aggregation
+
+|  Format  |  Description  |
+|----------|---------------|
+|  bondN  |  Bonding interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -62,8 +396,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -74,24 +407,21 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable_link_detect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -102,8 +432,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"hash_policy": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Bonding transmit hash policy
 
 |  Format  |  Description  |
@@ -121,8 +450,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mac": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |
@@ -133,8 +461,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mii_mon_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies the MII link monitoring frequency in milliseconds
 
 |  Format  |  Description  |
@@ -149,8 +476,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"min_links": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum number of member interfaces required up before enabling bond
 
 |  Format  |  Description  |
@@ -164,8 +490,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lacp_rate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rate in which we will ask our link partner to transmit LACPDU packets
 
 |  Format  |  Description  |
@@ -180,8 +505,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Bonding mode
 
 |  Format  |  Description  |
@@ -201,8 +525,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -216,8 +539,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"primary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Primary device interface
 
 |  Format  |  Description  |
@@ -228,8 +550,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -240,8 +561,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"xdp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable eXpress Data Path
 
 `,
@@ -251,7 +571,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 
 		"vif_s": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesBondingVifS{}.ResourceAttributes(),
+				Attributes: InterfacesBondingVifS{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `QinQ TAG-S Virtual Local Area Network (VLAN) ID
@@ -265,7 +585,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 
 		"vif": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesBondingVif{}.ResourceAttributes(),
+				Attributes: InterfacesBondingVif{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID
@@ -280,7 +600,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"arp_monitor": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingArpMonitor{}.ResourceAttributes(),
+			Attributes: InterfacesBondingArpMonitor{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `ARP link monitoring parameters
 
@@ -288,7 +608,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dhcp_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingDhcpOptions{}.ResourceAttributes(),
+			Attributes: InterfacesBondingDhcpOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCP client settings/options
 
@@ -296,7 +616,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dhcpv6_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingDhcpvsixOptions{}.ResourceAttributes(),
+			Attributes: InterfacesBondingDhcpvsixOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCPv6 client settings/options
 
@@ -304,7 +624,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingMirror{}.ResourceAttributes(),
+			Attributes: InterfacesBondingMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 
@@ -312,7 +632,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingIP{}.ResourceAttributes(),
+			Attributes: InterfacesBondingIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -320,7 +640,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesBondingIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -328,7 +648,7 @@ func (o InterfacesBonding) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"member": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingMember{}.ResourceAttributes(),
+			Attributes: InterfacesBondingMember{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Bridge member interfaces
 

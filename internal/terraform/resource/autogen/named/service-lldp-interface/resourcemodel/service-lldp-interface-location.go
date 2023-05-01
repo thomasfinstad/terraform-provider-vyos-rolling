@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceLldpInterfaceLocation describes the resource data model.
 type ServiceLldpInterfaceLocation struct {
 	// LeafNodes
-	ServiceLldpInterfaceLocationElin customtypes.CustomStringValue `tfsdk:"elin" json:"elin,omitempty"`
+	LeafServiceLldpInterfaceLocationElin types.String `tfsdk:"elin"`
 
 	// TagNodes
 
 	// Nodes
-	ServiceLldpInterfaceLocationCoordinateBased types.Object `tfsdk:"coordinate_based" json:"coordinate-based,omitempty"`
+	NodeServiceLldpInterfaceLocationCoordinateBased types.Object `tfsdk:"coordinate_based"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceLldpInterfaceLocation) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceLldpInterfaceLocation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceLldpInterfaceLocationElin.IsNull() || o.LeafServiceLldpInterfaceLocationElin.IsUnknown()) {
+		vyosData["elin"] = o.LeafServiceLldpInterfaceLocationElin.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceLldpInterfaceLocationCoordinateBased.IsNull() || o.NodeServiceLldpInterfaceLocationCoordinateBased.IsUnknown()) {
+		var subModel ServiceLldpInterfaceLocationCoordinateBased
+		diags.Append(o.NodeServiceLldpInterfaceLocationCoordinateBased.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["coordinate-based"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceLldpInterfaceLocation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
+
+	// Leafs
+	if value, ok := vyosData["elin"]; ok {
+		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceLldpInterfaceLocationElin = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["coordinate-based"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceLldpInterfaceLocationCoordinateBased = data
+
+	} else {
+		o.NodeServiceLldpInterfaceLocationCoordinateBased = basetypes.NewObjectNull(ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "lldp", "interface", "location"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceLldpInterfaceLocation) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"elin": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"coordinate_based": types.ObjectType{AttrTypes: ServiceLldpInterfaceLocationCoordinateBased{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceLldpInterfaceLocation) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"elin": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ECS ELIN (Emergency location identifier number)
 
 |  Format  |  Description  |
@@ -41,7 +107,7 @@ func (o ServiceLldpInterfaceLocation) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"coordinate_based": schema.SingleNestedAttribute{
-			Attributes: ServiceLldpInterfaceLocationCoordinateBased{}.ResourceAttributes(),
+			Attributes: ServiceLldpInterfaceLocationCoordinateBased{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Coordinate based location
 

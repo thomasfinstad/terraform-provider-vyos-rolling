@@ -2,56 +2,134 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpGroupTransitionScrIPt describes the resource data model.
 type HighAvailabilityVrrpGroupTransitionScrIPt struct {
 	// LeafNodes
-	HighAvailabilityVrrpGroupTransitionScrIPtMaster customtypes.CustomStringValue `tfsdk:"master" json:"master,omitempty"`
-	HighAvailabilityVrrpGroupTransitionScrIPtBackup customtypes.CustomStringValue `tfsdk:"backup" json:"backup,omitempty"`
-	HighAvailabilityVrrpGroupTransitionScrIPtFault  customtypes.CustomStringValue `tfsdk:"fault" json:"fault,omitempty"`
-	HighAvailabilityVrrpGroupTransitionScrIPtStop   customtypes.CustomStringValue `tfsdk:"stop" json:"stop,omitempty"`
+	LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster types.String `tfsdk:"master"`
+	LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup types.String `tfsdk:"backup"`
+	LeafHighAvailabilityVrrpGroupTransitionScrIPtFault  types.String `tfsdk:"fault"`
+	LeafHighAvailabilityVrrpGroupTransitionScrIPtStop   types.String `tfsdk:"stop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *HighAvailabilityVrrpGroupTransitionScrIPt) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "transition-script"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.IsNull() || o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.IsUnknown()) {
+		vyosData["master"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.IsNull() || o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.IsUnknown()) {
+		vyosData["backup"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.IsNull() || o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.IsUnknown()) {
+		vyosData["fault"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.IsNull() || o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.IsUnknown()) {
+		vyosData["stop"] = o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *HighAvailabilityVrrpGroupTransitionScrIPt) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "transition-script"}})
+
+	// Leafs
+	if value, ok := vyosData["master"]; ok {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtMaster = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["backup"]; ok {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtBackup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fault"]; ok {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtFault = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stop"]; ok {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpGroupTransitionScrIPtStop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "group", "transition-script"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o HighAvailabilityVrrpGroupTransitionScrIPt) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"master": types.StringType,
+		"backup": types.StringType,
+		"fault":  types.StringType,
+		"stop":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o HighAvailabilityVrrpGroupTransitionScrIPt) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"master": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to master
 
 `,
 		},
 
 		"backup": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to backup
 
 `,
 		},
 
 		"fault": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to fault
 
 `,
 		},
 
 		"stop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to stop
 
 `,

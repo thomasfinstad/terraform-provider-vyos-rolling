@@ -21,6 +21,6 @@ Configure static unicast route into MRIB for multicast RPF lookup
 |  ipv4net  |  Network  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

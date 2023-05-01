@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborInterface describes the resource data model.
 type VrfNameProtocolsBgpNeighborInterface struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborInterfacePeerGroup       customtypes.CustomStringValue `tfsdk:"peer_group" json:"peer-group,omitempty"`
-	VrfNameProtocolsBgpNeighborInterfaceRemoteAs        customtypes.CustomStringValue `tfsdk:"remote_as" json:"remote-as,omitempty"`
-	VrfNameProtocolsBgpNeighborInterfaceSourceInterface customtypes.CustomStringValue `tfsdk:"source_interface" json:"source-interface,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup       types.String `tfsdk:"peer_group"`
+	LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs        types.String `tfsdk:"remote_as"`
+	LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface types.String `tfsdk:"source_interface"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpNeighborInterfaceVsixonly types.Object `tfsdk:"v6only" json:"v6only,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly types.Object `tfsdk:"v6only"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.IsUnknown()) {
+		vyosData["peer-group"] = o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.IsUnknown()) {
+		vyosData["remote-as"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsNull() || o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.IsUnknown()) {
+		vyosData["source-interface"] = o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.IsNull() || o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborInterfaceVsixonly
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["v6only"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["peer-group"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfacePeerGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remote-as"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceRemoteAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-interface"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborInterfaceSourceInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["v6only"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborInterfaceVsixonly = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"peer_group":       types.StringType,
+		"remote_as":        types.StringType,
+		"source_interface": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"v6only": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"peer_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer group for this peer
 
 |  Format  |  Description  |
@@ -39,8 +123,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceAttributes() map[string]sc
 		},
 
 		"remote_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Neighbor BGP AS number
 
 |  Format  |  Description  |
@@ -53,8 +136,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceAttributes() map[string]sc
 		},
 
 		"source_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
 |  Format  |  Description  |
@@ -69,7 +151,7 @@ func (o VrfNameProtocolsBgpNeighborInterface) ResourceAttributes() map[string]sc
 		// Nodes
 
 		"v6only": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborInterfaceVsixonly{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable BGP with v6 link-local only
 

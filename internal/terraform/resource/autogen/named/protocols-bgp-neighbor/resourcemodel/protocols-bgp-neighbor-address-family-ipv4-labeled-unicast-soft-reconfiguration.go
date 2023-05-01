@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound customtypes.CustomStringValue `tfsdk:"inbound" json:"inbound,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound types.String `tfsdk:"inbound"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "soft-reconfiguration"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound.IsUnknown()) {
+		vyosData["inbound"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "soft-reconfiguration"}})
+
+	// Leafs
+	if value, ok := vyosData["inbound"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfigurationInbound = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "soft-reconfiguration"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"inbound": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastSoftReconfiguration) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"inbound": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable inbound soft reconfiguration
 
 `,

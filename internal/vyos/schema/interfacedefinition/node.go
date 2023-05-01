@@ -180,13 +180,3 @@ func (o *Node) AncestorDescription() string {
 
 	return desc
 }
-
-// TfType returns the intended terraform framework type as a string
-func (o *Node) TfType() string {
-	return "types.Object"
-}
-
-// TfValue returns terraform value to use in resource model
-func (o *Node) TfValue() string {
-	return "types.Object"
-}

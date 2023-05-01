@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPppoeIP describes the resource data model.
 type InterfacesPppoeIP struct {
 	// LeafNodes
-	InterfacesPppoeIPAdjustMss         customtypes.CustomStringValue `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
-	InterfacesPppoeIPDisableForwarding customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
-	InterfacesPppoeIPSourceValIDation  customtypes.CustomStringValue `tfsdk:"source_validation" json:"source-validation,omitempty"`
+	LeafInterfacesPppoeIPAdjustMss         types.String `tfsdk:"adjust_mss"`
+	LeafInterfacesPppoeIPDisableForwarding types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesPppoeIPSourceValIDation  types.String `tfsdk:"source_validation"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPppoeIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPppoeIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPppoeIPAdjustMss.IsNull() || o.LeafInterfacesPppoeIPAdjustMss.IsUnknown()) {
+		vyosData["adjust-mss"] = o.LeafInterfacesPppoeIPAdjustMss.ValueString()
+	}
+	if !(o.LeafInterfacesPppoeIPDisableForwarding.IsNull() || o.LeafInterfacesPppoeIPDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesPppoeIPDisableForwarding.ValueString()
+	}
+	if !(o.LeafInterfacesPppoeIPSourceValIDation.IsNull() || o.LeafInterfacesPppoeIPSourceValIDation.IsUnknown()) {
+		vyosData["source-validation"] = o.LeafInterfacesPppoeIPSourceValIDation.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPppoeIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["adjust-mss"]; ok {
+		o.LeafInterfacesPppoeIPAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPppoeIPAdjustMss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesPppoeIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPppoeIPDisableForwarding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-validation"]; ok {
+		o.LeafInterfacesPppoeIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPppoeIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pppoe", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPppoeIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"adjust_mss":         types.StringType,
+		"disable_forwarding": types.StringType,
+		"source_validation":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPppoeIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"adjust_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
 |  Format  |  Description  |
@@ -38,16 +110,14 @@ func (o InterfacesPppoeIP) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
 		},
 
 		"source_validation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
 
 |  Format  |  Description  |

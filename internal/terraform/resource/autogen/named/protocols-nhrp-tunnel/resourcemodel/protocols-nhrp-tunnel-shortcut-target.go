@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsNhrpTunnelShortcutTarget describes the resource data model.
 type ProtocolsNhrpTunnelShortcutTarget struct {
 	// LeafNodes
-	ProtocolsNhrpTunnelShortcutTargetHoldingTime customtypes.CustomStringValue `tfsdk:"holding_time" json:"holding-time,omitempty"`
+	LeafProtocolsNhrpTunnelShortcutTargetHoldingTime types.String `tfsdk:"holding_time"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsNhrpTunnelShortcutTarget) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsNhrpTunnelShortcutTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsNull() || o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.IsUnknown()) {
+		vyosData["holding-time"] = o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsNhrpTunnelShortcutTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
+
+	// Leafs
+	if value, ok := vyosData["holding-time"]; ok {
+		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelShortcutTargetHoldingTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "shortcut-target"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsNhrpTunnelShortcutTarget) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"holding_time": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsNhrpTunnelShortcutTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"holding_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Holding time in seconds
 
 `,

@@ -19,6 +19,6 @@ Simple Network Management Protocol (SNMP) v3
 Specifies the user with name username
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

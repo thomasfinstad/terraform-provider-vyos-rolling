@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap describes the resource data model.
 type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap struct {
 	// LeafNodes
-	VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport types.String `tfsdk:"export"`
+	LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.IsUnknown()) {
+		vyosData["export"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsNull() || o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.IsUnknown()) {
+		vyosData["import"] = o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "route-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastRouteMap) Resource
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |

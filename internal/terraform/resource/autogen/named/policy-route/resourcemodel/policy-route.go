@@ -2,33 +2,140 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoute describes the resource data model.
 type PolicyRoute struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyRouteDescrIPtion      customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyRouteInterface        customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	PolicyRouteEnableDefaultLog customtypes.CustomStringValue `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
+	LeafPolicyRouteDescrIPtion      types.String `tfsdk:"description"`
+	LeafPolicyRouteInterface        types.String `tfsdk:"interface"`
+	LeafPolicyRouteEnableDefaultLog types.String `tfsdk:"enable_default_log"`
 
 	// TagNodes
-	PolicyRouteRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagPolicyRouteRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoute) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyRoute) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"route",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteDescrIPtion.IsNull() || o.LeafPolicyRouteDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyRouteDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyRouteInterface.IsNull() || o.LeafPolicyRouteInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafPolicyRouteInterface.ValueString()
+	}
+	if !(o.LeafPolicyRouteEnableDefaultLog.IsNull() || o.LeafPolicyRouteEnableDefaultLog.IsUnknown()) {
+		vyosData["enable-default-log"] = o.LeafPolicyRouteEnableDefaultLog.ValueString()
+	}
+
+	// Tags
+	if !(o.TagPolicyRouteRule.IsNull() || o.TagPolicyRouteRule.IsUnknown()) {
+		subModel := make(map[string]PolicyRouteRule)
+		diags.Append(o.TagPolicyRouteRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafPolicyRouteInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-default-log"]; ok {
+		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteEnableDefaultLog = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyRouteRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagPolicyRouteRule = data
+	} else {
+		o.TagPolicyRouteRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":        types.StringType,
+		"interface":          types.StringType,
+		"enable_default_log": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyRouteRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Policy route rule set name for IPv4
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -39,8 +146,7 @@ func (o PolicyRoute) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
@@ -51,8 +157,7 @@ func (o PolicyRoute) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"enable_default_log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
@@ -62,7 +167,7 @@ func (o PolicyRoute) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: PolicyRouteRule{}.ResourceAttributes(),
+				Attributes: PolicyRouteRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Policy rule number

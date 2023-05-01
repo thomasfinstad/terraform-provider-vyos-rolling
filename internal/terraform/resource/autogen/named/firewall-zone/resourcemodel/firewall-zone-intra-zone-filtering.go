@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallZoneIntraZoneFiltering describes the resource data model.
 type FirewallZoneIntraZoneFiltering struct {
 	// LeafNodes
-	FirewallZoneIntraZoneFilteringAction customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
+	LeafFirewallZoneIntraZoneFilteringAction types.String `tfsdk:"action"`
 
 	// TagNodes
 
 	// Nodes
-	FirewallZoneIntraZoneFilteringFirewall types.Object `tfsdk:"firewall" json:"firewall,omitempty"`
+	NodeFirewallZoneIntraZoneFilteringFirewall types.Object `tfsdk:"firewall"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallZoneIntraZoneFiltering) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallZoneIntraZoneFiltering) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallZoneIntraZoneFilteringAction.IsNull() || o.LeafFirewallZoneIntraZoneFilteringAction.IsUnknown()) {
+		vyosData["action"] = o.LeafFirewallZoneIntraZoneFilteringAction.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallZoneIntraZoneFilteringFirewall.IsNull() || o.NodeFirewallZoneIntraZoneFilteringFirewall.IsUnknown()) {
+		var subModel FirewallZoneIntraZoneFilteringFirewall
+		diags.Append(o.NodeFirewallZoneIntraZoneFilteringFirewall.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["firewall"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallZoneIntraZoneFiltering) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafFirewallZoneIntraZoneFilteringAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneIntraZoneFilteringAction = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["firewall"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallZoneIntraZoneFilteringFirewall{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallZoneIntraZoneFilteringFirewall = data
+
+	} else {
+		o.NodeFirewallZoneIntraZoneFilteringFirewall = basetypes.NewObjectNull(FirewallZoneIntraZoneFilteringFirewall{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "zone", "intra-zone-filtering"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallZoneIntraZoneFiltering) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"firewall": types.ObjectType{AttrTypes: FirewallZoneIntraZoneFilteringFirewall{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallZoneIntraZoneFiltering) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action for intra-zone traffic
 
 |  Format  |  Description  |
@@ -42,7 +108,7 @@ func (o FirewallZoneIntraZoneFiltering) ResourceAttributes() map[string]schema.A
 		// Nodes
 
 		"firewall": schema.SingleNestedAttribute{
-			Attributes: FirewallZoneIntraZoneFilteringFirewall{}.ResourceAttributes(),
+			Attributes: FirewallZoneIntraZoneFilteringFirewall{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Use the specified firewall chain
 

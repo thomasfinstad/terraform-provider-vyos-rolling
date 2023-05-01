@@ -21,6 +21,6 @@ IPv6 access-list filter
 |  txt  |  Name of IPv6 access-list  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

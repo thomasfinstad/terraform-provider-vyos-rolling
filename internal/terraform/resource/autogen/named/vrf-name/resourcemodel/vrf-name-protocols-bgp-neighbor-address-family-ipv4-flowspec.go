@@ -2,43 +2,159 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient customtypes.CustomStringValue `tfsdk:"route_reflector_client" json:"route-reflector-client,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient    customtypes.CustomStringValue `tfsdk:"route_server_client" json:"route-server-client,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient types.String `tfsdk:"route_reflector_client"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient    types.String `tfsdk:"route_server_client"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList          types.Object `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList          types.Object `tfsdk:"filter_list" json:"filter-list,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap            types.Object `tfsdk:"route_map" json:"route-map,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration types.Object `tfsdk:"soft_reconfiguration" json:"soft-reconfiguration,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList          types.Object `tfsdk:"prefix_list"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList          types.Object `tfsdk:"filter_list"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap            types.Object `tfsdk:"route_map"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration types.Object `tfsdk:"soft_reconfiguration"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-flowspec"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient.IsUnknown()) {
+		vyosData["route-reflector-client"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient.IsUnknown()) {
+		vyosData["route-server-client"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["filter-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["soft-reconfiguration"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-flowspec"}})
+
+	// Leafs
+	if value, ok := vyosData["route-reflector-client"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteReflectorClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-server-client"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteServerClient = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["prefix-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["filter-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap{}.AttributeTypes())
+	}
+	if value, ok := vyosData["soft-reconfiguration"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-flowspec"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"route_reflector_client": types.StringType,
+		"route_server_client":    types.StringType,
+
+		// Tags
+
+		// Nodes
+		"prefix_list":          types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList{}.AttributeTypes()},
+		"filter_list":          types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.AttributeTypes()},
+		"route_map":            types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap{}.AttributeTypes()},
+		"soft_reconfiguration": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"route_reflector_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
 		},
 
 		"route_server_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route server client
 
 `,
@@ -49,7 +165,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceAttribu
 		// Nodes
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecPrefixList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4-Prefix-list to filter route updates to/from this peer
 
@@ -57,7 +173,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceAttribu
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecFilterList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
@@ -65,7 +181,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceAttribu
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecRouteMap{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -73,7 +189,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec) ResourceAttribu
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspecSoftReconfiguration{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
 

@@ -2,29 +2,108 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemFlowAccountingNetflowServer describes the resource data model.
 type SystemFlowAccountingNetflowServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemFlowAccountingNetflowServerPort customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafSystemFlowAccountingNetflowServerPort types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemFlowAccountingNetflowServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemFlowAccountingNetflowServer) GetVyosPath() []string {
+	return []string{
+		"system",
+		"flow-accounting",
+		"netflow",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemFlowAccountingNetflowServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "flow-accounting", "netflow", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemFlowAccountingNetflowServerPort.IsNull() || o.LeafSystemFlowAccountingNetflowServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafSystemFlowAccountingNetflowServerPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemFlowAccountingNetflowServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "flow-accounting", "netflow", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafSystemFlowAccountingNetflowServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemFlowAccountingNetflowServerPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "flow-accounting", "netflow", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemFlowAccountingNetflowServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemFlowAccountingNetflowServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `NetFlow destination server
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IPv4 server to export NetFlow  |
+|  ipv6  |  IPv6 server to export NetFlow  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `NetFlow port number
 
 |  Format  |  Description  |

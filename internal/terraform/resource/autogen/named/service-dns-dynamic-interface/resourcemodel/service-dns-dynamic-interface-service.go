@@ -2,58 +2,154 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterfaceService describes the resource data model.
 type ServiceDNSDynamicInterfaceService struct {
 	// LeafNodes
-	ServiceDNSDynamicInterfaceServiceHostName customtypes.CustomStringValue `tfsdk:"host_name" json:"host-name,omitempty"`
-	ServiceDNSDynamicInterfaceServiceLogin    customtypes.CustomStringValue `tfsdk:"login" json:"login,omitempty"`
-	ServiceDNSDynamicInterfaceServicePassword customtypes.CustomStringValue `tfsdk:"password" json:"password,omitempty"`
-	ServiceDNSDynamicInterfaceServiceProtocol customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	ServiceDNSDynamicInterfaceServiceServer   customtypes.CustomStringValue `tfsdk:"server" json:"server,omitempty"`
-	ServiceDNSDynamicInterfaceServiceZone     customtypes.CustomStringValue `tfsdk:"zone" json:"zone,omitempty"`
+	LeafServiceDNSDynamicInterfaceServiceHostName types.String `tfsdk:"host_name"`
+	LeafServiceDNSDynamicInterfaceServiceLogin    types.String `tfsdk:"login"`
+	LeafServiceDNSDynamicInterfaceServicePassword types.String `tfsdk:"password"`
+	LeafServiceDNSDynamicInterfaceServiceProtocol types.String `tfsdk:"protocol"`
+	LeafServiceDNSDynamicInterfaceServiceServer   types.String `tfsdk:"server"`
+	LeafServiceDNSDynamicInterfaceServiceZone     types.String `tfsdk:"zone"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSDynamicInterfaceService) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSDynamicInterfaceService) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "service"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSDynamicInterfaceServiceHostName.IsNull() || o.LeafServiceDNSDynamicInterfaceServiceHostName.IsUnknown()) {
+		vyosData["host-name"] = o.LeafServiceDNSDynamicInterfaceServiceHostName.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceServiceLogin.IsNull() || o.LeafServiceDNSDynamicInterfaceServiceLogin.IsUnknown()) {
+		vyosData["login"] = o.LeafServiceDNSDynamicInterfaceServiceLogin.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceServicePassword.IsNull() || o.LeafServiceDNSDynamicInterfaceServicePassword.IsUnknown()) {
+		vyosData["password"] = o.LeafServiceDNSDynamicInterfaceServicePassword.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceServiceProtocol.IsNull() || o.LeafServiceDNSDynamicInterfaceServiceProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafServiceDNSDynamicInterfaceServiceProtocol.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceServiceServer.IsNull() || o.LeafServiceDNSDynamicInterfaceServiceServer.IsUnknown()) {
+		vyosData["server"] = o.LeafServiceDNSDynamicInterfaceServiceServer.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceServiceZone.IsNull() || o.LeafServiceDNSDynamicInterfaceServiceZone.IsUnknown()) {
+		vyosData["zone"] = o.LeafServiceDNSDynamicInterfaceServiceZone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSDynamicInterfaceService) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "service"}})
+
+	// Leafs
+	if value, ok := vyosData["host-name"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServiceHostName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServiceHostName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["login"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServiceLogin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServiceLogin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["password"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServicePassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServicePassword = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServiceProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServiceProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["server"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServiceServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServiceServer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["zone"]; ok {
+		o.LeafServiceDNSDynamicInterfaceServiceZone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceServiceZone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "service"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSDynamicInterfaceService) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"host_name": types.StringType,
+		"login":     types.StringType,
+		"password":  types.StringType,
+		"protocol":  types.StringType,
+		"server":    types.StringType,
+		"zone":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSDynamicInterfaceService) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"host_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hostname registered with DDNS service
 
 `,
 		},
 
 		"login": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Login for DDNS service
 
 `,
 		},
 
 		"password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Password for DDNS service
 
 `,
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ddclient protocol used for DDNS service
 
 |  Format  |  Description  |
@@ -84,8 +180,7 @@ func (o ServiceDNSDynamicInterfaceService) ResourceAttributes() map[string]schem
 		},
 
 		"server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remote server to connect to
 
 |  Format  |  Description  |
@@ -97,8 +192,7 @@ func (o ServiceDNSDynamicInterfaceService) ResourceAttributes() map[string]schem
 		},
 
 		"zone": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DNS zone to update (only available with CloudFlare)
 
 `,

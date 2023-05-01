@@ -2,47 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath  customtypes.CustomStringValue `tfsdk:"as_path" json:"as-path,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed     customtypes.CustomStringValue `tfsdk:"med" json:"med,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop customtypes.CustomStringValue `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath  types.String `tfsdk:"as_path"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed     types.String `tfsdk:"med"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop types.String `tfsdk:"next_hop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "attribute-unchanged"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.IsUnknown()) {
+		vyosData["as-path"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.IsUnknown()) {
+		vyosData["med"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.IsUnknown()) {
+		vyosData["next-hop"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "attribute-unchanged"}})
+
+	// Leafs
+	if value, ok := vyosData["as-path"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedAsPath = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["med"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedMed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["next-hop"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchangedNextHop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "attribute-unchanged"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_path":  types.StringType,
+		"med":      types.StringType,
+		"next_hop": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnAttributeUnchanged) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as_path": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send AS path unchanged
 
 `,
 		},
 
 		"med": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
 		},
 
 		"next_hop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
 
 `,

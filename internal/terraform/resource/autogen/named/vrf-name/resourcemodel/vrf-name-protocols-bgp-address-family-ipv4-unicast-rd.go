@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn types.Object `tfsdk:"vpn" json:"vpn,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn types.Object `tfsdk:"vpn"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "rd"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["vpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "rd"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["vpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "rd"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"vpn": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRd) ResourceAttributes() m
 		// Nodes
 
 		"vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRdVpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Between current address-family and VPN
 

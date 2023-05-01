@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfDistanceOspf describes the resource data model.
 type VrfNameProtocolsOspfDistanceOspf struct {
 	// LeafNodes
-	VrfNameProtocolsOspfDistanceOspfExternal  customtypes.CustomStringValue `tfsdk:"external" json:"external,omitempty"`
-	VrfNameProtocolsOspfDistanceOspfInterArea customtypes.CustomStringValue `tfsdk:"inter_area" json:"inter-area,omitempty"`
-	VrfNameProtocolsOspfDistanceOspfIntraArea customtypes.CustomStringValue `tfsdk:"intra_area" json:"intra-area,omitempty"`
+	LeafVrfNameProtocolsOspfDistanceOspfExternal  types.String `tfsdk:"external"`
+	LeafVrfNameProtocolsOspfDistanceOspfInterArea types.String `tfsdk:"inter_area"`
+	LeafVrfNameProtocolsOspfDistanceOspfIntraArea types.String `tfsdk:"intra_area"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfDistanceOspf) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfDistanceOspf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfExternal.IsUnknown()) {
+		vyosData["external"] = o.LeafVrfNameProtocolsOspfDistanceOspfExternal.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.IsUnknown()) {
+		vyosData["inter-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfInterArea.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsNull() || o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.IsUnknown()) {
+		vyosData["intra-area"] = o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfDistanceOspf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
+
+	// Leafs
+	if value, ok := vyosData["external"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfExternal = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inter-area"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfInterArea = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["intra-area"]; ok {
+		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDistanceOspfIntraArea = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "distance", "ospf"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfDistanceOspf) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"external":   types.StringType,
+		"inter_area": types.StringType,
+		"intra_area": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfDistanceOspf) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"external": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for external routes
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceAttributes() map[string]schema
 		},
 
 		"inter_area": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for inter-area routes
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o VrfNameProtocolsOspfDistanceOspf) ResourceAttributes() map[string]schema
 		},
 
 		"intra_area": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for intra-area routes
 
 |  Format  |  Description  |

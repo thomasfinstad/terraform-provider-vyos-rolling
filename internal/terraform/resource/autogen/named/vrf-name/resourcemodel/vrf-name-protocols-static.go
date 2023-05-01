@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsStatic describes the resource data model.
@@ -11,14 +17,91 @@ type VrfNameProtocolsStatic struct {
 	// LeafNodes
 
 	// TagNodes
-	VrfNameProtocolsStaticRoute    types.Map `tfsdk:"route" json:"route,omitempty"`
-	VrfNameProtocolsStaticRoutesix types.Map `tfsdk:"route6" json:"route6,omitempty"`
+	TagVrfNameProtocolsStaticRoute    types.Map `tfsdk:"route"`
+	TagVrfNameProtocolsStaticRoutesix types.Map `tfsdk:"route6"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsStatic) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsStatic) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagVrfNameProtocolsStaticRoute.IsNull() || o.TagVrfNameProtocolsStaticRoute.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRoute)
+		diags.Append(o.TagVrfNameProtocolsStaticRoute.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["route"] = subData
+	}
+	if !(o.TagVrfNameProtocolsStaticRoutesix.IsNull() || o.TagVrfNameProtocolsStaticRoutesix.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRoutesix)
+		diags.Append(o.TagVrfNameProtocolsStaticRoutesix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["route6"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsStatic) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["route"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoute{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRoute = data
+	} else {
+		o.TagVrfNameProtocolsStaticRoute = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["route6"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRoutesix = data
+	} else {
+		o.TagVrfNameProtocolsStaticRoutesix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsStatic) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"route":  types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoute{}.AttributeTypes()}},
+		"route6": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesix{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsStatic) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +109,7 @@ func (o VrfNameProtocolsStatic) ResourceAttributes() map[string]schema.Attribute
 
 		"route": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRoute{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRoute{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv4 route
@@ -40,7 +123,7 @@ func (o VrfNameProtocolsStatic) ResourceAttributes() map[string]schema.Attribute
 
 		"route6": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRoutesix{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRoutesix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv6 route

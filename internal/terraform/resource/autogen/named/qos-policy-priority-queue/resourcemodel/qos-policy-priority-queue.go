@@ -2,32 +2,139 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueue describes the resource data model.
 type QosPolicyPriorityQueue struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyPriorityQueueDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyPriorityQueueDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	QosPolicyPriorityQueueClass types.Map `tfsdk:"class" json:"class,omitempty"`
+	TagQosPolicyPriorityQueueClass types.Map `tfsdk:"class"`
 
 	// Nodes
-	QosPolicyPriorityQueueDefault types.Object `tfsdk:"default" json:"default,omitempty"`
+	NodeQosPolicyPriorityQueueDefault types.Object `tfsdk:"default"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyPriorityQueue) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyPriorityQueue) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"priority-queue",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyPriorityQueue) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyPriorityQueueDescrIPtion.IsNull() || o.LeafQosPolicyPriorityQueueDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyPriorityQueueDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyPriorityQueueClass.IsNull() || o.TagQosPolicyPriorityQueueClass.IsUnknown()) {
+		subModel := make(map[string]QosPolicyPriorityQueueClass)
+		diags.Append(o.TagQosPolicyPriorityQueueClass.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["class"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeQosPolicyPriorityQueueDefault.IsNull() || o.NodeQosPolicyPriorityQueueDefault.IsUnknown()) {
+		var subModel QosPolicyPriorityQueueDefault
+		diags.Append(o.NodeQosPolicyPriorityQueueDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyPriorityQueue) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["class"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyPriorityQueueClass{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyPriorityQueueClass = data
+	} else {
+		o.TagQosPolicyPriorityQueueClass = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["default"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyPriorityQueueDefault{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyPriorityQueueDefault = data
+
+	} else {
+		o.NodeQosPolicyPriorityQueueDefault = basetypes.NewObjectNull(QosPolicyPriorityQueueDefault{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyPriorityQueue) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"class": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyPriorityQueueClass{}.AttributeTypes()}},
+
+		// Nodes
+		"default": types.ObjectType{AttrTypes: QosPolicyPriorityQueueDefault{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyPriorityQueue) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Priority queuing based policy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -41,7 +148,7 @@ func (o QosPolicyPriorityQueue) ResourceAttributes() map[string]schema.Attribute
 
 		"class": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyPriorityQueueClass{}.ResourceAttributes(),
+				Attributes: QosPolicyPriorityQueueClass{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class Handle
@@ -56,7 +163,7 @@ func (o QosPolicyPriorityQueue) ResourceAttributes() map[string]schema.Attribute
 		// Nodes
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: QosPolicyPriorityQueueDefault{}.ResourceAttributes(),
+			Attributes: QosPolicyPriorityQueueDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default policy
 

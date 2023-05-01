@@ -25,6 +25,6 @@ Import BGP network/prefix into labeled unicast IPv6 RIB
 |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

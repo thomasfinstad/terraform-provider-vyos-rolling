@@ -24,6 +24,6 @@ Defines SNMP target for inform or traps for IP
 |  ipv6  |  IPv6 address of trap target  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

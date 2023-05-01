@@ -2,92 +2,202 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyCakeFlowIsolation describes the resource data model.
 type QosPolicyCakeFlowIsolation struct {
 	// LeafNodes
-	QosPolicyCakeFlowIsolationBlind       customtypes.CustomStringValue `tfsdk:"blind" json:"blind,omitempty"`
-	QosPolicyCakeFlowIsolationSrcHost     customtypes.CustomStringValue `tfsdk:"src_host" json:"src-host,omitempty"`
-	QosPolicyCakeFlowIsolationDstHost     customtypes.CustomStringValue `tfsdk:"dst_host" json:"dst-host,omitempty"`
-	QosPolicyCakeFlowIsolationHost        customtypes.CustomStringValue `tfsdk:"host" json:"host,omitempty"`
-	QosPolicyCakeFlowIsolationFlow        customtypes.CustomStringValue `tfsdk:"flow" json:"flow,omitempty"`
-	QosPolicyCakeFlowIsolationDualSrcHost customtypes.CustomStringValue `tfsdk:"dual_src_host" json:"dual-src-host,omitempty"`
-	QosPolicyCakeFlowIsolationDualDstHost customtypes.CustomStringValue `tfsdk:"dual_dst_host" json:"dual-dst-host,omitempty"`
-	QosPolicyCakeFlowIsolationNat         customtypes.CustomStringValue `tfsdk:"nat" json:"nat,omitempty"`
+	LeafQosPolicyCakeFlowIsolationBlind       types.String `tfsdk:"blind"`
+	LeafQosPolicyCakeFlowIsolationSrcHost     types.String `tfsdk:"src_host"`
+	LeafQosPolicyCakeFlowIsolationDstHost     types.String `tfsdk:"dst_host"`
+	LeafQosPolicyCakeFlowIsolationHost        types.String `tfsdk:"host"`
+	LeafQosPolicyCakeFlowIsolationFlow        types.String `tfsdk:"flow"`
+	LeafQosPolicyCakeFlowIsolationDualSrcHost types.String `tfsdk:"dual_src_host"`
+	LeafQosPolicyCakeFlowIsolationDualDstHost types.String `tfsdk:"dual_dst_host"`
+	LeafQosPolicyCakeFlowIsolationNat         types.String `tfsdk:"nat"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyCakeFlowIsolation) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyCakeFlowIsolation) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyCakeFlowIsolationBlind.IsNull() || o.LeafQosPolicyCakeFlowIsolationBlind.IsUnknown()) {
+		vyosData["blind"] = o.LeafQosPolicyCakeFlowIsolationBlind.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationSrcHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationSrcHost.IsUnknown()) {
+		vyosData["src-host"] = o.LeafQosPolicyCakeFlowIsolationSrcHost.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationDstHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDstHost.IsUnknown()) {
+		vyosData["dst-host"] = o.LeafQosPolicyCakeFlowIsolationDstHost.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationHost.IsUnknown()) {
+		vyosData["host"] = o.LeafQosPolicyCakeFlowIsolationHost.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationFlow.IsNull() || o.LeafQosPolicyCakeFlowIsolationFlow.IsUnknown()) {
+		vyosData["flow"] = o.LeafQosPolicyCakeFlowIsolationFlow.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDualSrcHost.IsUnknown()) {
+		vyosData["dual-src-host"] = o.LeafQosPolicyCakeFlowIsolationDualSrcHost.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsNull() || o.LeafQosPolicyCakeFlowIsolationDualDstHost.IsUnknown()) {
+		vyosData["dual-dst-host"] = o.LeafQosPolicyCakeFlowIsolationDualDstHost.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeFlowIsolationNat.IsNull() || o.LeafQosPolicyCakeFlowIsolationNat.IsUnknown()) {
+		vyosData["nat"] = o.LeafQosPolicyCakeFlowIsolationNat.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyCakeFlowIsolation) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
+
+	// Leafs
+	if value, ok := vyosData["blind"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationBlind = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["src-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationSrcHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dst-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDstHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["flow"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationFlow = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dual-src-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDualSrcHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dual-dst-host"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationDualDstHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["nat"]; ok {
+		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeFlowIsolationNat = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "cake", "flow-isolation"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyCakeFlowIsolation) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"blind":         types.StringType,
+		"src_host":      types.StringType,
+		"dst_host":      types.StringType,
+		"host":          types.StringType,
+		"flow":          types.StringType,
+		"dual_src_host": types.StringType,
+		"dual_dst_host": types.StringType,
+		"nat":           types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyCakeFlowIsolation) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"blind": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disables flow isolation, all traffic passes through a single queue
 
 `,
 		},
 
 		"src_host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined only by source address
 
 `,
 		},
 
 		"dst_host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined only by destination address
 
 `,
 		},
 
 		"host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined by source-destination host pairs
 
 `,
 		},
 
 		"flow": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined by the entire 5-tuple
 
 `,
 		},
 
 		"dual_src_host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, and fairness is applied first over source addresses, then over individual flows
 
 `,
 		},
 
 		"dual_dst_host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Flows are defined by the 5-tuple, and fairness is applied first over destination addresses, then over individual flows
 
 `,
 		},
 
 		"nat": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Perform NAT lookup before applying flow-isolation rules
 
 `,

@@ -2,32 +2,140 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogHost describes the resource data model.
 type SystemSyslogHost struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemSyslogHostPort customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafSystemSyslogHostPort types.String `tfsdk:"port"`
 
 	// TagNodes
-	SystemSyslogHostFacility types.Map `tfsdk:"facility" json:"facility,omitempty"`
+	TagSystemSyslogHostFacility types.Map `tfsdk:"facility"`
 
 	// Nodes
-	SystemSyslogHostFormat types.Object `tfsdk:"format" json:"format,omitempty"`
+	NodeSystemSyslogHostFormat types.Object `tfsdk:"format"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogHost) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemSyslogHost) GetVyosPath() []string {
+	return []string{
+		"system",
+		"syslog",
+		"host",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogHost) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "host"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemSyslogHostPort.IsNull() || o.LeafSystemSyslogHostPort.IsUnknown()) {
+		vyosData["port"] = o.LeafSystemSyslogHostPort.ValueString()
+	}
+
+	// Tags
+	if !(o.TagSystemSyslogHostFacility.IsNull() || o.TagSystemSyslogHostFacility.IsUnknown()) {
+		subModel := make(map[string]SystemSyslogHostFacility)
+		diags.Append(o.TagSystemSyslogHostFacility.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["facility"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeSystemSyslogHostFormat.IsNull() || o.NodeSystemSyslogHostFormat.IsUnknown()) {
+		var subModel SystemSyslogHostFormat
+		diags.Append(o.NodeSystemSyslogHostFormat.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["format"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogHost) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "host"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafSystemSyslogHostPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["facility"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: SystemSyslogHostFacility{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagSystemSyslogHostFacility = data
+	} else {
+		o.TagSystemSyslogHostFacility = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["format"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemSyslogHostFormat{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemSyslogHostFormat = data
+
+	} else {
+		o.NodeSystemSyslogHostFormat = basetypes.NewObjectNull(SystemSyslogHostFormat{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "host"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogHost) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port": types.StringType,
+
+		// Tags
+		"facility": types.MapType{ElemType: types.ObjectType{AttrTypes: SystemSyslogHostFacility{}.AttributeTypes()}},
+
+		// Nodes
+		"format": types.ObjectType{AttrTypes: SystemSyslogHostFormat{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogHost) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Logging to a remote host
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  Remote syslog server IPv4 address  |
+|  hostname  |  Remote syslog server FQDN  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -41,7 +149,7 @@ func (o SystemSyslogHost) ResourceAttributes() map[string]schema.Attribute {
 
 		"facility": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: SystemSyslogHostFacility{}.ResourceAttributes(),
+				Attributes: SystemSyslogHostFacility{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Facility for logging
@@ -78,7 +186,7 @@ func (o SystemSyslogHost) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"format": schema.SingleNestedAttribute{
-			Attributes: SystemSyslogHostFormat{}.ResourceAttributes(),
+			Attributes: SystemSyslogHostFormat{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Logging format
 

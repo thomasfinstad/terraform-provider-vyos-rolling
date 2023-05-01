@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport types.String `tfsdk:"export"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "route-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport.IsUnknown()) {
+		vyosData["export"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport.IsUnknown()) {
+		vyosData["import"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "route-map"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMapImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-vpn", "route-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter outgoing route updates
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpnRouteMap) ResourceAttr
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to filter incoming route updates
 
 |  Format  |  Description  |

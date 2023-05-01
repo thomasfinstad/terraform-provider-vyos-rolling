@@ -2,51 +2,262 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeer describes the resource data model.
 type VpnIPsecSiteToSitePeer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecSiteToSitePeerDisable               customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnIPsecSiteToSitePeerConnectionType        customtypes.CustomStringValue `tfsdk:"connection_type" json:"connection-type,omitempty"`
-	VpnIPsecSiteToSitePeerDefaultEspGroup       customtypes.CustomStringValue `tfsdk:"default_esp_group" json:"default-esp-group,omitempty"`
-	VpnIPsecSiteToSitePeerDescrIPtion           customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	VpnIPsecSiteToSitePeerDhcpInterface         customtypes.CustomStringValue `tfsdk:"dhcp_interface" json:"dhcp-interface,omitempty"`
-	VpnIPsecSiteToSitePeerForceUDPEncapsulation customtypes.CustomStringValue `tfsdk:"force_udp_encapsulation" json:"force-udp-encapsulation,omitempty"`
-	VpnIPsecSiteToSitePeerIkeGroup              customtypes.CustomStringValue `tfsdk:"ike_group" json:"ike-group,omitempty"`
-	VpnIPsecSiteToSitePeerIkevtwoReauth         customtypes.CustomStringValue `tfsdk:"ikev2_reauth" json:"ikev2-reauth,omitempty"`
-	VpnIPsecSiteToSitePeerLocalAddress          customtypes.CustomStringValue `tfsdk:"local_address" json:"local-address,omitempty"`
-	VpnIPsecSiteToSitePeerRemoteAddress         customtypes.CustomStringValue `tfsdk:"remote_address" json:"remote-address,omitempty"`
-	VpnIPsecSiteToSitePeerVirtualAddress        customtypes.CustomStringValue `tfsdk:"virtual_address" json:"virtual-address,omitempty"`
+	LeafVpnIPsecSiteToSitePeerDisable               types.String `tfsdk:"disable"`
+	LeafVpnIPsecSiteToSitePeerConnectionType        types.String `tfsdk:"connection_type"`
+	LeafVpnIPsecSiteToSitePeerDefaultEspGroup       types.String `tfsdk:"default_esp_group"`
+	LeafVpnIPsecSiteToSitePeerDescrIPtion           types.String `tfsdk:"description"`
+	LeafVpnIPsecSiteToSitePeerDhcpInterface         types.String `tfsdk:"dhcp_interface"`
+	LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation types.String `tfsdk:"force_udp_encapsulation"`
+	LeafVpnIPsecSiteToSitePeerIkeGroup              types.String `tfsdk:"ike_group"`
+	LeafVpnIPsecSiteToSitePeerIkevtwoReauth         types.String `tfsdk:"ikev2_reauth"`
+	LeafVpnIPsecSiteToSitePeerLocalAddress          types.String `tfsdk:"local_address"`
+	LeafVpnIPsecSiteToSitePeerRemoteAddress         types.String `tfsdk:"remote_address"`
+	LeafVpnIPsecSiteToSitePeerVirtualAddress        types.String `tfsdk:"virtual_address"`
 
 	// TagNodes
-	VpnIPsecSiteToSitePeerTunnel types.Map `tfsdk:"tunnel" json:"tunnel,omitempty"`
+	TagVpnIPsecSiteToSitePeerTunnel types.Map `tfsdk:"tunnel"`
 
 	// Nodes
-	VpnIPsecSiteToSitePeerAuthentication types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
-	VpnIPsecSiteToSitePeerVti            types.Object `tfsdk:"vti" json:"vti,omitempty"`
+	NodeVpnIPsecSiteToSitePeerAuthentication types.Object `tfsdk:"authentication"`
+	NodeVpnIPsecSiteToSitePeerVti            types.Object `tfsdk:"vti"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecSiteToSitePeer) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"site-to-site",
+		"peer",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecSiteToSitePeer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecSiteToSitePeerDisable.IsNull() || o.LeafVpnIPsecSiteToSitePeerDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnIPsecSiteToSitePeerDisable.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerConnectionType.IsNull() || o.LeafVpnIPsecSiteToSitePeerConnectionType.IsUnknown()) {
+		vyosData["connection-type"] = o.LeafVpnIPsecSiteToSitePeerConnectionType.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.IsNull() || o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.IsUnknown()) {
+		vyosData["default-esp-group"] = o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerDescrIPtion.IsNull() || o.LeafVpnIPsecSiteToSitePeerDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafVpnIPsecSiteToSitePeerDescrIPtion.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerDhcpInterface.IsNull() || o.LeafVpnIPsecSiteToSitePeerDhcpInterface.IsUnknown()) {
+		vyosData["dhcp-interface"] = o.LeafVpnIPsecSiteToSitePeerDhcpInterface.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.IsNull() || o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.IsUnknown()) {
+		vyosData["force-udp-encapsulation"] = o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerIkeGroup.IsNull() || o.LeafVpnIPsecSiteToSitePeerIkeGroup.IsUnknown()) {
+		vyosData["ike-group"] = o.LeafVpnIPsecSiteToSitePeerIkeGroup.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.IsNull() || o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.IsUnknown()) {
+		vyosData["ikev2-reauth"] = o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerLocalAddress.IsNull() || o.LeafVpnIPsecSiteToSitePeerLocalAddress.IsUnknown()) {
+		vyosData["local-address"] = o.LeafVpnIPsecSiteToSitePeerLocalAddress.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerRemoteAddress.IsNull() || o.LeafVpnIPsecSiteToSitePeerRemoteAddress.IsUnknown()) {
+		vyosData["remote-address"] = o.LeafVpnIPsecSiteToSitePeerRemoteAddress.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerVirtualAddress.IsNull() || o.LeafVpnIPsecSiteToSitePeerVirtualAddress.IsUnknown()) {
+		vyosData["virtual-address"] = o.LeafVpnIPsecSiteToSitePeerVirtualAddress.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVpnIPsecSiteToSitePeerTunnel.IsNull() || o.TagVpnIPsecSiteToSitePeerTunnel.IsUnknown()) {
+		subModel := make(map[string]VpnIPsecSiteToSitePeerTunnel)
+		diags.Append(o.TagVpnIPsecSiteToSitePeerTunnel.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["tunnel"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVpnIPsecSiteToSitePeerAuthentication.IsNull() || o.NodeVpnIPsecSiteToSitePeerAuthentication.IsUnknown()) {
+		var subModel VpnIPsecSiteToSitePeerAuthentication
+		diags.Append(o.NodeVpnIPsecSiteToSitePeerAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVpnIPsecSiteToSitePeerVti.IsNull() || o.NodeVpnIPsecSiteToSitePeerVti.IsUnknown()) {
+		var subModel VpnIPsecSiteToSitePeerVti
+		diags.Append(o.NodeVpnIPsecSiteToSitePeerVti.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["vti"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecSiteToSitePeer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["connection-type"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerConnectionType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerConnectionType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-esp-group"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerDefaultEspGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dhcp-interface"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerDhcpInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerDhcpInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["force-udp-encapsulation"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerForceUDPEncapsulation = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ike-group"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerIkeGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerIkeGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ikev2-reauth"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerIkevtwoReauth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local-address"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerLocalAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerLocalAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remote-address"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerRemoteAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerRemoteAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["virtual-address"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerVirtualAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerVirtualAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["tunnel"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnel{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVpnIPsecSiteToSitePeerTunnel = data
+	} else {
+		o.TagVpnIPsecSiteToSitePeerTunnel = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnIPsecSiteToSitePeerAuthentication = data
+
+	} else {
+		o.NodeVpnIPsecSiteToSitePeerAuthentication = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerAuthentication{}.AttributeTypes())
+	}
+	if value, ok := vyosData["vti"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerVti{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnIPsecSiteToSitePeerVti = data
+
+	} else {
+		o.NodeVpnIPsecSiteToSitePeerVti = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerVti{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecSiteToSitePeer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":                 types.StringType,
+		"connection_type":         types.StringType,
+		"default_esp_group":       types.StringType,
+		"description":             types.StringType,
+		"dhcp_interface":          types.StringType,
+		"force_udp_encapsulation": types.StringType,
+		"ike_group":               types.StringType,
+		"ikev2_reauth":            types.StringType,
+		"local_address":           types.StringType,
+		"remote_address":          types.StringType,
+		"virtual_address":         types.StringType,
+
+		// Tags
+		"tunnel": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnel{}.AttributeTypes()}},
+
+		// Nodes
+		"authentication": types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerAuthentication{}.AttributeTypes()},
+		"vti":            types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerVti{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecSiteToSitePeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Connection name of the peer
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Connection name of the peer  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"connection_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Connection type
 
 |  Format  |  Description  |
@@ -59,16 +270,14 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"default_esp_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Defult ESP group name
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -79,8 +288,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"dhcp_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DHCP interface supplying next-hop IP address
 
 |  Format  |  Description  |
@@ -91,24 +299,21 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"force_udp_encapsulation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Force UDP encapsulation
 
 `,
 		},
 
 		"ike_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Internet Key Exchange (IKE) group name
 
 `,
 		},
 
 		"ikev2_reauth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
 |  Format  |  Description  |
@@ -121,8 +326,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"local_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of a local interface to use for VPN
 
 |  Format  |  Description  |
@@ -135,8 +339,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"remote_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv4 or IPv6 address of the remote peer
 
 |  Format  |  Description  |
@@ -150,8 +353,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"virtual_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Initiator request virtual-address from peer
 
 |  Format  |  Description  |
@@ -166,7 +368,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 
 		"tunnel": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VpnIPsecSiteToSitePeerTunnel{}.ResourceAttributes(),
+				Attributes: VpnIPsecSiteToSitePeerTunnel{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Peer tunnel
@@ -181,7 +383,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		// Nodes
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecSiteToSitePeerAuthentication{}.ResourceAttributes(),
+			Attributes: VpnIPsecSiteToSitePeerAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Peer authentication
 
@@ -189,7 +391,7 @@ func (o VpnIPsecSiteToSitePeer) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"vti": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecSiteToSitePeerVti{}.ResourceAttributes(),
+			Attributes: VpnIPsecSiteToSitePeerVti{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Virtual tunnel interface
 

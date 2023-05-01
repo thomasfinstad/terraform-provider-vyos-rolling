@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRoutingPrefix describes the resource data model.
@@ -13,12 +19,80 @@ type VrfNameProtocolsIsisSegmentRoutingPrefix struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute types.Object `tfsdk:"absolute" json:"absolute,omitempty"`
-	VrfNameProtocolsIsisSegmentRoutingPrefixIndex    types.Object `tfsdk:"index" json:"index,omitempty"`
+	NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute types.Object `tfsdk:"absolute"`
+	NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex    types.Object `tfsdk:"index"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute
+		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["absolute"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSegmentRoutingPrefixIndex
+		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["index"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisSegmentRoutingPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["absolute"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixAbsolute = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes())
+	}
+	if value, ok := vyosData["index"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSegmentRoutingPrefixIndex = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing", "prefix"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisSegmentRoutingPrefix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"absolute": types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.AttributeTypes()},
+		"index":    types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -27,7 +101,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceAttributes() map[strin
 		// Nodes
 
 		"absolute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingPrefixAbsolute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify the absolute value of prefix segment/label ID
 
@@ -35,7 +109,7 @@ func (o VrfNameProtocolsIsisSegmentRoutingPrefix) ResourceAttributes() map[strin
 		},
 
 		"index": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingPrefixIndex{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
 

@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability str
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf types.Object `tfsdk:"orf" json:"orf,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf types.Object `tfsdk:"orf"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "capability"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["orf"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "capability"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["orf"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-labeled-unicast", "capability"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"orf": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapability)
 		// Nodes
 
 		"orf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicastCapabilityOrf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise ORF capability to this peer
 

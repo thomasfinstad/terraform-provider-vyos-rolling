@@ -2,34 +2,132 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetVifSDhcpvsixOptions describes the resource data model.
 type InterfacesPseudoEthernetVifSDhcpvsixOptions struct {
 	// LeafNodes
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsDuID           customtypes.CustomStringValue `tfsdk:"duid" json:"duid,omitempty"`
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly customtypes.CustomStringValue `tfsdk:"parameters_only" json:"parameters-only,omitempty"`
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit    customtypes.CustomStringValue `tfsdk:"rapid_commit" json:"rapid-commit,omitempty"`
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary      customtypes.CustomStringValue `tfsdk:"temporary" json:"temporary,omitempty"`
+	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID           types.String `tfsdk:"duid"`
+	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only"`
+	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit"`
+	LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary"`
 
 	// TagNodes
-	InterfacesPseudoEthernetVifSDhcpvsixOptionsPd types.Map `tfsdk:"pd" json:"pd,omitempty"`
+	TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd types.Map `tfsdk:"pd"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPseudoEthernetVifSDhcpvsixOptions) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPseudoEthernetVifSDhcpvsixOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID.IsNull() || o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID.IsUnknown()) {
+		vyosData["duid"] = o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly.IsNull() || o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly.IsUnknown()) {
+		vyosData["parameters-only"] = o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit.IsNull() || o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit.IsUnknown()) {
+		vyosData["rapid-commit"] = o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary.IsNull() || o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary.IsUnknown()) {
+		vyosData["temporary"] = o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary.ValueString()
+	}
+
+	// Tags
+	if !(o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd.IsNull() || o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd.IsUnknown()) {
+		subModel := make(map[string]InterfacesPseudoEthernetVifSDhcpvsixOptionsPd)
+		diags.Append(o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["pd"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPseudoEthernetVifSDhcpvsixOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options"}})
+
+	// Leafs
+	if value, ok := vyosData["duid"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsDuID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["parameters-only"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rapid-commit"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["temporary"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSDhcpvsixOptionsTemporary = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["pd"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPd{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd = data
+	} else {
+		o.TagInterfacesPseudoEthernetVifSDhcpvsixOptionsPd = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "dhcpv6-options"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptions) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"duid":            types.StringType,
+		"parameters_only": types.StringType,
+		"rapid_commit":    types.StringType,
+		"temporary":       types.StringType,
+
+		// Tags
+		"pd": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPd{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPseudoEthernetVifSDhcpvsixOptions) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"duid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
 |  Format  |  Description  |
@@ -40,24 +138,21 @@ func (o InterfacesPseudoEthernetVifSDhcpvsixOptions) ResourceAttributes() map[st
 		},
 
 		"parameters_only": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
 
 `,
 		},
 
 		"rapid_commit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
 		},
 
 		"temporary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
 
 `,
@@ -67,7 +162,7 @@ func (o InterfacesPseudoEthernetVifSDhcpvsixOptions) ResourceAttributes() map[st
 
 		"pd": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPd{}.ResourceAttributes(),
+				Attributes: InterfacesPseudoEthernetVifSDhcpvsixOptionsPd{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement

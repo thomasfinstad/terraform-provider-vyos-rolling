@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborTimers describes the resource data model.
 type VrfNameProtocolsBgpNeighborTimers struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborTimersConnect   customtypes.CustomStringValue `tfsdk:"connect" json:"connect,omitempty"`
-	VrfNameProtocolsBgpNeighborTimersHoldtime  customtypes.CustomStringValue `tfsdk:"holdtime" json:"holdtime,omitempty"`
-	VrfNameProtocolsBgpNeighborTimersKeepalive customtypes.CustomStringValue `tfsdk:"keepalive" json:"keepalive,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborTimersConnect   types.String `tfsdk:"connect"`
+	LeafVrfNameProtocolsBgpNeighborTimersHoldtime  types.String `tfsdk:"holdtime"`
+	LeafVrfNameProtocolsBgpNeighborTimersKeepalive types.String `tfsdk:"keepalive"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborTimers) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "timers"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborTimersConnect.IsNull() || o.LeafVrfNameProtocolsBgpNeighborTimersConnect.IsUnknown()) {
+		vyosData["connect"] = o.LeafVrfNameProtocolsBgpNeighborTimersConnect.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborTimersHoldtime.IsNull() || o.LeafVrfNameProtocolsBgpNeighborTimersHoldtime.IsUnknown()) {
+		vyosData["holdtime"] = o.LeafVrfNameProtocolsBgpNeighborTimersHoldtime.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborTimersKeepalive.IsNull() || o.LeafVrfNameProtocolsBgpNeighborTimersKeepalive.IsUnknown()) {
+		vyosData["keepalive"] = o.LeafVrfNameProtocolsBgpNeighborTimersKeepalive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborTimers) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "timers"}})
+
+	// Leafs
+	if value, ok := vyosData["connect"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborTimersConnect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborTimersConnect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["holdtime"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborTimersHoldtime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["keepalive"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborTimersKeepalive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "timers"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborTimers) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"connect":   types.StringType,
+		"holdtime":  types.StringType,
+		"keepalive": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborTimers) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"connect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP connect timer for this neighbor
 
 |  Format  |  Description  |
@@ -38,8 +110,7 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schem
 		},
 
 		"holdtime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP hold timer for this neighbor
 
 |  Format  |  Description  |
@@ -51,8 +122,7 @@ func (o VrfNameProtocolsBgpNeighborTimers) ResourceAttributes() map[string]schem
 		},
 
 		"keepalive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP keepalive interval for this neighbor
 
 |  Format  |  Description  |

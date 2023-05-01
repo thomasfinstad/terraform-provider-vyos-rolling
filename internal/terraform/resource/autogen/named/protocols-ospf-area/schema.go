@@ -22,6 +22,6 @@ OSPF area settings
 |  ipv4  |  OSPF area number in dotted decimal notation  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

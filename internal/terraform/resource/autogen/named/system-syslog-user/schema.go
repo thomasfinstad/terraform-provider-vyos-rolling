@@ -21,6 +21,6 @@ Logging to specific terminal of given user
 |  username  |  user login name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

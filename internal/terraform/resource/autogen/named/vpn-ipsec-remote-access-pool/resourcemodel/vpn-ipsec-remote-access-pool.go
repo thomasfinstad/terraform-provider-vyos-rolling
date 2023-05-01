@@ -2,31 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessPool describes the resource data model.
 type VpnIPsecRemoteAccessPool struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecRemoteAccessPoolExclude    customtypes.CustomStringValue `tfsdk:"exclude" json:"exclude,omitempty"`
-	VpnIPsecRemoteAccessPoolPrefix     customtypes.CustomStringValue `tfsdk:"prefix" json:"prefix,omitempty"`
-	VpnIPsecRemoteAccessPoolNameServer customtypes.CustomStringValue `tfsdk:"name_server" json:"name-server,omitempty"`
+	LeafVpnIPsecRemoteAccessPoolExclude    types.String `tfsdk:"exclude"`
+	LeafVpnIPsecRemoteAccessPoolPrefix     types.String `tfsdk:"prefix"`
+	LeafVpnIPsecRemoteAccessPoolNameServer types.String `tfsdk:"name_server"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecRemoteAccessPool) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"remote-access",
+		"pool",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecRemoteAccessPool) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "pool"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecRemoteAccessPoolExclude.IsNull() || o.LeafVpnIPsecRemoteAccessPoolExclude.IsUnknown()) {
+		vyosData["exclude"] = o.LeafVpnIPsecRemoteAccessPoolExclude.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessPoolPrefix.IsNull() || o.LeafVpnIPsecRemoteAccessPoolPrefix.IsUnknown()) {
+		vyosData["prefix"] = o.LeafVpnIPsecRemoteAccessPoolPrefix.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessPoolNameServer.IsNull() || o.LeafVpnIPsecRemoteAccessPoolNameServer.IsUnknown()) {
+		vyosData["name-server"] = o.LeafVpnIPsecRemoteAccessPoolNameServer.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecRemoteAccessPool) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "pool"}})
+
+	// Leafs
+	if value, ok := vyosData["exclude"]; ok {
+		o.LeafVpnIPsecRemoteAccessPoolExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessPoolExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix"]; ok {
+		o.LeafVpnIPsecRemoteAccessPoolPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessPoolPrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["name-server"]; ok {
+		o.LeafVpnIPsecRemoteAccessPoolNameServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessPoolNameServer = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "pool"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecRemoteAccessPool) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"exclude":     types.StringType,
+		"prefix":      types.StringType,
+		"name_server": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecRemoteAccessPool) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IP address pool for remote access users
+
+`,
+		},
+
 		// LeafNodes
 
 		"exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local IPv4 or IPv6 pool prefix exclusions
 
 |  Format  |  Description  |
@@ -38,8 +130,7 @@ func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local IPv4 or IPv6 pool prefix
 
 |  Format  |  Description  |
@@ -51,8 +142,7 @@ func (o VpnIPsecRemoteAccessPool) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"name_server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |

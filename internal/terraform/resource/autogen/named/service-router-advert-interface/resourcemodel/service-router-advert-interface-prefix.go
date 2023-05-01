@@ -2,66 +2,161 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfacePrefix describes the resource data model.
 type ServiceRouterAdvertInterfacePrefix struct {
 	// LeafNodes
-	ServiceRouterAdvertInterfacePrefixNoAutonomousFlag  customtypes.CustomStringValue `tfsdk:"no_autonomous_flag" json:"no-autonomous-flag,omitempty"`
-	ServiceRouterAdvertInterfacePrefixNoOnLinkFlag      customtypes.CustomStringValue `tfsdk:"no_on_link_flag" json:"no-on-link-flag,omitempty"`
-	ServiceRouterAdvertInterfacePrefixDeprecatePrefix   customtypes.CustomStringValue `tfsdk:"deprecate_prefix" json:"deprecate-prefix,omitempty"`
-	ServiceRouterAdvertInterfacePrefixDecrementLifetime customtypes.CustomStringValue `tfsdk:"decrement_lifetime" json:"decrement-lifetime,omitempty"`
-	ServiceRouterAdvertInterfacePrefixPreferredLifetime customtypes.CustomStringValue `tfsdk:"preferred_lifetime" json:"preferred-lifetime,omitempty"`
-	ServiceRouterAdvertInterfacePrefixValIDLifetime     customtypes.CustomStringValue `tfsdk:"valid_lifetime" json:"valid-lifetime,omitempty"`
+	LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag  types.String `tfsdk:"no_autonomous_flag"`
+	LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag      types.String `tfsdk:"no_on_link_flag"`
+	LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix   types.String `tfsdk:"deprecate_prefix"`
+	LeafServiceRouterAdvertInterfacePrefixDecrementLifetime types.String `tfsdk:"decrement_lifetime"`
+	LeafServiceRouterAdvertInterfacePrefixPreferredLifetime types.String `tfsdk:"preferred_lifetime"`
+	LeafServiceRouterAdvertInterfacePrefixValIDLifetime     types.String `tfsdk:"valid_lifetime"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceRouterAdvertInterfacePrefix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceRouterAdvertInterfacePrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.IsUnknown()) {
+		vyosData["no-autonomous-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.IsUnknown()) {
+		vyosData["no-on-link-flag"] = o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.IsUnknown()) {
+		vyosData["deprecate-prefix"] = o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.IsUnknown()) {
+		vyosData["decrement-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.IsUnknown()) {
+		vyosData["preferred-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsNull() || o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.IsUnknown()) {
+		vyosData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceRouterAdvertInterfacePrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
+
+	// Leafs
+	if value, ok := vyosData["no-autonomous-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixNoAutonomousFlag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-on-link-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixNoOnLinkFlag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["deprecate-prefix"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixDeprecatePrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["decrement-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixDecrementLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["preferred-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixPreferredLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["valid-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfacePrefixValIDLifetime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "prefix"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceRouterAdvertInterfacePrefix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"no_autonomous_flag": types.StringType,
+		"no_on_link_flag":    types.StringType,
+		"deprecate_prefix":   types.StringType,
+		"decrement_lifetime": types.StringType,
+		"preferred_lifetime": types.StringType,
+		"valid_lifetime":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceRouterAdvertInterfacePrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"no_autonomous_flag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix can not be used for stateless address auto-configuration
 
 `,
 		},
 
 		"no_on_link_flag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix can not be used for on-link determination
 
 `,
 		},
 
 		"deprecate_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Upon shutdown, this option will deprecate the prefix by announcing it in the shutdown RA
 
 `,
 		},
 
 		"decrement_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Lifetime is decremented by the number of seconds since the last RA - use in conjunction with a DHCPv6-PD prefix
 
 `,
 		},
 
 		"preferred_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain preferred
 
 |  Format  |  Description  |
@@ -76,8 +171,7 @@ func (o ServiceRouterAdvertInterfacePrefix) ResourceAttributes() map[string]sche
 		},
 
 		"valid_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time in seconds that the prefix will remain valid
 
 |  Format  |  Description  |

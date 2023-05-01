@@ -17,6 +17,6 @@ func (r protocolsPimInterface) Schema(ctx context.Context, req resource.SchemaRe
 PIM interface
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

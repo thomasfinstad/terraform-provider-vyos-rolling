@@ -2,40 +2,133 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginUser describes the resource data model.
 type SystemLoginUser struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemLoginUserFullName      customtypes.CustomStringValue `tfsdk:"full_name" json:"full-name,omitempty"`
-	SystemLoginUserHomeDirectory customtypes.CustomStringValue `tfsdk:"home_directory" json:"home-directory,omitempty"`
+	LeafSystemLoginUserFullName      types.String `tfsdk:"full_name"`
+	LeafSystemLoginUserHomeDirectory types.String `tfsdk:"home_directory"`
 
 	// TagNodes
 
 	// Nodes
-	SystemLoginUserAuthentication types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeSystemLoginUserAuthentication types.Object `tfsdk:"authentication"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemLoginUser) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemLoginUser) GetVyosPath() []string {
+	return []string{
+		"system",
+		"login",
+		"user",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemLoginUser) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "user"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemLoginUserFullName.IsNull() || o.LeafSystemLoginUserFullName.IsUnknown()) {
+		vyosData["full-name"] = o.LeafSystemLoginUserFullName.ValueString()
+	}
+	if !(o.LeafSystemLoginUserHomeDirectory.IsNull() || o.LeafSystemLoginUserHomeDirectory.IsUnknown()) {
+		vyosData["home-directory"] = o.LeafSystemLoginUserHomeDirectory.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeSystemLoginUserAuthentication.IsNull() || o.NodeSystemLoginUserAuthentication.IsUnknown()) {
+		var subModel SystemLoginUserAuthentication
+		diags.Append(o.NodeSystemLoginUserAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemLoginUser) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "user"}})
+
+	// Leafs
+	if value, ok := vyosData["full-name"]; ok {
+		o.LeafSystemLoginUserFullName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserFullName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["home-directory"]; ok {
+		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserHomeDirectory = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemLoginUserAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemLoginUserAuthentication = data
+
+	} else {
+		o.NodeSystemLoginUserAuthentication = basetypes.NewObjectNull(SystemLoginUserAuthentication{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "user"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemLoginUser) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"full_name":      types.StringType,
+		"home_directory": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"authentication": types.ObjectType{AttrTypes: SystemLoginUserAuthentication{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemLoginUser) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Local user account information
+
+`,
+		},
+
 		// LeafNodes
 
 		"full_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Full name of the user (use quotes for names with spaces)
 
 `,
 		},
 
 		"home_directory": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Home directory
 
 `,
@@ -46,7 +139,7 @@ func (o SystemLoginUser) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: SystemLoginUserAuthentication{}.ResourceAttributes(),
+			Attributes: SystemLoginUserAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Authentication settings
 

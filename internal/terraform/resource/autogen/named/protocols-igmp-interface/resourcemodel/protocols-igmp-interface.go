@@ -2,33 +2,141 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIgmpInterface describes the resource data model.
 type ProtocolsIgmpInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsIgmpInterfaceVersion              customtypes.CustomStringValue `tfsdk:"version" json:"version,omitempty"`
-	ProtocolsIgmpInterfaceQueryInterval        customtypes.CustomStringValue `tfsdk:"query_interval" json:"query-interval,omitempty"`
-	ProtocolsIgmpInterfaceQueryMaxResponseTime customtypes.CustomStringValue `tfsdk:"query_max_response_time" json:"query-max-response-time,omitempty"`
+	LeafProtocolsIgmpInterfaceVersion              types.String `tfsdk:"version"`
+	LeafProtocolsIgmpInterfaceQueryInterval        types.String `tfsdk:"query_interval"`
+	LeafProtocolsIgmpInterfaceQueryMaxResponseTime types.String `tfsdk:"query_max_response_time"`
 
 	// TagNodes
-	ProtocolsIgmpInterfaceJoin types.Map `tfsdk:"join" json:"join,omitempty"`
+	TagProtocolsIgmpInterfaceJoin types.Map `tfsdk:"join"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsIgmpInterface) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"igmp",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsIgmpInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsIgmpInterfaceVersion.IsNull() || o.LeafProtocolsIgmpInterfaceVersion.IsUnknown()) {
+		vyosData["version"] = o.LeafProtocolsIgmpInterfaceVersion.ValueString()
+	}
+	if !(o.LeafProtocolsIgmpInterfaceQueryInterval.IsNull() || o.LeafProtocolsIgmpInterfaceQueryInterval.IsUnknown()) {
+		vyosData["query-interval"] = o.LeafProtocolsIgmpInterfaceQueryInterval.ValueString()
+	}
+	if !(o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsNull() || o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.IsUnknown()) {
+		vyosData["query-max-response-time"] = o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime.ValueString()
+	}
+
+	// Tags
+	if !(o.TagProtocolsIgmpInterfaceJoin.IsNull() || o.TagProtocolsIgmpInterfaceJoin.IsUnknown()) {
+		subModel := make(map[string]ProtocolsIgmpInterfaceJoin)
+		diags.Append(o.TagProtocolsIgmpInterfaceJoin.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["join"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsIgmpInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["version"]; ok {
+		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceVersion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["query-interval"]; ok {
+		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceQueryInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["query-max-response-time"]; ok {
+		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpInterfaceQueryMaxResponseTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["join"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsIgmpInterfaceJoin{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsIgmpInterfaceJoin = data
+	} else {
+		o.TagProtocolsIgmpInterfaceJoin = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "igmp", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsIgmpInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"version":                 types.StringType,
+		"query_interval":          types.StringType,
+		"query_max_response_time": types.StringType,
+
+		// Tags
+		"join": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsIgmpInterfaceJoin{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsIgmpInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IGMP interface
+
+`,
+		},
+
 		// LeafNodes
 
 		"version": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IGMP version
 
 |  Format  |  Description  |
@@ -40,8 +148,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"query_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IGMP host query interval
 
 |  Format  |  Description  |
@@ -52,8 +159,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"query_max_response_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IGMP max query response time
 
 |  Format  |  Description  |
@@ -67,7 +173,7 @@ func (o ProtocolsIgmpInterface) ResourceAttributes() map[string]schema.Attribute
 
 		"join": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsIgmpInterfaceJoin{}.ResourceAttributes(),
+				Attributes: ProtocolsIgmpInterfaceJoin{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IGMP join multicast group

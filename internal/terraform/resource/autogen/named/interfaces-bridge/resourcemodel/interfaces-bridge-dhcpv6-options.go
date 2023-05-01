@@ -2,34 +2,132 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDgeDhcpvsixOptions describes the resource data model.
 type InterfacesBrIDgeDhcpvsixOptions struct {
 	// LeafNodes
-	InterfacesBrIDgeDhcpvsixOptionsDuID           customtypes.CustomStringValue `tfsdk:"duid" json:"duid,omitempty"`
-	InterfacesBrIDgeDhcpvsixOptionsParametersOnly customtypes.CustomStringValue `tfsdk:"parameters_only" json:"parameters-only,omitempty"`
-	InterfacesBrIDgeDhcpvsixOptionsRAPIDCommit    customtypes.CustomStringValue `tfsdk:"rapid_commit" json:"rapid-commit,omitempty"`
-	InterfacesBrIDgeDhcpvsixOptionsTemporary      customtypes.CustomStringValue `tfsdk:"temporary" json:"temporary,omitempty"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsDuID           types.String `tfsdk:"duid"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly types.String `tfsdk:"parameters_only"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit    types.String `tfsdk:"rapid_commit"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsTemporary      types.String `tfsdk:"temporary"`
 
 	// TagNodes
-	InterfacesBrIDgeDhcpvsixOptionsPd types.Map `tfsdk:"pd" json:"pd,omitempty"`
+	TagInterfacesBrIDgeDhcpvsixOptionsPd types.Map `tfsdk:"pd"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBrIDgeDhcpvsixOptions) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBrIDgeDhcpvsixOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsDuID.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsDuID.IsUnknown()) {
+		vyosData["duid"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsDuID.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly.IsUnknown()) {
+		vyosData["parameters-only"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit.IsUnknown()) {
+		vyosData["rapid-commit"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsTemporary.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsTemporary.IsUnknown()) {
+		vyosData["temporary"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsTemporary.ValueString()
+	}
+
+	// Tags
+	if !(o.TagInterfacesBrIDgeDhcpvsixOptionsPd.IsNull() || o.TagInterfacesBrIDgeDhcpvsixOptionsPd.IsUnknown()) {
+		subModel := make(map[string]InterfacesBrIDgeDhcpvsixOptionsPd)
+		diags.Append(o.TagInterfacesBrIDgeDhcpvsixOptionsPd.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["pd"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBrIDgeDhcpvsixOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options"}})
+
+	// Leafs
+	if value, ok := vyosData["duid"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsDuID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsDuID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["parameters-only"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsParametersOnly = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rapid-commit"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsRAPIDCommit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["temporary"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsTemporary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsTemporary = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["pd"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesBrIDgeDhcpvsixOptionsPd{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesBrIDgeDhcpvsixOptionsPd = data
+	} else {
+		o.TagInterfacesBrIDgeDhcpvsixOptionsPd = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBrIDgeDhcpvsixOptions) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"duid":            types.StringType,
+		"parameters_only": types.StringType,
+		"rapid_commit":    types.StringType,
+		"temporary":       types.StringType,
+
+		// Tags
+		"pd": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesBrIDgeDhcpvsixOptionsPd{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBrIDgeDhcpvsixOptions) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"duid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
 |  Format  |  Description  |
@@ -40,24 +138,21 @@ func (o InterfacesBrIDgeDhcpvsixOptions) ResourceAttributes() map[string]schema.
 		},
 
 		"parameters_only": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acquire only config parameters, no address
 
 `,
 		},
 
 		"rapid_commit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Wait for immediate reply instead of advertisements
 
 `,
 		},
 
 		"temporary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 temporary address
 
 `,
@@ -67,7 +162,7 @@ func (o InterfacesBrIDgeDhcpvsixOptions) ResourceAttributes() map[string]schema.
 
 		"pd": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesBrIDgeDhcpvsixOptionsPd{}.ResourceAttributes(),
+				Attributes: InterfacesBrIDgeDhcpvsixOptionsPd{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `DHCPv6 prefix delegation interface statement

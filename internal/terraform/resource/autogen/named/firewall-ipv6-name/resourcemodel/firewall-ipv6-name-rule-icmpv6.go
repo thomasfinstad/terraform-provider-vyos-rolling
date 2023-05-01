@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleIcmpvsix describes the resource data model.
 type FirewallIPvsixNameRuleIcmpvsix struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleIcmpvsixCode     customtypes.CustomStringValue `tfsdk:"code" json:"code,omitempty"`
-	FirewallIPvsixNameRuleIcmpvsixType     customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
-	FirewallIPvsixNameRuleIcmpvsixTypeName customtypes.CustomStringValue `tfsdk:"type_name" json:"type-name,omitempty"`
+	LeafFirewallIPvsixNameRuleIcmpvsixCode     types.String `tfsdk:"code"`
+	LeafFirewallIPvsixNameRuleIcmpvsixType     types.String `tfsdk:"type"`
+	LeafFirewallIPvsixNameRuleIcmpvsixTypeName types.String `tfsdk:"type_name"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleIcmpvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixCode.IsUnknown()) {
+		vyosData["code"] = o.LeafFirewallIPvsixNameRuleIcmpvsixCode.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixType.IsUnknown()) {
+		vyosData["type"] = o.LeafFirewallIPvsixNameRuleIcmpvsixType.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsNull() || o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.IsUnknown()) {
+		vyosData["type-name"] = o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleIcmpvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
+
+	// Leafs
+	if value, ok := vyosData["code"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixCode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type-name"]; ok {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIcmpvsixTypeName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "icmpv6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleIcmpvsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"code":      types.StringType,
+		"type":      types.StringType,
+		"type_name": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleIcmpvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"code": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMPv6 code
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.A
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMPv6 type
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o FirewallIPvsixNameRuleIcmpvsix) ResourceAttributes() map[string]schema.A
 		},
 
 		"type_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMPv6 type-name
 
 |  Format  |  Description  |

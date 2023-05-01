@@ -14,6 +14,7 @@ func systemtimezone() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func systemtimezone() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				LeafNode: []*interfacedefinition.LeafNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "leafNode",
 					},

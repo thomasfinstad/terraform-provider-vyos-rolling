@@ -2,94 +2,216 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleTCPFlags describes the resource data model.
 type PolicyRoutesixRuleTCPFlags struct {
 	// LeafNodes
-	PolicyRoutesixRuleTCPFlagsSyn customtypes.CustomStringValue `tfsdk:"syn" json:"syn,omitempty"`
-	PolicyRoutesixRuleTCPFlagsAck customtypes.CustomStringValue `tfsdk:"ack" json:"ack,omitempty"`
-	PolicyRoutesixRuleTCPFlagsFin customtypes.CustomStringValue `tfsdk:"fin" json:"fin,omitempty"`
-	PolicyRoutesixRuleTCPFlagsRst customtypes.CustomStringValue `tfsdk:"rst" json:"rst,omitempty"`
-	PolicyRoutesixRuleTCPFlagsUrg customtypes.CustomStringValue `tfsdk:"urg" json:"urg,omitempty"`
-	PolicyRoutesixRuleTCPFlagsPsh customtypes.CustomStringValue `tfsdk:"psh" json:"psh,omitempty"`
-	PolicyRoutesixRuleTCPFlagsEcn customtypes.CustomStringValue `tfsdk:"ecn" json:"ecn,omitempty"`
-	PolicyRoutesixRuleTCPFlagsCwr customtypes.CustomStringValue `tfsdk:"cwr" json:"cwr,omitempty"`
+	LeafPolicyRoutesixRuleTCPFlagsSyn types.String `tfsdk:"syn"`
+	LeafPolicyRoutesixRuleTCPFlagsAck types.String `tfsdk:"ack"`
+	LeafPolicyRoutesixRuleTCPFlagsFin types.String `tfsdk:"fin"`
+	LeafPolicyRoutesixRuleTCPFlagsRst types.String `tfsdk:"rst"`
+	LeafPolicyRoutesixRuleTCPFlagsUrg types.String `tfsdk:"urg"`
+	LeafPolicyRoutesixRuleTCPFlagsPsh types.String `tfsdk:"psh"`
+	LeafPolicyRoutesixRuleTCPFlagsEcn types.String `tfsdk:"ecn"`
+	LeafPolicyRoutesixRuleTCPFlagsCwr types.String `tfsdk:"cwr"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRoutesixRuleTCPFlagsNot types.Object `tfsdk:"not" json:"not,omitempty"`
+	NodePolicyRoutesixRuleTCPFlagsNot types.Object `tfsdk:"not"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleTCPFlags) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleTCPFlags) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "tcp", "flags"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsSyn.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsSyn.IsUnknown()) {
+		vyosData["syn"] = o.LeafPolicyRoutesixRuleTCPFlagsSyn.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsAck.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsAck.IsUnknown()) {
+		vyosData["ack"] = o.LeafPolicyRoutesixRuleTCPFlagsAck.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsFin.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsFin.IsUnknown()) {
+		vyosData["fin"] = o.LeafPolicyRoutesixRuleTCPFlagsFin.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsRst.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsRst.IsUnknown()) {
+		vyosData["rst"] = o.LeafPolicyRoutesixRuleTCPFlagsRst.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsUrg.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsUrg.IsUnknown()) {
+		vyosData["urg"] = o.LeafPolicyRoutesixRuleTCPFlagsUrg.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsPsh.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsPsh.IsUnknown()) {
+		vyosData["psh"] = o.LeafPolicyRoutesixRuleTCPFlagsPsh.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsEcn.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsEcn.IsUnknown()) {
+		vyosData["ecn"] = o.LeafPolicyRoutesixRuleTCPFlagsEcn.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleTCPFlagsCwr.IsNull() || o.LeafPolicyRoutesixRuleTCPFlagsCwr.IsUnknown()) {
+		vyosData["cwr"] = o.LeafPolicyRoutesixRuleTCPFlagsCwr.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRoutesixRuleTCPFlagsNot.IsNull() || o.NodePolicyRoutesixRuleTCPFlagsNot.IsUnknown()) {
+		var subModel PolicyRoutesixRuleTCPFlagsNot
+		diags.Append(o.NodePolicyRoutesixRuleTCPFlagsNot.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["not"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleTCPFlags) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "tcp", "flags"}})
+
+	// Leafs
+	if value, ok := vyosData["syn"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsSyn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsSyn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ack"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsAck = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fin"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsFin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsFin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rst"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsRst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsRst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["urg"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsUrg = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsUrg = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["psh"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsPsh = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsPsh = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ecn"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsEcn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsEcn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cwr"]; ok {
+		o.LeafPolicyRoutesixRuleTCPFlagsCwr = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleTCPFlagsCwr = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["not"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleTCPFlagsNot{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleTCPFlagsNot = data
+
+	} else {
+		o.NodePolicyRoutesixRuleTCPFlagsNot = basetypes.NewObjectNull(PolicyRoutesixRuleTCPFlagsNot{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "tcp", "flags"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleTCPFlags) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"syn": types.StringType,
+		"ack": types.StringType,
+		"fin": types.StringType,
+		"rst": types.StringType,
+		"urg": types.StringType,
+		"psh": types.StringType,
+		"ecn": types.StringType,
+		"cwr": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"not": types.ObjectType{AttrTypes: PolicyRoutesixRuleTCPFlagsNot{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleTCPFlags) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"syn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Synchronise flag
 
 `,
 		},
 
 		"ack": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acknowledge flag
 
 `,
 		},
 
 		"fin": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Finish flag
 
 `,
 		},
 
 		"rst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Reset flag
 
 `,
 		},
 
 		"urg": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Urgent flag
 
 `,
 		},
 
 		"psh": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Push flag
 
 `,
 		},
 
 		"ecn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Explicit Congestion Notification flag
 
 `,
 		},
 
 		"cwr": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Congestion Window Reduced flag
 
 `,
@@ -100,7 +222,7 @@ func (o PolicyRoutesixRuleTCPFlags) ResourceAttributes() map[string]schema.Attri
 		// Nodes
 
 		"not": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleTCPFlagsNot{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleTCPFlagsNot{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match flags not set
 

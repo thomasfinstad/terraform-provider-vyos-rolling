@@ -2,36 +2,152 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleDestination describes the resource data model.
 type FirewallIPvsixNameRuleDestination struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleDestinationAddress     customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	FirewallIPvsixNameRuleDestinationFqdn        customtypes.CustomStringValue `tfsdk:"fqdn" json:"fqdn,omitempty"`
-	FirewallIPvsixNameRuleDestinationPort        customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	FirewallIPvsixNameRuleDestinationAddressMask customtypes.CustomStringValue `tfsdk:"address_mask" json:"address-mask,omitempty"`
-	FirewallIPvsixNameRuleDestinationMacAddress  customtypes.CustomStringValue `tfsdk:"mac_address" json:"mac-address,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationAddress     types.String `tfsdk:"address"`
+	LeafFirewallIPvsixNameRuleDestinationFqdn        types.String `tfsdk:"fqdn"`
+	LeafFirewallIPvsixNameRuleDestinationPort        types.String `tfsdk:"port"`
+	LeafFirewallIPvsixNameRuleDestinationAddressMask types.String `tfsdk:"address_mask"`
+	LeafFirewallIPvsixNameRuleDestinationMacAddress  types.String `tfsdk:"mac_address"`
 
 	// TagNodes
 
 	// Nodes
-	FirewallIPvsixNameRuleDestinationGeoIP types.Object `tfsdk:"geoip" json:"geoip,omitempty"`
-	FirewallIPvsixNameRuleDestinationGroup types.Object `tfsdk:"group" json:"group,omitempty"`
+	NodeFirewallIPvsixNameRuleDestinationGeoIP types.Object `tfsdk:"geoip"`
+	NodeFirewallIPvsixNameRuleDestinationGroup types.Object `tfsdk:"group"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleDestinationAddress.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafFirewallIPvsixNameRuleDestinationAddress.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationFqdn.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationFqdn.IsUnknown()) {
+		vyosData["fqdn"] = o.LeafFirewallIPvsixNameRuleDestinationFqdn.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationPort.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationPort.IsUnknown()) {
+		vyosData["port"] = o.LeafFirewallIPvsixNameRuleDestinationPort.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationAddressMask.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationAddressMask.IsUnknown()) {
+		vyosData["address-mask"] = o.LeafFirewallIPvsixNameRuleDestinationAddressMask.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationMacAddress.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationMacAddress.IsUnknown()) {
+		vyosData["mac-address"] = o.LeafFirewallIPvsixNameRuleDestinationMacAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeFirewallIPvsixNameRuleDestinationGeoIP.IsNull() || o.NodeFirewallIPvsixNameRuleDestinationGeoIP.IsUnknown()) {
+		var subModel FirewallIPvsixNameRuleDestinationGeoIP
+		diags.Append(o.NodeFirewallIPvsixNameRuleDestinationGeoIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["geoip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeFirewallIPvsixNameRuleDestinationGroup.IsNull() || o.NodeFirewallIPvsixNameRuleDestinationGroup.IsUnknown()) {
+		var subModel FirewallIPvsixNameRuleDestinationGroup
+		diags.Append(o.NodeFirewallIPvsixNameRuleDestinationGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fqdn"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationFqdn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationFqdn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["address-mask"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationAddressMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationAddressMask = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-address"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationMacAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationMacAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["geoip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallIPvsixNameRuleDestinationGeoIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallIPvsixNameRuleDestinationGeoIP = data
+
+	} else {
+		o.NodeFirewallIPvsixNameRuleDestinationGeoIP = basetypes.NewObjectNull(FirewallIPvsixNameRuleDestinationGeoIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["group"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallIPvsixNameRuleDestinationGroup{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallIPvsixNameRuleDestinationGroup = data
+
+	} else {
+		o.NodeFirewallIPvsixNameRuleDestinationGroup = basetypes.NewObjectNull(FirewallIPvsixNameRuleDestinationGroup{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleDestination) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":      types.StringType,
+		"fqdn":         types.StringType,
+		"port":         types.StringType,
+		"address_mask": types.StringType,
+		"mac_address":  types.StringType,
+
+		// Tags
+
+		// Nodes
+		"geoip": types.ObjectType{AttrTypes: FirewallIPvsixNameRuleDestinationGeoIP{}.AttributeTypes()},
+		"group": types.ObjectType{AttrTypes: FirewallIPvsixNameRuleDestinationGroup{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -47,8 +163,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		},
 
 		"fqdn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Fully qualified domain name
 
 |  Format  |  Description  |
@@ -59,8 +174,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port
 
 |  Format  |  Description  |
@@ -74,8 +188,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		},
 
 		"address_mask": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP mask
 
 |  Format  |  Description  |
@@ -86,8 +199,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		},
 
 		"mac_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MAC address
 
 |  Format  |  Description  |
@@ -103,7 +215,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		// Nodes
 
 		"geoip": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixNameRuleDestinationGeoIP{}.ResourceAttributes(),
+			Attributes: FirewallIPvsixNameRuleDestinationGeoIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `GeoIP options - Data provided by DB-IP.com
 
@@ -111,7 +223,7 @@ func (o FirewallIPvsixNameRuleDestination) ResourceAttributes() map[string]schem
 		},
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: FirewallIPvsixNameRuleDestinationGroup{}.ResourceAttributes(),
+			Attributes: FirewallIPvsixNameRuleDestinationGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
 

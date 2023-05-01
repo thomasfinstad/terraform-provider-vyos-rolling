@@ -23,6 +23,6 @@ Local user authentication for remote access PPTP VPN
 User name for authentication
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

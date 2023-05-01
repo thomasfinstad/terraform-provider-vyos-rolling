@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDgeDhcpvsixOptionsPdInterface describes the resource data model.
 type InterfacesBrIDgeDhcpvsixOptionsPdInterface struct {
 	// LeafNodes
-	InterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID   customtypes.CustomStringValue `tfsdk:"sla_id" json:"sla-id,omitempty"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress types.String `tfsdk:"address"`
+	LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID   types.String `tfsdk:"sla_id"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBrIDgeDhcpvsixOptionsPdInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options", "pd", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID.IsNull() || o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID.IsUnknown()) {
+		vyosData["sla-id"] = o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBrIDgeDhcpvsixOptionsPdInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options", "pd", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["sla-id"]; ok {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeDhcpvsixOptionsPdInterfaceSLAID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge", "dhcpv6-options", "pd", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+		"sla_id":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Local interface address assigned to interface (default: EUI-64)
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesBrIDgeDhcpvsixOptionsPdInterface) ResourceAttributes() map[str
 		},
 
 		"sla_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface site-Level aggregator (SLA)
 
 |  Format  |  Description  |

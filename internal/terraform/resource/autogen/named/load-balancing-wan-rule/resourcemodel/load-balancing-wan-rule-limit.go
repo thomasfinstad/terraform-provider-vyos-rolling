@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanRuleLimit describes the resource data model.
 type LoadBalancingWanRuleLimit struct {
 	// LeafNodes
-	LoadBalancingWanRuleLimitBurst     customtypes.CustomStringValue `tfsdk:"burst" json:"burst,omitempty"`
-	LoadBalancingWanRuleLimitPeriod    customtypes.CustomStringValue `tfsdk:"period" json:"period,omitempty"`
-	LoadBalancingWanRuleLimitRate      customtypes.CustomStringValue `tfsdk:"rate" json:"rate,omitempty"`
-	LoadBalancingWanRuleLimitThreshold customtypes.CustomStringValue `tfsdk:"threshold" json:"threshold,omitempty"`
+	LeafLoadBalancingWanRuleLimitBurst     types.String `tfsdk:"burst"`
+	LeafLoadBalancingWanRuleLimitPeriod    types.String `tfsdk:"period"`
+	LeafLoadBalancingWanRuleLimitRate      types.String `tfsdk:"rate"`
+	LeafLoadBalancingWanRuleLimitThreshold types.String `tfsdk:"threshold"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *LoadBalancingWanRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafLoadBalancingWanRuleLimitBurst.IsNull() || o.LeafLoadBalancingWanRuleLimitBurst.IsUnknown()) {
+		vyosData["burst"] = o.LeafLoadBalancingWanRuleLimitBurst.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanRuleLimitPeriod.IsNull() || o.LeafLoadBalancingWanRuleLimitPeriod.IsUnknown()) {
+		vyosData["period"] = o.LeafLoadBalancingWanRuleLimitPeriod.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanRuleLimitRate.IsNull() || o.LeafLoadBalancingWanRuleLimitRate.IsUnknown()) {
+		vyosData["rate"] = o.LeafLoadBalancingWanRuleLimitRate.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanRuleLimitThreshold.IsNull() || o.LeafLoadBalancingWanRuleLimitThreshold.IsUnknown()) {
+		vyosData["threshold"] = o.LeafLoadBalancingWanRuleLimitThreshold.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *LoadBalancingWanRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
+
+	// Leafs
+	if value, ok := vyosData["burst"]; ok {
+		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitBurst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["period"]; ok {
+		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitPeriod = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rate"]; ok {
+		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitRate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["threshold"]; ok {
+		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleLimitThreshold = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o LoadBalancingWanRuleLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"burst":     types.StringType,
+		"period":    types.StringType,
+		"rate":      types.StringType,
+		"threshold": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o LoadBalancingWanRuleLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"burst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Burst limit for matching packets
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"period": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time window for rate calculation
 
 |  Format  |  Description  |
@@ -52,8 +132,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"rate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of packets used for rate limit
 
 |  Format  |  Description  |
@@ -64,8 +143,7 @@ func (o LoadBalancingWanRuleLimit) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"threshold": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Threshold behavior for limit
 
 |  Format  |  Description  |

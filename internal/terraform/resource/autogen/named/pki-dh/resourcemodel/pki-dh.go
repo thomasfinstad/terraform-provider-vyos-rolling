@@ -2,29 +2,101 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiDh describes the resource data model.
 type PkiDh struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PkiDhParameters customtypes.CustomStringValue `tfsdk:"parameters" json:"parameters,omitempty"`
+	LeafPkiDhParameters types.String `tfsdk:"parameters"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PkiDh) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PkiDh) GetVyosPath() []string {
+	return []string{
+		"pki",
+		"dh",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PkiDh) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "dh"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPkiDhParameters.IsNull() || o.LeafPkiDhParameters.IsUnknown()) {
+		vyosData["parameters"] = o.LeafPkiDhParameters.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PkiDh) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "dh"}})
+
+	// Leafs
+	if value, ok := vyosData["parameters"]; ok {
+		o.LeafPkiDhParameters = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiDhParameters = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "dh"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PkiDh) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"parameters": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PkiDh) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Diffie-Hellman parameters
+
+`,
+		},
+
 		// LeafNodes
 
 		"parameters": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DH parameters in PEM format
 
 `,

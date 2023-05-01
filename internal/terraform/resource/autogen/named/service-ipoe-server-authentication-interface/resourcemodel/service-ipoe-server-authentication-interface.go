@@ -2,30 +2,115 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerAuthenticationInterface describes the resource data model.
 type ServiceIPoeServerAuthenticationInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
-	ServiceIPoeServerAuthenticationInterfaceMac types.Map `tfsdk:"mac" json:"mac,omitempty"`
+	TagServiceIPoeServerAuthenticationInterfaceMac types.Map `tfsdk:"mac"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceIPoeServerAuthenticationInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceIPoeServerAuthenticationInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"ipoe-server",
+		"authentication",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceIPoeServerAuthenticationInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagServiceIPoeServerAuthenticationInterfaceMac.IsNull() || o.TagServiceIPoeServerAuthenticationInterfaceMac.IsUnknown()) {
+		subModel := make(map[string]ServiceIPoeServerAuthenticationInterfaceMac)
+		diags.Append(o.TagServiceIPoeServerAuthenticationInterfaceMac.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["mac"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceIPoeServerAuthenticationInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["mac"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceIPoeServerAuthenticationInterfaceMac{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceIPoeServerAuthenticationInterfaceMac = data
+	} else {
+		o.TagServiceIPoeServerAuthenticationInterfaceMac = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "authentication", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceIPoeServerAuthenticationInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"mac": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceIPoeServerAuthenticationInterfaceMac{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceIPoeServerAuthenticationInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Network interface for client MAC addresses
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
 
 		"mac": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceIPoeServerAuthenticationInterfaceMac{}.ResourceAttributes(),
+				Attributes: ServiceIPoeServerAuthenticationInterfaceMac{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address

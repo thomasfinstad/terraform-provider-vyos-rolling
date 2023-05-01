@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleTime describes the resource data model.
 type FirewallIPvsixNameRuleTime struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleTimeStartdate customtypes.CustomStringValue `tfsdk:"startdate" json:"startdate,omitempty"`
-	FirewallIPvsixNameRuleTimeStarttime customtypes.CustomStringValue `tfsdk:"starttime" json:"starttime,omitempty"`
-	FirewallIPvsixNameRuleTimeStopdate  customtypes.CustomStringValue `tfsdk:"stopdate" json:"stopdate,omitempty"`
-	FirewallIPvsixNameRuleTimeStoptime  customtypes.CustomStringValue `tfsdk:"stoptime" json:"stoptime,omitempty"`
-	FirewallIPvsixNameRuleTimeWeekdays  customtypes.CustomStringValue `tfsdk:"weekdays" json:"weekdays,omitempty"`
+	LeafFirewallIPvsixNameRuleTimeStartdate types.String `tfsdk:"startdate"`
+	LeafFirewallIPvsixNameRuleTimeStarttime types.String `tfsdk:"starttime"`
+	LeafFirewallIPvsixNameRuleTimeStopdate  types.String `tfsdk:"stopdate"`
+	LeafFirewallIPvsixNameRuleTimeStoptime  types.String `tfsdk:"stoptime"`
+	LeafFirewallIPvsixNameRuleTimeWeekdays  types.String `tfsdk:"weekdays"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleTime) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleTimeStartdate.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStartdate.IsUnknown()) {
+		vyosData["startdate"] = o.LeafFirewallIPvsixNameRuleTimeStartdate.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleTimeStarttime.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStarttime.IsUnknown()) {
+		vyosData["starttime"] = o.LeafFirewallIPvsixNameRuleTimeStarttime.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleTimeStopdate.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStopdate.IsUnknown()) {
+		vyosData["stopdate"] = o.LeafFirewallIPvsixNameRuleTimeStopdate.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleTimeStoptime.IsNull() || o.LeafFirewallIPvsixNameRuleTimeStoptime.IsUnknown()) {
+		vyosData["stoptime"] = o.LeafFirewallIPvsixNameRuleTimeStoptime.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsNull() || o.LeafFirewallIPvsixNameRuleTimeWeekdays.IsUnknown()) {
+		vyosData["weekdays"] = o.LeafFirewallIPvsixNameRuleTimeWeekdays.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleTime) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
+
+	// Leafs
+	if value, ok := vyosData["startdate"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStartdate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["starttime"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStarttime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stopdate"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStopdate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stoptime"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeStoptime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["weekdays"]; ok {
+		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleTimeWeekdays = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "time"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleTime) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"startdate": types.StringType,
+		"starttime": types.StringType,
+		"stopdate":  types.StringType,
+		"stoptime":  types.StringType,
+		"weekdays":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleTime) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"startdate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Date to start matching rule
 
 |  Format  |  Description  |
@@ -39,8 +129,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"starttime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time of day to start matching rule
 
 |  Format  |  Description  |
@@ -51,8 +140,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"stopdate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Date to stop matching rule
 
 |  Format  |  Description  |
@@ -63,8 +151,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"stoptime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time of day to stop matching rule
 
 |  Format  |  Description  |
@@ -75,8 +162,7 @@ func (o FirewallIPvsixNameRuleTime) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"weekdays": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Comma separated weekdays to match rule on
 
 |  Format  |  Description  |

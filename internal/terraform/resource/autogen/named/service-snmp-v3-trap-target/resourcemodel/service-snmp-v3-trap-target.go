@@ -2,35 +2,167 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeTrapTarget describes the resource data model.
 type ServiceSnmpVthreeTrapTarget struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpVthreeTrapTargetPort     customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	ServiceSnmpVthreeTrapTargetProtocol customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	ServiceSnmpVthreeTrapTargetType     customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
-	ServiceSnmpVthreeTrapTargetUser     customtypes.CustomStringValue `tfsdk:"user" json:"user,omitempty"`
+	LeafServiceSnmpVthreeTrapTargetPort     types.String `tfsdk:"port"`
+	LeafServiceSnmpVthreeTrapTargetProtocol types.String `tfsdk:"protocol"`
+	LeafServiceSnmpVthreeTrapTargetType     types.String `tfsdk:"type"`
+	LeafServiceSnmpVthreeTrapTargetUser     types.String `tfsdk:"user"`
 
 	// TagNodes
 
 	// Nodes
-	ServiceSnmpVthreeTrapTargetAuth    types.Object `tfsdk:"auth" json:"auth,omitempty"`
-	ServiceSnmpVthreeTrapTargetPrivacy types.Object `tfsdk:"privacy" json:"privacy,omitempty"`
+	NodeServiceSnmpVthreeTrapTargetAuth    types.Object `tfsdk:"auth"`
+	NodeServiceSnmpVthreeTrapTargetPrivacy types.Object `tfsdk:"privacy"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpVthreeTrapTarget) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"v3",
+		"trap-target",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpVthreeTrapTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpVthreeTrapTargetPort.IsNull() || o.LeafServiceSnmpVthreeTrapTargetPort.IsUnknown()) {
+		vyosData["port"] = o.LeafServiceSnmpVthreeTrapTargetPort.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeTrapTargetProtocol.IsNull() || o.LeafServiceSnmpVthreeTrapTargetProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafServiceSnmpVthreeTrapTargetProtocol.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeTrapTargetType.IsNull() || o.LeafServiceSnmpVthreeTrapTargetType.IsUnknown()) {
+		vyosData["type"] = o.LeafServiceSnmpVthreeTrapTargetType.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeTrapTargetUser.IsNull() || o.LeafServiceSnmpVthreeTrapTargetUser.IsUnknown()) {
+		vyosData["user"] = o.LeafServiceSnmpVthreeTrapTargetUser.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceSnmpVthreeTrapTargetAuth.IsNull() || o.NodeServiceSnmpVthreeTrapTargetAuth.IsUnknown()) {
+		var subModel ServiceSnmpVthreeTrapTargetAuth
+		diags.Append(o.NodeServiceSnmpVthreeTrapTargetAuth.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["auth"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeServiceSnmpVthreeTrapTargetPrivacy.IsNull() || o.NodeServiceSnmpVthreeTrapTargetPrivacy.IsUnknown()) {
+		var subModel ServiceSnmpVthreeTrapTargetPrivacy
+		diags.Append(o.NodeServiceSnmpVthreeTrapTargetPrivacy.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["privacy"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpVthreeTrapTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["user"]; ok {
+		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeTrapTargetUser = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["auth"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceSnmpVthreeTrapTargetAuth = data
+
+	} else {
+		o.NodeServiceSnmpVthreeTrapTargetAuth = basetypes.NewObjectNull(ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes())
+	}
+	if value, ok := vyosData["privacy"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceSnmpVthreeTrapTargetPrivacy = data
+
+	} else {
+		o.NodeServiceSnmpVthreeTrapTargetPrivacy = basetypes.NewObjectNull(ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "trap-target"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpVthreeTrapTarget) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":     types.StringType,
+		"protocol": types.StringType,
+		"type":     types.StringType,
+		"user":     types.StringType,
+
+		// Tags
+
+		// Nodes
+		"auth":    types.ObjectType{AttrTypes: ServiceSnmpVthreeTrapTargetAuth{}.AttributeTypes()},
+		"privacy": types.ObjectType{AttrTypes: ServiceSnmpVthreeTrapTargetPrivacy{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpVthreeTrapTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Defines SNMP target for inform or traps for IP
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IP address of trap target  |
+|  ipv6  |  IPv6 address of trap target  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -44,8 +176,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol to be used (TCP/UDP)
 
 |  Format  |  Description  |
@@ -60,8 +191,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies the type of notification between inform and trap
 
 |  Format  |  Description  |
@@ -76,8 +206,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"user": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Defines username for authentication
 
 `,
@@ -88,7 +217,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 		// Nodes
 
 		"auth": schema.SingleNestedAttribute{
-			Attributes: ServiceSnmpVthreeTrapTargetAuth{}.ResourceAttributes(),
+			Attributes: ServiceSnmpVthreeTrapTargetAuth{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Defines the privacy
 
@@ -96,7 +225,7 @@ func (o ServiceSnmpVthreeTrapTarget) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"privacy": schema.SingleNestedAttribute{
-			Attributes: ServiceSnmpVthreeTrapTargetPrivacy{}.ResourceAttributes(),
+			Attributes: ServiceSnmpVthreeTrapTargetPrivacy{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Defines the privacy
 

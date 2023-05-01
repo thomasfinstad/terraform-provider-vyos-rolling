@@ -2,34 +2,137 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpath describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpath struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersBestpathBandwIDth       customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathCompareRouterID customtypes.CustomStringValue `tfsdk:"compare_routerid" json:"compare-routerid,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathBandwIDth       types.String `tfsdk:"bandwidth"`
+	LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID types.String `tfsdk:"compare_routerid"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpParametersBestpathAsPath   types.Object `tfsdk:"as_path" json:"as-path,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathMed      types.Object `tfsdk:"med" json:"med,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathPeerType types.Object `tfsdk:"peer_type" json:"peer-type,omitempty"`
+	NodeVrfNameProtocolsBgpParametersBestpathAsPath   types.Object `tfsdk:"as_path"`
+	NodeVrfNameProtocolsBgpParametersBestpathMed      types.Object `tfsdk:"med"`
+	NodeVrfNameProtocolsBgpParametersBestpathPeerType types.Object `tfsdk:"peer_type"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersBestpath) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.IsUnknown()) {
+		vyosData["compare-routerid"] = o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersBestpathAsPath
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathAsPath.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["as-path"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersBestpathMed.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathMed.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersBestpathMed
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathMed.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["med"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersBestpathPeerType
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpathPeerType.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["peer-type"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersBestpath) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
+
+	// Leafs
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathBandwIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["compare-routerid"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathCompareRouterID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["as-path"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersBestpathAsPath = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes())
+	}
+	if value, ok := vyosData["med"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersBestpathMed = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersBestpathMed = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes())
+	}
+	if value, ok := vyosData["peer-type"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersBestpathPeerType = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpath) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"bandwidth":        types.StringType,
+		"compare_routerid": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"as_path":   types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathAsPath{}.AttributeTypes()},
+		"med":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathMed{}.AttributeTypes()},
+		"peer_type": types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpathPeerType{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpath) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Link Bandwidth attribute
 
 |  Format  |  Description  |
@@ -42,8 +145,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]s
 		},
 
 		"compare_routerid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Compare the router-id for identical EBGP paths
 
 `,
@@ -54,7 +156,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]s
 		// Nodes
 
 		"as_path": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathAsPath{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpathAsPath{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `AS-path attribute comparison parameters
 
@@ -62,7 +164,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]s
 		},
 
 		"med": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathMed{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpathMed{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `MED attribute comparison parameters
 
@@ -70,7 +172,7 @@ func (o VrfNameProtocolsBgpParametersBestpath) ResourceAttributes() map[string]s
 		},
 
 		"peer_type": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpathPeerType{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpathPeerType{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Peer type
 

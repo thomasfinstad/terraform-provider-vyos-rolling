@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanMirror describes the resource data model.
 type InterfacesVxlanMirror struct {
 	// LeafNodes
-	InterfacesVxlanMirrorIngress customtypes.CustomStringValue `tfsdk:"ingress" json:"ingress,omitempty"`
-	InterfacesVxlanMirrorEgress  customtypes.CustomStringValue `tfsdk:"egress" json:"egress,omitempty"`
+	LeafInterfacesVxlanMirrorIngress types.String `tfsdk:"ingress"`
+	LeafInterfacesVxlanMirrorEgress  types.String `tfsdk:"egress"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVxlanMirror) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVxlanMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "mirror"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVxlanMirrorIngress.IsNull() || o.LeafInterfacesVxlanMirrorIngress.IsUnknown()) {
+		vyosData["ingress"] = o.LeafInterfacesVxlanMirrorIngress.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanMirrorEgress.IsNull() || o.LeafInterfacesVxlanMirrorEgress.IsUnknown()) {
+		vyosData["egress"] = o.LeafInterfacesVxlanMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVxlanMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "mirror"}})
+
+	// Leafs
+	if value, ok := vyosData["ingress"]; ok {
+		o.LeafInterfacesVxlanMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanMirrorIngress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["egress"]; ok {
+		o.LeafInterfacesVxlanMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "mirror"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVxlanMirror) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ingress": types.StringType,
+		"egress":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVxlanMirror) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ingress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror ingress traffic to destination interface
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesVxlanMirror) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"egress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror egress traffic to destination interface
 
 |  Format  |  Description  |

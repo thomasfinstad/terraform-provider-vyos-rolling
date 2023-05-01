@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpathPeerType describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathPeerType struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax customtypes.CustomStringValue `tfsdk:"multipath_relax" json:"multipath-relax,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax types.String `tfsdk:"multipath_relax"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersBestpathPeerType) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "peer-type"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.IsUnknown()) {
+		vyosData["multipath-relax"] = o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersBestpathPeerType) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "peer-type"}})
+
+	// Leafs
+	if value, ok := vyosData["multipath-relax"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathPeerTypeMultIPathRelax = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "peer-type"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathPeerType) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"multipath_relax": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathPeerType) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"multipath_relax": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow load sharing across routes learned from different peer types
 
 `,

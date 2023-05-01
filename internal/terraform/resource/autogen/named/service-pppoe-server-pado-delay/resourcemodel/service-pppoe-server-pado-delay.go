@@ -2,29 +2,106 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerPadoDelay describes the resource data model.
 type ServicePppoeServerPadoDelay struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServicePppoeServerPadoDelaySessions customtypes.CustomStringValue `tfsdk:"sessions" json:"sessions,omitempty"`
+	LeafServicePppoeServerPadoDelaySessions types.String `tfsdk:"sessions"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServicePppoeServerPadoDelay) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServicePppoeServerPadoDelay) GetVyosPath() []string {
+	return []string{
+		"service",
+		"pppoe-server",
+		"pado-delay",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServicePppoeServerPadoDelay) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServicePppoeServerPadoDelaySessions.IsNull() || o.LeafServicePppoeServerPadoDelaySessions.IsUnknown()) {
+		vyosData["sessions"] = o.LeafServicePppoeServerPadoDelaySessions.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServicePppoeServerPadoDelay) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
+
+	// Leafs
+	if value, ok := vyosData["sessions"]; ok {
+		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerPadoDelaySessions = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "pado-delay"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServicePppoeServerPadoDelay) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"sessions": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServicePppoeServerPadoDelay) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `PADO delays
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-999999  |  Number in ms  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"sessions": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of sessions
 
 |  Format  |  Description  |

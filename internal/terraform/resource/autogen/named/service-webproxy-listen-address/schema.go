@@ -21,6 +21,6 @@ IPv4 listen-address for WebProxy
 |  ipv4  |  IPv4 address listen on  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,36 +2,178 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallZone describes the resource data model.
 type FirewallZone struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallZoneDescrIPtion      customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	FirewallZoneEnableDefaultLog customtypes.CustomStringValue `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
-	FirewallZoneDefaultAction    customtypes.CustomStringValue `tfsdk:"default_action" json:"default-action,omitempty"`
-	FirewallZoneInterface        customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	FirewallZoneLocalZone        customtypes.CustomStringValue `tfsdk:"local_zone" json:"local-zone,omitempty"`
+	LeafFirewallZoneDescrIPtion      types.String `tfsdk:"description"`
+	LeafFirewallZoneEnableDefaultLog types.String `tfsdk:"enable_default_log"`
+	LeafFirewallZoneDefaultAction    types.String `tfsdk:"default_action"`
+	LeafFirewallZoneInterface        types.String `tfsdk:"interface"`
+	LeafFirewallZoneLocalZone        types.String `tfsdk:"local_zone"`
 
 	// TagNodes
-	FirewallZoneFrom types.Map `tfsdk:"from" json:"from,omitempty"`
+	TagFirewallZoneFrom types.Map `tfsdk:"from"`
 
 	// Nodes
-	FirewallZoneIntraZoneFiltering types.Object `tfsdk:"intra_zone_filtering" json:"intra-zone-filtering,omitempty"`
+	NodeFirewallZoneIntraZoneFiltering types.Object `tfsdk:"intra_zone_filtering"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallZone) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"zone",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallZone) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "zone"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallZoneDescrIPtion.IsNull() || o.LeafFirewallZoneDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallZoneDescrIPtion.ValueString()
+	}
+	if !(o.LeafFirewallZoneEnableDefaultLog.IsNull() || o.LeafFirewallZoneEnableDefaultLog.IsUnknown()) {
+		vyosData["enable-default-log"] = o.LeafFirewallZoneEnableDefaultLog.ValueString()
+	}
+	if !(o.LeafFirewallZoneDefaultAction.IsNull() || o.LeafFirewallZoneDefaultAction.IsUnknown()) {
+		vyosData["default-action"] = o.LeafFirewallZoneDefaultAction.ValueString()
+	}
+	if !(o.LeafFirewallZoneInterface.IsNull() || o.LeafFirewallZoneInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafFirewallZoneInterface.ValueString()
+	}
+	if !(o.LeafFirewallZoneLocalZone.IsNull() || o.LeafFirewallZoneLocalZone.IsUnknown()) {
+		vyosData["local-zone"] = o.LeafFirewallZoneLocalZone.ValueString()
+	}
+
+	// Tags
+	if !(o.TagFirewallZoneFrom.IsNull() || o.TagFirewallZoneFrom.IsUnknown()) {
+		subModel := make(map[string]FirewallZoneFrom)
+		diags.Append(o.TagFirewallZoneFrom.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["from"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeFirewallZoneIntraZoneFiltering.IsNull() || o.NodeFirewallZoneIntraZoneFiltering.IsUnknown()) {
+		var subModel FirewallZoneIntraZoneFiltering
+		diags.Append(o.NodeFirewallZoneIntraZoneFiltering.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["intra-zone-filtering"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallZone) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "zone"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-default-log"]; ok {
+		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneEnableDefaultLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-action"]; ok {
+		o.LeafFirewallZoneDefaultAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneDefaultAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafFirewallZoneInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local-zone"]; ok {
+		o.LeafFirewallZoneLocalZone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallZoneLocalZone = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["from"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: FirewallZoneFrom{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagFirewallZoneFrom = data
+	} else {
+		o.TagFirewallZoneFrom = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["intra-zone-filtering"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, FirewallZoneIntraZoneFiltering{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeFirewallZoneIntraZoneFiltering = data
+
+	} else {
+		o.NodeFirewallZoneIntraZoneFiltering = basetypes.NewObjectNull(FirewallZoneIntraZoneFiltering{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "zone"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallZone) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":        types.StringType,
+		"enable_default_log": types.StringType,
+		"default_action":     types.StringType,
+		"interface":          types.StringType,
+		"local_zone":         types.StringType,
+
+		// Tags
+		"from": types.MapType{ElemType: types.ObjectType{AttrTypes: FirewallZoneFrom{}.AttributeTypes()}},
+
+		// Nodes
+		"intra_zone_filtering": types.ObjectType{AttrTypes: FirewallZoneIntraZoneFiltering{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallZone) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Zone-policy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Zone name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,16 +184,14 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"enable_default_log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
 		},
 
 		"default_action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default-action for traffic coming into this zone
 
 |  Format  |  Description  |
@@ -66,8 +206,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface associated with zone
 
 |  Format  |  Description  |
@@ -78,8 +217,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"local_zone": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Zone to be local-zone
 
 `,
@@ -89,7 +227,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 
 		"from": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: FirewallZoneFrom{}.ResourceAttributes(),
+				Attributes: FirewallZoneFrom{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Zone from which to filter traffic
@@ -100,7 +238,7 @@ func (o FirewallZone) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"intra_zone_filtering": schema.SingleNestedAttribute{
-			Attributes: FirewallZoneIntraZoneFiltering{}.ResourceAttributes(),
+			Attributes: FirewallZoneIntraZoneFiltering{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Intra-zone filtering
 

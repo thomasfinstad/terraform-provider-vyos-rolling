@@ -14,6 +14,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -39,6 +41,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -56,6 +59,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -87,6 +91,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Port number must be in range 1 to 65535"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -112,6 +117,7 @@ func systemproxy() interfacedefinition.InterfaceDefinition {
 								ConstraintErrorMessage: []string{"Username is limited to ASCII characters only, with a total length of 128"},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

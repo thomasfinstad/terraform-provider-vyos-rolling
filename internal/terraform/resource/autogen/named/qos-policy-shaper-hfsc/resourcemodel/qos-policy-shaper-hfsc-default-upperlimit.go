@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscDefaultUpperlimit describes the resource data model.
 type QosPolicyShaperHfscDefaultUpperlimit struct {
 	// LeafNodes
-	QosPolicyShaperHfscDefaultUpperlimitD    customtypes.CustomStringValue `tfsdk:"d" json:"d,omitempty"`
-	QosPolicyShaperHfscDefaultUpperlimitMone customtypes.CustomStringValue `tfsdk:"m1" json:"m1,omitempty"`
-	QosPolicyShaperHfscDefaultUpperlimitMtwo customtypes.CustomStringValue `tfsdk:"m2" json:"m2,omitempty"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitD    types.String `tfsdk:"d"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitMone types.String `tfsdk:"m1"`
+	LeafQosPolicyShaperHfscDefaultUpperlimitMtwo types.String `tfsdk:"m2"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscDefaultUpperlimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitD.IsUnknown()) {
+		vyosData["d"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitD.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.IsUnknown()) {
+		vyosData["m1"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMone.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsNull() || o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.IsUnknown()) {
+		vyosData["m2"] = o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscDefaultUpperlimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
+
+	// Leafs
+	if value, ok := vyosData["d"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitD = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMone = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscDefaultUpperlimitMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "default", "upperlimit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscDefaultUpperlimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"d":  types.StringType,
+		"m1": types.StringType,
+		"m2": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"d": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Service curve delay
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceAttributes() map[string]sc
 		},
 
 		"m1": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyShaperHfscDefaultUpperlimit) ResourceAttributes() map[string]sc
 		},
 
 		"m2": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
 
 |  Format  |  Description  |

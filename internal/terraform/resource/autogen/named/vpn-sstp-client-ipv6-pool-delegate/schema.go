@@ -23,6 +23,6 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 |  ipv6net  |  IPv6 address and prefix length  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

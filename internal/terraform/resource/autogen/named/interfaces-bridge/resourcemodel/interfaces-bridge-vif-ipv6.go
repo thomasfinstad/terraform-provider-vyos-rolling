@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBrIDgeVifIPvsix describes the resource data model.
 type InterfacesBrIDgeVifIPvsix struct {
 	// LeafNodes
-	InterfacesBrIDgeVifIPvsixAdjustMss              customtypes.CustomStringValue `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
-	InterfacesBrIDgeVifIPvsixDisableForwarding      customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
-	InterfacesBrIDgeVifIPvsixDupAddrDetectTransmits customtypes.CustomStringValue `tfsdk:"dup_addr_detect_transmits" json:"dup-addr-detect-transmits,omitempty"`
+	LeafInterfacesBrIDgeVifIPvsixAdjustMss              types.String `tfsdk:"adjust_mss"`
+	LeafInterfacesBrIDgeVifIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesBrIDgeVifIPvsixAddress types.Object `tfsdk:"address" json:"address,omitempty"`
+	NodeInterfacesBrIDgeVifIPvsixAddress types.Object `tfsdk:"address"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBrIDgeVifIPvsix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBrIDgeVifIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "ipv6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBrIDgeVifIPvsixAdjustMss.IsNull() || o.LeafInterfacesBrIDgeVifIPvsixAdjustMss.IsUnknown()) {
+		vyosData["adjust-mss"] = o.LeafInterfacesBrIDgeVifIPvsixAdjustMss.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeVifIPvsixDisableForwarding.IsNull() || o.LeafInterfacesBrIDgeVifIPvsixDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesBrIDgeVifIPvsixDisableForwarding.ValueString()
+	}
+	if !(o.LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits.IsNull() || o.LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits.IsUnknown()) {
+		vyosData["dup-addr-detect-transmits"] = o.LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesBrIDgeVifIPvsixAddress.IsNull() || o.NodeInterfacesBrIDgeVifIPvsixAddress.IsUnknown()) {
+		var subModel InterfacesBrIDgeVifIPvsixAddress
+		diags.Append(o.NodeInterfacesBrIDgeVifIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBrIDgeVifIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "ipv6"}})
+
+	// Leafs
+	if value, ok := vyosData["adjust-mss"]; ok {
+		o.LeafInterfacesBrIDgeVifIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifIPvsixAdjustMss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesBrIDgeVifIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dup-addr-detect-transmits"]; ok {
+		o.LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBrIDgeVifIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["address"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBrIDgeVifIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBrIDgeVifIPvsixAddress = data
+
+	} else {
+		o.NodeInterfacesBrIDgeVifIPvsixAddress = basetypes.NewObjectNull(InterfacesBrIDgeVifIPvsixAddress{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bridge", "vif", "ipv6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBrIDgeVifIPvsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"adjust_mss":                types.StringType,
+		"disable_forwarding":        types.StringType,
+		"dup_addr_detect_transmits": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"address": types.ObjectType{AttrTypes: InterfacesBrIDgeVifIPvsixAddress{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBrIDgeVifIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"adjust_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
 |  Format  |  Description  |
@@ -40,16 +124,14 @@ func (o InterfacesBrIDgeVifIPvsix) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
 		},
 
 		"dup_addr_detect_transmits": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of NS messages to send while performing DAD (default: 1)
 
 |  Format  |  Description  |
@@ -65,7 +147,7 @@ func (o InterfacesBrIDgeVifIPvsix) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: InterfacesBrIDgeVifIPvsixAddress{}.ResourceAttributes(),
+			Attributes: InterfacesBrIDgeVifIPvsixAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address configuration modes
 

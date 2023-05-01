@@ -21,6 +21,6 @@ Interface to apply QoS policy
 |  txt  |  Interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

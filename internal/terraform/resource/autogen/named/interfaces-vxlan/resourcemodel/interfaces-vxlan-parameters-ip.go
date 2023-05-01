@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanParametersIP describes the resource data model.
 type InterfacesVxlanParametersIP struct {
 	// LeafNodes
-	InterfacesVxlanParametersIPDf  customtypes.CustomStringValue `tfsdk:"df" json:"df,omitempty"`
-	InterfacesVxlanParametersIPTos customtypes.CustomStringValue `tfsdk:"tos" json:"tos,omitempty"`
-	InterfacesVxlanParametersIPTTL customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
+	LeafInterfacesVxlanParametersIPDf  types.String `tfsdk:"df"`
+	LeafInterfacesVxlanParametersIPTos types.String `tfsdk:"tos"`
+	LeafInterfacesVxlanParametersIPTTL types.String `tfsdk:"ttl"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVxlanParametersIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVxlanParametersIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVxlanParametersIPDf.IsNull() || o.LeafInterfacesVxlanParametersIPDf.IsUnknown()) {
+		vyosData["df"] = o.LeafInterfacesVxlanParametersIPDf.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanParametersIPTos.IsNull() || o.LeafInterfacesVxlanParametersIPTos.IsUnknown()) {
+		vyosData["tos"] = o.LeafInterfacesVxlanParametersIPTos.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanParametersIPTTL.IsNull() || o.LeafInterfacesVxlanParametersIPTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafInterfacesVxlanParametersIPTTL.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVxlanParametersIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["df"]; ok {
+		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPDf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tos"]; ok {
+		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPTos = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersIPTTL = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVxlanParametersIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"df":  types.StringType,
+		"tos": types.StringType,
+		"ttl": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVxlanParametersIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"df": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Usage of the DF (don't Fragment) bit in outgoing packets
 
 |  Format  |  Description  |
@@ -42,8 +114,7 @@ func (o InterfacesVxlanParametersIP) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"tos": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o InterfacesVxlanParametersIP) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
 |  Format  |  Description  |

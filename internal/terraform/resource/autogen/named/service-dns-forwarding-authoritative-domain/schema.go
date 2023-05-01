@@ -23,6 +23,6 @@ Domain to host authoritative records for
 |  text  |  An absolute DNS name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleState describes the resource data model.
 type FirewallNameRuleState struct {
 	// LeafNodes
-	FirewallNameRuleStateEstablished customtypes.CustomStringValue `tfsdk:"established" json:"established,omitempty"`
-	FirewallNameRuleStateInvalID     customtypes.CustomStringValue `tfsdk:"invalid" json:"invalid,omitempty"`
-	FirewallNameRuleStateNew         customtypes.CustomStringValue `tfsdk:"new" json:"new,omitempty"`
-	FirewallNameRuleStateRelated     customtypes.CustomStringValue `tfsdk:"related" json:"related,omitempty"`
+	LeafFirewallNameRuleStateEstablished types.String `tfsdk:"established"`
+	LeafFirewallNameRuleStateInvalID     types.String `tfsdk:"invalid"`
+	LeafFirewallNameRuleStateNew         types.String `tfsdk:"new"`
+	LeafFirewallNameRuleStateRelated     types.String `tfsdk:"related"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleState) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleState) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleStateEstablished.IsNull() || o.LeafFirewallNameRuleStateEstablished.IsUnknown()) {
+		vyosData["established"] = o.LeafFirewallNameRuleStateEstablished.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleStateInvalID.IsNull() || o.LeafFirewallNameRuleStateInvalID.IsUnknown()) {
+		vyosData["invalid"] = o.LeafFirewallNameRuleStateInvalID.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleStateNew.IsNull() || o.LeafFirewallNameRuleStateNew.IsUnknown()) {
+		vyosData["new"] = o.LeafFirewallNameRuleStateNew.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleStateRelated.IsNull() || o.LeafFirewallNameRuleStateRelated.IsUnknown()) {
+		vyosData["related"] = o.LeafFirewallNameRuleStateRelated.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleState) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
+
+	// Leafs
+	if value, ok := vyosData["established"]; ok {
+		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateEstablished = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["invalid"]; ok {
+		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateInvalID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["new"]; ok {
+		o.LeafFirewallNameRuleStateNew = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateNew = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["related"]; ok {
+		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleStateRelated = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "state"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleState) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"established": types.StringType,
+		"invalid":     types.StringType,
+		"new":         types.StringType,
+		"related":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleState) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"established": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Established state
 
 |  Format  |  Description  |
@@ -39,8 +120,7 @@ func (o FirewallNameRuleState) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"invalid": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Invalid state
 
 |  Format  |  Description  |
@@ -52,8 +132,7 @@ func (o FirewallNameRuleState) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"new": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `New state
 
 |  Format  |  Description  |
@@ -65,8 +144,7 @@ func (o FirewallNameRuleState) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"related": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Related state
 
 |  Format  |  Description  |

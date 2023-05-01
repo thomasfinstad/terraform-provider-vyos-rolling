@@ -2,31 +2,124 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyPrefixListsix describes the resource data model.
 type PolicyPrefixListsix struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyPrefixListsixDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyPrefixListsixDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	PolicyPrefixListsixRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagPolicyPrefixListsixRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyPrefixListsix) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyPrefixListsix) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"prefix-list6",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyPrefixListsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "prefix-list6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyPrefixListsixDescrIPtion.IsNull() || o.LeafPolicyPrefixListsixDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyPrefixListsixDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagPolicyPrefixListsixRule.IsNull() || o.TagPolicyPrefixListsixRule.IsUnknown()) {
+		subModel := make(map[string]PolicyPrefixListsixRule)
+		diags.Append(o.TagPolicyPrefixListsixRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyPrefixListsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "prefix-list6"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyPrefixListsixDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyPrefixListsixRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagPolicyPrefixListsixRule = data
+	} else {
+		o.TagPolicyPrefixListsixRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "prefix-list6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyPrefixListsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyPrefixListsixRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyPrefixListsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 prefix-list filter
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Name of IPv6 prefix-list  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,7 +133,7 @@ func (o PolicyPrefixListsix) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: PolicyPrefixListsixRule{}.ResourceAttributes(),
+				Attributes: PolicyPrefixListsixRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Rule for this prefix-list6

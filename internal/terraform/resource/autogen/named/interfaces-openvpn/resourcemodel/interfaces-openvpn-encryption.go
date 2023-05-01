@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnEncryption describes the resource data model.
 type InterfacesOpenvpnEncryption struct {
 	// LeafNodes
-	InterfacesOpenvpnEncryptionCIPher     customtypes.CustomStringValue `tfsdk:"cipher" json:"cipher,omitempty"`
-	InterfacesOpenvpnEncryptionNcpCIPhers customtypes.CustomStringValue `tfsdk:"ncp_ciphers" json:"ncp-ciphers,omitempty"`
+	LeafInterfacesOpenvpnEncryptionCIPher     types.String `tfsdk:"cipher"`
+	LeafInterfacesOpenvpnEncryptionNcpCIPhers types.String `tfsdk:"ncp_ciphers"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnEncryption) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnEncryption) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnEncryptionCIPher.IsNull() || o.LeafInterfacesOpenvpnEncryptionCIPher.IsUnknown()) {
+		vyosData["cipher"] = o.LeafInterfacesOpenvpnEncryptionCIPher.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsNull() || o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.IsUnknown()) {
+		vyosData["ncp-ciphers"] = o.LeafInterfacesOpenvpnEncryptionNcpCIPhers.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnEncryption) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
+
+	// Leafs
+	if value, ok := vyosData["cipher"]; ok {
+		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnEncryptionCIPher = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ncp-ciphers"]; ok {
+		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnEncryptionNcpCIPhers = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "encryption"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnEncryption) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"cipher":      types.StringType,
+		"ncp_ciphers": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnEncryption) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"cipher": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Standard Data Encryption Algorithm
 
 |  Format  |  Description  |
@@ -46,8 +109,7 @@ func (o InterfacesOpenvpnEncryption) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"ncp_ciphers": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Cipher negotiation list for use in server or client mode
 
 |  Format  |  Description  |

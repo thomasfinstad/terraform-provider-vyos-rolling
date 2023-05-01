@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetVifSVifCMirror describes the resource data model.
 type InterfacesPseudoEthernetVifSVifCMirror struct {
 	// LeafNodes
-	InterfacesPseudoEthernetVifSVifCMirrorIngress customtypes.CustomStringValue `tfsdk:"ingress" json:"ingress,omitempty"`
-	InterfacesPseudoEthernetVifSVifCMirrorEgress  customtypes.CustomStringValue `tfsdk:"egress" json:"egress,omitempty"`
+	LeafInterfacesPseudoEthernetVifSVifCMirrorIngress types.String `tfsdk:"ingress"`
+	LeafInterfacesPseudoEthernetVifSVifCMirrorEgress  types.String `tfsdk:"egress"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPseudoEthernetVifSVifCMirror) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPseudoEthernetVifSVifCMirror) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c", "mirror"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCMirrorIngress.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCMirrorIngress.IsUnknown()) {
+		vyosData["ingress"] = o.LeafInterfacesPseudoEthernetVifSVifCMirrorIngress.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCMirrorEgress.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCMirrorEgress.IsUnknown()) {
+		vyosData["egress"] = o.LeafInterfacesPseudoEthernetVifSVifCMirrorEgress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPseudoEthernetVifSVifCMirror) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c", "mirror"}})
+
+	// Leafs
+	if value, ok := vyosData["ingress"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCMirrorIngress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCMirrorIngress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["egress"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCMirrorEgress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCMirrorEgress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c", "mirror"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPseudoEthernetVifSVifCMirror) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ingress": types.StringType,
+		"egress":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPseudoEthernetVifSVifCMirror) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ingress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror ingress traffic to destination interface
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesPseudoEthernetVifSVifCMirror) ResourceAttributes() map[string]
 		},
 
 		"egress": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mirror egress traffic to destination interface
 
 |  Format  |  Description  |

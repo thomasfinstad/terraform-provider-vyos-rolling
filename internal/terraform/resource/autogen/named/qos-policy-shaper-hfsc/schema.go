@@ -23,6 +23,6 @@ Hierarchical Fair Service Curve's policy
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

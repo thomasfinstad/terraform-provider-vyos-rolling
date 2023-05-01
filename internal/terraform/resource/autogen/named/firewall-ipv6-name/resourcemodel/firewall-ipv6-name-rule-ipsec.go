@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleIPsec describes the resource data model.
 type FirewallIPvsixNameRuleIPsec struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleIPsecMatchIPsec customtypes.CustomStringValue `tfsdk:"match_ipsec" json:"match-ipsec,omitempty"`
-	FirewallIPvsixNameRuleIPsecMatchNone  customtypes.CustomStringValue `tfsdk:"match_none" json:"match-none,omitempty"`
+	LeafFirewallIPvsixNameRuleIPsecMatchIPsec types.String `tfsdk:"match_ipsec"`
+	LeafFirewallIPvsixNameRuleIPsecMatchNone  types.String `tfsdk:"match_none"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleIPsec) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleIPsec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "ipsec"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.IsNull() || o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.IsUnknown()) {
+		vyosData["match-ipsec"] = o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleIPsecMatchNone.IsNull() || o.LeafFirewallIPvsixNameRuleIPsecMatchNone.IsUnknown()) {
+		vyosData["match-none"] = o.LeafFirewallIPvsixNameRuleIPsecMatchNone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleIPsec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "ipsec"}})
+
+	// Leafs
+	if value, ok := vyosData["match-ipsec"]; ok {
+		o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIPsecMatchIPsec = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["match-none"]; ok {
+		o.LeafFirewallIPvsixNameRuleIPsecMatchNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleIPsecMatchNone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "ipsec"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleIPsec) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"match_ipsec": types.StringType,
+		"match_none":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleIPsec) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"match_ipsec": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound IPsec packets
 
 `,
 		},
 
 		"match_none": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound non-IPsec packets
 
 `,

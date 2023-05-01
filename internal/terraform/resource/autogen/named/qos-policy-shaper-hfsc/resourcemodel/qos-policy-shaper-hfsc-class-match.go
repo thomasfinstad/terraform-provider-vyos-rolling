@@ -2,36 +2,157 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassMatch describes the resource data model.
 type QosPolicyShaperHfscClassMatch struct {
 	// LeafNodes
-	QosPolicyShaperHfscClassMatchDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyShaperHfscClassMatchInterface   customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	QosPolicyShaperHfscClassMatchMark        customtypes.CustomStringValue `tfsdk:"mark" json:"mark,omitempty"`
-	QosPolicyShaperHfscClassMatchVif         customtypes.CustomStringValue `tfsdk:"vif" json:"vif,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyShaperHfscClassMatchInterface   types.String `tfsdk:"interface"`
+	LeafQosPolicyShaperHfscClassMatchMark        types.String `tfsdk:"mark"`
+	LeafQosPolicyShaperHfscClassMatchVif         types.String `tfsdk:"vif"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyShaperHfscClassMatchEther  types.Object `tfsdk:"ether" json:"ether,omitempty"`
-	QosPolicyShaperHfscClassMatchIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	QosPolicyShaperHfscClassMatchIPvsix types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeQosPolicyShaperHfscClassMatchEther  types.Object `tfsdk:"ether"`
+	NodeQosPolicyShaperHfscClassMatchIP     types.Object `tfsdk:"ip"`
+	NodeQosPolicyShaperHfscClassMatchIPvsix types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscClassMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.IsNull() || o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyShaperHfscClassMatchDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassMatchInterface.IsNull() || o.LeafQosPolicyShaperHfscClassMatchInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafQosPolicyShaperHfscClassMatchInterface.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassMatchMark.IsNull() || o.LeafQosPolicyShaperHfscClassMatchMark.IsUnknown()) {
+		vyosData["mark"] = o.LeafQosPolicyShaperHfscClassMatchMark.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassMatchVif.IsNull() || o.LeafQosPolicyShaperHfscClassMatchVif.IsUnknown()) {
+		vyosData["vif"] = o.LeafQosPolicyShaperHfscClassMatchVif.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyShaperHfscClassMatchEther.IsNull() || o.NodeQosPolicyShaperHfscClassMatchEther.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassMatchEther
+		diags.Append(o.NodeQosPolicyShaperHfscClassMatchEther.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ether"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyShaperHfscClassMatchIP.IsNull() || o.NodeQosPolicyShaperHfscClassMatchIP.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassMatchIP
+		diags.Append(o.NodeQosPolicyShaperHfscClassMatchIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyShaperHfscClassMatchIPvsix.IsNull() || o.NodeQosPolicyShaperHfscClassMatchIPvsix.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassMatchIPvsix
+		diags.Append(o.NodeQosPolicyShaperHfscClassMatchIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscClassMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mark"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchMark = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vif"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchVif = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchVif = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ether"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassMatchEther{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassMatchEther = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassMatchEther = basetypes.NewObjectNull(QosPolicyShaperHfscClassMatchEther{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassMatchIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassMatchIP = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassMatchIP = basetypes.NewObjectNull(QosPolicyShaperHfscClassMatchIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassMatchIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassMatchIPvsix = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassMatchIPvsix = basetypes.NewObjectNull(QosPolicyShaperHfscClassMatchIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscClassMatch) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"interface":   types.StringType,
+		"mark":        types.StringType,
+		"vif":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ether": types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatchEther{}.AttributeTypes()},
+		"ip":    types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatchIP{}.AttributeTypes()},
+		"ipv6":  types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatchIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscClassMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,8 +163,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface to use
 
 |  Format  |  Description  |
@@ -54,8 +174,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on mark applied by firewall
 
 |  Format  |  Description  |
@@ -66,8 +185,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"vif": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual Local Area Network (VLAN) ID for this match
 
 |  Format  |  Description  |
@@ -82,7 +200,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"ether": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchEther{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchEther{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet header match
 
@@ -90,7 +208,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchIP{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IP protocol header
 
@@ -98,7 +216,7 @@ func (o QosPolicyShaperHfscClassMatch) ResourceAttributes() map[string]schema.At
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassMatchIPvsix{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassMatchIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match IPv6 protocol header
 

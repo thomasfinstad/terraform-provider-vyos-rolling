@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClientIPPool describes the resource data model.
 type InterfacesOpenvpnServerClientIPPool struct {
 	// LeafNodes
-	InterfacesOpenvpnServerClientIPPoolDisable    customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesOpenvpnServerClientIPPoolStart      customtypes.CustomStringValue `tfsdk:"start" json:"start,omitempty"`
-	InterfacesOpenvpnServerClientIPPoolStop       customtypes.CustomStringValue `tfsdk:"stop" json:"stop,omitempty"`
-	InterfacesOpenvpnServerClientIPPoolSubnetMask customtypes.CustomStringValue `tfsdk:"subnet_mask" json:"subnet-mask,omitempty"`
+	LeafInterfacesOpenvpnServerClientIPPoolDisable    types.String `tfsdk:"disable"`
+	LeafInterfacesOpenvpnServerClientIPPoolStart      types.String `tfsdk:"start"`
+	LeafInterfacesOpenvpnServerClientIPPoolStop       types.String `tfsdk:"stop"`
+	LeafInterfacesOpenvpnServerClientIPPoolSubnetMask types.String `tfsdk:"subnet_mask"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnServerClientIPPool) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientIPPoolDisable.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolStart.IsUnknown()) {
+		vyosData["start"] = o.LeafInterfacesOpenvpnServerClientIPPoolStart.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolStop.IsUnknown()) {
+		vyosData["stop"] = o.LeafInterfacesOpenvpnServerClientIPPoolStop.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsNull() || o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.IsUnknown()) {
+		vyosData["subnet-mask"] = o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnServerClientIPPool) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["start"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStart = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stop"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolStop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["subnet-mask"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIPPoolSubnetMask = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client-ip-pool"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnServerClientIPPool) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":     types.StringType,
+		"start":       types.StringType,
+		"stop":        types.StringType,
+		"subnet_mask": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnServerClientIPPool) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"start": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `First IP address in the pool
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]sch
 		},
 
 		"stop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Last IP address in the pool
 
 |  Format  |  Description  |
@@ -58,8 +137,7 @@ func (o InterfacesOpenvpnServerClientIPPool) ResourceAttributes() map[string]sch
 		},
 
 		"subnet_mask": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Subnet mask pushed to dynamic clients. If not set the server subnet mask will be used. Only used with topology subnet or device type tap. Not used with bridged interfaces.
 
 |  Format  |  Description  |

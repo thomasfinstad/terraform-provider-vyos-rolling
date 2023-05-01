@@ -25,6 +25,6 @@ Connection name of the peer
 |  txt  |  Connection name of the peer  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

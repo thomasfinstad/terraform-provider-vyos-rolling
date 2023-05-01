@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaVirtualLinkAuthentication describes the resource data model.
 type ProtocolsOspfAreaVirtualLinkAuthentication struct {
 	// LeafNodes
-	ProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword customtypes.CustomStringValue `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsOspfAreaVirtualLinkAuthenticationMdfive types.Object `tfsdk:"md5" json:"md5,omitempty"`
+	NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive types.Object `tfsdk:"md5"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaVirtualLinkAuthentication) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaVirtualLinkAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.IsUnknown()) {
+		vyosData["plaintext-password"] = o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive.IsNull() || o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive.IsUnknown()) {
+		var subModel ProtocolsOspfAreaVirtualLinkAuthenticationMdfive
+		diags.Append(o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["md5"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaVirtualLinkAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication"}})
+
+	// Leafs
+	if value, ok := vyosData["plaintext-password"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationPlaintextPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["md5"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive = data
+
+	} else {
+		o.NodeProtocolsOspfAreaVirtualLinkAuthenticationMdfive = basetypes.NewObjectNull(ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthentication) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"plaintext_password": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"md5": types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"plaintext_password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Plain text password
 
 |  Format  |  Description  |
@@ -41,7 +107,7 @@ func (o ProtocolsOspfAreaVirtualLinkAuthentication) ResourceAttributes() map[str
 		// Nodes
 
 		"md5": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.ResourceAttributes(),
+			Attributes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfive{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `MD5 key id
 

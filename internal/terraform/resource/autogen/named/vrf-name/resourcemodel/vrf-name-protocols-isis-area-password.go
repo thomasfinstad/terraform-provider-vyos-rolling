@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisAreaPassword describes the resource data model.
 type VrfNameProtocolsIsisAreaPassword struct {
 	// LeafNodes
-	VrfNameProtocolsIsisAreaPasswordPlaintextPassword customtypes.CustomStringValue `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
-	VrfNameProtocolsIsisAreaPasswordMdfive            customtypes.CustomStringValue `tfsdk:"md5" json:"md5,omitempty"`
+	LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword types.String `tfsdk:"plaintext_password"`
+	LeafVrfNameProtocolsIsisAreaPasswordMdfive            types.String `tfsdk:"md5"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisAreaPassword) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisAreaPassword) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "area-password"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword.IsNull() || o.LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword.IsUnknown()) {
+		vyosData["plaintext-password"] = o.LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisAreaPasswordMdfive.IsNull() || o.LeafVrfNameProtocolsIsisAreaPasswordMdfive.IsUnknown()) {
+		vyosData["md5"] = o.LeafVrfNameProtocolsIsisAreaPasswordMdfive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisAreaPassword) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "area-password"}})
+
+	// Leafs
+	if value, ok := vyosData["plaintext-password"]; ok {
+		o.LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisAreaPasswordPlaintextPassword = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["md5"]; ok {
+		o.LeafVrfNameProtocolsIsisAreaPasswordMdfive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisAreaPasswordMdfive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "area-password"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisAreaPassword) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"plaintext_password": types.StringType,
+		"md5":                types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisAreaPassword) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"plaintext_password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Plain-text authentication type
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o VrfNameProtocolsIsisAreaPassword) ResourceAttributes() map[string]schema
 		},
 
 		"md5": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
 |  Format  |  Description  |

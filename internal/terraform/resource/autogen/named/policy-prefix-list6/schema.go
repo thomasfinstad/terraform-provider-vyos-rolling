@@ -21,6 +21,6 @@ IPv6 prefix-list filter
 |  txt  |  Name of IPv6 prefix-list  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

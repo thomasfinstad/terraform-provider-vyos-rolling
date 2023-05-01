@@ -2,37 +2,190 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgp describes the resource data model.
 type VrfNameProtocolsBgp struct {
 	// LeafNodes
-	VrfNameProtocolsBgpSystemAs customtypes.CustomStringValue `tfsdk:"system_as" json:"system-as,omitempty"`
-	VrfNameProtocolsBgpRouteMap customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsBgpSystemAs types.String `tfsdk:"system_as"`
+	LeafVrfNameProtocolsBgpRouteMap types.String `tfsdk:"route_map"`
 
 	// TagNodes
-	VrfNameProtocolsBgpNeighbor  types.Map `tfsdk:"neighbor" json:"neighbor,omitempty"`
-	VrfNameProtocolsBgpPeerGroup types.Map `tfsdk:"peer_group" json:"peer-group,omitempty"`
+	TagVrfNameProtocolsBgpNeighbor  types.Map `tfsdk:"neighbor"`
+	TagVrfNameProtocolsBgpPeerGroup types.Map `tfsdk:"peer_group"`
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamily types.Object `tfsdk:"address_family" json:"address-family,omitempty"`
-	VrfNameProtocolsBgpListen        types.Object `tfsdk:"listen" json:"listen,omitempty"`
-	VrfNameProtocolsBgpParameters    types.Object `tfsdk:"parameters" json:"parameters,omitempty"`
-	VrfNameProtocolsBgpTimers        types.Object `tfsdk:"timers" json:"timers,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamily types.Object `tfsdk:"address_family"`
+	NodeVrfNameProtocolsBgpListen        types.Object `tfsdk:"listen"`
+	NodeVrfNameProtocolsBgpParameters    types.Object `tfsdk:"parameters"`
+	NodeVrfNameProtocolsBgpTimers        types.Object `tfsdk:"timers"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpSystemAs.IsNull() || o.LeafVrfNameProtocolsBgpSystemAs.IsUnknown()) {
+		vyosData["system-as"] = o.LeafVrfNameProtocolsBgpSystemAs.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpRouteMap.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpNeighbor.IsNull() || o.TagVrfNameProtocolsBgpNeighbor.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpNeighbor)
+		diags.Append(o.TagVrfNameProtocolsBgpNeighbor.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["neighbor"] = subData
+	}
+	if !(o.TagVrfNameProtocolsBgpPeerGroup.IsNull() || o.TagVrfNameProtocolsBgpPeerGroup.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpPeerGroup)
+		diags.Append(o.TagVrfNameProtocolsBgpPeerGroup.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["peer-group"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamily.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamily.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamily
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamily.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address-family"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpListen.IsNull() || o.NodeVrfNameProtocolsBgpListen.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpListen
+		diags.Append(o.NodeVrfNameProtocolsBgpListen.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["listen"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParameters.IsNull() || o.NodeVrfNameProtocolsBgpParameters.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParameters
+		diags.Append(o.NodeVrfNameProtocolsBgpParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpTimers.IsNull() || o.NodeVrfNameProtocolsBgpTimers.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpTimers
+		diags.Append(o.NodeVrfNameProtocolsBgpTimers.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["timers"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
+
+	// Leafs
+	if value, ok := vyosData["system-as"]; ok {
+		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpSystemAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["neighbor"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighbor{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpNeighbor = data
+	} else {
+		o.TagVrfNameProtocolsBgpNeighbor = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["peer-group"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroup{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpPeerGroup = data
+	} else {
+		o.TagVrfNameProtocolsBgpPeerGroup = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["address-family"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamily{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamily = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamily = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamily{}.AttributeTypes())
+	}
+	if value, ok := vyosData["listen"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpListen{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpListen = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpListen = basetypes.NewObjectNull(VrfNameProtocolsBgpListen{}.AttributeTypes())
+	}
+	if value, ok := vyosData["parameters"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParameters{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParameters = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParameters = basetypes.NewObjectNull(VrfNameProtocolsBgpParameters{}.AttributeTypes())
+	}
+	if value, ok := vyosData["timers"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpTimers{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpTimers = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpTimers = basetypes.NewObjectNull(VrfNameProtocolsBgpTimers{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"system_as": types.StringType,
+		"route_map": types.StringType,
+
+		// Tags
+		"neighbor":   types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighbor{}.AttributeTypes()}},
+		"peer_group": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroup{}.AttributeTypes()}},
+
+		// Nodes
+		"address_family": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamily{}.AttributeTypes()},
+		"listen":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpListen{}.AttributeTypes()},
+		"parameters":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpParameters{}.AttributeTypes()},
+		"timers":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpTimers{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"system_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
 |  Format  |  Description  |
@@ -43,8 +196,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -58,7 +210,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 
 		"neighbor": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpNeighbor{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpNeighbor{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `BGP neighbor
@@ -74,7 +226,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 
 		"peer_group": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpPeerGroup{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpPeerGroup{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Name of peer-group
@@ -85,7 +237,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"address_family": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamily{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamily{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP address-family parameters
 
@@ -93,7 +245,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"listen": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpListen{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpListen{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Listen for and accept BGP dynamic neighbors from range
 
@@ -101,7 +253,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParameters{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP parameters
 
@@ -109,7 +261,7 @@ func (o VrfNameProtocolsBgp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"timers": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpTimers{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpTimers{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP protocol timers
 

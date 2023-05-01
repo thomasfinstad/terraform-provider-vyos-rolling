@@ -21,6 +21,6 @@ Access list to filter networks in routing updates
 |  u32  |  Access-list number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

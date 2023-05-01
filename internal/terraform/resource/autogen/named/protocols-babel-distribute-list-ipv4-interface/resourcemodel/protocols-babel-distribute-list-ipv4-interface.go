@@ -2,24 +2,123 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBabelDistributeListIPvfourInterface describes the resource data model.
 type ProtocolsBabelDistributeListIPvfourInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsBabelDistributeListIPvfourInterfaceAccessList types.Object `tfsdk:"access_list" json:"access-list,omitempty"`
-	ProtocolsBabelDistributeListIPvfourInterfacePrefixList types.Object `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
+	NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList types.Object `tfsdk:"access_list"`
+	NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList types.Object `tfsdk:"prefix_list"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBabelDistributeListIPvfourInterface) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"babel",
+		"distribute-list",
+		"ipv4",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBabelDistributeListIPvfourInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.IsNull() || o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.IsUnknown()) {
+		var subModel ProtocolsBabelDistributeListIPvfourInterfaceAccessList
+		diags.Append(o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["access-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.IsNull() || o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.IsUnknown()) {
+		var subModel ProtocolsBabelDistributeListIPvfourInterfacePrefixList
+		diags.Append(o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBabelDistributeListIPvfourInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["access-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = data
+
+	} else {
+		o.NodeProtocolsBabelDistributeListIPvfourInterfaceAccessList = basetypes.NewObjectNull(ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["prefix-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = data
+
+	} else {
+		o.NodeProtocolsBabelDistributeListIPvfourInterfacePrefixList = basetypes.NewObjectNull(ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "babel", "distribute-list", "ipv4", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBabelDistributeListIPvfourInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"access_list": types.ObjectType{AttrTypes: ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.AttributeTypes()},
+		"prefix_list": types.ObjectType{AttrTypes: ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Apply filtering to an interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Apply filtering to an interface  |
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
@@ -27,7 +126,7 @@ func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceAttributes() map[s
 		// Nodes
 
 		"access_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.ResourceAttributes(),
+			Attributes: ProtocolsBabelDistributeListIPvfourInterfaceAccessList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Access-list
 
@@ -35,7 +134,7 @@ func (o ProtocolsBabelDistributeListIPvfourInterface) ResourceAttributes() map[s
 		},
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.ResourceAttributes(),
+			Attributes: ProtocolsBabelDistributeListIPvfourInterfacePrefixList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Prefix-list
 

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemConntrackIgnoreRuleDestination describes the resource data model.
 type SystemConntrackIgnoreRuleDestination struct {
 	// LeafNodes
-	SystemConntrackIgnoreRuleDestinationAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	SystemConntrackIgnoreRuleDestinationPort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafSystemConntrackIgnoreRuleDestinationAddress types.String `tfsdk:"address"`
+	LeafSystemConntrackIgnoreRuleDestinationPort    types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemConntrackIgnoreRuleDestination) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemConntrackIgnoreRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsNull() || o.LeafSystemConntrackIgnoreRuleDestinationAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafSystemConntrackIgnoreRuleDestinationAddress.ValueString()
+	}
+	if !(o.LeafSystemConntrackIgnoreRuleDestinationPort.IsNull() || o.LeafSystemConntrackIgnoreRuleDestinationPort.IsUnknown()) {
+		vyosData["port"] = o.LeafSystemConntrackIgnoreRuleDestinationPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemConntrackIgnoreRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDestinationAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConntrackIgnoreRuleDestinationPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "conntrack", "ignore", "rule", "destination"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemConntrackIgnoreRuleDestination) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+		"port":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemConntrackIgnoreRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -41,8 +104,7 @@ func (o SystemConntrackIgnoreRuleDestination) ResourceAttributes() map[string]sc
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number
 
 |  Format  |  Description  |

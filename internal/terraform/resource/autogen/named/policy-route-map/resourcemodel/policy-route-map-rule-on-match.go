@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleOnMatch describes the resource data model.
 type PolicyRouteMapRuleOnMatch struct {
 	// LeafNodes
-	PolicyRouteMapRuleOnMatchGoto customtypes.CustomStringValue `tfsdk:"goto" json:"goto,omitempty"`
-	PolicyRouteMapRuleOnMatchNext customtypes.CustomStringValue `tfsdk:"next" json:"next,omitempty"`
+	LeafPolicyRouteMapRuleOnMatchGoto types.String `tfsdk:"goto"`
+	LeafPolicyRouteMapRuleOnMatchNext types.String `tfsdk:"next"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleOnMatch) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleOnMatch) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "on-match"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleOnMatchGoto.IsNull() || o.LeafPolicyRouteMapRuleOnMatchGoto.IsUnknown()) {
+		vyosData["goto"] = o.LeafPolicyRouteMapRuleOnMatchGoto.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleOnMatchNext.IsNull() || o.LeafPolicyRouteMapRuleOnMatchNext.IsUnknown()) {
+		vyosData["next"] = o.LeafPolicyRouteMapRuleOnMatchNext.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleOnMatch) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "on-match"}})
+
+	// Leafs
+	if value, ok := vyosData["goto"]; ok {
+		o.LeafPolicyRouteMapRuleOnMatchGoto = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleOnMatchGoto = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["next"]; ok {
+		o.LeafPolicyRouteMapRuleOnMatchNext = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleOnMatchNext = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "on-match"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleOnMatch) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"goto": types.StringType,
+		"next": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleOnMatch) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"goto": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rule number to goto on match
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o PolicyRouteMapRuleOnMatch) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"next": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Next sequence number to goto on match
 
 `,

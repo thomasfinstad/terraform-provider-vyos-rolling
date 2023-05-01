@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID describes the resource data model.
 type ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID struct {
 	// LeafNodes
-	ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey customtypes.CustomStringValue `tfsdk:"md5_key" json:"md5-key,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey types.String `tfsdk:"md5_key"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5", "key-id"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.IsUnknown()) {
+		vyosData["md5-key"] = o.LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5", "key-id"}})
+
+	// Leafs
+	if value, ok := vyosData["md5-key"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyIDMdfiveKey = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5", "key-id"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"md5_key": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"md5_key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MD5 authentication type
 
 |  Format  |  Description  |

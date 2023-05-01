@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleLimit describes the resource data model.
 type FirewallIPvsixNameRuleLimit struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleLimitBurst customtypes.CustomStringValue `tfsdk:"burst" json:"burst,omitempty"`
-	FirewallIPvsixNameRuleLimitRate  customtypes.CustomStringValue `tfsdk:"rate" json:"rate,omitempty"`
+	LeafFirewallIPvsixNameRuleLimitBurst types.String `tfsdk:"burst"`
+	LeafFirewallIPvsixNameRuleLimitRate  types.String `tfsdk:"rate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleLimitBurst.IsNull() || o.LeafFirewallIPvsixNameRuleLimitBurst.IsUnknown()) {
+		vyosData["burst"] = o.LeafFirewallIPvsixNameRuleLimitBurst.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleLimitRate.IsNull() || o.LeafFirewallIPvsixNameRuleLimitRate.IsUnknown()) {
+		vyosData["rate"] = o.LeafFirewallIPvsixNameRuleLimitRate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "limit"}})
+
+	// Leafs
+	if value, ok := vyosData["burst"]; ok {
+		o.LeafFirewallIPvsixNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleLimitBurst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rate"]; ok {
+		o.LeafFirewallIPvsixNameRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"burst": types.StringType,
+		"rate":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"burst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o FirewallIPvsixNameRuleLimit) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"rate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
 |  Format  |  Description  |

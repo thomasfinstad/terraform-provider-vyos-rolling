@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatStaticRuleDestination describes the resource data model.
 type NatStaticRuleDestination struct {
 	// LeafNodes
-	NatStaticRuleDestinationAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
+	LeafNatStaticRuleDestinationAddress types.String `tfsdk:"address"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o NatStaticRuleDestination) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *NatStaticRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "static", "rule", "destination"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafNatStaticRuleDestinationAddress.IsNull() || o.LeafNatStaticRuleDestinationAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafNatStaticRuleDestinationAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *NatStaticRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "static", "rule", "destination"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafNatStaticRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatStaticRuleDestinationAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "static", "rule", "destination"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o NatStaticRuleDestination) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o NatStaticRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, prefix
 
 |  Format  |  Description  |

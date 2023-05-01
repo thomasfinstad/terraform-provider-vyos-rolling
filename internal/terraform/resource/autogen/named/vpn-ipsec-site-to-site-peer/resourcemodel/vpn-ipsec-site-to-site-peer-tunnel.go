@@ -2,51 +2,156 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerTunnel describes the resource data model.
 type VpnIPsecSiteToSitePeerTunnel struct {
 	// LeafNodes
-	VpnIPsecSiteToSitePeerTunnelDisable  customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnIPsecSiteToSitePeerTunnelEspGroup customtypes.CustomStringValue `tfsdk:"esp_group" json:"esp-group,omitempty"`
-	VpnIPsecSiteToSitePeerTunnelProtocol customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	VpnIPsecSiteToSitePeerTunnelPriority customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
+	LeafVpnIPsecSiteToSitePeerTunnelDisable  types.String `tfsdk:"disable"`
+	LeafVpnIPsecSiteToSitePeerTunnelEspGroup types.String `tfsdk:"esp_group"`
+	LeafVpnIPsecSiteToSitePeerTunnelProtocol types.String `tfsdk:"protocol"`
+	LeafVpnIPsecSiteToSitePeerTunnelPriority types.String `tfsdk:"priority"`
 
 	// TagNodes
 
 	// Nodes
-	VpnIPsecSiteToSitePeerTunnelLocal  types.Object `tfsdk:"local" json:"local,omitempty"`
-	VpnIPsecSiteToSitePeerTunnelRemote types.Object `tfsdk:"remote" json:"remote,omitempty"`
+	NodeVpnIPsecSiteToSitePeerTunnelLocal  types.Object `tfsdk:"local"`
+	NodeVpnIPsecSiteToSitePeerTunnelRemote types.Object `tfsdk:"remote"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecSiteToSitePeerTunnel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnIPsecSiteToSitePeerTunnelDisable.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.IsUnknown()) {
+		vyosData["esp-group"] = o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafVpnIPsecSiteToSitePeerTunnelProtocol.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsNull() || o.LeafVpnIPsecSiteToSitePeerTunnelPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafVpnIPsecSiteToSitePeerTunnelPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVpnIPsecSiteToSitePeerTunnelLocal.IsNull() || o.NodeVpnIPsecSiteToSitePeerTunnelLocal.IsUnknown()) {
+		var subModel VpnIPsecSiteToSitePeerTunnelLocal
+		diags.Append(o.NodeVpnIPsecSiteToSitePeerTunnelLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["local"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVpnIPsecSiteToSitePeerTunnelRemote.IsNull() || o.NodeVpnIPsecSiteToSitePeerTunnelRemote.IsUnknown()) {
+		var subModel VpnIPsecSiteToSitePeerTunnelRemote
+		diags.Append(o.NodeVpnIPsecSiteToSitePeerTunnelRemote.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["remote"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecSiteToSitePeerTunnel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["esp-group"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelEspGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerTunnelPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["local"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = data
+
+	} else {
+		o.NodeVpnIPsecSiteToSitePeerTunnelLocal = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes())
+	}
+	if value, ok := vyosData["remote"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = data
+
+	} else {
+		o.NodeVpnIPsecSiteToSitePeerTunnelRemote = basetypes.NewObjectNull(VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "tunnel"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecSiteToSitePeerTunnel) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":   types.StringType,
+		"esp_group": types.StringType,
+		"protocol":  types.StringType,
+		"priority":  types.StringType,
+
+		// Tags
+
+		// Nodes
+		"local":  types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnelLocal{}.AttributeTypes()},
+		"remote": types.ObjectType{AttrTypes: VpnIPsecSiteToSitePeerTunnelRemote{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecSiteToSitePeerTunnel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"esp_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Encapsulating Security Payloads (ESP) group name
 
 `,
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol
 
 |  Format  |  Description  |
@@ -57,8 +162,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Att
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Priority for IPsec policy (lowest value more preferable)
 
 |  Format  |  Description  |
@@ -73,7 +177,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"local": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecSiteToSitePeerTunnelLocal{}.ResourceAttributes(),
+			Attributes: VpnIPsecSiteToSitePeerTunnelLocal{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Local parameters for interesting traffic
 
@@ -81,7 +185,7 @@ func (o VpnIPsecSiteToSitePeerTunnel) ResourceAttributes() map[string]schema.Att
 		},
 
 		"remote": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecSiteToSitePeerTunnelRemote{}.ResourceAttributes(),
+			Attributes: VpnIPsecSiteToSitePeerTunnelRemote{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match remote addresses
 

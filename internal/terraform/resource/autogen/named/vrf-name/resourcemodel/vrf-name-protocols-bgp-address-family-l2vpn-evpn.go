@@ -2,63 +2,217 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni    customtypes.CustomStringValue `tfsdk:"advertise_all_vni" json:"advertise-all-vni,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw customtypes.CustomStringValue `tfsdk:"advertise_default_gw" json:"advertise-default-gw,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP     customtypes.CustomStringValue `tfsdk:"advertise_svi_ip" json:"advertise-svi-ip,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd                 customtypes.CustomStringValue `tfsdk:"rd" json:"rd,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP       customtypes.CustomStringValue `tfsdk:"advertise_pip" json:"advertise-pip,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive       customtypes.CustomStringValue `tfsdk:"rt_auto_derive" json:"rt-auto-derive,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni    types.String `tfsdk:"advertise_all_vni"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw types.String `tfsdk:"advertise_default_gw"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP     types.String `tfsdk:"advertise_svi_ip"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd                 types.String `tfsdk:"rd"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP       types.String `tfsdk:"advertise_pip"`
+	LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive       types.String `tfsdk:"rt_auto_derive"`
 
 	// TagNodes
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni types.Map `tfsdk:"vni" json:"vni,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni types.Map `tfsdk:"vni"`
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   types.Object `tfsdk:"advertise" json:"advertise,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget types.Object `tfsdk:"route_target" json:"route-target,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    types.Object `tfsdk:"flooding" json:"flooding,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise   types.Object `tfsdk:"advertise"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget types.Object `tfsdk:"route_target"`
+	NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding    types.Object `tfsdk:"flooding"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni.IsUnknown()) {
+		vyosData["advertise-all-vni"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw.IsUnknown()) {
+		vyosData["advertise-default-gw"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP.IsUnknown()) {
+		vyosData["advertise-svi-ip"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd.IsUnknown()) {
+		vyosData["rd"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP.IsUnknown()) {
+		vyosData["advertise-pip"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive.IsUnknown()) {
+		vyosData["rt-auto-derive"] = o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["vni"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["advertise"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-target"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["flooding"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn"}})
+
+	// Leafs
+	if value, ok := vyosData["advertise-all-vni"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseAllVni = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["advertise-default-gw"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseDefaultGw = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["advertise-svi-ip"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertiseSviIP = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rd"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRd = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["advertise-pip"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertisePIP = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rt-auto-derive"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRtAutoDerive = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["vni"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["advertise"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-target"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.AttributeTypes())
+	}
+	if value, ok := vyosData["flooding"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "l2vpn-evpn"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"advertise_all_vni":    types.StringType,
+		"advertise_default_gw": types.StringType,
+		"advertise_svi_ip":     types.StringType,
+		"rd":                   types.StringType,
+		"advertise_pip":        types.StringType,
+		"rt_auto_derive":       types.StringType,
+
+		// Tags
+		"vni": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}.AttributeTypes()}},
+
+		// Nodes
+		"advertise":    types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.AttributeTypes()},
+		"route_target": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.AttributeTypes()},
+		"flooding":     types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"advertise_all_vni": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise All local VNIs
 
 `,
 		},
 
 		"advertise_default_gw": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise All default g/w mac-ip routes in EVPN
 
 `,
 		},
 
 		"advertise_svi_ip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise svi mac-ip routes in EVPN
 
 `,
 		},
 
 		"rd": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
 |  Format  |  Description  |
@@ -69,8 +223,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 		},
 
 		"advertise_pip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `EVPN system primary IP
 
 |  Format  |  Description  |
@@ -81,8 +234,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 		},
 
 		"rt_auto_derive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Auto derivation of Route Target (RFC8365)
 
 `,
@@ -92,7 +244,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 
 		"vni": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnVni{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `VXLAN Network Identifier
@@ -107,7 +259,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 		// Nodes
 
 		"advertise": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnAdvertise{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise prefix routes
 
@@ -115,7 +267,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 		},
 
 		"route_target": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnRouteTarget{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route Target
 
@@ -123,7 +275,7 @@ func (o VrfNameProtocolsBgpAddressFamilyLtwovpnEvpn) ResourceAttributes() map[st
 		},
 
 		"flooding": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyLtwovpnEvpnFlooding{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify handling for BUM packets
 

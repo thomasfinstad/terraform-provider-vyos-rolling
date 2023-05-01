@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfMaxMetric describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsOspfMaxMetric struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfMaxMetricRouterLsa types.Object `tfsdk:"router_lsa" json:"router-lsa,omitempty"`
+	NodeVrfNameProtocolsOspfMaxMetricRouterLsa types.Object `tfsdk:"router_lsa"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfMaxMetric) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfMaxMetric) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.IsNull() || o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfMaxMetricRouterLsa
+		diags.Append(o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["router-lsa"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfMaxMetric) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["router-lsa"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfMaxMetricRouterLsa = basetypes.NewObjectNull(VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "max-metric"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfMaxMetric) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"router_lsa": types.ObjectType{AttrTypes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfMaxMetric) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsOspfMaxMetric) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"router_lsa": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfMaxMetricRouterLsa{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise own Router-LSA with infinite distance (stub router)
 

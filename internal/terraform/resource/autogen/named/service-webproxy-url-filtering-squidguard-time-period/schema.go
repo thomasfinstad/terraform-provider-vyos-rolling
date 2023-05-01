@@ -21,6 +21,6 @@ URL filtering via squidGuard redirector
 Time period name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

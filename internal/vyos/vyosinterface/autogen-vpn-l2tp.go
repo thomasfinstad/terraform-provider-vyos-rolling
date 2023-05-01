@@ -14,6 +14,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -70,6 +74,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -81,6 +86,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												Help: []string{"Tunnel password used to authenticate the client (LAC)"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -100,6 +106,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -115,6 +122,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -130,6 +138,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -145,6 +154,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -169,6 +179,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -187,6 +198,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -214,6 +226,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -250,6 +263,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -271,6 +285,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -302,6 +317,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -333,6 +349,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -350,6 +367,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -369,6 +387,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -384,6 +403,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -406,6 +426,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -428,6 +449,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -465,6 +487,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -480,6 +503,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -513,6 +537,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -546,6 +571,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -579,6 +605,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -613,6 +640,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -628,6 +656,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -643,6 +672,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -658,6 +688,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														Node: []*interfacedefinition.Node{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -673,6 +704,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -696,6 +728,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -722,6 +755,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -738,6 +772,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -749,6 +784,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Help: []string{"Password for authentication"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -776,6 +812,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -792,6 +829,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												},
 												Node: []*interfacedefinition.Node{{
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -801,6 +839,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -816,6 +855,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -828,6 +868,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -856,6 +897,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -872,6 +914,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -907,6 +950,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -916,6 +960,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -932,6 +977,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -966,6 +1012,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -977,6 +1024,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -988,6 +1036,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -999,6 +1048,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1010,6 +1060,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1041,6 +1092,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1056,6 +1108,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1067,6 +1120,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1079,6 +1133,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1093,6 +1148,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -1102,6 +1158,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -1117,6 +1174,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1128,6 +1186,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1140,6 +1199,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1154,6 +1214,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}, nil},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -1163,6 +1224,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1179,6 +1241,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1213,6 +1276,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1224,6 +1288,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1235,6 +1300,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1246,6 +1312,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1257,6 +1324,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1288,6 +1356,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -1303,6 +1372,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1315,6 +1385,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Help: []string{"RADIUS attribute that contains rate information"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1343,6 +1414,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1359,6 +1431,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1394,6 +1467,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												TagNode: []*interfacedefinition.TagNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "tagNode",
 													},
@@ -1427,6 +1501,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1443,6 +1518,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1454,6 +1530,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Help: []string{"Shared secret key"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1487,6 +1564,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 														}, {
 															Parent: &interfacedefinition.TagNode{
 																Parent: &interfacedefinition.Node{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1496,6 +1574,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -1511,6 +1590,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1522,6 +1602,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1534,6 +1615,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1547,6 +1629,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -1562,6 +1645,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1574,6 +1658,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"RADIUS attribute that contains rate information"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1602,6 +1687,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						}},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1618,6 +1704,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						}},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1654,6 +1741,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		}},
 																		TagNode: []*interfacedefinition.TagNode{nil},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1665,6 +1753,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Timeout to wait response from server (seconds)"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1676,6 +1765,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1687,6 +1777,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1698,6 +1789,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1729,6 +1821,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																},
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -1738,6 +1831,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{nil, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -1771,6 +1865,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															},
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -1789,6 +1884,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 														}, {
 															Parent: &interfacedefinition.TagNode{
 																Parent: &interfacedefinition.Node{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1798,6 +1894,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		Node: []*interfacedefinition.Node{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -1813,6 +1910,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1824,6 +1922,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1836,6 +1935,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1849,6 +1949,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "node",
 																			},
@@ -1864,6 +1965,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																					Local: "children",
 																				},
 																				LeafNode: []*interfacedefinition.LeafNode{{
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1876,6 +1978,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						Help: []string{"RADIUS attribute that contains rate information"},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1904,6 +2007,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						}},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1920,6 +2024,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																						}},
 																					}},
 																				}, {
+																					IsBaseNode: false,
 																					XMLName: xml.Name{
 																						Local: "leafNode",
 																					},
@@ -1956,6 +2061,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		}},
 																		TagNode: []*interfacedefinition.TagNode{nil},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1967,6 +2073,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Timeout to wait response from server (seconds)"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1978,6 +2085,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1989,6 +2097,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2000,6 +2109,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																				Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2031,6 +2141,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																},
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -2040,6 +2151,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2058,6 +2170,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}, nil},
 																}},
 															},
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -2092,6 +2205,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2128,6 +2242,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -2137,6 +2252,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2152,6 +2268,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2163,6 +2280,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2175,6 +2293,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2188,6 +2307,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2203,6 +2323,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2215,6 +2336,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2243,6 +2365,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2259,6 +2382,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2294,6 +2418,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -2303,6 +2428,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2319,6 +2445,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2353,6 +2480,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2364,6 +2492,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2375,6 +2504,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2386,6 +2516,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2417,6 +2548,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2429,6 +2561,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -2438,6 +2571,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2453,6 +2587,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2464,6 +2599,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2476,6 +2612,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2489,6 +2626,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2504,6 +2642,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2516,6 +2655,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2544,6 +2684,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2560,6 +2701,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2595,6 +2737,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -2604,6 +2747,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2620,6 +2764,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2654,6 +2799,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2665,6 +2811,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2676,6 +2823,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2687,6 +2835,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2718,6 +2867,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2730,6 +2880,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -2739,6 +2890,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2754,6 +2906,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2765,6 +2918,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2777,6 +2931,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2790,6 +2945,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -2805,6 +2961,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2817,6 +2974,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2845,6 +3003,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2861,6 +3020,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2896,6 +3056,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -2905,6 +3066,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2921,6 +3083,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -2955,6 +3118,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2966,6 +3130,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2977,6 +3142,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2988,6 +3154,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3019,6 +3186,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -3031,6 +3199,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -3040,6 +3209,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -3055,6 +3225,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3066,6 +3237,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3078,6 +3250,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3091,6 +3264,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -3106,6 +3280,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3118,6 +3293,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3146,6 +3322,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3162,6 +3339,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3197,6 +3375,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -3206,6 +3385,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3222,6 +3402,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3256,6 +3437,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3267,6 +3449,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3278,6 +3461,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3289,6 +3473,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3320,6 +3505,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -3332,6 +3518,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 													}},
 												}, {
 													Parent: &interfacedefinition.Node{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -3341,6 +3528,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															Node: []*interfacedefinition.Node{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -3356,6 +3544,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3367,6 +3556,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"IP address for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3379,6 +3569,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"Port for Dynamic Authorization Extension server (DM/CoA)"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3392,6 +3583,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "node",
 																},
@@ -3407,6 +3599,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3419,6 +3612,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			Help: []string{"RADIUS attribute that contains rate information"},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3447,6 +3641,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3463,6 +3658,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3498,6 +3694,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															TagNode: []*interfacedefinition.TagNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "tagNode",
 																},
@@ -3507,6 +3704,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																		Local: "children",
 																	},
 																	LeafNode: []*interfacedefinition.LeafNode{{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3523,6 +3721,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	}, {
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "leafNode",
 																		},
@@ -3557,6 +3756,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3568,6 +3768,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait response from server (seconds)"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3579,6 +3780,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Timeout to wait reply for Interim-Update packets"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3590,6 +3792,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Maximum number of tries to send Access-Request/Accounting-Request queries"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3603,6 +3806,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 															}, nil},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -3635,6 +3839,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3688,6 +3893,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3731,6 +3937,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3776,6 +3983,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -3791,6 +3999,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3815,6 +4024,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3839,6 +4049,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3889,6 +4100,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3925,6 +4137,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3973,6 +4186,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3992,6 +4206,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4016,6 +4231,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4038,6 +4254,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4068,6 +4285,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"invalid IPv4 address"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4113,6 +4331,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4129,6 +4348,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4163,6 +4383,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4174,6 +4395,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										Help: []string{"Description for L2TP remote-access settings"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -4210,6 +4432,7 @@ func vpnl2tp() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},

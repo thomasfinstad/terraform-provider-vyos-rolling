@@ -2,41 +2,207 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisInterface describes the resource data model.
 type VrfNameProtocolsIsisInterface struct {
 	// LeafNodes
-	VrfNameProtocolsIsisInterfaceCircuitType         customtypes.CustomStringValue `tfsdk:"circuit_type" json:"circuit-type,omitempty"`
-	VrfNameProtocolsIsisInterfaceHelloPadding        customtypes.CustomStringValue `tfsdk:"hello_padding" json:"hello-padding,omitempty"`
-	VrfNameProtocolsIsisInterfaceHelloInterval       customtypes.CustomStringValue `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
-	VrfNameProtocolsIsisInterfaceHelloMultIPlier     customtypes.CustomStringValue `tfsdk:"hello_multiplier" json:"hello-multiplier,omitempty"`
-	VrfNameProtocolsIsisInterfaceMetric              customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	VrfNameProtocolsIsisInterfacePassive             customtypes.CustomStringValue `tfsdk:"passive" json:"passive,omitempty"`
-	VrfNameProtocolsIsisInterfacePriority            customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	VrfNameProtocolsIsisInterfacePsnpInterval        customtypes.CustomStringValue `tfsdk:"psnp_interval" json:"psnp-interval,omitempty"`
-	VrfNameProtocolsIsisInterfaceNoThreeWayHandshake customtypes.CustomStringValue `tfsdk:"no_three_way_handshake" json:"no-three-way-handshake,omitempty"`
+	LeafVrfNameProtocolsIsisInterfaceCircuitType         types.String `tfsdk:"circuit_type"`
+	LeafVrfNameProtocolsIsisInterfaceHelloPadding        types.String `tfsdk:"hello_padding"`
+	LeafVrfNameProtocolsIsisInterfaceHelloInterval       types.String `tfsdk:"hello_interval"`
+	LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier     types.String `tfsdk:"hello_multiplier"`
+	LeafVrfNameProtocolsIsisInterfaceMetric              types.String `tfsdk:"metric"`
+	LeafVrfNameProtocolsIsisInterfacePassive             types.String `tfsdk:"passive"`
+	LeafVrfNameProtocolsIsisInterfacePriority            types.String `tfsdk:"priority"`
+	LeafVrfNameProtocolsIsisInterfacePsnpInterval        types.String `tfsdk:"psnp_interval"`
+	LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake types.String `tfsdk:"no_three_way_handshake"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsIsisInterfaceBfd      types.Object `tfsdk:"bfd" json:"bfd,omitempty"`
-	VrfNameProtocolsIsisInterfaceNetwork  types.Object `tfsdk:"network" json:"network,omitempty"`
-	VrfNameProtocolsIsisInterfacePassword types.Object `tfsdk:"password" json:"password,omitempty"`
+	NodeVrfNameProtocolsIsisInterfaceBfd      types.Object `tfsdk:"bfd"`
+	NodeVrfNameProtocolsIsisInterfaceNetwork  types.Object `tfsdk:"network"`
+	NodeVrfNameProtocolsIsisInterfacePassword types.Object `tfsdk:"password"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceCircuitType.IsUnknown()) {
+		vyosData["circuit-type"] = o.LeafVrfNameProtocolsIsisInterfaceCircuitType.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.IsUnknown()) {
+		vyosData["hello-padding"] = o.LeafVrfNameProtocolsIsisInterfaceHelloPadding.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.IsUnknown()) {
+		vyosData["hello-interval"] = o.LeafVrfNameProtocolsIsisInterfaceHelloInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.IsUnknown()) {
+		vyosData["hello-multiplier"] = o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfaceMetric.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafVrfNameProtocolsIsisInterfaceMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfacePassive.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePassive.IsUnknown()) {
+		vyosData["passive"] = o.LeafVrfNameProtocolsIsisInterfacePassive.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfacePriority.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafVrfNameProtocolsIsisInterfacePriority.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsNull() || o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.IsUnknown()) {
+		vyosData["psnp-interval"] = o.LeafVrfNameProtocolsIsisInterfacePsnpInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsNull() || o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.IsUnknown()) {
+		vyosData["no-three-way-handshake"] = o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisInterfaceBfd.IsNull() || o.NodeVrfNameProtocolsIsisInterfaceBfd.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisInterfaceBfd
+		diags.Append(o.NodeVrfNameProtocolsIsisInterfaceBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisInterfaceNetwork.IsNull() || o.NodeVrfNameProtocolsIsisInterfaceNetwork.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisInterfaceNetwork
+		diags.Append(o.NodeVrfNameProtocolsIsisInterfaceNetwork.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["network"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisInterfacePassword.IsNull() || o.NodeVrfNameProtocolsIsisInterfacePassword.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisInterfacePassword
+		diags.Append(o.NodeVrfNameProtocolsIsisInterfacePassword.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["password"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["circuit-type"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceCircuitType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-padding"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloPadding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-multiplier"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceHelloMultIPlier = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePassive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["psnp-interval"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfacePsnpInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-three-way-handshake"]; ok {
+		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisInterfaceNoThreeWayHandshake = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["bfd"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisInterfaceBfd = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisInterfaceBfd = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes())
+	}
+	if value, ok := vyosData["network"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisInterfaceNetwork = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisInterfaceNetwork = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes())
+	}
+	if value, ok := vyosData["password"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisInterfacePassword = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisInterfacePassword = basetypes.NewObjectNull(VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"circuit_type":           types.StringType,
+		"hello_padding":          types.StringType,
+		"hello_interval":         types.StringType,
+		"hello_multiplier":       types.StringType,
+		"metric":                 types.StringType,
+		"passive":                types.StringType,
+		"priority":               types.StringType,
+		"psnp_interval":          types.StringType,
+		"no_three_way_handshake": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"bfd":      types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfaceBfd{}.AttributeTypes()},
+		"network":  types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfaceNetwork{}.AttributeTypes()},
+		"password": types.ObjectType{AttrTypes: VrfNameProtocolsIsisInterfacePassword{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"circuit_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Configure circuit type for interface
 
 |  Format  |  Description  |
@@ -49,16 +215,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"hello_padding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Add padding to IS-IS hello packets
 
 `,
 		},
 
 		"hello_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
 |  Format  |  Description  |
@@ -69,8 +233,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"hello_multiplier": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set Hello interval
 
 |  Format  |  Description  |
@@ -81,8 +244,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
 |  Format  |  Description  |
@@ -93,16 +255,14 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"passive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
 
 `,
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set priority for Designated Router election
 
 |  Format  |  Description  |
@@ -113,8 +273,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"psnp_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set PSNP interval
 
 |  Format  |  Description  |
@@ -125,8 +284,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"no_three_way_handshake": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable three-way handshake
 
 `,
@@ -137,7 +295,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfaceBfd{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfaceBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
 
@@ -145,7 +303,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"network": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfaceNetwork{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfaceNetwork{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Set network type
 
@@ -153,7 +311,7 @@ func (o VrfNameProtocolsIsisInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"password": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisInterfacePassword{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisInterfacePassword{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure the authentication password for a circuit
 

@@ -21,6 +21,6 @@ Failover IPv4 route
 |  ipv4net  |  IPv4 failover route  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

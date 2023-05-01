@@ -23,6 +23,6 @@ Static IPv4 prefix segment/label mapping
 |  ipv4net  |  IPv4 prefix segment  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

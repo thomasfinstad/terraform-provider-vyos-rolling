@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetEvpnGateway describes the resource data model.
 type PolicyRouteMapRuleSetEvpnGateway struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetEvpnGatewayIPvfour customtypes.CustomStringValue `tfsdk:"ipv4" json:"ipv4,omitempty"`
-	PolicyRouteMapRuleSetEvpnGatewayIPvsix  customtypes.CustomStringValue `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour types.String `tfsdk:"ipv4"`
+	LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix  types.String `tfsdk:"ipv6"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetEvpnGateway) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetEvpnGateway) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsNull() || o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.IsUnknown()) {
+		vyosData["ipv4"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsNull() || o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.IsUnknown()) {
+		vyosData["ipv6"] = o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetEvpnGateway) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
+
+	// Leafs
+	if value, ok := vyosData["ipv4"]; ok {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvfour = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetEvpnGatewayIPvsix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "evpn", "gateway"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetEvpnGateway) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ipv4": types.StringType,
+		"ipv6": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetEvpnGateway) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ipv4": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set gateway IPv4 address
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o PolicyRouteMapRuleSetEvpnGateway) ResourceAttributes() map[string]schema
 		},
 
 		"ipv6": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set gateway IPv6 address
 
 |  Format  |  Description  |

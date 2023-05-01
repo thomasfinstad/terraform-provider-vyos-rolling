@@ -27,6 +27,6 @@ Administrative distance for a specific BGP prefix
 |  ipv6net  |  Administrative distance for a specific BGP prefix  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

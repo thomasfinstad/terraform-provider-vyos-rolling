@@ -23,6 +23,6 @@ Policy route table number
 |  u32:1-200  |  Policy route table number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

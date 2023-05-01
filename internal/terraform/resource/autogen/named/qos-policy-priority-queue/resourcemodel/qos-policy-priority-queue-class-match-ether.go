@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueClassMatchEther describes the resource data model.
 type QosPolicyPriorityQueueClassMatchEther struct {
 	// LeafNodes
-	QosPolicyPriorityQueueClassMatchEtherDestination customtypes.CustomStringValue `tfsdk:"destination" json:"destination,omitempty"`
-	QosPolicyPriorityQueueClassMatchEtherProtocol    customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	QosPolicyPriorityQueueClassMatchEtherSource      customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
+	LeafQosPolicyPriorityQueueClassMatchEtherDestination types.String `tfsdk:"destination"`
+	LeafQosPolicyPriorityQueueClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
+	LeafQosPolicyPriorityQueueClassMatchEtherSource      types.String `tfsdk:"source"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyPriorityQueueClassMatchEther) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyPriorityQueueClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.IsUnknown()) {
+		vyosData["destination"] = o.LeafQosPolicyPriorityQueueClassMatchEtherDestination.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsNull() || o.LeafQosPolicyPriorityQueueClassMatchEtherSource.IsUnknown()) {
+		vyosData["source"] = o.LeafQosPolicyPriorityQueueClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyPriorityQueueClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
+
+	// Leafs
+	if value, ok := vyosData["destination"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source"]; ok {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "class", "match", "ether"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyPriorityQueueClassMatchEther) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"destination": types.StringType,
+		"protocol":    types.StringType,
+		"source":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyPriorityQueueClassMatchEther) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"destination": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet destination address for this match
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyPriorityQueueClassMatchEther) ResourceAttributes() map[string]s
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet protocol for this match
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyPriorityQueueClassMatchEther) ResourceAttributes() map[string]s
 		},
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet source address for this match
 
 |  Format  |  Description  |

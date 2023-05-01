@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleIPsec describes the resource data model.
 type PolicyRouteRuleIPsec struct {
 	// LeafNodes
-	PolicyRouteRuleIPsecMatchIPsec customtypes.CustomStringValue `tfsdk:"match_ipsec" json:"match-ipsec,omitempty"`
-	PolicyRouteRuleIPsecMatchNone  customtypes.CustomStringValue `tfsdk:"match_none" json:"match-none,omitempty"`
+	LeafPolicyRouteRuleIPsecMatchIPsec types.String `tfsdk:"match_ipsec"`
+	LeafPolicyRouteRuleIPsecMatchNone  types.String `tfsdk:"match_none"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleIPsec) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleIPsec) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleIPsecMatchIPsec.IsNull() || o.LeafPolicyRouteRuleIPsecMatchIPsec.IsUnknown()) {
+		vyosData["match-ipsec"] = o.LeafPolicyRouteRuleIPsecMatchIPsec.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleIPsecMatchNone.IsNull() || o.LeafPolicyRouteRuleIPsecMatchNone.IsUnknown()) {
+		vyosData["match-none"] = o.LeafPolicyRouteRuleIPsecMatchNone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleIPsec) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
+
+	// Leafs
+	if value, ok := vyosData["match-ipsec"]; ok {
+		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIPsecMatchIPsec = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["match-none"]; ok {
+		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIPsecMatchNone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ipsec"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleIPsec) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"match_ipsec": types.StringType,
+		"match_none":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleIPsec) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"match_ipsec": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound IPsec packets
 
 `,
 		},
 
 		"match_none": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inbound non-IPsec packets
 
 `,

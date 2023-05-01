@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPDistributeListInterfaceAccessList describes the resource data model.
 type ProtocolsRIPDistributeListInterfaceAccessList struct {
 	// LeafNodes
-	ProtocolsRIPDistributeListInterfaceAccessListIn  customtypes.CustomStringValue `tfsdk:"in" json:"in,omitempty"`
-	ProtocolsRIPDistributeListInterfaceAccessListOut customtypes.CustomStringValue `tfsdk:"out" json:"out,omitempty"`
+	LeafProtocolsRIPDistributeListInterfaceAccessListIn  types.String `tfsdk:"in"`
+	LeafProtocolsRIPDistributeListInterfaceAccessListOut types.String `tfsdk:"out"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRIPDistributeListInterfaceAccessList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "distribute-list", "interface", "access-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRIPDistributeListInterfaceAccessListIn.IsNull() || o.LeafProtocolsRIPDistributeListInterfaceAccessListIn.IsUnknown()) {
+		vyosData["in"] = o.LeafProtocolsRIPDistributeListInterfaceAccessListIn.ValueString()
+	}
+	if !(o.LeafProtocolsRIPDistributeListInterfaceAccessListOut.IsNull() || o.LeafProtocolsRIPDistributeListInterfaceAccessListOut.IsUnknown()) {
+		vyosData["out"] = o.LeafProtocolsRIPDistributeListInterfaceAccessListOut.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRIPDistributeListInterfaceAccessList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "distribute-list", "interface", "access-list"}})
+
+	// Leafs
+	if value, ok := vyosData["in"]; ok {
+		o.LeafProtocolsRIPDistributeListInterfaceAccessListIn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPDistributeListInterfaceAccessListIn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["out"]; ok {
+		o.LeafProtocolsRIPDistributeListInterfaceAccessListOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPDistributeListInterfaceAccessListOut = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "distribute-list", "interface", "access-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRIPDistributeListInterfaceAccessList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"in":  types.StringType,
+		"out": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"in": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Access list to apply to input packets
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsRIPDistributeListInterfaceAccessList) ResourceAttributes() map[
 		},
 
 		"out": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Access list to apply to output packets
 
 |  Format  |  Description  |

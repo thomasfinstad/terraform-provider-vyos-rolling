@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersBestpathMed describes the resource data model.
 type VrfNameProtocolsBgpParametersBestpathMed struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersBestpathMedConfed         customtypes.CustomStringValue `tfsdk:"confed" json:"confed,omitempty"`
-	VrfNameProtocolsBgpParametersBestpathMedMissingAsWorst customtypes.CustomStringValue `tfsdk:"missing_as_worst" json:"missing-as-worst,omitempty"`
+	LeafVrfNameProtocolsBgpParametersBestpathMedConfed         types.String `tfsdk:"confed"`
+	LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst types.String `tfsdk:"missing_as_worst"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersBestpathMed) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersBestpathMed) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "med"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.IsUnknown()) {
+		vyosData["confed"] = o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.IsNull() || o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.IsUnknown()) {
+		vyosData["missing-as-worst"] = o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersBestpathMed) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "med"}})
+
+	// Leafs
+	if value, ok := vyosData["confed"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathMedConfed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["missing-as-worst"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersBestpathMedMissingAsWorst = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "bestpath", "med"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathMed) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"confed":           types.StringType,
+		"missing_as_worst": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersBestpathMed) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"confed": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Compare MEDs among confederation paths
 
 `,
 		},
 
 		"missing_as_worst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Treat missing route as a MED as the least preferred one
 
 `,

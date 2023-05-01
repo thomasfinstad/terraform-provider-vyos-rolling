@@ -17,6 +17,6 @@ func (r serviceIPoeServerInterface) Schema(ctx context.Context, req resource.Sch
 Interface to listen dhcp or unclassified packets
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

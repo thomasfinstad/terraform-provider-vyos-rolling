@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetAsPath describes the resource data model.
 type PolicyRouteMapRuleSetAsPath struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetAsPathExclude       customtypes.CustomStringValue `tfsdk:"exclude" json:"exclude,omitempty"`
-	PolicyRouteMapRuleSetAsPathPrepend       customtypes.CustomStringValue `tfsdk:"prepend" json:"prepend,omitempty"`
-	PolicyRouteMapRuleSetAsPathPrependLastAs customtypes.CustomStringValue `tfsdk:"prepend_last_as" json:"prepend-last-as,omitempty"`
+	LeafPolicyRouteMapRuleSetAsPathExclude       types.String `tfsdk:"exclude"`
+	LeafPolicyRouteMapRuleSetAsPathPrepend       types.String `tfsdk:"prepend"`
+	LeafPolicyRouteMapRuleSetAsPathPrependLastAs types.String `tfsdk:"prepend_last_as"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetAsPath) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "as-path"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetAsPathExclude.IsNull() || o.LeafPolicyRouteMapRuleSetAsPathExclude.IsUnknown()) {
+		vyosData["exclude"] = o.LeafPolicyRouteMapRuleSetAsPathExclude.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetAsPathPrepend.IsNull() || o.LeafPolicyRouteMapRuleSetAsPathPrepend.IsUnknown()) {
+		vyosData["prepend"] = o.LeafPolicyRouteMapRuleSetAsPathPrepend.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetAsPathPrependLastAs.IsNull() || o.LeafPolicyRouteMapRuleSetAsPathPrependLastAs.IsUnknown()) {
+		vyosData["prepend-last-as"] = o.LeafPolicyRouteMapRuleSetAsPathPrependLastAs.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetAsPath) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "as-path"}})
+
+	// Leafs
+	if value, ok := vyosData["exclude"]; ok {
+		o.LeafPolicyRouteMapRuleSetAsPathExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAsPathExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prepend"]; ok {
+		o.LeafPolicyRouteMapRuleSetAsPathPrepend = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAsPathPrepend = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prepend-last-as"]; ok {
+		o.LeafPolicyRouteMapRuleSetAsPathPrependLastAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAsPathPrependLastAs = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "as-path"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetAsPath) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"exclude":         types.StringType,
+		"prepend":         types.StringType,
+		"prepend_last_as": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetAsPath) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove/exclude from the as-path attribute
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"prepend": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prepend to the as-path
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o PolicyRouteMapRuleSetAsPath) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"prepend_last_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use the last AS-number in the as-path
 
 |  Format  |  Description  |

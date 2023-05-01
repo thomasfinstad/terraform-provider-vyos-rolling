@@ -2,34 +2,150 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallName describes the resource data model.
 type FirewallName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	FirewallNameDefaultAction     customtypes.CustomStringValue `tfsdk:"default_action" json:"default-action,omitempty"`
-	FirewallNameEnableDefaultLog  customtypes.CustomStringValue `tfsdk:"enable_default_log" json:"enable-default-log,omitempty"`
-	FirewallNameDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	FirewallNameDefaultJumpTarget customtypes.CustomStringValue `tfsdk:"default_jump_target" json:"default-jump-target,omitempty"`
+	LeafFirewallNameDefaultAction     types.String `tfsdk:"default_action"`
+	LeafFirewallNameEnableDefaultLog  types.String `tfsdk:"enable_default_log"`
+	LeafFirewallNameDescrIPtion       types.String `tfsdk:"description"`
+	LeafFirewallNameDefaultJumpTarget types.String `tfsdk:"default_jump_target"`
 
 	// TagNodes
-	FirewallNameRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagFirewallNameRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *FirewallName) GetVyosPath() []string {
+	return []string{
+		"firewall",
+		"name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameDefaultAction.IsNull() || o.LeafFirewallNameDefaultAction.IsUnknown()) {
+		vyosData["default-action"] = o.LeafFirewallNameDefaultAction.ValueString()
+	}
+	if !(o.LeafFirewallNameEnableDefaultLog.IsNull() || o.LeafFirewallNameEnableDefaultLog.IsUnknown()) {
+		vyosData["enable-default-log"] = o.LeafFirewallNameEnableDefaultLog.ValueString()
+	}
+	if !(o.LeafFirewallNameDescrIPtion.IsNull() || o.LeafFirewallNameDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafFirewallNameDescrIPtion.ValueString()
+	}
+	if !(o.LeafFirewallNameDefaultJumpTarget.IsNull() || o.LeafFirewallNameDefaultJumpTarget.IsUnknown()) {
+		vyosData["default-jump-target"] = o.LeafFirewallNameDefaultJumpTarget.ValueString()
+	}
+
+	// Tags
+	if !(o.TagFirewallNameRule.IsNull() || o.TagFirewallNameRule.IsUnknown()) {
+		subModel := make(map[string]FirewallNameRule)
+		diags.Append(o.TagFirewallNameRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name"}})
+
+	// Leafs
+	if value, ok := vyosData["default-action"]; ok {
+		o.LeafFirewallNameDefaultAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameDefaultAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-default-log"]; ok {
+		o.LeafFirewallNameEnableDefaultLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameEnableDefaultLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafFirewallNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-jump-target"]; ok {
+		o.LeafFirewallNameDefaultJumpTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameDefaultJumpTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: FirewallNameRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagFirewallNameRule = data
+	} else {
+		o.TagFirewallNameRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_action":      types.StringType,
+		"enable_default_log":  types.StringType,
+		"description":         types.StringType,
+		"default_jump_target": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: FirewallNameRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv4 firewall rule-set name
+
+`,
+		},
+
 		// LeafNodes
 
 		"default_action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default-action for rule-set
 
 |  Format  |  Description  |
@@ -47,16 +163,14 @@ func (o FirewallName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"enable_default_log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log packets hitting default-action
 
 `,
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -67,8 +181,7 @@ func (o FirewallName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"default_jump_target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set jump target. Action jump must be defined in default-action to use this
                 setting
 
@@ -79,7 +192,7 @@ func (o FirewallName) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: FirewallNameRule{}.ResourceAttributes(),
+				Attributes: FirewallNameRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Firewall rule number (IPv4)

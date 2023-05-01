@@ -21,6 +21,6 @@ Tunnel for NHRP
 |  tunN  |  NHRP tunnel name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

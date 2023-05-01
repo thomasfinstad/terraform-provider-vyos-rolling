@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesDummyIPvsix describes the resource data model.
 type InterfacesDummyIPvsix struct {
 	// LeafNodes
-	InterfacesDummyIPvsixDisableForwarding customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
+	LeafInterfacesDummyIPvsixDisableForwarding types.String `tfsdk:"disable_forwarding"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesDummyIPvsixAddress types.Object `tfsdk:"address" json:"address,omitempty"`
+	NodeInterfacesDummyIPvsixAddress types.Object `tfsdk:"address"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesDummyIPvsix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesDummyIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesDummyIPvsixDisableForwarding.IsNull() || o.LeafInterfacesDummyIPvsixDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesDummyIPvsixDisableForwarding.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesDummyIPvsixAddress.IsNull() || o.NodeInterfacesDummyIPvsixAddress.IsUnknown()) {
+		var subModel InterfacesDummyIPvsixAddress
+		diags.Append(o.NodeInterfacesDummyIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesDummyIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
+
+	// Leafs
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesDummyIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["address"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesDummyIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesDummyIPvsixAddress = data
+
+	} else {
+		o.NodeInterfacesDummyIPvsixAddress = basetypes.NewObjectNull(InterfacesDummyIPvsixAddress{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "dummy", "ipv6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesDummyIPvsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable_forwarding": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"address": types.ObjectType{AttrTypes: InterfacesDummyIPvsixAddress{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesDummyIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
@@ -37,7 +103,7 @@ func (o InterfacesDummyIPvsix) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: InterfacesDummyIPvsixAddress{}.ResourceAttributes(),
+			Attributes: InterfacesDummyIPvsixAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address configuration modes
 

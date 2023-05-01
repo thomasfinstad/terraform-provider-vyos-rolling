@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnSstpAuthenticationLocalUsersUsernameRateLimit describes the resource data model.
 type VpnSstpAuthenticationLocalUsersUsernameRateLimit struct {
 	// LeafNodes
-	VpnSstpAuthenticationLocalUsersUsernameRateLimitUpload   customtypes.CustomStringValue `tfsdk:"upload" json:"upload,omitempty"`
-	VpnSstpAuthenticationLocalUsersUsernameRateLimitDownload customtypes.CustomStringValue `tfsdk:"download" json:"download,omitempty"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload   types.String `tfsdk:"upload"`
+	LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload types.String `tfsdk:"download"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnSstpAuthenticationLocalUsersUsernameRateLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.IsUnknown()) {
+		vyosData["upload"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsNull() || o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.IsUnknown()) {
+		vyosData["download"] = o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnSstpAuthenticationLocalUsersUsernameRateLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
+
+	// Leafs
+	if value, ok := vyosData["upload"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitUpload = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["download"]; ok {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationLocalUsersUsernameRateLimitDownload = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "local-users", "username", "rate-limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnSstpAuthenticationLocalUsersUsernameRateLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"upload":   types.StringType,
+		"download": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnSstpAuthenticationLocalUsersUsernameRateLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"upload": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Upload bandwidth limit in kbits/sec
 
 `,
 		},
 
 		"download": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Download bandwidth limit in kbits/sec
 
 `,

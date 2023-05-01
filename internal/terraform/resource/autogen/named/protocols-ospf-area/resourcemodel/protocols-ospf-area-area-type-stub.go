@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaAreaTypeStub describes the resource data model.
 type ProtocolsOspfAreaAreaTypeStub struct {
 	// LeafNodes
-	ProtocolsOspfAreaAreaTypeStubDefaultCost customtypes.CustomStringValue `tfsdk:"default_cost" json:"default-cost,omitempty"`
-	ProtocolsOspfAreaAreaTypeStubNoSummary   customtypes.CustomStringValue `tfsdk:"no_summary" json:"no-summary,omitempty"`
+	LeafProtocolsOspfAreaAreaTypeStubDefaultCost types.String `tfsdk:"default_cost"`
+	LeafProtocolsOspfAreaAreaTypeStubNoSummary   types.String `tfsdk:"no_summary"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaAreaTypeStub) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaAreaTypeStub) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsNull() || o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.IsUnknown()) {
+		vyosData["default-cost"] = o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsNull() || o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.IsUnknown()) {
+		vyosData["no-summary"] = o.LeafProtocolsOspfAreaAreaTypeStubNoSummary.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaAreaTypeStub) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
+
+	// Leafs
+	if value, ok := vyosData["default-cost"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeStubDefaultCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-summary"]; ok {
+		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaAreaTypeStubNoSummary = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "area-type", "stub"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaAreaTypeStub) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_cost": types.StringType,
+		"no_summary":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaAreaTypeStub) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"default_cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Summary-default cost
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsOspfAreaAreaTypeStub) ResourceAttributes() map[string]schema.At
 		},
 
 		"no_summary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into the stub
 
 `,

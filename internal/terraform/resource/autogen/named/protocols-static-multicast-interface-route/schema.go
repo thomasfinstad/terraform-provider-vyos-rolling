@@ -21,6 +21,6 @@ Multicast interface based route
 |  ipv4net  |  Network  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

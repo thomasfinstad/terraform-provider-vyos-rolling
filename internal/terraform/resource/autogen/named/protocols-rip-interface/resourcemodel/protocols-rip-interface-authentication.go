@@ -2,31 +2,102 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPInterfaceAuthentication describes the resource data model.
 type ProtocolsRIPInterfaceAuthentication struct {
 	// LeafNodes
-	ProtocolsRIPInterfaceAuthenticationPlaintextPassword customtypes.CustomStringValue `tfsdk:"plaintext_password" json:"plaintext-password,omitempty"`
+	LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword types.String `tfsdk:"plaintext_password"`
 
 	// TagNodes
-	ProtocolsRIPInterfaceAuthenticationMdfive types.Map `tfsdk:"md5" json:"md5,omitempty"`
+	TagProtocolsRIPInterfaceAuthenticationMdfive types.Map `tfsdk:"md5"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRIPInterfaceAuthentication) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRIPInterfaceAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.IsNull() || o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.IsUnknown()) {
+		vyosData["plaintext-password"] = o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword.ValueString()
+	}
+
+	// Tags
+	if !(o.TagProtocolsRIPInterfaceAuthenticationMdfive.IsNull() || o.TagProtocolsRIPInterfaceAuthenticationMdfive.IsUnknown()) {
+		subModel := make(map[string]ProtocolsRIPInterfaceAuthenticationMdfive)
+		diags.Append(o.TagProtocolsRIPInterfaceAuthenticationMdfive.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["md5"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRIPInterfaceAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication"}})
+
+	// Leafs
+	if value, ok := vyosData["plaintext-password"]; ok {
+		o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPInterfaceAuthenticationPlaintextPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["md5"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsRIPInterfaceAuthenticationMdfive{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsRIPInterfaceAuthenticationMdfive = data
+	} else {
+		o.TagProtocolsRIPInterfaceAuthenticationMdfive = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "authentication"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRIPInterfaceAuthentication) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"plaintext_password": types.StringType,
+
+		// Tags
+		"md5": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsRIPInterfaceAuthenticationMdfive{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRIPInterfaceAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"plaintext_password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Plain text password
 
 |  Format  |  Description  |
@@ -40,7 +111,7 @@ func (o ProtocolsRIPInterfaceAuthentication) ResourceAttributes() map[string]sch
 
 		"md5": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsRIPInterfaceAuthenticationMdfive{}.ResourceAttributes(),
+				Attributes: ProtocolsRIPInterfaceAuthenticationMdfive{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `MD5 key id

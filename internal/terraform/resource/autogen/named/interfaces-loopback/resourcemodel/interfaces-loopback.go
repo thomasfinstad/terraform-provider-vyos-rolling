@@ -2,34 +2,154 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesLoopback describes the resource data model.
 type InterfacesLoopback struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesLoopbackAddress     customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesLoopbackDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesLoopbackRedirect    customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesLoopbackAddress     types.String `tfsdk:"address"`
+	LeafInterfacesLoopbackDescrIPtion types.String `tfsdk:"description"`
+	LeafInterfacesLoopbackRedirect    types.String `tfsdk:"redirect"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesLoopbackIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesLoopbackMirror types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesLoopbackIP     types.Object `tfsdk:"ip"`
+	NodeInterfacesLoopbackMirror types.Object `tfsdk:"mirror"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesLoopback) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"loopback",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesLoopback) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesLoopbackAddress.IsNull() || o.LeafInterfacesLoopbackAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesLoopbackAddress.ValueString()
+	}
+	if !(o.LeafInterfacesLoopbackDescrIPtion.IsNull() || o.LeafInterfacesLoopbackDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesLoopbackDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesLoopbackRedirect.IsNull() || o.LeafInterfacesLoopbackRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesLoopbackRedirect.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesLoopbackIP.IsNull() || o.NodeInterfacesLoopbackIP.IsUnknown()) {
+		var subModel InterfacesLoopbackIP
+		diags.Append(o.NodeInterfacesLoopbackIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesLoopbackMirror.IsNull() || o.NodeInterfacesLoopbackMirror.IsUnknown()) {
+		var subModel InterfacesLoopbackMirror
+		diags.Append(o.NodeInterfacesLoopbackMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesLoopback) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesLoopbackAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesLoopbackRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesLoopbackIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesLoopbackIP = data
+
+	} else {
+		o.NodeInterfacesLoopbackIP = basetypes.NewObjectNull(InterfacesLoopbackIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesLoopbackMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesLoopbackMirror = data
+
+	} else {
+		o.NodeInterfacesLoopbackMirror = basetypes.NewObjectNull(InterfacesLoopbackMirror{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "loopback"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesLoopback) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"description": types.StringType,
+		"redirect":    types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":     types.ObjectType{AttrTypes: InterfacesLoopbackIP{}.AttributeTypes()},
+		"mirror": types.ObjectType{AttrTypes: InterfacesLoopbackMirror{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesLoopback) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Loopback Interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  lo  |  Loopback interface  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -41,8 +161,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -53,8 +172,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -69,7 +187,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesLoopbackIP{}.ResourceAttributes(),
+			Attributes: InterfacesLoopbackIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -77,7 +195,7 @@ func (o InterfacesLoopback) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesLoopbackMirror{}.ResourceAttributes(),
+			Attributes: InterfacesLoopbackMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 

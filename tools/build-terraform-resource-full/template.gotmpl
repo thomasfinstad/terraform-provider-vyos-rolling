@@ -8,9 +8,10 @@ package {{.pkg}}
 {{define "imports"}}
 import (
 	"context"
+	"fmt"
 	"net/http"
-
-	"golang.org/x/exp/maps"
+	"reflect"
+	"encoding/json"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
@@ -37,7 +38,7 @@ import (
 	// var _ resource.ResourceWithImportState = &{{.BaseNameG}}{}
 {{end}}
 
-{{define "resource"}}
+{{define "resource-tagnode-based-full"}}
 	// New{{.BaseNameCG}} method to return the example resource reference
 	func New{{.BaseNameCG}}() resource.Resource {
 		return &{{.BaseNameG}}{
@@ -76,55 +77,166 @@ import (
 {{define "resource-model"}}
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
-		{{if not .Parent }}
+		{{if .IsBaseNode }}
 			ID         types.String `tfsdk:"identifier"`
 		{{end}}
 
 		{{with .GetChildren }}
 			// LeafNodes
 			{{range .LeafNodes -}}
-				{{.BaseNameCG}} {{.TfValue}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+				Leaf{{.BaseNameCG}} 	{{if eq .ValueType "string" -}}
+											types.String
+										{{- else  if eq .ValueType "number" -}}
+											NOT IMPLEMENTED
+										{{- else if eq .ValueType "bool" -}}
+											NOT IMPLEMENTED
+										{{- else -}}
+											UNKNOWN TYPE: {{.ValueType}}
+										{{- end}} `tfsdk:"{{.BaseNameS}}"`
 			{{end}}
 			// TagNodes
 			{{range .TagNodes -}}
-				{{.BaseNameCG}} {{.TfValue}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+				Tag{{.BaseNameCG}} types.Map `tfsdk:"{{.BaseNameS}}"`
 			{{end}}
 			// Nodes
 			{{range .Nodes -}}
-				{{.BaseNameCG}} {{.TfValue}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+				Node{{.BaseNameCG}} types.Object `tfsdk:"{{.BaseNameS}}"`
 			{{end}}
 		{{end}}
 	}
 
-	{{/* func (m {{.BaseNameCG}}) GetVyosPath() (vyosPath []string) {
-		return []string{
-			{{range .VyosPath -}}
-				"{{.}}",
+	{{if .IsBaseNode }}
+		// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+		func (o *{{.BaseNameCG}}) GetVyosPath() []string {
+			return []string{
+				{{range .AbsName}}
+					"{{.}}",
+				{{- end}}
+				o.ID.ValueString(),
+			}
+		}
+	{{end}}
+
+	// TerraformToVyos converts terraform data to vyos data
+	func (o *{{.BaseNameCG}}) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) (map[string]interface{}) {
+		tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
+
+		vyosData := make(map[string]interface{})
+
+		{{with .GetChildren}}
+			// Leafs
+			{{range .LeafNodes -}}
+				if !(o.Leaf{{.BaseNameCG}}.IsNull() || o.Leaf{{.BaseNameCG}}.IsUnknown()) {
+					vyosData["{{.BaseName}}"] = o.Leaf{{.BaseNameCG}}.ValueString()
+				}
 			{{end}}
-			m.ID.ValueString(),
+			// Tags
+			{{range .TagNodes -}}
+				if !(o.Tag{{.BaseNameCG}}.IsNull() || o.Tag{{.BaseNameCG}}.IsUnknown()) {
+					subModel := make(map[string]{{.BaseNameCG}})
+					diags.Append(o.Tag{{.BaseNameCG}}.ElementsAs(ctx, &subModel, false)...)
+
+					subData := make(map[string]interface{})
+					for k, v := range subModel{
+						subData[k] = v.TerraformToVyos(ctx, diags)
+					}
+					vyosData["{{.BaseName}}"] = subData
+				}
+			{{end}}
+			// Nodes
+			{{range .Nodes -}}
+				if !(o.Node{{.BaseNameCG}}.IsNull() || o.Node{{.BaseNameCG}}.IsUnknown()) {
+					var subModel {{.BaseNameCG}}
+					diags.Append(o.Node{{.BaseNameCG}}.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty:true, UnhandledUnknownAsEmpty:true})...)
+					vyosData["{{.BaseName}}"] = subModel.TerraformToVyos(ctx, diags)
+				}
+			{{end}}
+		{{end}}
+
+		// Return compiled data
+		return vyosData
+
+	}
+
+	// VyosToTerraform converts vyos data to terraform data
+	func (o *{{.BaseNameCG}}) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+		tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
+
+		{{with .GetChildren}}
+			// Leafs
+			{{range .LeafNodes -}}
+				{{if eq .ValueType "string" -}}
+					if value, ok := vyosData["{{.BaseName}}"]; ok {
+						o.Leaf{{.BaseNameCG}} = basetypes.NewStringValue(value.(string))
+					} else {
+						o.Leaf{{.BaseNameCG}} = basetypes.NewStringNull()
+					}
+				{{- else  if eq .ValueType "number" -}}
+					NOT IMPLEMENTED
+				{{- else if eq .ValueType "bool" -}}
+					NOT IMPLEMENTED
+				{{- else -}}
+					UNKNOWN TYPE: {{.ValueType}}
+				{{- end}}
+			{{end}}
+			// Tags
+			{{range .TagNodes -}}
+				if value, ok := vyosData["{{.BaseName}}"]; ok {
+					data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes:  {{.BaseNameCG}}{}.AttributeTypes()}, value.(map[string]interface{}))
+					diags.Append(d...)
+					o.Tag{{.BaseNameCG}} = data
+				} else {
+					o.Tag{{.BaseNameCG}} = basetypes.NewMapNull(types.ObjectType{})
+				}
+			{{end}}
+			// Nodes
+			{{range .Nodes -}}
+				if value, ok := vyosData["{{.BaseName}}"]; ok {
+					data, d := basetypes.NewObjectValueFrom(ctx, {{.BaseNameCG}}{}.AttributeTypes(), value.(map[string]interface{}))
+					diags.Append(d...)
+					o.Node{{.BaseNameCG}} = data
+
+				} else {
+					o.Node{{.BaseNameCG}} = basetypes.NewObjectNull({{.BaseNameCG}}{}.AttributeTypes())
+				}
+			{{end}}
+		{{end}}
+		tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
+	}
+
+	// AttributeTypes generates the attribute types for the resource at this level
+	func (o {{.BaseNameCG}}) AttributeTypes() map[string]attr.Type {
+		return map[string]attr.Type{
+			{{with .GetChildren}}
+				// Leafs
+				{{range .LeafNodes -}}
+					"{{.BaseNameS}}": 	{{if eq .ValueType "string" -}}
+											types.StringType
+										{{- else  if eq .ValueType "number" -}}
+											NOT IMPLEMENTED
+										{{- else if eq .ValueType "bool" -}}
+											NOT IMPLEMENTED
+										{{- else -}}
+											UNKNOWN TYPE: {{.ValueType}}
+										{{- end}},
+				{{end}}
+				// Tags
+				{{range .TagNodes -}}
+					"{{.BaseNameS}}": types.MapType{ElemType: types.ObjectType{AttrTypes: {{.BaseNameCG}}{}.AttributeTypes()} },
+				{{end}}
+				// Nodes
+				{{range .Nodes -}}
+					"{{.BaseNameS}}": types.ObjectType{AttrTypes: {{.BaseNameCG}}{}.AttributeTypes()},
+				{{end}}
+			{{end}}
 		}
 	}
 
-	func (m {{.BaseNameCG}}) UnmarshalJSON(data []byte) error {
-
-		var v []interface{}
-		if err := json.Unmarshal(data, &v); err != nil {
-			return err
-		}
-
-		b.Price, _ = v[0].(string)
-		b.Size, _ = v[1].(string)
-		b.NumOrders = int(v[2].(float64))
-
-		return nil
-	} */}}
-
-	// ResourceAttributes generates the attributes for the resource at this level
-	func (o {{.BaseNameCG}}) ResourceAttributes() map[string]schema.Attribute {
+	// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+	func (o {{.BaseNameCG}}) ResourceSchemaAttributes() map[string]schema.Attribute {
 		return map[string]schema.Attribute{
-			{{if not .Parent }}
+			{{if .IsBaseNode }}
 				"identifier":         schema.StringAttribute{
-						CustomType:          {{.TfType}}{},
 						Required:            true,
 						MarkdownDescription: `{{.Description}}`,
 					},
@@ -133,7 +245,6 @@ import (
 				// LeafNodes
 				{{range .LeafNodes }}
 					"{{.BaseNameS}}": schema.StringAttribute{
-						CustomType:          {{.TfType}}{},
 						Optional:            true,
 						MarkdownDescription: `{{.Description}}`,
 						{{if .Default }}
@@ -147,7 +258,7 @@ import (
 				{{range .TagNodes }}
 					"{{.BaseNameS}}": schema.MapNestedAttribute{
 						NestedObject: schema.NestedAttributeObject{
-							Attributes: {{.BaseNameCG}}{}.ResourceAttributes(),
+							Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
 						},
 						Optional:            true,
 						MarkdownDescription: `{{.Description}}`,
@@ -156,7 +267,7 @@ import (
 				// Nodes
 				{{range .Nodes }}
 					"{{.BaseNameS}}": schema.SingleNestedAttribute{
-						Attributes: {{.BaseNameCG}}{}.ResourceAttributes(),
+						Attributes: {{.BaseNameCG}}{}.ResourceSchemaAttributes(),
 						Optional:            true,
 						MarkdownDescription: `{{.Description}}`,
 					},
@@ -164,16 +275,6 @@ import (
 			{{end}}
 		}
 	}
-
-	{{/* Recursively make resource model structs */}}
-	{{/* {{with .GetChildren }}
-		{{range .TagNodes -}}
-			{{template "resource-model" . }}
-		{{end}}
-		{{range .Nodes -}}
-			{{template "resource-model" . }}
-		{{end}}
-	{{end}} */}}
 {{end}}
 
 {{define "metadata"}}
@@ -192,202 +293,132 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: `{{.AncestorDescription}}`,
-		Attributes: r.model.ResourceAttributes(),
-
-		{{/* Attributes: map[string]schema.Attribute{
-			"identifier": schema.StringAttribute{
-			Required:            true,
-			MarkdownDescription: `{{.Description}}`,
-
-		},
-
-			{{with .GetChildren }}
-				{{range .TagNodes }} {{template "schema-tagnode" . }} {{end}}
-				{{range .LeafNodes }} {{template "schema-leafnode" . }} {{end}}
-				{{range .Nodes }} {{template "schema-node" . }} {{end}}
-			{{end}}
-		}, */}}
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }
 {{end}}
-
-{{/* // TODO handle non-string types
-// TODO Recreate some of vyos validators for use in leafnodes
-{{define "schema-leafnode"}}
-"{{.BaseNameS}}": schema.StringAttribute{
-	CustomType:          {{.TfType}}{},
-	Optional:            true,
-	MarkdownDescription: `{{.Description}}`,
-	{{if .Default }}
-	// Default:             stringdefault.StaticString({{.Default}}),
-	Computed:            true,
-	{{end}}
-},
-{{end}} */}}
-{{/*
-// TODO investigate if tagnode defaults can be handled
-{{define "schema-tagnode"}}
-"{{.BaseNameS}}": schema.MapNestedAttribute{
-	NestedObject: schema.NestedAttributeObject{
-		Attributes: map[string]schema.Attribute{
-			{{with .GetChildren }}
-				{{range .TagNodes }} {{template "schema-tagnode" . }} {{end}}
-				{{range .LeafNodes }} {{template "schema-leafnode" . }} {{end}}
-				{{range .Nodes }} {{template "schema-node" . }} {{end}}
-			{{end}}
-		},
-	},
-	Optional:            true,
-	MarkdownDescription: `{{.Description}}`,
-},
-{{end}}
-
-// TODO investigate if node defaults can be handled
-{{define "schema-node"}}
-"{{.BaseNameS}}": schema.SingleNestedAttribute{
-	Attributes: map[string]schema.Attribute{
-		{{with .GetChildren }}
-			{{range .TagNodes }} {{template "schema-tagnode" . }} {{end}}
-			{{range .LeafNodes }} {{template "schema-leafnode" . }} {{end}}
-			{{range .Nodes }} {{template "schema-node" . }} {{end}}
-		{{end}}
-	},
-	Optional:            true,
-	MarkdownDescription: `{{.Description}}`,
-},
-{{end}} */}}
 
 {{define "crud"}}
-// Create method to define the logic which creates the resource and sets its initial Terraform state.
-func (r {{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+	// Create method to define the logic which creates the resource and sets its initial Terraform state.
+	func (r {{.BaseNameG}}) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
+		data := r.model
 
-	{{/* ctx = context.WithValue(ctx, "crud_func", "Create")
+		// Read Terraform plan data into the model
+		resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
-	var data *{{.BaseNameCG}}
+		if resp.Diagnostics.HasError() {
+			return
+		}
 
-	// Read Terraform plan data into the model
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+		vyosData := data.TerraformToVyos(ctx, &resp.Diagnostics)
+		if resp.Diagnostics.HasError() {
+			return
+		}
+		tflog.Error(ctx, "Compiled terraform to vyos data", map[string]interface{}{"vyosData": vyosData})
 
-	if resp.Diagnostics.HasError() {
-		return
+		// Create vyos api ops
+		vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
+		tflog.Error(ctx, "Compiled vyos operations", map[string]interface{}{"vyosOps": vyosOps})
+
+		// Stage changes
+		r.client.StageSet(ctx, vyosOps)
+
+		// Commit changes
+		response, err := r.client.CommitChanges(ctx)
+		if err != nil {
+			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+			return
+		}
+		if response != nil {
+			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+		}
+
+		// Save ID into the Terraform state.
+		data.ID = types.StringValue(data.ID.ValueString())
+
+		// Save data to Terraform state
+		tflog.Trace(ctx, "resource created")
+		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
+		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 	}
 
-	jsonString, err := json.Marshal(data)
-	if err != nil {
-		panic(err)
-	}
-	tflog.Error(ctx, "JSON", map[string]interface{}{"jsonString": string(jsonString)})
+	// Read method to define the logic which refreshes the Terraform state for the resource.
+	func (r {{.BaseNameG}}) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+		data := r.model
 
-	panic("STOOOOOOP")
+		// Read Terraform prior state data into the model
+		resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
-	// Create vyos api ops
-	vyosOps := helpers.FromTerraformToVyos(ctx, data)
-	for _, ops := range vyosOps {
-		tflog.Error(ctx, "Vyos Ops generated", map[string]interface{}{"vyosOps": ops})
-	}
+		if resp.Diagnostics.HasError() {
+			return
+		}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	r.client.StageSet(ctx, vyosOps)
-	response, err := r.client.CommitChanges(ctx)
-	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
-		return
-	}
-	if response != nil {
-		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
-	}
+		vyosPath := data.GetVyosPath()
 
-	// Save ID into the Terraform state.
-	data.ID = types.StringValue(data.ID.ValueString())
+		// Fetch live state from Vyos
+		response, err := r.client.Read(ctx, vyosPath)
+		if err != nil {
+			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+			return
+		}
+		if response != nil {
+			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+		}
 
-	// Write logs using the tflog package
-	// Documentation: https://terraform.io/plugin/log
-	tflog.Trace(ctx, "created a resource")
+		data.VyosToTerraform(ctx, &resp.Diagnostics, response.(map[string]interface{}))
 
-	// Save data into Terraform state
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...) */}}
-}
-
-// Read method to define the logic which refreshes the Terraform state for the resource.
-func (r {{.BaseNameG}}) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	{{/* ctx = context.WithValue(ctx, "crud_func", "Read")
-
-	var data *{{.BaseNameCG}}
-
-	// Read Terraform prior state data into the model
-	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
+		// Save updated data into Terraform state
+		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
+		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 	}
 
-	vyosPath := data.GetVyosPath()
+	// Update method to define the logic which updates the resource and sets the updated Terraform state on success.
+	func (r {{.BaseNameG}}) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+		data := r.model
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	response, err := r.client.Read(ctx, vyosPath)
-	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
-		return
-	}
-	if response != nil {
-		tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
-	}
+		// Read Terraform plan data into the model
+		resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
 
-	//data.VyosToTerraform(ctx, resp, response.(map[string]interface{}))
+		if resp.Diagnostics.HasError() {
+			return
+		}
 
-	// Save updated data into Terraform state
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...) */}}
-}
+		// If applicable, this is a great opportunity to initialize any necessary
+		// provider client data and make a call using it.
+		// httpResp, err := r.client.Do(httpReq)
+		// if err != nil {
+		//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update example, got error: %s", err))
+		//     return
+		// }
 
-// Update method to define the logic which updates the resource and sets the updated Terraform state on success.
-func (r {{.BaseNameG}}) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	data := r.model
-
-	// Read Terraform plan data into the model
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
+		// Save updated data into Terraform state
+		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 	}
 
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update example, got error: %s", err))
-	//     return
-	// }
+	// Delete method to define the logic which deletes the resource and removes the Terraform state on success.
+	func (r {{.BaseNameG}}) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+		data := r.model
 
-	// Save updated data into Terraform state
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
+		// Read Terraform prior state data into the model
+		resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
-// Delete method to define the logic which deletes the resource and removes the Terraform state on success.
-func (r {{.BaseNameG}}) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	data := r.model
+		if resp.Diagnostics.HasError() {
+			return
+		}
 
-	// Read Terraform prior state data into the model
-	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
+		// If applicable, this is a great opportunity to initialize any necessary
+		// provider client data and make a call using it.
+		// httpResp, err := r.client.Do(httpReq)
+		// if err != nil {
+		//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to delete example, got error: %s", err))
+		//     return
+		// }
 	}
-
-	// If applicable, this is a great opportunity to initialize any necessary
-	// provider client data and make a call using it.
-	// httpResp, err := r.client.Do(httpReq)
-	// if err != nil {
-	//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to delete example, got error: %s", err))
-	//     return
-	// }
-}
 {{end}}
 
 {{define "unused"}}
-// ImportState enables provider control over the ImportResourceState RPC.
-func (r *ExampleResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
-}
+	// ImportState enables provider control over the ImportResourceState RPC.
+	func (r *ExampleResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+		resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	}
 {{end}}

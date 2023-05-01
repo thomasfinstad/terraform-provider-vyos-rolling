@@ -2,39 +2,183 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetIP describes the resource data model.
 type InterfacesPseudoEthernetIP struct {
 	// LeafNodes
-	InterfacesPseudoEthernetIPAdjustMss               customtypes.CustomStringValue `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
-	InterfacesPseudoEthernetIPArpCacheTimeout         customtypes.CustomStringValue `tfsdk:"arp_cache_timeout" json:"arp-cache-timeout,omitempty"`
-	InterfacesPseudoEthernetIPDisableArpFilter        customtypes.CustomStringValue `tfsdk:"disable_arp_filter" json:"disable-arp-filter,omitempty"`
-	InterfacesPseudoEthernetIPDisableForwarding       customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
-	InterfacesPseudoEthernetIPEnableDirectedBroadcast customtypes.CustomStringValue `tfsdk:"enable_directed_broadcast" json:"enable-directed-broadcast,omitempty"`
-	InterfacesPseudoEthernetIPEnableArpAccept         customtypes.CustomStringValue `tfsdk:"enable_arp_accept" json:"enable-arp-accept,omitempty"`
-	InterfacesPseudoEthernetIPEnableArpAnnounce       customtypes.CustomStringValue `tfsdk:"enable_arp_announce" json:"enable-arp-announce,omitempty"`
-	InterfacesPseudoEthernetIPEnableArpIgnore         customtypes.CustomStringValue `tfsdk:"enable_arp_ignore" json:"enable-arp-ignore,omitempty"`
-	InterfacesPseudoEthernetIPEnableProxyArp          customtypes.CustomStringValue `tfsdk:"enable_proxy_arp" json:"enable-proxy-arp,omitempty"`
-	InterfacesPseudoEthernetIPProxyArpPvlan           customtypes.CustomStringValue `tfsdk:"proxy_arp_pvlan" json:"proxy-arp-pvlan,omitempty"`
-	InterfacesPseudoEthernetIPSourceValIDation        customtypes.CustomStringValue `tfsdk:"source_validation" json:"source-validation,omitempty"`
+	LeafInterfacesPseudoEthernetIPAdjustMss               types.String `tfsdk:"adjust_mss"`
+	LeafInterfacesPseudoEthernetIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout"`
+	LeafInterfacesPseudoEthernetIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter"`
+	LeafInterfacesPseudoEthernetIPDisableForwarding       types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast"`
+	LeafInterfacesPseudoEthernetIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept"`
+	LeafInterfacesPseudoEthernetIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce"`
+	LeafInterfacesPseudoEthernetIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore"`
+	LeafInterfacesPseudoEthernetIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp"`
+	LeafInterfacesPseudoEthernetIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan"`
+	LeafInterfacesPseudoEthernetIPSourceValIDation        types.String `tfsdk:"source_validation"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPseudoEthernetIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPseudoEthernetIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPseudoEthernetIPAdjustMss.IsNull() || o.LeafInterfacesPseudoEthernetIPAdjustMss.IsUnknown()) {
+		vyosData["adjust-mss"] = o.LeafInterfacesPseudoEthernetIPAdjustMss.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPArpCacheTimeout.IsNull() || o.LeafInterfacesPseudoEthernetIPArpCacheTimeout.IsUnknown()) {
+		vyosData["arp-cache-timeout"] = o.LeafInterfacesPseudoEthernetIPArpCacheTimeout.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPDisableArpFilter.IsNull() || o.LeafInterfacesPseudoEthernetIPDisableArpFilter.IsUnknown()) {
+		vyosData["disable-arp-filter"] = o.LeafInterfacesPseudoEthernetIPDisableArpFilter.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPDisableForwarding.IsNull() || o.LeafInterfacesPseudoEthernetIPDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesPseudoEthernetIPDisableForwarding.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast.IsNull() || o.LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast.IsUnknown()) {
+		vyosData["enable-directed-broadcast"] = o.LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPEnableArpAccept.IsNull() || o.LeafInterfacesPseudoEthernetIPEnableArpAccept.IsUnknown()) {
+		vyosData["enable-arp-accept"] = o.LeafInterfacesPseudoEthernetIPEnableArpAccept.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPEnableArpAnnounce.IsNull() || o.LeafInterfacesPseudoEthernetIPEnableArpAnnounce.IsUnknown()) {
+		vyosData["enable-arp-announce"] = o.LeafInterfacesPseudoEthernetIPEnableArpAnnounce.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPEnableArpIgnore.IsNull() || o.LeafInterfacesPseudoEthernetIPEnableArpIgnore.IsUnknown()) {
+		vyosData["enable-arp-ignore"] = o.LeafInterfacesPseudoEthernetIPEnableArpIgnore.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPEnableProxyArp.IsNull() || o.LeafInterfacesPseudoEthernetIPEnableProxyArp.IsUnknown()) {
+		vyosData["enable-proxy-arp"] = o.LeafInterfacesPseudoEthernetIPEnableProxyArp.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPProxyArpPvlan.IsNull() || o.LeafInterfacesPseudoEthernetIPProxyArpPvlan.IsUnknown()) {
+		vyosData["proxy-arp-pvlan"] = o.LeafInterfacesPseudoEthernetIPProxyArpPvlan.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetIPSourceValIDation.IsNull() || o.LeafInterfacesPseudoEthernetIPSourceValIDation.IsUnknown()) {
+		vyosData["source-validation"] = o.LeafInterfacesPseudoEthernetIPSourceValIDation.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPseudoEthernetIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["adjust-mss"]; ok {
+		o.LeafInterfacesPseudoEthernetIPAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPAdjustMss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["arp-cache-timeout"]; ok {
+		o.LeafInterfacesPseudoEthernetIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPArpCacheTimeout = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-arp-filter"]; ok {
+		o.LeafInterfacesPseudoEthernetIPDisableArpFilter = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPDisableArpFilter = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesPseudoEthernetIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPDisableForwarding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-directed-broadcast"]; ok {
+		o.LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPEnableDirectedBroadcast = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-accept"]; ok {
+		o.LeafInterfacesPseudoEthernetIPEnableArpAccept = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPEnableArpAccept = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-announce"]; ok {
+		o.LeafInterfacesPseudoEthernetIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPEnableArpAnnounce = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-ignore"]; ok {
+		o.LeafInterfacesPseudoEthernetIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPEnableArpIgnore = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-proxy-arp"]; ok {
+		o.LeafInterfacesPseudoEthernetIPEnableProxyArp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPEnableProxyArp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["proxy-arp-pvlan"]; ok {
+		o.LeafInterfacesPseudoEthernetIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPProxyArpPvlan = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-validation"]; ok {
+		o.LeafInterfacesPseudoEthernetIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPseudoEthernetIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"adjust_mss":                types.StringType,
+		"arp_cache_timeout":         types.StringType,
+		"disable_arp_filter":        types.StringType,
+		"disable_forwarding":        types.StringType,
+		"enable_directed_broadcast": types.StringType,
+		"enable_arp_accept":         types.StringType,
+		"enable_arp_announce":       types.StringType,
+		"enable_arp_ignore":         types.StringType,
+		"enable_proxy_arp":          types.StringType,
+		"proxy_arp_pvlan":           types.StringType,
+		"source_validation":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPseudoEthernetIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"adjust_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
 |  Format  |  Description  |
@@ -46,8 +190,7 @@ func (o InterfacesPseudoEthernetIP) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"arp_cache_timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ARP cache entry timeout in seconds
 
 |  Format  |  Description  |
@@ -61,72 +204,63 @@ func (o InterfacesPseudoEthernetIP) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"disable_arp_filter": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable ARP filter on this interface
 
 `,
 		},
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
 		},
 
 		"enable_directed_broadcast": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable directed broadcast forwarding on this interface
 
 `,
 		},
 
 		"enable_arp_accept": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP accept on this interface
 
 `,
 		},
 
 		"enable_arp_announce": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP announce on this interface
 
 `,
 		},
 
 		"enable_arp_ignore": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP ignore on this interface
 
 `,
 		},
 
 		"enable_proxy_arp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable proxy-arp on this interface
 
 `,
 		},
 
 		"proxy_arp_pvlan": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable private VLAN proxy ARP on this interface
 
 `,
 		},
 
 		"source_validation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
 
 |  Format  |  Description  |

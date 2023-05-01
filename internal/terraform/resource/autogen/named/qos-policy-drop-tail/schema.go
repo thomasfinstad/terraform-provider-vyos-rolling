@@ -23,6 +23,6 @@ Packet limited First In, First Out queue
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

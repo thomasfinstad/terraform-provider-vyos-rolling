@@ -2,47 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged describes the resource data model.
 type VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged struct {
 	// LeafNodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath  customtypes.CustomStringValue `tfsdk:"as_path" json:"as-path,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed     customtypes.CustomStringValue `tfsdk:"med" json:"med,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop customtypes.CustomStringValue `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath  types.String `tfsdk:"as_path"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed     types.String `tfsdk:"med"`
+	LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop types.String `tfsdk:"next_hop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "attribute-unchanged"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.IsUnknown()) {
+		vyosData["as-path"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.IsUnknown()) {
+		vyosData["med"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.IsNull() || o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.IsUnknown()) {
+		vyosData["next-hop"] = o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "attribute-unchanged"}})
+
+	// Leafs
+	if value, ok := vyosData["as-path"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedAsPath = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["med"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedMed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["next-hop"]; ok {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchangedNextHop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family", "ipv4-multicast", "attribute-unchanged"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_path":  types.StringType,
+		"med":      types.StringType,
+		"next_hop": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticastAttributeUnchanged) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as_path": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send AS path unchanged
 
 `,
 		},
 
 		"med": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send multi-exit discriminator unchanged
 
 `,
 		},
 
 		"next_hop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Send nexthop unchanged
 
 `,

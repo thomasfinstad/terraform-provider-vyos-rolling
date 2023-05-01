@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyCommunityListRule describes the resource data model.
 type PolicyCommunityListRule struct {
 	// LeafNodes
-	PolicyCommunityListRuleAction      customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyCommunityListRuleDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyCommunityListRuleRegex       customtypes.CustomStringValue `tfsdk:"regex" json:"regex,omitempty"`
+	LeafPolicyCommunityListRuleAction      types.String `tfsdk:"action"`
+	LeafPolicyCommunityListRuleDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyCommunityListRuleRegex       types.String `tfsdk:"regex"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyCommunityListRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyCommunityListRuleAction.IsNull() || o.LeafPolicyCommunityListRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyCommunityListRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyCommunityListRuleDescrIPtion.IsNull() || o.LeafPolicyCommunityListRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyCommunityListRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyCommunityListRuleRegex.IsNull() || o.LeafPolicyCommunityListRuleRegex.IsUnknown()) {
+		vyosData["regex"] = o.LeafPolicyCommunityListRuleRegex.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyCommunityListRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["regex"]; ok {
+		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListRuleRegex = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "community-list", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyCommunityListRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":      types.StringType,
+		"description": types.StringType,
+		"regex":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyCommunityListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -38,8 +110,7 @@ func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -50,8 +121,7 @@ func (o PolicyCommunityListRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"regex": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Regular expression to match against a community-list
 
 |  Format  |  Description  |

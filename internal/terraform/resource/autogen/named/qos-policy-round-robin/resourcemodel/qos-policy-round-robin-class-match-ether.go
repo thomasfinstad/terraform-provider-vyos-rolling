@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchEther describes the resource data model.
 type QosPolicyRoundRobinClassMatchEther struct {
 	// LeafNodes
-	QosPolicyRoundRobinClassMatchEtherDestination customtypes.CustomStringValue `tfsdk:"destination" json:"destination,omitempty"`
-	QosPolicyRoundRobinClassMatchEtherProtocol    customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	QosPolicyRoundRobinClassMatchEtherSource      customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchEtherDestination types.String `tfsdk:"destination"`
+	LeafQosPolicyRoundRobinClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
+	LeafQosPolicyRoundRobinClassMatchEtherSource      types.String `tfsdk:"source"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRoundRobinClassMatchEther) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRoundRobinClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherDestination.IsUnknown()) {
+		vyosData["destination"] = o.LeafQosPolicyRoundRobinClassMatchEtherDestination.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchEtherProtocol.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsNull() || o.LeafQosPolicyRoundRobinClassMatchEtherSource.IsUnknown()) {
+		vyosData["source"] = o.LeafQosPolicyRoundRobinClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRoundRobinClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
+
+	// Leafs
+	if value, ok := vyosData["destination"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ether"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRoundRobinClassMatchEther) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"destination": types.StringType,
+		"protocol":    types.StringType,
+		"source":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRoundRobinClassMatchEther) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"destination": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet destination address for this match
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyRoundRobinClassMatchEther) ResourceAttributes() map[string]sche
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet protocol for this match
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyRoundRobinClassMatchEther) ResourceAttributes() map[string]sche
 		},
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet source address for this match
 
 |  Format  |  Description  |

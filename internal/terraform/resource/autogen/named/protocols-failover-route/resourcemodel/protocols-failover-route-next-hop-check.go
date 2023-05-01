@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsFailoverRouteNextHopCheck describes the resource data model.
 type ProtocolsFailoverRouteNextHopCheck struct {
 	// LeafNodes
-	ProtocolsFailoverRouteNextHopCheckPort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	ProtocolsFailoverRouteNextHopCheckTarget  customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
-	ProtocolsFailoverRouteNextHopCheckTimeout customtypes.CustomStringValue `tfsdk:"timeout" json:"timeout,omitempty"`
-	ProtocolsFailoverRouteNextHopCheckType    customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
+	LeafProtocolsFailoverRouteNextHopCheckPort    types.String `tfsdk:"port"`
+	LeafProtocolsFailoverRouteNextHopCheckTarget  types.String `tfsdk:"target"`
+	LeafProtocolsFailoverRouteNextHopCheckTimeout types.String `tfsdk:"timeout"`
+	LeafProtocolsFailoverRouteNextHopCheckType    types.String `tfsdk:"type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsFailoverRouteNextHopCheck) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop", "check"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsFailoverRouteNextHopCheckPort.IsNull() || o.LeafProtocolsFailoverRouteNextHopCheckPort.IsUnknown()) {
+		vyosData["port"] = o.LeafProtocolsFailoverRouteNextHopCheckPort.ValueString()
+	}
+	if !(o.LeafProtocolsFailoverRouteNextHopCheckTarget.IsNull() || o.LeafProtocolsFailoverRouteNextHopCheckTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafProtocolsFailoverRouteNextHopCheckTarget.ValueString()
+	}
+	if !(o.LeafProtocolsFailoverRouteNextHopCheckTimeout.IsNull() || o.LeafProtocolsFailoverRouteNextHopCheckTimeout.IsUnknown()) {
+		vyosData["timeout"] = o.LeafProtocolsFailoverRouteNextHopCheckTimeout.ValueString()
+	}
+	if !(o.LeafProtocolsFailoverRouteNextHopCheckType.IsNull() || o.LeafProtocolsFailoverRouteNextHopCheckType.IsUnknown()) {
+		vyosData["type"] = o.LeafProtocolsFailoverRouteNextHopCheckType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsFailoverRouteNextHopCheck) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop", "check"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopCheckPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopCheckPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopCheckTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopCheckTarget = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["timeout"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopCheckTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopCheckTimeout = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafProtocolsFailoverRouteNextHopCheckType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsFailoverRouteNextHopCheckType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "failover", "route", "next-hop", "check"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsFailoverRouteNextHopCheck) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":    types.StringType,
+		"target":  types.StringType,
+		"timeout": types.StringType,
+		"type":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsFailoverRouteNextHopCheck) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Check target address
 
 |  Format  |  Description  |
@@ -50,8 +130,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 		},
 
 		"timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Timeout between checks
 
 |  Format  |  Description  |
@@ -65,8 +144,7 @@ func (o ProtocolsFailoverRouteNextHopCheck) ResourceAttributes() map[string]sche
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Check type
 
 |  Format  |  Description  |

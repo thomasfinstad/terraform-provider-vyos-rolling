@@ -2,50 +2,172 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnSstpAuthenticationRadiusServer describes the resource data model.
 type VpnSstpAuthenticationRadiusServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnSstpAuthenticationRadiusServerDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnSstpAuthenticationRadiusServerKey               customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	VpnSstpAuthenticationRadiusServerPort              customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	VpnSstpAuthenticationRadiusServerAcctPort          customtypes.CustomStringValue `tfsdk:"acct_port" json:"acct-port,omitempty"`
-	VpnSstpAuthenticationRadiusServerDisableAccounting customtypes.CustomStringValue `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
-	VpnSstpAuthenticationRadiusServerFailTime          customtypes.CustomStringValue `tfsdk:"fail_time" json:"fail-time,omitempty"`
+	LeafVpnSstpAuthenticationRadiusServerDisable           types.String `tfsdk:"disable"`
+	LeafVpnSstpAuthenticationRadiusServerKey               types.String `tfsdk:"key"`
+	LeafVpnSstpAuthenticationRadiusServerPort              types.String `tfsdk:"port"`
+	LeafVpnSstpAuthenticationRadiusServerAcctPort          types.String `tfsdk:"acct_port"`
+	LeafVpnSstpAuthenticationRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
+	LeafVpnSstpAuthenticationRadiusServerFailTime          types.String `tfsdk:"fail_time"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnSstpAuthenticationRadiusServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnSstpAuthenticationRadiusServer) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"sstp",
+		"authentication",
+		"radius",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnSstpAuthenticationRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnSstpAuthenticationRadiusServerDisable.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnSstpAuthenticationRadiusServerDisable.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationRadiusServerKey.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerKey.IsUnknown()) {
+		vyosData["key"] = o.LeafVpnSstpAuthenticationRadiusServerKey.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationRadiusServerPort.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafVpnSstpAuthenticationRadiusServerPort.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerAcctPort.IsUnknown()) {
+		vyosData["acct-port"] = o.LeafVpnSstpAuthenticationRadiusServerAcctPort.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.IsUnknown()) {
+		vyosData["disable-accounting"] = o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting.ValueString()
+	}
+	if !(o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsNull() || o.LeafVpnSstpAuthenticationRadiusServerFailTime.IsUnknown()) {
+		vyosData["fail-time"] = o.LeafVpnSstpAuthenticationRadiusServerFailTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnSstpAuthenticationRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["acct-port"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerAcctPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-accounting"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fail-time"]; ok {
+		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnSstpAuthenticationRadiusServerFailTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "sstp", "authentication", "radius", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnSstpAuthenticationRadiusServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":            types.StringType,
+		"key":                types.StringType,
+		"port":               types.StringType,
+		"acct_port":          types.StringType,
+		"disable_accounting": types.StringType,
+		"fail_time":          types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnSstpAuthenticationRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `RADIUS server configuration
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  RADIUS server IPv4 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Shared secret key
 
 `,
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Authentication port
 
 |  Format  |  Description  |
@@ -59,8 +181,7 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceAttributes() map[string]schem
 		},
 
 		"acct_port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Accounting port
 
 |  Format  |  Description  |
@@ -74,16 +195,14 @@ func (o VpnSstpAuthenticationRadiusServer) ResourceAttributes() map[string]schem
 		},
 
 		"disable_accounting": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable accounting
 
 `,
 		},
 
 		"fail_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mark server unavailable for <n> seconds on failure
 
 |  Format  |  Description  |

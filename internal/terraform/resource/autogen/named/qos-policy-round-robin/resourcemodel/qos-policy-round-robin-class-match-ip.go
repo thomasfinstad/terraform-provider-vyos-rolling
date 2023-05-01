@@ -2,35 +2,147 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClassMatchIP describes the resource data model.
 type QosPolicyRoundRobinClassMatchIP struct {
 	// LeafNodes
-	QosPolicyRoundRobinClassMatchIPDscp      customtypes.CustomStringValue `tfsdk:"dscp" json:"dscp,omitempty"`
-	QosPolicyRoundRobinClassMatchIPMaxLength customtypes.CustomStringValue `tfsdk:"max_length" json:"max-length,omitempty"`
-	QosPolicyRoundRobinClassMatchIPProtocol  customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyRoundRobinClassMatchIPDscp      types.String `tfsdk:"dscp"`
+	LeafQosPolicyRoundRobinClassMatchIPMaxLength types.String `tfsdk:"max_length"`
+	LeafQosPolicyRoundRobinClassMatchIPProtocol  types.String `tfsdk:"protocol"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyRoundRobinClassMatchIPDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	QosPolicyRoundRobinClassMatchIPSource      types.Object `tfsdk:"source" json:"source,omitempty"`
-	QosPolicyRoundRobinClassMatchIPTCP         types.Object `tfsdk:"tcp" json:"tcp,omitempty"`
+	NodeQosPolicyRoundRobinClassMatchIPDestination types.Object `tfsdk:"destination"`
+	NodeQosPolicyRoundRobinClassMatchIPSource      types.Object `tfsdk:"source"`
+	NodeQosPolicyRoundRobinClassMatchIPTCP         types.Object `tfsdk:"tcp"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRoundRobinClassMatchIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRoundRobinClassMatchIPDscp.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPDscp.IsUnknown()) {
+		vyosData["dscp"] = o.LeafQosPolicyRoundRobinClassMatchIPDscp.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchIPMaxLength.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPMaxLength.IsUnknown()) {
+		vyosData["max-length"] = o.LeafQosPolicyRoundRobinClassMatchIPMaxLength.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassMatchIPProtocol.IsNull() || o.LeafQosPolicyRoundRobinClassMatchIPProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafQosPolicyRoundRobinClassMatchIPProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyRoundRobinClassMatchIPDestination.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPDestination.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchIPDestination
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyRoundRobinClassMatchIPSource.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPSource.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchIPSource
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyRoundRobinClassMatchIPTCP.IsNull() || o.NodeQosPolicyRoundRobinClassMatchIPTCP.IsUnknown()) {
+		var subModel QosPolicyRoundRobinClassMatchIPTCP
+		diags.Append(o.NodeQosPolicyRoundRobinClassMatchIPTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRoundRobinClassMatchIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["dscp"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-length"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPMaxLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPMaxLength = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafQosPolicyRoundRobinClassMatchIPProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassMatchIPProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchIPDestination = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchIPDestination = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchIPSource = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchIPSource = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["tcp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyRoundRobinClassMatchIPTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyRoundRobinClassMatchIPTCP = data
+
+	} else {
+		o.NodeQosPolicyRoundRobinClassMatchIPTCP = basetypes.NewObjectNull(QosPolicyRoundRobinClassMatchIPTCP{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class", "match", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRoundRobinClassMatchIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dscp":       types.StringType,
+		"max_length": types.StringType,
+		"protocol":   types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPSource{}.AttributeTypes()},
+		"tcp":         types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatchIPTCP{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRoundRobinClassMatchIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on Differentiated Services Codepoint (DSCP)
 
 |  Format  |  Description  |
@@ -72,8 +184,7 @@ func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.
 		},
 
 		"max_length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum packet length
 
 |  Format  |  Description  |
@@ -84,8 +195,7 @@ func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol
 
 |  Format  |  Description  |
@@ -100,7 +210,7 @@ func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPDestination{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match on destination port or address
 
@@ -108,7 +218,7 @@ func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPSource{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match on source port or address
 
@@ -116,7 +226,7 @@ func (o QosPolicyRoundRobinClassMatchIP) ResourceAttributes() map[string]schema.
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: QosPolicyRoundRobinClassMatchIPTCP{}.ResourceAttributes(),
+			Attributes: QosPolicyRoundRobinClassMatchIPTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP Flags matching
 

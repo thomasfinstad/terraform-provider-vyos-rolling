@@ -19,6 +19,6 @@ Firewall group
 Firewall address-group
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -19,6 +19,6 @@ func (r interfacesMacsec) Schema(ctx context.Context, req resource.SchemaRequest
 |  macsecN  |  MACsec interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

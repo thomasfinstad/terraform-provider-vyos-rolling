@@ -2,33 +2,131 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisSegmentRouting describes the resource data model.
 type VrfNameProtocolsIsisSegmentRouting struct {
 	// LeafNodes
-	VrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth customtypes.CustomStringValue `tfsdk:"maximum_label_depth" json:"maximum-label-depth,omitempty"`
+	LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth types.String `tfsdk:"maximum_label_depth"`
 
 	// TagNodes
-	VrfNameProtocolsIsisSegmentRoutingPrefix types.Map `tfsdk:"prefix" json:"prefix,omitempty"`
+	TagVrfNameProtocolsIsisSegmentRoutingPrefix types.Map `tfsdk:"prefix"`
 
 	// Nodes
-	VrfNameProtocolsIsisSegmentRoutingGlobalBlock types.Object `tfsdk:"global_block" json:"global-block,omitempty"`
-	VrfNameProtocolsIsisSegmentRoutingLocalBlock  types.Object `tfsdk:"local_block" json:"local-block,omitempty"`
+	NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock types.Object `tfsdk:"global_block"`
+	NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock  types.Object `tfsdk:"local_block"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisSegmentRouting) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisSegmentRouting) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsNull() || o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.IsUnknown()) {
+		vyosData["maximum-label-depth"] = o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.IsNull() || o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsIsisSegmentRoutingPrefix)
+		diags.Append(o.TagVrfNameProtocolsIsisSegmentRoutingPrefix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["prefix"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSegmentRoutingGlobalBlock
+		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["global-block"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.IsNull() || o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.IsUnknown()) {
+		var subModel VrfNameProtocolsIsisSegmentRoutingLocalBlock
+		diags.Append(o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["local-block"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisSegmentRouting) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
+
+	// Leafs
+	if value, ok := vyosData["maximum-label-depth"]; ok {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisSegmentRoutingMaximumLabelDepth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["prefix"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsIsisSegmentRoutingPrefix = data
+	} else {
+		o.TagVrfNameProtocolsIsisSegmentRoutingPrefix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["global-block"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSegmentRoutingGlobalBlock = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes())
+	}
+	if value, ok := vyosData["local-block"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock = data
+
+	} else {
+		o.NodeVrfNameProtocolsIsisSegmentRoutingLocalBlock = basetypes.NewObjectNull(VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "segment-routing"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisSegmentRouting) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"maximum_label_depth": types.StringType,
+
+		// Tags
+		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.AttributeTypes()}},
+
+		// Nodes
+		"global_block": types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.AttributeTypes()},
+		"local_block":  types.ObjectType{AttrTypes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisSegmentRouting) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"maximum_label_depth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum MPLS labels allowed for this router
 
 |  Format  |  Description  |
@@ -42,7 +140,7 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceAttributes() map[string]sche
 
 		"prefix": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsIsisSegmentRoutingPrefix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv4/IPv6 prefix segment/label mapping
@@ -58,7 +156,7 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceAttributes() map[string]sche
 		// Nodes
 
 		"global_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingGlobalBlock{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Global Block label range
 
@@ -66,7 +164,7 @@ func (o VrfNameProtocolsIsisSegmentRouting) ResourceAttributes() map[string]sche
 		},
 
 		"local_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsIsisSegmentRoutingLocalBlock{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Local Block label range
 

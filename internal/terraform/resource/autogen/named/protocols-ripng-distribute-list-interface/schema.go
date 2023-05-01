@@ -23,6 +23,6 @@ Apply filtering to an interface
 |  txt  |  Apply filtering to an interface  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

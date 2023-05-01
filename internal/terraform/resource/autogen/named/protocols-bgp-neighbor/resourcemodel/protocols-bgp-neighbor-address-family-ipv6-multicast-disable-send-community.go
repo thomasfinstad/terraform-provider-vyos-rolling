@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended customtypes.CustomStringValue `tfsdk:"extended" json:"extended,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard customtypes.CustomStringValue `tfsdk:"standard" json:"standard,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended types.String `tfsdk:"extended"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard types.String `tfsdk:"standard"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "disable-send-community"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.IsUnknown()) {
+		vyosData["extended"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.IsUnknown()) {
+		vyosData["standard"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "disable-send-community"}})
+
+	// Leafs
+	if value, ok := vyosData["extended"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityExtended = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["standard"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunityStandard = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "disable-send-community"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"extended": types.StringType,
+		"standard": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastDisableSendCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"extended": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
 		},
 
 		"standard": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,

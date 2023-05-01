@@ -24,6 +24,6 @@ RADIUS server configuration
 |  ipv6  |  RADIUS server IPv6 address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

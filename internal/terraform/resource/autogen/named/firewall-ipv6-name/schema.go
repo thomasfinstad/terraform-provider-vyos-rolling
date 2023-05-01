@@ -17,6 +17,6 @@ func (r firewallIPvsixName) Schema(ctx context.Context, req resource.SchemaReque
 IPv6 firewall rule-set name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

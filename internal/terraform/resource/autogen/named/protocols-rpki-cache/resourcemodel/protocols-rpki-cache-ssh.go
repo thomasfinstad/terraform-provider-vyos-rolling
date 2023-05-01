@@ -2,56 +2,134 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRpkiCacheTCP describes the resource data model.
 type ProtocolsRpkiCacheTCP struct {
 	// LeafNodes
-	ProtocolsRpkiCacheTCPKnownHostsFile customtypes.CustomStringValue `tfsdk:"known_hosts_file" json:"known-hosts-file,omitempty"`
-	ProtocolsRpkiCacheTCPPrivateKeyFile customtypes.CustomStringValue `tfsdk:"private_key_file" json:"private-key-file,omitempty"`
-	ProtocolsRpkiCacheTCPPublicKeyFile  customtypes.CustomStringValue `tfsdk:"public_key_file" json:"public-key-file,omitempty"`
-	ProtocolsRpkiCacheTCPUsername       customtypes.CustomStringValue `tfsdk:"username" json:"username,omitempty"`
+	LeafProtocolsRpkiCacheTCPKnownHostsFile types.String `tfsdk:"known_hosts_file"`
+	LeafProtocolsRpkiCacheTCPPrivateKeyFile types.String `tfsdk:"private_key_file"`
+	LeafProtocolsRpkiCacheTCPPublicKeyFile  types.String `tfsdk:"public_key_file"`
+	LeafProtocolsRpkiCacheTCPUsername       types.String `tfsdk:"username"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRpkiCacheTCP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRpkiCacheTCP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache", "ssh"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRpkiCacheTCPKnownHostsFile.IsNull() || o.LeafProtocolsRpkiCacheTCPKnownHostsFile.IsUnknown()) {
+		vyosData["known-hosts-file"] = o.LeafProtocolsRpkiCacheTCPKnownHostsFile.ValueString()
+	}
+	if !(o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.IsNull() || o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.IsUnknown()) {
+		vyosData["private-key-file"] = o.LeafProtocolsRpkiCacheTCPPrivateKeyFile.ValueString()
+	}
+	if !(o.LeafProtocolsRpkiCacheTCPPublicKeyFile.IsNull() || o.LeafProtocolsRpkiCacheTCPPublicKeyFile.IsUnknown()) {
+		vyosData["public-key-file"] = o.LeafProtocolsRpkiCacheTCPPublicKeyFile.ValueString()
+	}
+	if !(o.LeafProtocolsRpkiCacheTCPUsername.IsNull() || o.LeafProtocolsRpkiCacheTCPUsername.IsUnknown()) {
+		vyosData["username"] = o.LeafProtocolsRpkiCacheTCPUsername.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRpkiCacheTCP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache", "ssh"}})
+
+	// Leafs
+	if value, ok := vyosData["known-hosts-file"]; ok {
+		o.LeafProtocolsRpkiCacheTCPKnownHostsFile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCacheTCPKnownHostsFile = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["private-key-file"]; ok {
+		o.LeafProtocolsRpkiCacheTCPPrivateKeyFile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCacheTCPPrivateKeyFile = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["public-key-file"]; ok {
+		o.LeafProtocolsRpkiCacheTCPPublicKeyFile = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCacheTCPPublicKeyFile = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["username"]; ok {
+		o.LeafProtocolsRpkiCacheTCPUsername = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCacheTCPUsername = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache", "ssh"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRpkiCacheTCP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"known_hosts_file": types.StringType,
+		"private_key_file": types.StringType,
+		"public_key_file":  types.StringType,
+		"username":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRpkiCacheTCP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"known_hosts_file": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `RPKI SSH known hosts file
 
 `,
 		},
 
 		"private_key_file": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `RPKI SSH private key file
 
 `,
 		},
 
 		"public_key_file": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `RPKI SSH public key file path
 
 `,
 		},
 
 		"username": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
 |  Format  |  Description  |

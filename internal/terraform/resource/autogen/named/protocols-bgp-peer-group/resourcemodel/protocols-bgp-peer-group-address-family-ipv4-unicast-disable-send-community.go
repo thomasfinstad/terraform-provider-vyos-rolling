@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity struct {
 	// LeafNodes
-	ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended customtypes.CustomStringValue `tfsdk:"extended" json:"extended,omitempty"`
-	ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard customtypes.CustomStringValue `tfsdk:"standard" json:"standard,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended types.String `tfsdk:"extended"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard types.String `tfsdk:"standard"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "disable-send-community"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended.IsUnknown()) {
+		vyosData["extended"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended.ValueString()
+	}
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard.IsUnknown()) {
+		vyosData["standard"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "disable-send-community"}})
+
+	// Leafs
+	if value, ok := vyosData["extended"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityExtended = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["standard"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunityStandard = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv4-unicast", "disable-send-community"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"extended": types.StringType,
+		"standard": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyIPvfourUnicastDisableSendCommunity) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"extended": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable sending extended community attributes to this peer
 
 `,
 		},
 
 		"standard": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable sending standard community attributes to this peer
 
 `,

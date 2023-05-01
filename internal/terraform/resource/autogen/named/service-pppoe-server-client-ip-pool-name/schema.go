@@ -23,6 +23,6 @@ Pool name
 |  txt  |  Name of IP pool  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

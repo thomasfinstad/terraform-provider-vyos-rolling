@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsNhrpTunnelDynamicMap describes the resource data model.
 type ProtocolsNhrpTunnelDynamicMap struct {
 	// LeafNodes
-	ProtocolsNhrpTunnelDynamicMapNbmaDomainName customtypes.CustomStringValue `tfsdk:"nbma_domain_name" json:"nbma-domain-name,omitempty"`
+	LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName types.String `tfsdk:"nbma_domain_name"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsNhrpTunnelDynamicMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsNhrpTunnelDynamicMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "dynamic-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.IsNull() || o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.IsUnknown()) {
+		vyosData["nbma-domain-name"] = o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsNhrpTunnelDynamicMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "dynamic-map"}})
+
+	// Leafs
+	if value, ok := vyosData["nbma-domain-name"]; ok {
+		o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsNhrpTunnelDynamicMapNbmaDomainName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "nhrp", "tunnel", "dynamic-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsNhrpTunnelDynamicMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"nbma_domain_name": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsNhrpTunnelDynamicMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"nbma_domain_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set HUB fqdn (nbma-address - fqdn)
 
 |  Format  |  Description  |

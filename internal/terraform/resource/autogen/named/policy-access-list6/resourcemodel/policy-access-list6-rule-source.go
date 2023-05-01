@@ -2,47 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListsixRuleSource describes the resource data model.
 type PolicyAccessListsixRuleSource struct {
 	// LeafNodes
-	PolicyAccessListsixRuleSourceAny        customtypes.CustomStringValue `tfsdk:"any" json:"any,omitempty"`
-	PolicyAccessListsixRuleSourceExactMatch customtypes.CustomStringValue `tfsdk:"exact_match" json:"exact-match,omitempty"`
-	PolicyAccessListsixRuleSourceNetwork    customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
+	LeafPolicyAccessListsixRuleSourceAny        types.String `tfsdk:"any"`
+	LeafPolicyAccessListsixRuleSourceExactMatch types.String `tfsdk:"exact_match"`
+	LeafPolicyAccessListsixRuleSourceNetwork    types.String `tfsdk:"network"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessListsixRuleSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessListsixRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListsixRuleSourceAny.IsNull() || o.LeafPolicyAccessListsixRuleSourceAny.IsUnknown()) {
+		vyosData["any"] = o.LeafPolicyAccessListsixRuleSourceAny.ValueString()
+	}
+	if !(o.LeafPolicyAccessListsixRuleSourceExactMatch.IsNull() || o.LeafPolicyAccessListsixRuleSourceExactMatch.IsUnknown()) {
+		vyosData["exact-match"] = o.LeafPolicyAccessListsixRuleSourceExactMatch.ValueString()
+	}
+	if !(o.LeafPolicyAccessListsixRuleSourceNetwork.IsNull() || o.LeafPolicyAccessListsixRuleSourceNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafPolicyAccessListsixRuleSourceNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessListsixRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["any"]; ok {
+		o.LeafPolicyAccessListsixRuleSourceAny = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixRuleSourceAny = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["exact-match"]; ok {
+		o.LeafPolicyAccessListsixRuleSourceExactMatch = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixRuleSourceExactMatch = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafPolicyAccessListsixRuleSourceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixRuleSourceNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list6", "rule", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessListsixRuleSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"any":         types.StringType,
+		"exact_match": types.StringType,
+		"network":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessListsixRuleSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"any": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Any IP address to match
 
 `,
 		},
 
 		"exact_match": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Exact match of the network prefixes
 
 `,
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network/netmask to match
 
 |  Format  |  Description  |

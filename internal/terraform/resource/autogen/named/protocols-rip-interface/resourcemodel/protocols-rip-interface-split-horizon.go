@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPInterfaceSplitHorizon describes the resource data model.
 type ProtocolsRIPInterfaceSplitHorizon struct {
 	// LeafNodes
-	ProtocolsRIPInterfaceSplitHorizonDisable       customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	ProtocolsRIPInterfaceSplitHorizonPoisonReverse customtypes.CustomStringValue `tfsdk:"poison_reverse" json:"poison-reverse,omitempty"`
+	LeafProtocolsRIPInterfaceSplitHorizonDisable       types.String `tfsdk:"disable"`
+	LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse types.String `tfsdk:"poison_reverse"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRIPInterfaceSplitHorizon) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRIPInterfaceSplitHorizon) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "split-horizon"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRIPInterfaceSplitHorizonDisable.IsNull() || o.LeafProtocolsRIPInterfaceSplitHorizonDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafProtocolsRIPInterfaceSplitHorizonDisable.ValueString()
+	}
+	if !(o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.IsNull() || o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.IsUnknown()) {
+		vyosData["poison-reverse"] = o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRIPInterfaceSplitHorizon) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "split-horizon"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafProtocolsRIPInterfaceSplitHorizonDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPInterfaceSplitHorizonDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["poison-reverse"]; ok {
+		o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRIPInterfaceSplitHorizonPoisonReverse = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rip", "interface", "split-horizon"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRIPInterfaceSplitHorizon) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":        types.StringType,
+		"poison_reverse": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRIPInterfaceSplitHorizon) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable split horizon on specified interface
 
 `,
 		},
 
 		"poison_reverse": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable split horizon on specified interface
 
 `,

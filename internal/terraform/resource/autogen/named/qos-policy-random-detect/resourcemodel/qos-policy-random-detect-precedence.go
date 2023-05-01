@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRandomDetectPrecedence describes the resource data model.
 type QosPolicyRandomDetectPrecedence struct {
 	// LeafNodes
-	QosPolicyRandomDetectPrecedenceQueueLimit       customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
-	QosPolicyRandomDetectPrecedenceAveragePacket    customtypes.CustomStringValue `tfsdk:"average_packet" json:"average-packet,omitempty"`
-	QosPolicyRandomDetectPrecedenceMarkProbability  customtypes.CustomStringValue `tfsdk:"mark_probability" json:"mark-probability,omitempty"`
-	QosPolicyRandomDetectPrecedenceMaximumThreshold customtypes.CustomStringValue `tfsdk:"maximum_threshold" json:"maximum-threshold,omitempty"`
-	QosPolicyRandomDetectPrecedenceMinimumThreshold customtypes.CustomStringValue `tfsdk:"minimum_threshold" json:"minimum-threshold,omitempty"`
+	LeafQosPolicyRandomDetectPrecedenceQueueLimit       types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyRandomDetectPrecedenceAveragePacket    types.String `tfsdk:"average_packet"`
+	LeafQosPolicyRandomDetectPrecedenceMarkProbability  types.String `tfsdk:"mark_probability"`
+	LeafQosPolicyRandomDetectPrecedenceMaximumThreshold types.String `tfsdk:"maximum_threshold"`
+	LeafQosPolicyRandomDetectPrecedenceMinimumThreshold types.String `tfsdk:"minimum_threshold"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRandomDetectPrecedence) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect", "precedence"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.IsNull() || o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyRandomDetectPrecedenceQueueLimit.ValueString()
+	}
+	if !(o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.IsNull() || o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.IsUnknown()) {
+		vyosData["average-packet"] = o.LeafQosPolicyRandomDetectPrecedenceAveragePacket.ValueString()
+	}
+	if !(o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.IsNull() || o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.IsUnknown()) {
+		vyosData["mark-probability"] = o.LeafQosPolicyRandomDetectPrecedenceMarkProbability.ValueString()
+	}
+	if !(o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.IsNull() || o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.IsUnknown()) {
+		vyosData["maximum-threshold"] = o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold.ValueString()
+	}
+	if !(o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.IsNull() || o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.IsUnknown()) {
+		vyosData["minimum-threshold"] = o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRandomDetectPrecedence) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect", "precedence"}})
+
+	// Leafs
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyRandomDetectPrecedenceQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectPrecedenceQueueLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["average-packet"]; ok {
+		o.LeafQosPolicyRandomDetectPrecedenceAveragePacket = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectPrecedenceAveragePacket = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mark-probability"]; ok {
+		o.LeafQosPolicyRandomDetectPrecedenceMarkProbability = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectPrecedenceMarkProbability = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-threshold"]; ok {
+		o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectPrecedenceMaximumThreshold = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["minimum-threshold"]; ok {
+		o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectPrecedenceMinimumThreshold = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect", "precedence"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRandomDetectPrecedence) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"queue_limit":       types.StringType,
+		"average_packet":    types.StringType,
+		"mark_probability":  types.StringType,
+		"maximum_threshold": types.StringType,
+		"minimum_threshold": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRandomDetectPrecedence) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |
@@ -39,8 +129,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 		},
 
 		"average_packet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Average packet size (bytes)
 
 |  Format  |  Description  |
@@ -54,8 +143,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 		},
 
 		"mark_probability": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Mark probability for this precedence
 
 |  Format  |  Description  |
@@ -69,8 +157,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 		},
 
 		"maximum_threshold": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum threshold for random detection
 
 |  Format  |  Description  |
@@ -84,8 +171,7 @@ func (o QosPolicyRandomDetectPrecedence) ResourceAttributes() map[string]schema.
 		},
 
 		"minimum_threshold": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum  threshold for random detection
 
 |  Format  |  Description  |

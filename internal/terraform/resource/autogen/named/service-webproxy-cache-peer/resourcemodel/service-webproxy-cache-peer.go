@@ -2,33 +2,146 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyCachePeer describes the resource data model.
 type ServiceWebproxyCachePeer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceWebproxyCachePeerAddress  customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	ServiceWebproxyCachePeerHTTPPort customtypes.CustomStringValue `tfsdk:"http_port" json:"http-port,omitempty"`
-	ServiceWebproxyCachePeerIcpPort  customtypes.CustomStringValue `tfsdk:"icp_port" json:"icp-port,omitempty"`
-	ServiceWebproxyCachePeerOptions  customtypes.CustomStringValue `tfsdk:"options" json:"options,omitempty"`
-	ServiceWebproxyCachePeerType     customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
+	LeafServiceWebproxyCachePeerAddress  types.String `tfsdk:"address"`
+	LeafServiceWebproxyCachePeerHTTPPort types.String `tfsdk:"http_port"`
+	LeafServiceWebproxyCachePeerIcpPort  types.String `tfsdk:"icp_port"`
+	LeafServiceWebproxyCachePeerOptions  types.String `tfsdk:"options"`
+	LeafServiceWebproxyCachePeerType     types.String `tfsdk:"type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceWebproxyCachePeer) GetVyosPath() []string {
+	return []string{
+		"service",
+		"webproxy",
+		"cache-peer",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceWebproxyCachePeer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceWebproxyCachePeerAddress.IsNull() || o.LeafServiceWebproxyCachePeerAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafServiceWebproxyCachePeerAddress.ValueString()
+	}
+	if !(o.LeafServiceWebproxyCachePeerHTTPPort.IsNull() || o.LeafServiceWebproxyCachePeerHTTPPort.IsUnknown()) {
+		vyosData["http-port"] = o.LeafServiceWebproxyCachePeerHTTPPort.ValueString()
+	}
+	if !(o.LeafServiceWebproxyCachePeerIcpPort.IsNull() || o.LeafServiceWebproxyCachePeerIcpPort.IsUnknown()) {
+		vyosData["icp-port"] = o.LeafServiceWebproxyCachePeerIcpPort.ValueString()
+	}
+	if !(o.LeafServiceWebproxyCachePeerOptions.IsNull() || o.LeafServiceWebproxyCachePeerOptions.IsUnknown()) {
+		vyosData["options"] = o.LeafServiceWebproxyCachePeerOptions.ValueString()
+	}
+	if !(o.LeafServiceWebproxyCachePeerType.IsNull() || o.LeafServiceWebproxyCachePeerType.IsUnknown()) {
+		vyosData["type"] = o.LeafServiceWebproxyCachePeerType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceWebproxyCachePeer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["http-port"]; ok {
+		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerHTTPPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["icp-port"]; ok {
+		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerIcpPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["options"]; ok {
+		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerOptions = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyCachePeerType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "cache-peer"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceWebproxyCachePeer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":   types.StringType,
+		"http_port": types.StringType,
+		"icp_port":  types.StringType,
+		"options":   types.StringType,
+		"type":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceWebproxyCachePeer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Specify other caches in a hierarchy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  hostname  |  Cache peers FQDN  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hostname or IP address of peer
 
 |  Format  |  Description  |
@@ -40,8 +153,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"http_port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default Proxy Port
 
 |  Format  |  Description  |
@@ -55,8 +167,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"icp_port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Cache peer ICP port
 
 |  Format  |  Description  |
@@ -71,8 +182,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"options": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Cache peer options
 
 |  Format  |  Description  |
@@ -86,8 +196,7 @@ func (o ServiceWebproxyCachePeer) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Squid peer type (default parent)
 
 |  Format  |  Description  |

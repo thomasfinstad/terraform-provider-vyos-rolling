@@ -2,65 +2,151 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleDestinationGroup describes the resource data model.
 type FirewallNameRuleDestinationGroup struct {
 	// LeafNodes
-	FirewallNameRuleDestinationGroupAddressGroup customtypes.CustomStringValue `tfsdk:"address_group" json:"address-group,omitempty"`
-	FirewallNameRuleDestinationGroupDomainGroup  customtypes.CustomStringValue `tfsdk:"domain_group" json:"domain-group,omitempty"`
-	FirewallNameRuleDestinationGroupMacGroup     customtypes.CustomStringValue `tfsdk:"mac_group" json:"mac-group,omitempty"`
-	FirewallNameRuleDestinationGroupNetworkGroup customtypes.CustomStringValue `tfsdk:"network_group" json:"network-group,omitempty"`
-	FirewallNameRuleDestinationGroupPortGroup    customtypes.CustomStringValue `tfsdk:"port_group" json:"port-group,omitempty"`
+	LeafFirewallNameRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group"`
+	LeafFirewallNameRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group"`
+	LeafFirewallNameRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group"`
+	LeafFirewallNameRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group"`
+	LeafFirewallNameRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleDestinationGroup) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleDestinationGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "destination", "group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleDestinationGroupAddressGroup.IsNull() || o.LeafFirewallNameRuleDestinationGroupAddressGroup.IsUnknown()) {
+		vyosData["address-group"] = o.LeafFirewallNameRuleDestinationGroupAddressGroup.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleDestinationGroupDomainGroup.IsNull() || o.LeafFirewallNameRuleDestinationGroupDomainGroup.IsUnknown()) {
+		vyosData["domain-group"] = o.LeafFirewallNameRuleDestinationGroupDomainGroup.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleDestinationGroupMacGroup.IsNull() || o.LeafFirewallNameRuleDestinationGroupMacGroup.IsUnknown()) {
+		vyosData["mac-group"] = o.LeafFirewallNameRuleDestinationGroupMacGroup.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleDestinationGroupNetworkGroup.IsNull() || o.LeafFirewallNameRuleDestinationGroupNetworkGroup.IsUnknown()) {
+		vyosData["network-group"] = o.LeafFirewallNameRuleDestinationGroupNetworkGroup.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleDestinationGroupPortGroup.IsNull() || o.LeafFirewallNameRuleDestinationGroupPortGroup.IsUnknown()) {
+		vyosData["port-group"] = o.LeafFirewallNameRuleDestinationGroupPortGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleDestinationGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "destination", "group"}})
+
+	// Leafs
+	if value, ok := vyosData["address-group"]; ok {
+		o.LeafFirewallNameRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["domain-group"]; ok {
+		o.LeafFirewallNameRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-group"]; ok {
+		o.LeafFirewallNameRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDestinationGroupMacGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network-group"]; ok {
+		o.LeafFirewallNameRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port-group"]; ok {
+		o.LeafFirewallNameRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleDestinationGroupPortGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "destination", "group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleDestinationGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address_group": types.StringType,
+		"domain_group":  types.StringType,
+		"mac_group":     types.StringType,
+		"network_group": types.StringType,
+		"port_group":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleDestinationGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of addresses
 
 `,
 		},
 
 		"domain_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of domains
 
 `,
 		},
 
 		"mac_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of MAC addresses
 
 `,
 		},
 
 		"network_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of networks
 
 `,
 		},
 
 		"port_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of ports
 
 `,

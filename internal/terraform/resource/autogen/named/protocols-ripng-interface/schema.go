@@ -21,6 +21,6 @@ Interface name
 |  txt  |  Interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

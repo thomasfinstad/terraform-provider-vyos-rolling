@@ -2,36 +2,157 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRule describes the resource data model.
 type PolicyRouteMapRule struct {
 	// LeafNodes
-	PolicyRouteMapRuleAction      customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyRouteMapRuleCall        customtypes.CustomStringValue `tfsdk:"call" json:"call,omitempty"`
-	PolicyRouteMapRuleContinue    customtypes.CustomStringValue `tfsdk:"continue" json:"continue,omitempty"`
-	PolicyRouteMapRuleDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyRouteMapRuleAction      types.String `tfsdk:"action"`
+	LeafPolicyRouteMapRuleCall        types.String `tfsdk:"call"`
+	LeafPolicyRouteMapRuleContinue    types.String `tfsdk:"continue"`
+	LeafPolicyRouteMapRuleDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteMapRuleMatch   types.Object `tfsdk:"match" json:"match,omitempty"`
-	PolicyRouteMapRuleOnMatch types.Object `tfsdk:"on_match" json:"on-match,omitempty"`
-	PolicyRouteMapRuleSet     types.Object `tfsdk:"set" json:"set,omitempty"`
+	NodePolicyRouteMapRuleMatch   types.Object `tfsdk:"match"`
+	NodePolicyRouteMapRuleOnMatch types.Object `tfsdk:"on_match"`
+	NodePolicyRouteMapRuleSet     types.Object `tfsdk:"set"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleAction.IsNull() || o.LeafPolicyRouteMapRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyRouteMapRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleCall.IsNull() || o.LeafPolicyRouteMapRuleCall.IsUnknown()) {
+		vyosData["call"] = o.LeafPolicyRouteMapRuleCall.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleContinue.IsNull() || o.LeafPolicyRouteMapRuleContinue.IsUnknown()) {
+		vyosData["continue"] = o.LeafPolicyRouteMapRuleContinue.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleDescrIPtion.IsNull() || o.LeafPolicyRouteMapRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyRouteMapRuleDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteMapRuleMatch.IsNull() || o.NodePolicyRouteMapRuleMatch.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatch
+		diags.Append(o.NodePolicyRouteMapRuleMatch.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["match"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleOnMatch.IsNull() || o.NodePolicyRouteMapRuleOnMatch.IsUnknown()) {
+		var subModel PolicyRouteMapRuleOnMatch
+		diags.Append(o.NodePolicyRouteMapRuleOnMatch.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["on-match"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSet.IsNull() || o.NodePolicyRouteMapRuleSet.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSet
+		diags.Append(o.NodePolicyRouteMapRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["call"]; ok {
+		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleCall = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["continue"]; ok {
+		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleContinue = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["match"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatch{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatch = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatch = basetypes.NewObjectNull(PolicyRouteMapRuleMatch{}.AttributeTypes())
+	}
+	if value, ok := vyosData["on-match"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleOnMatch{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleOnMatch = data
+
+	} else {
+		o.NodePolicyRouteMapRuleOnMatch = basetypes.NewObjectNull(PolicyRouteMapRuleOnMatch{}.AttributeTypes())
+	}
+	if value, ok := vyosData["set"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSet = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSet = basetypes.NewObjectNull(PolicyRouteMapRuleSet{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":      types.StringType,
+		"call":        types.StringType,
+		"continue":    types.StringType,
+		"description": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"match":    types.ObjectType{AttrTypes: PolicyRouteMapRuleMatch{}.AttributeTypes()},
+		"on_match": types.ObjectType{AttrTypes: PolicyRouteMapRuleOnMatch{}.AttributeTypes()},
+		"set":      types.ObjectType{AttrTypes: PolicyRouteMapRuleSet{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -43,8 +164,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"call": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Call another route-map on match
 
 |  Format  |  Description  |
@@ -55,8 +175,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"continue": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Jump to a different rule in this route-map on a match
 
 |  Format  |  Description  |
@@ -67,8 +186,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -83,7 +201,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"match": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatch{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatch{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route parameters to match
 
@@ -91,7 +209,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"on_match": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleOnMatch{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleOnMatch{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Exit policy on matches
 
@@ -99,7 +217,7 @@ func (o PolicyRouteMapRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"set": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSet{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSet{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route parameters
 

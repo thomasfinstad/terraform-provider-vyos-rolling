@@ -24,6 +24,6 @@ IP access-list filter
 |  u32:2000-2699  |  IP extended access list (expanded range)  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

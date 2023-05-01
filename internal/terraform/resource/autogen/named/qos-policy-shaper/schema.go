@@ -23,6 +23,6 @@ Traffic shaping based policy (Hierarchy Token Bucket)
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

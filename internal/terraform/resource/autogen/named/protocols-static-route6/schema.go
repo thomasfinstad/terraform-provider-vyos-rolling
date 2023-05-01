@@ -23,6 +23,6 @@ Static IPv6 route
 |  ipv6net  |  IPv6 static route  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

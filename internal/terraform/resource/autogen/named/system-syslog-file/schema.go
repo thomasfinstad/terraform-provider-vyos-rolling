@@ -17,6 +17,6 @@ func (r systemSyslogFile) Schema(ctx context.Context, req resource.SchemaRequest
 Logging to a file
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

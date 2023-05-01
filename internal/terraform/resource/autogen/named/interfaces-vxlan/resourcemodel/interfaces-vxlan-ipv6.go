@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanIPvsix describes the resource data model.
 type InterfacesVxlanIPvsix struct {
 	// LeafNodes
-	InterfacesVxlanIPvsixAdjustMss              customtypes.CustomStringValue `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
-	InterfacesVxlanIPvsixDisableForwarding      customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
-	InterfacesVxlanIPvsixDupAddrDetectTransmits customtypes.CustomStringValue `tfsdk:"dup_addr_detect_transmits" json:"dup-addr-detect-transmits,omitempty"`
+	LeafInterfacesVxlanIPvsixAdjustMss              types.String `tfsdk:"adjust_mss"`
+	LeafInterfacesVxlanIPvsixDisableForwarding      types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesVxlanIPvsixDupAddrDetectTransmits types.String `tfsdk:"dup_addr_detect_transmits"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesVxlanIPvsixAddress types.Object `tfsdk:"address" json:"address,omitempty"`
+	NodeInterfacesVxlanIPvsixAddress types.Object `tfsdk:"address"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVxlanIPvsix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVxlanIPvsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVxlanIPvsixAdjustMss.IsNull() || o.LeafInterfacesVxlanIPvsixAdjustMss.IsUnknown()) {
+		vyosData["adjust-mss"] = o.LeafInterfacesVxlanIPvsixAdjustMss.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanIPvsixDisableForwarding.IsNull() || o.LeafInterfacesVxlanIPvsixDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesVxlanIPvsixDisableForwarding.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanIPvsixDupAddrDetectTransmits.IsNull() || o.LeafInterfacesVxlanIPvsixDupAddrDetectTransmits.IsUnknown()) {
+		vyosData["dup-addr-detect-transmits"] = o.LeafInterfacesVxlanIPvsixDupAddrDetectTransmits.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesVxlanIPvsixAddress.IsNull() || o.NodeInterfacesVxlanIPvsixAddress.IsUnknown()) {
+		var subModel InterfacesVxlanIPvsixAddress
+		diags.Append(o.NodeInterfacesVxlanIPvsixAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVxlanIPvsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6"}})
+
+	// Leafs
+	if value, ok := vyosData["adjust-mss"]; ok {
+		o.LeafInterfacesVxlanIPvsixAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixAdjustMss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesVxlanIPvsixDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixDisableForwarding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dup-addr-detect-transmits"]; ok {
+		o.LeafInterfacesVxlanIPvsixDupAddrDetectTransmits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixDupAddrDetectTransmits = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["address"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVxlanIPvsixAddress{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVxlanIPvsixAddress = data
+
+	} else {
+		o.NodeInterfacesVxlanIPvsixAddress = basetypes.NewObjectNull(InterfacesVxlanIPvsixAddress{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVxlanIPvsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"adjust_mss":                types.StringType,
+		"disable_forwarding":        types.StringType,
+		"dup_addr_detect_transmits": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"address": types.ObjectType{AttrTypes: InterfacesVxlanIPvsixAddress{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVxlanIPvsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"adjust_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
 |  Format  |  Description  |
@@ -40,16 +124,14 @@ func (o InterfacesVxlanIPvsix) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
 		},
 
 		"dup_addr_detect_transmits": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of NS messages to send while performing DAD (default: 1)
 
 |  Format  |  Description  |
@@ -65,7 +147,7 @@ func (o InterfacesVxlanIPvsix) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: InterfacesVxlanIPvsixAddress{}.ResourceAttributes(),
+			Attributes: InterfacesVxlanIPvsixAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 address configuration modes
 

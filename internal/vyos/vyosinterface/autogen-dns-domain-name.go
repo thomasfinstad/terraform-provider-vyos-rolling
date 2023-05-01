@@ -14,6 +14,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},
@@ -65,6 +68,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 						}},
 					}},
 				}, {
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -82,6 +86,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -104,6 +109,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -127,6 +133,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -172,6 +179,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 					}},
 				}},
 				LeafNode: []*interfacedefinition.LeafNode{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "leafNode",
 					},
@@ -237,6 +245,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 						Priority: []string{"400"},
 					}},
 				}, {
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "leafNode",
 					},
@@ -255,6 +264,7 @@ func dnsdomainname() interfacedefinition.InterfaceDefinition {
 						}},
 					}},
 				}, {
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "leafNode",
 					},

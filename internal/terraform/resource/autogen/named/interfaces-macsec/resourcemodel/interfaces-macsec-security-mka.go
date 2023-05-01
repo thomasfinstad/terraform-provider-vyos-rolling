@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesMacsecSecURItyMka describes the resource data model.
 type InterfacesMacsecSecURItyMka struct {
 	// LeafNodes
-	InterfacesMacsecSecURItyMkaCak      customtypes.CustomStringValue `tfsdk:"cak" json:"cak,omitempty"`
-	InterfacesMacsecSecURItyMkaCkn      customtypes.CustomStringValue `tfsdk:"ckn" json:"ckn,omitempty"`
-	InterfacesMacsecSecURItyMkaPriority customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
+	LeafInterfacesMacsecSecURItyMkaCak      types.String `tfsdk:"cak"`
+	LeafInterfacesMacsecSecURItyMkaCkn      types.String `tfsdk:"ckn"`
+	LeafInterfacesMacsecSecURItyMkaPriority types.String `tfsdk:"priority"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesMacsecSecURItyMka) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesMacsecSecURItyMkaCak.IsNull() || o.LeafInterfacesMacsecSecURItyMkaCak.IsUnknown()) {
+		vyosData["cak"] = o.LeafInterfacesMacsecSecURItyMkaCak.ValueString()
+	}
+	if !(o.LeafInterfacesMacsecSecURItyMkaCkn.IsNull() || o.LeafInterfacesMacsecSecURItyMkaCkn.IsUnknown()) {
+		vyosData["ckn"] = o.LeafInterfacesMacsecSecURItyMkaCkn.ValueString()
+	}
+	if !(o.LeafInterfacesMacsecSecURItyMkaPriority.IsNull() || o.LeafInterfacesMacsecSecURItyMkaPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafInterfacesMacsecSecURItyMkaPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesMacsecSecURItyMka) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
+
+	// Leafs
+	if value, ok := vyosData["cak"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaCak = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ckn"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaCkn = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyMkaPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security", "mka"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesMacsecSecURItyMka) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"cak":      types.StringType,
+		"ckn":      types.StringType,
+		"priority": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesMacsecSecURItyMka) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"cak": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Secure Connectivity Association Key
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"ckn": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Secure Connectivity Association Key Name
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o InterfacesMacsecSecURItyMka) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Priority of MACsec Key Agreement protocol (MKA) actor
 
 |  Format  |  Description  |

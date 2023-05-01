@@ -22,6 +22,6 @@ Location data for interface
 |  txt  |  Location data for a specific interface  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

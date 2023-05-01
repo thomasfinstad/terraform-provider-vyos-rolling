@@ -17,6 +17,6 @@ func (r serviceRouterAdvertInterface) Schema(ctx context.Context, req resource.S
 Interface to send RA on
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

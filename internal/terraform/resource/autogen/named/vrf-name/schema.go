@@ -21,6 +21,6 @@ Virtual Routing and Forwarding instance
 |  txt  |  VRF instance name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

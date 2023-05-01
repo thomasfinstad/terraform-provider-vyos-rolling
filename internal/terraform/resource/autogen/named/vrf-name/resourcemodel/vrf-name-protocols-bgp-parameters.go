@@ -2,61 +2,354 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParameters describes the resource data model.
 type VrfNameProtocolsBgpParameters struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersAlwaysCompareMed                  customtypes.CustomStringValue `tfsdk:"always_compare_med" json:"always-compare-med,omitempty"`
-	VrfNameProtocolsBgpParametersClusterID                         customtypes.CustomStringValue `tfsdk:"cluster_id" json:"cluster-id,omitempty"`
-	VrfNameProtocolsBgpParametersDeterministicMed                  customtypes.CustomStringValue `tfsdk:"deterministic_med" json:"deterministic-med,omitempty"`
-	VrfNameProtocolsBgpParametersEbgpRequiresPolicy                customtypes.CustomStringValue `tfsdk:"ebgp_requires_policy" json:"ebgp-requires-policy,omitempty"`
-	VrfNameProtocolsBgpParametersFastConvergence                   customtypes.CustomStringValue `tfsdk:"fast_convergence" json:"fast-convergence,omitempty"`
-	VrfNameProtocolsBgpParametersGracefulShutdown                  customtypes.CustomStringValue `tfsdk:"graceful_shutdown" json:"graceful-shutdown,omitempty"`
-	VrfNameProtocolsBgpParametersLogNeighborChanges                customtypes.CustomStringValue `tfsdk:"log_neighbor_changes" json:"log-neighbor-changes,omitempty"`
-	VrfNameProtocolsBgpParametersMinimumHoldtime                   customtypes.CustomStringValue `tfsdk:"minimum_holdtime" json:"minimum-holdtime,omitempty"`
-	VrfNameProtocolsBgpParametersNetworkImportCheck                customtypes.CustomStringValue `tfsdk:"network_import_check" json:"network-import-check,omitempty"`
-	VrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy customtypes.CustomStringValue `tfsdk:"route_reflector_allow_outbound_policy" json:"route-reflector-allow-outbound-policy,omitempty"`
-	VrfNameProtocolsBgpParametersNoClientToClientReflection        customtypes.CustomStringValue `tfsdk:"no_client_to_client_reflection" json:"no-client-to-client-reflection,omitempty"`
-	VrfNameProtocolsBgpParametersNoFastExternalFailover            customtypes.CustomStringValue `tfsdk:"no_fast_external_failover" json:"no-fast-external-failover,omitempty"`
-	VrfNameProtocolsBgpParametersNoSuppressDuplicates              customtypes.CustomStringValue `tfsdk:"no_suppress_duplicates" json:"no-suppress-duplicates,omitempty"`
-	VrfNameProtocolsBgpParametersRejectAsSets                      customtypes.CustomStringValue `tfsdk:"reject_as_sets" json:"reject-as-sets,omitempty"`
-	VrfNameProtocolsBgpParametersShutdown                          customtypes.CustomStringValue `tfsdk:"shutdown" json:"shutdown,omitempty"`
-	VrfNameProtocolsBgpParametersSuppressFibPending                customtypes.CustomStringValue `tfsdk:"suppress_fib_pending" json:"suppress-fib-pending,omitempty"`
-	VrfNameProtocolsBgpParametersRouterID                          customtypes.CustomStringValue `tfsdk:"router_id" json:"router-id,omitempty"`
+	LeafVrfNameProtocolsBgpParametersAlwaysCompareMed                  types.String `tfsdk:"always_compare_med"`
+	LeafVrfNameProtocolsBgpParametersClusterID                         types.String `tfsdk:"cluster_id"`
+	LeafVrfNameProtocolsBgpParametersDeterministicMed                  types.String `tfsdk:"deterministic_med"`
+	LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy                types.String `tfsdk:"ebgp_requires_policy"`
+	LeafVrfNameProtocolsBgpParametersFastConvergence                   types.String `tfsdk:"fast_convergence"`
+	LeafVrfNameProtocolsBgpParametersGracefulShutdown                  types.String `tfsdk:"graceful_shutdown"`
+	LeafVrfNameProtocolsBgpParametersLogNeighborChanges                types.String `tfsdk:"log_neighbor_changes"`
+	LeafVrfNameProtocolsBgpParametersMinimumHoldtime                   types.String `tfsdk:"minimum_holdtime"`
+	LeafVrfNameProtocolsBgpParametersNetworkImportCheck                types.String `tfsdk:"network_import_check"`
+	LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy types.String `tfsdk:"route_reflector_allow_outbound_policy"`
+	LeafVrfNameProtocolsBgpParametersNoClientToClientReflection        types.String `tfsdk:"no_client_to_client_reflection"`
+	LeafVrfNameProtocolsBgpParametersNoFastExternalFailover            types.String `tfsdk:"no_fast_external_failover"`
+	LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates              types.String `tfsdk:"no_suppress_duplicates"`
+	LeafVrfNameProtocolsBgpParametersRejectAsSets                      types.String `tfsdk:"reject_as_sets"`
+	LeafVrfNameProtocolsBgpParametersShutdown                          types.String `tfsdk:"shutdown"`
+	LeafVrfNameProtocolsBgpParametersSuppressFibPending                types.String `tfsdk:"suppress_fib_pending"`
+	LeafVrfNameProtocolsBgpParametersRouterID                          types.String `tfsdk:"router_id"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpParametersBestpath                 types.Object `tfsdk:"bestpath" json:"bestpath,omitempty"`
-	VrfNameProtocolsBgpParametersConfederation            types.Object `tfsdk:"confederation" json:"confederation,omitempty"`
-	VrfNameProtocolsBgpParametersConditionalAdvertisement types.Object `tfsdk:"conditional_advertisement" json:"conditional-advertisement,omitempty"`
-	VrfNameProtocolsBgpParametersDampening                types.Object `tfsdk:"dampening" json:"dampening,omitempty"`
-	VrfNameProtocolsBgpParametersDefault                  types.Object `tfsdk:"default" json:"default,omitempty"`
-	VrfNameProtocolsBgpParametersDistance                 types.Object `tfsdk:"distance" json:"distance,omitempty"`
-	VrfNameProtocolsBgpParametersGracefulRestart          types.Object `tfsdk:"graceful_restart" json:"graceful-restart,omitempty"`
+	NodeVrfNameProtocolsBgpParametersBestpath                 types.Object `tfsdk:"bestpath"`
+	NodeVrfNameProtocolsBgpParametersConfederation            types.Object `tfsdk:"confederation"`
+	NodeVrfNameProtocolsBgpParametersConditionalAdvertisement types.Object `tfsdk:"conditional_advertisement"`
+	NodeVrfNameProtocolsBgpParametersDampening                types.Object `tfsdk:"dampening"`
+	NodeVrfNameProtocolsBgpParametersDefault                  types.Object `tfsdk:"default"`
+	NodeVrfNameProtocolsBgpParametersDistance                 types.Object `tfsdk:"distance"`
+	NodeVrfNameProtocolsBgpParametersGracefulRestart          types.Object `tfsdk:"graceful_restart"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsNull() || o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.IsUnknown()) {
+		vyosData["always-compare-med"] = o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersClusterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersClusterID.IsUnknown()) {
+		vyosData["cluster-id"] = o.LeafVrfNameProtocolsBgpParametersClusterID.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsNull() || o.LeafVrfNameProtocolsBgpParametersDeterministicMed.IsUnknown()) {
+		vyosData["deterministic-med"] = o.LeafVrfNameProtocolsBgpParametersDeterministicMed.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsNull() || o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.IsUnknown()) {
+		vyosData["ebgp-requires-policy"] = o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsNull() || o.LeafVrfNameProtocolsBgpParametersFastConvergence.IsUnknown()) {
+		vyosData["fast-convergence"] = o.LeafVrfNameProtocolsBgpParametersFastConvergence.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsNull() || o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.IsUnknown()) {
+		vyosData["graceful-shutdown"] = o.LeafVrfNameProtocolsBgpParametersGracefulShutdown.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsNull() || o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.IsUnknown()) {
+		vyosData["log-neighbor-changes"] = o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsNull() || o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.IsUnknown()) {
+		vyosData["minimum-holdtime"] = o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsNull() || o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.IsUnknown()) {
+		vyosData["network-import-check"] = o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsNull() || o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.IsUnknown()) {
+		vyosData["route-reflector-allow-outbound-policy"] = o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.IsUnknown()) {
+		vyosData["no-client-to-client-reflection"] = o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.IsUnknown()) {
+		vyosData["no-fast-external-failover"] = o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsNull() || o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.IsUnknown()) {
+		vyosData["no-suppress-duplicates"] = o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsNull() || o.LeafVrfNameProtocolsBgpParametersRejectAsSets.IsUnknown()) {
+		vyosData["reject-as-sets"] = o.LeafVrfNameProtocolsBgpParametersRejectAsSets.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersShutdown.IsNull() || o.LeafVrfNameProtocolsBgpParametersShutdown.IsUnknown()) {
+		vyosData["shutdown"] = o.LeafVrfNameProtocolsBgpParametersShutdown.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsNull() || o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.IsUnknown()) {
+		vyosData["suppress-fib-pending"] = o.LeafVrfNameProtocolsBgpParametersSuppressFibPending.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersRouterID.IsNull() || o.LeafVrfNameProtocolsBgpParametersRouterID.IsUnknown()) {
+		vyosData["router-id"] = o.LeafVrfNameProtocolsBgpParametersRouterID.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpParametersBestpath.IsNull() || o.NodeVrfNameProtocolsBgpParametersBestpath.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersBestpath
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersBestpath.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bestpath"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersConfederation.IsNull() || o.NodeVrfNameProtocolsBgpParametersConfederation.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersConfederation
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersConfederation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["confederation"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.IsNull() || o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersConditionalAdvertisement
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["conditional-advertisement"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersDampening.IsNull() || o.NodeVrfNameProtocolsBgpParametersDampening.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersDampening
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersDampening.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dampening"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersDefault.IsNull() || o.NodeVrfNameProtocolsBgpParametersDefault.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersDefault
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersDefault.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersDistance.IsNull() || o.NodeVrfNameProtocolsBgpParametersDistance.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersDistance
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpParametersGracefulRestart.IsNull() || o.NodeVrfNameProtocolsBgpParametersGracefulRestart.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpParametersGracefulRestart
+		diags.Append(o.NodeVrfNameProtocolsBgpParametersGracefulRestart.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["graceful-restart"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
+
+	// Leafs
+	if value, ok := vyosData["always-compare-med"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersAlwaysCompareMed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cluster-id"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersClusterID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["deterministic-med"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDeterministicMed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ebgp-requires-policy"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersEbgpRequiresPolicy = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fast-convergence"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersFastConvergence = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["graceful-shutdown"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersGracefulShutdown = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["log-neighbor-changes"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersLogNeighborChanges = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["minimum-holdtime"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersMinimumHoldtime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network-import-check"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNetworkImportCheck = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-reflector-allow-outbound-policy"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRouteReflectorAllowOutboundPolicy = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-client-to-client-reflection"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoClientToClientReflection = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-fast-external-failover"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoFastExternalFailover = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-suppress-duplicates"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersNoSuppressDuplicates = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["reject-as-sets"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRejectAsSets = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["shutdown"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersShutdown = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["suppress-fib-pending"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersSuppressFibPending = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["router-id"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersRouterID = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["bestpath"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersBestpath = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersBestpath = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes())
+	}
+	if value, ok := vyosData["confederation"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersConfederation = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersConfederation = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes())
+	}
+	if value, ok := vyosData["conditional-advertisement"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersConditionalAdvertisement = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes())
+	}
+	if value, ok := vyosData["dampening"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDampening{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersDampening = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersDampening = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDampening{}.AttributeTypes())
+	}
+	if value, ok := vyosData["default"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDefault{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersDefault = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersDefault = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDefault{}.AttributeTypes())
+	}
+	if value, ok := vyosData["distance"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersDistance{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersDistance = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersDistance = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersDistance{}.AttributeTypes())
+	}
+	if value, ok := vyosData["graceful-restart"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpParametersGracefulRestart = basetypes.NewObjectNull(VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParameters) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"always_compare_med":                    types.StringType,
+		"cluster_id":                            types.StringType,
+		"deterministic_med":                     types.StringType,
+		"ebgp_requires_policy":                  types.StringType,
+		"fast_convergence":                      types.StringType,
+		"graceful_shutdown":                     types.StringType,
+		"log_neighbor_changes":                  types.StringType,
+		"minimum_holdtime":                      types.StringType,
+		"network_import_check":                  types.StringType,
+		"route_reflector_allow_outbound_policy": types.StringType,
+		"no_client_to_client_reflection":        types.StringType,
+		"no_fast_external_failover":             types.StringType,
+		"no_suppress_duplicates":                types.StringType,
+		"reject_as_sets":                        types.StringType,
+		"shutdown":                              types.StringType,
+		"suppress_fib_pending":                  types.StringType,
+		"router_id":                             types.StringType,
+
+		// Tags
+
+		// Nodes
+		"bestpath":                  types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersBestpath{}.AttributeTypes()},
+		"confederation":             types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersConfederation{}.AttributeTypes()},
+		"conditional_advertisement": types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.AttributeTypes()},
+		"dampening":                 types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDampening{}.AttributeTypes()},
+		"default":                   types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDefault{}.AttributeTypes()},
+		"distance":                  types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersDistance{}.AttributeTypes()},
+		"graceful_restart":          types.ObjectType{AttrTypes: VrfNameProtocolsBgpParametersGracefulRestart{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParameters) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"always_compare_med": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Always compare MEDs from different neighbors
 
 `,
 		},
 
 		"cluster_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-reflector cluster-id
 
 |  Format  |  Description  |
@@ -67,48 +360,42 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"deterministic_med": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Compare MEDs between different peers in the same AS
 
 `,
 		},
 
 		"ebgp_requires_policy": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Require in and out policy for eBGP peers (RFC8212)
 
 `,
 		},
 
 		"fast_convergence": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Teardown sessions immediately whenever peer becomes unreachable
 
 `,
 		},
 
 		"graceful_shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Graceful shutdown
 
 `,
 		},
 
 		"log_neighbor_changes": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Log neighbor up/down changes and reset reason
 
 `,
 		},
 
 		"minimum_holdtime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP minimum holdtime
 
 |  Format  |  Description  |
@@ -119,72 +406,63 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"network_import_check": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable IGP route check for network statements
 
 `,
 		},
 
 		"route_reflector_allow_outbound_policy": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route reflector client allow policy outbound
 
 `,
 		},
 
 		"no_client_to_client_reflection": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable client to client route reflection
 
 `,
 		},
 
 		"no_fast_external_failover": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable immediate session reset on peer link down event
 
 `,
 		},
 
 		"no_suppress_duplicates": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable suppress duplicate updates if the route actually not changed
 
 `,
 		},
 
 		"reject_as_sets": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Reject routes with AS_SET or AS_CONFED_SET flag
 
 `,
 		},
 
 		"shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administrative shutdown of the BGP instance
 
 `,
 		},
 
 		"suppress_fib_pending": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise only routes that are programmed in kernel to peers
 
 `,
 		},
 
 		"router_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
 |  Format  |  Description  |
@@ -199,7 +477,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"bestpath": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersBestpath{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersBestpath{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default bestpath selection mechanism
 
@@ -207,7 +485,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"confederation": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersConfederation{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersConfederation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `AS confederation parameters
 
@@ -215,7 +493,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"conditional_advertisement": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersConditionalAdvertisement{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Conditional advertisement settings
 
@@ -223,7 +501,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"dampening": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDampening{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDampening{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable route-flap dampening
 
@@ -231,7 +509,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"default": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDefault{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDefault{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP defaults
 
@@ -239,7 +517,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersDistance{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administratives distances for BGP routes
 
@@ -247,7 +525,7 @@ func (o VrfNameProtocolsBgpParameters) ResourceAttributes() map[string]schema.At
 		},
 
 		"graceful_restart": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpParametersGracefulRestart{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpParametersGracefulRestart{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Graceful restart capability parameters
 

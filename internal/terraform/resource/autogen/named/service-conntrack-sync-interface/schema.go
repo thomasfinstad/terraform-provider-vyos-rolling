@@ -17,6 +17,6 @@ func (r serviceConntrackSyncInterface) Schema(ctx context.Context, req resource.
 Interface to use for syncing conntrack entries
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

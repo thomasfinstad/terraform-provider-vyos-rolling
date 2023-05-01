@@ -19,6 +19,6 @@ func (r interfacesPppoe) Schema(ctx context.Context, req resource.SchemaRequest,
 |  pppoeN  |  PPPoE dialer interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

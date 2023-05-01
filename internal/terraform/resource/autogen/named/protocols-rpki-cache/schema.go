@@ -23,6 +23,6 @@ RPKI cache server address
 |  hostname  |  Fully qualified domain name of RPKI server  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

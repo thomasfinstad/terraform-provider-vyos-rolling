@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpNeighborAddressFamily describes the resource data model.
@@ -13,21 +19,215 @@ type VrfNameProtocolsBgpNeighborAddressFamily struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast        types.Object `tfsdk:"ipv4_unicast" json:"ipv4-unicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast         types.Object `tfsdk:"ipv6_unicast" json:"ipv6-unicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast types.Object `tfsdk:"ipv4_labeled_unicast" json:"ipv4-labeled-unicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast  types.Object `tfsdk:"ipv6_labeled_unicast" json:"ipv6-labeled-unicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn            types.Object `tfsdk:"ipv4_vpn" json:"ipv4-vpn,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn             types.Object `tfsdk:"ipv6_vpn" json:"ipv6-vpn,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec       types.Object `tfsdk:"ipv4_flowspec" json:"ipv4-flowspec,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec        types.Object `tfsdk:"ipv6_flowspec" json:"ipv6-flowspec,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast      types.Object `tfsdk:"ipv4_multicast" json:"ipv4-multicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast       types.Object `tfsdk:"ipv6_multicast" json:"ipv6-multicast,omitempty"`
-	VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn           types.Object `tfsdk:"l2vpn_evpn" json:"l2vpn-evpn,omitempty"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast        types.Object `tfsdk:"ipv4_unicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast         types.Object `tfsdk:"ipv6_unicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast types.Object `tfsdk:"ipv4_labeled_unicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast  types.Object `tfsdk:"ipv6_labeled_unicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn            types.Object `tfsdk:"ipv4_vpn"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn             types.Object `tfsdk:"ipv6_vpn"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec       types.Object `tfsdk:"ipv4_flowspec"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec        types.Object `tfsdk:"ipv6_flowspec"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast      types.Object `tfsdk:"ipv4_multicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast       types.Object `tfsdk:"ipv6_multicast"`
+	NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn           types.Object `tfsdk:"l2vpn_evpn"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpNeighborAddressFamily) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-labeled-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-labeled-unicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-vpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-vpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-flowspec"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-flowspec"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv4-multicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-multicast"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn.IsNull() || o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn
+		diags.Append(o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["l2vpn-evpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpNeighborAddressFamily) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ipv4-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv4-labeled-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-labeled-unicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv4-vpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-vpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv4-flowspec"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-flowspec"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv4-multicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-multicast"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast{}.AttributeTypes())
+	}
+	if value, ok := vyosData["l2vpn-evpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn = basetypes.NewObjectNull(VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "neighbor", "address-family"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamily) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"ipv4_unicast":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast{}.AttributeTypes()},
+		"ipv6_unicast":         types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast{}.AttributeTypes()},
+		"ipv4_labeled_unicast": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast{}.AttributeTypes()},
+		"ipv6_labeled_unicast": types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast{}.AttributeTypes()},
+		"ipv4_vpn":             types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn{}.AttributeTypes()},
+		"ipv6_vpn":             types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn{}.AttributeTypes()},
+		"ipv4_flowspec":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}.AttributeTypes()},
+		"ipv6_flowspec":        types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec{}.AttributeTypes()},
+		"ipv4_multicast":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}.AttributeTypes()},
+		"ipv6_multicast":       types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast{}.AttributeTypes()},
+		"l2vpn_evpn":           types.ObjectType{AttrTypes: VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -36,7 +236,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		// Nodes
 
 		"ipv4_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 BGP neighbor parameters
 
@@ -44,7 +244,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv6_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 BGP neighbor parameters
 
@@ -52,7 +252,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv4_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourLabeledUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 Labeled Unicast BGP neighbor parameters
 
@@ -60,7 +260,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv6_labeled_unicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 Labeled Unicast BGP neighbor parameters
 
@@ -68,7 +268,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv4_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourVpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 VPN BGP neighbor parameters
 
@@ -76,7 +276,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv6_vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixVpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 VPN BGP neighbor parameters
 
@@ -84,7 +284,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv4_flowspec": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourFlowspec{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 Flow Specification BGP neighbor parameters
 
@@ -92,7 +292,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv6_flowspec": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixFlowspec{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 Flow Specification BGP neighbor parameters
 
@@ -100,7 +300,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv4_multicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvfourMulticast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 Multicast BGP neighbor parameters
 
@@ -108,7 +308,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"ipv6_multicast": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyIPvsixMulticast{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 Multicast BGP neighbor parameters
 
@@ -116,7 +316,7 @@ func (o VrfNameProtocolsBgpNeighborAddressFamily) ResourceAttributes() map[strin
 		},
 
 		"l2vpn_evpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpNeighborAddressFamilyLtwovpnEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `L2VPN EVPN BGP settings
 

@@ -25,6 +25,6 @@ Import BGP network/prefix into multicast IPv6 RIB
 |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

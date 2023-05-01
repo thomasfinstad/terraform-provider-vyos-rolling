@@ -2,36 +2,179 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfName describes the resource data model.
 type VrfName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VrfNameDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	VrfNameDisable     customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VrfNameTable       customtypes.CustomStringValue `tfsdk:"table" json:"table,omitempty"`
-	VrfNameVni         customtypes.CustomStringValue `tfsdk:"vni" json:"vni,omitempty"`
+	LeafVrfNameDescrIPtion types.String `tfsdk:"description"`
+	LeafVrfNameDisable     types.String `tfsdk:"disable"`
+	LeafVrfNameTable       types.String `tfsdk:"table"`
+	LeafVrfNameVni         types.String `tfsdk:"vni"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameIP        types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	VrfNameIPvsix    types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	VrfNameProtocols types.Object `tfsdk:"protocols" json:"protocols,omitempty"`
+	NodeVrfNameIP        types.Object `tfsdk:"ip"`
+	NodeVrfNameIPvsix    types.Object `tfsdk:"ipv6"`
+	NodeVrfNameProtocols types.Object `tfsdk:"protocols"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VrfName) GetVyosPath() []string {
+	return []string{
+		"vrf",
+		"name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameDescrIPtion.IsNull() || o.LeafVrfNameDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafVrfNameDescrIPtion.ValueString()
+	}
+	if !(o.LeafVrfNameDisable.IsNull() || o.LeafVrfNameDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVrfNameDisable.ValueString()
+	}
+	if !(o.LeafVrfNameTable.IsNull() || o.LeafVrfNameTable.IsUnknown()) {
+		vyosData["table"] = o.LeafVrfNameTable.ValueString()
+	}
+	if !(o.LeafVrfNameVni.IsNull() || o.LeafVrfNameVni.IsUnknown()) {
+		vyosData["vni"] = o.LeafVrfNameVni.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameIP.IsNull() || o.NodeVrfNameIP.IsUnknown()) {
+		var subModel VrfNameIP
+		diags.Append(o.NodeVrfNameIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameIPvsix.IsNull() || o.NodeVrfNameIPvsix.IsUnknown()) {
+		var subModel VrfNameIPvsix
+		diags.Append(o.NodeVrfNameIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocols.IsNull() || o.NodeVrfNameProtocols.IsUnknown()) {
+		var subModel VrfNameProtocols
+		diags.Append(o.NodeVrfNameProtocols.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["protocols"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafVrfNameDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVrfNameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["table"]; ok {
+		o.LeafVrfNameTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameTable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vni"]; ok {
+		o.LeafVrfNameVni = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameVni = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameIP = data
+
+	} else {
+		o.NodeVrfNameIP = basetypes.NewObjectNull(VrfNameIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameIPvsix = data
+
+	} else {
+		o.NodeVrfNameIPvsix = basetypes.NewObjectNull(VrfNameIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["protocols"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocols{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocols = data
+
+	} else {
+		o.NodeVrfNameProtocols = basetypes.NewObjectNull(VrfNameProtocols{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"disable":     types.StringType,
+		"table":       types.StringType,
+		"vni":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":        types.ObjectType{AttrTypes: VrfNameIP{}.AttributeTypes()},
+		"ipv6":      types.ObjectType{AttrTypes: VrfNameIPvsix{}.AttributeTypes()},
+		"protocols": types.ObjectType{AttrTypes: VrfNameProtocols{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Routing and Forwarding instance
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  VRF instance name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,16 +185,14 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"table": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Routing table associated with this instance
 
 |  Format  |  Description  |
@@ -62,8 +203,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"vni": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
 |  Format  |  Description  |
@@ -78,7 +218,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: VrfNameIP{}.ResourceAttributes(),
+			Attributes: VrfNameIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -86,7 +226,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: VrfNameIPvsix{}.ResourceAttributes(),
+			Attributes: VrfNameIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -94,7 +234,7 @@ func (o VrfName) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"protocols": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocols{}.ResourceAttributes(),
+			Attributes: VrfNameProtocols{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Routing protocol parameters
 

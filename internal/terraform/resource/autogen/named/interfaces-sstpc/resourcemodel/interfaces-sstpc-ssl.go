@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesSstpcSsl describes the resource data model.
 type InterfacesSstpcSsl struct {
 	// LeafNodes
-	InterfacesSstpcSslCaCertificate customtypes.CustomStringValue `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
+	LeafInterfacesSstpcSslCaCertificate types.String `tfsdk:"ca_certificate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesSstpcSsl) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesSstpcSsl) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesSstpcSslCaCertificate.IsNull() || o.LeafInterfacesSstpcSslCaCertificate.IsUnknown()) {
+		vyosData["ca-certificate"] = o.LeafInterfacesSstpcSslCaCertificate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesSstpcSsl) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
+
+	// Leafs
+	if value, ok := vyosData["ca-certificate"]; ok {
+		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcSslCaCertificate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "ssl"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesSstpcSsl) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ca_certificate": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesSstpcSsl) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ca_certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
 |  Format  |  Description  |

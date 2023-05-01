@@ -17,6 +17,6 @@ func (r systemStaticHostMappingHostName) Schema(ctx context.Context, req resourc
 Host name for static address mapping
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

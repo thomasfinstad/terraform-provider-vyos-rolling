@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf struct {
 	// LeafNodes
-	ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce customtypes.CustomStringValue `tfsdk:"force" json:"force,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce types.String `tfsdk:"force"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn", "nexthop-self"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce.IsUnknown()) {
+		vyosData["force"] = o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn", "nexthop-self"}})
+
+	// Leafs
+	if value, ok := vyosData["force"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelfForce = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "l2vpn-evpn", "nexthop-self"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"force": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyLtwovpnEvpnNexthopSelf) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"force": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set the next hop to self for reflected routes
 
 `,

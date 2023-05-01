@@ -2,56 +2,134 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVrrpSyncGroupTransitionScrIPt describes the resource data model.
 type HighAvailabilityVrrpSyncGroupTransitionScrIPt struct {
 	// LeafNodes
-	HighAvailabilityVrrpSyncGroupTransitionScrIPtMaster customtypes.CustomStringValue `tfsdk:"master" json:"master,omitempty"`
-	HighAvailabilityVrrpSyncGroupTransitionScrIPtBackup customtypes.CustomStringValue `tfsdk:"backup" json:"backup,omitempty"`
-	HighAvailabilityVrrpSyncGroupTransitionScrIPtFault  customtypes.CustomStringValue `tfsdk:"fault" json:"fault,omitempty"`
-	HighAvailabilityVrrpSyncGroupTransitionScrIPtStop   customtypes.CustomStringValue `tfsdk:"stop" json:"stop,omitempty"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster types.String `tfsdk:"master"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup types.String `tfsdk:"backup"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault  types.String `tfsdk:"fault"`
+	LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop   types.String `tfsdk:"stop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.IsUnknown()) {
+		vyosData["master"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.IsUnknown()) {
+		vyosData["backup"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.IsUnknown()) {
+		vyosData["fault"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsNull() || o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.IsUnknown()) {
+		vyosData["stop"] = o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *HighAvailabilityVrrpSyncGroupTransitionScrIPt) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
+
+	// Leafs
+	if value, ok := vyosData["master"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtMaster = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["backup"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtBackup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["fault"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtFault = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stop"]; ok {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVrrpSyncGroupTransitionScrIPtStop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "vrrp", "sync-group", "transition-script"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"master": types.StringType,
+		"backup": types.StringType,
+		"fault":  types.StringType,
+		"stop":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o HighAvailabilityVrrpSyncGroupTransitionScrIPt) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"master": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to master
 
 `,
 		},
 
 		"backup": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to backup
 
 `,
 		},
 
 		"fault": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to fault
 
 `,
 		},
 
 		"stop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script to run on VRRP state transition to stop
 
 `,

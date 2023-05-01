@@ -2,45 +2,274 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterface describes the resource data model.
 type ServiceRouterAdvertInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceRouterAdvertInterfaceHopLimit           customtypes.CustomStringValue `tfsdk:"hop_limit" json:"hop-limit,omitempty"`
-	ServiceRouterAdvertInterfaceDefaultLifetime    customtypes.CustomStringValue `tfsdk:"default_lifetime" json:"default-lifetime,omitempty"`
-	ServiceRouterAdvertInterfaceDefaultPreference  customtypes.CustomStringValue `tfsdk:"default_preference" json:"default-preference,omitempty"`
-	ServiceRouterAdvertInterfaceDNSsl              customtypes.CustomStringValue `tfsdk:"dnssl" json:"dnssl,omitempty"`
-	ServiceRouterAdvertInterfaceLinkMtu            customtypes.CustomStringValue `tfsdk:"link_mtu" json:"link-mtu,omitempty"`
-	ServiceRouterAdvertInterfaceManagedFlag        customtypes.CustomStringValue `tfsdk:"managed_flag" json:"managed-flag,omitempty"`
-	ServiceRouterAdvertInterfaceNameServer         customtypes.CustomStringValue `tfsdk:"name_server" json:"name-server,omitempty"`
-	ServiceRouterAdvertInterfaceNameServerLifetime customtypes.CustomStringValue `tfsdk:"name_server_lifetime" json:"name-server-lifetime,omitempty"`
-	ServiceRouterAdvertInterfaceOtherConfigFlag    customtypes.CustomStringValue `tfsdk:"other_config_flag" json:"other-config-flag,omitempty"`
-	ServiceRouterAdvertInterfaceSourceAddress      customtypes.CustomStringValue `tfsdk:"source_address" json:"source-address,omitempty"`
-	ServiceRouterAdvertInterfaceReachableTime      customtypes.CustomStringValue `tfsdk:"reachable_time" json:"reachable-time,omitempty"`
-	ServiceRouterAdvertInterfaceRetransTimer       customtypes.CustomStringValue `tfsdk:"retrans_timer" json:"retrans-timer,omitempty"`
-	ServiceRouterAdvertInterfaceNoSendAdvert       customtypes.CustomStringValue `tfsdk:"no_send_advert" json:"no-send-advert,omitempty"`
+	LeafServiceRouterAdvertInterfaceHopLimit           types.String `tfsdk:"hop_limit"`
+	LeafServiceRouterAdvertInterfaceDefaultLifetime    types.String `tfsdk:"default_lifetime"`
+	LeafServiceRouterAdvertInterfaceDefaultPreference  types.String `tfsdk:"default_preference"`
+	LeafServiceRouterAdvertInterfaceDNSsl              types.String `tfsdk:"dnssl"`
+	LeafServiceRouterAdvertInterfaceLinkMtu            types.String `tfsdk:"link_mtu"`
+	LeafServiceRouterAdvertInterfaceManagedFlag        types.String `tfsdk:"managed_flag"`
+	LeafServiceRouterAdvertInterfaceNameServer         types.String `tfsdk:"name_server"`
+	LeafServiceRouterAdvertInterfaceNameServerLifetime types.String `tfsdk:"name_server_lifetime"`
+	LeafServiceRouterAdvertInterfaceOtherConfigFlag    types.String `tfsdk:"other_config_flag"`
+	LeafServiceRouterAdvertInterfaceSourceAddress      types.String `tfsdk:"source_address"`
+	LeafServiceRouterAdvertInterfaceReachableTime      types.String `tfsdk:"reachable_time"`
+	LeafServiceRouterAdvertInterfaceRetransTimer       types.String `tfsdk:"retrans_timer"`
+	LeafServiceRouterAdvertInterfaceNoSendAdvert       types.String `tfsdk:"no_send_advert"`
 
 	// TagNodes
-	ServiceRouterAdvertInterfaceRoute  types.Map `tfsdk:"route" json:"route,omitempty"`
-	ServiceRouterAdvertInterfacePrefix types.Map `tfsdk:"prefix" json:"prefix,omitempty"`
+	TagServiceRouterAdvertInterfaceRoute  types.Map `tfsdk:"route"`
+	TagServiceRouterAdvertInterfacePrefix types.Map `tfsdk:"prefix"`
 
 	// Nodes
-	ServiceRouterAdvertInterfaceInterval types.Object `tfsdk:"interval" json:"interval,omitempty"`
+	NodeServiceRouterAdvertInterfaceInterval types.Object `tfsdk:"interval"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceRouterAdvertInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"router-advert",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceRouterAdvertInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceRouterAdvertInterfaceHopLimit.IsNull() || o.LeafServiceRouterAdvertInterfaceHopLimit.IsUnknown()) {
+		vyosData["hop-limit"] = o.LeafServiceRouterAdvertInterfaceHopLimit.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceDefaultLifetime.IsNull() || o.LeafServiceRouterAdvertInterfaceDefaultLifetime.IsUnknown()) {
+		vyosData["default-lifetime"] = o.LeafServiceRouterAdvertInterfaceDefaultLifetime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceDefaultPreference.IsNull() || o.LeafServiceRouterAdvertInterfaceDefaultPreference.IsUnknown()) {
+		vyosData["default-preference"] = o.LeafServiceRouterAdvertInterfaceDefaultPreference.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceDNSsl.IsNull() || o.LeafServiceRouterAdvertInterfaceDNSsl.IsUnknown()) {
+		vyosData["dnssl"] = o.LeafServiceRouterAdvertInterfaceDNSsl.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceLinkMtu.IsNull() || o.LeafServiceRouterAdvertInterfaceLinkMtu.IsUnknown()) {
+		vyosData["link-mtu"] = o.LeafServiceRouterAdvertInterfaceLinkMtu.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceManagedFlag.IsNull() || o.LeafServiceRouterAdvertInterfaceManagedFlag.IsUnknown()) {
+		vyosData["managed-flag"] = o.LeafServiceRouterAdvertInterfaceManagedFlag.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceNameServer.IsNull() || o.LeafServiceRouterAdvertInterfaceNameServer.IsUnknown()) {
+		vyosData["name-server"] = o.LeafServiceRouterAdvertInterfaceNameServer.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceNameServerLifetime.IsNull() || o.LeafServiceRouterAdvertInterfaceNameServerLifetime.IsUnknown()) {
+		vyosData["name-server-lifetime"] = o.LeafServiceRouterAdvertInterfaceNameServerLifetime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.IsNull() || o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.IsUnknown()) {
+		vyosData["other-config-flag"] = o.LeafServiceRouterAdvertInterfaceOtherConfigFlag.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceSourceAddress.IsNull() || o.LeafServiceRouterAdvertInterfaceSourceAddress.IsUnknown()) {
+		vyosData["source-address"] = o.LeafServiceRouterAdvertInterfaceSourceAddress.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceReachableTime.IsNull() || o.LeafServiceRouterAdvertInterfaceReachableTime.IsUnknown()) {
+		vyosData["reachable-time"] = o.LeafServiceRouterAdvertInterfaceReachableTime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceRetransTimer.IsNull() || o.LeafServiceRouterAdvertInterfaceRetransTimer.IsUnknown()) {
+		vyosData["retrans-timer"] = o.LeafServiceRouterAdvertInterfaceRetransTimer.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceNoSendAdvert.IsNull() || o.LeafServiceRouterAdvertInterfaceNoSendAdvert.IsUnknown()) {
+		vyosData["no-send-advert"] = o.LeafServiceRouterAdvertInterfaceNoSendAdvert.ValueString()
+	}
+
+	// Tags
+	if !(o.TagServiceRouterAdvertInterfaceRoute.IsNull() || o.TagServiceRouterAdvertInterfaceRoute.IsUnknown()) {
+		subModel := make(map[string]ServiceRouterAdvertInterfaceRoute)
+		diags.Append(o.TagServiceRouterAdvertInterfaceRoute.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["route"] = subData
+	}
+	if !(o.TagServiceRouterAdvertInterfacePrefix.IsNull() || o.TagServiceRouterAdvertInterfacePrefix.IsUnknown()) {
+		subModel := make(map[string]ServiceRouterAdvertInterfacePrefix)
+		diags.Append(o.TagServiceRouterAdvertInterfacePrefix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["prefix"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeServiceRouterAdvertInterfaceInterval.IsNull() || o.NodeServiceRouterAdvertInterfaceInterval.IsUnknown()) {
+		var subModel ServiceRouterAdvertInterfaceInterval
+		diags.Append(o.NodeServiceRouterAdvertInterfaceInterval.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["interval"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceRouterAdvertInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["hop-limit"]; ok {
+		o.LeafServiceRouterAdvertInterfaceHopLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceHopLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfaceDefaultLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceDefaultLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["default-preference"]; ok {
+		o.LeafServiceRouterAdvertInterfaceDefaultPreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceDefaultPreference = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dnssl"]; ok {
+		o.LeafServiceRouterAdvertInterfaceDNSsl = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceDNSsl = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["link-mtu"]; ok {
+		o.LeafServiceRouterAdvertInterfaceLinkMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceLinkMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["managed-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfaceManagedFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceManagedFlag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["name-server"]; ok {
+		o.LeafServiceRouterAdvertInterfaceNameServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceNameServer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["name-server-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfaceNameServerLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceNameServerLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["other-config-flag"]; ok {
+		o.LeafServiceRouterAdvertInterfaceOtherConfigFlag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceOtherConfigFlag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-address"]; ok {
+		o.LeafServiceRouterAdvertInterfaceSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["reachable-time"]; ok {
+		o.LeafServiceRouterAdvertInterfaceReachableTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceReachableTime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["retrans-timer"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRetransTimer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRetransTimer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-send-advert"]; ok {
+		o.LeafServiceRouterAdvertInterfaceNoSendAdvert = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceNoSendAdvert = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["route"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceRouterAdvertInterfaceRoute{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceRouterAdvertInterfaceRoute = data
+	} else {
+		o.TagServiceRouterAdvertInterfaceRoute = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["prefix"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceRouterAdvertInterfacePrefix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceRouterAdvertInterfacePrefix = data
+	} else {
+		o.TagServiceRouterAdvertInterfacePrefix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["interval"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceRouterAdvertInterfaceInterval{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceRouterAdvertInterfaceInterval = data
+
+	} else {
+		o.NodeServiceRouterAdvertInterfaceInterval = basetypes.NewObjectNull(ServiceRouterAdvertInterfaceInterval{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceRouterAdvertInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"hop_limit":            types.StringType,
+		"default_lifetime":     types.StringType,
+		"default_preference":   types.StringType,
+		"dnssl":                types.StringType,
+		"link_mtu":             types.StringType,
+		"managed_flag":         types.StringType,
+		"name_server":          types.StringType,
+		"name_server_lifetime": types.StringType,
+		"other_config_flag":    types.StringType,
+		"source_address":       types.StringType,
+		"reachable_time":       types.StringType,
+		"retrans_timer":        types.StringType,
+		"no_send_advert":       types.StringType,
+
+		// Tags
+		"route":  types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceRouterAdvertInterfaceRoute{}.AttributeTypes()}},
+		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceRouterAdvertInterfacePrefix{}.AttributeTypes()}},
+
+		// Nodes
+		"interval": types.ObjectType{AttrTypes: ServiceRouterAdvertInterfaceInterval{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceRouterAdvertInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send RA on
+
+`,
+		},
+
 		// LeafNodes
 
 		"hop_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set Hop Count field of the IP header for outgoing packets
 
 |  Format  |  Description  |
@@ -55,8 +284,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"default_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Lifetime associated with the default router in units of seconds
 
 |  Format  |  Description  |
@@ -68,8 +296,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"default_preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Preference associated with the default router,
 
 |  Format  |  Description  |
@@ -85,16 +312,14 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"dnssl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DNS search list
 
 `,
 		},
 
 		"link_mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Link MTU value placed in RAs, exluded in RAs if unset
 
 |  Format  |  Description  |
@@ -105,16 +330,14 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"managed_flag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for address autoconfiguration in addition to any addresses autoconfigured using SLAAC
 
 `,
 		},
 
 		"name_server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |
@@ -125,8 +348,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"name_server_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum duration how long the RDNSS entries are used
 
 |  Format  |  Description  |
@@ -138,16 +360,14 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"other_config_flag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hosts use the administered (stateful) protocol for autoconfiguration of other (non-address) information
 
 `,
 		},
 
 		"source_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use IPv6 address as source address. Useful with VRRP.
 
 |  Format  |  Description  |
@@ -158,8 +378,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"reachable_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time, in milliseconds, that a node assumes a neighbor is reachable after having received a reachability confirmation
 
 |  Format  |  Description  |
@@ -174,8 +393,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"retrans_timer": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time in milliseconds between retransmitted Neighbor Solicitation messages
 
 |  Format  |  Description  |
@@ -190,8 +408,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		},
 
 		"no_send_advert": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not send router adverts
 
 `,
@@ -201,7 +418,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 
 		"route": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceRouterAdvertInterfaceRoute{}.ResourceAttributes(),
+				Attributes: ServiceRouterAdvertInterfaceRoute{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IPv6 route to be advertised in Router Advertisements (RAs)
@@ -215,7 +432,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 
 		"prefix": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceRouterAdvertInterfacePrefix{}.ResourceAttributes(),
+				Attributes: ServiceRouterAdvertInterfacePrefix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IPv6 prefix to be advertised in Router Advertisements (RAs)
@@ -230,7 +447,7 @@ func (o ServiceRouterAdvertInterface) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"interval": schema.SingleNestedAttribute{
-			Attributes: ServiceRouterAdvertInterfaceInterval{}.ResourceAttributes(),
+			Attributes: ServiceRouterAdvertInterfaceInterval{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Set interval between unsolicited multicast RAs
 

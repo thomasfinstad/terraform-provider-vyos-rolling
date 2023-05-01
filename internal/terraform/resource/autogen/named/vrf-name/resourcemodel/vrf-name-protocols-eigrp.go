@@ -2,38 +2,167 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsEigrp describes the resource data model.
 type VrfNameProtocolsEigrp struct {
 	// LeafNodes
-	VrfNameProtocolsEigrpLocalAs          customtypes.CustomStringValue `tfsdk:"local_as" json:"local-as,omitempty"`
-	VrfNameProtocolsEigrpMaximumPaths     customtypes.CustomStringValue `tfsdk:"maximum_paths" json:"maximum-paths,omitempty"`
-	VrfNameProtocolsEigrpNetwork          customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
-	VrfNameProtocolsEigrpPassiveInterface customtypes.CustomStringValue `tfsdk:"passive_interface" json:"passive-interface,omitempty"`
-	VrfNameProtocolsEigrpRedistribute     customtypes.CustomStringValue `tfsdk:"redistribute" json:"redistribute,omitempty"`
-	VrfNameProtocolsEigrpRouteMap         customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
-	VrfNameProtocolsEigrpRouterID         customtypes.CustomStringValue `tfsdk:"router_id" json:"router-id,omitempty"`
-	VrfNameProtocolsEigrpVariance         customtypes.CustomStringValue `tfsdk:"variance" json:"variance,omitempty"`
+	LeafVrfNameProtocolsEigrpLocalAs          types.String `tfsdk:"local_as"`
+	LeafVrfNameProtocolsEigrpMaximumPaths     types.String `tfsdk:"maximum_paths"`
+	LeafVrfNameProtocolsEigrpNetwork          types.String `tfsdk:"network"`
+	LeafVrfNameProtocolsEigrpPassiveInterface types.String `tfsdk:"passive_interface"`
+	LeafVrfNameProtocolsEigrpRedistribute     types.String `tfsdk:"redistribute"`
+	LeafVrfNameProtocolsEigrpRouteMap         types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsEigrpRouterID         types.String `tfsdk:"router_id"`
+	LeafVrfNameProtocolsEigrpVariance         types.String `tfsdk:"variance"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsEigrpMetric types.Object `tfsdk:"metric" json:"metric,omitempty"`
+	NodeVrfNameProtocolsEigrpMetric types.Object `tfsdk:"metric"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsEigrp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "eigrp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsEigrpLocalAs.IsNull() || o.LeafVrfNameProtocolsEigrpLocalAs.IsUnknown()) {
+		vyosData["local-as"] = o.LeafVrfNameProtocolsEigrpLocalAs.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpMaximumPaths.IsNull() || o.LeafVrfNameProtocolsEigrpMaximumPaths.IsUnknown()) {
+		vyosData["maximum-paths"] = o.LeafVrfNameProtocolsEigrpMaximumPaths.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpNetwork.IsNull() || o.LeafVrfNameProtocolsEigrpNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafVrfNameProtocolsEigrpNetwork.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpPassiveInterface.IsNull() || o.LeafVrfNameProtocolsEigrpPassiveInterface.IsUnknown()) {
+		vyosData["passive-interface"] = o.LeafVrfNameProtocolsEigrpPassiveInterface.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpRedistribute.IsNull() || o.LeafVrfNameProtocolsEigrpRedistribute.IsUnknown()) {
+		vyosData["redistribute"] = o.LeafVrfNameProtocolsEigrpRedistribute.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpRouteMap.IsNull() || o.LeafVrfNameProtocolsEigrpRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsEigrpRouteMap.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpRouterID.IsNull() || o.LeafVrfNameProtocolsEigrpRouterID.IsUnknown()) {
+		vyosData["router-id"] = o.LeafVrfNameProtocolsEigrpRouterID.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsEigrpVariance.IsNull() || o.LeafVrfNameProtocolsEigrpVariance.IsUnknown()) {
+		vyosData["variance"] = o.LeafVrfNameProtocolsEigrpVariance.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsEigrpMetric.IsNull() || o.NodeVrfNameProtocolsEigrpMetric.IsUnknown()) {
+		var subModel VrfNameProtocolsEigrpMetric
+		diags.Append(o.NodeVrfNameProtocolsEigrpMetric.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["metric"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsEigrp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "eigrp"}})
+
+	// Leafs
+	if value, ok := vyosData["local-as"]; ok {
+		o.LeafVrfNameProtocolsEigrpLocalAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpLocalAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-paths"]; ok {
+		o.LeafVrfNameProtocolsEigrpMaximumPaths = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpMaximumPaths = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafVrfNameProtocolsEigrpNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpNetwork = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive-interface"]; ok {
+		o.LeafVrfNameProtocolsEigrpPassiveInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpPassiveInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redistribute"]; ok {
+		o.LeafVrfNameProtocolsEigrpRedistribute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpRedistribute = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsEigrpRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpRouteMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["router-id"]; ok {
+		o.LeafVrfNameProtocolsEigrpRouterID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpRouterID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["variance"]; ok {
+		o.LeafVrfNameProtocolsEigrpVariance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsEigrpVariance = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["metric"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsEigrpMetric{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsEigrpMetric = data
+
+	} else {
+		o.NodeVrfNameProtocolsEigrpMetric = basetypes.NewObjectNull(VrfNameProtocolsEigrpMetric{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "eigrp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsEigrp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"local_as":          types.StringType,
+		"maximum_paths":     types.StringType,
+		"network":           types.StringType,
+		"passive_interface": types.StringType,
+		"redistribute":      types.StringType,
+		"route_map":         types.StringType,
+		"router_id":         types.StringType,
+		"variance":          types.StringType,
+
+		// Tags
+
+		// Nodes
+		"metric": types.ObjectType{AttrTypes: VrfNameProtocolsEigrpMetric{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsEigrp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"local_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Autonomous System Number (ASN)
 
 |  Format  |  Description  |
@@ -44,8 +173,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"maximum_paths": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Forward packets over multiple paths
 
 |  Format  |  Description  |
@@ -56,8 +184,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable routing on an IP network
 
 |  Format  |  Description  |
@@ -68,16 +195,14 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"passive_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
 `,
 		},
 
 		"redistribute": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
 |  Format  |  Description  |
@@ -95,8 +220,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -107,8 +231,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"router_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Override default router identifier
 
 |  Format  |  Description  |
@@ -119,8 +242,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"variance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Control load balancing variance
 
 |  Format  |  Description  |
@@ -135,7 +257,7 @@ func (o VrfNameProtocolsEigrp) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"metric": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsEigrpMetric{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsEigrpMetric{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Modify metrics and parameters for advertisement
 

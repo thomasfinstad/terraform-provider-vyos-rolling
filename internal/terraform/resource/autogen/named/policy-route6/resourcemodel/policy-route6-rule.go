@@ -2,52 +2,362 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRule describes the resource data model.
 type PolicyRoutesixRule struct {
 	// LeafNodes
-	PolicyRoutesixRuleAction              customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyRoutesixRuleDescrIPtion         customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyRoutesixRuleDisable             customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	PolicyRoutesixRuleLog                 customtypes.CustomStringValue `tfsdk:"log" json:"log,omitempty"`
-	PolicyRoutesixRuleProtocol            customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	PolicyRoutesixRuleDscp                customtypes.CustomStringValue `tfsdk:"dscp" json:"dscp,omitempty"`
-	PolicyRoutesixRuleDscpExclude         customtypes.CustomStringValue `tfsdk:"dscp_exclude" json:"dscp-exclude,omitempty"`
-	PolicyRoutesixRulePacketLength        customtypes.CustomStringValue `tfsdk:"packet_length" json:"packet-length,omitempty"`
-	PolicyRoutesixRulePacketLengthExclude customtypes.CustomStringValue `tfsdk:"packet_length_exclude" json:"packet-length-exclude,omitempty"`
-	PolicyRoutesixRulePacketType          customtypes.CustomStringValue `tfsdk:"packet_type" json:"packet-type,omitempty"`
-	PolicyRoutesixRuleConnectionMark      customtypes.CustomStringValue `tfsdk:"connection_mark" json:"connection-mark,omitempty"`
+	LeafPolicyRoutesixRuleAction              types.String `tfsdk:"action"`
+	LeafPolicyRoutesixRuleDescrIPtion         types.String `tfsdk:"description"`
+	LeafPolicyRoutesixRuleDisable             types.String `tfsdk:"disable"`
+	LeafPolicyRoutesixRuleLog                 types.String `tfsdk:"log"`
+	LeafPolicyRoutesixRuleProtocol            types.String `tfsdk:"protocol"`
+	LeafPolicyRoutesixRuleDscp                types.String `tfsdk:"dscp"`
+	LeafPolicyRoutesixRuleDscpExclude         types.String `tfsdk:"dscp_exclude"`
+	LeafPolicyRoutesixRulePacketLength        types.String `tfsdk:"packet_length"`
+	LeafPolicyRoutesixRulePacketLengthExclude types.String `tfsdk:"packet_length_exclude"`
+	LeafPolicyRoutesixRulePacketType          types.String `tfsdk:"packet_type"`
+	LeafPolicyRoutesixRuleConnectionMark      types.String `tfsdk:"connection_mark"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRoutesixRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	PolicyRoutesixRuleSource      types.Object `tfsdk:"source" json:"source,omitempty"`
-	PolicyRoutesixRuleFragment    types.Object `tfsdk:"fragment" json:"fragment,omitempty"`
-	PolicyRoutesixRuleIPsec       types.Object `tfsdk:"ipsec" json:"ipsec,omitempty"`
-	PolicyRoutesixRuleLimit       types.Object `tfsdk:"limit" json:"limit,omitempty"`
-	PolicyRoutesixRuleRecent      types.Object `tfsdk:"recent" json:"recent,omitempty"`
-	PolicyRoutesixRuleSet         types.Object `tfsdk:"set" json:"set,omitempty"`
-	PolicyRoutesixRuleState       types.Object `tfsdk:"state" json:"state,omitempty"`
-	PolicyRoutesixRuleTCP         types.Object `tfsdk:"tcp" json:"tcp,omitempty"`
-	PolicyRoutesixRuleTime        types.Object `tfsdk:"time" json:"time,omitempty"`
-	PolicyRoutesixRuleIcmpvsix    types.Object `tfsdk:"icmpv6" json:"icmpv6,omitempty"`
-	PolicyRoutesixRuleHopLimit    types.Object `tfsdk:"hop_limit" json:"hop-limit,omitempty"`
+	NodePolicyRoutesixRuleDestination types.Object `tfsdk:"destination"`
+	NodePolicyRoutesixRuleSource      types.Object `tfsdk:"source"`
+	NodePolicyRoutesixRuleFragment    types.Object `tfsdk:"fragment"`
+	NodePolicyRoutesixRuleIPsec       types.Object `tfsdk:"ipsec"`
+	NodePolicyRoutesixRuleLimit       types.Object `tfsdk:"limit"`
+	NodePolicyRoutesixRuleRecent      types.Object `tfsdk:"recent"`
+	NodePolicyRoutesixRuleSet         types.Object `tfsdk:"set"`
+	NodePolicyRoutesixRuleState       types.Object `tfsdk:"state"`
+	NodePolicyRoutesixRuleTCP         types.Object `tfsdk:"tcp"`
+	NodePolicyRoutesixRuleTime        types.Object `tfsdk:"time"`
+	NodePolicyRoutesixRuleIcmpvsix    types.Object `tfsdk:"icmpv6"`
+	NodePolicyRoutesixRuleHopLimit    types.Object `tfsdk:"hop_limit"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleAction.IsNull() || o.LeafPolicyRoutesixRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyRoutesixRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleDescrIPtion.IsNull() || o.LeafPolicyRoutesixRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyRoutesixRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleDisable.IsNull() || o.LeafPolicyRoutesixRuleDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafPolicyRoutesixRuleDisable.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleLog.IsNull() || o.LeafPolicyRoutesixRuleLog.IsUnknown()) {
+		vyosData["log"] = o.LeafPolicyRoutesixRuleLog.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleProtocol.IsNull() || o.LeafPolicyRoutesixRuleProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafPolicyRoutesixRuleProtocol.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleDscp.IsNull() || o.LeafPolicyRoutesixRuleDscp.IsUnknown()) {
+		vyosData["dscp"] = o.LeafPolicyRoutesixRuleDscp.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleDscpExclude.IsNull() || o.LeafPolicyRoutesixRuleDscpExclude.IsUnknown()) {
+		vyosData["dscp-exclude"] = o.LeafPolicyRoutesixRuleDscpExclude.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRulePacketLength.IsNull() || o.LeafPolicyRoutesixRulePacketLength.IsUnknown()) {
+		vyosData["packet-length"] = o.LeafPolicyRoutesixRulePacketLength.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRulePacketLengthExclude.IsNull() || o.LeafPolicyRoutesixRulePacketLengthExclude.IsUnknown()) {
+		vyosData["packet-length-exclude"] = o.LeafPolicyRoutesixRulePacketLengthExclude.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRulePacketType.IsNull() || o.LeafPolicyRoutesixRulePacketType.IsUnknown()) {
+		vyosData["packet-type"] = o.LeafPolicyRoutesixRulePacketType.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleConnectionMark.IsNull() || o.LeafPolicyRoutesixRuleConnectionMark.IsUnknown()) {
+		vyosData["connection-mark"] = o.LeafPolicyRoutesixRuleConnectionMark.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRoutesixRuleDestination.IsNull() || o.NodePolicyRoutesixRuleDestination.IsUnknown()) {
+		var subModel PolicyRoutesixRuleDestination
+		diags.Append(o.NodePolicyRoutesixRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleSource.IsNull() || o.NodePolicyRoutesixRuleSource.IsUnknown()) {
+		var subModel PolicyRoutesixRuleSource
+		diags.Append(o.NodePolicyRoutesixRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleFragment.IsNull() || o.NodePolicyRoutesixRuleFragment.IsUnknown()) {
+		var subModel PolicyRoutesixRuleFragment
+		diags.Append(o.NodePolicyRoutesixRuleFragment.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["fragment"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleIPsec.IsNull() || o.NodePolicyRoutesixRuleIPsec.IsUnknown()) {
+		var subModel PolicyRoutesixRuleIPsec
+		diags.Append(o.NodePolicyRoutesixRuleIPsec.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipsec"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleLimit.IsNull() || o.NodePolicyRoutesixRuleLimit.IsUnknown()) {
+		var subModel PolicyRoutesixRuleLimit
+		diags.Append(o.NodePolicyRoutesixRuleLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["limit"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleRecent.IsNull() || o.NodePolicyRoutesixRuleRecent.IsUnknown()) {
+		var subModel PolicyRoutesixRuleRecent
+		diags.Append(o.NodePolicyRoutesixRuleRecent.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["recent"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleSet.IsNull() || o.NodePolicyRoutesixRuleSet.IsUnknown()) {
+		var subModel PolicyRoutesixRuleSet
+		diags.Append(o.NodePolicyRoutesixRuleSet.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["set"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleState.IsNull() || o.NodePolicyRoutesixRuleState.IsUnknown()) {
+		var subModel PolicyRoutesixRuleState
+		diags.Append(o.NodePolicyRoutesixRuleState.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["state"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleTCP.IsNull() || o.NodePolicyRoutesixRuleTCP.IsUnknown()) {
+		var subModel PolicyRoutesixRuleTCP
+		diags.Append(o.NodePolicyRoutesixRuleTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleTime.IsNull() || o.NodePolicyRoutesixRuleTime.IsUnknown()) {
+		var subModel PolicyRoutesixRuleTime
+		diags.Append(o.NodePolicyRoutesixRuleTime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["time"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleIcmpvsix.IsNull() || o.NodePolicyRoutesixRuleIcmpvsix.IsUnknown()) {
+		var subModel PolicyRoutesixRuleIcmpvsix
+		diags.Append(o.NodePolicyRoutesixRuleIcmpvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["icmpv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRoutesixRuleHopLimit.IsNull() || o.NodePolicyRoutesixRuleHopLimit.IsUnknown()) {
+		var subModel PolicyRoutesixRuleHopLimit
+		diags.Append(o.NodePolicyRoutesixRuleHopLimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["hop-limit"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyRoutesixRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyRoutesixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafPolicyRoutesixRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["log"]; ok {
+		o.LeafPolicyRoutesixRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafPolicyRoutesixRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dscp"]; ok {
+		o.LeafPolicyRoutesixRuleDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dscp-exclude"]; ok {
+		o.LeafPolicyRoutesixRuleDscpExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleDscpExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-length"]; ok {
+		o.LeafPolicyRoutesixRulePacketLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRulePacketLength = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-length-exclude"]; ok {
+		o.LeafPolicyRoutesixRulePacketLengthExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRulePacketLengthExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-type"]; ok {
+		o.LeafPolicyRoutesixRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRulePacketType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["connection-mark"]; ok {
+		o.LeafPolicyRoutesixRuleConnectionMark = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleConnectionMark = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleDestination = data
+
+	} else {
+		o.NodePolicyRoutesixRuleDestination = basetypes.NewObjectNull(PolicyRoutesixRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleSource = data
+
+	} else {
+		o.NodePolicyRoutesixRuleSource = basetypes.NewObjectNull(PolicyRoutesixRuleSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["fragment"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleFragment{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleFragment = data
+
+	} else {
+		o.NodePolicyRoutesixRuleFragment = basetypes.NewObjectNull(PolicyRoutesixRuleFragment{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipsec"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleIPsec{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleIPsec = data
+
+	} else {
+		o.NodePolicyRoutesixRuleIPsec = basetypes.NewObjectNull(PolicyRoutesixRuleIPsec{}.AttributeTypes())
+	}
+	if value, ok := vyosData["limit"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleLimit{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleLimit = data
+
+	} else {
+		o.NodePolicyRoutesixRuleLimit = basetypes.NewObjectNull(PolicyRoutesixRuleLimit{}.AttributeTypes())
+	}
+	if value, ok := vyosData["recent"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleRecent{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleRecent = data
+
+	} else {
+		o.NodePolicyRoutesixRuleRecent = basetypes.NewObjectNull(PolicyRoutesixRuleRecent{}.AttributeTypes())
+	}
+	if value, ok := vyosData["set"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleSet{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleSet = data
+
+	} else {
+		o.NodePolicyRoutesixRuleSet = basetypes.NewObjectNull(PolicyRoutesixRuleSet{}.AttributeTypes())
+	}
+	if value, ok := vyosData["state"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleState{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleState = data
+
+	} else {
+		o.NodePolicyRoutesixRuleState = basetypes.NewObjectNull(PolicyRoutesixRuleState{}.AttributeTypes())
+	}
+	if value, ok := vyosData["tcp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleTCP = data
+
+	} else {
+		o.NodePolicyRoutesixRuleTCP = basetypes.NewObjectNull(PolicyRoutesixRuleTCP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["time"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleTime{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleTime = data
+
+	} else {
+		o.NodePolicyRoutesixRuleTime = basetypes.NewObjectNull(PolicyRoutesixRuleTime{}.AttributeTypes())
+	}
+	if value, ok := vyosData["icmpv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleIcmpvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleIcmpvsix = data
+
+	} else {
+		o.NodePolicyRoutesixRuleIcmpvsix = basetypes.NewObjectNull(PolicyRoutesixRuleIcmpvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["hop-limit"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRoutesixRuleHopLimit{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRoutesixRuleHopLimit = data
+
+	} else {
+		o.NodePolicyRoutesixRuleHopLimit = basetypes.NewObjectNull(PolicyRoutesixRuleHopLimit{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":                types.StringType,
+		"description":           types.StringType,
+		"disable":               types.StringType,
+		"log":                   types.StringType,
+		"protocol":              types.StringType,
+		"dscp":                  types.StringType,
+		"dscp_exclude":          types.StringType,
+		"packet_length":         types.StringType,
+		"packet_length_exclude": types.StringType,
+		"packet_type":           types.StringType,
+		"connection_mark":       types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: PolicyRoutesixRuleDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: PolicyRoutesixRuleSource{}.AttributeTypes()},
+		"fragment":    types.ObjectType{AttrTypes: PolicyRoutesixRuleFragment{}.AttributeTypes()},
+		"ipsec":       types.ObjectType{AttrTypes: PolicyRoutesixRuleIPsec{}.AttributeTypes()},
+		"limit":       types.ObjectType{AttrTypes: PolicyRoutesixRuleLimit{}.AttributeTypes()},
+		"recent":      types.ObjectType{AttrTypes: PolicyRoutesixRuleRecent{}.AttributeTypes()},
+		"set":         types.ObjectType{AttrTypes: PolicyRoutesixRuleSet{}.AttributeTypes()},
+		"state":       types.ObjectType{AttrTypes: PolicyRoutesixRuleState{}.AttributeTypes()},
+		"tcp":         types.ObjectType{AttrTypes: PolicyRoutesixRuleTCP{}.AttributeTypes()},
+		"time":        types.ObjectType{AttrTypes: PolicyRoutesixRuleTime{}.AttributeTypes()},
+		"icmpv6":      types.ObjectType{AttrTypes: PolicyRoutesixRuleIcmpvsix{}.AttributeTypes()},
+		"hop_limit":   types.ObjectType{AttrTypes: PolicyRoutesixRuleHopLimit{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Rule action
 
 |  Format  |  Description  |
@@ -61,8 +371,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -73,16 +382,14 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Option to disable firewall rule
 
 `,
 		},
 
 		"log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Option to log packets matching rule
 
 |  Format  |  Description  |
@@ -94,8 +401,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol to match (protocol name, number, or "all")
 
 |  Format  |  Description  |
@@ -112,8 +418,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DSCP value
 
 |  Format  |  Description  |
@@ -125,8 +430,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dscp_exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DSCP value not to match
 
 |  Format  |  Description  |
@@ -138,8 +442,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Payload size in bytes, including header and data to match
 
 |  Format  |  Description  |
@@ -151,8 +454,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_length_exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Payload size in bytes, including header and data not to match
 
 |  Format  |  Description  |
@@ -164,8 +466,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"packet_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet type
 
 |  Format  |  Description  |
@@ -179,8 +480,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"connection_mark": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Connection mark
 
 |  Format  |  Description  |
@@ -195,7 +495,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleDestination{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Destination parameters
 
@@ -203,7 +503,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleSource{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Source parameters
 
@@ -211,7 +511,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"fragment": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleFragment{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleFragment{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IP fragment match
 
@@ -219,7 +519,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipsec": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleIPsec{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleIPsec{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Inbound IPsec packets
 
@@ -227,7 +527,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"limit": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleLimit{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleLimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Rate limit using a token bucket filter
 
@@ -235,7 +535,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"recent": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleRecent{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleRecent{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Parameters for matching recently seen sources
 
@@ -243,7 +543,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"set": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleSet{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleSet{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Packet modifications
 
@@ -251,7 +551,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"state": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleState{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleState{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Session state
 
@@ -259,7 +559,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleTCP{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP flags to match
 
@@ -267,7 +567,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"time": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleTime{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleTime{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Time to match rule
 
@@ -275,7 +575,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"icmpv6": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleIcmpvsix{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleIcmpvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `ICMPv6 type and code information
 
@@ -283,7 +583,7 @@ func (o PolicyRoutesixRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"hop_limit": schema.SingleNestedAttribute{
-			Attributes: PolicyRoutesixRuleHopLimit{}.ResourceAttributes(),
+			Attributes: PolicyRoutesixRuleHopLimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Hop limit
 

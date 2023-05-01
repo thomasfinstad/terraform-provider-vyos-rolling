@@ -23,6 +23,6 @@ LDP neighbor parameters
 |  ipv4  |  Neighbor IPv4 address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,33 +2,122 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListRule describes the resource data model.
 type PolicyAccessListRule struct {
 	// LeafNodes
-	PolicyAccessListRuleAction      customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyAccessListRuleDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyAccessListRuleAction      types.String `tfsdk:"action"`
+	LeafPolicyAccessListRuleDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyAccessListRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	PolicyAccessListRuleSource      types.Object `tfsdk:"source" json:"source,omitempty"`
+	NodePolicyAccessListRuleDestination types.Object `tfsdk:"destination"`
+	NodePolicyAccessListRuleSource      types.Object `tfsdk:"source"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessListRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessListRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListRuleAction.IsNull() || o.LeafPolicyAccessListRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyAccessListRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleDescrIPtion.IsNull() || o.LeafPolicyAccessListRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyAccessListRuleDescrIPtion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyAccessListRuleDestination.IsNull() || o.NodePolicyAccessListRuleDestination.IsUnknown()) {
+		var subModel PolicyAccessListRuleDestination
+		diags.Append(o.NodePolicyAccessListRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyAccessListRuleSource.IsNull() || o.NodePolicyAccessListRuleSource.IsUnknown()) {
+		var subModel PolicyAccessListRuleSource
+		diags.Append(o.NodePolicyAccessListRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessListRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyAccessListRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyAccessListRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyAccessListRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyAccessListRuleDestination = data
+
+	} else {
+		o.NodePolicyAccessListRuleDestination = basetypes.NewObjectNull(PolicyAccessListRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyAccessListRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyAccessListRuleSource = data
+
+	} else {
+		o.NodePolicyAccessListRuleSource = basetypes.NewObjectNull(PolicyAccessListRuleSource{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessListRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":      types.StringType,
+		"description": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: PolicyAccessListRuleDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: PolicyAccessListRuleSource{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessListRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -40,8 +129,7 @@ func (o PolicyAccessListRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -56,7 +144,7 @@ func (o PolicyAccessListRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: PolicyAccessListRuleDestination{}.ResourceAttributes(),
+			Attributes: PolicyAccessListRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Destination network or address
 
@@ -64,7 +152,7 @@ func (o PolicyAccessListRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: PolicyAccessListRuleSource{}.ResourceAttributes(),
+			Attributes: PolicyAccessListRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Source network or address to match
 

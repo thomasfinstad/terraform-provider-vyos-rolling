@@ -2,33 +2,140 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyCake describes the resource data model.
 type QosPolicyCake struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyCakeDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyCakeBandwIDth   customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
-	QosPolicyCakeRtt         customtypes.CustomStringValue `tfsdk:"rtt" json:"rtt,omitempty"`
+	LeafQosPolicyCakeDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyCakeBandwIDth   types.String `tfsdk:"bandwidth"`
+	LeafQosPolicyCakeRtt         types.String `tfsdk:"rtt"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyCakeFlowIsolation types.Object `tfsdk:"flow_isolation" json:"flow-isolation,omitempty"`
+	NodeQosPolicyCakeFlowIsolation types.Object `tfsdk:"flow_isolation"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyCake) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"cake",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyCake) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyCakeDescrIPtion.IsNull() || o.LeafQosPolicyCakeDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyCakeDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeBandwIDth.IsNull() || o.LeafQosPolicyCakeBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafQosPolicyCakeBandwIDth.ValueString()
+	}
+	if !(o.LeafQosPolicyCakeRtt.IsNull() || o.LeafQosPolicyCakeRtt.IsUnknown()) {
+		vyosData["rtt"] = o.LeafQosPolicyCakeRtt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyCakeFlowIsolation.IsNull() || o.NodeQosPolicyCakeFlowIsolation.IsUnknown()) {
+		var subModel QosPolicyCakeFlowIsolation
+		diags.Append(o.NodeQosPolicyCakeFlowIsolation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["flow-isolation"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyCake) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeBandwIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rtt"]; ok {
+		o.LeafQosPolicyCakeRtt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyCakeRtt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["flow-isolation"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyCakeFlowIsolation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyCakeFlowIsolation = data
+
+	} else {
+		o.NodeQosPolicyCakeFlowIsolation = basetypes.NewObjectNull(QosPolicyCakeFlowIsolation{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "cake"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyCake) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"bandwidth":   types.StringType,
+		"rtt":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"flow_isolation": types.ObjectType{AttrTypes: QosPolicyCakeFlowIsolation{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyCake) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Common Applications Kept Enhanced (CAKE)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -39,8 +146,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
 |  Format  |  Description  |
@@ -57,8 +163,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"rtt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Round-Trip-Time for Active Queue Management (AQM)
 
 |  Format  |  Description  |
@@ -76,7 +181,7 @@ func (o QosPolicyCake) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"flow_isolation": schema.SingleNestedAttribute{
-			Attributes: QosPolicyCakeFlowIsolation{}.ResourceAttributes(),
+			Attributes: QosPolicyCakeFlowIsolation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Flow isolation settings
 

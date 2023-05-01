@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerClient describes the resource data model.
 type InterfacesOpenvpnServerClient struct {
 	// LeafNodes
-	InterfacesOpenvpnServerClientDisable   customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesOpenvpnServerClientIP        customtypes.CustomStringValue `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesOpenvpnServerClientPushRoute customtypes.CustomStringValue `tfsdk:"push_route" json:"push-route,omitempty"`
-	InterfacesOpenvpnServerClientSubnet    customtypes.CustomStringValue `tfsdk:"subnet" json:"subnet,omitempty"`
+	LeafInterfacesOpenvpnServerClientDisable   types.String `tfsdk:"disable"`
+	LeafInterfacesOpenvpnServerClientIP        types.String `tfsdk:"ip"`
+	LeafInterfacesOpenvpnServerClientPushRoute types.String `tfsdk:"push_route"`
+	LeafInterfacesOpenvpnServerClientSubnet    types.String `tfsdk:"subnet"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnServerClient) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnServerClientDisable.IsNull() || o.LeafInterfacesOpenvpnServerClientDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesOpenvpnServerClientDisable.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientIP.IsNull() || o.LeafInterfacesOpenvpnServerClientIP.IsUnknown()) {
+		vyosData["ip"] = o.LeafInterfacesOpenvpnServerClientIP.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientPushRoute.IsNull() || o.LeafInterfacesOpenvpnServerClientPushRoute.IsUnknown()) {
+		vyosData["push-route"] = o.LeafInterfacesOpenvpnServerClientPushRoute.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerClientSubnet.IsNull() || o.LeafInterfacesOpenvpnServerClientSubnet.IsUnknown()) {
+		vyosData["subnet"] = o.LeafInterfacesOpenvpnServerClientSubnet.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnServerClient) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ip"]; ok {
+		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientIP = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["push-route"]; ok {
+		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientPushRoute = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["subnet"]; ok {
+		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerClientSubnet = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "client"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnServerClient) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":    types.StringType,
+		"ip":         types.StringType,
+		"push_route": types.StringType,
+		"subnet":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnServerClient) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"ip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address of the client
 
 |  Format  |  Description  |
@@ -47,8 +127,7 @@ func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.At
 		},
 
 		"push_route": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route to be pushed to the client
 
 |  Format  |  Description  |
@@ -60,8 +139,7 @@ func (o InterfacesOpenvpnServerClient) ResourceAttributes() map[string]schema.At
 		},
 
 		"subnet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Subnet belonging to the client (iroute)
 
 |  Format  |  Description  |

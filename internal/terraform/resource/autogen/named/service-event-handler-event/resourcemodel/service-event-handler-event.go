@@ -2,24 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEvent describes the resource data model.
 type ServiceEventHandlerEvent struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
 
 	// Nodes
-	ServiceEventHandlerEventFilter types.Object `tfsdk:"filter" json:"filter,omitempty"`
-	ServiceEventHandlerEventScrIPt types.Object `tfsdk:"script" json:"script,omitempty"`
+	NodeServiceEventHandlerEventFilter types.Object `tfsdk:"filter"`
+	NodeServiceEventHandlerEventScrIPt types.Object `tfsdk:"script"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceEventHandlerEvent) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceEventHandlerEvent) GetVyosPath() []string {
+	return []string{
+		"service",
+		"event-handler",
+		"event",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceEventHandlerEvent) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceEventHandlerEventFilter.IsNull() || o.NodeServiceEventHandlerEventFilter.IsUnknown()) {
+		var subModel ServiceEventHandlerEventFilter
+		diags.Append(o.NodeServiceEventHandlerEventFilter.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["filter"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeServiceEventHandlerEventScrIPt.IsNull() || o.NodeServiceEventHandlerEventScrIPt.IsUnknown()) {
+		var subModel ServiceEventHandlerEventScrIPt
+		diags.Append(o.NodeServiceEventHandlerEventScrIPt.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["script"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceEventHandlerEvent) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["filter"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceEventHandlerEventFilter{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceEventHandlerEventFilter = data
+
+	} else {
+		o.NodeServiceEventHandlerEventFilter = basetypes.NewObjectNull(ServiceEventHandlerEventFilter{}.AttributeTypes())
+	}
+	if value, ok := vyosData["script"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceEventHandlerEventScrIPt{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceEventHandlerEventScrIPt = data
+
+	} else {
+		o.NodeServiceEventHandlerEventScrIPt = basetypes.NewObjectNull(ServiceEventHandlerEventScrIPt{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceEventHandlerEvent) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"filter": types.ObjectType{AttrTypes: ServiceEventHandlerEventFilter{}.AttributeTypes()},
+		"script": types.ObjectType{AttrTypes: ServiceEventHandlerEventScrIPt{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceEventHandlerEvent) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Event handler name
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
@@ -27,7 +120,7 @@ func (o ServiceEventHandlerEvent) ResourceAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"filter": schema.SingleNestedAttribute{
-			Attributes: ServiceEventHandlerEventFilter{}.ResourceAttributes(),
+			Attributes: ServiceEventHandlerEventFilter{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Logs filter settings
 
@@ -35,7 +128,7 @@ func (o ServiceEventHandlerEvent) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"script": schema.SingleNestedAttribute{
-			Attributes: ServiceEventHandlerEventScrIPt{}.ResourceAttributes(),
+			Attributes: ServiceEventHandlerEventScrIPt{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Event handler script file
 

@@ -14,6 +14,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -39,6 +41,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -70,6 +74,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -85,6 +90,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -103,6 +109,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Organization name must be alphanumeric and can contain hyphens, underscores and at symbol."},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -131,6 +138,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -143,6 +151,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												Help: []string{"Remote bucket"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -168,6 +177,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Incorrect URL format"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -202,6 +212,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -217,6 +228,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -232,6 +244,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -250,6 +263,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Client-id is limited to alphanumerical characters and can contain hyphen and underscores"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -268,6 +282,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Client-secret is limited to alphanumerical characters and can contain hyphen and underscores"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -289,6 +304,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -314,6 +330,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Database is limited to alphanumerical characters and can contain hyphen and underscores"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -351,6 +368,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -376,6 +394,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Table is limited to alphanumerical characters and can contain hyphen and underscores"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -403,6 +422,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -418,6 +438,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -433,6 +454,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -444,6 +466,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Authentication username"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -465,6 +488,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -505,6 +529,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -556,6 +581,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -587,6 +613,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -621,6 +648,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -636,6 +664,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -651,6 +680,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -662,6 +692,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Authorization token"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -681,6 +712,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -709,6 +741,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -775,6 +808,7 @@ func servicemonitoringtelegraf() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},

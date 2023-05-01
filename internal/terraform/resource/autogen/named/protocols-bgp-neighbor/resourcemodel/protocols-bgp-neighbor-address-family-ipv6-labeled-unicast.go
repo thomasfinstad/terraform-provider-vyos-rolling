@@ -2,76 +2,388 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll         customtypes.CustomStringValue `tfsdk:"addpath_tx_all" json:"addpath-tx-all,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs       customtypes.CustomStringValue `tfsdk:"addpath_tx_per_as" json:"addpath-tx-per-as,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe           customtypes.CustomStringValue `tfsdk:"as_override" json:"as-override,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix        customtypes.CustomStringValue `tfsdk:"maximum_prefix" json:"maximum-prefix,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut     customtypes.CustomStringValue `tfsdk:"maximum_prefix_out" json:"maximum-prefix-out,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs      customtypes.CustomStringValue `tfsdk:"remove_private_as" json:"remove-private-as,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient customtypes.CustomStringValue `tfsdk:"route_reflector_client" json:"route-reflector-client,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient    customtypes.CustomStringValue `tfsdk:"route_server_client" json:"route-server-client,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap        customtypes.CustomStringValue `tfsdk:"unsuppress_map" json:"unsuppress-map,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight               customtypes.CustomStringValue `tfsdk:"weight" json:"weight,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll         types.String `tfsdk:"addpath_tx_all"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs       types.String `tfsdk:"addpath_tx_per_as"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe           types.String `tfsdk:"as_override"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix        types.String `tfsdk:"maximum_prefix"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut     types.String `tfsdk:"maximum_prefix_out"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs      types.String `tfsdk:"remove_private_as"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient types.String `tfsdk:"route_reflector_client"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient    types.String `tfsdk:"route_server_client"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap        types.String `tfsdk:"unsuppress_map"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight               types.String `tfsdk:"weight"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability             types.Object `tfsdk:"capability" json:"capability,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal           types.Object `tfsdk:"nexthop_local" json:"nexthop-local,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList             types.Object `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise types.Object `tfsdk:"conditionally_advertise" json:"conditionally-advertise,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn              types.Object `tfsdk:"allowas_in" json:"allowas-in,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged     types.Object `tfsdk:"attribute_unchanged" json:"attribute-unchanged,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity   types.Object `tfsdk:"disable_send_community" json:"disable-send-community,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList         types.Object `tfsdk:"distribute_list" json:"distribute-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList             types.Object `tfsdk:"filter_list" json:"filter-list,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf            types.Object `tfsdk:"nexthop_self" json:"nexthop-self,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap               types.Object `tfsdk:"route_map" json:"route-map,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration    types.Object `tfsdk:"soft_reconfiguration" json:"soft-reconfiguration,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate       types.Object `tfsdk:"default_originate" json:"default-originate,omitempty"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability             types.Object `tfsdk:"capability"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal           types.Object `tfsdk:"nexthop_local"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList             types.Object `tfsdk:"prefix_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise types.Object `tfsdk:"conditionally_advertise"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn              types.Object `tfsdk:"allowas_in"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged     types.Object `tfsdk:"attribute_unchanged"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity   types.Object `tfsdk:"disable_send_community"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList         types.Object `tfsdk:"distribute_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList             types.Object `tfsdk:"filter_list"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf            types.Object `tfsdk:"nexthop_self"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap               types.Object `tfsdk:"route_map"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration    types.Object `tfsdk:"soft_reconfiguration"`
+	NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate       types.Object `tfsdk:"default_originate"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll.IsUnknown()) {
+		vyosData["addpath-tx-all"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs.IsUnknown()) {
+		vyosData["addpath-tx-per-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe.IsUnknown()) {
+		vyosData["as-override"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix.IsUnknown()) {
+		vyosData["maximum-prefix"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut.IsUnknown()) {
+		vyosData["maximum-prefix-out"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs.IsUnknown()) {
+		vyosData["remove-private-as"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient.IsUnknown()) {
+		vyosData["route-reflector-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient.IsUnknown()) {
+		vyosData["route-server-client"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap.IsUnknown()) {
+		vyosData["unsuppress-map"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight.IsUnknown()) {
+		vyosData["weight"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["capability"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["nexthop-local"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["prefix-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["conditionally-advertise"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["allowas-in"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["attribute-unchanged"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["disable-send-community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distribute-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["filter-list"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["nexthop-self"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-map"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["soft-reconfiguration"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate.IsNull() || o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate
+		diags.Append(o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default-originate"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast"}})
+
+	// Leafs
+	if value, ok := vyosData["addpath-tx-all"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxAll = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["addpath-tx-per-as"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAddpathTxPerAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["as-override"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAsOverrIDe = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-prefix"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-prefix-out"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastMaximumPrefixOut = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remove-private-as"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRemovePrivateAs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-reflector-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteReflectorClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-server-client"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteServerClient = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["unsuppress-map"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastUnsuppressMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["weight"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastWeight = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["capability"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability{}.AttributeTypes())
+	}
+	if value, ok := vyosData["nexthop-local"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal{}.AttributeTypes())
+	}
+	if value, ok := vyosData["prefix-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["conditionally-advertise"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise{}.AttributeTypes())
+	}
+	if value, ok := vyosData["allowas-in"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["attribute-unchanged"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged{}.AttributeTypes())
+	}
+	if value, ok := vyosData["disable-send-community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["distribute-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["filter-list"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList{}.AttributeTypes())
+	}
+	if value, ok := vyosData["nexthop-self"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap{}.AttributeTypes())
+	}
+	if value, ok := vyosData["soft-reconfiguration"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration{}.AttributeTypes())
+	}
+	if value, ok := vyosData["default-originate"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate = basetypes.NewObjectNull(ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-labeled-unicast"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"addpath_tx_all":         types.StringType,
+		"addpath_tx_per_as":      types.StringType,
+		"as_override":            types.StringType,
+		"maximum_prefix":         types.StringType,
+		"maximum_prefix_out":     types.StringType,
+		"remove_private_as":      types.StringType,
+		"route_reflector_client": types.StringType,
+		"route_server_client":    types.StringType,
+		"unsuppress_map":         types.StringType,
+		"weight":                 types.StringType,
+
+		// Tags
+
+		// Nodes
+		"capability":              types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability{}.AttributeTypes()},
+		"nexthop_local":           types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal{}.AttributeTypes()},
+		"prefix_list":             types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList{}.AttributeTypes()},
+		"conditionally_advertise": types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise{}.AttributeTypes()},
+		"allowas_in":              types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn{}.AttributeTypes()},
+		"attribute_unchanged":     types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged{}.AttributeTypes()},
+		"disable_send_community":  types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity{}.AttributeTypes()},
+		"distribute_list":         types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList{}.AttributeTypes()},
+		"filter_list":             types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList{}.AttributeTypes()},
+		"nexthop_self":            types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.AttributeTypes()},
+		"route_map":               types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap{}.AttributeTypes()},
+		"soft_reconfiguration":    types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration{}.AttributeTypes()},
+		"default_originate":       types.ObjectType{AttrTypes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"addpath_tx_all": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use addpath to advertise all paths to a neighbor
 
 `,
 		},
 
 		"addpath_tx_per_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use addpath to advertise the bestpath per each neighboring AS
 
 `,
 		},
 
 		"as_override": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Override ASN in outbound updates to configured neighbor local-as
 
 `,
 		},
 
 		"maximum_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to accept from this peer
 
 |  Format  |  Description  |
@@ -82,8 +394,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"maximum_prefix_out": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of prefixes to be sent to this peer
 
 |  Format  |  Description  |
@@ -94,32 +405,28 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"remove_private_as": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove private AS numbers from AS path in outbound route updates
 
 `,
 		},
 
 		"route_reflector_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route reflector client
 
 `,
 		},
 
 		"route_server_client": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Peer is a route server client
 
 `,
 		},
 
 		"unsuppress_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to selectively unsuppress suppressed routes
 
 |  Format  |  Description  |
@@ -130,8 +437,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"weight": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Default weight for routes from this peer
 
 |  Format  |  Description  |
@@ -146,7 +452,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		// Nodes
 
 		"capability": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastCapability{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise capabilities to this neighbor (IPv6)
 
@@ -154,7 +460,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"nexthop_local": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopLocal{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Nexthop attributes
 
@@ -162,7 +468,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"prefix_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastPrefixList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Prefix-list to filter route updates to/from this peer
 
@@ -170,7 +476,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"conditionally_advertise": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastConditionallyAdvertise{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Use route-map to conditionally advertise routes
 
@@ -178,7 +484,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"allowas_in": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAllowasIn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Accept route that contains the local-as in the as-path
 
@@ -186,7 +492,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"attribute_unchanged": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastAttributeUnchanged{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP attributes are sent unchanged
 
@@ -194,7 +500,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"disable_send_community": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDisableSendCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable sending community attributes to this peer
 
@@ -202,7 +508,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"distribute_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDistributeList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Access-list to filter route updates to/from this peer-group
 
@@ -210,7 +516,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"filter_list": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastFilterList{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `as-path-list to filter route updates to/from this peer
 
@@ -218,7 +524,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"nexthop_self": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastNexthopSelf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable the next hop calculation for this peer
 
@@ -226,7 +532,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"route_map": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastRouteMap{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Route-map to filter route updates to/from this peer
 
@@ -234,7 +540,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"soft_reconfiguration": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastSoftReconfiguration{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Soft reconfiguration for peer
 
@@ -242,7 +548,7 @@ func (o ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicast) ResourceAttribute
 		},
 
 		"default_originate": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborAddressFamilyIPvsixLabeledUnicastDefaultOriginate{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Originate default route to this peer
 

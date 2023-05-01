@@ -2,31 +2,124 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyCommunityList describes the resource data model.
 type PolicyCommunityList struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyCommunityListDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyCommunityListDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	PolicyCommunityListRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagPolicyCommunityListRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyCommunityList) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyCommunityList) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"community-list",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyCommunityList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "community-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyCommunityListDescrIPtion.IsNull() || o.LeafPolicyCommunityListDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyCommunityListDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagPolicyCommunityListRule.IsNull() || o.TagPolicyCommunityListRule.IsUnknown()) {
+		subModel := make(map[string]PolicyCommunityListRule)
+		diags.Append(o.TagPolicyCommunityListRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyCommunityList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "community-list"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyCommunityListDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyCommunityListDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyCommunityListRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagPolicyCommunityListRule = data
+	} else {
+		o.TagPolicyCommunityListRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "community-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyCommunityList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyCommunityListRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyCommunityList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Add a BGP community list entry
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  BGP community-list name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,7 +133,7 @@ func (o PolicyCommunityList) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: PolicyCommunityListRule{}.ResourceAttributes(),
+				Attributes: PolicyCommunityListRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Rule for this BGP community list

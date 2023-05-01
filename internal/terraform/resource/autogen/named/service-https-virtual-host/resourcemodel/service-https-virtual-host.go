@@ -2,31 +2,122 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceHTTPSVirtualHost describes the resource data model.
 type ServiceHTTPSVirtualHost struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceHTTPSVirtualHostListenAddress customtypes.CustomStringValue `tfsdk:"listen_address" json:"listen-address,omitempty"`
-	ServiceHTTPSVirtualHostListenPort    customtypes.CustomStringValue `tfsdk:"listen_port" json:"listen-port,omitempty"`
-	ServiceHTTPSVirtualHostServerName    customtypes.CustomStringValue `tfsdk:"server_name" json:"server-name,omitempty"`
+	LeafServiceHTTPSVirtualHostListenAddress types.String `tfsdk:"listen_address"`
+	LeafServiceHTTPSVirtualHostListenPort    types.String `tfsdk:"listen_port"`
+	LeafServiceHTTPSVirtualHostServerName    types.String `tfsdk:"server_name"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceHTTPSVirtualHost) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceHTTPSVirtualHost) GetVyosPath() []string {
+	return []string{
+		"service",
+		"https",
+		"virtual-host",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceHTTPSVirtualHost) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceHTTPSVirtualHostListenAddress.IsNull() || o.LeafServiceHTTPSVirtualHostListenAddress.IsUnknown()) {
+		vyosData["listen-address"] = o.LeafServiceHTTPSVirtualHostListenAddress.ValueString()
+	}
+	if !(o.LeafServiceHTTPSVirtualHostListenPort.IsNull() || o.LeafServiceHTTPSVirtualHostListenPort.IsUnknown()) {
+		vyosData["listen-port"] = o.LeafServiceHTTPSVirtualHostListenPort.ValueString()
+	}
+	if !(o.LeafServiceHTTPSVirtualHostServerName.IsNull() || o.LeafServiceHTTPSVirtualHostServerName.IsUnknown()) {
+		vyosData["server-name"] = o.LeafServiceHTTPSVirtualHostServerName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceHTTPSVirtualHost) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
+
+	// Leafs
+	if value, ok := vyosData["listen-address"]; ok {
+		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostListenAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["listen-port"]; ok {
+		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostListenPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["server-name"]; ok {
+		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSVirtualHostServerName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "https", "virtual-host"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceHTTPSVirtualHost) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"listen_address": types.StringType,
+		"listen_port":    types.StringType,
+		"server_name":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceHTTPSVirtualHost) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Identifier for virtual host
+
+`,
+		},
+
 		// LeafNodes
 
 		"listen_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Address to listen for HTTPS requests
 
 |  Format  |  Description  |
@@ -39,8 +130,7 @@ func (o ServiceHTTPSVirtualHost) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"listen_port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port to listen for HTTPS requests; default 443
 
 |  Format  |  Description  |
@@ -51,8 +141,7 @@ func (o ServiceHTTPSVirtualHost) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"server_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Server names: exact, wildcard, or regex
 
 `,

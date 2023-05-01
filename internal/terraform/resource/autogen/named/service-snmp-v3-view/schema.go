@@ -19,6 +19,6 @@ Simple Network Management Protocol (SNMP) v3
 Specifies the view with name viewname
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

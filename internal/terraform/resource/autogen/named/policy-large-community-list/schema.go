@@ -21,6 +21,6 @@ Add a BGP large community list entry
 |  txt  |  BGP large-community-list name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

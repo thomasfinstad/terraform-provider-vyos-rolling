@@ -2,30 +2,112 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceConntrackSyncInterface describes the resource data model.
 type ServiceConntrackSyncInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceConntrackSyncInterfacePeer customtypes.CustomStringValue `tfsdk:"peer" json:"peer,omitempty"`
-	ServiceConntrackSyncInterfacePort customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceConntrackSyncInterfacePeer types.String `tfsdk:"peer"`
+	LeafServiceConntrackSyncInterfacePort types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceConntrackSyncInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceConntrackSyncInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"conntrack-sync",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceConntrackSyncInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceConntrackSyncInterfacePeer.IsNull() || o.LeafServiceConntrackSyncInterfacePeer.IsUnknown()) {
+		vyosData["peer"] = o.LeafServiceConntrackSyncInterfacePeer.ValueString()
+	}
+	if !(o.LeafServiceConntrackSyncInterfacePort.IsNull() || o.LeafServiceConntrackSyncInterfacePort.IsUnknown()) {
+		vyosData["port"] = o.LeafServiceConntrackSyncInterfacePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceConntrackSyncInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["peer"]; ok {
+		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConntrackSyncInterfacePeer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConntrackSyncInterfacePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "conntrack-sync", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceConntrackSyncInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"peer": types.StringType,
+		"port": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceConntrackSyncInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to use for syncing conntrack entries
+
+`,
+		},
+
 		// LeafNodes
 
 		"peer": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address of the peer to send the UDP conntrack info too. This disable multicast.
 
 |  Format  |  Description  |
@@ -36,8 +118,7 @@ func (o ServiceConntrackSyncInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |

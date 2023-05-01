@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo describes the resource data model.
 type VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo struct {
 	// LeafNodes
-	VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways   customtypes.CustomStringValue `tfsdk:"always" json:"always,omitempty"`
-	VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric   customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways   types.String `tfsdk:"always"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric   types.String `tfsdk:"metric"`
+	LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv6", "level-2"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways.IsUnknown()) {
+		vyosData["always"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap.IsNull() || o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv6", "level-2"}})
+
+	// Leafs
+	if value, ok := vyosData["always"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoAlways = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwoRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "isis", "default-information", "originate", "ipv6", "level-2"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"always":    types.StringType,
+		"metric":    types.StringType,
+		"route_map": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"always": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Always advertise default route
 
 `,
 		},
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set default metric for circuit
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o VrfNameProtocolsIsisDefaultInformationOriginateIPvsixLevelTwo) ResourceA
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

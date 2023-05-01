@@ -19,6 +19,6 @@ DNS forwarding
 Domain to forward to a custom DNS server
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

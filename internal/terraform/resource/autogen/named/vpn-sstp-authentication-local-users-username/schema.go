@@ -21,6 +21,6 @@ Local user authentication for PPPoE server
 User name for authentication
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

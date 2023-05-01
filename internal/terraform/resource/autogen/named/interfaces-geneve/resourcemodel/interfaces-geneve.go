@@ -2,41 +2,234 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesGeneve describes the resource data model.
 type InterfacesGeneve struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesGeneveAddress     customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesGeneveDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesGeneveDisable     customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesGeneveMac         customtypes.CustomStringValue `tfsdk:"mac" json:"mac,omitempty"`
-	InterfacesGeneveMtu         customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesGeneveRedirect    customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
-	InterfacesGeneveRemote      customtypes.CustomStringValue `tfsdk:"remote" json:"remote,omitempty"`
-	InterfacesGeneveVni         customtypes.CustomStringValue `tfsdk:"vni" json:"vni,omitempty"`
+	LeafInterfacesGeneveAddress     types.String `tfsdk:"address"`
+	LeafInterfacesGeneveDescrIPtion types.String `tfsdk:"description"`
+	LeafInterfacesGeneveDisable     types.String `tfsdk:"disable"`
+	LeafInterfacesGeneveMac         types.String `tfsdk:"mac"`
+	LeafInterfacesGeneveMtu         types.String `tfsdk:"mtu"`
+	LeafInterfacesGeneveRedirect    types.String `tfsdk:"redirect"`
+	LeafInterfacesGeneveRemote      types.String `tfsdk:"remote"`
+	LeafInterfacesGeneveVni         types.String `tfsdk:"vni"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesGeneveIP         types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesGeneveIPvsix     types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesGeneveParameters types.Object `tfsdk:"parameters" json:"parameters,omitempty"`
-	InterfacesGeneveMirror     types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesGeneveIP         types.Object `tfsdk:"ip"`
+	NodeInterfacesGeneveIPvsix     types.Object `tfsdk:"ipv6"`
+	NodeInterfacesGeneveParameters types.Object `tfsdk:"parameters"`
+	NodeInterfacesGeneveMirror     types.Object `tfsdk:"mirror"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesGeneve) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"geneve",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesGeneve) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesGeneveAddress.IsNull() || o.LeafInterfacesGeneveAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesGeneveAddress.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveDescrIPtion.IsNull() || o.LeafInterfacesGeneveDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesGeneveDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveDisable.IsNull() || o.LeafInterfacesGeneveDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesGeneveDisable.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveMac.IsNull() || o.LeafInterfacesGeneveMac.IsUnknown()) {
+		vyosData["mac"] = o.LeafInterfacesGeneveMac.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveMtu.IsNull() || o.LeafInterfacesGeneveMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesGeneveMtu.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveRedirect.IsNull() || o.LeafInterfacesGeneveRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesGeneveRedirect.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveRemote.IsNull() || o.LeafInterfacesGeneveRemote.IsUnknown()) {
+		vyosData["remote"] = o.LeafInterfacesGeneveRemote.ValueString()
+	}
+	if !(o.LeafInterfacesGeneveVni.IsNull() || o.LeafInterfacesGeneveVni.IsUnknown()) {
+		vyosData["vni"] = o.LeafInterfacesGeneveVni.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesGeneveIP.IsNull() || o.NodeInterfacesGeneveIP.IsUnknown()) {
+		var subModel InterfacesGeneveIP
+		diags.Append(o.NodeInterfacesGeneveIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesGeneveIPvsix.IsNull() || o.NodeInterfacesGeneveIPvsix.IsUnknown()) {
+		var subModel InterfacesGeneveIPvsix
+		diags.Append(o.NodeInterfacesGeneveIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesGeneveParameters.IsNull() || o.NodeInterfacesGeneveParameters.IsUnknown()) {
+		var subModel InterfacesGeneveParameters
+		diags.Append(o.NodeInterfacesGeneveParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesGeneveMirror.IsNull() || o.NodeInterfacesGeneveMirror.IsUnknown()) {
+		var subModel InterfacesGeneveMirror
+		diags.Append(o.NodeInterfacesGeneveMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesGeneve) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesGeneveAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesGeneveDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac"]; ok {
+		o.LeafInterfacesGeneveMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveMac = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesGeneveMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesGeneveRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveRedirect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remote"]; ok {
+		o.LeafInterfacesGeneveRemote = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveRemote = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vni"]; ok {
+		o.LeafInterfacesGeneveVni = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesGeneveVni = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesGeneveIP = data
+
+	} else {
+		o.NodeInterfacesGeneveIP = basetypes.NewObjectNull(InterfacesGeneveIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesGeneveIPvsix = data
+
+	} else {
+		o.NodeInterfacesGeneveIPvsix = basetypes.NewObjectNull(InterfacesGeneveIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["parameters"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveParameters{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesGeneveParameters = data
+
+	} else {
+		o.NodeInterfacesGeneveParameters = basetypes.NewObjectNull(InterfacesGeneveParameters{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesGeneveMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesGeneveMirror = data
+
+	} else {
+		o.NodeInterfacesGeneveMirror = basetypes.NewObjectNull(InterfacesGeneveMirror{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "geneve"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesGeneve) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"description": types.StringType,
+		"disable":     types.StringType,
+		"mac":         types.StringType,
+		"mtu":         types.StringType,
+		"redirect":    types.StringType,
+		"remote":      types.StringType,
+		"vni":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":         types.ObjectType{AttrTypes: InterfacesGeneveIP{}.AttributeTypes()},
+		"ipv6":       types.ObjectType{AttrTypes: InterfacesGeneveIPvsix{}.AttributeTypes()},
+		"parameters": types.ObjectType{AttrTypes: InterfacesGeneveParameters{}.AttributeTypes()},
+		"mirror":     types.ObjectType{AttrTypes: InterfacesGeneveMirror{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesGeneve) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Generic Network Virtualization Encapsulation (GENEVE) Interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  gnvN  |  GENEVE interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -48,8 +241,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -60,16 +252,14 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"mac": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |
@@ -80,8 +270,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -95,8 +284,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -107,8 +295,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"remote": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tunnel remote address
 
 |  Format  |  Description  |
@@ -120,8 +307,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"vni": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Virtual Network Identifier
 
 |  Format  |  Description  |
@@ -136,7 +322,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesGeneveIP{}.ResourceAttributes(),
+			Attributes: InterfacesGeneveIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -144,7 +330,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesGeneveIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesGeneveIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -152,7 +338,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: InterfacesGeneveParameters{}.ResourceAttributes(),
+			Attributes: InterfacesGeneveParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `GENEVE tunnel parameters
 
@@ -160,7 +346,7 @@ func (o InterfacesGeneve) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesGeneveMirror{}.ResourceAttributes(),
+			Attributes: InterfacesGeneveMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 

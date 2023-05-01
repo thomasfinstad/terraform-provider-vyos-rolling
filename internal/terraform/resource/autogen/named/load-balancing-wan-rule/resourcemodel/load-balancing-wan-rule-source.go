@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanRuleSource describes the resource data model.
 type LoadBalancingWanRuleSource struct {
 	// LeafNodes
-	LoadBalancingWanRuleSourceAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	LoadBalancingWanRuleSourcePort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafLoadBalancingWanRuleSourceAddress types.String `tfsdk:"address"`
+	LeafLoadBalancingWanRuleSourcePort    types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o LoadBalancingWanRuleSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *LoadBalancingWanRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafLoadBalancingWanRuleSourceAddress.IsNull() || o.LeafLoadBalancingWanRuleSourceAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafLoadBalancingWanRuleSourceAddress.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanRuleSourcePort.IsNull() || o.LeafLoadBalancingWanRuleSourcePort.IsUnknown()) {
+		vyosData["port"] = o.LeafLoadBalancingWanRuleSourcePort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *LoadBalancingWanRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanRuleSourcePort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "rule", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o LoadBalancingWanRuleSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+		"port":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o LoadBalancingWanRuleSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -41,8 +104,7 @@ func (o LoadBalancingWanRuleSource) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number
 
 |  Format  |  Description  |

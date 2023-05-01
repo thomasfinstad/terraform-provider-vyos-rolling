@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast describes the resource data model.
@@ -11,14 +17,91 @@ type VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast struct {
 	// LeafNodes
 
 	// TagNodes
-	VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress types.Map `tfsdk:"aggregate_address" json:"aggregate-address,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork          types.Map `tfsdk:"network" json:"network,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress types.Map `tfsdk:"aggregate_address"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork          types.Map `tfsdk:"network"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["aggregate-address"] = subData
+	}
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["network"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["aggregate-address"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["network"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"aggregate_address": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress{}.AttributeTypes()}},
+		"network":           types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +109,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) ResourceAttributes
 
 		"aggregate_address": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `BGP aggregate network/prefix
@@ -40,7 +123,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicast) ResourceAttributes
 
 		"network": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastNetwork{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Import BGP network/prefix into labeled unicast IPv6 RIB

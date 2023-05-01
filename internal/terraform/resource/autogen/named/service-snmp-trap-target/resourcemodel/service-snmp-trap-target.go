@@ -2,38 +2,124 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpTrapTarget describes the resource data model.
 type ServiceSnmpTrapTarget struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpTrapTargetCommunity customtypes.CustomStringValue `tfsdk:"community" json:"community,omitempty"`
-	ServiceSnmpTrapTargetPort      customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafServiceSnmpTrapTargetCommunity types.String `tfsdk:"community"`
+	LeafServiceSnmpTrapTargetPort      types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpTrapTarget) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpTrapTarget) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"trap-target",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpTrapTarget) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "trap-target"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpTrapTargetCommunity.IsNull() || o.LeafServiceSnmpTrapTargetCommunity.IsUnknown()) {
+		vyosData["community"] = o.LeafServiceSnmpTrapTargetCommunity.ValueString()
+	}
+	if !(o.LeafServiceSnmpTrapTargetPort.IsNull() || o.LeafServiceSnmpTrapTargetPort.IsUnknown()) {
+		vyosData["port"] = o.LeafServiceSnmpTrapTargetPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpTrapTarget) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "trap-target"}})
+
+	// Leafs
+	if value, ok := vyosData["community"]; ok {
+		o.LeafServiceSnmpTrapTargetCommunity = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpTrapTargetCommunity = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafServiceSnmpTrapTargetPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpTrapTargetPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "trap-target"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpTrapTarget) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"community": types.StringType,
+		"port":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpTrapTarget) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Address of trap target
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IPv4 address  |
+|  ipv6  |  IPv6 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"community": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Community used when sending trap information
 
 `,
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |

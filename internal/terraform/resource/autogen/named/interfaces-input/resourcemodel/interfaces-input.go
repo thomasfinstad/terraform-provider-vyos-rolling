@@ -2,31 +2,125 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesInput describes the resource data model.
 type InterfacesInput struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesInputDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesInputDisable     customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesInputRedirect    customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesInputDescrIPtion types.String `tfsdk:"description"`
+	LeafInterfacesInputDisable     types.String `tfsdk:"disable"`
+	LeafInterfacesInputRedirect    types.String `tfsdk:"redirect"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesInput) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesInput) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"input",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesInput) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "input"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesInputDescrIPtion.IsNull() || o.LeafInterfacesInputDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesInputDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesInputDisable.IsNull() || o.LeafInterfacesInputDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesInputDisable.ValueString()
+	}
+	if !(o.LeafInterfacesInputRedirect.IsNull() || o.LeafInterfacesInputRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesInputRedirect.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesInput) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "input"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesInputDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesInputRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesInputRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "input"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesInput) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"disable":     types.StringType,
+		"redirect":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesInput) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Input Functional Block (IFB) interface name
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ifbN  |  Input interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -37,16 +131,14 @@ func (o InterfacesInput) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |

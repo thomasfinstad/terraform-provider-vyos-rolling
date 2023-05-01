@@ -19,6 +19,6 @@ func (r interfacesWwan) Schema(ctx context.Context, req resource.SchemaRequest, 
 |  wwanN  |  Wireless Wide Area Network interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

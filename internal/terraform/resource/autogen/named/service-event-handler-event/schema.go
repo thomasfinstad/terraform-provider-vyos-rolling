@@ -17,6 +17,6 @@ func (r serviceEventHandlerEvent) Schema(ctx context.Context, req resource.Schem
 Event handler name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

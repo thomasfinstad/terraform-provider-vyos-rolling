@@ -2,34 +2,127 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaVirtualLink describes the resource data model.
 type ProtocolsOspfAreaVirtualLink struct {
 	// LeafNodes
-	ProtocolsOspfAreaVirtualLinkDeadInterval       customtypes.CustomStringValue `tfsdk:"dead_interval" json:"dead-interval,omitempty"`
-	ProtocolsOspfAreaVirtualLinkHelloInterval      customtypes.CustomStringValue `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
-	ProtocolsOspfAreaVirtualLinkRetransmitInterval customtypes.CustomStringValue `tfsdk:"retransmit_interval" json:"retransmit-interval,omitempty"`
-	ProtocolsOspfAreaVirtualLinkTransmitDelay      customtypes.CustomStringValue `tfsdk:"transmit_delay" json:"transmit-delay,omitempty"`
+	LeafProtocolsOspfAreaVirtualLinkDeadInterval       types.String `tfsdk:"dead_interval"`
+	LeafProtocolsOspfAreaVirtualLinkHelloInterval      types.String `tfsdk:"hello_interval"`
+	LeafProtocolsOspfAreaVirtualLinkRetransmitInterval types.String `tfsdk:"retransmit_interval"`
+	LeafProtocolsOspfAreaVirtualLinkTransmitDelay      types.String `tfsdk:"transmit_delay"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsOspfAreaVirtualLinkAuthentication types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
+	NodeProtocolsOspfAreaVirtualLinkAuthentication types.Object `tfsdk:"authentication"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaVirtualLink) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.IsUnknown()) {
+		vyosData["dead-interval"] = o.LeafProtocolsOspfAreaVirtualLinkDeadInterval.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.IsUnknown()) {
+		vyosData["hello-interval"] = o.LeafProtocolsOspfAreaVirtualLinkHelloInterval.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.IsUnknown()) {
+		vyosData["retransmit-interval"] = o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval.ValueString()
+	}
+	if !(o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.IsNull() || o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.IsUnknown()) {
+		vyosData["transmit-delay"] = o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsOspfAreaVirtualLinkAuthentication.IsNull() || o.NodeProtocolsOspfAreaVirtualLinkAuthentication.IsUnknown()) {
+		var subModel ProtocolsOspfAreaVirtualLinkAuthentication
+		diags.Append(o.NodeProtocolsOspfAreaVirtualLinkAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaVirtualLink) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link"}})
+
+	// Leafs
+	if value, ok := vyosData["dead-interval"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkDeadInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkDeadInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-interval"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkHelloInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["retransmit-interval"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkRetransmitInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["transmit-delay"]; ok {
+		o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfAreaVirtualLinkTransmitDelay = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsOspfAreaVirtualLinkAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsOspfAreaVirtualLinkAuthentication = data
+
+	} else {
+		o.NodeProtocolsOspfAreaVirtualLinkAuthentication = basetypes.NewObjectNull(ProtocolsOspfAreaVirtualLinkAuthentication{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaVirtualLink) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dead_interval":       types.StringType,
+		"hello_interval":      types.StringType,
+		"retransmit_interval": types.StringType,
+		"transmit_delay":      types.StringType,
+
+		// Tags
+
+		// Nodes
+		"authentication": types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLinkAuthentication{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaVirtualLink) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dead_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
 |  Format  |  Description  |
@@ -43,8 +136,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]schema.Att
 		},
 
 		"hello_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
 |  Format  |  Description  |
@@ -58,8 +150,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]schema.Att
 		},
 
 		"retransmit_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
 |  Format  |  Description  |
@@ -73,8 +164,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]schema.Att
 		},
 
 		"transmit_delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
 |  Format  |  Description  |
@@ -92,7 +182,7 @@ func (o ProtocolsOspfAreaVirtualLink) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: ProtocolsOspfAreaVirtualLinkAuthentication{}.ResourceAttributes(),
+			Attributes: ProtocolsOspfAreaVirtualLinkAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Authentication
 

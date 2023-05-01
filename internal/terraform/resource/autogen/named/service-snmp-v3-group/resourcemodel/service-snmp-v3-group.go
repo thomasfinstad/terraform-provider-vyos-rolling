@@ -2,31 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpVthreeGroup describes the resource data model.
 type ServiceSnmpVthreeGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpVthreeGroupMode     customtypes.CustomStringValue `tfsdk:"mode" json:"mode,omitempty"`
-	ServiceSnmpVthreeGroupSeclevel customtypes.CustomStringValue `tfsdk:"seclevel" json:"seclevel,omitempty"`
-	ServiceSnmpVthreeGroupView     customtypes.CustomStringValue `tfsdk:"view" json:"view,omitempty"`
+	LeafServiceSnmpVthreeGroupMode     types.String `tfsdk:"mode"`
+	LeafServiceSnmpVthreeGroupSeclevel types.String `tfsdk:"seclevel"`
+	LeafServiceSnmpVthreeGroupView     types.String `tfsdk:"view"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpVthreeGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpVthreeGroup) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"v3",
+		"group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpVthreeGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpVthreeGroupMode.IsNull() || o.LeafServiceSnmpVthreeGroupMode.IsUnknown()) {
+		vyosData["mode"] = o.LeafServiceSnmpVthreeGroupMode.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeGroupSeclevel.IsNull() || o.LeafServiceSnmpVthreeGroupSeclevel.IsUnknown()) {
+		vyosData["seclevel"] = o.LeafServiceSnmpVthreeGroupSeclevel.ValueString()
+	}
+	if !(o.LeafServiceSnmpVthreeGroupView.IsNull() || o.LeafServiceSnmpVthreeGroupView.IsUnknown()) {
+		vyosData["view"] = o.LeafServiceSnmpVthreeGroupView.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpVthreeGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
+
+	// Leafs
+	if value, ok := vyosData["mode"]; ok {
+		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupMode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["seclevel"]; ok {
+		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupSeclevel = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["view"]; ok {
+		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpVthreeGroupView = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "v3", "group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpVthreeGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"mode":     types.StringType,
+		"seclevel": types.StringType,
+		"view":     types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpVthreeGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Specifies the group with name groupname
+
+`,
+		},
+
 		// LeafNodes
 
 		"mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Define access permission
 
 |  Format  |  Description  |
@@ -41,8 +133,7 @@ func (o ServiceSnmpVthreeGroup) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"seclevel": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Security levels
 
 |  Format  |  Description  |
@@ -58,8 +149,7 @@ func (o ServiceSnmpVthreeGroup) ResourceAttributes() map[string]schema.Attribute
 		},
 
 		"view": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Defines the name of view
 
 `,

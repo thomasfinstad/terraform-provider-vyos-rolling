@@ -21,6 +21,6 @@ IP prefix-list filter
 |  txt  |  Name of IPv4 prefix-list  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,43 +2,150 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnTLS describes the resource data model.
 type InterfacesOpenvpnTLS struct {
 	// LeafNodes
-	InterfacesOpenvpnTLSAuthKey       customtypes.CustomStringValue `tfsdk:"auth_key" json:"auth-key,omitempty"`
-	InterfacesOpenvpnTLSCertificate   customtypes.CustomStringValue `tfsdk:"certificate" json:"certificate,omitempty"`
-	InterfacesOpenvpnTLSCaCertificate customtypes.CustomStringValue `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
-	InterfacesOpenvpnTLSDhParams      customtypes.CustomStringValue `tfsdk:"dh_params" json:"dh-params,omitempty"`
-	InterfacesOpenvpnTLSCryptKey      customtypes.CustomStringValue `tfsdk:"crypt_key" json:"crypt-key,omitempty"`
-	InterfacesOpenvpnTLSTLSVersionMin customtypes.CustomStringValue `tfsdk:"tls_version_min" json:"tls-version-min,omitempty"`
-	InterfacesOpenvpnTLSRole          customtypes.CustomStringValue `tfsdk:"role" json:"role,omitempty"`
+	LeafInterfacesOpenvpnTLSAuthKey       types.String `tfsdk:"auth_key"`
+	LeafInterfacesOpenvpnTLSCertificate   types.String `tfsdk:"certificate"`
+	LeafInterfacesOpenvpnTLSCaCertificate types.String `tfsdk:"ca_certificate"`
+	LeafInterfacesOpenvpnTLSDhParams      types.String `tfsdk:"dh_params"`
+	LeafInterfacesOpenvpnTLSCryptKey      types.String `tfsdk:"crypt_key"`
+	LeafInterfacesOpenvpnTLSTLSVersionMin types.String `tfsdk:"tls_version_min"`
+	LeafInterfacesOpenvpnTLSRole          types.String `tfsdk:"role"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnTLS) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "tls"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnTLSAuthKey.IsNull() || o.LeafInterfacesOpenvpnTLSAuthKey.IsUnknown()) {
+		vyosData["auth-key"] = o.LeafInterfacesOpenvpnTLSAuthKey.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSCertificate.IsNull() || o.LeafInterfacesOpenvpnTLSCertificate.IsUnknown()) {
+		vyosData["certificate"] = o.LeafInterfacesOpenvpnTLSCertificate.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSCaCertificate.IsNull() || o.LeafInterfacesOpenvpnTLSCaCertificate.IsUnknown()) {
+		vyosData["ca-certificate"] = o.LeafInterfacesOpenvpnTLSCaCertificate.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSDhParams.IsNull() || o.LeafInterfacesOpenvpnTLSDhParams.IsUnknown()) {
+		vyosData["dh-params"] = o.LeafInterfacesOpenvpnTLSDhParams.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSCryptKey.IsNull() || o.LeafInterfacesOpenvpnTLSCryptKey.IsUnknown()) {
+		vyosData["crypt-key"] = o.LeafInterfacesOpenvpnTLSCryptKey.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSTLSVersionMin.IsNull() || o.LeafInterfacesOpenvpnTLSTLSVersionMin.IsUnknown()) {
+		vyosData["tls-version-min"] = o.LeafInterfacesOpenvpnTLSTLSVersionMin.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnTLSRole.IsNull() || o.LeafInterfacesOpenvpnTLSRole.IsUnknown()) {
+		vyosData["role"] = o.LeafInterfacesOpenvpnTLSRole.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnTLS) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "tls"}})
+
+	// Leafs
+	if value, ok := vyosData["auth-key"]; ok {
+		o.LeafInterfacesOpenvpnTLSAuthKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSAuthKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["certificate"]; ok {
+		o.LeafInterfacesOpenvpnTLSCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ca-certificate"]; ok {
+		o.LeafInterfacesOpenvpnTLSCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSCaCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dh-params"]; ok {
+		o.LeafInterfacesOpenvpnTLSDhParams = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSDhParams = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["crypt-key"]; ok {
+		o.LeafInterfacesOpenvpnTLSCryptKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSCryptKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tls-version-min"]; ok {
+		o.LeafInterfacesOpenvpnTLSTLSVersionMin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSTLSVersionMin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["role"]; ok {
+		o.LeafInterfacesOpenvpnTLSRole = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnTLSRole = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "tls"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnTLS) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"auth_key":        types.StringType,
+		"certificate":     types.StringType,
+		"ca_certificate":  types.StringType,
+		"dh_params":       types.StringType,
+		"crypt_key":       types.StringType,
+		"tls_version_min": types.StringType,
+		"role":            types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnTLS) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"auth_key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `TLS shared secret key for tls-auth
 
 `,
 		},
 
 		"certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
 |  Format  |  Description  |
@@ -49,8 +156,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ca_certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate Authority chain in PKI configuration
 
 |  Format  |  Description  |
@@ -61,24 +167,21 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"dh_params": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Diffie Hellman parameters (server only)
 
 `,
 		},
 
 		"crypt_key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Static key to use to authenticate control channel
 
 `,
 		},
 
 		"tls_version_min": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify the minimum required TLS version
 
 |  Format  |  Description  |
@@ -92,8 +195,7 @@ func (o InterfacesOpenvpnTLS) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"role": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `TLS negotiation role
 
 |  Format  |  Description  |

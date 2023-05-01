@@ -25,6 +25,6 @@ Source group name
 |  name  |  Name of source group  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

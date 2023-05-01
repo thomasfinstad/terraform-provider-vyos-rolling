@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise describes the resource data model.
 type ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise struct {
 	// LeafNodes
-	ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap customtypes.CustomStringValue `tfsdk:"advertise_map" json:"advertise-map,omitempty"`
-	ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap     customtypes.CustomStringValue `tfsdk:"exist_map" json:"exist-map,omitempty"`
-	ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap  customtypes.CustomStringValue `tfsdk:"non_exist_map" json:"non-exist-map,omitempty"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap types.String `tfsdk:"advertise_map"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap     types.String `tfsdk:"exist_map"`
+	LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap  types.String `tfsdk:"non_exist_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "conditionally-advertise"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap.IsUnknown()) {
+		vyosData["advertise-map"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap.ValueString()
+	}
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap.IsUnknown()) {
+		vyosData["exist-map"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap.ValueString()
+	}
+	if !(o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap.IsNull() || o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap.IsUnknown()) {
+		vyosData["non-exist-map"] = o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "conditionally-advertise"}})
+
+	// Leafs
+	if value, ok := vyosData["advertise-map"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseAdvertiseMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["exist-map"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseExistMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["non-exist-map"]; ok {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertiseNonExistMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "conditionally-advertise"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"advertise_map": types.StringType,
+		"exist_map":     types.StringType,
+		"non_exist_map": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"advertise_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route-map to conditionally advertise routes
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) R
 		},
 
 		"exist_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in exist-map are installed in BGP table
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o ProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastConditionallyAdvertise) R
 		},
 
 		"non_exist_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Advertise routes only if prefixes in non-exist-map are not installed in BGP table
 
 |  Format  |  Description  |

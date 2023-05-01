@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfMplsTe describes the resource data model.
 type VrfNameProtocolsOspfMplsTe struct {
 	// LeafNodes
-	VrfNameProtocolsOspfMplsTeEnable        customtypes.CustomStringValue `tfsdk:"enable" json:"enable,omitempty"`
-	VrfNameProtocolsOspfMplsTeRouterAddress customtypes.CustomStringValue `tfsdk:"router_address" json:"router-address,omitempty"`
+	LeafVrfNameProtocolsOspfMplsTeEnable        types.String `tfsdk:"enable"`
+	LeafVrfNameProtocolsOspfMplsTeRouterAddress types.String `tfsdk:"router_address"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfMplsTe) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfMplsTe) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "mpls-te"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfMplsTeEnable.IsNull() || o.LeafVrfNameProtocolsOspfMplsTeEnable.IsUnknown()) {
+		vyosData["enable"] = o.LeafVrfNameProtocolsOspfMplsTeEnable.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.IsNull() || o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.IsUnknown()) {
+		vyosData["router-address"] = o.LeafVrfNameProtocolsOspfMplsTeRouterAddress.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfMplsTe) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "mpls-te"}})
+
+	// Leafs
+	if value, ok := vyosData["enable"]; ok {
+		o.LeafVrfNameProtocolsOspfMplsTeEnable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMplsTeEnable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["router-address"]; ok {
+		o.LeafVrfNameProtocolsOspfMplsTeRouterAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMplsTeRouterAddress = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "mpls-te"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfMplsTe) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"enable":         types.StringType,
+		"router_address": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfMplsTe) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"enable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable MPLS-TE functionality
 
 `,
 		},
 
 		"router_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Stable IP address of the advertising router
 
 |  Format  |  Description  |

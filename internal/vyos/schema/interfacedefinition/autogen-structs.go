@@ -23,6 +23,7 @@ type SyntaxVersion struct {
 // Node ...
 type Node struct {
 	Parent       NodeParent
+	IsBaseNode   bool
 	XMLName      xml.Name      `xml:"node"`
 	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`
@@ -33,6 +34,7 @@ type Node struct {
 // TagNode ...
 type TagNode struct {
 	Parent       NodeParent
+	IsBaseNode   bool
 	XMLName      xml.Name      `xml:"tagNode"`
 	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`
@@ -44,6 +46,7 @@ type TagNode struct {
 // LeafNode ...
 type LeafNode struct {
 	Parent       NodeParent
+	IsBaseNode   bool
 	XMLName      xml.Name      `xml:"leafNode"`
 	NodeNameAttr string        `xml:"name,attr,omitempty"`
 	OwnerAttr    string        `xml:"owner,attr,omitempty"`

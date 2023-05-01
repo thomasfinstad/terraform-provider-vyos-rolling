@@ -17,6 +17,6 @@ func (r servicePppoeServerInterface) Schema(ctx context.Context, req resource.Sc
 interface(s) to listen on
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,48 +2,353 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspf describes the resource data model.
 type VrfNameProtocolsOspf struct {
 	// LeafNodes
-	VrfNameProtocolsOspfDefaultMetric    customtypes.CustomStringValue `tfsdk:"default_metric" json:"default-metric,omitempty"`
-	VrfNameProtocolsOspfMaximumPaths     customtypes.CustomStringValue `tfsdk:"maximum_paths" json:"maximum-paths,omitempty"`
-	VrfNameProtocolsOspfPassiveInterface customtypes.CustomStringValue `tfsdk:"passive_interface" json:"passive-interface,omitempty"`
-	VrfNameProtocolsOspfRouteMap         customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultMetric    types.String `tfsdk:"default_metric"`
+	LeafVrfNameProtocolsOspfMaximumPaths     types.String `tfsdk:"maximum_paths"`
+	LeafVrfNameProtocolsOspfPassiveInterface types.String `tfsdk:"passive_interface"`
+	LeafVrfNameProtocolsOspfRouteMap         types.String `tfsdk:"route_map"`
 
 	// TagNodes
-	VrfNameProtocolsOspfAccessList types.Map `tfsdk:"access_list" json:"access-list,omitempty"`
-	VrfNameProtocolsOspfArea       types.Map `tfsdk:"area" json:"area,omitempty"`
-	VrfNameProtocolsOspfInterface  types.Map `tfsdk:"interface" json:"interface,omitempty"`
-	VrfNameProtocolsOspfNeighbor   types.Map `tfsdk:"neighbor" json:"neighbor,omitempty"`
+	TagVrfNameProtocolsOspfAccessList types.Map `tfsdk:"access_list"`
+	TagVrfNameProtocolsOspfArea       types.Map `tfsdk:"area"`
+	TagVrfNameProtocolsOspfInterface  types.Map `tfsdk:"interface"`
+	TagVrfNameProtocolsOspfNeighbor   types.Map `tfsdk:"neighbor"`
 
 	// Nodes
-	VrfNameProtocolsOspfAutoCost            types.Object `tfsdk:"auto_cost" json:"auto-cost,omitempty"`
-	VrfNameProtocolsOspfDefaultInformation  types.Object `tfsdk:"default_information" json:"default-information,omitempty"`
-	VrfNameProtocolsOspfDistance            types.Object `tfsdk:"distance" json:"distance,omitempty"`
-	VrfNameProtocolsOspfLogAdjacencyChanges types.Object `tfsdk:"log_adjacency_changes" json:"log-adjacency-changes,omitempty"`
-	VrfNameProtocolsOspfMaxMetric           types.Object `tfsdk:"max_metric" json:"max-metric,omitempty"`
-	VrfNameProtocolsOspfMplsTe              types.Object `tfsdk:"mpls_te" json:"mpls-te,omitempty"`
-	VrfNameProtocolsOspfParameters          types.Object `tfsdk:"parameters" json:"parameters,omitempty"`
-	VrfNameProtocolsOspfSegmentRouting      types.Object `tfsdk:"segment_routing" json:"segment-routing,omitempty"`
-	VrfNameProtocolsOspfRedistribute        types.Object `tfsdk:"redistribute" json:"redistribute,omitempty"`
-	VrfNameProtocolsOspfRefresh             types.Object `tfsdk:"refresh" json:"refresh,omitempty"`
-	VrfNameProtocolsOspfTimers              types.Object `tfsdk:"timers" json:"timers,omitempty"`
+	NodeVrfNameProtocolsOspfAutoCost            types.Object `tfsdk:"auto_cost"`
+	NodeVrfNameProtocolsOspfDefaultInformation  types.Object `tfsdk:"default_information"`
+	NodeVrfNameProtocolsOspfDistance            types.Object `tfsdk:"distance"`
+	NodeVrfNameProtocolsOspfLogAdjacencyChanges types.Object `tfsdk:"log_adjacency_changes"`
+	NodeVrfNameProtocolsOspfMaxMetric           types.Object `tfsdk:"max_metric"`
+	NodeVrfNameProtocolsOspfMplsTe              types.Object `tfsdk:"mpls_te"`
+	NodeVrfNameProtocolsOspfParameters          types.Object `tfsdk:"parameters"`
+	NodeVrfNameProtocolsOspfSegmentRouting      types.Object `tfsdk:"segment_routing"`
+	NodeVrfNameProtocolsOspfRedistribute        types.Object `tfsdk:"redistribute"`
+	NodeVrfNameProtocolsOspfRefresh             types.Object `tfsdk:"refresh"`
+	NodeVrfNameProtocolsOspfTimers              types.Object `tfsdk:"timers"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfDefaultMetric.IsNull() || o.LeafVrfNameProtocolsOspfDefaultMetric.IsUnknown()) {
+		vyosData["default-metric"] = o.LeafVrfNameProtocolsOspfDefaultMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfMaximumPaths.IsNull() || o.LeafVrfNameProtocolsOspfMaximumPaths.IsUnknown()) {
+		vyosData["maximum-paths"] = o.LeafVrfNameProtocolsOspfMaximumPaths.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfPassiveInterface.IsNull() || o.LeafVrfNameProtocolsOspfPassiveInterface.IsUnknown()) {
+		vyosData["passive-interface"] = o.LeafVrfNameProtocolsOspfPassiveInterface.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfRouteMap.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsOspfAccessList.IsNull() || o.TagVrfNameProtocolsOspfAccessList.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfAccessList)
+		diags.Append(o.TagVrfNameProtocolsOspfAccessList.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["access-list"] = subData
+	}
+	if !(o.TagVrfNameProtocolsOspfArea.IsNull() || o.TagVrfNameProtocolsOspfArea.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfArea)
+		diags.Append(o.TagVrfNameProtocolsOspfArea.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["area"] = subData
+	}
+	if !(o.TagVrfNameProtocolsOspfInterface.IsNull() || o.TagVrfNameProtocolsOspfInterface.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfInterface)
+		diags.Append(o.TagVrfNameProtocolsOspfInterface.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["interface"] = subData
+	}
+	if !(o.TagVrfNameProtocolsOspfNeighbor.IsNull() || o.TagVrfNameProtocolsOspfNeighbor.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfNeighbor)
+		diags.Append(o.TagVrfNameProtocolsOspfNeighbor.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["neighbor"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfAutoCost.IsNull() || o.NodeVrfNameProtocolsOspfAutoCost.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfAutoCost
+		diags.Append(o.NodeVrfNameProtocolsOspfAutoCost.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["auto-cost"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfDefaultInformation.IsNull() || o.NodeVrfNameProtocolsOspfDefaultInformation.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfDefaultInformation
+		diags.Append(o.NodeVrfNameProtocolsOspfDefaultInformation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["default-information"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfDistance.IsNull() || o.NodeVrfNameProtocolsOspfDistance.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfDistance
+		diags.Append(o.NodeVrfNameProtocolsOspfDistance.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["distance"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.IsNull() || o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfLogAdjacencyChanges
+		diags.Append(o.NodeVrfNameProtocolsOspfLogAdjacencyChanges.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["log-adjacency-changes"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfMaxMetric.IsNull() || o.NodeVrfNameProtocolsOspfMaxMetric.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfMaxMetric
+		diags.Append(o.NodeVrfNameProtocolsOspfMaxMetric.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["max-metric"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfMplsTe.IsNull() || o.NodeVrfNameProtocolsOspfMplsTe.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfMplsTe
+		diags.Append(o.NodeVrfNameProtocolsOspfMplsTe.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mpls-te"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfParameters.IsNull() || o.NodeVrfNameProtocolsOspfParameters.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfParameters
+		diags.Append(o.NodeVrfNameProtocolsOspfParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfSegmentRouting.IsNull() || o.NodeVrfNameProtocolsOspfSegmentRouting.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfSegmentRouting
+		diags.Append(o.NodeVrfNameProtocolsOspfSegmentRouting.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["segment-routing"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfRedistribute.IsNull() || o.NodeVrfNameProtocolsOspfRedistribute.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfRedistribute
+		diags.Append(o.NodeVrfNameProtocolsOspfRedistribute.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["redistribute"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfRefresh.IsNull() || o.NodeVrfNameProtocolsOspfRefresh.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfRefresh
+		diags.Append(o.NodeVrfNameProtocolsOspfRefresh.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["refresh"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfTimers.IsNull() || o.NodeVrfNameProtocolsOspfTimers.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfTimers
+		diags.Append(o.NodeVrfNameProtocolsOspfTimers.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["timers"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
+
+	// Leafs
+	if value, ok := vyosData["default-metric"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["maximum-paths"]; ok {
+		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfMaximumPaths = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive-interface"]; ok {
+		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfPassiveInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["access-list"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfAccessList{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfAccessList = data
+	} else {
+		o.TagVrfNameProtocolsOspfAccessList = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["area"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfArea{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfArea = data
+	} else {
+		o.TagVrfNameProtocolsOspfArea = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["interface"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterface{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfInterface = data
+	} else {
+		o.TagVrfNameProtocolsOspfInterface = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["neighbor"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfNeighbor{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfNeighbor = data
+	} else {
+		o.TagVrfNameProtocolsOspfNeighbor = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["auto-cost"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfAutoCost{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfAutoCost = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfAutoCost = basetypes.NewObjectNull(VrfNameProtocolsOspfAutoCost{}.AttributeTypes())
+	}
+	if value, ok := vyosData["default-information"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfDefaultInformation = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfDefaultInformation = basetypes.NewObjectNull(VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes())
+	}
+	if value, ok := vyosData["distance"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfDistance{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfDistance = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfDistance = basetypes.NewObjectNull(VrfNameProtocolsOspfDistance{}.AttributeTypes())
+	}
+	if value, ok := vyosData["log-adjacency-changes"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfLogAdjacencyChanges = basetypes.NewObjectNull(VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes())
+	}
+	if value, ok := vyosData["max-metric"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMaxMetric{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfMaxMetric = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfMaxMetric = basetypes.NewObjectNull(VrfNameProtocolsOspfMaxMetric{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mpls-te"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfMplsTe{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfMplsTe = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfMplsTe = basetypes.NewObjectNull(VrfNameProtocolsOspfMplsTe{}.AttributeTypes())
+	}
+	if value, ok := vyosData["parameters"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfParameters{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfParameters = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfParameters = basetypes.NewObjectNull(VrfNameProtocolsOspfParameters{}.AttributeTypes())
+	}
+	if value, ok := vyosData["segment-routing"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfSegmentRouting = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfSegmentRouting = basetypes.NewObjectNull(VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes())
+	}
+	if value, ok := vyosData["redistribute"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRedistribute{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfRedistribute = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfRedistribute = basetypes.NewObjectNull(VrfNameProtocolsOspfRedistribute{}.AttributeTypes())
+	}
+	if value, ok := vyosData["refresh"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfRefresh{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfRefresh = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfRefresh = basetypes.NewObjectNull(VrfNameProtocolsOspfRefresh{}.AttributeTypes())
+	}
+	if value, ok := vyosData["timers"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfTimers{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfTimers = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfTimers = basetypes.NewObjectNull(VrfNameProtocolsOspfTimers{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspf) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_metric":    types.StringType,
+		"maximum_paths":     types.StringType,
+		"passive_interface": types.StringType,
+		"route_map":         types.StringType,
+
+		// Tags
+		"access_list": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfAccessList{}.AttributeTypes()}},
+		"area":        types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfArea{}.AttributeTypes()}},
+		"interface":   types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterface{}.AttributeTypes()}},
+		"neighbor":    types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfNeighbor{}.AttributeTypes()}},
+
+		// Nodes
+		"auto_cost":             types.ObjectType{AttrTypes: VrfNameProtocolsOspfAutoCost{}.AttributeTypes()},
+		"default_information":   types.ObjectType{AttrTypes: VrfNameProtocolsOspfDefaultInformation{}.AttributeTypes()},
+		"distance":              types.ObjectType{AttrTypes: VrfNameProtocolsOspfDistance{}.AttributeTypes()},
+		"log_adjacency_changes": types.ObjectType{AttrTypes: VrfNameProtocolsOspfLogAdjacencyChanges{}.AttributeTypes()},
+		"max_metric":            types.ObjectType{AttrTypes: VrfNameProtocolsOspfMaxMetric{}.AttributeTypes()},
+		"mpls_te":               types.ObjectType{AttrTypes: VrfNameProtocolsOspfMplsTe{}.AttributeTypes()},
+		"parameters":            types.ObjectType{AttrTypes: VrfNameProtocolsOspfParameters{}.AttributeTypes()},
+		"segment_routing":       types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRouting{}.AttributeTypes()},
+		"redistribute":          types.ObjectType{AttrTypes: VrfNameProtocolsOspfRedistribute{}.AttributeTypes()},
+		"refresh":               types.ObjectType{AttrTypes: VrfNameProtocolsOspfRefresh{}.AttributeTypes()},
+		"timers":                types.ObjectType{AttrTypes: VrfNameProtocolsOspfTimers{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspf) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"default_metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Metric of redistributed routes
 
 |  Format  |  Description  |
@@ -54,8 +359,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"maximum_paths": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum multiple paths (ECMP)
 
 |  Format  |  Description  |
@@ -66,8 +370,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"passive_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Suppress routing updates on an interface
 
 |  Format  |  Description  |
@@ -78,8 +381,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -93,7 +395,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 
 		"access_list": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfAccessList{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfAccessList{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Access list to filter networks in routing updates
@@ -107,7 +409,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 
 		"area": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfArea{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfArea{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `OSPF area settings
@@ -122,7 +424,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 
 		"interface": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfInterface{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfInterface{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Interface configuration
@@ -136,7 +438,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 
 		"neighbor": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfNeighbor{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfNeighbor{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Specify neighbor router
@@ -151,7 +453,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"auto_cost": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfAutoCost{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Calculate interface cost according to bandwidth
 
@@ -159,7 +461,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"default_information": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfDefaultInformation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Default route advertisment settings
 
@@ -167,7 +469,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"distance": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfDistance{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfDistance{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Administrative distance
 
@@ -175,7 +477,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"log_adjacency_changes": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfLogAdjacencyChanges{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfLogAdjacencyChanges{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Log adjacency state changes
 
@@ -183,7 +485,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"max_metric": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMaxMetric{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfMaxMetric{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPF maximum and infinite-distance metric
 
@@ -191,7 +493,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mpls_te": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfMplsTe{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfMplsTe{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters
 
@@ -199,7 +501,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfParameters{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPF specific parameters
 
@@ -207,7 +509,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"segment_routing": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfSegmentRouting{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfSegmentRouting{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment-Routing (SPRING) settings
 
@@ -215,7 +517,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redistribute": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRedistribute{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfRedistribute{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Redistribute information from another routing protocol
 
@@ -223,7 +525,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"refresh": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfRefresh{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfRefresh{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Adjust refresh parameters
 
@@ -231,7 +533,7 @@ func (o VrfNameProtocolsOspf) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"timers": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfTimers{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfTimers{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Adjust routing timers
 

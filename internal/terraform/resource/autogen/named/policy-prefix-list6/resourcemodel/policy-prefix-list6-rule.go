@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyPrefixListsixRule describes the resource data model.
 type PolicyPrefixListsixRule struct {
 	// LeafNodes
-	PolicyPrefixListsixRuleAction      customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
-	PolicyPrefixListsixRuleDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	PolicyPrefixListsixRuleGe          customtypes.CustomStringValue `tfsdk:"ge" json:"ge,omitempty"`
-	PolicyPrefixListsixRuleLe          customtypes.CustomStringValue `tfsdk:"le" json:"le,omitempty"`
-	PolicyPrefixListsixRulePrefix      customtypes.CustomStringValue `tfsdk:"prefix" json:"prefix,omitempty"`
+	LeafPolicyPrefixListsixRuleAction      types.String `tfsdk:"action"`
+	LeafPolicyPrefixListsixRuleDescrIPtion types.String `tfsdk:"description"`
+	LeafPolicyPrefixListsixRuleGe          types.String `tfsdk:"ge"`
+	LeafPolicyPrefixListsixRuleLe          types.String `tfsdk:"le"`
+	LeafPolicyPrefixListsixRulePrefix      types.String `tfsdk:"prefix"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyPrefixListsixRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyPrefixListsixRuleAction.IsNull() || o.LeafPolicyPrefixListsixRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafPolicyPrefixListsixRuleAction.ValueString()
+	}
+	if !(o.LeafPolicyPrefixListsixRuleDescrIPtion.IsNull() || o.LeafPolicyPrefixListsixRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyPrefixListsixRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafPolicyPrefixListsixRuleGe.IsNull() || o.LeafPolicyPrefixListsixRuleGe.IsUnknown()) {
+		vyosData["ge"] = o.LeafPolicyPrefixListsixRuleGe.ValueString()
+	}
+	if !(o.LeafPolicyPrefixListsixRuleLe.IsNull() || o.LeafPolicyPrefixListsixRuleLe.IsUnknown()) {
+		vyosData["le"] = o.LeafPolicyPrefixListsixRuleLe.ValueString()
+	}
+	if !(o.LeafPolicyPrefixListsixRulePrefix.IsNull() || o.LeafPolicyPrefixListsixRulePrefix.IsUnknown()) {
+		vyosData["prefix"] = o.LeafPolicyPrefixListsixRulePrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyPrefixListsixRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["action"]; ok {
+		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ge"]; ok {
+		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleGe = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["le"]; ok {
+		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRuleLe = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix"]; ok {
+		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyPrefixListsixRulePrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "prefix-list6", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyPrefixListsixRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"action":      types.StringType,
+		"description": types.StringType,
+		"ge":          types.StringType,
+		"le":          types.StringType,
+		"prefix":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyPrefixListsixRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take on entries matching this rule
 
 |  Format  |  Description  |
@@ -40,8 +130,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -52,8 +141,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"ge": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask greater than or equal to it
 
 |  Format  |  Description  |
@@ -64,8 +152,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"le": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix length to match a netmask less than or equal to it
 
 |  Format  |  Description  |
@@ -76,8 +163,7 @@ func (o PolicyPrefixListsixRule) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix to match
 
 |  Format  |  Description  |

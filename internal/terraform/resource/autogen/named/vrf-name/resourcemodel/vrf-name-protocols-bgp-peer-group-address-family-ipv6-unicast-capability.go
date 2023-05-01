@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf types.Object `tfsdk:"orf" json:"orf,omitempty"`
+	NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf types.Object `tfsdk:"orf"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "capability"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf.IsNull() || o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf
+		diags.Append(o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["orf"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "capability"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["orf"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf = basetypes.NewObjectNull(VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "peer-group", "address-family", "ipv6-unicast", "capability"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"orf": types.ObjectType{AttrTypes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapability) Resour
 		// Nodes
 
 		"orf": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpPeerGroupAddressFamilyIPvsixUnicastCapabilityOrf{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Advertise ORF capability to this peer
 

@@ -23,6 +23,6 @@ Deficit Round Robin Scheduler
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

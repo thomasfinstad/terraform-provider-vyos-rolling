@@ -2,38 +2,119 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PkiOpenvpnSharedSecret describes the resource data model.
 type PkiOpenvpnSharedSecret struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PkiOpenvpnSharedSecretKey     customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	PkiOpenvpnSharedSecretVersion customtypes.CustomStringValue `tfsdk:"version" json:"version,omitempty"`
+	LeafPkiOpenvpnSharedSecretKey     types.String `tfsdk:"key"`
+	LeafPkiOpenvpnSharedSecretVersion types.String `tfsdk:"version"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PkiOpenvpnSharedSecret) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PkiOpenvpnSharedSecret) GetVyosPath() []string {
+	return []string{
+		"pki",
+		"openvpn",
+		"shared-secret",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PkiOpenvpnSharedSecret) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"pki", "openvpn", "shared-secret"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPkiOpenvpnSharedSecretKey.IsNull() || o.LeafPkiOpenvpnSharedSecretKey.IsUnknown()) {
+		vyosData["key"] = o.LeafPkiOpenvpnSharedSecretKey.ValueString()
+	}
+	if !(o.LeafPkiOpenvpnSharedSecretVersion.IsNull() || o.LeafPkiOpenvpnSharedSecretVersion.IsUnknown()) {
+		vyosData["version"] = o.LeafPkiOpenvpnSharedSecretVersion.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PkiOpenvpnSharedSecret) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"pki", "openvpn", "shared-secret"}})
+
+	// Leafs
+	if value, ok := vyosData["key"]; ok {
+		o.LeafPkiOpenvpnSharedSecretKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiOpenvpnSharedSecretKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["version"]; ok {
+		o.LeafPkiOpenvpnSharedSecretVersion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPkiOpenvpnSharedSecretVersion = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"pki", "openvpn", "shared-secret"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PkiOpenvpnSharedSecret) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"key":     types.StringType,
+		"version": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PkiOpenvpnSharedSecret) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `OpenVPN shared secret key
+
+`,
+		},
+
 		// LeafNodes
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OpenVPN shared secret key data
 
 `,
 		},
 
 		"version": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OpenVPN shared secret key version
 
 `,

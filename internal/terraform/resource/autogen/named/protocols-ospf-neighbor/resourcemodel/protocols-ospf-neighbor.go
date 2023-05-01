@@ -2,30 +2,116 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfNeighbor describes the resource data model.
 type ProtocolsOspfNeighbor struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsOspfNeighborPollInterval customtypes.CustomStringValue `tfsdk:"poll_interval" json:"poll-interval,omitempty"`
-	ProtocolsOspfNeighborPriority     customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
+	LeafProtocolsOspfNeighborPollInterval types.String `tfsdk:"poll_interval"`
+	LeafProtocolsOspfNeighborPriority     types.String `tfsdk:"priority"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfNeighbor) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsOspfNeighbor) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"ospf",
+		"neighbor",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfNeighbor) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "neighbor"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsOspfNeighborPollInterval.IsNull() || o.LeafProtocolsOspfNeighborPollInterval.IsUnknown()) {
+		vyosData["poll-interval"] = o.LeafProtocolsOspfNeighborPollInterval.ValueString()
+	}
+	if !(o.LeafProtocolsOspfNeighborPriority.IsNull() || o.LeafProtocolsOspfNeighborPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafProtocolsOspfNeighborPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfNeighbor) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "neighbor"}})
+
+	// Leafs
+	if value, ok := vyosData["poll-interval"]; ok {
+		o.LeafProtocolsOspfNeighborPollInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfNeighborPollInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafProtocolsOspfNeighborPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsOspfNeighborPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "neighbor"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfNeighbor) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"poll_interval": types.StringType,
+		"priority":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfNeighbor) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Specify neighbor router
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  Neighbor IP address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"poll_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Dead neighbor polling interval
 
 |  Format  |  Description  |
@@ -39,8 +125,7 @@ func (o ProtocolsOspfNeighbor) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Neighbor priority in seconds
 
 |  Format  |  Description  |

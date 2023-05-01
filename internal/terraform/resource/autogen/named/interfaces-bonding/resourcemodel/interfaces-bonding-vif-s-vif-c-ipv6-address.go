@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifSVifCIPvsixAddress describes the resource data model.
 type InterfacesBondingVifSVifCIPvsixAddress struct {
 	// LeafNodes
-	InterfacesBondingVifSVifCIPvsixAddressAutoconf           customtypes.CustomStringValue `tfsdk:"autoconf" json:"autoconf,omitempty"`
-	InterfacesBondingVifSVifCIPvsixAddressEuisixfour         customtypes.CustomStringValue `tfsdk:"eui64" json:"eui64,omitempty"`
-	InterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal customtypes.CustomStringValue `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
+	LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf           types.String `tfsdk:"autoconf"`
+	LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
+	LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBondingVifSVifCIPvsixAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBondingVifSVifCIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ipv6", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf.IsUnknown()) {
+		vyosData["autoconf"] = o.LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour.IsUnknown()) {
+		vyosData["eui64"] = o.LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
+		vyosData["no-default-link-local"] = o.LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBondingVifSVifCIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ipv6", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["autoconf"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["eui64"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-default-link-local"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ipv6", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBondingVifSVifCIPvsixAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"autoconf":              types.StringType,
+		"eui64":                 types.StringType,
+		"no_default_link_local": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBondingVifSVifCIPvsixAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"autoconf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 `,
 		},
 
 		"eui64": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix for IPv6 address with MAC-based EUI-64
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o InterfacesBondingVifSVifCIPvsixAddress) ResourceAttributes() map[string]
 		},
 
 		"no_default_link_local": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove the default link-local address from the interface
 
 `,

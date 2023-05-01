@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListRuleSource describes the resource data model.
 type PolicyAccessListRuleSource struct {
 	// LeafNodes
-	PolicyAccessListRuleSourceAny         customtypes.CustomStringValue `tfsdk:"any" json:"any,omitempty"`
-	PolicyAccessListRuleSourceHost        customtypes.CustomStringValue `tfsdk:"host" json:"host,omitempty"`
-	PolicyAccessListRuleSourceInverseMask customtypes.CustomStringValue `tfsdk:"inverse_mask" json:"inverse-mask,omitempty"`
-	PolicyAccessListRuleSourceNetwork     customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
+	LeafPolicyAccessListRuleSourceAny         types.String `tfsdk:"any"`
+	LeafPolicyAccessListRuleSourceHost        types.String `tfsdk:"host"`
+	LeafPolicyAccessListRuleSourceInverseMask types.String `tfsdk:"inverse_mask"`
+	LeafPolicyAccessListRuleSourceNetwork     types.String `tfsdk:"network"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessListRuleSource) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessListRuleSource) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "source"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListRuleSourceAny.IsNull() || o.LeafPolicyAccessListRuleSourceAny.IsUnknown()) {
+		vyosData["any"] = o.LeafPolicyAccessListRuleSourceAny.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleSourceHost.IsNull() || o.LeafPolicyAccessListRuleSourceHost.IsUnknown()) {
+		vyosData["host"] = o.LeafPolicyAccessListRuleSourceHost.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleSourceInverseMask.IsNull() || o.LeafPolicyAccessListRuleSourceInverseMask.IsUnknown()) {
+		vyosData["inverse-mask"] = o.LeafPolicyAccessListRuleSourceInverseMask.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleSourceNetwork.IsNull() || o.LeafPolicyAccessListRuleSourceNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafPolicyAccessListRuleSourceNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessListRuleSource) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "source"}})
+
+	// Leafs
+	if value, ok := vyosData["any"]; ok {
+		o.LeafPolicyAccessListRuleSourceAny = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleSourceAny = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["host"]; ok {
+		o.LeafPolicyAccessListRuleSourceHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleSourceHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inverse-mask"]; ok {
+		o.LeafPolicyAccessListRuleSourceInverseMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleSourceInverseMask = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafPolicyAccessListRuleSourceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleSourceNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "source"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessListRuleSource) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"any":          types.StringType,
+		"host":         types.StringType,
+		"inverse_mask": types.StringType,
+		"network":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessListRuleSource) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"any": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Any IP address to match
 
 `,
 		},
 
 		"host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Single host IP address to match
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o PolicyAccessListRuleSource) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"inverse_mask": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires network be defined)
 
 |  Format  |  Description  |
@@ -58,8 +137,7 @@ func (o PolicyAccessListRuleSource) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
 
 |  Format  |  Description  |

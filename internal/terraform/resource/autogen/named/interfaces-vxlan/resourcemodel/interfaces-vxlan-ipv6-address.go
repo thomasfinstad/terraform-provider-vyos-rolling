@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanIPvsixAddress describes the resource data model.
 type InterfacesVxlanIPvsixAddress struct {
 	// LeafNodes
-	InterfacesVxlanIPvsixAddressAutoconf           customtypes.CustomStringValue `tfsdk:"autoconf" json:"autoconf,omitempty"`
-	InterfacesVxlanIPvsixAddressEuisixfour         customtypes.CustomStringValue `tfsdk:"eui64" json:"eui64,omitempty"`
-	InterfacesVxlanIPvsixAddressNoDefaultLinkLocal customtypes.CustomStringValue `tfsdk:"no_default_link_local" json:"no-default-link-local,omitempty"`
+	LeafInterfacesVxlanIPvsixAddressAutoconf           types.String `tfsdk:"autoconf"`
+	LeafInterfacesVxlanIPvsixAddressEuisixfour         types.String `tfsdk:"eui64"`
+	LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal types.String `tfsdk:"no_default_link_local"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVxlanIPvsixAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVxlanIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVxlanIPvsixAddressAutoconf.IsNull() || o.LeafInterfacesVxlanIPvsixAddressAutoconf.IsUnknown()) {
+		vyosData["autoconf"] = o.LeafInterfacesVxlanIPvsixAddressAutoconf.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanIPvsixAddressEuisixfour.IsNull() || o.LeafInterfacesVxlanIPvsixAddressEuisixfour.IsUnknown()) {
+		vyosData["eui64"] = o.LeafInterfacesVxlanIPvsixAddressEuisixfour.ValueString()
+	}
+	if !(o.LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal.IsNull() || o.LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal.IsUnknown()) {
+		vyosData["no-default-link-local"] = o.LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVxlanIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["autoconf"]; ok {
+		o.LeafInterfacesVxlanIPvsixAddressAutoconf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixAddressAutoconf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["eui64"]; ok {
+		o.LeafInterfacesVxlanIPvsixAddressEuisixfour = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixAddressEuisixfour = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-default-link-local"]; ok {
+		o.LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanIPvsixAddressNoDefaultLinkLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "ipv6", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVxlanIPvsixAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"autoconf":              types.StringType,
+		"eui64":                 types.StringType,
+		"no_default_link_local": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVxlanIPvsixAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"autoconf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 
 `,
 		},
 
 		"eui64": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix for IPv6 address with MAC-based EUI-64
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o InterfacesVxlanIPvsixAddress) ResourceAttributes() map[string]schema.Att
 		},
 
 		"no_default_link_local": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Remove the default link-local address from the interface
 
 `,

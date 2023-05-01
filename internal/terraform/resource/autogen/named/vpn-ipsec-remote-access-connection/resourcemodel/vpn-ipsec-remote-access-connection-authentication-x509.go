@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine describes the resource data model.
 type VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine struct {
 	// LeafNodes
-	VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate   customtypes.CustomStringValue `tfsdk:"certificate" json:"certificate,omitempty"`
-	VpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase    customtypes.CustomStringValue `tfsdk:"passphrase" json:"passphrase,omitempty"`
-	VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate customtypes.CustomStringValue `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate   types.String `tfsdk:"certificate"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase    types.String `tfsdk:"passphrase"`
+	LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate types.String `tfsdk:"ca_certificate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "x509"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate.IsUnknown()) {
+		vyosData["certificate"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase.IsUnknown()) {
+		vyosData["passphrase"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate.IsNull() || o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate.IsUnknown()) {
+		vyosData["ca-certificate"] = o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "x509"}})
+
+	// Leafs
+	if value, ok := vyosData["certificate"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passphrase"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeroninePassphrase = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ca-certificate"]; ok {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessConnectionAuthenticationXfivezeronineCaCertificate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "connection", "authentication", "x509"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"certificate":    types.StringType,
+		"passphrase":     types.StringType,
+		"ca_certificate": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttri
 		},
 
 		"passphrase": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Private key passphrase
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o VpnIPsecRemoteAccessConnectionAuthenticationXfivezeronine) ResourceAttri
 		},
 
 		"ca_certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
 |  Format  |  Description  |

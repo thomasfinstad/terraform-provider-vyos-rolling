@@ -2,37 +2,185 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecIkeGroup describes the resource data model.
 type VpnIPsecIkeGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecIkeGroupCloseAction   customtypes.CustomStringValue `tfsdk:"close_action" json:"close-action,omitempty"`
-	VpnIPsecIkeGroupIkevtwoReauth customtypes.CustomStringValue `tfsdk:"ikev2_reauth" json:"ikev2-reauth,omitempty"`
-	VpnIPsecIkeGroupKeyExchange   customtypes.CustomStringValue `tfsdk:"key_exchange" json:"key-exchange,omitempty"`
-	VpnIPsecIkeGroupLifetime      customtypes.CustomStringValue `tfsdk:"lifetime" json:"lifetime,omitempty"`
-	VpnIPsecIkeGroupDisableMobike customtypes.CustomStringValue `tfsdk:"disable_mobike" json:"disable-mobike,omitempty"`
-	VpnIPsecIkeGroupMode          customtypes.CustomStringValue `tfsdk:"mode" json:"mode,omitempty"`
+	LeafVpnIPsecIkeGroupCloseAction   types.String `tfsdk:"close_action"`
+	LeafVpnIPsecIkeGroupIkevtwoReauth types.String `tfsdk:"ikev2_reauth"`
+	LeafVpnIPsecIkeGroupKeyExchange   types.String `tfsdk:"key_exchange"`
+	LeafVpnIPsecIkeGroupLifetime      types.String `tfsdk:"lifetime"`
+	LeafVpnIPsecIkeGroupDisableMobike types.String `tfsdk:"disable_mobike"`
+	LeafVpnIPsecIkeGroupMode          types.String `tfsdk:"mode"`
 
 	// TagNodes
-	VpnIPsecIkeGroupProposal types.Map `tfsdk:"proposal" json:"proposal,omitempty"`
+	TagVpnIPsecIkeGroupProposal types.Map `tfsdk:"proposal"`
 
 	// Nodes
-	VpnIPsecIkeGroupDeadPeerDetection types.Object `tfsdk:"dead_peer_detection" json:"dead-peer-detection,omitempty"`
+	NodeVpnIPsecIkeGroupDeadPeerDetection types.Object `tfsdk:"dead_peer_detection"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecIkeGroup) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"ike-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecIkeGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecIkeGroupCloseAction.IsNull() || o.LeafVpnIPsecIkeGroupCloseAction.IsUnknown()) {
+		vyosData["close-action"] = o.LeafVpnIPsecIkeGroupCloseAction.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsNull() || o.LeafVpnIPsecIkeGroupIkevtwoReauth.IsUnknown()) {
+		vyosData["ikev2-reauth"] = o.LeafVpnIPsecIkeGroupIkevtwoReauth.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupKeyExchange.IsNull() || o.LeafVpnIPsecIkeGroupKeyExchange.IsUnknown()) {
+		vyosData["key-exchange"] = o.LeafVpnIPsecIkeGroupKeyExchange.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupLifetime.IsNull() || o.LeafVpnIPsecIkeGroupLifetime.IsUnknown()) {
+		vyosData["lifetime"] = o.LeafVpnIPsecIkeGroupLifetime.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupDisableMobike.IsNull() || o.LeafVpnIPsecIkeGroupDisableMobike.IsUnknown()) {
+		vyosData["disable-mobike"] = o.LeafVpnIPsecIkeGroupDisableMobike.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupMode.IsNull() || o.LeafVpnIPsecIkeGroupMode.IsUnknown()) {
+		vyosData["mode"] = o.LeafVpnIPsecIkeGroupMode.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVpnIPsecIkeGroupProposal.IsNull() || o.TagVpnIPsecIkeGroupProposal.IsUnknown()) {
+		subModel := make(map[string]VpnIPsecIkeGroupProposal)
+		diags.Append(o.TagVpnIPsecIkeGroupProposal.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["proposal"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVpnIPsecIkeGroupDeadPeerDetection.IsNull() || o.NodeVpnIPsecIkeGroupDeadPeerDetection.IsUnknown()) {
+		var subModel VpnIPsecIkeGroupDeadPeerDetection
+		diags.Append(o.NodeVpnIPsecIkeGroupDeadPeerDetection.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dead-peer-detection"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecIkeGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
+
+	// Leafs
+	if value, ok := vyosData["close-action"]; ok {
+		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupCloseAction = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ikev2-reauth"]; ok {
+		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupIkevtwoReauth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key-exchange"]; ok {
+		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupKeyExchange = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lifetime"]; ok {
+		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-mobike"]; ok {
+		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupDisableMobike = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mode"]; ok {
+		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupMode = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["proposal"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecIkeGroupProposal{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVpnIPsecIkeGroupProposal = data
+	} else {
+		o.TagVpnIPsecIkeGroupProposal = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["dead-peer-detection"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnIPsecIkeGroupDeadPeerDetection = data
+
+	} else {
+		o.NodeVpnIPsecIkeGroupDeadPeerDetection = basetypes.NewObjectNull(VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecIkeGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"close_action":   types.StringType,
+		"ikev2_reauth":   types.StringType,
+		"key_exchange":   types.StringType,
+		"lifetime":       types.StringType,
+		"disable_mobike": types.StringType,
+		"mode":           types.StringType,
+
+		// Tags
+		"proposal": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecIkeGroupProposal{}.AttributeTypes()}},
+
+		// Nodes
+		"dead_peer_detection": types.ObjectType{AttrTypes: VpnIPsecIkeGroupDeadPeerDetection{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecIkeGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Internet Key Exchange (IKE) group name
+
+`,
+		},
+
 		// LeafNodes
 
 		"close_action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Action to take if a child SA is unexpectedly closed
 
 |  Format  |  Description  |
@@ -48,16 +196,14 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ikev2_reauth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
 `,
 		},
 
 		"key_exchange": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IKE version
 
 |  Format  |  Description  |
@@ -69,8 +215,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IKE lifetime
 
 |  Format  |  Description  |
@@ -84,16 +229,14 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable_mobike": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable MOBIKE Support (IKEv2 only)
 
 `,
 		},
 
 		"mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IKEv1 phase 1 mode
 
 |  Format  |  Description  |
@@ -111,7 +254,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 
 		"proposal": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VpnIPsecIkeGroupProposal{}.ResourceAttributes(),
+				Attributes: VpnIPsecIkeGroupProposal{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IKE proposal
@@ -126,7 +269,7 @@ func (o VpnIPsecIkeGroup) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"dead_peer_detection": schema.SingleNestedAttribute{
-			Attributes: VpnIPsecIkeGroupDeadPeerDetection{}.ResourceAttributes(),
+			Attributes: VpnIPsecIkeGroupDeadPeerDetection{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Dead Peer Detection (DPD)
 

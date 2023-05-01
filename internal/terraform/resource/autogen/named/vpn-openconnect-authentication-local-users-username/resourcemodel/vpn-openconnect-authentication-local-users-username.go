@@ -2,40 +2,139 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsername describes the resource data model.
 type VpnOpenconnectAuthenticationLocalUsersUsername struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnOpenconnectAuthenticationLocalUsersUsernameDisable  customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnOpenconnectAuthenticationLocalUsersUsernamePassword customtypes.CustomStringValue `tfsdk:"password" json:"password,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable  types.String `tfsdk:"disable"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword types.String `tfsdk:"password"`
 
 	// TagNodes
 
 	// Nodes
-	VpnOpenconnectAuthenticationLocalUsersUsernameOtp types.Object `tfsdk:"otp" json:"otp,omitempty"`
+	NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp types.Object `tfsdk:"otp"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"openconnect",
+		"authentication",
+		"local-users",
+		"username",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.IsUnknown()) {
+		vyosData["password"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.IsNull() || o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.IsUnknown()) {
+		var subModel VpnOpenconnectAuthenticationLocalUsersUsernameOtp
+		diags.Append(o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["otp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnOpenconnectAuthenticationLocalUsersUsername) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["password"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernamePassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["otp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = data
+
+	} else {
+		o.NodeVpnOpenconnectAuthenticationLocalUsersUsernameOtp = basetypes.NewObjectNull(VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnOpenconnectAuthenticationLocalUsersUsername) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":  types.StringType,
+		"password": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"otp": types.ObjectType{AttrTypes: VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Username used for authentication
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Username used for authentication  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Password used for authentication
 
 `,
@@ -46,7 +145,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsername) ResourceAttributes() map
 		// Nodes
 
 		"otp": schema.SingleNestedAttribute{
-			Attributes: VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.ResourceAttributes(),
+			Attributes: VpnOpenconnectAuthenticationLocalUsersUsernameOtp{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `2FA OTP authentication parameters
 

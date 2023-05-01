@@ -2,30 +2,118 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourVpnNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourVpnNetwork struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpAddressFamilyIPvfourVpnNetworkRd    customtypes.CustomStringValue `tfsdk:"rd" json:"rd,omitempty"`
-	ProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel customtypes.CustomStringValue `tfsdk:"label" json:"label,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd    types.String `tfsdk:"rd"`
+	LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel types.String `tfsdk:"label"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"address-family",
+		"ipv4-vpn",
+		"network",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.IsUnknown()) {
+		vyosData["rd"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.IsUnknown()) {
+		vyosData["label"] = o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyIPvfourVpnNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
+
+	// Leafs
+	if value, ok := vyosData["rd"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkRd = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["label"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourVpnNetworkLabel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-vpn", "network"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"rd":    types.StringType,
+		"label": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Import BGP network/prefix into unicast VPN IPv4 RIB
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"rd": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Route Distinguisher
 
 |  Format  |  Description  |
@@ -36,8 +124,7 @@ func (o ProtocolsBgpAddressFamilyIPvfourVpnNetwork) ResourceAttributes() map[str
 		},
 
 		"label": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `MPLS label value assigned to route
 
 |  Format  |  Description  |

@@ -23,6 +23,6 @@ Rule number (1-9999)
 |  u32:1-9999  |  Rule number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

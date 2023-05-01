@@ -2,49 +2,137 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesTunnelParametersIP describes the resource data model.
 type InterfacesTunnelParametersIP struct {
 	// LeafNodes
-	InterfacesTunnelParametersIPNoPmtuDiscovery customtypes.CustomStringValue `tfsdk:"no_pmtu_discovery" json:"no-pmtu-discovery,omitempty"`
-	InterfacesTunnelParametersIPIgnoreDf        customtypes.CustomStringValue `tfsdk:"ignore_df" json:"ignore-df,omitempty"`
-	InterfacesTunnelParametersIPKey             customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	InterfacesTunnelParametersIPTos             customtypes.CustomStringValue `tfsdk:"tos" json:"tos,omitempty"`
-	InterfacesTunnelParametersIPTTL             customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
+	LeafInterfacesTunnelParametersIPNoPmtuDiscovery types.String `tfsdk:"no_pmtu_discovery"`
+	LeafInterfacesTunnelParametersIPIgnoreDf        types.String `tfsdk:"ignore_df"`
+	LeafInterfacesTunnelParametersIPKey             types.String `tfsdk:"key"`
+	LeafInterfacesTunnelParametersIPTos             types.String `tfsdk:"tos"`
+	LeafInterfacesTunnelParametersIPTTL             types.String `tfsdk:"ttl"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesTunnelParametersIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.IsNull() || o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.IsUnknown()) {
+		vyosData["no-pmtu-discovery"] = o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelParametersIPIgnoreDf.IsNull() || o.LeafInterfacesTunnelParametersIPIgnoreDf.IsUnknown()) {
+		vyosData["ignore-df"] = o.LeafInterfacesTunnelParametersIPIgnoreDf.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelParametersIPKey.IsNull() || o.LeafInterfacesTunnelParametersIPKey.IsUnknown()) {
+		vyosData["key"] = o.LeafInterfacesTunnelParametersIPKey.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelParametersIPTos.IsNull() || o.LeafInterfacesTunnelParametersIPTos.IsUnknown()) {
+		vyosData["tos"] = o.LeafInterfacesTunnelParametersIPTos.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelParametersIPTTL.IsNull() || o.LeafInterfacesTunnelParametersIPTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafInterfacesTunnelParametersIPTTL.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesTunnelParametersIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["no-pmtu-discovery"]; ok {
+		o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPNoPmtuDiscovery = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ignore-df"]; ok {
+		o.LeafInterfacesTunnelParametersIPIgnoreDf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPIgnoreDf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafInterfacesTunnelParametersIPKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tos"]; ok {
+		o.LeafInterfacesTunnelParametersIPTos = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPTos = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafInterfacesTunnelParametersIPTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelParametersIPTTL = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "tunnel", "parameters", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesTunnelParametersIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"no_pmtu_discovery": types.StringType,
+		"ignore_df":         types.StringType,
+		"key":               types.StringType,
+		"tos":               types.StringType,
+		"ttl":               types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesTunnelParametersIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"no_pmtu_discovery": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable path MTU discovery
 
 `,
 		},
 
 		"ignore_df": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore the DF (don't fragment) bit
 
 `,
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tunnel key (only GRE tunnels)
 
 |  Format  |  Description  |
@@ -55,8 +143,7 @@ func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"tos": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies TOS value to use in outgoing packets
 
 |  Format  |  Description  |
@@ -70,8 +157,7 @@ func (o InterfacesTunnelParametersIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specifies TTL value to use in outgoing packets
 
 |  Format  |  Description  |

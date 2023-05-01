@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceRouterAdvertInterfaceRoute describes the resource data model.
 type ServiceRouterAdvertInterfaceRoute struct {
 	// LeafNodes
-	ServiceRouterAdvertInterfaceRouteValIDLifetime   customtypes.CustomStringValue `tfsdk:"valid_lifetime" json:"valid-lifetime,omitempty"`
-	ServiceRouterAdvertInterfaceRouteRoutePreference customtypes.CustomStringValue `tfsdk:"route_preference" json:"route-preference,omitempty"`
-	ServiceRouterAdvertInterfaceRouteNoRemoveRoute   customtypes.CustomStringValue `tfsdk:"no_remove_route" json:"no-remove-route,omitempty"`
+	LeafServiceRouterAdvertInterfaceRouteValIDLifetime   types.String `tfsdk:"valid_lifetime"`
+	LeafServiceRouterAdvertInterfaceRouteRoutePreference types.String `tfsdk:"route_preference"`
+	LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute   types.String `tfsdk:"no_remove_route"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceRouterAdvertInterfaceRoute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceRouterAdvertInterfaceRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.IsUnknown()) {
+		vyosData["valid-lifetime"] = o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.IsUnknown()) {
+		vyosData["route-preference"] = o.LeafServiceRouterAdvertInterfaceRouteRoutePreference.ValueString()
+	}
+	if !(o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsNull() || o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.IsUnknown()) {
+		vyosData["no-remove-route"] = o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceRouterAdvertInterfaceRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
+
+	// Leafs
+	if value, ok := vyosData["valid-lifetime"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteValIDLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-preference"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteRoutePreference = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-remove-route"]; ok {
+		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceRouterAdvertInterfaceRouteNoRemoveRoute = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "router-advert", "interface", "route"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceRouterAdvertInterfaceRoute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"valid_lifetime":   types.StringType,
+		"route_preference": types.StringType,
+		"no_remove_route":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceRouterAdvertInterfaceRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"valid_lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time in seconds that the route will remain valid
 
 |  Format  |  Description  |
@@ -41,8 +113,7 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceAttributes() map[string]schem
 		},
 
 		"route_preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Preference associated with the route,
 
 |  Format  |  Description  |
@@ -58,8 +129,7 @@ func (o ServiceRouterAdvertInterfaceRoute) ResourceAttributes() map[string]schem
 		},
 
 		"no_remove_route": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not announce this route with a zero second lifetime upon shutdown
 
 `,

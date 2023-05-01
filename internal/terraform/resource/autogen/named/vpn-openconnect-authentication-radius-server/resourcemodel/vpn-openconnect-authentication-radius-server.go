@@ -2,47 +2,142 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAuthenticationRadiusServer describes the resource data model.
 type VpnOpenconnectAuthenticationRadiusServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnOpenconnectAuthenticationRadiusServerDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnOpenconnectAuthenticationRadiusServerKey     customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	VpnOpenconnectAuthenticationRadiusServerPort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafVpnOpenconnectAuthenticationRadiusServerDisable types.String `tfsdk:"disable"`
+	LeafVpnOpenconnectAuthenticationRadiusServerKey     types.String `tfsdk:"key"`
+	LeafVpnOpenconnectAuthenticationRadiusServerPort    types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnOpenconnectAuthenticationRadiusServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnOpenconnectAuthenticationRadiusServer) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"openconnect",
+		"authentication",
+		"radius",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnOpenconnectAuthenticationRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "radius", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.IsNull() || o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnOpenconnectAuthenticationRadiusServerDisable.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationRadiusServerKey.IsNull() || o.LeafVpnOpenconnectAuthenticationRadiusServerKey.IsUnknown()) {
+		vyosData["key"] = o.LeafVpnOpenconnectAuthenticationRadiusServerKey.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationRadiusServerPort.IsNull() || o.LeafVpnOpenconnectAuthenticationRadiusServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafVpnOpenconnectAuthenticationRadiusServerPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnOpenconnectAuthenticationRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "radius", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationRadiusServerPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "radius", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnOpenconnectAuthenticationRadiusServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable": types.StringType,
+		"key":     types.StringType,
+		"port":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnOpenconnectAuthenticationRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `RADIUS server configuration
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  RADIUS server IPv4 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Shared secret key
 
 `,
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Authentication port
 
 |  Format  |  Description  |

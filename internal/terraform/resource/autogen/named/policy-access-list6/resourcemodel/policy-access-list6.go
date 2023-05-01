@@ -2,31 +2,124 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListsix describes the resource data model.
 type PolicyAccessListsix struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	PolicyAccessListsixDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafPolicyAccessListsixDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	PolicyAccessListsixRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagPolicyAccessListsixRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessListsix) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *PolicyAccessListsix) GetVyosPath() []string {
+	return []string{
+		"policy",
+		"access-list6",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessListsix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListsixDescrIPtion.IsNull() || o.LeafPolicyAccessListsixDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafPolicyAccessListsixDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagPolicyAccessListsixRule.IsNull() || o.TagPolicyAccessListsixRule.IsUnknown()) {
+		subModel := make(map[string]PolicyAccessListsixRule)
+		diags.Append(o.TagPolicyAccessListsixRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessListsix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list6"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafPolicyAccessListsixDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListsixDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: PolicyAccessListsixRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagPolicyAccessListsixRule = data
+	} else {
+		o.TagPolicyAccessListsixRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessListsix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: PolicyAccessListsixRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessListsix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `IPv6 access-list filter
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Name of IPv6 access-list  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,7 +133,7 @@ func (o PolicyAccessListsix) ResourceAttributes() map[string]schema.Attribute {
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: PolicyAccessListsixRule{}.ResourceAttributes(),
+				Attributes: PolicyAccessListsixRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Rule for this access-list6

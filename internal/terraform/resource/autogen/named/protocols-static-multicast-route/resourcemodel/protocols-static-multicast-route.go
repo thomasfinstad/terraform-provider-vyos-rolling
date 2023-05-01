@@ -2,30 +2,119 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticMulticastRoute describes the resource data model.
 type ProtocolsStaticMulticastRoute struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
-	ProtocolsStaticMulticastRouteNextHop types.Map `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	TagProtocolsStaticMulticastRouteNextHop types.Map `tfsdk:"next_hop"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticMulticastRoute) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsStaticMulticastRoute) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"static",
+		"multicast",
+		"route",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticMulticastRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "route"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagProtocolsStaticMulticastRouteNextHop.IsNull() || o.TagProtocolsStaticMulticastRouteNextHop.IsUnknown()) {
+		subModel := make(map[string]ProtocolsStaticMulticastRouteNextHop)
+		diags.Append(o.TagProtocolsStaticMulticastRouteNextHop.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["next-hop"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticMulticastRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "route"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["next-hop"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsStaticMulticastRouteNextHop{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsStaticMulticastRouteNextHop = data
+	} else {
+		o.TagProtocolsStaticMulticastRouteNextHop = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "multicast", "route"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticMulticastRoute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"next_hop": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsStaticMulticastRouteNextHop{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticMulticastRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Configure static unicast route into MRIB for multicast RPF lookup
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Network  |
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
 
 		"next_hop": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsStaticMulticastRouteNextHop{}.ResourceAttributes(),
+				Attributes: ProtocolsStaticMulticastRouteNextHop{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Nexthop IPv4 address

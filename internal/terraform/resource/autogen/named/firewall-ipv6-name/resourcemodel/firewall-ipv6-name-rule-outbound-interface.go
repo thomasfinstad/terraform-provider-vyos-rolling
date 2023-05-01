@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleOutboundInterface describes the resource data model.
 type FirewallIPvsixNameRuleOutboundInterface struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleOutboundInterfaceInterfaceName  customtypes.CustomStringValue `tfsdk:"interface_name" json:"interface-name,omitempty"`
-	FirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup customtypes.CustomStringValue `tfsdk:"interface_group" json:"interface-group,omitempty"`
+	LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName  types.String `tfsdk:"interface_name"`
+	LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup types.String `tfsdk:"interface_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleOutboundInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleOutboundInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "outbound-interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName.IsNull() || o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName.IsUnknown()) {
+		vyosData["interface-name"] = o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup.IsNull() || o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup.IsUnknown()) {
+		vyosData["interface-group"] = o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleOutboundInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "outbound-interface"}})
+
+	// Leafs
+	if value, ok := vyosData["interface-name"]; ok {
+		o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleOutboundInterfaceInterfaceGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "outbound-interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleOutboundInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"interface_name":  types.StringType,
+		"interface_group": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleOutboundInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"interface_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match interface
 
 `,
 		},
 
 		"interface_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match interface-group
 
 `,

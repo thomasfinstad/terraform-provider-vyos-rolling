@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetStaticRoute describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetStaticRoute struct {
 	// LeafNodes
-	ServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop customtypes.CustomStringValue `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop types.String `tfsdk:"next_hop"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-route"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.IsUnknown()) {
+		vyosData["next-hop"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-route"}})
+
+	// Leafs
+	if value, ok := vyosData["next-hop"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetStaticRouteNextHop = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "static-route"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"next_hop": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetStaticRoute) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"next_hop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address of router to be used to reach the destination subnet
 
 |  Format  |  Description  |

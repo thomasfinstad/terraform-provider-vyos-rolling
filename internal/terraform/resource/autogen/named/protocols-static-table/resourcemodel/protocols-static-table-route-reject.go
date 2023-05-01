@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticTableRouteReject describes the resource data model.
 type ProtocolsStaticTableRouteReject struct {
 	// LeafNodes
-	ProtocolsStaticTableRouteRejectDistance customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	ProtocolsStaticTableRouteRejectTag      customtypes.CustomStringValue `tfsdk:"tag" json:"tag,omitempty"`
+	LeafProtocolsStaticTableRouteRejectDistance types.String `tfsdk:"distance"`
+	LeafProtocolsStaticTableRouteRejectTag      types.String `tfsdk:"tag"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticTableRouteReject) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticTableRouteReject) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "reject"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticTableRouteRejectDistance.IsNull() || o.LeafProtocolsStaticTableRouteRejectDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsStaticTableRouteRejectDistance.ValueString()
+	}
+	if !(o.LeafProtocolsStaticTableRouteRejectTag.IsNull() || o.LeafProtocolsStaticTableRouteRejectTag.IsUnknown()) {
+		vyosData["tag"] = o.LeafProtocolsStaticTableRouteRejectTag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticTableRouteReject) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "reject"}})
+
+	// Leafs
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsStaticTableRouteRejectDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRouteRejectDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tag"]; ok {
+		o.LeafProtocolsStaticTableRouteRejectTag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticTableRouteRejectTag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "table", "route", "reject"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticTableRouteReject) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"distance": types.StringType,
+		"tag":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticTableRouteReject) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsStaticTableRouteReject) ResourceAttributes() map[string]schema.
 		},
 
 		"tag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |

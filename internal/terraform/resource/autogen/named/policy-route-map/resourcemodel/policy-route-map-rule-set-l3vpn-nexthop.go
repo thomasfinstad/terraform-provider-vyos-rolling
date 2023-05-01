@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetLthreevpnNexthop describes the resource data model.
@@ -13,11 +19,65 @@ type PolicyRouteMapRuleSetLthreevpnNexthop struct {
 	// TagNodes
 
 	// Nodes
-	PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation types.Object `tfsdk:"encapsulation" json:"encapsulation,omitempty"`
+	NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation types.Object `tfsdk:"encapsulation"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetLthreevpnNexthop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.IsNull() || o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation
+		diags.Append(o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["encapsulation"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetLthreevpnNexthop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["encapsulation"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetLthreevpnNexthopEncapsulation = basetypes.NewObjectNull(PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "l3vpn-nexthop"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetLthreevpnNexthop) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"encapsulation": types.ObjectType{AttrTypes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o PolicyRouteMapRuleSetLthreevpnNexthop) ResourceAttributes() map[string]s
 		// Nodes
 
 		"encapsulation": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetLthreevpnNexthopEncapsulation{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Encapsulation options (for BGP only)
 

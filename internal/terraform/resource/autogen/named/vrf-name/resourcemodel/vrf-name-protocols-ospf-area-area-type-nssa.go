@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfAreaAreaTypeNssa describes the resource data model.
 type VrfNameProtocolsOspfAreaAreaTypeNssa struct {
 	// LeafNodes
-	VrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost customtypes.CustomStringValue `tfsdk:"default_cost" json:"default-cost,omitempty"`
-	VrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   customtypes.CustomStringValue `tfsdk:"no_summary" json:"no-summary,omitempty"`
-	VrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   customtypes.CustomStringValue `tfsdk:"translate" json:"translate,omitempty"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost types.String `tfsdk:"default_cost"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary   types.String `tfsdk:"no_summary"`
+	LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte   types.String `tfsdk:"translate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.IsUnknown()) {
+		vyosData["default-cost"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.IsUnknown()) {
+		vyosData["no-summary"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsNull() || o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.IsUnknown()) {
+		vyosData["translate"] = o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfAreaAreaTypeNssa) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
+
+	// Leafs
+	if value, ok := vyosData["default-cost"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaDefaultCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["no-summary"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaNoSummary = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["translate"]; ok {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfAreaAreaTypeNssaTranSLAte = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "area-type", "nssa"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfAreaAreaTypeNssa) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"default_cost": types.StringType,
+		"no_summary":   types.StringType,
+		"translate":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"default_cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Summary-default cost of an NSSA area
 
 |  Format  |  Description  |
@@ -37,16 +109,14 @@ func (o VrfNameProtocolsOspfAreaAreaTypeNssa) ResourceAttributes() map[string]sc
 		},
 
 		"no_summary": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not inject inter-area routes into stub
 
 `,
 		},
 
 		"translate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Configure NSSA-ABR
 
 |  Format  |  Description  |

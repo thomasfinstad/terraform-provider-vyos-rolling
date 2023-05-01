@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleDestinationGeoIP describes the resource data model.
 type FirewallIPvsixNameRuleDestinationGeoIP struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleDestinationGeoIPCountryCode  customtypes.CustomStringValue `tfsdk:"country_code" json:"country-code,omitempty"`
-	FirewallIPvsixNameRuleDestinationGeoIPInverseMatch customtypes.CustomStringValue `tfsdk:"inverse_match" json:"inverse-match,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode  types.String `tfsdk:"country_code"`
+	LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch types.String `tfsdk:"inverse_match"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleDestinationGeoIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleDestinationGeoIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "geoip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode.IsUnknown()) {
+		vyosData["country-code"] = o.LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch.IsUnknown()) {
+		vyosData["inverse-match"] = o.LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleDestinationGeoIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "geoip"}})
+
+	// Leafs
+	if value, ok := vyosData["country-code"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGeoIPCountryCode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inverse-match"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGeoIPInverseMatch = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "geoip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleDestinationGeoIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"country_code":  types.StringType,
+		"inverse_match": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleDestinationGeoIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"country_code": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `GeoIP country code
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o FirewallIPvsixNameRuleDestinationGeoIP) ResourceAttributes() map[string]
 		},
 
 		"inverse_match": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Inverse match of country-codes
 
 `,

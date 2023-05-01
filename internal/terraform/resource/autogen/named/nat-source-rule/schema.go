@@ -23,6 +23,6 @@ Rule number for NAT
 |  u32:1-999999  |  Number of NAT rule  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

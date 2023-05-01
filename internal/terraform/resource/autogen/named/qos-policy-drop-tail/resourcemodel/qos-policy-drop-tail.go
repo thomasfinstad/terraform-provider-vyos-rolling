@@ -2,30 +2,116 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyDropTail describes the resource data model.
 type QosPolicyDropTail struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyDropTailDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyDropTailQueueLimit  customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyDropTailDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyDropTailQueueLimit  types.String `tfsdk:"queue_limit"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyDropTail) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyDropTail) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"drop-tail",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyDropTail) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "drop-tail"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyDropTailDescrIPtion.IsNull() || o.LeafQosPolicyDropTailDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyDropTailDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyDropTailQueueLimit.IsNull() || o.LeafQosPolicyDropTailQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyDropTailQueueLimit.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyDropTail) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "drop-tail"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyDropTailDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyDropTailDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyDropTailQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyDropTailQueueLimit = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "drop-tail"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyDropTail) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"queue_limit": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyDropTail) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Packet limited First In, First Out queue
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -36,8 +122,7 @@ func (o QosPolicyDropTail) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |

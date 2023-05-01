@@ -22,6 +22,6 @@ IP address to listen for incoming SNMP requests
 |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

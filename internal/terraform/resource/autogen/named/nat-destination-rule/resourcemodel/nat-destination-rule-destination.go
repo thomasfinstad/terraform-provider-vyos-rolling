@@ -2,32 +2,107 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatDestinationRuleDestination describes the resource data model.
 type NatDestinationRuleDestination struct {
 	// LeafNodes
-	NatDestinationRuleDestinationAddress customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	NatDestinationRuleDestinationPort    customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
+	LeafNatDestinationRuleDestinationAddress types.String `tfsdk:"address"`
+	LeafNatDestinationRuleDestinationPort    types.String `tfsdk:"port"`
 
 	// TagNodes
 
 	// Nodes
-	NatDestinationRuleDestinationGroup types.Object `tfsdk:"group" json:"group,omitempty"`
+	NodeNatDestinationRuleDestinationGroup types.Object `tfsdk:"group"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o NatDestinationRuleDestination) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *NatDestinationRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "destination"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafNatDestinationRuleDestinationAddress.IsNull() || o.LeafNatDestinationRuleDestinationAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafNatDestinationRuleDestinationAddress.ValueString()
+	}
+	if !(o.LeafNatDestinationRuleDestinationPort.IsNull() || o.LeafNatDestinationRuleDestinationPort.IsUnknown()) {
+		vyosData["port"] = o.LeafNatDestinationRuleDestinationPort.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeNatDestinationRuleDestinationGroup.IsNull() || o.NodeNatDestinationRuleDestinationGroup.IsUnknown()) {
+		var subModel NatDestinationRuleDestinationGroup
+		diags.Append(o.NodeNatDestinationRuleDestinationGroup.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["group"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *NatDestinationRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "destination"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafNatDestinationRuleDestinationAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleDestinationAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafNatDestinationRuleDestinationPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatDestinationRuleDestinationPort = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["group"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatDestinationRuleDestinationGroup{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatDestinationRuleDestinationGroup = data
+
+	} else {
+		o.NodeNatDestinationRuleDestinationGroup = basetypes.NewObjectNull(NatDestinationRuleDestinationGroup{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "destination", "rule", "destination"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o NatDestinationRuleDestination) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address": types.StringType,
+		"port":    types.StringType,
+
+		// Tags
+
+		// Nodes
+		"group": types.ObjectType{AttrTypes: NatDestinationRuleDestinationGroup{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o NatDestinationRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address, subnet, or range
 
 |  Format  |  Description  |
@@ -43,8 +118,7 @@ func (o NatDestinationRuleDestination) ResourceAttributes() map[string]schema.At
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number
 
 |  Format  |  Description  |
@@ -62,7 +136,7 @@ func (o NatDestinationRuleDestination) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"group": schema.SingleNestedAttribute{
-			Attributes: NatDestinationRuleDestinationGroup{}.ResourceAttributes(),
+			Attributes: NatDestinationRuleDestinationGroup{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Group
 

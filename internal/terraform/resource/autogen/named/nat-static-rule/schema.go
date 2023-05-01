@@ -19,6 +19,6 @@ Static NAT (one-to-one)
 Rule number for NAT
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

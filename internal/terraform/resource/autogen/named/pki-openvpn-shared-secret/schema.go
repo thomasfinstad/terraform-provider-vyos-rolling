@@ -19,6 +19,6 @@ OpenVPN keys
 OpenVPN shared secret key
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -23,6 +23,6 @@ Pool of addresses used to assign to clients
 |  ipv6net  |  IPv6 address and prefix length  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

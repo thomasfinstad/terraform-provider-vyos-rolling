@@ -19,6 +19,6 @@ func (r interfacesWireguard) Schema(ctx context.Context, req resource.SchemaRequ
 |  wgN  |  WireGuard interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

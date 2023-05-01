@@ -2,34 +2,146 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClass describes the resource data model.
 type QosPolicyShaperHfscClass struct {
 	// LeafNodes
-	QosPolicyShaperHfscClassDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafQosPolicyShaperHfscClassDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	QosPolicyShaperHfscClassMatch types.Map `tfsdk:"match" json:"match,omitempty"`
+	TagQosPolicyShaperHfscClassMatch types.Map `tfsdk:"match"`
 
 	// Nodes
-	QosPolicyShaperHfscClassLinkshare  types.Object `tfsdk:"linkshare" json:"linkshare,omitempty"`
-	QosPolicyShaperHfscClassRealtime   types.Object `tfsdk:"realtime" json:"realtime,omitempty"`
-	QosPolicyShaperHfscClassUpperlimit types.Object `tfsdk:"upperlimit" json:"upperlimit,omitempty"`
+	NodeQosPolicyShaperHfscClassLinkshare  types.Object `tfsdk:"linkshare"`
+	NodeQosPolicyShaperHfscClassRealtime   types.Object `tfsdk:"realtime"`
+	NodeQosPolicyShaperHfscClassUpperlimit types.Object `tfsdk:"upperlimit"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscClassDescrIPtion.IsNull() || o.LeafQosPolicyShaperHfscClassDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyShaperHfscClassDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyShaperHfscClassMatch.IsNull() || o.TagQosPolicyShaperHfscClassMatch.IsUnknown()) {
+		subModel := make(map[string]QosPolicyShaperHfscClassMatch)
+		diags.Append(o.TagQosPolicyShaperHfscClassMatch.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["match"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeQosPolicyShaperHfscClassLinkshare.IsNull() || o.NodeQosPolicyShaperHfscClassLinkshare.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassLinkshare
+		diags.Append(o.NodeQosPolicyShaperHfscClassLinkshare.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["linkshare"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyShaperHfscClassRealtime.IsNull() || o.NodeQosPolicyShaperHfscClassRealtime.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassRealtime
+		diags.Append(o.NodeQosPolicyShaperHfscClassRealtime.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["realtime"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyShaperHfscClassUpperlimit.IsNull() || o.NodeQosPolicyShaperHfscClassUpperlimit.IsUnknown()) {
+		var subModel QosPolicyShaperHfscClassUpperlimit
+		diags.Append(o.NodeQosPolicyShaperHfscClassUpperlimit.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["upperlimit"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["match"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyShaperHfscClassMatch = data
+	} else {
+		o.TagQosPolicyShaperHfscClassMatch = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["linkshare"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassLinkshare{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassLinkshare = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassLinkshare = basetypes.NewObjectNull(QosPolicyShaperHfscClassLinkshare{}.AttributeTypes())
+	}
+	if value, ok := vyosData["realtime"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassRealtime{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassRealtime = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassRealtime = basetypes.NewObjectNull(QosPolicyShaperHfscClassRealtime{}.AttributeTypes())
+	}
+	if value, ok := vyosData["upperlimit"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyShaperHfscClassUpperlimit = data
+
+	} else {
+		o.NodeQosPolicyShaperHfscClassUpperlimit = basetypes.NewObjectNull(QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscClass) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyShaperHfscClassMatch{}.AttributeTypes()}},
+
+		// Nodes
+		"linkshare":  types.ObjectType{AttrTypes: QosPolicyShaperHfscClassLinkshare{}.AttributeTypes()},
+		"realtime":   types.ObjectType{AttrTypes: QosPolicyShaperHfscClassRealtime{}.AttributeTypes()},
+		"upperlimit": types.ObjectType{AttrTypes: QosPolicyShaperHfscClassUpperlimit{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -43,7 +155,7 @@ func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribu
 
 		"match": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyShaperHfscClassMatch{}.ResourceAttributes(),
+				Attributes: QosPolicyShaperHfscClassMatch{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class matching rule name
@@ -54,7 +166,7 @@ func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"linkshare": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassLinkshare{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassLinkshare{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Linkshare class settings
 
@@ -62,7 +174,7 @@ func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"realtime": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassRealtime{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassRealtime{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Realtime class settings
 
@@ -70,7 +182,7 @@ func (o QosPolicyShaperHfscClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"upperlimit": schema.SingleNestedAttribute{
-			Attributes: QosPolicyShaperHfscClassUpperlimit{}.ResourceAttributes(),
+			Attributes: QosPolicyShaperHfscClassUpperlimit{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Upperlimit class settings
 

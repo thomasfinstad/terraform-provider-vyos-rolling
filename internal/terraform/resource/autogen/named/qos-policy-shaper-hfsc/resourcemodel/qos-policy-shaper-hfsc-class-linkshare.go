@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassLinkshare describes the resource data model.
 type QosPolicyShaperHfscClassLinkshare struct {
 	// LeafNodes
-	QosPolicyShaperHfscClassLinkshareD    customtypes.CustomStringValue `tfsdk:"d" json:"d,omitempty"`
-	QosPolicyShaperHfscClassLinkshareMone customtypes.CustomStringValue `tfsdk:"m1" json:"m1,omitempty"`
-	QosPolicyShaperHfscClassLinkshareMtwo customtypes.CustomStringValue `tfsdk:"m2" json:"m2,omitempty"`
+	LeafQosPolicyShaperHfscClassLinkshareD    types.String `tfsdk:"d"`
+	LeafQosPolicyShaperHfscClassLinkshareMone types.String `tfsdk:"m1"`
+	LeafQosPolicyShaperHfscClassLinkshareMtwo types.String `tfsdk:"m2"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscClassLinkshare) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscClassLinkshare) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscClassLinkshareD.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareD.IsUnknown()) {
+		vyosData["d"] = o.LeafQosPolicyShaperHfscClassLinkshareD.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassLinkshareMone.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareMone.IsUnknown()) {
+		vyosData["m1"] = o.LeafQosPolicyShaperHfscClassLinkshareMone.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsNull() || o.LeafQosPolicyShaperHfscClassLinkshareMtwo.IsUnknown()) {
+		vyosData["m2"] = o.LeafQosPolicyShaperHfscClassLinkshareMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscClassLinkshare) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
+
+	// Leafs
+	if value, ok := vyosData["d"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareD = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareMone = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassLinkshareMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "linkshare"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscClassLinkshare) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"d":  types.StringType,
+		"m1": types.StringType,
+		"m2": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscClassLinkshare) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"d": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Service curve delay
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceAttributes() map[string]schem
 		},
 
 		"m1": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyShaperHfscClassLinkshare) ResourceAttributes() map[string]schem
 		},
 
 		"m2": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
 
 |  Format  |  Description  |

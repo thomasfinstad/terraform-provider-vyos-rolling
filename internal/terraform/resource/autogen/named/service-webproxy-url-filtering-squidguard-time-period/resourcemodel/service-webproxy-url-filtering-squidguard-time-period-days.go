@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceWebproxyURLFilteringSquIDguardTimePeriodDays describes the resource data model.
 type ServiceWebproxyURLFilteringSquIDguardTimePeriodDays struct {
 	// LeafNodes
-	ServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime customtypes.CustomStringValue `tfsdk:"time" json:"time,omitempty"`
+	LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime types.String `tfsdk:"time"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period", "days"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.IsNull() || o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.IsUnknown()) {
+		vyosData["time"] = o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period", "days"}})
+
+	// Leafs
+	if value, ok := vyosData["time"]; ok {
+		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceWebproxyURLFilteringSquIDguardTimePeriodDaysTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "webproxy", "url-filtering", "squidguard", "time-period", "days"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"time": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceWebproxyURLFilteringSquIDguardTimePeriodDays) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time for time-period
 
 |  Format  |  Description  |

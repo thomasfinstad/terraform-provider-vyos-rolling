@@ -2,33 +2,155 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterface describes the resource data model.
 type ServiceDNSDynamicInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceDNSDynamicInterfaceIPvsixEnable customtypes.CustomStringValue `tfsdk:"ipv6_enable" json:"ipv6-enable,omitempty"`
+	LeafServiceDNSDynamicInterfaceIPvsixEnable types.String `tfsdk:"ipv6_enable"`
 
 	// TagNodes
-	ServiceDNSDynamicInterfaceRfctwoonethreesix types.Map `tfsdk:"rfc2136" json:"rfc2136,omitempty"`
-	ServiceDNSDynamicInterfaceService           types.Map `tfsdk:"service" json:"service,omitempty"`
+	TagServiceDNSDynamicInterfaceRfctwoonethreesix types.Map `tfsdk:"rfc2136"`
+	TagServiceDNSDynamicInterfaceService           types.Map `tfsdk:"service"`
 
 	// Nodes
-	ServiceDNSDynamicInterfaceUseWeb types.Object `tfsdk:"use_web" json:"use-web,omitempty"`
+	NodeServiceDNSDynamicInterfaceUseWeb types.Object `tfsdk:"use_web"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSDynamicInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceDNSDynamicInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"dns",
+		"dynamic",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSDynamicInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsNull() || o.LeafServiceDNSDynamicInterfaceIPvsixEnable.IsUnknown()) {
+		vyosData["ipv6-enable"] = o.LeafServiceDNSDynamicInterfaceIPvsixEnable.ValueString()
+	}
+
+	// Tags
+	if !(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.IsNull() || o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSDynamicInterfaceRfctwoonethreesix)
+		diags.Append(o.TagServiceDNSDynamicInterfaceRfctwoonethreesix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rfc2136"] = subData
+	}
+	if !(o.TagServiceDNSDynamicInterfaceService.IsNull() || o.TagServiceDNSDynamicInterfaceService.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSDynamicInterfaceService)
+		diags.Append(o.TagServiceDNSDynamicInterfaceService.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["service"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeServiceDNSDynamicInterfaceUseWeb.IsNull() || o.NodeServiceDNSDynamicInterfaceUseWeb.IsUnknown()) {
+		var subModel ServiceDNSDynamicInterfaceUseWeb
+		diags.Append(o.NodeServiceDNSDynamicInterfaceUseWeb.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["use-web"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSDynamicInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["ipv6-enable"]; ok {
+		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceIPvsixEnable = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rfc2136"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSDynamicInterfaceRfctwoonethreesix = data
+	} else {
+		o.TagServiceDNSDynamicInterfaceRfctwoonethreesix = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["service"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceService{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSDynamicInterfaceService = data
+	} else {
+		o.TagServiceDNSDynamicInterfaceService = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["use-web"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceDNSDynamicInterfaceUseWeb = data
+
+	} else {
+		o.NodeServiceDNSDynamicInterfaceUseWeb = basetypes.NewObjectNull(ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSDynamicInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ipv6_enable": types.StringType,
+
+		// Tags
+		"rfc2136": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.AttributeTypes()}},
+		"service": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceService{}.AttributeTypes()}},
+
+		// Nodes
+		"use_web": types.ObjectType{AttrTypes: ServiceDNSDynamicInterfaceUseWeb{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSDynamicInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface to send DDNS updates for
+
+`,
+		},
+
 		// LeafNodes
 
 		"ipv6_enable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allow explicit IPv6 addresses for Dynamic DNS for this interface
 
 `,
@@ -38,7 +160,7 @@ func (o ServiceDNSDynamicInterface) ResourceAttributes() map[string]schema.Attri
 
 		"rfc2136": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.ResourceAttributes(),
+				Attributes: ServiceDNSDynamicInterfaceRfctwoonethreesix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `RFC2136 Update name
@@ -48,7 +170,7 @@ func (o ServiceDNSDynamicInterface) ResourceAttributes() map[string]schema.Attri
 
 		"service": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSDynamicInterfaceService{}.ResourceAttributes(),
+				Attributes: ServiceDNSDynamicInterfaceService{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Service being used for Dynamic DNS
@@ -74,7 +196,7 @@ func (o ServiceDNSDynamicInterface) ResourceAttributes() map[string]schema.Attri
 		// Nodes
 
 		"use_web": schema.SingleNestedAttribute{
-			Attributes: ServiceDNSDynamicInterfaceUseWeb{}.ResourceAttributes(),
+			Attributes: ServiceDNSDynamicInterfaceUseWeb{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Web check used for obtaining the external IP address
 

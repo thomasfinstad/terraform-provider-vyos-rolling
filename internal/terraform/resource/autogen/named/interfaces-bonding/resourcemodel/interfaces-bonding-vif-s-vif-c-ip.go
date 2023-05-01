@@ -2,39 +2,183 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifSVifCIP describes the resource data model.
 type InterfacesBondingVifSVifCIP struct {
 	// LeafNodes
-	InterfacesBondingVifSVifCIPAdjustMss               customtypes.CustomStringValue `tfsdk:"adjust_mss" json:"adjust-mss,omitempty"`
-	InterfacesBondingVifSVifCIPArpCacheTimeout         customtypes.CustomStringValue `tfsdk:"arp_cache_timeout" json:"arp-cache-timeout,omitempty"`
-	InterfacesBondingVifSVifCIPDisableArpFilter        customtypes.CustomStringValue `tfsdk:"disable_arp_filter" json:"disable-arp-filter,omitempty"`
-	InterfacesBondingVifSVifCIPDisableForwarding       customtypes.CustomStringValue `tfsdk:"disable_forwarding" json:"disable-forwarding,omitempty"`
-	InterfacesBondingVifSVifCIPEnableDirectedBroadcast customtypes.CustomStringValue `tfsdk:"enable_directed_broadcast" json:"enable-directed-broadcast,omitempty"`
-	InterfacesBondingVifSVifCIPEnableArpAccept         customtypes.CustomStringValue `tfsdk:"enable_arp_accept" json:"enable-arp-accept,omitempty"`
-	InterfacesBondingVifSVifCIPEnableArpAnnounce       customtypes.CustomStringValue `tfsdk:"enable_arp_announce" json:"enable-arp-announce,omitempty"`
-	InterfacesBondingVifSVifCIPEnableArpIgnore         customtypes.CustomStringValue `tfsdk:"enable_arp_ignore" json:"enable-arp-ignore,omitempty"`
-	InterfacesBondingVifSVifCIPEnableProxyArp          customtypes.CustomStringValue `tfsdk:"enable_proxy_arp" json:"enable-proxy-arp,omitempty"`
-	InterfacesBondingVifSVifCIPProxyArpPvlan           customtypes.CustomStringValue `tfsdk:"proxy_arp_pvlan" json:"proxy-arp-pvlan,omitempty"`
-	InterfacesBondingVifSVifCIPSourceValIDation        customtypes.CustomStringValue `tfsdk:"source_validation" json:"source-validation,omitempty"`
+	LeafInterfacesBondingVifSVifCIPAdjustMss               types.String `tfsdk:"adjust_mss"`
+	LeafInterfacesBondingVifSVifCIPArpCacheTimeout         types.String `tfsdk:"arp_cache_timeout"`
+	LeafInterfacesBondingVifSVifCIPDisableArpFilter        types.String `tfsdk:"disable_arp_filter"`
+	LeafInterfacesBondingVifSVifCIPDisableForwarding       types.String `tfsdk:"disable_forwarding"`
+	LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast types.String `tfsdk:"enable_directed_broadcast"`
+	LeafInterfacesBondingVifSVifCIPEnableArpAccept         types.String `tfsdk:"enable_arp_accept"`
+	LeafInterfacesBondingVifSVifCIPEnableArpAnnounce       types.String `tfsdk:"enable_arp_announce"`
+	LeafInterfacesBondingVifSVifCIPEnableArpIgnore         types.String `tfsdk:"enable_arp_ignore"`
+	LeafInterfacesBondingVifSVifCIPEnableProxyArp          types.String `tfsdk:"enable_proxy_arp"`
+	LeafInterfacesBondingVifSVifCIPProxyArpPvlan           types.String `tfsdk:"proxy_arp_pvlan"`
+	LeafInterfacesBondingVifSVifCIPSourceValIDation        types.String `tfsdk:"source_validation"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBondingVifSVifCIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBondingVifSVifCIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBondingVifSVifCIPAdjustMss.IsNull() || o.LeafInterfacesBondingVifSVifCIPAdjustMss.IsUnknown()) {
+		vyosData["adjust-mss"] = o.LeafInterfacesBondingVifSVifCIPAdjustMss.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPArpCacheTimeout.IsNull() || o.LeafInterfacesBondingVifSVifCIPArpCacheTimeout.IsUnknown()) {
+		vyosData["arp-cache-timeout"] = o.LeafInterfacesBondingVifSVifCIPArpCacheTimeout.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPDisableArpFilter.IsNull() || o.LeafInterfacesBondingVifSVifCIPDisableArpFilter.IsUnknown()) {
+		vyosData["disable-arp-filter"] = o.LeafInterfacesBondingVifSVifCIPDisableArpFilter.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPDisableForwarding.IsNull() || o.LeafInterfacesBondingVifSVifCIPDisableForwarding.IsUnknown()) {
+		vyosData["disable-forwarding"] = o.LeafInterfacesBondingVifSVifCIPDisableForwarding.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast.IsNull() || o.LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast.IsUnknown()) {
+		vyosData["enable-directed-broadcast"] = o.LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPEnableArpAccept.IsNull() || o.LeafInterfacesBondingVifSVifCIPEnableArpAccept.IsUnknown()) {
+		vyosData["enable-arp-accept"] = o.LeafInterfacesBondingVifSVifCIPEnableArpAccept.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPEnableArpAnnounce.IsNull() || o.LeafInterfacesBondingVifSVifCIPEnableArpAnnounce.IsUnknown()) {
+		vyosData["enable-arp-announce"] = o.LeafInterfacesBondingVifSVifCIPEnableArpAnnounce.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPEnableArpIgnore.IsNull() || o.LeafInterfacesBondingVifSVifCIPEnableArpIgnore.IsUnknown()) {
+		vyosData["enable-arp-ignore"] = o.LeafInterfacesBondingVifSVifCIPEnableArpIgnore.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPEnableProxyArp.IsNull() || o.LeafInterfacesBondingVifSVifCIPEnableProxyArp.IsUnknown()) {
+		vyosData["enable-proxy-arp"] = o.LeafInterfacesBondingVifSVifCIPEnableProxyArp.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPProxyArpPvlan.IsNull() || o.LeafInterfacesBondingVifSVifCIPProxyArpPvlan.IsUnknown()) {
+		vyosData["proxy-arp-pvlan"] = o.LeafInterfacesBondingVifSVifCIPProxyArpPvlan.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCIPSourceValIDation.IsNull() || o.LeafInterfacesBondingVifSVifCIPSourceValIDation.IsUnknown()) {
+		vyosData["source-validation"] = o.LeafInterfacesBondingVifSVifCIPSourceValIDation.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBondingVifSVifCIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["adjust-mss"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPAdjustMss = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPAdjustMss = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["arp-cache-timeout"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPArpCacheTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPArpCacheTimeout = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-arp-filter"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPDisableArpFilter = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPDisableArpFilter = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-forwarding"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPDisableForwarding = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPDisableForwarding = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-directed-broadcast"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPEnableDirectedBroadcast = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-accept"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpAccept = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpAccept = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-announce"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpAnnounce = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpAnnounce = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-arp-ignore"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPEnableArpIgnore = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-proxy-arp"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPEnableProxyArp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPEnableProxyArp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["proxy-arp-pvlan"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPProxyArpPvlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPProxyArpPvlan = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-validation"]; ok {
+		o.LeafInterfacesBondingVifSVifCIPSourceValIDation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCIPSourceValIDation = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBondingVifSVifCIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"adjust_mss":                types.StringType,
+		"arp_cache_timeout":         types.StringType,
+		"disable_arp_filter":        types.StringType,
+		"disable_forwarding":        types.StringType,
+		"enable_directed_broadcast": types.StringType,
+		"enable_arp_accept":         types.StringType,
+		"enable_arp_announce":       types.StringType,
+		"enable_arp_ignore":         types.StringType,
+		"enable_proxy_arp":          types.StringType,
+		"proxy_arp_pvlan":           types.StringType,
+		"source_validation":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBondingVifSVifCIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"adjust_mss": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Adjust TCP MSS value
 
 |  Format  |  Description  |
@@ -46,8 +190,7 @@ func (o InterfacesBondingVifSVifCIP) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"arp_cache_timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ARP cache entry timeout in seconds
 
 |  Format  |  Description  |
@@ -61,72 +204,63 @@ func (o InterfacesBondingVifSVifCIP) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"disable_arp_filter": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable ARP filter on this interface
 
 `,
 		},
 
 		"disable_forwarding": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable IP forwarding on this interface
 
 `,
 		},
 
 		"enable_directed_broadcast": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable directed broadcast forwarding on this interface
 
 `,
 		},
 
 		"enable_arp_accept": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP accept on this interface
 
 `,
 		},
 
 		"enable_arp_announce": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP announce on this interface
 
 `,
 		},
 
 		"enable_arp_ignore": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ARP ignore on this interface
 
 `,
 		},
 
 		"enable_proxy_arp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable proxy-arp on this interface
 
 `,
 		},
 
 		"proxy_arp_pvlan": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable private VLAN proxy ARP on this interface
 
 `,
 		},
 
 		"source_validation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source validation by reversed path (RFC3704)
 
 |  Format  |  Description  |

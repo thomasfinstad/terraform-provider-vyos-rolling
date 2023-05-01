@@ -2,44 +2,178 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecEspGroup describes the resource data model.
 type VpnIPsecEspGroup struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecEspGroupCompression customtypes.CustomStringValue `tfsdk:"compression" json:"compression,omitempty"`
-	VpnIPsecEspGroupLifetime    customtypes.CustomStringValue `tfsdk:"lifetime" json:"lifetime,omitempty"`
-	VpnIPsecEspGroupLifeBytes   customtypes.CustomStringValue `tfsdk:"life_bytes" json:"life-bytes,omitempty"`
-	VpnIPsecEspGroupLifePackets customtypes.CustomStringValue `tfsdk:"life_packets" json:"life-packets,omitempty"`
-	VpnIPsecEspGroupMode        customtypes.CustomStringValue `tfsdk:"mode" json:"mode,omitempty"`
-	VpnIPsecEspGroupPfs         customtypes.CustomStringValue `tfsdk:"pfs" json:"pfs,omitempty"`
+	LeafVpnIPsecEspGroupCompression types.String `tfsdk:"compression"`
+	LeafVpnIPsecEspGroupLifetime    types.String `tfsdk:"lifetime"`
+	LeafVpnIPsecEspGroupLifeBytes   types.String `tfsdk:"life_bytes"`
+	LeafVpnIPsecEspGroupLifePackets types.String `tfsdk:"life_packets"`
+	LeafVpnIPsecEspGroupMode        types.String `tfsdk:"mode"`
+	LeafVpnIPsecEspGroupPfs         types.String `tfsdk:"pfs"`
 
 	// TagNodes
-	VpnIPsecEspGroupProposal types.Map `tfsdk:"proposal" json:"proposal,omitempty"`
+	TagVpnIPsecEspGroupProposal types.Map `tfsdk:"proposal"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecEspGroup) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"esp-group",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecEspGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecEspGroupCompression.IsNull() || o.LeafVpnIPsecEspGroupCompression.IsUnknown()) {
+		vyosData["compression"] = o.LeafVpnIPsecEspGroupCompression.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupLifetime.IsNull() || o.LeafVpnIPsecEspGroupLifetime.IsUnknown()) {
+		vyosData["lifetime"] = o.LeafVpnIPsecEspGroupLifetime.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupLifeBytes.IsNull() || o.LeafVpnIPsecEspGroupLifeBytes.IsUnknown()) {
+		vyosData["life-bytes"] = o.LeafVpnIPsecEspGroupLifeBytes.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupLifePackets.IsNull() || o.LeafVpnIPsecEspGroupLifePackets.IsUnknown()) {
+		vyosData["life-packets"] = o.LeafVpnIPsecEspGroupLifePackets.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupMode.IsNull() || o.LeafVpnIPsecEspGroupMode.IsUnknown()) {
+		vyosData["mode"] = o.LeafVpnIPsecEspGroupMode.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupPfs.IsNull() || o.LeafVpnIPsecEspGroupPfs.IsUnknown()) {
+		vyosData["pfs"] = o.LeafVpnIPsecEspGroupPfs.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVpnIPsecEspGroupProposal.IsNull() || o.TagVpnIPsecEspGroupProposal.IsUnknown()) {
+		subModel := make(map[string]VpnIPsecEspGroupProposal)
+		diags.Append(o.TagVpnIPsecEspGroupProposal.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["proposal"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecEspGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
+
+	// Leafs
+	if value, ok := vyosData["compression"]; ok {
+		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupCompression = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lifetime"]; ok {
+		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifetime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["life-bytes"]; ok {
+		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifeBytes = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["life-packets"]; ok {
+		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupLifePackets = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mode"]; ok {
+		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupMode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["pfs"]; ok {
+		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupPfs = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["proposal"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VpnIPsecEspGroupProposal{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVpnIPsecEspGroupProposal = data
+	} else {
+		o.TagVpnIPsecEspGroupProposal = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecEspGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"compression":  types.StringType,
+		"lifetime":     types.StringType,
+		"life_bytes":   types.StringType,
+		"life_packets": types.StringType,
+		"mode":         types.StringType,
+		"pfs":          types.StringType,
+
+		// Tags
+		"proposal": types.MapType{ElemType: types.ObjectType{AttrTypes: VpnIPsecEspGroupProposal{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecEspGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Encapsulating Security Payload (ESP) group name
+
+`,
+		},
+
 		// LeafNodes
 
 		"compression": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable ESP compression
 
 `,
 		},
 
 		"lifetime": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Security Association time to expire
 
 |  Format  |  Description  |
@@ -53,8 +187,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"life_bytes": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Security Association byte count to expire
 
 |  Format  |  Description  |
@@ -65,8 +198,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"life_packets": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Security Association packet count to expire
 
 |  Format  |  Description  |
@@ -77,8 +209,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ESP mode
 
 |  Format  |  Description  |
@@ -93,8 +224,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"pfs": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ESP Perfect Forward Secrecy
 
 |  Format  |  Description  |
@@ -134,7 +264,7 @@ func (o VpnIPsecEspGroup) ResourceAttributes() map[string]schema.Attribute {
 
 		"proposal": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VpnIPsecEspGroupProposal{}.ResourceAttributes(),
+				Attributes: VpnIPsecEspGroupProposal{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `ESP group proposal

@@ -2,32 +2,132 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsIgmpProxyInterface describes the resource data model.
 type ProtocolsIgmpProxyInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsIgmpProxyInterfaceAltSubnet customtypes.CustomStringValue `tfsdk:"alt_subnet" json:"alt-subnet,omitempty"`
-	ProtocolsIgmpProxyInterfaceRole      customtypes.CustomStringValue `tfsdk:"role" json:"role,omitempty"`
-	ProtocolsIgmpProxyInterfaceThreshold customtypes.CustomStringValue `tfsdk:"threshold" json:"threshold,omitempty"`
-	ProtocolsIgmpProxyInterfaceWhitelist customtypes.CustomStringValue `tfsdk:"whitelist" json:"whitelist,omitempty"`
+	LeafProtocolsIgmpProxyInterfaceAltSubnet types.String `tfsdk:"alt_subnet"`
+	LeafProtocolsIgmpProxyInterfaceRole      types.String `tfsdk:"role"`
+	LeafProtocolsIgmpProxyInterfaceThreshold types.String `tfsdk:"threshold"`
+	LeafProtocolsIgmpProxyInterfaceWhitelist types.String `tfsdk:"whitelist"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsIgmpProxyInterface) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"igmp-proxy",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsIgmpProxyInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsNull() || o.LeafProtocolsIgmpProxyInterfaceAltSubnet.IsUnknown()) {
+		vyosData["alt-subnet"] = o.LeafProtocolsIgmpProxyInterfaceAltSubnet.ValueString()
+	}
+	if !(o.LeafProtocolsIgmpProxyInterfaceRole.IsNull() || o.LeafProtocolsIgmpProxyInterfaceRole.IsUnknown()) {
+		vyosData["role"] = o.LeafProtocolsIgmpProxyInterfaceRole.ValueString()
+	}
+	if !(o.LeafProtocolsIgmpProxyInterfaceThreshold.IsNull() || o.LeafProtocolsIgmpProxyInterfaceThreshold.IsUnknown()) {
+		vyosData["threshold"] = o.LeafProtocolsIgmpProxyInterfaceThreshold.ValueString()
+	}
+	if !(o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsNull() || o.LeafProtocolsIgmpProxyInterfaceWhitelist.IsUnknown()) {
+		vyosData["whitelist"] = o.LeafProtocolsIgmpProxyInterfaceWhitelist.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsIgmpProxyInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["alt-subnet"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceAltSubnet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["role"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceRole = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["threshold"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceThreshold = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["whitelist"]; ok {
+		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsIgmpProxyInterfaceWhitelist = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "igmp-proxy", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsIgmpProxyInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"alt_subnet": types.StringType,
+		"role":       types.StringType,
+		"threshold":  types.StringType,
+		"whitelist":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsIgmpProxyInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface for IGMP proxy
+
+`,
+		},
+
 		// LeafNodes
 
 		"alt_subnet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Unicast source networks allowed for multicast traffic to be proxyed
 
 |  Format  |  Description  |
@@ -38,8 +138,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"role": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IGMP interface role
 
 |  Format  |  Description  |
@@ -55,8 +154,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"threshold": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `TTL threshold
 
 |  Format  |  Description  |
@@ -70,8 +168,7 @@ func (o ProtocolsIgmpProxyInterface) ResourceAttributes() map[string]schema.Attr
 		},
 
 		"whitelist": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group to whitelist
 
 |  Format  |  Description  |

@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogHostFormat describes the resource data model.
 type SystemSyslogHostFormat struct {
 	// LeafNodes
-	SystemSyslogHostFormatOctetCounted customtypes.CustomStringValue `tfsdk:"octet_counted" json:"octet-counted,omitempty"`
+	LeafSystemSyslogHostFormatOctetCounted types.String `tfsdk:"octet_counted"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogHostFormat) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogHostFormat) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "host", "format"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemSyslogHostFormatOctetCounted.IsNull() || o.LeafSystemSyslogHostFormatOctetCounted.IsUnknown()) {
+		vyosData["octet-counted"] = o.LeafSystemSyslogHostFormatOctetCounted.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogHostFormat) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "host", "format"}})
+
+	// Leafs
+	if value, ok := vyosData["octet-counted"]; ok {
+		o.LeafSystemSyslogHostFormatOctetCounted = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogHostFormatOctetCounted = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "host", "format"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogHostFormat) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"octet_counted": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogHostFormat) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"octet_counted": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Allows for the transmission of all characters inside a syslog message
 
 `,

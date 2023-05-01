@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList describes the resource data model.
 type ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList struct {
 	// LeafNodes
-	ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport customtypes.CustomStringValue `tfsdk:"export" json:"export,omitempty"`
-	ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport customtypes.CustomStringValue `tfsdk:"import" json:"import,omitempty"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport types.String `tfsdk:"export"`
+	LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport types.String `tfsdk:"import"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "filter-list"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport.IsUnknown()) {
+		vyosData["export"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport.ValueString()
+	}
+	if !(o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport.IsNull() || o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport.IsUnknown()) {
+		vyosData["import"] = o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "filter-list"}})
+
+	// Leafs
+	if value, ok := vyosData["export"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListExport = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["import"]; ok {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterListImport = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "address-family", "ipv6-multicast", "filter-list"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"export": types.StringType,
+		"import": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborAddressFamilyIPvsixMulticastFilterList) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"export": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `As-path-list to filter outgoing route updates to this peer
 
 `,
 		},
 
 		"import": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `As-path-list to filter incoming route updates from this peer
 
 `,

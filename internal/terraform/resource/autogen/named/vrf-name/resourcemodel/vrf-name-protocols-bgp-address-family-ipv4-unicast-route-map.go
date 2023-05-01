@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn types.Object `tfsdk:"vpn" json:"vpn,omitempty"`
+	NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn types.Object `tfsdk:"vpn"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "route-map"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn.IsNull() || o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn.IsUnknown()) {
+		var subModel VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn
+		diags.Append(o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["vpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "route-map"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["vpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn = data
+
+	} else {
+		o.NodeVrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn = basetypes.NewObjectNull(VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-unicast", "route-map"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"vpn": types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMap) ResourceAttribut
 		// Nodes
 
 		"vpn": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourUnicastRouteMapVpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Between current address-family and VPN
 

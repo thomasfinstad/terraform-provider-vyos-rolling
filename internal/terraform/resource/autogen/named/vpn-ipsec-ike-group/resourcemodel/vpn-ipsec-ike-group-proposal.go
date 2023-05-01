@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecIkeGroupProposal describes the resource data model.
 type VpnIPsecIkeGroupProposal struct {
 	// LeafNodes
-	VpnIPsecIkeGroupProposalDhGroup    customtypes.CustomStringValue `tfsdk:"dh_group" json:"dh-group,omitempty"`
-	VpnIPsecIkeGroupProposalPrf        customtypes.CustomStringValue `tfsdk:"prf" json:"prf,omitempty"`
-	VpnIPsecIkeGroupProposalEncryption customtypes.CustomStringValue `tfsdk:"encryption" json:"encryption,omitempty"`
-	VpnIPsecIkeGroupProposalHash       customtypes.CustomStringValue `tfsdk:"hash" json:"hash,omitempty"`
+	LeafVpnIPsecIkeGroupProposalDhGroup    types.String `tfsdk:"dh_group"`
+	LeafVpnIPsecIkeGroupProposalPrf        types.String `tfsdk:"prf"`
+	LeafVpnIPsecIkeGroupProposalEncryption types.String `tfsdk:"encryption"`
+	LeafVpnIPsecIkeGroupProposalHash       types.String `tfsdk:"hash"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecIkeGroupProposal) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecIkeGroupProposal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "proposal"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecIkeGroupProposalDhGroup.IsNull() || o.LeafVpnIPsecIkeGroupProposalDhGroup.IsUnknown()) {
+		vyosData["dh-group"] = o.LeafVpnIPsecIkeGroupProposalDhGroup.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupProposalPrf.IsNull() || o.LeafVpnIPsecIkeGroupProposalPrf.IsUnknown()) {
+		vyosData["prf"] = o.LeafVpnIPsecIkeGroupProposalPrf.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupProposalEncryption.IsNull() || o.LeafVpnIPsecIkeGroupProposalEncryption.IsUnknown()) {
+		vyosData["encryption"] = o.LeafVpnIPsecIkeGroupProposalEncryption.ValueString()
+	}
+	if !(o.LeafVpnIPsecIkeGroupProposalHash.IsNull() || o.LeafVpnIPsecIkeGroupProposalHash.IsUnknown()) {
+		vyosData["hash"] = o.LeafVpnIPsecIkeGroupProposalHash.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecIkeGroupProposal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "proposal"}})
+
+	// Leafs
+	if value, ok := vyosData["dh-group"]; ok {
+		o.LeafVpnIPsecIkeGroupProposalDhGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupProposalDhGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prf"]; ok {
+		o.LeafVpnIPsecIkeGroupProposalPrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupProposalPrf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["encryption"]; ok {
+		o.LeafVpnIPsecIkeGroupProposalEncryption = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupProposalEncryption = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hash"]; ok {
+		o.LeafVpnIPsecIkeGroupProposalHash = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecIkeGroupProposalHash = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "ike-group", "proposal"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecIkeGroupProposal) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dh_group":   types.StringType,
+		"prf":        types.StringType,
+		"encryption": types.StringType,
+		"hash":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecIkeGroupProposal) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dh_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `dh-grouphelp
 
 |  Format  |  Description  |
@@ -62,8 +143,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"prf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Pseudo-Random Functions
 
 |  Format  |  Description  |
@@ -80,8 +160,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"encryption": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Encryption algorithm
 
 |  Format  |  Description  |
@@ -149,8 +228,7 @@ func (o VpnIPsecIkeGroupProposal) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"hash": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hash algorithm
 
 |  Format  |  Description  |

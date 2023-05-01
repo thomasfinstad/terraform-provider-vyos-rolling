@@ -2,48 +2,152 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecRemoteAccessRadiusServer describes the resource data model.
 type VpnIPsecRemoteAccessRadiusServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	VpnIPsecRemoteAccessRadiusServerDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VpnIPsecRemoteAccessRadiusServerKey               customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	VpnIPsecRemoteAccessRadiusServerPort              customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	VpnIPsecRemoteAccessRadiusServerDisableAccounting customtypes.CustomStringValue `tfsdk:"disable_accounting" json:"disable-accounting,omitempty"`
+	LeafVpnIPsecRemoteAccessRadiusServerDisable           types.String `tfsdk:"disable"`
+	LeafVpnIPsecRemoteAccessRadiusServerKey               types.String `tfsdk:"key"`
+	LeafVpnIPsecRemoteAccessRadiusServerPort              types.String `tfsdk:"port"`
+	LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting types.String `tfsdk:"disable_accounting"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecRemoteAccessRadiusServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *VpnIPsecRemoteAccessRadiusServer) GetVyosPath() []string {
+	return []string{
+		"vpn",
+		"ipsec",
+		"remote-access",
+		"radius",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecRemoteAccessRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisable.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerKey.IsUnknown()) {
+		vyosData["key"] = o.LeafVpnIPsecRemoteAccessRadiusServerKey.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafVpnIPsecRemoteAccessRadiusServerPort.ValueString()
+	}
+	if !(o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsNull() || o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.IsUnknown()) {
+		vyosData["disable-accounting"] = o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecRemoteAccessRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-accounting"]; ok {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecRemoteAccessRadiusServerDisableAccounting = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "remote-access", "radius", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecRemoteAccessRadiusServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":            types.StringType,
+		"key":                types.StringType,
+		"port":               types.StringType,
+		"disable_accounting": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecRemoteAccessRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `RADIUS server configuration
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  RADIUS server IPv4 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Shared secret key
 
 `,
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Authentication port
 
 |  Format  |  Description  |
@@ -57,8 +161,7 @@ func (o VpnIPsecRemoteAccessRadiusServer) ResourceAttributes() map[string]schema
 		},
 
 		"disable_accounting": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable accounting
 
 `,

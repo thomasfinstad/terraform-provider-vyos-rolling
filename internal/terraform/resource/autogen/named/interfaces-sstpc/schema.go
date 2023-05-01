@@ -19,6 +19,6 @@ func (r interfacesSstpc) Schema(ctx context.Context, req resource.SchemaRequest,
 |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

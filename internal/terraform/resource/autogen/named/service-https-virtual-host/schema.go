@@ -17,6 +17,6 @@ func (r serviceHTTPSVirtualHost) Schema(ctx context.Context, req resource.Schema
 Identifier for virtual host
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

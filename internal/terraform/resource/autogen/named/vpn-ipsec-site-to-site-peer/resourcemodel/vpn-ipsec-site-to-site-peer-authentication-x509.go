@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecSiteToSitePeerAuthenticationXfivezeronine describes the resource data model.
 type VpnIPsecSiteToSitePeerAuthenticationXfivezeronine struct {
 	// LeafNodes
-	VpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate   customtypes.CustomStringValue `tfsdk:"certificate" json:"certificate,omitempty"`
-	VpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase    customtypes.CustomStringValue `tfsdk:"passphrase" json:"passphrase,omitempty"`
-	VpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate customtypes.CustomStringValue `tfsdk:"ca_certificate" json:"ca-certificate,omitempty"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate   types.String `tfsdk:"certificate"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase    types.String `tfsdk:"passphrase"`
+	LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate types.String `tfsdk:"ca_certificate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.IsUnknown()) {
+		vyosData["certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.IsUnknown()) {
+		vyosData["passphrase"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase.ValueString()
+	}
+	if !(o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsNull() || o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.IsUnknown()) {
+		vyosData["ca-certificate"] = o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
+
+	// Leafs
+	if value, ok := vyosData["certificate"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCertificate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passphrase"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeroninePassphrase = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ca-certificate"]; ok {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecSiteToSitePeerAuthenticationXfivezeronineCaCertificate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "site-to-site", "peer", "authentication", "x509"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"certificate":    types.StringType,
+		"passphrase":     types.StringType,
+		"ca_certificate": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate in PKI configuration
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceAttributes() 
 		},
 
 		"passphrase": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Private key passphrase
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o VpnIPsecSiteToSitePeerAuthenticationXfivezeronine) ResourceAttributes() 
 		},
 
 		"ca_certificate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Certificate Authority in PKI configuration
 
 |  Format  |  Description  |

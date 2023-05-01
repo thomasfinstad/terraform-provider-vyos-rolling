@@ -22,6 +22,6 @@ Local IP addresses to listen on
 |  ipv6  |  IPv6 address to listen for incoming connections  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,49 +2,154 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBfdProfile describes the resource data model.
 type ProtocolsBfdProfile struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBfdProfileEchoMode customtypes.CustomStringValue `tfsdk:"echo_mode" json:"echo-mode,omitempty"`
-	ProtocolsBfdProfilePassive  customtypes.CustomStringValue `tfsdk:"passive" json:"passive,omitempty"`
-	ProtocolsBfdProfileShutdown customtypes.CustomStringValue `tfsdk:"shutdown" json:"shutdown,omitempty"`
+	LeafProtocolsBfdProfileEchoMode types.String `tfsdk:"echo_mode"`
+	LeafProtocolsBfdProfilePassive  types.String `tfsdk:"passive"`
+	LeafProtocolsBfdProfileShutdown types.String `tfsdk:"shutdown"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsBfdProfileInterval types.Object `tfsdk:"interval" json:"interval,omitempty"`
+	NodeProtocolsBfdProfileInterval types.Object `tfsdk:"interval"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBfdProfile) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBfdProfile) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bfd",
+		"profile",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBfdProfile) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBfdProfileEchoMode.IsNull() || o.LeafProtocolsBfdProfileEchoMode.IsUnknown()) {
+		vyosData["echo-mode"] = o.LeafProtocolsBfdProfileEchoMode.ValueString()
+	}
+	if !(o.LeafProtocolsBfdProfilePassive.IsNull() || o.LeafProtocolsBfdProfilePassive.IsUnknown()) {
+		vyosData["passive"] = o.LeafProtocolsBfdProfilePassive.ValueString()
+	}
+	if !(o.LeafProtocolsBfdProfileShutdown.IsNull() || o.LeafProtocolsBfdProfileShutdown.IsUnknown()) {
+		vyosData["shutdown"] = o.LeafProtocolsBfdProfileShutdown.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBfdProfileInterval.IsNull() || o.NodeProtocolsBfdProfileInterval.IsUnknown()) {
+		var subModel ProtocolsBfdProfileInterval
+		diags.Append(o.NodeProtocolsBfdProfileInterval.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["interval"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBfdProfile) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile"}})
+
+	// Leafs
+	if value, ok := vyosData["echo-mode"]; ok {
+		o.LeafProtocolsBfdProfileEchoMode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileEchoMode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive"]; ok {
+		o.LeafProtocolsBfdProfilePassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfilePassive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["shutdown"]; ok {
+		o.LeafProtocolsBfdProfileShutdown = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdProfileShutdown = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["interval"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBfdProfileInterval{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBfdProfileInterval = data
+
+	} else {
+		o.NodeProtocolsBfdProfileInterval = basetypes.NewObjectNull(ProtocolsBfdProfileInterval{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bfd", "profile"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBfdProfile) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"echo_mode": types.StringType,
+		"passive":   types.StringType,
+		"shutdown":  types.StringType,
+
+		// Tags
+
+		// Nodes
+		"interval": types.ObjectType{AttrTypes: ProtocolsBfdProfileInterval{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBfdProfile) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Configure BFD profile used by individual peer
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Name of BFD profile  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"echo_mode": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enables the echo transmission mode
 
 `,
 		},
 
 		"passive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not attempt to start sessions
 
 `,
 		},
 
 		"shutdown": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable this peer
 
 `,
@@ -55,7 +160,7 @@ func (o ProtocolsBfdProfile) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"interval": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBfdProfileInterval{}.ResourceAttributes(),
+			Attributes: ProtocolsBfdProfileInterval{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Configure timer intervals
 

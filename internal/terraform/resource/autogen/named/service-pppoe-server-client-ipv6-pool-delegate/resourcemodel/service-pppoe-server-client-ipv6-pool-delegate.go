@@ -2,29 +2,107 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerClientIPvsixPoolDelegate describes the resource data model.
 type ServicePppoeServerClientIPvsixPoolDelegate struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix customtypes.CustomStringValue `tfsdk:"delegation_prefix" json:"delegation-prefix,omitempty"`
+	LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix types.String `tfsdk:"delegation_prefix"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServicePppoeServerClientIPvsixPoolDelegate) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServicePppoeServerClientIPvsixPoolDelegate) GetVyosPath() []string {
+	return []string{
+		"service",
+		"pppoe-server",
+		"client-ipv6-pool",
+		"delegate",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServicePppoeServerClientIPvsixPoolDelegate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsNull() || o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.IsUnknown()) {
+		vyosData["delegation-prefix"] = o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServicePppoeServerClientIPvsixPoolDelegate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
+
+	// Leafs
+	if value, ok := vyosData["delegation-prefix"]; ok {
+		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerClientIPvsixPoolDelegateDelegationPrefix = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "client-ipv6-pool", "delegate"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServicePppoeServerClientIPvsixPoolDelegate) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"delegation_prefix": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServicePppoeServerClientIPvsixPoolDelegate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv6net  |  IPv6 address and prefix length  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"delegation_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefix length delegated to client
 
 |  Format  |  Description  |

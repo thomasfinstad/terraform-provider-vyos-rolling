@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBfdPeerInterval describes the resource data model.
 type ProtocolsBfdPeerInterval struct {
 	// LeafNodes
-	ProtocolsBfdPeerIntervalReceive      customtypes.CustomStringValue `tfsdk:"receive" json:"receive,omitempty"`
-	ProtocolsBfdPeerIntervalTransmit     customtypes.CustomStringValue `tfsdk:"transmit" json:"transmit,omitempty"`
-	ProtocolsBfdPeerIntervalMultIPlier   customtypes.CustomStringValue `tfsdk:"multiplier" json:"multiplier,omitempty"`
-	ProtocolsBfdPeerIntervalEchoInterval customtypes.CustomStringValue `tfsdk:"echo_interval" json:"echo-interval,omitempty"`
+	LeafProtocolsBfdPeerIntervalReceive      types.String `tfsdk:"receive"`
+	LeafProtocolsBfdPeerIntervalTransmit     types.String `tfsdk:"transmit"`
+	LeafProtocolsBfdPeerIntervalMultIPlier   types.String `tfsdk:"multiplier"`
+	LeafProtocolsBfdPeerIntervalEchoInterval types.String `tfsdk:"echo_interval"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBfdPeerInterval) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "interval"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBfdPeerIntervalReceive.IsNull() || o.LeafProtocolsBfdPeerIntervalReceive.IsUnknown()) {
+		vyosData["receive"] = o.LeafProtocolsBfdPeerIntervalReceive.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerIntervalTransmit.IsNull() || o.LeafProtocolsBfdPeerIntervalTransmit.IsUnknown()) {
+		vyosData["transmit"] = o.LeafProtocolsBfdPeerIntervalTransmit.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerIntervalMultIPlier.IsNull() || o.LeafProtocolsBfdPeerIntervalMultIPlier.IsUnknown()) {
+		vyosData["multiplier"] = o.LeafProtocolsBfdPeerIntervalMultIPlier.ValueString()
+	}
+	if !(o.LeafProtocolsBfdPeerIntervalEchoInterval.IsNull() || o.LeafProtocolsBfdPeerIntervalEchoInterval.IsUnknown()) {
+		vyosData["echo-interval"] = o.LeafProtocolsBfdPeerIntervalEchoInterval.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBfdPeerInterval) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "interval"}})
+
+	// Leafs
+	if value, ok := vyosData["receive"]; ok {
+		o.LeafProtocolsBfdPeerIntervalReceive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerIntervalReceive = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["transmit"]; ok {
+		o.LeafProtocolsBfdPeerIntervalTransmit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerIntervalTransmit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["multiplier"]; ok {
+		o.LeafProtocolsBfdPeerIntervalMultIPlier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerIntervalMultIPlier = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["echo-interval"]; ok {
+		o.LeafProtocolsBfdPeerIntervalEchoInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBfdPeerIntervalEchoInterval = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bfd", "peer", "interval"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBfdPeerInterval) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"receive":       types.StringType,
+		"transmit":      types.StringType,
+		"multiplier":    types.StringType,
+		"echo_interval": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBfdPeerInterval) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"receive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum interval of receiving control packets
 
 |  Format  |  Description  |
@@ -41,8 +122,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"transmit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Minimum interval of transmitting control packets
 
 |  Format  |  Description  |
@@ -56,8 +136,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"multiplier": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Multiplier to determine packet loss
 
 |  Format  |  Description  |
@@ -71,8 +150,7 @@ func (o ProtocolsBfdPeerInterval) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"echo_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Echo receive transmission interval
 
 |  Format  |  Description  |

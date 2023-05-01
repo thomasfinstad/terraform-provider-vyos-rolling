@@ -14,6 +14,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -83,6 +87,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -113,6 +118,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"invalid IPv4 address"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -147,6 +153,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -162,6 +169,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -195,6 +203,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -228,6 +237,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -261,6 +271,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -295,6 +306,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -310,6 +322,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -319,6 +332,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -334,6 +348,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -346,6 +361,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Help: []string{"RADIUS attribute that contains rate information"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -374,6 +390,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -390,6 +407,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -425,6 +443,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -435,6 +454,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													},
 													Node: []*interfacedefinition.Node{nil},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -444,6 +464,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -475,6 +496,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -491,6 +513,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -526,6 +549,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -557,6 +581,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -589,6 +614,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -621,6 +647,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -653,6 +680,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -664,6 +692,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -693,6 +722,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -711,6 +741,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -726,6 +757,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -755,6 +787,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -786,6 +819,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -801,6 +835,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -817,6 +852,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													},
 													TagNode: []*interfacedefinition.TagNode{nil},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -854,6 +890,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -887,6 +924,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -903,6 +941,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -914,6 +953,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Shared secret key"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -947,6 +987,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 												}, {
 													Parent: &interfacedefinition.TagNode{
 														Parent: &interfacedefinition.Node{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -956,6 +997,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -971,6 +1013,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1000,6 +1043,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1031,6 +1075,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1046,6 +1091,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 																TagNode: []*interfacedefinition.TagNode{nil},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1077,6 +1123,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1109,6 +1156,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1141,6 +1189,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1173,6 +1222,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1184,6 +1234,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1213,6 +1264,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1231,6 +1283,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														},
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -1240,6 +1293,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1256,6 +1310,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1290,6 +1345,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -1323,6 +1379,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 												}, {
 													Parent: &interfacedefinition.TagNode{
 														Parent: &interfacedefinition.Node{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1332,6 +1389,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1347,6 +1405,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1376,6 +1435,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1407,6 +1467,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1422,6 +1483,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 																TagNode: []*interfacedefinition.TagNode{nil},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1453,6 +1515,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1485,6 +1548,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1517,6 +1581,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1549,6 +1614,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1560,6 +1626,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1589,6 +1656,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1607,6 +1675,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														},
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -1616,6 +1685,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1647,6 +1717,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, nil, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -1681,6 +1752,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -1699,6 +1771,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 												}, {
 													Parent: &interfacedefinition.TagNode{
 														Parent: &interfacedefinition.Node{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -1708,6 +1781,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	Local: "children",
 																},
 																Node: []*interfacedefinition.Node{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "node",
 																	},
@@ -1723,6 +1797,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1752,6 +1827,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1783,6 +1859,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -1798,6 +1875,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 																TagNode: []*interfacedefinition.TagNode{nil},
 																LeafNode: []*interfacedefinition.LeafNode{{
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1829,6 +1907,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1861,6 +1940,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1893,6 +1973,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1925,6 +2006,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1936,6 +2018,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1965,6 +2048,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																}, {
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "leafNode",
 																	},
@@ -1983,6 +2067,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														},
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -1992,6 +2077,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2023,6 +2109,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2041,6 +2128,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}, nil},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -2077,6 +2165,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -2092,6 +2181,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -2125,6 +2215,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2141,6 +2232,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2152,6 +2244,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	Help: []string{"Shared secret key"},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2185,6 +2278,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}, {
 																Parent: &interfacedefinition.TagNode{
 																	Parent: &interfacedefinition.Node{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "node",
 																		},
@@ -2194,6 +2288,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				Local: "children",
 																			},
 																			Node: []*interfacedefinition.Node{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "node",
 																				},
@@ -2209,6 +2304,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																						Local: "children",
 																					},
 																					LeafNode: []*interfacedefinition.LeafNode{{
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2238,6 +2334,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2269,6 +2366,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2284,6 +2382,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																			TagNode: []*interfacedefinition.TagNode{nil},
 																			LeafNode: []*interfacedefinition.LeafNode{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2315,6 +2414,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2347,6 +2447,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2379,6 +2480,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2411,6 +2513,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2422,6 +2525,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2451,6 +2555,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					}},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2469,6 +2574,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	},
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -2478,6 +2584,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{nil, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2494,6 +2601,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2528,6 +2636,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																},
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2561,6 +2670,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}, {
 																Parent: &interfacedefinition.TagNode{
 																	Parent: &interfacedefinition.Node{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "node",
 																		},
@@ -2570,6 +2680,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				Local: "children",
 																			},
 																			Node: []*interfacedefinition.Node{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "node",
 																				},
@@ -2585,6 +2696,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																						Local: "children",
 																					},
 																					LeafNode: []*interfacedefinition.LeafNode{{
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2614,6 +2726,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2645,6 +2758,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2660,6 +2774,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																			TagNode: []*interfacedefinition.TagNode{nil},
 																			LeafNode: []*interfacedefinition.LeafNode{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2691,6 +2806,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2723,6 +2839,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2755,6 +2872,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2787,6 +2905,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2798,6 +2917,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2827,6 +2947,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					}},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -2845,6 +2966,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	},
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -2854,6 +2976,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2885,6 +3008,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, nil, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -2919,6 +3043,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}},
 																	}},
 																},
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -2937,6 +3062,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}, {
 																Parent: &interfacedefinition.TagNode{
 																	Parent: &interfacedefinition.Node{
+																		IsBaseNode: false,
 																		XMLName: xml.Name{
 																			Local: "node",
 																		},
@@ -2946,6 +3072,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				Local: "children",
 																			},
 																			Node: []*interfacedefinition.Node{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "node",
 																				},
@@ -2961,6 +3088,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																						Local: "children",
 																					},
 																					LeafNode: []*interfacedefinition.LeafNode{{
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -2990,6 +3118,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -3021,6 +3150,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																							}},
 																						}},
 																					}, {
+																						IsBaseNode: false,
 																						XMLName: xml.Name{
 																							Local: "leafNode",
 																						},
@@ -3036,6 +3166,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																			TagNode: []*interfacedefinition.TagNode{nil},
 																			LeafNode: []*interfacedefinition.LeafNode{{
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3067,6 +3198,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3099,6 +3231,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3131,6 +3264,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3163,6 +3297,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3174,6 +3309,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3203,6 +3339,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																					}},
 																				}},
 																			}, {
+																				IsBaseNode: false,
 																				XMLName: xml.Name{
 																					Local: "leafNode",
 																				},
@@ -3221,6 +3358,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			}},
 																		}},
 																	},
+																	IsBaseNode: false,
 																	XMLName: xml.Name{
 																		Local: "tagNode",
 																	},
@@ -3230,6 +3368,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																			Local: "children",
 																		},
 																		LeafNode: []*interfacedefinition.LeafNode{{
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3261,6 +3400,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																				}},
 																			}},
 																		}, {
+																			IsBaseNode: false,
 																			XMLName: xml.Name{
 																				Local: "leafNode",
 																			},
@@ -3279,6 +3419,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																		}, nil},
 																	}},
 																},
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3316,6 +3457,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													LeafNode: []*interfacedefinition.LeafNode{nil},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3352,6 +3494,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -3361,6 +3504,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -3376,6 +3520,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3405,6 +3550,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3436,6 +3582,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3450,6 +3597,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -3459,6 +3607,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3490,6 +3639,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3506,6 +3656,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3541,6 +3692,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3573,6 +3725,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3605,6 +3758,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3637,6 +3791,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3648,6 +3803,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3677,6 +3833,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3695,6 +3852,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -3727,6 +3885,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -3736,6 +3895,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -3751,6 +3911,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3780,6 +3941,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3811,6 +3973,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3825,6 +3988,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -3834,6 +3998,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3865,6 +4030,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3881,6 +4047,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -3916,6 +4083,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3947,6 +4115,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -3979,6 +4148,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4011,6 +4181,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4022,6 +4193,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4051,6 +4223,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4069,6 +4242,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4102,6 +4276,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -4111,6 +4286,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -4126,6 +4302,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4155,6 +4332,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4186,6 +4364,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4200,6 +4379,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -4209,6 +4389,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4240,6 +4421,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4256,6 +4438,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4291,6 +4474,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4322,6 +4506,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4354,6 +4539,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4386,6 +4572,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4397,6 +4584,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4426,6 +4614,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4444,6 +4633,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4477,6 +4667,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -4486,6 +4677,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -4501,6 +4693,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4530,6 +4723,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4561,6 +4755,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4575,6 +4770,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -4584,6 +4780,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4615,6 +4812,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4631,6 +4829,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4666,6 +4865,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4697,6 +4897,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4729,6 +4930,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4761,6 +4963,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4772,6 +4975,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4801,6 +5005,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -4819,6 +5024,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -4852,6 +5058,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -4861,6 +5068,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -4876,6 +5084,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4905,6 +5114,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4936,6 +5146,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4950,6 +5161,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -4959,6 +5171,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -4990,6 +5203,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5006,6 +5220,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5041,6 +5256,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5072,6 +5288,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5104,6 +5321,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5136,6 +5354,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5168,6 +5387,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5197,6 +5417,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															}},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5215,6 +5436,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5227,6 +5449,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -5236,6 +5459,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -5251,6 +5475,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5280,6 +5505,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5311,6 +5537,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5325,6 +5552,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -5334,6 +5562,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5365,6 +5594,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5381,6 +5611,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5416,6 +5647,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5447,6 +5679,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5479,6 +5712,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5511,6 +5745,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5543,6 +5778,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5554,6 +5790,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5572,6 +5809,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5602,6 +5840,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -5611,6 +5850,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													Node: []*interfacedefinition.Node{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "node",
 														},
@@ -5626,6 +5866,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5655,6 +5896,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5686,6 +5928,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5700,6 +5943,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													TagNode: []*interfacedefinition.TagNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -5709,6 +5953,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																Local: "children",
 															},
 															LeafNode: []*interfacedefinition.LeafNode{{
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5740,6 +5985,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5756,6 +6002,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																	}},
 																}},
 															}, {
+																IsBaseNode: false,
 																XMLName: xml.Name{
 																	Local: "leafNode",
 																},
@@ -5791,6 +6038,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5822,6 +6070,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Jitter value must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5854,6 +6103,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5886,6 +6136,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 0 and 60 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5918,6 +6169,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Maximum tries must be between 1 and 20"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5929,6 +6181,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Help: []string{"NAS-Identifier attribute sent to RADIUS"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -5960,6 +6213,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}, nil},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -5979,6 +6233,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -6000,6 +6255,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -6033,6 +6289,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												Node: []*interfacedefinition.Node{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -6048,6 +6305,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6071,6 +6329,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 																}},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -6097,6 +6356,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -6133,6 +6393,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -6179,6 +6440,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -6200,6 +6462,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -6215,6 +6478,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -6244,6 +6508,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -6276,6 +6541,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -6313,6 +6579,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -6350,6 +6617,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -6379,6 +6647,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -6424,6 +6693,7 @@ func serviceipoeserver() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

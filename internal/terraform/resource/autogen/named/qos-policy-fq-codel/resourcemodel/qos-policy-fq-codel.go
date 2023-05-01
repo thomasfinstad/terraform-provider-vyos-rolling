@@ -2,34 +2,156 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyFqCodel describes the resource data model.
 type QosPolicyFqCodel struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyFqCodelDescrIPtion  customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyFqCodelCodelQuantum customtypes.CustomStringValue `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
-	QosPolicyFqCodelFlows        customtypes.CustomStringValue `tfsdk:"flows" json:"flows,omitempty"`
-	QosPolicyFqCodelInterval     customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	QosPolicyFqCodelQueueLimit   customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
-	QosPolicyFqCodelTarget       customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
+	LeafQosPolicyFqCodelDescrIPtion  types.String `tfsdk:"description"`
+	LeafQosPolicyFqCodelCodelQuantum types.String `tfsdk:"codel_quantum"`
+	LeafQosPolicyFqCodelFlows        types.String `tfsdk:"flows"`
+	LeafQosPolicyFqCodelInterval     types.String `tfsdk:"interval"`
+	LeafQosPolicyFqCodelQueueLimit   types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyFqCodelTarget       types.String `tfsdk:"target"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyFqCodel) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"fq-codel",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyFqCodel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyFqCodelDescrIPtion.IsNull() || o.LeafQosPolicyFqCodelDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyFqCodelDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyFqCodelCodelQuantum.IsNull() || o.LeafQosPolicyFqCodelCodelQuantum.IsUnknown()) {
+		vyosData["codel-quantum"] = o.LeafQosPolicyFqCodelCodelQuantum.ValueString()
+	}
+	if !(o.LeafQosPolicyFqCodelFlows.IsNull() || o.LeafQosPolicyFqCodelFlows.IsUnknown()) {
+		vyosData["flows"] = o.LeafQosPolicyFqCodelFlows.ValueString()
+	}
+	if !(o.LeafQosPolicyFqCodelInterval.IsNull() || o.LeafQosPolicyFqCodelInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafQosPolicyFqCodelInterval.ValueString()
+	}
+	if !(o.LeafQosPolicyFqCodelQueueLimit.IsNull() || o.LeafQosPolicyFqCodelQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyFqCodelQueueLimit.ValueString()
+	}
+	if !(o.LeafQosPolicyFqCodelTarget.IsNull() || o.LeafQosPolicyFqCodelTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafQosPolicyFqCodelTarget.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyFqCodel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["codel-quantum"]; ok {
+		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelCodelQuantum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["flows"]; ok {
+		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelFlows = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelQueueLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFqCodelTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "fq-codel"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyFqCodel) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":   types.StringType,
+		"codel_quantum": types.StringType,
+		"flows":         types.StringType,
+		"interval":      types.StringType,
+		"queue_limit":   types.StringType,
+		"target":        types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyFqCodel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Fair Queuing (FQ) with Controlled Delay (CoDel)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -40,8 +162,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"codel_quantum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
 |  Format  |  Description  |
@@ -55,8 +176,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"flows": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
 |  Format  |  Description  |
@@ -70,8 +190,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
 |  Format  |  Description  |
@@ -85,8 +204,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Upper limit of the queue
 
 |  Format  |  Description  |
@@ -100,8 +218,7 @@ func (o QosPolicyFqCodel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
 |  Format  |  Description  |

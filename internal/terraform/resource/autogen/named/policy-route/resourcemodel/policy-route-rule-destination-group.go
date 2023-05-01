@@ -2,65 +2,151 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleDestinationGroup describes the resource data model.
 type PolicyRouteRuleDestinationGroup struct {
 	// LeafNodes
-	PolicyRouteRuleDestinationGroupAddressGroup customtypes.CustomStringValue `tfsdk:"address_group" json:"address-group,omitempty"`
-	PolicyRouteRuleDestinationGroupDomainGroup  customtypes.CustomStringValue `tfsdk:"domain_group" json:"domain-group,omitempty"`
-	PolicyRouteRuleDestinationGroupMacGroup     customtypes.CustomStringValue `tfsdk:"mac_group" json:"mac-group,omitempty"`
-	PolicyRouteRuleDestinationGroupNetworkGroup customtypes.CustomStringValue `tfsdk:"network_group" json:"network-group,omitempty"`
-	PolicyRouteRuleDestinationGroupPortGroup    customtypes.CustomStringValue `tfsdk:"port_group" json:"port-group,omitempty"`
+	LeafPolicyRouteRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group"`
+	LeafPolicyRouteRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group"`
+	LeafPolicyRouteRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group"`
+	LeafPolicyRouteRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group"`
+	LeafPolicyRouteRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleDestinationGroup) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleDestinationGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination", "group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleDestinationGroupAddressGroup.IsNull() || o.LeafPolicyRouteRuleDestinationGroupAddressGroup.IsUnknown()) {
+		vyosData["address-group"] = o.LeafPolicyRouteRuleDestinationGroupAddressGroup.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDestinationGroupDomainGroup.IsNull() || o.LeafPolicyRouteRuleDestinationGroupDomainGroup.IsUnknown()) {
+		vyosData["domain-group"] = o.LeafPolicyRouteRuleDestinationGroupDomainGroup.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDestinationGroupMacGroup.IsNull() || o.LeafPolicyRouteRuleDestinationGroupMacGroup.IsUnknown()) {
+		vyosData["mac-group"] = o.LeafPolicyRouteRuleDestinationGroupMacGroup.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDestinationGroupNetworkGroup.IsNull() || o.LeafPolicyRouteRuleDestinationGroupNetworkGroup.IsUnknown()) {
+		vyosData["network-group"] = o.LeafPolicyRouteRuleDestinationGroupNetworkGroup.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleDestinationGroupPortGroup.IsNull() || o.LeafPolicyRouteRuleDestinationGroupPortGroup.IsUnknown()) {
+		vyosData["port-group"] = o.LeafPolicyRouteRuleDestinationGroupPortGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleDestinationGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination", "group"}})
+
+	// Leafs
+	if value, ok := vyosData["address-group"]; ok {
+		o.LeafPolicyRouteRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["domain-group"]; ok {
+		o.LeafPolicyRouteRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-group"]; ok {
+		o.LeafPolicyRouteRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationGroupMacGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network-group"]; ok {
+		o.LeafPolicyRouteRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port-group"]; ok {
+		o.LeafPolicyRouteRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleDestinationGroupPortGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "destination", "group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleDestinationGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address_group": types.StringType,
+		"domain_group":  types.StringType,
+		"mac_group":     types.StringType,
+		"network_group": types.StringType,
+		"port_group":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleDestinationGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of addresses
 
 `,
 		},
 
 		"domain_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of domains
 
 `,
 		},
 
 		"mac_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of MAC addresses
 
 `,
 		},
 
 		"network_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of networks
 
 `,
 		},
 
 		"port_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of ports
 
 `,

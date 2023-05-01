@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatchIPvsixNexthop describes the resource data model.
 type PolicyRouteMapRuleMatchIPvsixNexthop struct {
 	// LeafNodes
-	PolicyRouteMapRuleMatchIPvsixNexthopAddress    customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	PolicyRouteMapRuleMatchIPvsixNexthopAccessList customtypes.CustomStringValue `tfsdk:"access_list" json:"access-list,omitempty"`
-	PolicyRouteMapRuleMatchIPvsixNexthopPrefixList customtypes.CustomStringValue `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
-	PolicyRouteMapRuleMatchIPvsixNexthopType       customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress    types.String `tfsdk:"address"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList types.String `tfsdk:"access_list"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList types.String `tfsdk:"prefix_list"`
+	LeafPolicyRouteMapRuleMatchIPvsixNexthopType       types.String `tfsdk:"type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleMatchIPvsixNexthop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.IsUnknown()) {
+		vyosData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.IsUnknown()) {
+		vyosData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.IsUnknown()) {
+		vyosData["type"] = o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleMatchIPvsixNexthop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["access-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopAccessList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopPrefixList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixNexthopType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "nexthop"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleMatchIPvsixNexthop) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"access_list": types.StringType,
+		"prefix_list": types.StringType,
+		"type":        types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 address of next-hop
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]sc
 		},
 
 		"access_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 access-list to match
 
 |  Format  |  Description  |
@@ -50,16 +130,14 @@ func (o PolicyRouteMapRuleMatchIPvsixNexthop) ResourceAttributes() map[string]sc
 		},
 
 		"prefix_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 prefix-list to match
 
 `,
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match type
 
 |  Format  |  Description  |

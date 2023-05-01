@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnAuthentication describes the resource data model.
 type InterfacesOpenvpnAuthentication struct {
 	// LeafNodes
-	InterfacesOpenvpnAuthenticationUsername customtypes.CustomStringValue `tfsdk:"username" json:"username,omitempty"`
-	InterfacesOpenvpnAuthenticationPassword customtypes.CustomStringValue `tfsdk:"password" json:"password,omitempty"`
+	LeafInterfacesOpenvpnAuthenticationUsername types.String `tfsdk:"username"`
+	LeafInterfacesOpenvpnAuthenticationPassword types.String `tfsdk:"password"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnAuthentication) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "authentication"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnAuthenticationUsername.IsNull() || o.LeafInterfacesOpenvpnAuthenticationUsername.IsUnknown()) {
+		vyosData["username"] = o.LeafInterfacesOpenvpnAuthenticationUsername.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnAuthenticationPassword.IsNull() || o.LeafInterfacesOpenvpnAuthenticationPassword.IsUnknown()) {
+		vyosData["password"] = o.LeafInterfacesOpenvpnAuthenticationPassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "authentication"}})
+
+	// Leafs
+	if value, ok := vyosData["username"]; ok {
+		o.LeafInterfacesOpenvpnAuthenticationUsername = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnAuthenticationUsername = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["password"]; ok {
+		o.LeafInterfacesOpenvpnAuthenticationPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnAuthenticationPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "authentication"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnAuthentication) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"username": types.StringType,
+		"password": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"username": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesOpenvpnAuthentication) ResourceAttributes() map[string]schema.
 		},
 
 		"password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Password used for authentication
 
 |  Format  |  Description  |

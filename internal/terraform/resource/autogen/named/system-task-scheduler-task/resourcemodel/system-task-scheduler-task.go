@@ -2,40 +2,137 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemTaskSchedulerTask describes the resource data model.
 type SystemTaskSchedulerTask struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemTaskSchedulerTaskCrontabSpec customtypes.CustomStringValue `tfsdk:"crontab_spec" json:"crontab-spec,omitempty"`
-	SystemTaskSchedulerTaskInterval    customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
+	LeafSystemTaskSchedulerTaskCrontabSpec types.String `tfsdk:"crontab_spec"`
+	LeafSystemTaskSchedulerTaskInterval    types.String `tfsdk:"interval"`
 
 	// TagNodes
 
 	// Nodes
-	SystemTaskSchedulerTaskExecutable types.Object `tfsdk:"executable" json:"executable,omitempty"`
+	NodeSystemTaskSchedulerTaskExecutable types.Object `tfsdk:"executable"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemTaskSchedulerTask) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemTaskSchedulerTask) GetVyosPath() []string {
+	return []string{
+		"system",
+		"task-scheduler",
+		"task",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemTaskSchedulerTask) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemTaskSchedulerTaskCrontabSpec.IsNull() || o.LeafSystemTaskSchedulerTaskCrontabSpec.IsUnknown()) {
+		vyosData["crontab-spec"] = o.LeafSystemTaskSchedulerTaskCrontabSpec.ValueString()
+	}
+	if !(o.LeafSystemTaskSchedulerTaskInterval.IsNull() || o.LeafSystemTaskSchedulerTaskInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafSystemTaskSchedulerTaskInterval.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeSystemTaskSchedulerTaskExecutable.IsNull() || o.NodeSystemTaskSchedulerTaskExecutable.IsUnknown()) {
+		var subModel SystemTaskSchedulerTaskExecutable
+		diags.Append(o.NodeSystemTaskSchedulerTaskExecutable.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["executable"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemTaskSchedulerTask) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
+
+	// Leafs
+	if value, ok := vyosData["crontab-spec"]; ok {
+		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskCrontabSpec = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskInterval = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["executable"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, SystemTaskSchedulerTaskExecutable{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeSystemTaskSchedulerTaskExecutable = data
+
+	} else {
+		o.NodeSystemTaskSchedulerTaskExecutable = basetypes.NewObjectNull(SystemTaskSchedulerTaskExecutable{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemTaskSchedulerTask) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"crontab_spec": types.StringType,
+		"interval":     types.StringType,
+
+		// Tags
+
+		// Nodes
+		"executable": types.ObjectType{AttrTypes: SystemTaskSchedulerTaskExecutable{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemTaskSchedulerTask) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Scheduled task
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Task name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"crontab_spec": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `UNIX crontab time specification string
 
 `,
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Execution interval
 
 |  Format  |  Description  |
@@ -53,7 +150,7 @@ func (o SystemTaskSchedulerTask) ResourceAttributes() map[string]schema.Attribut
 		// Nodes
 
 		"executable": schema.SingleNestedAttribute{
-			Attributes: SystemTaskSchedulerTaskExecutable{}.ResourceAttributes(),
+			Attributes: SystemTaskSchedulerTaskExecutable{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Executable path and arguments
 

@@ -19,6 +19,6 @@ Virtual Router Redundancy Protocol settings
 VRRP sync group
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticRoutesixInterface describes the resource data model.
 type ProtocolsStaticRoutesixInterface struct {
 	// LeafNodes
-	ProtocolsStaticRoutesixInterfaceDisable  customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	ProtocolsStaticRoutesixInterfaceDistance customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	ProtocolsStaticRoutesixInterfaceVrf      customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafProtocolsStaticRoutesixInterfaceDisable  types.String `tfsdk:"disable"`
+	LeafProtocolsStaticRoutesixInterfaceDistance types.String `tfsdk:"distance"`
+	LeafProtocolsStaticRoutesixInterfaceVrf      types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticRoutesixInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticRoutesixInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticRoutesixInterfaceDisable.IsNull() || o.LeafProtocolsStaticRoutesixInterfaceDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafProtocolsStaticRoutesixInterfaceDisable.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRoutesixInterfaceDistance.IsNull() || o.LeafProtocolsStaticRoutesixInterfaceDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsStaticRoutesixInterfaceDistance.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRoutesixInterfaceVrf.IsNull() || o.LeafProtocolsStaticRoutesixInterfaceVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafProtocolsStaticRoutesixInterfaceVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticRoutesixInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafProtocolsStaticRoutesixInterfaceDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixInterfaceDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsStaticRoutesixInterfaceDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixInterfaceDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafProtocolsStaticRoutesixInterfaceVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixInterfaceVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticRoutesixInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":  types.StringType,
+		"distance": types.StringType,
+		"vrf":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticRoutesixInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o ProtocolsStaticRoutesixInterface) ResourceAttributes() map[string]schema
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |

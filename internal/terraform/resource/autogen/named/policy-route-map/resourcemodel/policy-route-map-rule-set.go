@@ -2,57 +2,319 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSet describes the resource data model.
 type PolicyRouteMapRuleSet struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetAtomicAggregate customtypes.CustomStringValue `tfsdk:"atomic_aggregate" json:"atomic-aggregate,omitempty"`
-	PolicyRouteMapRuleSetDistance        customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	PolicyRouteMapRuleSetIPNextHop       customtypes.CustomStringValue `tfsdk:"ip_next_hop" json:"ip-next-hop,omitempty"`
-	PolicyRouteMapRuleSetLocalPreference customtypes.CustomStringValue `tfsdk:"local_preference" json:"local-preference,omitempty"`
-	PolicyRouteMapRuleSetMetric          customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	PolicyRouteMapRuleSetMetricType      customtypes.CustomStringValue `tfsdk:"metric_type" json:"metric-type,omitempty"`
-	PolicyRouteMapRuleSetOrigin          customtypes.CustomStringValue `tfsdk:"origin" json:"origin,omitempty"`
-	PolicyRouteMapRuleSetOriginatorID    customtypes.CustomStringValue `tfsdk:"originator_id" json:"originator-id,omitempty"`
-	PolicyRouteMapRuleSetSrc             customtypes.CustomStringValue `tfsdk:"src" json:"src,omitempty"`
-	PolicyRouteMapRuleSetTable           customtypes.CustomStringValue `tfsdk:"table" json:"table,omitempty"`
-	PolicyRouteMapRuleSetTag             customtypes.CustomStringValue `tfsdk:"tag" json:"tag,omitempty"`
-	PolicyRouteMapRuleSetWeight          customtypes.CustomStringValue `tfsdk:"weight" json:"weight,omitempty"`
+	LeafPolicyRouteMapRuleSetAtomicAggregate types.String `tfsdk:"atomic_aggregate"`
+	LeafPolicyRouteMapRuleSetDistance        types.String `tfsdk:"distance"`
+	LeafPolicyRouteMapRuleSetIPNextHop       types.String `tfsdk:"ip_next_hop"`
+	LeafPolicyRouteMapRuleSetLocalPreference types.String `tfsdk:"local_preference"`
+	LeafPolicyRouteMapRuleSetMetric          types.String `tfsdk:"metric"`
+	LeafPolicyRouteMapRuleSetMetricType      types.String `tfsdk:"metric_type"`
+	LeafPolicyRouteMapRuleSetOrigin          types.String `tfsdk:"origin"`
+	LeafPolicyRouteMapRuleSetOriginatorID    types.String `tfsdk:"originator_id"`
+	LeafPolicyRouteMapRuleSetSrc             types.String `tfsdk:"src"`
+	LeafPolicyRouteMapRuleSetTable           types.String `tfsdk:"table"`
+	LeafPolicyRouteMapRuleSetTag             types.String `tfsdk:"tag"`
+	LeafPolicyRouteMapRuleSetWeight          types.String `tfsdk:"weight"`
 
 	// TagNodes
 
 	// Nodes
-	PolicyRouteMapRuleSetAggregator       types.Object `tfsdk:"aggregator" json:"aggregator,omitempty"`
-	PolicyRouteMapRuleSetAsPath           types.Object `tfsdk:"as_path" json:"as-path,omitempty"`
-	PolicyRouteMapRuleSetCommunity        types.Object `tfsdk:"community" json:"community,omitempty"`
-	PolicyRouteMapRuleSetLargeCommunity   types.Object `tfsdk:"large_community" json:"large-community,omitempty"`
-	PolicyRouteMapRuleSetExtcommunity     types.Object `tfsdk:"extcommunity" json:"extcommunity,omitempty"`
-	PolicyRouteMapRuleSetEvpn             types.Object `tfsdk:"evpn" json:"evpn,omitempty"`
-	PolicyRouteMapRuleSetIPvsixNextHop    types.Object `tfsdk:"ipv6_next_hop" json:"ipv6-next-hop,omitempty"`
-	PolicyRouteMapRuleSetLthreevpnNexthop types.Object `tfsdk:"l3vpn_nexthop" json:"l3vpn-nexthop,omitempty"`
+	NodePolicyRouteMapRuleSetAggregator       types.Object `tfsdk:"aggregator"`
+	NodePolicyRouteMapRuleSetAsPath           types.Object `tfsdk:"as_path"`
+	NodePolicyRouteMapRuleSetCommunity        types.Object `tfsdk:"community"`
+	NodePolicyRouteMapRuleSetLargeCommunity   types.Object `tfsdk:"large_community"`
+	NodePolicyRouteMapRuleSetExtcommunity     types.Object `tfsdk:"extcommunity"`
+	NodePolicyRouteMapRuleSetEvpn             types.Object `tfsdk:"evpn"`
+	NodePolicyRouteMapRuleSetIPvsixNextHop    types.Object `tfsdk:"ipv6_next_hop"`
+	NodePolicyRouteMapRuleSetLthreevpnNexthop types.Object `tfsdk:"l3vpn_nexthop"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSet) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetAtomicAggregate.IsNull() || o.LeafPolicyRouteMapRuleSetAtomicAggregate.IsUnknown()) {
+		vyosData["atomic-aggregate"] = o.LeafPolicyRouteMapRuleSetAtomicAggregate.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetDistance.IsNull() || o.LeafPolicyRouteMapRuleSetDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafPolicyRouteMapRuleSetDistance.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetIPNextHop.IsNull() || o.LeafPolicyRouteMapRuleSetIPNextHop.IsUnknown()) {
+		vyosData["ip-next-hop"] = o.LeafPolicyRouteMapRuleSetIPNextHop.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetLocalPreference.IsNull() || o.LeafPolicyRouteMapRuleSetLocalPreference.IsUnknown()) {
+		vyosData["local-preference"] = o.LeafPolicyRouteMapRuleSetLocalPreference.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetMetric.IsNull() || o.LeafPolicyRouteMapRuleSetMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafPolicyRouteMapRuleSetMetric.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetMetricType.IsNull() || o.LeafPolicyRouteMapRuleSetMetricType.IsUnknown()) {
+		vyosData["metric-type"] = o.LeafPolicyRouteMapRuleSetMetricType.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetOrigin.IsNull() || o.LeafPolicyRouteMapRuleSetOrigin.IsUnknown()) {
+		vyosData["origin"] = o.LeafPolicyRouteMapRuleSetOrigin.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetOriginatorID.IsNull() || o.LeafPolicyRouteMapRuleSetOriginatorID.IsUnknown()) {
+		vyosData["originator-id"] = o.LeafPolicyRouteMapRuleSetOriginatorID.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetSrc.IsNull() || o.LeafPolicyRouteMapRuleSetSrc.IsUnknown()) {
+		vyosData["src"] = o.LeafPolicyRouteMapRuleSetSrc.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetTable.IsNull() || o.LeafPolicyRouteMapRuleSetTable.IsUnknown()) {
+		vyosData["table"] = o.LeafPolicyRouteMapRuleSetTable.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetTag.IsNull() || o.LeafPolicyRouteMapRuleSetTag.IsUnknown()) {
+		vyosData["tag"] = o.LeafPolicyRouteMapRuleSetTag.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetWeight.IsNull() || o.LeafPolicyRouteMapRuleSetWeight.IsUnknown()) {
+		vyosData["weight"] = o.LeafPolicyRouteMapRuleSetWeight.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteMapRuleSetAggregator.IsNull() || o.NodePolicyRouteMapRuleSetAggregator.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetAggregator
+		diags.Append(o.NodePolicyRouteMapRuleSetAggregator.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["aggregator"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetAsPath.IsNull() || o.NodePolicyRouteMapRuleSetAsPath.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetAsPath
+		diags.Append(o.NodePolicyRouteMapRuleSetAsPath.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["as-path"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetCommunity.IsNull() || o.NodePolicyRouteMapRuleSetCommunity.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetCommunity
+		diags.Append(o.NodePolicyRouteMapRuleSetCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetLargeCommunity.IsNull() || o.NodePolicyRouteMapRuleSetLargeCommunity.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetLargeCommunity
+		diags.Append(o.NodePolicyRouteMapRuleSetLargeCommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["large-community"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetExtcommunity.IsNull() || o.NodePolicyRouteMapRuleSetExtcommunity.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetExtcommunity
+		diags.Append(o.NodePolicyRouteMapRuleSetExtcommunity.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["extcommunity"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetEvpn.IsNull() || o.NodePolicyRouteMapRuleSetEvpn.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetEvpn
+		diags.Append(o.NodePolicyRouteMapRuleSetEvpn.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["evpn"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetIPvsixNextHop.IsNull() || o.NodePolicyRouteMapRuleSetIPvsixNextHop.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetIPvsixNextHop
+		diags.Append(o.NodePolicyRouteMapRuleSetIPvsixNextHop.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6-next-hop"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleSetLthreevpnNexthop.IsNull() || o.NodePolicyRouteMapRuleSetLthreevpnNexthop.IsUnknown()) {
+		var subModel PolicyRouteMapRuleSetLthreevpnNexthop
+		diags.Append(o.NodePolicyRouteMapRuleSetLthreevpnNexthop.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["l3vpn-nexthop"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSet) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set"}})
+
+	// Leafs
+	if value, ok := vyosData["atomic-aggregate"]; ok {
+		o.LeafPolicyRouteMapRuleSetAtomicAggregate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetAtomicAggregate = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafPolicyRouteMapRuleSetDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ip-next-hop"]; ok {
+		o.LeafPolicyRouteMapRuleSetIPNextHop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetIPNextHop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local-preference"]; ok {
+		o.LeafPolicyRouteMapRuleSetLocalPreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetLocalPreference = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafPolicyRouteMapRuleSetMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric-type"]; ok {
+		o.LeafPolicyRouteMapRuleSetMetricType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetMetricType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["origin"]; ok {
+		o.LeafPolicyRouteMapRuleSetOrigin = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetOrigin = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["originator-id"]; ok {
+		o.LeafPolicyRouteMapRuleSetOriginatorID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetOriginatorID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["src"]; ok {
+		o.LeafPolicyRouteMapRuleSetSrc = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetSrc = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["table"]; ok {
+		o.LeafPolicyRouteMapRuleSetTable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetTable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tag"]; ok {
+		o.LeafPolicyRouteMapRuleSetTag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetTag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["weight"]; ok {
+		o.LeafPolicyRouteMapRuleSetWeight = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetWeight = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["aggregator"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetAggregator{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetAggregator = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetAggregator = basetypes.NewObjectNull(PolicyRouteMapRuleSetAggregator{}.AttributeTypes())
+	}
+	if value, ok := vyosData["as-path"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetAsPath{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetAsPath = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetAsPath = basetypes.NewObjectNull(PolicyRouteMapRuleSetAsPath{}.AttributeTypes())
+	}
+	if value, ok := vyosData["community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetCommunity = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetCommunity = basetypes.NewObjectNull(PolicyRouteMapRuleSetCommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["large-community"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetLargeCommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetLargeCommunity = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetLargeCommunity = basetypes.NewObjectNull(PolicyRouteMapRuleSetLargeCommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["extcommunity"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetExtcommunity{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetExtcommunity = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetExtcommunity = basetypes.NewObjectNull(PolicyRouteMapRuleSetExtcommunity{}.AttributeTypes())
+	}
+	if value, ok := vyosData["evpn"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetEvpn{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetEvpn = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetEvpn = basetypes.NewObjectNull(PolicyRouteMapRuleSetEvpn{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6-next-hop"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetIPvsixNextHop{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetIPvsixNextHop = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetIPvsixNextHop = basetypes.NewObjectNull(PolicyRouteMapRuleSetIPvsixNextHop{}.AttributeTypes())
+	}
+	if value, ok := vyosData["l3vpn-nexthop"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleSetLthreevpnNexthop{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleSetLthreevpnNexthop = data
+
+	} else {
+		o.NodePolicyRouteMapRuleSetLthreevpnNexthop = basetypes.NewObjectNull(PolicyRouteMapRuleSetLthreevpnNexthop{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSet) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"atomic_aggregate": types.StringType,
+		"distance":         types.StringType,
+		"ip_next_hop":      types.StringType,
+		"local_preference": types.StringType,
+		"metric":           types.StringType,
+		"metric_type":      types.StringType,
+		"origin":           types.StringType,
+		"originator_id":    types.StringType,
+		"src":              types.StringType,
+		"table":            types.StringType,
+		"tag":              types.StringType,
+		"weight":           types.StringType,
+
+		// Tags
+
+		// Nodes
+		"aggregator":      types.ObjectType{AttrTypes: PolicyRouteMapRuleSetAggregator{}.AttributeTypes()},
+		"as_path":         types.ObjectType{AttrTypes: PolicyRouteMapRuleSetAsPath{}.AttributeTypes()},
+		"community":       types.ObjectType{AttrTypes: PolicyRouteMapRuleSetCommunity{}.AttributeTypes()},
+		"large_community": types.ObjectType{AttrTypes: PolicyRouteMapRuleSetLargeCommunity{}.AttributeTypes()},
+		"extcommunity":    types.ObjectType{AttrTypes: PolicyRouteMapRuleSetExtcommunity{}.AttributeTypes()},
+		"evpn":            types.ObjectType{AttrTypes: PolicyRouteMapRuleSetEvpn{}.AttributeTypes()},
+		"ipv6_next_hop":   types.ObjectType{AttrTypes: PolicyRouteMapRuleSetIPvsixNextHop{}.AttributeTypes()},
+		"l3vpn_nexthop":   types.ObjectType{AttrTypes: PolicyRouteMapRuleSetLthreevpnNexthop{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSet) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"atomic_aggregate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP atomic aggregate attribute
 
 `,
 		},
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Locally significant administrative distance
 
 |  Format  |  Description  |
@@ -63,8 +325,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"ip_next_hop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Nexthop IP address
 
 |  Format  |  Description  |
@@ -77,8 +338,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"local_preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP local preference attribute
 
 |  Format  |  Description  |
@@ -89,8 +349,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Destination routing protocol metric
 
 |  Format  |  Description  |
@@ -102,8 +361,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"metric_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Open Shortest Path First (OSPF) external metric-type
 
 |  Format  |  Description  |
@@ -115,8 +373,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"origin": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Border Gateway Protocl (BGP) origin code
 
 |  Format  |  Description  |
@@ -129,8 +386,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"originator_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP originator ID attribute
 
 |  Format  |  Description  |
@@ -141,8 +397,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"src": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source address for route
 
 |  Format  |  Description  |
@@ -154,8 +409,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"table": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set prefixes to table
 
 |  Format  |  Description  |
@@ -166,8 +420,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"tag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tag value for routing protocol
 
 |  Format  |  Description  |
@@ -178,8 +431,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"weight": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `BGP weight attribute
 
 |  Format  |  Description  |
@@ -194,7 +446,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		// Nodes
 
 		"aggregator": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetAggregator{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetAggregator{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP aggregator attribute
 
@@ -202,7 +454,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"as_path": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetAsPath{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetAsPath{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Transform BGP AS_PATH attribute
 
@@ -210,7 +462,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetCommunity{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP community attribute
 
@@ -218,7 +470,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"large_community": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLargeCommunity{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetLargeCommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP large community attribute
 
@@ -226,7 +478,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"extcommunity": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetExtcommunity{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetExtcommunity{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `BGP extended community attribute
 
@@ -234,7 +486,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"evpn": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetEvpn{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetEvpn{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Ethernet Virtual Private Network
 
@@ -242,7 +494,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"ipv6_next_hop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetIPvsixNextHop{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetIPvsixNextHop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Nexthop IPv6 address
 
@@ -250,7 +502,7 @@ func (o PolicyRouteMapRuleSet) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"l3vpn_nexthop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleSetLthreevpnNexthop{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleSetLthreevpnNexthop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Next hop Information
 

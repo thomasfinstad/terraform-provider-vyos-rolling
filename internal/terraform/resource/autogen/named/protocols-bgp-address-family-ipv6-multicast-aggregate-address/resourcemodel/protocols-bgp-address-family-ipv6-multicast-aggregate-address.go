@@ -2,39 +2,135 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       customtypes.CustomStringValue `tfsdk:"as_set" json:"as-set,omitempty"`
-	ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
-	ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly customtypes.CustomStringValue `tfsdk:"summary_only" json:"summary-only,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet       types.String `tfsdk:"as_set"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap    types.String `tfsdk:"route_map"`
+	LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"address-family",
+		"ipv6-multicast",
+		"aggregate-address",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.IsUnknown()) {
+		vyosData["as-set"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.IsUnknown()) {
+		vyosData["summary-only"] = o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+
+	// Leafs
+	if value, ok := vyosData["as-set"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressAsSet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressRouteMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["summary-only"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddressSummaryOnly = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv6-multicast", "aggregate-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_set":       types.StringType,
+		"route_map":    types.StringType,
+		"summary_only": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `BGP aggregate network/prefix
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv6net  |  BGP aggregate network/prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"as_set": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Generate AS-set path information for this aggregate address
 
 `,
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -45,8 +141,7 @@ func (o ProtocolsBgpAddressFamilyIPvsixMulticastAggregateAddress) ResourceAttrib
 		},
 
 		"summary_only": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Announce the aggregate summary network only
 
 `,

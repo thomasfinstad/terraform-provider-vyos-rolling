@@ -2,40 +2,215 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServer describes the resource data model.
 type InterfacesOpenvpnServer struct {
 	// LeafNodes
-	InterfacesOpenvpnServerDomainName                customtypes.CustomStringValue `tfsdk:"domain_name" json:"domain-name,omitempty"`
-	InterfacesOpenvpnServerMaxConnections            customtypes.CustomStringValue `tfsdk:"max_connections" json:"max-connections,omitempty"`
-	InterfacesOpenvpnServerNameServer                customtypes.CustomStringValue `tfsdk:"name_server" json:"name-server,omitempty"`
-	InterfacesOpenvpnServerRejectUnconfiguredClients customtypes.CustomStringValue `tfsdk:"reject_unconfigured_clients" json:"reject-unconfigured-clients,omitempty"`
-	InterfacesOpenvpnServerSubnet                    customtypes.CustomStringValue `tfsdk:"subnet" json:"subnet,omitempty"`
-	InterfacesOpenvpnServerTopology                  customtypes.CustomStringValue `tfsdk:"topology" json:"topology,omitempty"`
+	LeafInterfacesOpenvpnServerDomainName                types.String `tfsdk:"domain_name"`
+	LeafInterfacesOpenvpnServerMaxConnections            types.String `tfsdk:"max_connections"`
+	LeafInterfacesOpenvpnServerNameServer                types.String `tfsdk:"name_server"`
+	LeafInterfacesOpenvpnServerRejectUnconfiguredClients types.String `tfsdk:"reject_unconfigured_clients"`
+	LeafInterfacesOpenvpnServerSubnet                    types.String `tfsdk:"subnet"`
+	LeafInterfacesOpenvpnServerTopology                  types.String `tfsdk:"topology"`
 
 	// TagNodes
-	InterfacesOpenvpnServerClient    types.Map `tfsdk:"client" json:"client,omitempty"`
-	InterfacesOpenvpnServerPushRoute types.Map `tfsdk:"push_route" json:"push-route,omitempty"`
+	TagInterfacesOpenvpnServerClient    types.Map `tfsdk:"client"`
+	TagInterfacesOpenvpnServerPushRoute types.Map `tfsdk:"push_route"`
 
 	// Nodes
-	InterfacesOpenvpnServerClientIPPool     types.Object `tfsdk:"client_ip_pool" json:"client-ip-pool,omitempty"`
-	InterfacesOpenvpnServerClientIPvsixPool types.Object `tfsdk:"client_ipv6_pool" json:"client-ipv6-pool,omitempty"`
-	InterfacesOpenvpnServerMfa              types.Object `tfsdk:"mfa" json:"mfa,omitempty"`
+	NodeInterfacesOpenvpnServerClientIPPool     types.Object `tfsdk:"client_ip_pool"`
+	NodeInterfacesOpenvpnServerClientIPvsixPool types.Object `tfsdk:"client_ipv6_pool"`
+	NodeInterfacesOpenvpnServerMfa              types.Object `tfsdk:"mfa"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnServerDomainName.IsNull() || o.LeafInterfacesOpenvpnServerDomainName.IsUnknown()) {
+		vyosData["domain-name"] = o.LeafInterfacesOpenvpnServerDomainName.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerMaxConnections.IsNull() || o.LeafInterfacesOpenvpnServerMaxConnections.IsUnknown()) {
+		vyosData["max-connections"] = o.LeafInterfacesOpenvpnServerMaxConnections.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerNameServer.IsNull() || o.LeafInterfacesOpenvpnServerNameServer.IsUnknown()) {
+		vyosData["name-server"] = o.LeafInterfacesOpenvpnServerNameServer.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerRejectUnconfiguredClients.IsNull() || o.LeafInterfacesOpenvpnServerRejectUnconfiguredClients.IsUnknown()) {
+		vyosData["reject-unconfigured-clients"] = o.LeafInterfacesOpenvpnServerRejectUnconfiguredClients.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerSubnet.IsNull() || o.LeafInterfacesOpenvpnServerSubnet.IsUnknown()) {
+		vyosData["subnet"] = o.LeafInterfacesOpenvpnServerSubnet.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerTopology.IsNull() || o.LeafInterfacesOpenvpnServerTopology.IsUnknown()) {
+		vyosData["topology"] = o.LeafInterfacesOpenvpnServerTopology.ValueString()
+	}
+
+	// Tags
+	if !(o.TagInterfacesOpenvpnServerClient.IsNull() || o.TagInterfacesOpenvpnServerClient.IsUnknown()) {
+		subModel := make(map[string]InterfacesOpenvpnServerClient)
+		diags.Append(o.TagInterfacesOpenvpnServerClient.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["client"] = subData
+	}
+	if !(o.TagInterfacesOpenvpnServerPushRoute.IsNull() || o.TagInterfacesOpenvpnServerPushRoute.IsUnknown()) {
+		subModel := make(map[string]InterfacesOpenvpnServerPushRoute)
+		diags.Append(o.TagInterfacesOpenvpnServerPushRoute.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["push-route"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeInterfacesOpenvpnServerClientIPPool.IsNull() || o.NodeInterfacesOpenvpnServerClientIPPool.IsUnknown()) {
+		var subModel InterfacesOpenvpnServerClientIPPool
+		diags.Append(o.NodeInterfacesOpenvpnServerClientIPPool.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["client-ip-pool"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesOpenvpnServerClientIPvsixPool.IsNull() || o.NodeInterfacesOpenvpnServerClientIPvsixPool.IsUnknown()) {
+		var subModel InterfacesOpenvpnServerClientIPvsixPool
+		diags.Append(o.NodeInterfacesOpenvpnServerClientIPvsixPool.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["client-ipv6-pool"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesOpenvpnServerMfa.IsNull() || o.NodeInterfacesOpenvpnServerMfa.IsUnknown()) {
+		var subModel InterfacesOpenvpnServerMfa
+		diags.Append(o.NodeInterfacesOpenvpnServerMfa.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mfa"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["domain-name"]; ok {
+		o.LeafInterfacesOpenvpnServerDomainName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerDomainName = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-connections"]; ok {
+		o.LeafInterfacesOpenvpnServerMaxConnections = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMaxConnections = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["name-server"]; ok {
+		o.LeafInterfacesOpenvpnServerNameServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerNameServer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["reject-unconfigured-clients"]; ok {
+		o.LeafInterfacesOpenvpnServerRejectUnconfiguredClients = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerRejectUnconfiguredClients = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["subnet"]; ok {
+		o.LeafInterfacesOpenvpnServerSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerSubnet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["topology"]; ok {
+		o.LeafInterfacesOpenvpnServerTopology = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerTopology = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["client"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesOpenvpnServerClient{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesOpenvpnServerClient = data
+	} else {
+		o.TagInterfacesOpenvpnServerClient = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["push-route"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: InterfacesOpenvpnServerPushRoute{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagInterfacesOpenvpnServerPushRoute = data
+	} else {
+		o.TagInterfacesOpenvpnServerPushRoute = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["client-ip-pool"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnServerClientIPPool{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesOpenvpnServerClientIPPool = data
+
+	} else {
+		o.NodeInterfacesOpenvpnServerClientIPPool = basetypes.NewObjectNull(InterfacesOpenvpnServerClientIPPool{}.AttributeTypes())
+	}
+	if value, ok := vyosData["client-ipv6-pool"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnServerClientIPvsixPool{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesOpenvpnServerClientIPvsixPool = data
+
+	} else {
+		o.NodeInterfacesOpenvpnServerClientIPvsixPool = basetypes.NewObjectNull(InterfacesOpenvpnServerClientIPvsixPool{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mfa"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesOpenvpnServerMfa{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesOpenvpnServerMfa = data
+
+	} else {
+		o.NodeInterfacesOpenvpnServerMfa = basetypes.NewObjectNull(InterfacesOpenvpnServerMfa{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"domain_name":                 types.StringType,
+		"max_connections":             types.StringType,
+		"name_server":                 types.StringType,
+		"reject_unconfigured_clients": types.StringType,
+		"subnet":                      types.StringType,
+		"topology":                    types.StringType,
+
+		// Tags
+		"client":     types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesOpenvpnServerClient{}.AttributeTypes()}},
+		"push_route": types.MapType{ElemType: types.ObjectType{AttrTypes: InterfacesOpenvpnServerPushRoute{}.AttributeTypes()}},
+
+		// Nodes
+		"client_ip_pool":   types.ObjectType{AttrTypes: InterfacesOpenvpnServerClientIPPool{}.AttributeTypes()},
+		"client_ipv6_pool": types.ObjectType{AttrTypes: InterfacesOpenvpnServerClientIPvsixPool{}.AttributeTypes()},
+		"mfa":              types.ObjectType{AttrTypes: InterfacesOpenvpnServerMfa{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"domain_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `DNS suffix to be pushed to all clients
 
 |  Format  |  Description  |
@@ -46,8 +221,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"max_connections": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of maximum client connections
 
 |  Format  |  Description  |
@@ -58,8 +232,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"name_server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Domain Name Servers (DNS) addresses
 
 |  Format  |  Description  |
@@ -71,16 +244,14 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"reject_unconfigured_clients": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Reject connections from clients that are not explicitly configured
 
 `,
 		},
 
 		"subnet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Server-mode subnet (from which client IPs are allocated)
 
 |  Format  |  Description  |
@@ -92,8 +263,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"topology": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Topology for clients
 
 |  Format  |  Description  |
@@ -112,7 +282,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 
 		"client": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesOpenvpnServerClient{}.ResourceAttributes(),
+				Attributes: InterfacesOpenvpnServerClient{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Client-specific settings
@@ -126,7 +296,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 
 		"push_route": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: InterfacesOpenvpnServerPushRoute{}.ResourceAttributes(),
+				Attributes: InterfacesOpenvpnServerPushRoute{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Route to be pushed to all clients
@@ -142,7 +312,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		// Nodes
 
 		"client_ip_pool": schema.SingleNestedAttribute{
-			Attributes: InterfacesOpenvpnServerClientIPPool{}.ResourceAttributes(),
+			Attributes: InterfacesOpenvpnServerClientIPPool{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Pool of client IPv4 addresses
 
@@ -150,7 +320,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"client_ipv6_pool": schema.SingleNestedAttribute{
-			Attributes: InterfacesOpenvpnServerClientIPvsixPool{}.ResourceAttributes(),
+			Attributes: InterfacesOpenvpnServerClientIPvsixPool{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Pool of client IPv6 addresses
 
@@ -158,7 +328,7 @@ func (o InterfacesOpenvpnServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"mfa": schema.SingleNestedAttribute{
-			Attributes: InterfacesOpenvpnServerMfa{}.ResourceAttributes(),
+			Attributes: InterfacesOpenvpnServerMfa{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `multi-factor authentication
 

@@ -23,6 +23,6 @@ Network Time Protocol (NTP) server
 |  hostname  |  Fully qualified domain name of NTP server  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

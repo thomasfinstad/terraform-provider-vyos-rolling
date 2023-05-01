@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsOspfAreaVirtualLinkAuthenticationMdfive describes the resource data model.
@@ -11,13 +17,72 @@ type ProtocolsOspfAreaVirtualLinkAuthenticationMdfive struct {
 	// LeafNodes
 
 	// TagNodes
-	ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID types.Map `tfsdk:"key_id" json:"key-id,omitempty"`
+	TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID types.Map `tfsdk:"key_id"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.IsNull() || o.TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.IsUnknown()) {
+		subModel := make(map[string]ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID)
+		diags.Append(o.TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["key-id"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["key-id"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID = data
+	} else {
+		o.TagProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"key_id": types.MapType{ElemType: types.ObjectType{AttrTypes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -25,7 +90,7 @@ func (o ProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceAttributes() m
 
 		"key_id": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.ResourceAttributes(),
+				Attributes: ProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `MD5 key id

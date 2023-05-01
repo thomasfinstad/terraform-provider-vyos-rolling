@@ -2,83 +2,185 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesEthernetOffload describes the resource data model.
 type InterfacesEthernetOffload struct {
 	// LeafNodes
-	InterfacesEthernetOffloadGro customtypes.CustomStringValue `tfsdk:"gro" json:"gro,omitempty"`
-	InterfacesEthernetOffloadGso customtypes.CustomStringValue `tfsdk:"gso" json:"gso,omitempty"`
-	InterfacesEthernetOffloadLro customtypes.CustomStringValue `tfsdk:"lro" json:"lro,omitempty"`
-	InterfacesEthernetOffloadRps customtypes.CustomStringValue `tfsdk:"rps" json:"rps,omitempty"`
-	InterfacesEthernetOffloadRfs customtypes.CustomStringValue `tfsdk:"rfs" json:"rfs,omitempty"`
-	InterfacesEthernetOffloadSg  customtypes.CustomStringValue `tfsdk:"sg" json:"sg,omitempty"`
-	InterfacesEthernetOffloadTso customtypes.CustomStringValue `tfsdk:"tso" json:"tso,omitempty"`
+	LeafInterfacesEthernetOffloadGro types.String `tfsdk:"gro"`
+	LeafInterfacesEthernetOffloadGso types.String `tfsdk:"gso"`
+	LeafInterfacesEthernetOffloadLro types.String `tfsdk:"lro"`
+	LeafInterfacesEthernetOffloadRps types.String `tfsdk:"rps"`
+	LeafInterfacesEthernetOffloadRfs types.String `tfsdk:"rfs"`
+	LeafInterfacesEthernetOffloadSg  types.String `tfsdk:"sg"`
+	LeafInterfacesEthernetOffloadTso types.String `tfsdk:"tso"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesEthernetOffload) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesEthernetOffload) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesEthernetOffloadGro.IsNull() || o.LeafInterfacesEthernetOffloadGro.IsUnknown()) {
+		vyosData["gro"] = o.LeafInterfacesEthernetOffloadGro.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadGso.IsNull() || o.LeafInterfacesEthernetOffloadGso.IsUnknown()) {
+		vyosData["gso"] = o.LeafInterfacesEthernetOffloadGso.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadLro.IsNull() || o.LeafInterfacesEthernetOffloadLro.IsUnknown()) {
+		vyosData["lro"] = o.LeafInterfacesEthernetOffloadLro.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadRps.IsNull() || o.LeafInterfacesEthernetOffloadRps.IsUnknown()) {
+		vyosData["rps"] = o.LeafInterfacesEthernetOffloadRps.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadRfs.IsNull() || o.LeafInterfacesEthernetOffloadRfs.IsUnknown()) {
+		vyosData["rfs"] = o.LeafInterfacesEthernetOffloadRfs.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadSg.IsNull() || o.LeafInterfacesEthernetOffloadSg.IsUnknown()) {
+		vyosData["sg"] = o.LeafInterfacesEthernetOffloadSg.ValueString()
+	}
+	if !(o.LeafInterfacesEthernetOffloadTso.IsNull() || o.LeafInterfacesEthernetOffloadTso.IsUnknown()) {
+		vyosData["tso"] = o.LeafInterfacesEthernetOffloadTso.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesEthernetOffload) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
+
+	// Leafs
+	if value, ok := vyosData["gro"]; ok {
+		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadGro = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["gso"]; ok {
+		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadGso = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lro"]; ok {
+		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadLro = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rps"]; ok {
+		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadRps = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rfs"]; ok {
+		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadRfs = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["sg"]; ok {
+		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadSg = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tso"]; ok {
+		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesEthernetOffloadTso = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "ethernet", "offload"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesEthernetOffload) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"gro": types.StringType,
+		"gso": types.StringType,
+		"lro": types.StringType,
+		"rps": types.StringType,
+		"rfs": types.StringType,
+		"sg":  types.StringType,
+		"tso": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesEthernetOffload) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"gro": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Generic Receive Offload
 
 `,
 		},
 
 		"gso": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Generic Segmentation Offload
 
 `,
 		},
 
 		"lro": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Large Receive Offload
 
 `,
 		},
 
 		"rps": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Receive Packet Steering
 
 `,
 		},
 
 		"rfs": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Receive Flow Steering
 
 `,
 		},
 
 		"sg": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable Scatter-Gather
 
 `,
 		},
 
 		"tso": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable TCP Segmentation Offloading
 
 `,

@@ -19,6 +19,6 @@ VPN IP security (IPsec) parameters
 Internet Key Exchange (IKE) group name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

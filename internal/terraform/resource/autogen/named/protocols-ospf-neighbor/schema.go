@@ -21,6 +21,6 @@ Specify neighbor router
 |  ipv4  |  Neighbor IP address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,32 +2,112 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsNaptr describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsNaptr struct {
 	// LeafNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL     customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL     types.String `tfsdk:"ttl"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule types.Map `tfsdk:"rule" json:"rule,omitempty"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule types.Map `tfsdk:"rule"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable.ValueString()
+	}
+
+	// Tags
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["rule"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr"}})
+
+	// Leafs
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrTTL = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsNaptrDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["rule"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "naptr"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ttl":     types.StringType,
+		"disable": types.StringType,
+
+		// Tags
+		"rule": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
 |  Format  |  Description  |
@@ -41,8 +121,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceAttributes(
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
@@ -52,7 +131,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsNaptr) ResourceAttributes(
 
 		"rule": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptrRule{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `NAPTR rule

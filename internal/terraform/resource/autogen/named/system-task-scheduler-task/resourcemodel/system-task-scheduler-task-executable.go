@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemTaskSchedulerTaskExecutable describes the resource data model.
 type SystemTaskSchedulerTaskExecutable struct {
 	// LeafNodes
-	SystemTaskSchedulerTaskExecutablePath      customtypes.CustomStringValue `tfsdk:"path" json:"path,omitempty"`
-	SystemTaskSchedulerTaskExecutableArguments customtypes.CustomStringValue `tfsdk:"arguments" json:"arguments,omitempty"`
+	LeafSystemTaskSchedulerTaskExecutablePath      types.String `tfsdk:"path"`
+	LeafSystemTaskSchedulerTaskExecutableArguments types.String `tfsdk:"arguments"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemTaskSchedulerTaskExecutable) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemTaskSchedulerTaskExecutable) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemTaskSchedulerTaskExecutablePath.IsNull() || o.LeafSystemTaskSchedulerTaskExecutablePath.IsUnknown()) {
+		vyosData["path"] = o.LeafSystemTaskSchedulerTaskExecutablePath.ValueString()
+	}
+	if !(o.LeafSystemTaskSchedulerTaskExecutableArguments.IsNull() || o.LeafSystemTaskSchedulerTaskExecutableArguments.IsUnknown()) {
+		vyosData["arguments"] = o.LeafSystemTaskSchedulerTaskExecutableArguments.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemTaskSchedulerTaskExecutable) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
+
+	// Leafs
+	if value, ok := vyosData["path"]; ok {
+		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskExecutablePath = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["arguments"]; ok {
+		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemTaskSchedulerTaskExecutableArguments = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "task-scheduler", "task", "executable"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemTaskSchedulerTaskExecutable) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"path":      types.StringType,
+		"arguments": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemTaskSchedulerTaskExecutable) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"path": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Path to executable
 
 `,
 		},
 
 		"arguments": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Arguments passed to the executable
 
 `,

@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleFragment describes the resource data model.
 type FirewallIPvsixNameRuleFragment struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleFragmentMatchFrag    customtypes.CustomStringValue `tfsdk:"match_frag" json:"match-frag,omitempty"`
-	FirewallIPvsixNameRuleFragmentMatchNonFrag customtypes.CustomStringValue `tfsdk:"match_non_frag" json:"match-non-frag,omitempty"`
+	LeafFirewallIPvsixNameRuleFragmentMatchFrag    types.String `tfsdk:"match_frag"`
+	LeafFirewallIPvsixNameRuleFragmentMatchNonFrag types.String `tfsdk:"match_non_frag"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleFragment) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleFragment) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "fragment"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleFragmentMatchFrag.IsNull() || o.LeafFirewallIPvsixNameRuleFragmentMatchFrag.IsUnknown()) {
+		vyosData["match-frag"] = o.LeafFirewallIPvsixNameRuleFragmentMatchFrag.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleFragmentMatchNonFrag.IsNull() || o.LeafFirewallIPvsixNameRuleFragmentMatchNonFrag.IsUnknown()) {
+		vyosData["match-non-frag"] = o.LeafFirewallIPvsixNameRuleFragmentMatchNonFrag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleFragment) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "fragment"}})
+
+	// Leafs
+	if value, ok := vyosData["match-frag"]; ok {
+		o.LeafFirewallIPvsixNameRuleFragmentMatchFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleFragmentMatchFrag = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["match-non-frag"]; ok {
+		o.LeafFirewallIPvsixNameRuleFragmentMatchNonFrag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleFragmentMatchNonFrag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "fragment"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleFragment) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"match_frag":     types.StringType,
+		"match_non_frag": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleFragment) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"match_frag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Second and further fragments of fragmented packets
 
 `,
 		},
 
 		"match_non_frag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Head fragments or unfragmented packets
 
 `,

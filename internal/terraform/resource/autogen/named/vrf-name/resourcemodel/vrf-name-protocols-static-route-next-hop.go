@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsStaticRouteNextHop describes the resource data model.
 type VrfNameProtocolsStaticRouteNextHop struct {
 	// LeafNodes
-	VrfNameProtocolsStaticRouteNextHopDisable   customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	VrfNameProtocolsStaticRouteNextHopDistance  customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	VrfNameProtocolsStaticRouteNextHopInterface customtypes.CustomStringValue `tfsdk:"interface" json:"interface,omitempty"`
-	VrfNameProtocolsStaticRouteNextHopVrf       customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafVrfNameProtocolsStaticRouteNextHopDisable   types.String `tfsdk:"disable"`
+	LeafVrfNameProtocolsStaticRouteNextHopDistance  types.String `tfsdk:"distance"`
+	LeafVrfNameProtocolsStaticRouteNextHopInterface types.String `tfsdk:"interface"`
+	LeafVrfNameProtocolsStaticRouteNextHopVrf       types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsStaticRouteNextHop) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsStaticRouteNextHop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route", "next-hop"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsStaticRouteNextHopDisable.IsNull() || o.LeafVrfNameProtocolsStaticRouteNextHopDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafVrfNameProtocolsStaticRouteNextHopDisable.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsStaticRouteNextHopDistance.IsNull() || o.LeafVrfNameProtocolsStaticRouteNextHopDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafVrfNameProtocolsStaticRouteNextHopDistance.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsStaticRouteNextHopInterface.IsNull() || o.LeafVrfNameProtocolsStaticRouteNextHopInterface.IsUnknown()) {
+		vyosData["interface"] = o.LeafVrfNameProtocolsStaticRouteNextHopInterface.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsStaticRouteNextHopVrf.IsNull() || o.LeafVrfNameProtocolsStaticRouteNextHopVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafVrfNameProtocolsStaticRouteNextHopVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsStaticRouteNextHop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route", "next-hop"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteNextHopDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteNextHopDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteNextHopDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteNextHopDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interface"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteNextHopInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteNextHopInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafVrfNameProtocolsStaticRouteNextHopVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRouteNextHopVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route", "next-hop"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsStaticRouteNextHop) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":   types.StringType,
+		"distance":  types.StringType,
+		"interface": types.StringType,
+		"vrf":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsStaticRouteNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceAttributes() map[string]sche
 		},
 
 		"interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Gateway interface name
 
 |  Format  |  Description  |
@@ -58,8 +137,7 @@ func (o VrfNameProtocolsStaticRouteNextHop) ResourceAttributes() map[string]sche
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF to leak route
 
 |  Format  |  Description  |

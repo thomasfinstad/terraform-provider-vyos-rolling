@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassMatchEther describes the resource data model.
 type QosPolicyShaperHfscClassMatchEther struct {
 	// LeafNodes
-	QosPolicyShaperHfscClassMatchEtherDestination customtypes.CustomStringValue `tfsdk:"destination" json:"destination,omitempty"`
-	QosPolicyShaperHfscClassMatchEtherProtocol    customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	QosPolicyShaperHfscClassMatchEtherSource      customtypes.CustomStringValue `tfsdk:"source" json:"source,omitempty"`
+	LeafQosPolicyShaperHfscClassMatchEtherDestination types.String `tfsdk:"destination"`
+	LeafQosPolicyShaperHfscClassMatchEtherProtocol    types.String `tfsdk:"protocol"`
+	LeafQosPolicyShaperHfscClassMatchEtherSource      types.String `tfsdk:"source"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscClassMatchEther) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscClassMatchEther) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherDestination.IsUnknown()) {
+		vyosData["destination"] = o.LeafQosPolicyShaperHfscClassMatchEtherDestination.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafQosPolicyShaperHfscClassMatchEtherProtocol.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsNull() || o.LeafQosPolicyShaperHfscClassMatchEtherSource.IsUnknown()) {
+		vyosData["source"] = o.LeafQosPolicyShaperHfscClassMatchEtherSource.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscClassMatchEther) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
+
+	// Leafs
+	if value, ok := vyosData["destination"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherDestination = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source"]; ok {
+		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassMatchEtherSource = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "match", "ether"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscClassMatchEther) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"destination": types.StringType,
+		"protocol":    types.StringType,
+		"source":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscClassMatchEther) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"destination": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet destination address for this match
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyShaperHfscClassMatchEther) ResourceAttributes() map[string]sche
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet protocol for this match
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyShaperHfscClassMatchEther) ResourceAttributes() map[string]sche
 		},
 
 		"source": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ethernet source address for this match
 
 |  Format  |  Description  |

@@ -2,38 +2,125 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourMulticastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourMulticastNetwork struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor customtypes.CustomStringValue `tfsdk:"backdoor" json:"backdoor,omitempty"`
-	ProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor types.String `tfsdk:"backdoor"`
+	LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"address-family",
+		"ipv4-multicast",
+		"network",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-multicast", "network"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.IsUnknown()) {
+		vyosData["backdoor"] = o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-multicast", "network"}})
+
+	// Leafs
+	if value, ok := vyosData["backdoor"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkBackdoor = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourMulticastNetworkRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-multicast", "network"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"backdoor":  types.StringType,
+		"route_map": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourMulticastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Import BGP network/prefix into multicast IPv4 RIB
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Multicast IPv4 BGP network/prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"backdoor": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use BGP network/prefix as a backdoor route
 
 `,
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

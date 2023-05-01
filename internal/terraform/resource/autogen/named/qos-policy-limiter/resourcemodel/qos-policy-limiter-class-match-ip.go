@@ -2,35 +2,147 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyLimiterClassMatchIP describes the resource data model.
 type QosPolicyLimiterClassMatchIP struct {
 	// LeafNodes
-	QosPolicyLimiterClassMatchIPDscp      customtypes.CustomStringValue `tfsdk:"dscp" json:"dscp,omitempty"`
-	QosPolicyLimiterClassMatchIPMaxLength customtypes.CustomStringValue `tfsdk:"max_length" json:"max-length,omitempty"`
-	QosPolicyLimiterClassMatchIPProtocol  customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
+	LeafQosPolicyLimiterClassMatchIPDscp      types.String `tfsdk:"dscp"`
+	LeafQosPolicyLimiterClassMatchIPMaxLength types.String `tfsdk:"max_length"`
+	LeafQosPolicyLimiterClassMatchIPProtocol  types.String `tfsdk:"protocol"`
 
 	// TagNodes
 
 	// Nodes
-	QosPolicyLimiterClassMatchIPDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	QosPolicyLimiterClassMatchIPSource      types.Object `tfsdk:"source" json:"source,omitempty"`
-	QosPolicyLimiterClassMatchIPTCP         types.Object `tfsdk:"tcp" json:"tcp,omitempty"`
+	NodeQosPolicyLimiterClassMatchIPDestination types.Object `tfsdk:"destination"`
+	NodeQosPolicyLimiterClassMatchIPSource      types.Object `tfsdk:"source"`
+	NodeQosPolicyLimiterClassMatchIPTCP         types.Object `tfsdk:"tcp"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyLimiterClassMatchIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyLimiterClassMatchIPDscp.IsNull() || o.LeafQosPolicyLimiterClassMatchIPDscp.IsUnknown()) {
+		vyosData["dscp"] = o.LeafQosPolicyLimiterClassMatchIPDscp.ValueString()
+	}
+	if !(o.LeafQosPolicyLimiterClassMatchIPMaxLength.IsNull() || o.LeafQosPolicyLimiterClassMatchIPMaxLength.IsUnknown()) {
+		vyosData["max-length"] = o.LeafQosPolicyLimiterClassMatchIPMaxLength.ValueString()
+	}
+	if !(o.LeafQosPolicyLimiterClassMatchIPProtocol.IsNull() || o.LeafQosPolicyLimiterClassMatchIPProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafQosPolicyLimiterClassMatchIPProtocol.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeQosPolicyLimiterClassMatchIPDestination.IsNull() || o.NodeQosPolicyLimiterClassMatchIPDestination.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchIPDestination
+		diags.Append(o.NodeQosPolicyLimiterClassMatchIPDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyLimiterClassMatchIPSource.IsNull() || o.NodeQosPolicyLimiterClassMatchIPSource.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchIPSource
+		diags.Append(o.NodeQosPolicyLimiterClassMatchIPSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeQosPolicyLimiterClassMatchIPTCP.IsNull() || o.NodeQosPolicyLimiterClassMatchIPTCP.IsUnknown()) {
+		var subModel QosPolicyLimiterClassMatchIPTCP
+		diags.Append(o.NodeQosPolicyLimiterClassMatchIPTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["tcp"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyLimiterClassMatchIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ip"}})
+
+	// Leafs
+	if value, ok := vyosData["dscp"]; ok {
+		o.LeafQosPolicyLimiterClassMatchIPDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchIPDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-length"]; ok {
+		o.LeafQosPolicyLimiterClassMatchIPMaxLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchIPMaxLength = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafQosPolicyLimiterClassMatchIPProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyLimiterClassMatchIPProtocol = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIPDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchIPDestination = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchIPDestination = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIPDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIPSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchIPSource = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchIPSource = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIPSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["tcp"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, QosPolicyLimiterClassMatchIPTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeQosPolicyLimiterClassMatchIPTCP = data
+
+	} else {
+		o.NodeQosPolicyLimiterClassMatchIPTCP = basetypes.NewObjectNull(QosPolicyLimiterClassMatchIPTCP{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "limiter", "class", "match", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyLimiterClassMatchIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"dscp":       types.StringType,
+		"max_length": types.StringType,
+		"protocol":   types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIPDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIPSource{}.AttributeTypes()},
+		"tcp":         types.ObjectType{AttrTypes: QosPolicyLimiterClassMatchIPTCP{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyLimiterClassMatchIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on Differentiated Services Codepoint (DSCP)
 
 |  Format  |  Description  |
@@ -72,8 +184,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"max_length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum packet length
 
 |  Format  |  Description  |
@@ -84,8 +195,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol
 
 |  Format  |  Description  |
@@ -100,7 +210,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Att
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPDestination{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match on destination port or address
 
@@ -108,7 +218,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPSource{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match on source port or address
 
@@ -116,7 +226,7 @@ func (o QosPolicyLimiterClassMatchIP) ResourceAttributes() map[string]schema.Att
 		},
 
 		"tcp": schema.SingleNestedAttribute{
-			Attributes: QosPolicyLimiterClassMatchIPTCP{}.ResourceAttributes(),
+			Attributes: QosPolicyLimiterClassMatchIPTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `TCP Flags matching
 

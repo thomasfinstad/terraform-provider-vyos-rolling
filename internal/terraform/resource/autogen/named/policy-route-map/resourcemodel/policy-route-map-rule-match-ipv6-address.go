@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatchIPvsixAddress describes the resource data model.
 type PolicyRouteMapRuleMatchIPvsixAddress struct {
 	// LeafNodes
-	PolicyRouteMapRuleMatchIPvsixAddressAccessList customtypes.CustomStringValue `tfsdk:"access_list" json:"access-list,omitempty"`
-	PolicyRouteMapRuleMatchIPvsixAddressPrefixList customtypes.CustomStringValue `tfsdk:"prefix_list" json:"prefix-list,omitempty"`
-	PolicyRouteMapRuleMatchIPvsixAddressPrefixLen  customtypes.CustomStringValue `tfsdk:"prefix_len" json:"prefix-len,omitempty"`
+	LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList types.String `tfsdk:"access_list"`
+	LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList types.String `tfsdk:"prefix_list"`
+	LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen  types.String `tfsdk:"prefix_len"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleMatchIPvsixAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList.IsUnknown()) {
+		vyosData["access-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList.IsUnknown()) {
+		vyosData["prefix-list"] = o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen.IsNull() || o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen.IsUnknown()) {
+		vyosData["prefix-len"] = o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleMatchIPvsixAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "address"}})
+
+	// Leafs
+	if value, ok := vyosData["access-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressAccessList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix-list"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixList = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefix-len"]; ok {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleMatchIPvsixAddressPrefixLen = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ipv6", "address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleMatchIPvsixAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"access_list": types.StringType,
+		"prefix_list": types.StringType,
+		"prefix_len":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"access_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 access-list to match
 
 |  Format  |  Description  |
@@ -37,16 +109,14 @@ func (o PolicyRouteMapRuleMatchIPvsixAddress) ResourceAttributes() map[string]sc
 		},
 
 		"prefix_list": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 prefix-list to match
 
 `,
 		},
 
 		"prefix_len": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IPv6 prefix-length to match (can be used for kernel routes only)
 
 |  Format  |  Description  |

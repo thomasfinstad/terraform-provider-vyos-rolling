@@ -2,34 +2,150 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsStaticRoutesix describes the resource data model.
 type VrfNameProtocolsStaticRoutesix struct {
 	// LeafNodes
-	VrfNameProtocolsStaticRoutesixDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
+	LeafVrfNameProtocolsStaticRoutesixDescrIPtion types.String `tfsdk:"description"`
 
 	// TagNodes
-	VrfNameProtocolsStaticRoutesixInterface types.Map `tfsdk:"interface" json:"interface,omitempty"`
-	VrfNameProtocolsStaticRoutesixNextHop   types.Map `tfsdk:"next_hop" json:"next-hop,omitempty"`
+	TagVrfNameProtocolsStaticRoutesixInterface types.Map `tfsdk:"interface"`
+	TagVrfNameProtocolsStaticRoutesixNextHop   types.Map `tfsdk:"next_hop"`
 
 	// Nodes
-	VrfNameProtocolsStaticRoutesixBlackhole types.Object `tfsdk:"blackhole" json:"blackhole,omitempty"`
-	VrfNameProtocolsStaticRoutesixReject    types.Object `tfsdk:"reject" json:"reject,omitempty"`
+	NodeVrfNameProtocolsStaticRoutesixBlackhole types.Object `tfsdk:"blackhole"`
+	NodeVrfNameProtocolsStaticRoutesixReject    types.Object `tfsdk:"reject"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsStaticRoutesix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsStaticRoutesix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route6"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsStaticRoutesixDescrIPtion.IsNull() || o.LeafVrfNameProtocolsStaticRoutesixDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafVrfNameProtocolsStaticRoutesixDescrIPtion.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsStaticRoutesixInterface.IsNull() || o.TagVrfNameProtocolsStaticRoutesixInterface.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRoutesixInterface)
+		diags.Append(o.TagVrfNameProtocolsStaticRoutesixInterface.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["interface"] = subData
+	}
+	if !(o.TagVrfNameProtocolsStaticRoutesixNextHop.IsNull() || o.TagVrfNameProtocolsStaticRoutesixNextHop.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsStaticRoutesixNextHop)
+		diags.Append(o.TagVrfNameProtocolsStaticRoutesixNextHop.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["next-hop"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsStaticRoutesixBlackhole.IsNull() || o.NodeVrfNameProtocolsStaticRoutesixBlackhole.IsUnknown()) {
+		var subModel VrfNameProtocolsStaticRoutesixBlackhole
+		diags.Append(o.NodeVrfNameProtocolsStaticRoutesixBlackhole.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["blackhole"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsStaticRoutesixReject.IsNull() || o.NodeVrfNameProtocolsStaticRoutesixReject.IsUnknown()) {
+		var subModel VrfNameProtocolsStaticRoutesixReject
+		diags.Append(o.NodeVrfNameProtocolsStaticRoutesixReject.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["reject"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsStaticRoutesix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route6"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafVrfNameProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsStaticRoutesixDescrIPtion = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["interface"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixInterface{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRoutesixInterface = data
+	} else {
+		o.TagVrfNameProtocolsStaticRoutesixInterface = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["next-hop"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixNextHop{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsStaticRoutesixNextHop = data
+	} else {
+		o.TagVrfNameProtocolsStaticRoutesixNextHop = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["blackhole"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsStaticRoutesixBlackhole{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsStaticRoutesixBlackhole = data
+
+	} else {
+		o.NodeVrfNameProtocolsStaticRoutesixBlackhole = basetypes.NewObjectNull(VrfNameProtocolsStaticRoutesixBlackhole{}.AttributeTypes())
+	}
+	if value, ok := vyosData["reject"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsStaticRoutesixReject{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsStaticRoutesixReject = data
+
+	} else {
+		o.NodeVrfNameProtocolsStaticRoutesixReject = basetypes.NewObjectNull(VrfNameProtocolsStaticRoutesixReject{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "static", "route6"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsStaticRoutesix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+
+		// Tags
+		"interface": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixInterface{}.AttributeTypes()}},
+		"next_hop":  types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixNextHop{}.AttributeTypes()}},
+
+		// Nodes
+		"blackhole": types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixBlackhole{}.AttributeTypes()},
+		"reject":    types.ObjectType{AttrTypes: VrfNameProtocolsStaticRoutesixReject{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsStaticRoutesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -43,7 +159,7 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceAttributes() map[string]schema.A
 
 		"interface": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRoutesixInterface{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRoutesixInterface{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IPv6 gateway interface name
@@ -57,7 +173,7 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceAttributes() map[string]schema.A
 
 		"next_hop": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsStaticRoutesixNextHop{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsStaticRoutesixNextHop{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IPv6 gateway address
@@ -72,7 +188,7 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceAttributes() map[string]schema.A
 		// Nodes
 
 		"blackhole": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRoutesixBlackhole{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsStaticRoutesixBlackhole{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Silently discard pkts when matched
 
@@ -80,7 +196,7 @@ func (o VrfNameProtocolsStaticRoutesix) ResourceAttributes() map[string]schema.A
 		},
 
 		"reject": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsStaticRoutesixReject{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsStaticRoutesixReject{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Emit an ICMP unreachable when matched
 

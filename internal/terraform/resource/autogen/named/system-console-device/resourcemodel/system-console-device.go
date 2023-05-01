@@ -2,29 +2,108 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemConsoleDevice describes the resource data model.
 type SystemConsoleDevice struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemConsoleDeviceSpeed customtypes.CustomStringValue `tfsdk:"speed" json:"speed,omitempty"`
+	LeafSystemConsoleDeviceSpeed types.String `tfsdk:"speed"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemConsoleDevice) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemConsoleDevice) GetVyosPath() []string {
+	return []string{
+		"system",
+		"console",
+		"device",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemConsoleDevice) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "console", "device"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemConsoleDeviceSpeed.IsNull() || o.LeafSystemConsoleDeviceSpeed.IsUnknown()) {
+		vyosData["speed"] = o.LeafSystemConsoleDeviceSpeed.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemConsoleDevice) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "console", "device"}})
+
+	// Leafs
+	if value, ok := vyosData["speed"]; ok {
+		o.LeafSystemConsoleDeviceSpeed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemConsoleDeviceSpeed = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "console", "device"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemConsoleDevice) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"speed": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemConsoleDevice) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Serial console device name
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ttySN  |  TTY device name, regular serial port  |
+|  usbNbXpY  |  TTY device name, USB based  |
+|  hvcN  |  Xen console  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"speed": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Console baud rate
 
 |  Format  |  Description  |

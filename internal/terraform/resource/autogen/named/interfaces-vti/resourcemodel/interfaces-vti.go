@@ -2,38 +2,199 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVti describes the resource data model.
 type InterfacesVti struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesVtiAddress     customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesVtiDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesVtiDisable     customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesVtiMtu         customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesVtiRedirect    customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
-	InterfacesVtiVrf         customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesVtiAddress     types.String `tfsdk:"address"`
+	LeafInterfacesVtiDescrIPtion types.String `tfsdk:"description"`
+	LeafInterfacesVtiDisable     types.String `tfsdk:"disable"`
+	LeafInterfacesVtiMtu         types.String `tfsdk:"mtu"`
+	LeafInterfacesVtiRedirect    types.String `tfsdk:"redirect"`
+	LeafInterfacesVtiVrf         types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesVtiIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesVtiIPvsix types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesVtiMirror types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesVtiIP     types.Object `tfsdk:"ip"`
+	NodeInterfacesVtiIPvsix types.Object `tfsdk:"ipv6"`
+	NodeInterfacesVtiMirror types.Object `tfsdk:"mirror"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesVti) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"vti",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVti) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVtiAddress.IsNull() || o.LeafInterfacesVtiAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesVtiAddress.ValueString()
+	}
+	if !(o.LeafInterfacesVtiDescrIPtion.IsNull() || o.LeafInterfacesVtiDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesVtiDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesVtiDisable.IsNull() || o.LeafInterfacesVtiDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesVtiDisable.ValueString()
+	}
+	if !(o.LeafInterfacesVtiMtu.IsNull() || o.LeafInterfacesVtiMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesVtiMtu.ValueString()
+	}
+	if !(o.LeafInterfacesVtiRedirect.IsNull() || o.LeafInterfacesVtiRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesVtiRedirect.ValueString()
+	}
+	if !(o.LeafInterfacesVtiVrf.IsNull() || o.LeafInterfacesVtiVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesVtiVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesVtiIP.IsNull() || o.NodeInterfacesVtiIP.IsUnknown()) {
+		var subModel InterfacesVtiIP
+		diags.Append(o.NodeInterfacesVtiIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesVtiIPvsix.IsNull() || o.NodeInterfacesVtiIPvsix.IsUnknown()) {
+		var subModel InterfacesVtiIPvsix
+		diags.Append(o.NodeInterfacesVtiIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesVtiMirror.IsNull() || o.NodeInterfacesVtiMirror.IsUnknown()) {
+		var subModel InterfacesVtiMirror
+		diags.Append(o.NodeInterfacesVtiMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVti) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
+
+	// Leafs
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesVtiAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesVtiDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesVtiMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesVtiRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiRedirect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesVtiVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVtiVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVtiIP = data
+
+	} else {
+		o.NodeInterfacesVtiIP = basetypes.NewObjectNull(InterfacesVtiIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVtiIPvsix = data
+
+	} else {
+		o.NodeInterfacesVtiIPvsix = basetypes.NewObjectNull(InterfacesVtiIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVtiMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVtiMirror = data
+
+	} else {
+		o.NodeInterfacesVtiMirror = basetypes.NewObjectNull(InterfacesVtiMirror{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vti"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVti) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address":     types.StringType,
+		"description": types.StringType,
+		"disable":     types.StringType,
+		"mtu":         types.StringType,
+		"redirect":    types.StringType,
+		"vrf":         types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":     types.ObjectType{AttrTypes: InterfacesVtiIP{}.AttributeTypes()},
+		"ipv6":   types.ObjectType{AttrTypes: InterfacesVtiIPvsix{}.AttributeTypes()},
+		"mirror": types.ObjectType{AttrTypes: InterfacesVtiMirror{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVti) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Virtual Tunnel Interface (XFRM)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  vtiN  |  VTI interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -45,8 +206,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -57,16 +217,14 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -80,8 +238,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -92,8 +249,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -108,7 +264,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesVtiIP{}.ResourceAttributes(),
+			Attributes: InterfacesVtiIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -116,7 +272,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesVtiIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesVtiIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -124,7 +280,7 @@ func (o InterfacesVti) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesVtiMirror{}.ResourceAttributes(),
+			Attributes: InterfacesVtiMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 

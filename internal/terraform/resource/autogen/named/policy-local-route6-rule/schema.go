@@ -21,6 +21,6 @@ IPv6 policy local-route rule set number
 |  u32:1-32765  |  Local-route rule number (1-32765)  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

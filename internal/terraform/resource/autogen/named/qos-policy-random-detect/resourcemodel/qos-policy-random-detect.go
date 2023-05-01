@@ -2,32 +2,135 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRandomDetect describes the resource data model.
 type QosPolicyRandomDetect struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyRandomDetectDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyRandomDetectBandwIDth   customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
+	LeafQosPolicyRandomDetectDescrIPtion types.String `tfsdk:"description"`
+	LeafQosPolicyRandomDetectBandwIDth   types.String `tfsdk:"bandwidth"`
 
 	// TagNodes
-	QosPolicyRandomDetectPrecedence types.Map `tfsdk:"precedence" json:"precedence,omitempty"`
+	TagQosPolicyRandomDetectPrecedence types.Map `tfsdk:"precedence"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyRandomDetect) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"random-detect",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRandomDetect) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRandomDetectDescrIPtion.IsNull() || o.LeafQosPolicyRandomDetectDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyRandomDetectDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyRandomDetectBandwIDth.IsNull() || o.LeafQosPolicyRandomDetectBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafQosPolicyRandomDetectBandwIDth.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyRandomDetectPrecedence.IsNull() || o.TagQosPolicyRandomDetectPrecedence.IsUnknown()) {
+		subModel := make(map[string]QosPolicyRandomDetectPrecedence)
+		diags.Append(o.TagQosPolicyRandomDetectPrecedence.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["precedence"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRandomDetect) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRandomDetectBandwIDth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["precedence"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyRandomDetectPrecedence{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyRandomDetectPrecedence = data
+	} else {
+		o.TagQosPolicyRandomDetectPrecedence = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "random-detect"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRandomDetect) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"bandwidth":   types.StringType,
+
+		// Tags
+		"precedence": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyRandomDetectPrecedence{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRandomDetect) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Weighted Random Early Detect policy
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -38,8 +141,7 @@ func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
 |  Format  |  Description  |
@@ -63,7 +165,7 @@ func (o QosPolicyRandomDetect) ResourceAttributes() map[string]schema.Attribute 
 
 		"precedence": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyRandomDetectPrecedence{}.ResourceAttributes(),
+				Attributes: QosPolicyRandomDetectPrecedence{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `IP precedence

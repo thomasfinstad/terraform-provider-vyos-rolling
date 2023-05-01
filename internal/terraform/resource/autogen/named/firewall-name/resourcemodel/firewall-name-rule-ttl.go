@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleTTL describes the resource data model.
 type FirewallNameRuleTTL struct {
 	// LeafNodes
-	FirewallNameRuleTTLEq customtypes.CustomStringValue `tfsdk:"eq" json:"eq,omitempty"`
-	FirewallNameRuleTTLGt customtypes.CustomStringValue `tfsdk:"gt" json:"gt,omitempty"`
-	FirewallNameRuleTTLLt customtypes.CustomStringValue `tfsdk:"lt" json:"lt,omitempty"`
+	LeafFirewallNameRuleTTLEq types.String `tfsdk:"eq"`
+	LeafFirewallNameRuleTTLGt types.String `tfsdk:"gt"`
+	LeafFirewallNameRuleTTLLt types.String `tfsdk:"lt"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleTTL) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleTTL) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "ttl"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleTTLEq.IsNull() || o.LeafFirewallNameRuleTTLEq.IsUnknown()) {
+		vyosData["eq"] = o.LeafFirewallNameRuleTTLEq.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTTLGt.IsNull() || o.LeafFirewallNameRuleTTLGt.IsUnknown()) {
+		vyosData["gt"] = o.LeafFirewallNameRuleTTLGt.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleTTLLt.IsNull() || o.LeafFirewallNameRuleTTLLt.IsUnknown()) {
+		vyosData["lt"] = o.LeafFirewallNameRuleTTLLt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleTTL) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "ttl"}})
+
+	// Leafs
+	if value, ok := vyosData["eq"]; ok {
+		o.LeafFirewallNameRuleTTLEq = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTTLEq = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["gt"]; ok {
+		o.LeafFirewallNameRuleTTLGt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTTLGt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lt"]; ok {
+		o.LeafFirewallNameRuleTTLLt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleTTLLt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "ttl"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleTTL) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"eq": types.StringType,
+		"gt": types.StringType,
+		"lt": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"eq": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on equal value
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o FirewallNameRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"gt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o FirewallNameRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on less then value
 
 |  Format  |  Description  |

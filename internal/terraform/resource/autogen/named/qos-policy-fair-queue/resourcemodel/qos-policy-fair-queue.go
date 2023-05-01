@@ -2,31 +2,126 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyFairQueue describes the resource data model.
 type QosPolicyFairQueue struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	QosPolicyFairQueueDescrIPtion  customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyFairQueueHashInterval customtypes.CustomStringValue `tfsdk:"hash_interval" json:"hash-interval,omitempty"`
-	QosPolicyFairQueueQueueLimit   customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
+	LeafQosPolicyFairQueueDescrIPtion  types.String `tfsdk:"description"`
+	LeafQosPolicyFairQueueHashInterval types.String `tfsdk:"hash_interval"`
+	LeafQosPolicyFairQueueQueueLimit   types.String `tfsdk:"queue_limit"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *QosPolicyFairQueue) GetVyosPath() []string {
+	return []string{
+		"qos",
+		"policy",
+		"fair-queue",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyFairQueue) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyFairQueueDescrIPtion.IsNull() || o.LeafQosPolicyFairQueueDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyFairQueueDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyFairQueueHashInterval.IsNull() || o.LeafQosPolicyFairQueueHashInterval.IsUnknown()) {
+		vyosData["hash-interval"] = o.LeafQosPolicyFairQueueHashInterval.ValueString()
+	}
+	if !(o.LeafQosPolicyFairQueueQueueLimit.IsNull() || o.LeafQosPolicyFairQueueQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyFairQueueQueueLimit.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyFairQueue) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hash-interval"]; ok {
+		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueHashInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyFairQueueQueueLimit = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "fair-queue"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyFairQueue) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":   types.StringType,
+		"hash_interval": types.StringType,
+		"queue_limit":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyFairQueue) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Stochastic Fairness Queueing
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Policy name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -37,8 +132,7 @@ func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"hash_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval in seconds for queue algorithm perturbation
 
 |  Format  |  Description  |
@@ -53,8 +147,7 @@ func (o QosPolicyFairQueue) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Upper limit of the SFQ
 
 |  Format  |  Description  |

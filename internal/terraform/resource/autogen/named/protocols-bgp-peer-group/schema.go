@@ -17,6 +17,6 @@ func (r protocolsBgpPeerGroup) Schema(ctx context.Context, req resource.SchemaRe
 Name of peer-group
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

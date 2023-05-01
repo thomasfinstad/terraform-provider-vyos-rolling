@@ -2,57 +2,211 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesWirelessCapabilitiesHt describes the resource data model.
 type InterfacesWirelessCapabilitiesHt struct {
 	// LeafNodes
-	InterfacesWirelessCapabilitiesHtFourzeromhzIncapable customtypes.CustomStringValue `tfsdk:"40mhz_incapable" json:"40mhz-incapable,omitempty"`
-	InterfacesWirelessCapabilitiesHtAutoPowersave        customtypes.CustomStringValue `tfsdk:"auto_powersave" json:"auto-powersave,omitempty"`
-	InterfacesWirelessCapabilitiesHtChannelSetWIDth      customtypes.CustomStringValue `tfsdk:"channel_set_width" json:"channel-set-width,omitempty"`
-	InterfacesWirelessCapabilitiesHtDelayedBlockAck      customtypes.CustomStringValue `tfsdk:"delayed_block_ack" json:"delayed-block-ack,omitempty"`
-	InterfacesWirelessCapabilitiesHtDsssCckFourzero      customtypes.CustomStringValue `tfsdk:"dsss_cck_40" json:"dsss-cck-40,omitempty"`
-	InterfacesWirelessCapabilitiesHtGreenfield           customtypes.CustomStringValue `tfsdk:"greenfield" json:"greenfield,omitempty"`
-	InterfacesWirelessCapabilitiesHtLdpc                 customtypes.CustomStringValue `tfsdk:"ldpc" json:"ldpc,omitempty"`
-	InterfacesWirelessCapabilitiesHtLsigProtection       customtypes.CustomStringValue `tfsdk:"lsig_protection" json:"lsig-protection,omitempty"`
-	InterfacesWirelessCapabilitiesHtMaxAmsdu             customtypes.CustomStringValue `tfsdk:"max_amsdu" json:"max-amsdu,omitempty"`
-	InterfacesWirelessCapabilitiesHtShortGi              customtypes.CustomStringValue `tfsdk:"short_gi" json:"short-gi,omitempty"`
-	InterfacesWirelessCapabilitiesHtSmps                 customtypes.CustomStringValue `tfsdk:"smps" json:"smps,omitempty"`
+	LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable types.String `tfsdk:"40mhz_incapable"`
+	LeafInterfacesWirelessCapabilitiesHtAutoPowersave        types.String `tfsdk:"auto_powersave"`
+	LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth      types.String `tfsdk:"channel_set_width"`
+	LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck      types.String `tfsdk:"delayed_block_ack"`
+	LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero      types.String `tfsdk:"dsss_cck_40"`
+	LeafInterfacesWirelessCapabilitiesHtGreenfield           types.String `tfsdk:"greenfield"`
+	LeafInterfacesWirelessCapabilitiesHtLdpc                 types.String `tfsdk:"ldpc"`
+	LeafInterfacesWirelessCapabilitiesHtLsigProtection       types.String `tfsdk:"lsig_protection"`
+	LeafInterfacesWirelessCapabilitiesHtMaxAmsdu             types.String `tfsdk:"max_amsdu"`
+	LeafInterfacesWirelessCapabilitiesHtShortGi              types.String `tfsdk:"short_gi"`
+	LeafInterfacesWirelessCapabilitiesHtSmps                 types.String `tfsdk:"smps"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesWirelessCapabilitiesHtStbc types.Object `tfsdk:"stbc" json:"stbc,omitempty"`
+	NodeInterfacesWirelessCapabilitiesHtStbc types.Object `tfsdk:"stbc"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesWirelessCapabilitiesHt) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.IsUnknown()) {
+		vyosData["40mhz-incapable"] = o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.IsUnknown()) {
+		vyosData["auto-powersave"] = o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.IsUnknown()) {
+		vyosData["channel-set-width"] = o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.IsUnknown()) {
+		vyosData["delayed-block-ack"] = o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.IsUnknown()) {
+		vyosData["dsss-cck-40"] = o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtGreenfield.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtGreenfield.IsUnknown()) {
+		vyosData["greenfield"] = o.LeafInterfacesWirelessCapabilitiesHtGreenfield.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtLdpc.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtLdpc.IsUnknown()) {
+		vyosData["ldpc"] = o.LeafInterfacesWirelessCapabilitiesHtLdpc.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.IsUnknown()) {
+		vyosData["lsig-protection"] = o.LeafInterfacesWirelessCapabilitiesHtLsigProtection.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.IsUnknown()) {
+		vyosData["max-amsdu"] = o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtShortGi.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtShortGi.IsUnknown()) {
+		vyosData["short-gi"] = o.LeafInterfacesWirelessCapabilitiesHtShortGi.ValueString()
+	}
+	if !(o.LeafInterfacesWirelessCapabilitiesHtSmps.IsNull() || o.LeafInterfacesWirelessCapabilitiesHtSmps.IsUnknown()) {
+		vyosData["smps"] = o.LeafInterfacesWirelessCapabilitiesHtSmps.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesWirelessCapabilitiesHtStbc.IsNull() || o.NodeInterfacesWirelessCapabilitiesHtStbc.IsUnknown()) {
+		var subModel InterfacesWirelessCapabilitiesHtStbc
+		diags.Append(o.NodeInterfacesWirelessCapabilitiesHtStbc.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["stbc"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesWirelessCapabilitiesHt) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht"}})
+
+	// Leafs
+	if value, ok := vyosData["40mhz-incapable"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtFourzeromhzIncapable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["auto-powersave"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtAutoPowersave = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["channel-set-width"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtChannelSetWIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["delayed-block-ack"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtDelayedBlockAck = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dsss-cck-40"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtDsssCckFourzero = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["greenfield"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtGreenfield = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtGreenfield = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ldpc"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtLdpc = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtLdpc = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lsig-protection"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtLsigProtection = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtLsigProtection = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-amsdu"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtMaxAmsdu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["short-gi"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtShortGi = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtShortGi = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["smps"]; ok {
+		o.LeafInterfacesWirelessCapabilitiesHtSmps = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesWirelessCapabilitiesHtSmps = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["stbc"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesWirelessCapabilitiesHtStbc{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesWirelessCapabilitiesHtStbc = data
+
+	} else {
+		o.NodeInterfacesWirelessCapabilitiesHtStbc = basetypes.NewObjectNull(InterfacesWirelessCapabilitiesHtStbc{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "wireless", "capabilities", "ht"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesWirelessCapabilitiesHt) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"40mhz_incapable":   types.StringType,
+		"auto_powersave":    types.StringType,
+		"channel_set_width": types.StringType,
+		"delayed_block_ack": types.StringType,
+		"dsss_cck_40":       types.StringType,
+		"greenfield":        types.StringType,
+		"ldpc":              types.StringType,
+		"lsig_protection":   types.StringType,
+		"max_amsdu":         types.StringType,
+		"short_gi":          types.StringType,
+		"smps":              types.StringType,
+
+		// Tags
+
+		// Nodes
+		"stbc": types.ObjectType{AttrTypes: InterfacesWirelessCapabilitiesHtStbc{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesWirelessCapabilitiesHt) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"40mhz_incapable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `40MHz intolerance, use 20MHz only!
 
 `,
 		},
 
 		"auto_powersave": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
 
 `,
 		},
 
 		"channel_set_width": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Supported channel set width
 
 |  Format  |  Description  |
@@ -65,48 +219,42 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 		},
 
 		"delayed_block_ack": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable HT-delayed block ack
 
 `,
 		},
 
 		"dsss_cck_40": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable DSSS_CCK-40
 
 `,
 		},
 
 		"greenfield": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable HT-greenfield
 
 `,
 		},
 
 		"ldpc": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable LDPC coding capability
 
 `,
 		},
 
 		"lsig_protection": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable L-SIG TXOP protection capability
 
 `,
 		},
 
 		"max_amsdu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set maximum A-MSDU length
 
 |  Format  |  Description  |
@@ -118,8 +266,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 		},
 
 		"short_gi": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Short GI capabilities
 
 |  Format  |  Description  |
@@ -131,8 +278,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 		},
 
 		"smps": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Spatial Multiplexing Power Save (SMPS) settings
 
 |  Format  |  Description  |
@@ -148,7 +294,7 @@ func (o InterfacesWirelessCapabilitiesHt) ResourceAttributes() map[string]schema
 		// Nodes
 
 		"stbc": schema.SingleNestedAttribute{
-			Attributes: InterfacesWirelessCapabilitiesHtStbc{}.ResourceAttributes(),
+			Attributes: InterfacesWirelessCapabilitiesHtStbc{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Support for sending and receiving PPDU using STBC (Space Time Block Coding)
 

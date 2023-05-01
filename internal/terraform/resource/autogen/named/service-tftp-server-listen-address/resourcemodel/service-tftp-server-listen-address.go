@@ -2,29 +2,107 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceTftpServerListenAddress describes the resource data model.
 type ServiceTftpServerListenAddress struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceTftpServerListenAddressVrf customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafServiceTftpServerListenAddressVrf types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceTftpServerListenAddress) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceTftpServerListenAddress) GetVyosPath() []string {
+	return []string{
+		"service",
+		"tftp-server",
+		"listen-address",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceTftpServerListenAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceTftpServerListenAddressVrf.IsNull() || o.LeafServiceTftpServerListenAddressVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafServiceTftpServerListenAddressVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceTftpServerListenAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
+
+	// Leafs
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceTftpServerListenAddressVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "tftp-server", "listen-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceTftpServerListenAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"vrf": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceTftpServerListenAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Local IP addresses to listen on
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IPv4 address to listen for incoming connections  |
+|  ipv6  |  IPv6 address to listen for incoming connections  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |

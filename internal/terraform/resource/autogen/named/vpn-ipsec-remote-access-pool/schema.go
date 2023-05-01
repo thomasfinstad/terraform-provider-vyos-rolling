@@ -21,6 +21,6 @@ IKEv2 remote access VPN
 IP address pool for remote access users
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,39 +2,110 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet       customtypes.CustomStringValue `tfsdk:"as_set" json:"as-set,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap    customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly customtypes.CustomStringValue `tfsdk:"summary_only" json:"summary-only,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet       types.String `tfsdk:"as_set"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap    types.String `tfsdk:"route_map"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly types.String `tfsdk:"summary_only"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast", "aggregate-address"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet.IsUnknown()) {
+		vyosData["as-set"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly.IsUnknown()) {
+		vyosData["summary-only"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast", "aggregate-address"}})
+
+	// Leafs
+	if value, ok := vyosData["as-set"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressAsSet = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressRouteMap = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["summary-only"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddressSummaryOnly = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv6-labeled-unicast", "aggregate-address"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"as_set":       types.StringType,
+		"route_map":    types.StringType,
+		"summary_only": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"as_set": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Generate AS-set path information for this aggregate address
 
 `,
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |
@@ -45,8 +116,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvsixLabeledUnicastAggregateAddress) Re
 		},
 
 		"summary_only": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Announce the aggregate summary network only
 
 `,

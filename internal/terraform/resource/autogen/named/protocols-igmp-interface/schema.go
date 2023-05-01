@@ -17,6 +17,6 @@ func (r protocolsIgmpInterface) Schema(ctx context.Context, req resource.SchemaR
 IGMP interface
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

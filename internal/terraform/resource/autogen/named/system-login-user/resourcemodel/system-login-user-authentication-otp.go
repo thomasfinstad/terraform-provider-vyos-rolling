@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginUserAuthenticationOtp describes the resource data model.
 type SystemLoginUserAuthenticationOtp struct {
 	// LeafNodes
-	SystemLoginUserAuthenticationOtpRateLimit  customtypes.CustomStringValue `tfsdk:"rate_limit" json:"rate-limit,omitempty"`
-	SystemLoginUserAuthenticationOtpRateTime   customtypes.CustomStringValue `tfsdk:"rate_time" json:"rate-time,omitempty"`
-	SystemLoginUserAuthenticationOtpWindowSize customtypes.CustomStringValue `tfsdk:"window_size" json:"window-size,omitempty"`
-	SystemLoginUserAuthenticationOtpKey        customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
+	LeafSystemLoginUserAuthenticationOtpRateLimit  types.String `tfsdk:"rate_limit"`
+	LeafSystemLoginUserAuthenticationOtpRateTime   types.String `tfsdk:"rate_time"`
+	LeafSystemLoginUserAuthenticationOtpWindowSize types.String `tfsdk:"window_size"`
+	LeafSystemLoginUserAuthenticationOtpKey        types.String `tfsdk:"key"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemLoginUserAuthenticationOtp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication", "otp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemLoginUserAuthenticationOtpRateLimit.IsNull() || o.LeafSystemLoginUserAuthenticationOtpRateLimit.IsUnknown()) {
+		vyosData["rate-limit"] = o.LeafSystemLoginUserAuthenticationOtpRateLimit.ValueString()
+	}
+	if !(o.LeafSystemLoginUserAuthenticationOtpRateTime.IsNull() || o.LeafSystemLoginUserAuthenticationOtpRateTime.IsUnknown()) {
+		vyosData["rate-time"] = o.LeafSystemLoginUserAuthenticationOtpRateTime.ValueString()
+	}
+	if !(o.LeafSystemLoginUserAuthenticationOtpWindowSize.IsNull() || o.LeafSystemLoginUserAuthenticationOtpWindowSize.IsUnknown()) {
+		vyosData["window-size"] = o.LeafSystemLoginUserAuthenticationOtpWindowSize.ValueString()
+	}
+	if !(o.LeafSystemLoginUserAuthenticationOtpKey.IsNull() || o.LeafSystemLoginUserAuthenticationOtpKey.IsUnknown()) {
+		vyosData["key"] = o.LeafSystemLoginUserAuthenticationOtpKey.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemLoginUserAuthenticationOtp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication", "otp"}})
+
+	// Leafs
+	if value, ok := vyosData["rate-limit"]; ok {
+		o.LeafSystemLoginUserAuthenticationOtpRateLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationOtpRateLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rate-time"]; ok {
+		o.LeafSystemLoginUserAuthenticationOtpRateTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationOtpRateTime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["window-size"]; ok {
+		o.LeafSystemLoginUserAuthenticationOtpWindowSize = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationOtpWindowSize = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafSystemLoginUserAuthenticationOtpKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginUserAuthenticationOtpKey = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "user", "authentication", "otp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemLoginUserAuthenticationOtp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"rate_limit":  types.StringType,
+		"rate_time":   types.StringType,
+		"window_size": types.StringType,
+		"key":         types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemLoginUserAuthenticationOtp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"rate_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
 |  Format  |  Description  |
@@ -41,8 +122,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 		},
 
 		"rate_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Limit number of logins (rate-limit) per rate-time
 
 |  Format  |  Description  |
@@ -56,8 +136,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 		},
 
 		"window_size": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Set window of concurrently valid codes
 
 |  Format  |  Description  |
@@ -71,8 +150,7 @@ func (o SystemLoginUserAuthenticationOtp) ResourceAttributes() map[string]schema
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Key/secret the token algorithm (see RFC4226)
 
 |  Format  |  Description  |

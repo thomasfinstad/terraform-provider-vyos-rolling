@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleTTL describes the resource data model.
 type PolicyRouteRuleTTL struct {
 	// LeafNodes
-	PolicyRouteRuleTTLEq customtypes.CustomStringValue `tfsdk:"eq" json:"eq,omitempty"`
-	PolicyRouteRuleTTLGt customtypes.CustomStringValue `tfsdk:"gt" json:"gt,omitempty"`
-	PolicyRouteRuleTTLLt customtypes.CustomStringValue `tfsdk:"lt" json:"lt,omitempty"`
+	LeafPolicyRouteRuleTTLEq types.String `tfsdk:"eq"`
+	LeafPolicyRouteRuleTTLGt types.String `tfsdk:"gt"`
+	LeafPolicyRouteRuleTTLLt types.String `tfsdk:"lt"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleTTL) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ttl"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleTTLEq.IsNull() || o.LeafPolicyRouteRuleTTLEq.IsUnknown()) {
+		vyosData["eq"] = o.LeafPolicyRouteRuleTTLEq.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleTTLGt.IsNull() || o.LeafPolicyRouteRuleTTLGt.IsUnknown()) {
+		vyosData["gt"] = o.LeafPolicyRouteRuleTTLGt.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleTTLLt.IsNull() || o.LeafPolicyRouteRuleTTLLt.IsUnknown()) {
+		vyosData["lt"] = o.LeafPolicyRouteRuleTTLLt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleTTL) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ttl"}})
+
+	// Leafs
+	if value, ok := vyosData["eq"]; ok {
+		o.LeafPolicyRouteRuleTTLEq = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleTTLEq = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["gt"]; ok {
+		o.LeafPolicyRouteRuleTTLGt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleTTLGt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["lt"]; ok {
+		o.LeafPolicyRouteRuleTTLLt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleTTLLt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "ttl"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleTTL) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"eq": types.StringType,
+		"gt": types.StringType,
+		"lt": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleTTL) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"eq": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on equal value
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"gt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on greater then value
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o PolicyRouteRuleTTL) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"lt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Match on less then value
 
 |  Format  |  Description  |

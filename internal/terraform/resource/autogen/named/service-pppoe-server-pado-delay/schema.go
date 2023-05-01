@@ -21,6 +21,6 @@ PADO delays
 |  u32:1-999999  |  Number in ms  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

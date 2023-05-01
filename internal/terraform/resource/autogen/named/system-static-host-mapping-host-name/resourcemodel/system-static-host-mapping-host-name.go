@@ -2,38 +2,119 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemStaticHostMappingHostName describes the resource data model.
 type SystemStaticHostMappingHostName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemStaticHostMappingHostNameAlias customtypes.CustomStringValue `tfsdk:"alias" json:"alias,omitempty"`
-	SystemStaticHostMappingHostNameInet  customtypes.CustomStringValue `tfsdk:"inet" json:"inet,omitempty"`
+	LeafSystemStaticHostMappingHostNameAlias types.String `tfsdk:"alias"`
+	LeafSystemStaticHostMappingHostNameInet  types.String `tfsdk:"inet"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemStaticHostMappingHostName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemStaticHostMappingHostName) GetVyosPath() []string {
+	return []string{
+		"system",
+		"static-host-mapping",
+		"host-name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemStaticHostMappingHostName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "static-host-mapping", "host-name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemStaticHostMappingHostNameAlias.IsNull() || o.LeafSystemStaticHostMappingHostNameAlias.IsUnknown()) {
+		vyosData["alias"] = o.LeafSystemStaticHostMappingHostNameAlias.ValueString()
+	}
+	if !(o.LeafSystemStaticHostMappingHostNameInet.IsNull() || o.LeafSystemStaticHostMappingHostNameInet.IsUnknown()) {
+		vyosData["inet"] = o.LeafSystemStaticHostMappingHostNameInet.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemStaticHostMappingHostName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "static-host-mapping", "host-name"}})
+
+	// Leafs
+	if value, ok := vyosData["alias"]; ok {
+		o.LeafSystemStaticHostMappingHostNameAlias = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemStaticHostMappingHostNameAlias = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inet"]; ok {
+		o.LeafSystemStaticHostMappingHostNameInet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemStaticHostMappingHostNameInet = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "static-host-mapping", "host-name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemStaticHostMappingHostName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"alias": types.StringType,
+		"inet":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemStaticHostMappingHostName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Host name for static address mapping
+
+`,
+		},
+
 		// LeafNodes
 
 		"alias": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Alias for this address
 
 `,
 		},
 
 		"inet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP Address
 
 |  Format  |  Description  |

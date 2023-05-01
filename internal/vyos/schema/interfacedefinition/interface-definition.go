@@ -45,11 +45,16 @@ func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
 	rootNode, err := i.GetRootNode()
 	if err != nil {
 		fmt.Printf("BaseTagNodes Skipping rootnode:nil i:%v\n", i)
-		return tagNodes, false
+		return nil, false
 	}
 
 	tagNodes = recurse(rootNode)
 	ok = len(tagNodes) > 0
+
+	// Let tagnode know it is the basenode
+	for _, tagNode := range tagNodes {
+		tagNode.IsBaseNode = true
+	}
 
 	return tagNodes, ok
 }

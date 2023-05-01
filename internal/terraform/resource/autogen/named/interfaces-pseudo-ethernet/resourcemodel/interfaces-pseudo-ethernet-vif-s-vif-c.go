@@ -2,42 +2,227 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesPseudoEthernetVifSVifC describes the resource data model.
 type InterfacesPseudoEthernetVifSVifC struct {
 	// LeafNodes
-	InterfacesPseudoEthernetVifSVifCDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesPseudoEthernetVifSVifCAddress           customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesPseudoEthernetVifSVifCDisableLinkDetect customtypes.CustomStringValue `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
-	InterfacesPseudoEthernetVifSVifCDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesPseudoEthernetVifSVifCMac               customtypes.CustomStringValue `tfsdk:"mac" json:"mac,omitempty"`
-	InterfacesPseudoEthernetVifSVifCMtu               customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesPseudoEthernetVifSVifCRedirect          customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
-	InterfacesPseudoEthernetVifSVifCVrf               customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesPseudoEthernetVifSVifCDescrIPtion       types.String `tfsdk:"description"`
+	LeafInterfacesPseudoEthernetVifSVifCAddress           types.String `tfsdk:"address"`
+	LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
+	LeafInterfacesPseudoEthernetVifSVifCDisable           types.String `tfsdk:"disable"`
+	LeafInterfacesPseudoEthernetVifSVifCMac               types.String `tfsdk:"mac"`
+	LeafInterfacesPseudoEthernetVifSVifCMtu               types.String `tfsdk:"mtu"`
+	LeafInterfacesPseudoEthernetVifSVifCRedirect          types.String `tfsdk:"redirect"`
+	LeafInterfacesPseudoEthernetVifSVifCVrf               types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesPseudoEthernetVifSVifCDhcpOptions     types.Object `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
-	InterfacesPseudoEthernetVifSVifCDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
-	InterfacesPseudoEthernetVifSVifCIP              types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesPseudoEthernetVifSVifCIPvsix          types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesPseudoEthernetVifSVifCMirror          types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesPseudoEthernetVifSVifCDhcpOptions     types.Object `tfsdk:"dhcp_options"`
+	NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
+	NodeInterfacesPseudoEthernetVifSVifCIP              types.Object `tfsdk:"ip"`
+	NodeInterfacesPseudoEthernetVifSVifCIPvsix          types.Object `tfsdk:"ipv6"`
+	NodeInterfacesPseudoEthernetVifSVifCMirror          types.Object `tfsdk:"mirror"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesPseudoEthernetVifSVifC) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCDescrIPtion.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesPseudoEthernetVifSVifCDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCAddress.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesPseudoEthernetVifSVifCAddress.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect.IsUnknown()) {
+		vyosData["disable-link-detect"] = o.LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCDisable.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesPseudoEthernetVifSVifCDisable.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCMac.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCMac.IsUnknown()) {
+		vyosData["mac"] = o.LeafInterfacesPseudoEthernetVifSVifCMac.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCMtu.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesPseudoEthernetVifSVifCMtu.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCRedirect.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesPseudoEthernetVifSVifCRedirect.ValueString()
+	}
+	if !(o.LeafInterfacesPseudoEthernetVifSVifCVrf.IsNull() || o.LeafInterfacesPseudoEthernetVifSVifCVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesPseudoEthernetVifSVifCVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesPseudoEthernetVifSVifCDhcpOptions.IsNull() || o.NodeInterfacesPseudoEthernetVifSVifCDhcpOptions.IsUnknown()) {
+		var subModel InterfacesPseudoEthernetVifSVifCDhcpOptions
+		diags.Append(o.NodeInterfacesPseudoEthernetVifSVifCDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions.IsNull() || o.NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions.IsUnknown()) {
+		var subModel InterfacesPseudoEthernetVifSVifCDhcpvsixOptions
+		diags.Append(o.NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesPseudoEthernetVifSVifCIP.IsNull() || o.NodeInterfacesPseudoEthernetVifSVifCIP.IsUnknown()) {
+		var subModel InterfacesPseudoEthernetVifSVifCIP
+		diags.Append(o.NodeInterfacesPseudoEthernetVifSVifCIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesPseudoEthernetVifSVifCIPvsix.IsNull() || o.NodeInterfacesPseudoEthernetVifSVifCIPvsix.IsUnknown()) {
+		var subModel InterfacesPseudoEthernetVifSVifCIPvsix
+		diags.Append(o.NodeInterfacesPseudoEthernetVifSVifCIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesPseudoEthernetVifSVifCMirror.IsNull() || o.NodeInterfacesPseudoEthernetVifSVifCMirror.IsUnknown()) {
+		var subModel InterfacesPseudoEthernetVifSVifCMirror
+		diags.Append(o.NodeInterfacesPseudoEthernetVifSVifCMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesPseudoEthernetVifSVifC) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-link-detect"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCDisableLinkDetect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCMac = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCRedirect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesPseudoEthernetVifSVifCVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesPseudoEthernetVifSVifCVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["dhcp-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesPseudoEthernetVifSVifCDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesPseudoEthernetVifSVifCDhcpOptions = data
+
+	} else {
+		o.NodeInterfacesPseudoEthernetVifSVifCDhcpOptions = basetypes.NewObjectNull(InterfacesPseudoEthernetVifSVifCDhcpOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["dhcpv6-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesPseudoEthernetVifSVifCDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions = data
+
+	} else {
+		o.NodeInterfacesPseudoEthernetVifSVifCDhcpvsixOptions = basetypes.NewObjectNull(InterfacesPseudoEthernetVifSVifCDhcpvsixOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesPseudoEthernetVifSVifCIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesPseudoEthernetVifSVifCIP = data
+
+	} else {
+		o.NodeInterfacesPseudoEthernetVifSVifCIP = basetypes.NewObjectNull(InterfacesPseudoEthernetVifSVifCIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesPseudoEthernetVifSVifCIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesPseudoEthernetVifSVifCIPvsix = data
+
+	} else {
+		o.NodeInterfacesPseudoEthernetVifSVifCIPvsix = basetypes.NewObjectNull(InterfacesPseudoEthernetVifSVifCIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesPseudoEthernetVifSVifCMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesPseudoEthernetVifSVifCMirror = data
+
+	} else {
+		o.NodeInterfacesPseudoEthernetVifSVifCMirror = basetypes.NewObjectNull(InterfacesPseudoEthernetVifSVifCMirror{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "pseudo-ethernet", "vif-s", "vif-c"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesPseudoEthernetVifSVifC) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":         types.StringType,
+		"address":             types.StringType,
+		"disable_link_detect": types.StringType,
+		"disable":             types.StringType,
+		"mac":                 types.StringType,
+		"mtu":                 types.StringType,
+		"redirect":            types.StringType,
+		"vrf":                 types.StringType,
+
+		// Tags
+
+		// Nodes
+		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSVifCDhcpOptions{}.AttributeTypes()},
+		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSVifCDhcpvsixOptions{}.AttributeTypes()},
+		"ip":             types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSVifCIP{}.AttributeTypes()},
+		"ipv6":           types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSVifCIPvsix{}.AttributeTypes()},
+		"mirror":         types.ObjectType{AttrTypes: InterfacesPseudoEthernetVifSVifCMirror{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesPseudoEthernetVifSVifC) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -48,8 +233,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -63,24 +247,21 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"disable_link_detect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"mac": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |
@@ -91,8 +272,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -106,8 +286,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -118,8 +297,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -134,7 +312,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		// Nodes
 
 		"dhcp_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesPseudoEthernetVifSVifCDhcpOptions{}.ResourceAttributes(),
+			Attributes: InterfacesPseudoEthernetVifSVifCDhcpOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCP client settings/options
 
@@ -142,7 +320,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"dhcpv6_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesPseudoEthernetVifSVifCDhcpvsixOptions{}.ResourceAttributes(),
+			Attributes: InterfacesPseudoEthernetVifSVifCDhcpvsixOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCPv6 client settings/options
 
@@ -150,7 +328,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesPseudoEthernetVifSVifCIP{}.ResourceAttributes(),
+			Attributes: InterfacesPseudoEthernetVifSVifCIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -158,7 +336,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesPseudoEthernetVifSVifCIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesPseudoEthernetVifSVifCIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -166,7 +344,7 @@ func (o InterfacesPseudoEthernetVifSVifC) ResourceAttributes() map[string]schema
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesPseudoEthernetVifSVifCMirror{}.ResourceAttributes(),
+			Attributes: InterfacesPseudoEthernetVifSVifCMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 

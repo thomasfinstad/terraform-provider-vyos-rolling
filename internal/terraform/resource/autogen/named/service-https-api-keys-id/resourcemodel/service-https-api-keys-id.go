@@ -2,29 +2,104 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceHTTPSAPIKeysID describes the resource data model.
 type ServiceHTTPSAPIKeysID struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceHTTPSAPIKeysIDKey customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
+	LeafServiceHTTPSAPIKeysIDKey types.String `tfsdk:"key"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceHTTPSAPIKeysID) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceHTTPSAPIKeysID) GetVyosPath() []string {
+	return []string{
+		"service",
+		"https",
+		"api",
+		"keys",
+		"id",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceHTTPSAPIKeysID) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "https", "api", "keys", "id"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceHTTPSAPIKeysIDKey.IsNull() || o.LeafServiceHTTPSAPIKeysIDKey.IsUnknown()) {
+		vyosData["key"] = o.LeafServiceHTTPSAPIKeysIDKey.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceHTTPSAPIKeysID) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "https", "api", "keys", "id"}})
+
+	// Leafs
+	if value, ok := vyosData["key"]; ok {
+		o.LeafServiceHTTPSAPIKeysIDKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceHTTPSAPIKeysIDKey = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "https", "api", "keys", "id"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceHTTPSAPIKeysID) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"key": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceHTTPSAPIKeysID) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `HTTP API id
+
+`,
+		},
+
 		// LeafNodes
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `HTTP API plaintext key
 
 `,

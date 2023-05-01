@@ -3,56 +3,43 @@ package helpers
 import (
 	"context"
 	"fmt"
-	"strings"
 
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
-// FromTerraformToVyos takes a resource data model and converts it to vyos api operation compatible list of lists of strings
-func FromTerraformToVyos(ctx context.Context, rdm CustomResourceDataModel) [][]string {
-
-	vyosPath := rdm.GetVyosPath()
-	values := rdm.GetValues()
-
-	return iron(ctx, vyosPath, values)
+// GenerateVyosOps takes a resource data model and converts it to vyos api operation compatible list of lists of strings
+func GenerateVyosOps(ctx context.Context, vyosPath []string, vyosData map[string]interface{}) [][]string {
+	return iron(ctx, vyosPath, vyosData)
 }
 
-func iron(ctx context.Context, vyosPath []string, values map[string]attr.Value) [][]string {
+func iron(ctx context.Context, vyosPath []string, values map[string]interface{}) [][]string {
 
 	ret := [][]string{}
 
 	for key, value := range values {
-
-		key = strings.ReplaceAll(key, "_", "-")
 		cVyosPath := append(vyosPath, key)
 
-		tflog.Error(ctx, "Terraform value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
+		tflog.Error(ctx, "Value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
 
 		switch value := value.(type) {
-		case types.String:
-			if v := value.ValueString(); v != "" {
-				ret = append(
-					ret,
-					append(cVyosPath, v),
-				)
-			} else {
-				tflog.Trace(ctx, "Value is empty", map[string]interface{}{"key": key})
-			}
-
-		case types.Map:
+		case string:
 			ret = append(
 				ret,
-				iron(ctx, cVyosPath, value.Elements())...,
+				append(cVyosPath, value),
 			)
-		case types.Object:
+		case map[string]interface{}:
 			ret = append(
 				ret,
-				iron(ctx, cVyosPath, value.Attributes())...,
+				iron(ctx, cVyosPath, value)...,
 			)
+		//case []interface{}:
+		// ret = append(
+		// 	ret,
+		// 	iron(ctx, cVyosPath, value)...,
+		// )
 		default:
-			tflog.Error(ctx, "No handling of terraform value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
+			tflog.Error(ctx, "No handling of value type", map[string]interface{}{"type": fmt.Sprintf("%T", value)})
+			panic("unhandled type")
 		}
 	}
 

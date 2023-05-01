@@ -2,38 +2,172 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyRoundRobinClass describes the resource data model.
 type QosPolicyRoundRobinClass struct {
 	// LeafNodes
-	QosPolicyRoundRobinClassDescrIPtion  customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyRoundRobinClassCodelQuantum customtypes.CustomStringValue `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
-	QosPolicyRoundRobinClassFlows        customtypes.CustomStringValue `tfsdk:"flows" json:"flows,omitempty"`
-	QosPolicyRoundRobinClassInterval     customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	QosPolicyRoundRobinClassQuantum      customtypes.CustomStringValue `tfsdk:"quantum" json:"quantum,omitempty"`
-	QosPolicyRoundRobinClassQueueLimit   customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
-	QosPolicyRoundRobinClassQueueType    customtypes.CustomStringValue `tfsdk:"queue_type" json:"queue-type,omitempty"`
-	QosPolicyRoundRobinClassTarget       customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
+	LeafQosPolicyRoundRobinClassDescrIPtion  types.String `tfsdk:"description"`
+	LeafQosPolicyRoundRobinClassCodelQuantum types.String `tfsdk:"codel_quantum"`
+	LeafQosPolicyRoundRobinClassFlows        types.String `tfsdk:"flows"`
+	LeafQosPolicyRoundRobinClassInterval     types.String `tfsdk:"interval"`
+	LeafQosPolicyRoundRobinClassQuantum      types.String `tfsdk:"quantum"`
+	LeafQosPolicyRoundRobinClassQueueLimit   types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyRoundRobinClassQueueType    types.String `tfsdk:"queue_type"`
+	LeafQosPolicyRoundRobinClassTarget       types.String `tfsdk:"target"`
 
 	// TagNodes
-	QosPolicyRoundRobinClassMatch types.Map `tfsdk:"match" json:"match,omitempty"`
+	TagQosPolicyRoundRobinClassMatch types.Map `tfsdk:"match"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyRoundRobinClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyRoundRobinClassDescrIPtion.IsNull() || o.LeafQosPolicyRoundRobinClassDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyRoundRobinClassDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassCodelQuantum.IsNull() || o.LeafQosPolicyRoundRobinClassCodelQuantum.IsUnknown()) {
+		vyosData["codel-quantum"] = o.LeafQosPolicyRoundRobinClassCodelQuantum.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassFlows.IsNull() || o.LeafQosPolicyRoundRobinClassFlows.IsUnknown()) {
+		vyosData["flows"] = o.LeafQosPolicyRoundRobinClassFlows.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassInterval.IsNull() || o.LeafQosPolicyRoundRobinClassInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafQosPolicyRoundRobinClassInterval.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassQuantum.IsNull() || o.LeafQosPolicyRoundRobinClassQuantum.IsUnknown()) {
+		vyosData["quantum"] = o.LeafQosPolicyRoundRobinClassQuantum.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassQueueLimit.IsNull() || o.LeafQosPolicyRoundRobinClassQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyRoundRobinClassQueueLimit.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassQueueType.IsNull() || o.LeafQosPolicyRoundRobinClassQueueType.IsUnknown()) {
+		vyosData["queue-type"] = o.LeafQosPolicyRoundRobinClassQueueType.ValueString()
+	}
+	if !(o.LeafQosPolicyRoundRobinClassTarget.IsNull() || o.LeafQosPolicyRoundRobinClassTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafQosPolicyRoundRobinClassTarget.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyRoundRobinClassMatch.IsNull() || o.TagQosPolicyRoundRobinClassMatch.IsUnknown()) {
+		subModel := make(map[string]QosPolicyRoundRobinClassMatch)
+		diags.Append(o.TagQosPolicyRoundRobinClassMatch.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["match"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyRoundRobinClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyRoundRobinClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["codel-quantum"]; ok {
+		o.LeafQosPolicyRoundRobinClassCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassCodelQuantum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["flows"]; ok {
+		o.LeafQosPolicyRoundRobinClassFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassFlows = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafQosPolicyRoundRobinClassInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["quantum"]; ok {
+		o.LeafQosPolicyRoundRobinClassQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassQuantum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyRoundRobinClassQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassQueueLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-type"]; ok {
+		o.LeafQosPolicyRoundRobinClassQueueType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassQueueType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafQosPolicyRoundRobinClassTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyRoundRobinClassTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["match"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyRoundRobinClassMatch = data
+	} else {
+		o.TagQosPolicyRoundRobinClassMatch = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "round-robin", "class"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyRoundRobinClass) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":   types.StringType,
+		"codel_quantum": types.StringType,
+		"flows":         types.StringType,
+		"interval":      types.StringType,
+		"quantum":       types.StringType,
+		"queue_limit":   types.StringType,
+		"queue_type":    types.StringType,
+		"target":        types.StringType,
+
+		// Tags
+		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyRoundRobinClassMatch{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyRoundRobinClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -44,8 +178,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"codel_quantum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
 |  Format  |  Description  |
@@ -59,8 +192,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"flows": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
 |  Format  |  Description  |
@@ -74,8 +206,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
 |  Format  |  Description  |
@@ -89,8 +220,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"quantum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet scheduling quantum
 
 |  Format  |  Description  |
@@ -101,8 +231,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |
@@ -113,8 +242,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"queue_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
 |  Format  |  Description  |
@@ -132,8 +260,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
 |  Format  |  Description  |
@@ -150,7 +277,7 @@ func (o QosPolicyRoundRobinClass) ResourceAttributes() map[string]schema.Attribu
 
 		"match": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyRoundRobinClassMatch{}.ResourceAttributes(),
+				Attributes: QosPolicyRoundRobinClassMatch{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class matching rule name

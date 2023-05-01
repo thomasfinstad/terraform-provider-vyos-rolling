@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterfaceRfctwoonethreesix describes the resource data model.
 type ServiceDNSDynamicInterfaceRfctwoonethreesix struct {
 	// LeafNodes
-	ServiceDNSDynamicInterfaceRfctwoonethreesixKey    customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	ServiceDNSDynamicInterfaceRfctwoonethreesixRecord customtypes.CustomStringValue `tfsdk:"record" json:"record,omitempty"`
-	ServiceDNSDynamicInterfaceRfctwoonethreesixServer customtypes.CustomStringValue `tfsdk:"server" json:"server,omitempty"`
-	ServiceDNSDynamicInterfaceRfctwoonethreesixTTL    customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
-	ServiceDNSDynamicInterfaceRfctwoonethreesixZone   customtypes.CustomStringValue `tfsdk:"zone" json:"zone,omitempty"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey    types.String `tfsdk:"key"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord types.String `tfsdk:"record"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer types.String `tfsdk:"server"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL    types.String `tfsdk:"ttl"`
+	LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone   types.String `tfsdk:"zone"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.IsUnknown()) {
+		vyosData["key"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.IsUnknown()) {
+		vyosData["record"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.IsUnknown()) {
+		vyosData["server"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsNull() || o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.IsUnknown()) {
+		vyosData["zone"] = o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSDynamicInterfaceRfctwoonethreesix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
+
+	// Leafs
+	if value, ok := vyosData["key"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["record"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixRecord = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["server"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixServer = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixTTL = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["zone"]; ok {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceRfctwoonethreesixZone = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "rfc2136"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"key":    types.StringType,
+		"record": types.StringType,
+		"server": types.StringType,
+		"ttl":    types.StringType,
+		"zone":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `File containing the secret key shared with remote DNS server
 
 |  Format  |  Description  |
@@ -39,24 +129,21 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceAttributes() map[st
 		},
 
 		"record": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Record to be updated
 
 `,
 		},
 
 		"server": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Server to be updated
 
 `,
 		},
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time To Live (default: 600)
 
 |  Format  |  Description  |
@@ -70,8 +157,7 @@ func (o ServiceDNSDynamicInterfaceRfctwoonethreesix) ResourceAttributes() map[st
 		},
 
 		"zone": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Zone to be updated
 
 `,

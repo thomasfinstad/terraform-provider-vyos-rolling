@@ -2,33 +2,117 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesMacsecSecURIty describes the resource data model.
 type InterfacesMacsecSecURIty struct {
 	// LeafNodes
-	InterfacesMacsecSecURItyCIPher       customtypes.CustomStringValue `tfsdk:"cipher" json:"cipher,omitempty"`
-	InterfacesMacsecSecURItyEncrypt      customtypes.CustomStringValue `tfsdk:"encrypt" json:"encrypt,omitempty"`
-	InterfacesMacsecSecURItyReplayWindow customtypes.CustomStringValue `tfsdk:"replay_window" json:"replay-window,omitempty"`
+	LeafInterfacesMacsecSecURItyCIPher       types.String `tfsdk:"cipher"`
+	LeafInterfacesMacsecSecURItyEncrypt      types.String `tfsdk:"encrypt"`
+	LeafInterfacesMacsecSecURItyReplayWindow types.String `tfsdk:"replay_window"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesMacsecSecURItyMka types.Object `tfsdk:"mka" json:"mka,omitempty"`
+	NodeInterfacesMacsecSecURItyMka types.Object `tfsdk:"mka"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesMacsecSecURIty) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesMacsecSecURIty) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesMacsecSecURItyCIPher.IsNull() || o.LeafInterfacesMacsecSecURItyCIPher.IsUnknown()) {
+		vyosData["cipher"] = o.LeafInterfacesMacsecSecURItyCIPher.ValueString()
+	}
+	if !(o.LeafInterfacesMacsecSecURItyEncrypt.IsNull() || o.LeafInterfacesMacsecSecURItyEncrypt.IsUnknown()) {
+		vyosData["encrypt"] = o.LeafInterfacesMacsecSecURItyEncrypt.ValueString()
+	}
+	if !(o.LeafInterfacesMacsecSecURItyReplayWindow.IsNull() || o.LeafInterfacesMacsecSecURItyReplayWindow.IsUnknown()) {
+		vyosData["replay-window"] = o.LeafInterfacesMacsecSecURItyReplayWindow.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesMacsecSecURItyMka.IsNull() || o.NodeInterfacesMacsecSecURItyMka.IsUnknown()) {
+		var subModel InterfacesMacsecSecURItyMka
+		diags.Append(o.NodeInterfacesMacsecSecURItyMka.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mka"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesMacsecSecURIty) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
+
+	// Leafs
+	if value, ok := vyosData["cipher"]; ok {
+		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyCIPher = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["encrypt"]; ok {
+		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyEncrypt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["replay-window"]; ok {
+		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesMacsecSecURItyReplayWindow = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["mka"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesMacsecSecURItyMka{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesMacsecSecURItyMka = data
+
+	} else {
+		o.NodeInterfacesMacsecSecURItyMka = basetypes.NewObjectNull(InterfacesMacsecSecURItyMka{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "macsec", "security"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesMacsecSecURIty) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"cipher":        types.StringType,
+		"encrypt":       types.StringType,
+		"replay_window": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"mka": types.ObjectType{AttrTypes: InterfacesMacsecSecURItyMka{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesMacsecSecURIty) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"cipher": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Cipher suite used
 
 |  Format  |  Description  |
@@ -40,16 +124,14 @@ func (o InterfacesMacsecSecURIty) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"encrypt": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable optional MACsec encryption
 
 `,
 		},
 
 		"replay_window": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IEEE 802.1X/MACsec replay protection window
 
 |  Format  |  Description  |
@@ -65,7 +147,7 @@ func (o InterfacesMacsecSecURIty) ResourceAttributes() map[string]schema.Attribu
 		// Nodes
 
 		"mka": schema.SingleNestedAttribute{
-			Attributes: InterfacesMacsecSecURItyMka{}.ResourceAttributes(),
+			Attributes: InterfacesMacsecSecURItyMka{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `MACsec Key Agreement protocol (MKA)
 

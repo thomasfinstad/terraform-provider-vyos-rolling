@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleMatchIP describes the resource data model.
@@ -13,13 +19,95 @@ type PolicyRouteMapRuleMatchIP struct {
 	// TagNodes
 
 	// Nodes
-	PolicyRouteMapRuleMatchIPAddress     types.Object `tfsdk:"address" json:"address,omitempty"`
-	PolicyRouteMapRuleMatchIPNexthop     types.Object `tfsdk:"nexthop" json:"nexthop,omitempty"`
-	PolicyRouteMapRuleMatchIPRouteSource types.Object `tfsdk:"route_source" json:"route-source,omitempty"`
+	NodePolicyRouteMapRuleMatchIPAddress     types.Object `tfsdk:"address"`
+	NodePolicyRouteMapRuleMatchIPNexthop     types.Object `tfsdk:"nexthop"`
+	NodePolicyRouteMapRuleMatchIPRouteSource types.Object `tfsdk:"route_source"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleMatchIP) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleMatchIP) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodePolicyRouteMapRuleMatchIPAddress.IsNull() || o.NodePolicyRouteMapRuleMatchIPAddress.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchIPAddress
+		diags.Append(o.NodePolicyRouteMapRuleMatchIPAddress.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["address"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchIPNexthop.IsNull() || o.NodePolicyRouteMapRuleMatchIPNexthop.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchIPNexthop
+		diags.Append(o.NodePolicyRouteMapRuleMatchIPNexthop.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["nexthop"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodePolicyRouteMapRuleMatchIPRouteSource.IsNull() || o.NodePolicyRouteMapRuleMatchIPRouteSource.IsUnknown()) {
+		var subModel PolicyRouteMapRuleMatchIPRouteSource
+		diags.Append(o.NodePolicyRouteMapRuleMatchIPRouteSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["route-source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleMatchIP) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["address"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchIPAddress = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchIPAddress = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes())
+	}
+	if value, ok := vyosData["nexthop"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchIPNexthop = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchIPNexthop = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes())
+	}
+	if value, ok := vyosData["route-source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodePolicyRouteMapRuleMatchIPRouteSource = data
+
+	} else {
+		o.NodePolicyRouteMapRuleMatchIPRouteSource = basetypes.NewObjectNull(PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "match", "ip"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleMatchIP) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"address":      types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPAddress{}.AttributeTypes()},
+		"nexthop":      types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPNexthop{}.AttributeTypes()},
+		"route_source": types.ObjectType{AttrTypes: PolicyRouteMapRuleMatchIPRouteSource{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleMatchIP) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -28,7 +116,7 @@ func (o PolicyRouteMapRuleMatchIP) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"address": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPAddress{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPAddress{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IP address of route to match
 
@@ -36,7 +124,7 @@ func (o PolicyRouteMapRuleMatchIP) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"nexthop": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPNexthop{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPNexthop{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IP next-hop of route to match
 
@@ -44,7 +132,7 @@ func (o PolicyRouteMapRuleMatchIP) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"route_source": schema.SingleNestedAttribute{
-			Attributes: PolicyRouteMapRuleMatchIPRouteSource{}.ResourceAttributes(),
+			Attributes: PolicyRouteMapRuleMatchIPRouteSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Match advertising source address of route
 

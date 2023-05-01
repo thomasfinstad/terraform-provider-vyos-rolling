@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfSegmentRoutingPrefix describes the resource data model.
@@ -13,11 +19,65 @@ type VrfNameProtocolsOspfSegmentRoutingPrefix struct {
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfSegmentRoutingPrefixIndex types.Object `tfsdk:"index" json:"index,omitempty"`
+	NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex types.Object `tfsdk:"index"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing", "prefix"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex.IsNull() || o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfSegmentRoutingPrefixIndex
+		diags.Append(o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["index"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfSegmentRoutingPrefix) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing", "prefix"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["index"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfSegmentRoutingPrefixIndex = basetypes.NewObjectNull(VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing", "prefix"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfSegmentRoutingPrefix) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"index": types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o VrfNameProtocolsOspfSegmentRoutingPrefix) ResourceAttributes() map[strin
 		// Nodes
 
 		"index": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfSegmentRoutingPrefixIndex{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Specify the index value of prefix segment/label ID
 

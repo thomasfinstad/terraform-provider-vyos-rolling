@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesOpenvpnServerMfaTotp describes the resource data model.
 type InterfacesOpenvpnServerMfaTotp struct {
 	// LeafNodes
-	InterfacesOpenvpnServerMfaTotpSlop      customtypes.CustomStringValue `tfsdk:"slop" json:"slop,omitempty"`
-	InterfacesOpenvpnServerMfaTotpDrift     customtypes.CustomStringValue `tfsdk:"drift" json:"drift,omitempty"`
-	InterfacesOpenvpnServerMfaTotpStep      customtypes.CustomStringValue `tfsdk:"step" json:"step,omitempty"`
-	InterfacesOpenvpnServerMfaTotpDigits    customtypes.CustomStringValue `tfsdk:"digits" json:"digits,omitempty"`
-	InterfacesOpenvpnServerMfaTotpChallenge customtypes.CustomStringValue `tfsdk:"challenge" json:"challenge,omitempty"`
+	LeafInterfacesOpenvpnServerMfaTotpSlop      types.String `tfsdk:"slop"`
+	LeafInterfacesOpenvpnServerMfaTotpDrift     types.String `tfsdk:"drift"`
+	LeafInterfacesOpenvpnServerMfaTotpStep      types.String `tfsdk:"step"`
+	LeafInterfacesOpenvpnServerMfaTotpDigits    types.String `tfsdk:"digits"`
+	LeafInterfacesOpenvpnServerMfaTotpChallenge types.String `tfsdk:"challenge"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesOpenvpnServerMfaTotp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpSlop.IsUnknown()) {
+		vyosData["slop"] = o.LeafInterfacesOpenvpnServerMfaTotpSlop.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpDrift.IsUnknown()) {
+		vyosData["drift"] = o.LeafInterfacesOpenvpnServerMfaTotpDrift.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerMfaTotpStep.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpStep.IsUnknown()) {
+		vyosData["step"] = o.LeafInterfacesOpenvpnServerMfaTotpStep.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpDigits.IsUnknown()) {
+		vyosData["digits"] = o.LeafInterfacesOpenvpnServerMfaTotpDigits.ValueString()
+	}
+	if !(o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsNull() || o.LeafInterfacesOpenvpnServerMfaTotpChallenge.IsUnknown()) {
+		vyosData["challenge"] = o.LeafInterfacesOpenvpnServerMfaTotpChallenge.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesOpenvpnServerMfaTotp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
+
+	// Leafs
+	if value, ok := vyosData["slop"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpSlop = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["drift"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpDrift = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["step"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpStep = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["digits"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpDigits = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["challenge"]; ok {
+		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesOpenvpnServerMfaTotpChallenge = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "openvpn", "server", "mfa", "totp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesOpenvpnServerMfaTotp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"slop":      types.StringType,
+		"drift":     types.StringType,
+		"step":      types.StringType,
+		"digits":    types.StringType,
+		"challenge": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesOpenvpnServerMfaTotp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"slop": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum allowed clock slop in seconds
 
 |  Format  |  Description  |
@@ -42,8 +132,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 		},
 
 		"drift": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time drift in seconds
 
 |  Format  |  Description  |
@@ -57,8 +146,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 		},
 
 		"step": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Step value for totp in seconds
 
 |  Format  |  Description  |
@@ -72,8 +160,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 		},
 
 		"digits": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of digits to use for totp hash
 
 |  Format  |  Description  |
@@ -87,8 +174,7 @@ func (o InterfacesOpenvpnServerMfaTotp) ResourceAttributes() map[string]schema.A
 		},
 
 		"challenge": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Expect password as result of a challenge response protocol
 
 |  Format  |  Description  |

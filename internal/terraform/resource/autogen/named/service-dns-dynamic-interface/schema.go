@@ -19,6 +19,6 @@ Dynamic DNS
 Interface to send DDNS updates for
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,31 +2,97 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeDistance describes the resource data model.
 type VrfNameProtocolsOspfvthreeDistance struct {
 	// LeafNodes
-	VrfNameProtocolsOspfvthreeDistanceGlobal customtypes.CustomStringValue `tfsdk:"global" json:"global,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeDistanceGlobal types.String `tfsdk:"global"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfvthreeDistanceOspfvthree types.Object `tfsdk:"ospfv3" json:"ospfv3,omitempty"`
+	NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree types.Object `tfsdk:"ospfv3"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeDistance) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfvthreeDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsNull() || o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.IsUnknown()) {
+		vyosData["global"] = o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.IsNull() || o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeDistanceOspfvthree
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ospfv3"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfvthreeDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
+
+	// Leafs
+	if value, ok := vyosData["global"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeDistanceGlobal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ospfv3"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeDistanceOspfvthree = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "distance"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfvthreeDistance) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"global": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ospfv3": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfvthreeDistance) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"global": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administrative distance
 
 |  Format  |  Description  |
@@ -41,7 +107,7 @@ func (o VrfNameProtocolsOspfvthreeDistance) ResourceAttributes() map[string]sche
 		// Nodes
 
 		"ospfv3": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeDistanceOspfvthree{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `OSPFv3 administrative distance
 

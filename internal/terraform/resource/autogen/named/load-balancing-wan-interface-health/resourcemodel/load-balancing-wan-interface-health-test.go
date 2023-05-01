@@ -2,33 +2,123 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // LoadBalancingWanInterfaceHealthTest describes the resource data model.
 type LoadBalancingWanInterfaceHealthTest struct {
 	// LeafNodes
-	LoadBalancingWanInterfaceHealthTestRespTime   customtypes.CustomStringValue `tfsdk:"resp_time" json:"resp-time,omitempty"`
-	LoadBalancingWanInterfaceHealthTestTarget     customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
-	LoadBalancingWanInterfaceHealthTestTestScrIPt customtypes.CustomStringValue `tfsdk:"test_script" json:"test-script,omitempty"`
-	LoadBalancingWanInterfaceHealthTestTTLLimit   customtypes.CustomStringValue `tfsdk:"ttl_limit" json:"ttl-limit,omitempty"`
-	LoadBalancingWanInterfaceHealthTestType       customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
+	LeafLoadBalancingWanInterfaceHealthTestRespTime   types.String `tfsdk:"resp_time"`
+	LeafLoadBalancingWanInterfaceHealthTestTarget     types.String `tfsdk:"target"`
+	LeafLoadBalancingWanInterfaceHealthTestTestScrIPt types.String `tfsdk:"test_script"`
+	LeafLoadBalancingWanInterfaceHealthTestTTLLimit   types.String `tfsdk:"ttl_limit"`
+	LeafLoadBalancingWanInterfaceHealthTestType       types.String `tfsdk:"type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *LoadBalancingWanInterfaceHealthTest) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health", "test"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafLoadBalancingWanInterfaceHealthTestRespTime.IsNull() || o.LeafLoadBalancingWanInterfaceHealthTestRespTime.IsUnknown()) {
+		vyosData["resp-time"] = o.LeafLoadBalancingWanInterfaceHealthTestRespTime.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthTestTarget.IsNull() || o.LeafLoadBalancingWanInterfaceHealthTestTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafLoadBalancingWanInterfaceHealthTestTarget.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.IsNull() || o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.IsUnknown()) {
+		vyosData["test-script"] = o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.IsNull() || o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.IsUnknown()) {
+		vyosData["ttl-limit"] = o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit.ValueString()
+	}
+	if !(o.LeafLoadBalancingWanInterfaceHealthTestType.IsNull() || o.LeafLoadBalancingWanInterfaceHealthTestType.IsUnknown()) {
+		vyosData["type"] = o.LeafLoadBalancingWanInterfaceHealthTestType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *LoadBalancingWanInterfaceHealthTest) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health", "test"}})
+
+	// Leafs
+	if value, ok := vyosData["resp-time"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthTestRespTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthTestRespTime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthTestTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthTestTarget = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["test-script"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthTestTestScrIPt = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl-limit"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthTestTTLLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafLoadBalancingWanInterfaceHealthTestType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafLoadBalancingWanInterfaceHealthTestType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"load-balancing", "wan", "interface-health", "test"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o LoadBalancingWanInterfaceHealthTest) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"resp_time":   types.StringType,
+		"target":      types.StringType,
+		"test_script": types.StringType,
+		"ttl_limit":   types.StringType,
+		"type":        types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o LoadBalancingWanInterfaceHealthTest) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"resp_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ping response time (seconds)
 
 |  Format  |  Description  |
@@ -39,8 +129,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Health target address
 
 |  Format  |  Description  |
@@ -51,8 +140,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 		},
 
 		"test_script": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Path to user-defined script
 
 |  Format  |  Description  |
@@ -63,8 +151,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 		},
 
 		"ttl_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `TTL limit (hop count)
 
 |  Format  |  Description  |
@@ -75,8 +162,7 @@ func (o LoadBalancingWanInterfaceHealthTest) ResourceAttributes() map[string]sch
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `WLB test type
 
 |  Format  |  Description  |

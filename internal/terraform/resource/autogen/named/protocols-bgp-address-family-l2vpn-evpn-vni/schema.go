@@ -25,6 +25,6 @@ VXLAN Network Identifier
 |  u32:1-16777215  |  VNI number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

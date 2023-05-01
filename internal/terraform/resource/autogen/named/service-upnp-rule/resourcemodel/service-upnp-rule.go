@@ -2,41 +2,153 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceUpnpRule describes the resource data model.
 type ServiceUpnpRule struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceUpnpRuleDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	ServiceUpnpRuleExternalPortRange customtypes.CustomStringValue `tfsdk:"external_port_range" json:"external-port-range,omitempty"`
-	ServiceUpnpRuleInternalPortRange customtypes.CustomStringValue `tfsdk:"internal_port_range" json:"internal-port-range,omitempty"`
-	ServiceUpnpRuleIP                customtypes.CustomStringValue `tfsdk:"ip" json:"ip,omitempty"`
-	ServiceUpnpRuleAction            customtypes.CustomStringValue `tfsdk:"action" json:"action,omitempty"`
+	LeafServiceUpnpRuleDisable           types.String `tfsdk:"disable"`
+	LeafServiceUpnpRuleExternalPortRange types.String `tfsdk:"external_port_range"`
+	LeafServiceUpnpRuleInternalPortRange types.String `tfsdk:"internal_port_range"`
+	LeafServiceUpnpRuleIP                types.String `tfsdk:"ip"`
+	LeafServiceUpnpRuleAction            types.String `tfsdk:"action"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceUpnpRule) GetVyosPath() []string {
+	return []string{
+		"service",
+		"upnp",
+		"rule",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceUpnpRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceUpnpRuleDisable.IsNull() || o.LeafServiceUpnpRuleDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceUpnpRuleDisable.ValueString()
+	}
+	if !(o.LeafServiceUpnpRuleExternalPortRange.IsNull() || o.LeafServiceUpnpRuleExternalPortRange.IsUnknown()) {
+		vyosData["external-port-range"] = o.LeafServiceUpnpRuleExternalPortRange.ValueString()
+	}
+	if !(o.LeafServiceUpnpRuleInternalPortRange.IsNull() || o.LeafServiceUpnpRuleInternalPortRange.IsUnknown()) {
+		vyosData["internal-port-range"] = o.LeafServiceUpnpRuleInternalPortRange.ValueString()
+	}
+	if !(o.LeafServiceUpnpRuleIP.IsNull() || o.LeafServiceUpnpRuleIP.IsUnknown()) {
+		vyosData["ip"] = o.LeafServiceUpnpRuleIP.ValueString()
+	}
+	if !(o.LeafServiceUpnpRuleAction.IsNull() || o.LeafServiceUpnpRuleAction.IsUnknown()) {
+		vyosData["action"] = o.LeafServiceUpnpRuleAction.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceUpnpRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceUpnpRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["external-port-range"]; ok {
+		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleExternalPortRange = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["internal-port-range"]; ok {
+		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleInternalPortRange = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ip"]; ok {
+		o.LeafServiceUpnpRuleIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleIP = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["action"]; ok {
+		o.LeafServiceUpnpRuleAction = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceUpnpRuleAction = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "upnp", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceUpnpRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":             types.StringType,
+		"external_port_range": types.StringType,
+		"internal_port_range": types.StringType,
+		"ip":                  types.StringType,
+		"action":              types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceUpnpRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `UPnP Rule
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:0-65535  |  Rule number  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"external_port_range": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port range (REQUIRE)
 
 |  Format  |  Description  |
@@ -48,8 +160,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"internal_port_range": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port range (REQUIRE)
 
 |  Format  |  Description  |
@@ -61,8 +172,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `The IP to which this rule applies (REQUIRE)
 
 |  Format  |  Description  |
@@ -74,8 +184,7 @@ func (o ServiceUpnpRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"action": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Actions against the rule (REQUIRE)
 
 `,

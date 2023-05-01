@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsSpf describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsSpf struct {
 	// LeafNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsSpfValue   customtypes.CustomStringValue `tfsdk:"value" json:"value,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL     customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue   types.String `tfsdk:"value"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL     types.String `tfsdk:"ttl"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSpf) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "spf"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue.IsUnknown()) {
+		vyosData["value"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsSpf) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "spf"}})
+
+	// Leafs
+	if value, ok := vyosData["value"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfValue = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfTTL = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsSpfDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "spf"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"value":   types.StringType,
+		"ttl":     types.StringType,
+		"disable": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"value": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Record contents
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceAttributes() 
 		},
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
 |  Format  |  Description  |
@@ -52,8 +123,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsSpf) ResourceAttributes() 
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,

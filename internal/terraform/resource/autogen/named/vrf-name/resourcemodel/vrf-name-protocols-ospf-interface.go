@@ -2,43 +2,227 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfInterface describes the resource data model.
 type VrfNameProtocolsOspfInterface struct {
 	// LeafNodes
-	VrfNameProtocolsOspfInterfaceArea               customtypes.CustomStringValue `tfsdk:"area" json:"area,omitempty"`
-	VrfNameProtocolsOspfInterfaceDeadInterval       customtypes.CustomStringValue `tfsdk:"dead_interval" json:"dead-interval,omitempty"`
-	VrfNameProtocolsOspfInterfaceHelloInterval      customtypes.CustomStringValue `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
-	VrfNameProtocolsOspfInterfaceRetransmitInterval customtypes.CustomStringValue `tfsdk:"retransmit_interval" json:"retransmit-interval,omitempty"`
-	VrfNameProtocolsOspfInterfaceTransmitDelay      customtypes.CustomStringValue `tfsdk:"transmit_delay" json:"transmit-delay,omitempty"`
-	VrfNameProtocolsOspfInterfaceCost               customtypes.CustomStringValue `tfsdk:"cost" json:"cost,omitempty"`
-	VrfNameProtocolsOspfInterfaceMtuIgnore          customtypes.CustomStringValue `tfsdk:"mtu_ignore" json:"mtu-ignore,omitempty"`
-	VrfNameProtocolsOspfInterfacePriority           customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	VrfNameProtocolsOspfInterfaceBandwIDth          customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
-	VrfNameProtocolsOspfInterfaceHelloMultIPlier    customtypes.CustomStringValue `tfsdk:"hello_multiplier" json:"hello-multiplier,omitempty"`
-	VrfNameProtocolsOspfInterfaceNetwork            customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
+	LeafVrfNameProtocolsOspfInterfaceArea               types.String `tfsdk:"area"`
+	LeafVrfNameProtocolsOspfInterfaceDeadInterval       types.String `tfsdk:"dead_interval"`
+	LeafVrfNameProtocolsOspfInterfaceHelloInterval      types.String `tfsdk:"hello_interval"`
+	LeafVrfNameProtocolsOspfInterfaceRetransmitInterval types.String `tfsdk:"retransmit_interval"`
+	LeafVrfNameProtocolsOspfInterfaceTransmitDelay      types.String `tfsdk:"transmit_delay"`
+	LeafVrfNameProtocolsOspfInterfaceCost               types.String `tfsdk:"cost"`
+	LeafVrfNameProtocolsOspfInterfaceMtuIgnore          types.String `tfsdk:"mtu_ignore"`
+	LeafVrfNameProtocolsOspfInterfacePriority           types.String `tfsdk:"priority"`
+	LeafVrfNameProtocolsOspfInterfaceBandwIDth          types.String `tfsdk:"bandwidth"`
+	LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier    types.String `tfsdk:"hello_multiplier"`
+	LeafVrfNameProtocolsOspfInterfaceNetwork            types.String `tfsdk:"network"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfInterfaceAuthentication types.Object `tfsdk:"authentication" json:"authentication,omitempty"`
-	VrfNameProtocolsOspfInterfaceBfd            types.Object `tfsdk:"bfd" json:"bfd,omitempty"`
-	VrfNameProtocolsOspfInterfacePassive        types.Object `tfsdk:"passive" json:"passive,omitempty"`
+	NodeVrfNameProtocolsOspfInterfaceAuthentication types.Object `tfsdk:"authentication"`
+	NodeVrfNameProtocolsOspfInterfaceBfd            types.Object `tfsdk:"bfd"`
+	NodeVrfNameProtocolsOspfInterfacePassive        types.Object `tfsdk:"passive"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfInterfaceArea.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceArea.IsUnknown()) {
+		vyosData["area"] = o.LeafVrfNameProtocolsOspfInterfaceArea.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceDeadInterval.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceDeadInterval.IsUnknown()) {
+		vyosData["dead-interval"] = o.LeafVrfNameProtocolsOspfInterfaceDeadInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceHelloInterval.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceHelloInterval.IsUnknown()) {
+		vyosData["hello-interval"] = o.LeafVrfNameProtocolsOspfInterfaceHelloInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceRetransmitInterval.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceRetransmitInterval.IsUnknown()) {
+		vyosData["retransmit-interval"] = o.LeafVrfNameProtocolsOspfInterfaceRetransmitInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceTransmitDelay.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceTransmitDelay.IsUnknown()) {
+		vyosData["transmit-delay"] = o.LeafVrfNameProtocolsOspfInterfaceTransmitDelay.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceCost.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceCost.IsUnknown()) {
+		vyosData["cost"] = o.LeafVrfNameProtocolsOspfInterfaceCost.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceMtuIgnore.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceMtuIgnore.IsUnknown()) {
+		vyosData["mtu-ignore"] = o.LeafVrfNameProtocolsOspfInterfaceMtuIgnore.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfacePriority.IsNull() || o.LeafVrfNameProtocolsOspfInterfacePriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafVrfNameProtocolsOspfInterfacePriority.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceBandwIDth.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafVrfNameProtocolsOspfInterfaceBandwIDth.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier.IsUnknown()) {
+		vyosData["hello-multiplier"] = o.LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfInterfaceNetwork.IsNull() || o.LeafVrfNameProtocolsOspfInterfaceNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafVrfNameProtocolsOspfInterfaceNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfInterfaceAuthentication.IsNull() || o.NodeVrfNameProtocolsOspfInterfaceAuthentication.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfInterfaceAuthentication
+		diags.Append(o.NodeVrfNameProtocolsOspfInterfaceAuthentication.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["authentication"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfInterfaceBfd.IsNull() || o.NodeVrfNameProtocolsOspfInterfaceBfd.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfInterfaceBfd
+		diags.Append(o.NodeVrfNameProtocolsOspfInterfaceBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfInterfacePassive.IsNull() || o.NodeVrfNameProtocolsOspfInterfacePassive.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfInterfacePassive
+		diags.Append(o.NodeVrfNameProtocolsOspfInterfacePassive.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["passive"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["area"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceArea = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dead-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceDeadInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceDeadInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceHelloInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["retransmit-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceRetransmitInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceRetransmitInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["transmit-delay"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceTransmitDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceTransmitDelay = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cost"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu-ignore"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceMtuIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceMtuIgnore = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfacePriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceBandwIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-multiplier"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceHelloMultIPlier = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafVrfNameProtocolsOspfInterfaceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfInterfaceNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["authentication"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfInterfaceAuthentication{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfInterfaceAuthentication = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfInterfaceAuthentication = basetypes.NewObjectNull(VrfNameProtocolsOspfInterfaceAuthentication{}.AttributeTypes())
+	}
+	if value, ok := vyosData["bfd"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfInterfaceBfd{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfInterfaceBfd = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfInterfaceBfd = basetypes.NewObjectNull(VrfNameProtocolsOspfInterfaceBfd{}.AttributeTypes())
+	}
+	if value, ok := vyosData["passive"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfInterfacePassive{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfInterfacePassive = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfInterfacePassive = basetypes.NewObjectNull(VrfNameProtocolsOspfInterfacePassive{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"area":                types.StringType,
+		"dead_interval":       types.StringType,
+		"hello_interval":      types.StringType,
+		"retransmit_interval": types.StringType,
+		"transmit_delay":      types.StringType,
+		"cost":                types.StringType,
+		"mtu_ignore":          types.StringType,
+		"priority":            types.StringType,
+		"bandwidth":           types.StringType,
+		"hello_multiplier":    types.StringType,
+		"network":             types.StringType,
+
+		// Tags
+
+		// Nodes
+		"authentication": types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterfaceAuthentication{}.AttributeTypes()},
+		"bfd":            types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterfaceBfd{}.AttributeTypes()},
+		"passive":        types.ObjectType{AttrTypes: VrfNameProtocolsOspfInterfacePassive{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"area": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
 
 |  Format  |  Description  |
@@ -50,8 +234,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"dead_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
 |  Format  |  Description  |
@@ -65,8 +248,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"hello_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
 |  Format  |  Description  |
@@ -80,8 +262,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"retransmit_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
 |  Format  |  Description  |
@@ -95,8 +276,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"transmit_delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
 |  Format  |  Description  |
@@ -110,8 +290,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface cost
 
 |  Format  |  Description  |
@@ -122,16 +301,14 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"mtu_ignore": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable Maximum Transmission Unit (MTU) mismatch detection
 
 `,
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Router priority
 
 |  Format  |  Description  |
@@ -145,8 +322,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface bandwidth (Mbit/s)
 
 |  Format  |  Description  |
@@ -157,8 +333,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"hello_multiplier": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hello multiplier factor
 
 |  Format  |  Description  |
@@ -169,8 +344,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network type
 
 |  Format  |  Description  |
@@ -188,7 +362,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		// Nodes
 
 		"authentication": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfInterfaceAuthentication{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfInterfaceAuthentication{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Authentication
 
@@ -196,7 +370,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfInterfaceBfd{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfInterfaceBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
 
@@ -204,7 +378,7 @@ func (o VrfNameProtocolsOspfInterface) ResourceAttributes() map[string]schema.At
 		},
 
 		"passive": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfInterfacePassive{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfInterfacePassive{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Suppress routing updates on an interface
 

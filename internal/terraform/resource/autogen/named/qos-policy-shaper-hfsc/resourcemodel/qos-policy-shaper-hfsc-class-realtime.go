@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperHfscClassRealtime describes the resource data model.
 type QosPolicyShaperHfscClassRealtime struct {
 	// LeafNodes
-	QosPolicyShaperHfscClassRealtimeD    customtypes.CustomStringValue `tfsdk:"d" json:"d,omitempty"`
-	QosPolicyShaperHfscClassRealtimeMone customtypes.CustomStringValue `tfsdk:"m1" json:"m1,omitempty"`
-	QosPolicyShaperHfscClassRealtimeMtwo customtypes.CustomStringValue `tfsdk:"m2" json:"m2,omitempty"`
+	LeafQosPolicyShaperHfscClassRealtimeD    types.String `tfsdk:"d"`
+	LeafQosPolicyShaperHfscClassRealtimeMone types.String `tfsdk:"m1"`
+	LeafQosPolicyShaperHfscClassRealtimeMtwo types.String `tfsdk:"m2"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperHfscClassRealtime) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperHfscClassRealtimeD.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeD.IsUnknown()) {
+		vyosData["d"] = o.LeafQosPolicyShaperHfscClassRealtimeD.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassRealtimeMone.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeMone.IsUnknown()) {
+		vyosData["m1"] = o.LeafQosPolicyShaperHfscClassRealtimeMone.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsNull() || o.LeafQosPolicyShaperHfscClassRealtimeMtwo.IsUnknown()) {
+		vyosData["m2"] = o.LeafQosPolicyShaperHfscClassRealtimeMtwo.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperHfscClassRealtime) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
+
+	// Leafs
+	if value, ok := vyosData["d"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeD = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m1"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeMone = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["m2"]; ok {
+		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperHfscClassRealtimeMtwo = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper-hfsc", "class", "realtime"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperHfscClassRealtime) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"d":  types.StringType,
+		"m1": types.StringType,
+		"m2": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperHfscClassRealtime) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"d": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Service curve delay
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema
 		},
 
 		"m1": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m1 parameter for class traffic
 
 |  Format  |  Description  |
@@ -57,8 +128,7 @@ func (o QosPolicyShaperHfscClassRealtime) ResourceAttributes() map[string]schema
 		},
 
 		"m2": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Linkshare m2 parameter for class traffic
 
 |  Format  |  Description  |

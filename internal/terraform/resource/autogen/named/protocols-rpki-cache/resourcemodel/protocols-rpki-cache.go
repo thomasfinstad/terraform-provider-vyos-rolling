@@ -2,32 +2,132 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRpkiCache describes the resource data model.
 type ProtocolsRpkiCache struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsRpkiCachePort       customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	ProtocolsRpkiCachePreference customtypes.CustomStringValue `tfsdk:"preference" json:"preference,omitempty"`
+	LeafProtocolsRpkiCachePort       types.String `tfsdk:"port"`
+	LeafProtocolsRpkiCachePreference types.String `tfsdk:"preference"`
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsRpkiCacheTCP types.Object `tfsdk:"ssh" json:"ssh,omitempty"`
+	NodeProtocolsRpkiCacheTCP types.Object `tfsdk:"ssh"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRpkiCache) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsRpkiCache) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"rpki",
+		"cache",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRpkiCache) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsRpkiCachePort.IsNull() || o.LeafProtocolsRpkiCachePort.IsUnknown()) {
+		vyosData["port"] = o.LeafProtocolsRpkiCachePort.ValueString()
+	}
+	if !(o.LeafProtocolsRpkiCachePreference.IsNull() || o.LeafProtocolsRpkiCachePreference.IsUnknown()) {
+		vyosData["preference"] = o.LeafProtocolsRpkiCachePreference.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsRpkiCacheTCP.IsNull() || o.NodeProtocolsRpkiCacheTCP.IsUnknown()) {
+		var subModel ProtocolsRpkiCacheTCP
+		diags.Append(o.NodeProtocolsRpkiCacheTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ssh"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRpkiCache) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafProtocolsRpkiCachePort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCachePort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["preference"]; ok {
+		o.LeafProtocolsRpkiCachePreference = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsRpkiCachePreference = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ssh"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRpkiCacheTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsRpkiCacheTCP = data
+
+	} else {
+		o.NodeProtocolsRpkiCacheTCP = basetypes.NewObjectNull(ProtocolsRpkiCacheTCP{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "rpki", "cache"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRpkiCache) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":       types.StringType,
+		"preference": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ssh": types.ObjectType{AttrTypes: ProtocolsRpkiCacheTCP{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRpkiCache) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `RPKI cache server address
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  IP address of RPKI server  |
+|  ipv6  |  IPv6 address of RPKI server  |
+|  hostname  |  Fully qualified domain name of RPKI server  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -38,8 +138,7 @@ func (o ProtocolsRpkiCache) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"preference": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Preference of the cache server
 
 |  Format  |  Description  |
@@ -54,7 +153,7 @@ func (o ProtocolsRpkiCache) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ssh": schema.SingleNestedAttribute{
-			Attributes: ProtocolsRpkiCacheTCP{}.ResourceAttributes(),
+			Attributes: ProtocolsRpkiCacheTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `RPKI SSH connection settings
 

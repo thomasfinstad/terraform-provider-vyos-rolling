@@ -25,6 +25,6 @@ URL filter rule for a source-group
 |  u32:1-1024  |  Rule Number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

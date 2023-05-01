@@ -2,32 +2,107 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // HighAvailabilityVirtualServerRealServer describes the resource data model.
 type HighAvailabilityVirtualServerRealServer struct {
 	// LeafNodes
-	HighAvailabilityVirtualServerRealServerPort              customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	HighAvailabilityVirtualServerRealServerConnectionTimeout customtypes.CustomStringValue `tfsdk:"connection_timeout" json:"connection-timeout,omitempty"`
+	LeafHighAvailabilityVirtualServerRealServerPort              types.String `tfsdk:"port"`
+	LeafHighAvailabilityVirtualServerRealServerConnectionTimeout types.String `tfsdk:"connection_timeout"`
 
 	// TagNodes
 
 	// Nodes
-	HighAvailabilityVirtualServerRealServerHealthCheck types.Object `tfsdk:"health_check" json:"health-check,omitempty"`
+	NodeHighAvailabilityVirtualServerRealServerHealthCheck types.Object `tfsdk:"health_check"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o HighAvailabilityVirtualServerRealServer) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *HighAvailabilityVirtualServerRealServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafHighAvailabilityVirtualServerRealServerPort.IsNull() || o.LeafHighAvailabilityVirtualServerRealServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafHighAvailabilityVirtualServerRealServerPort.ValueString()
+	}
+	if !(o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsNull() || o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.IsUnknown()) {
+		vyosData["connection-timeout"] = o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.IsNull() || o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.IsUnknown()) {
+		var subModel HighAvailabilityVirtualServerRealServerHealthCheck
+		diags.Append(o.NodeHighAvailabilityVirtualServerRealServerHealthCheck.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["health-check"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *HighAvailabilityVirtualServerRealServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
+
+	// Leafs
+	if value, ok := vyosData["port"]; ok {
+		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVirtualServerRealServerPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["connection-timeout"]; ok {
+		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafHighAvailabilityVirtualServerRealServerConnectionTimeout = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["health-check"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = data
+
+	} else {
+		o.NodeHighAvailabilityVirtualServerRealServerHealthCheck = basetypes.NewObjectNull(HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"high-availability", "virtual-server", "real-server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o HighAvailabilityVirtualServerRealServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"port":               types.StringType,
+		"connection_timeout": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"health_check": types.ObjectType{AttrTypes: HighAvailabilityVirtualServerRealServerHealthCheck{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o HighAvailabilityVirtualServerRealServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port number used by connection
 
 |  Format  |  Description  |
@@ -38,8 +113,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceAttributes() map[string
 		},
 
 		"connection_timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Server connection timeout
 
 |  Format  |  Description  |
@@ -54,7 +128,7 @@ func (o HighAvailabilityVirtualServerRealServer) ResourceAttributes() map[string
 		// Nodes
 
 		"health_check": schema.SingleNestedAttribute{
-			Attributes: HighAvailabilityVirtualServerRealServerHealthCheck{}.ResourceAttributes(),
+			Attributes: HighAvailabilityVirtualServerRealServerHealthCheck{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Health check script
 

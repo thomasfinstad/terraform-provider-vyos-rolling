@@ -2,33 +2,131 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfSegmentRouting describes the resource data model.
 type VrfNameProtocolsOspfSegmentRouting struct {
 	// LeafNodes
-	VrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth customtypes.CustomStringValue `tfsdk:"maximum_label_depth" json:"maximum-label-depth,omitempty"`
+	LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth types.String `tfsdk:"maximum_label_depth"`
 
 	// TagNodes
-	VrfNameProtocolsOspfSegmentRoutingPrefix types.Map `tfsdk:"prefix" json:"prefix,omitempty"`
+	TagVrfNameProtocolsOspfSegmentRoutingPrefix types.Map `tfsdk:"prefix"`
 
 	// Nodes
-	VrfNameProtocolsOspfSegmentRoutingGlobalBlock types.Object `tfsdk:"global_block" json:"global-block,omitempty"`
-	VrfNameProtocolsOspfSegmentRoutingLocalBlock  types.Object `tfsdk:"local_block" json:"local-block,omitempty"`
+	NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock types.Object `tfsdk:"global_block"`
+	NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock  types.Object `tfsdk:"local_block"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfSegmentRouting) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.IsNull() || o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.IsUnknown()) {
+		vyosData["maximum-label-depth"] = o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsOspfSegmentRoutingPrefix.IsNull() || o.TagVrfNameProtocolsOspfSegmentRoutingPrefix.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfSegmentRoutingPrefix)
+		diags.Append(o.TagVrfNameProtocolsOspfSegmentRoutingPrefix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["prefix"] = subData
+	}
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock.IsNull() || o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfSegmentRoutingGlobalBlock
+		diags.Append(o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["global-block"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock.IsNull() || o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfSegmentRoutingLocalBlock
+		diags.Append(o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["local-block"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfSegmentRouting) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing"}})
+
+	// Leafs
+	if value, ok := vyosData["maximum-label-depth"]; ok {
+		o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfSegmentRoutingMaximumLabelDepth = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["prefix"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRoutingPrefix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfSegmentRoutingPrefix = data
+	} else {
+		o.TagVrfNameProtocolsOspfSegmentRoutingPrefix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+	if value, ok := vyosData["global-block"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfSegmentRoutingGlobalBlock = basetypes.NewObjectNull(VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}.AttributeTypes())
+	}
+	if value, ok := vyosData["local-block"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfSegmentRoutingLocalBlock{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfSegmentRoutingLocalBlock = basetypes.NewObjectNull(VrfNameProtocolsOspfSegmentRoutingLocalBlock{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "segment-routing"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfSegmentRouting) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"maximum_label_depth": types.StringType,
+
+		// Tags
+		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRoutingPrefix{}.AttributeTypes()}},
+
+		// Nodes
+		"global_block": types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}.AttributeTypes()},
+		"local_block":  types.ObjectType{AttrTypes: VrfNameProtocolsOspfSegmentRoutingLocalBlock{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfSegmentRouting) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"maximum_label_depth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum MPLS labels allowed for this router
 
 |  Format  |  Description  |
@@ -42,7 +140,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]sche
 
 		"prefix": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfSegmentRoutingPrefix{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfSegmentRoutingPrefix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Static IPv4 prefix segment/label mapping
@@ -57,7 +155,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]sche
 		// Nodes
 
 		"global_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfSegmentRoutingGlobalBlock{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Global Block label range
 
@@ -65,7 +163,7 @@ func (o VrfNameProtocolsOspfSegmentRouting) ResourceAttributes() map[string]sche
 		},
 
 		"local_block": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfSegmentRoutingLocalBlock{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfSegmentRoutingLocalBlock{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Segment Routing Local Block label range
 

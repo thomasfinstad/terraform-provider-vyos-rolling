@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRoutesixRuleRecent describes the resource data model.
 type PolicyRoutesixRuleRecent struct {
 	// LeafNodes
-	PolicyRoutesixRuleRecentCount customtypes.CustomStringValue `tfsdk:"count" json:"count,omitempty"`
-	PolicyRoutesixRuleRecentTime  customtypes.CustomStringValue `tfsdk:"time" json:"time,omitempty"`
+	LeafPolicyRoutesixRuleRecentCount types.String `tfsdk:"count"`
+	LeafPolicyRoutesixRuleRecentTime  types.String `tfsdk:"time"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRoutesixRuleRecent) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRoutesixRuleRecent) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "recent"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRoutesixRuleRecentCount.IsNull() || o.LeafPolicyRoutesixRuleRecentCount.IsUnknown()) {
+		vyosData["count"] = o.LeafPolicyRoutesixRuleRecentCount.ValueString()
+	}
+	if !(o.LeafPolicyRoutesixRuleRecentTime.IsNull() || o.LeafPolicyRoutesixRuleRecentTime.IsUnknown()) {
+		vyosData["time"] = o.LeafPolicyRoutesixRuleRecentTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRoutesixRuleRecent) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "recent"}})
+
+	// Leafs
+	if value, ok := vyosData["count"]; ok {
+		o.LeafPolicyRoutesixRuleRecentCount = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleRecentCount = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["time"]; ok {
+		o.LeafPolicyRoutesixRuleRecentTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRoutesixRuleRecentTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route6", "rule", "recent"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRoutesixRuleRecent) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"count": types.StringType,
+		"time":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRoutesixRuleRecent) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"count": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source addresses seen more than N times
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o PolicyRoutesixRuleRecent) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source addresses seen in the last N seconds
 
 |  Format  |  Description  |

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnIPsecEspGroupProposal describes the resource data model.
 type VpnIPsecEspGroupProposal struct {
 	// LeafNodes
-	VpnIPsecEspGroupProposalEncryption customtypes.CustomStringValue `tfsdk:"encryption" json:"encryption,omitempty"`
-	VpnIPsecEspGroupProposalHash       customtypes.CustomStringValue `tfsdk:"hash" json:"hash,omitempty"`
+	LeafVpnIPsecEspGroupProposalEncryption types.String `tfsdk:"encryption"`
+	LeafVpnIPsecEspGroupProposalHash       types.String `tfsdk:"hash"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnIPsecEspGroupProposal) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnIPsecEspGroupProposal) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnIPsecEspGroupProposalEncryption.IsNull() || o.LeafVpnIPsecEspGroupProposalEncryption.IsUnknown()) {
+		vyosData["encryption"] = o.LeafVpnIPsecEspGroupProposalEncryption.ValueString()
+	}
+	if !(o.LeafVpnIPsecEspGroupProposalHash.IsNull() || o.LeafVpnIPsecEspGroupProposalHash.IsUnknown()) {
+		vyosData["hash"] = o.LeafVpnIPsecEspGroupProposalHash.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnIPsecEspGroupProposal) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
+
+	// Leafs
+	if value, ok := vyosData["encryption"]; ok {
+		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupProposalEncryption = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hash"]; ok {
+		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnIPsecEspGroupProposalHash = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "ipsec", "esp-group", "proposal"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnIPsecEspGroupProposal) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"encryption": types.StringType,
+		"hash":       types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnIPsecEspGroupProposal) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"encryption": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Encryption algorithm
 
 |  Format  |  Description  |
@@ -93,8 +156,7 @@ func (o VpnIPsecEspGroupProposal) ResourceAttributes() map[string]schema.Attribu
 		},
 
 		"hash": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Hash algorithm
 
 |  Format  |  Description  |

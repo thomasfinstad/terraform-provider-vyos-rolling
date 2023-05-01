@@ -21,6 +21,6 @@ HTTP API keys
 HTTP API id
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

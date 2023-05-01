@@ -2,42 +2,227 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesBondingVifSVifC describes the resource data model.
 type InterfacesBondingVifSVifC struct {
 	// LeafNodes
-	InterfacesBondingVifSVifCDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesBondingVifSVifCAddress           customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesBondingVifSVifCDisableLinkDetect customtypes.CustomStringValue `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
-	InterfacesBondingVifSVifCDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesBondingVifSVifCMac               customtypes.CustomStringValue `tfsdk:"mac" json:"mac,omitempty"`
-	InterfacesBondingVifSVifCMtu               customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesBondingVifSVifCRedirect          customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
-	InterfacesBondingVifSVifCVrf               customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
+	LeafInterfacesBondingVifSVifCDescrIPtion       types.String `tfsdk:"description"`
+	LeafInterfacesBondingVifSVifCAddress           types.String `tfsdk:"address"`
+	LeafInterfacesBondingVifSVifCDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
+	LeafInterfacesBondingVifSVifCDisable           types.String `tfsdk:"disable"`
+	LeafInterfacesBondingVifSVifCMac               types.String `tfsdk:"mac"`
+	LeafInterfacesBondingVifSVifCMtu               types.String `tfsdk:"mtu"`
+	LeafInterfacesBondingVifSVifCRedirect          types.String `tfsdk:"redirect"`
+	LeafInterfacesBondingVifSVifCVrf               types.String `tfsdk:"vrf"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesBondingVifSVifCDhcpOptions     types.Object `tfsdk:"dhcp_options" json:"dhcp-options,omitempty"`
-	InterfacesBondingVifSVifCDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options" json:"dhcpv6-options,omitempty"`
-	InterfacesBondingVifSVifCIP              types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesBondingVifSVifCIPvsix          types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesBondingVifSVifCMirror          types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
+	NodeInterfacesBondingVifSVifCDhcpOptions     types.Object `tfsdk:"dhcp_options"`
+	NodeInterfacesBondingVifSVifCDhcpvsixOptions types.Object `tfsdk:"dhcpv6_options"`
+	NodeInterfacesBondingVifSVifCIP              types.Object `tfsdk:"ip"`
+	NodeInterfacesBondingVifSVifCIPvsix          types.Object `tfsdk:"ipv6"`
+	NodeInterfacesBondingVifSVifCMirror          types.Object `tfsdk:"mirror"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesBondingVifSVifC) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesBondingVifSVifCDescrIPtion.IsNull() || o.LeafInterfacesBondingVifSVifCDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesBondingVifSVifCDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCAddress.IsNull() || o.LeafInterfacesBondingVifSVifCAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesBondingVifSVifCAddress.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCDisableLinkDetect.IsNull() || o.LeafInterfacesBondingVifSVifCDisableLinkDetect.IsUnknown()) {
+		vyosData["disable-link-detect"] = o.LeafInterfacesBondingVifSVifCDisableLinkDetect.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCDisable.IsNull() || o.LeafInterfacesBondingVifSVifCDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesBondingVifSVifCDisable.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCMac.IsNull() || o.LeafInterfacesBondingVifSVifCMac.IsUnknown()) {
+		vyosData["mac"] = o.LeafInterfacesBondingVifSVifCMac.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCMtu.IsNull() || o.LeafInterfacesBondingVifSVifCMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesBondingVifSVifCMtu.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCRedirect.IsNull() || o.LeafInterfacesBondingVifSVifCRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesBondingVifSVifCRedirect.ValueString()
+	}
+	if !(o.LeafInterfacesBondingVifSVifCVrf.IsNull() || o.LeafInterfacesBondingVifSVifCVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesBondingVifSVifCVrf.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesBondingVifSVifCDhcpOptions.IsNull() || o.NodeInterfacesBondingVifSVifCDhcpOptions.IsUnknown()) {
+		var subModel InterfacesBondingVifSVifCDhcpOptions
+		diags.Append(o.NodeInterfacesBondingVifSVifCDhcpOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcp-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingVifSVifCDhcpvsixOptions.IsNull() || o.NodeInterfacesBondingVifSVifCDhcpvsixOptions.IsUnknown()) {
+		var subModel InterfacesBondingVifSVifCDhcpvsixOptions
+		diags.Append(o.NodeInterfacesBondingVifSVifCDhcpvsixOptions.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["dhcpv6-options"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingVifSVifCIP.IsNull() || o.NodeInterfacesBondingVifSVifCIP.IsUnknown()) {
+		var subModel InterfacesBondingVifSVifCIP
+		diags.Append(o.NodeInterfacesBondingVifSVifCIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingVifSVifCIPvsix.IsNull() || o.NodeInterfacesBondingVifSVifCIPvsix.IsUnknown()) {
+		var subModel InterfacesBondingVifSVifCIPvsix
+		diags.Append(o.NodeInterfacesBondingVifSVifCIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesBondingVifSVifCMirror.IsNull() || o.NodeInterfacesBondingVifSVifCMirror.IsUnknown()) {
+		var subModel InterfacesBondingVifSVifCMirror
+		diags.Append(o.NodeInterfacesBondingVifSVifCMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesBondingVifSVifC) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesBondingVifSVifCDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesBondingVifSVifCAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-link-detect"]; ok {
+		o.LeafInterfacesBondingVifSVifCDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCDisableLinkDetect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesBondingVifSVifCDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac"]; ok {
+		o.LeafInterfacesBondingVifSVifCMac = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCMac = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesBondingVifSVifCMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesBondingVifSVifCRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCRedirect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesBondingVifSVifCVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesBondingVifSVifCVrf = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["dhcp-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifSVifCDhcpOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingVifSVifCDhcpOptions = data
+
+	} else {
+		o.NodeInterfacesBondingVifSVifCDhcpOptions = basetypes.NewObjectNull(InterfacesBondingVifSVifCDhcpOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["dhcpv6-options"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifSVifCDhcpvsixOptions{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingVifSVifCDhcpvsixOptions = data
+
+	} else {
+		o.NodeInterfacesBondingVifSVifCDhcpvsixOptions = basetypes.NewObjectNull(InterfacesBondingVifSVifCDhcpvsixOptions{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifSVifCIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingVifSVifCIP = data
+
+	} else {
+		o.NodeInterfacesBondingVifSVifCIP = basetypes.NewObjectNull(InterfacesBondingVifSVifCIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifSVifCIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingVifSVifCIPvsix = data
+
+	} else {
+		o.NodeInterfacesBondingVifSVifCIPvsix = basetypes.NewObjectNull(InterfacesBondingVifSVifCIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesBondingVifSVifCMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesBondingVifSVifCMirror = data
+
+	} else {
+		o.NodeInterfacesBondingVifSVifCMirror = basetypes.NewObjectNull(InterfacesBondingVifSVifCMirror{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "bonding", "vif-s", "vif-c"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesBondingVifSVifC) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":         types.StringType,
+		"address":             types.StringType,
+		"disable_link_detect": types.StringType,
+		"disable":             types.StringType,
+		"mac":                 types.StringType,
+		"mtu":                 types.StringType,
+		"redirect":            types.StringType,
+		"vrf":                 types.StringType,
+
+		// Tags
+
+		// Nodes
+		"dhcp_options":   types.ObjectType{AttrTypes: InterfacesBondingVifSVifCDhcpOptions{}.AttributeTypes()},
+		"dhcpv6_options": types.ObjectType{AttrTypes: InterfacesBondingVifSVifCDhcpvsixOptions{}.AttributeTypes()},
+		"ip":             types.ObjectType{AttrTypes: InterfacesBondingVifSVifCIP{}.AttributeTypes()},
+		"ipv6":           types.ObjectType{AttrTypes: InterfacesBondingVifSVifCIPvsix{}.AttributeTypes()},
+		"mirror":         types.ObjectType{AttrTypes: InterfacesBondingVifSVifCMirror{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesBondingVifSVifC) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -48,8 +233,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -63,24 +247,21 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"disable_link_detect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"mac": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Media Access Control (MAC) address
 
 |  Format  |  Description  |
@@ -91,8 +272,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -106,8 +286,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -118,8 +297,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -134,7 +312,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"dhcp_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingVifSVifCDhcpOptions{}.ResourceAttributes(),
+			Attributes: InterfacesBondingVifSVifCDhcpOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCP client settings/options
 
@@ -142,7 +320,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"dhcpv6_options": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingVifSVifCDhcpvsixOptions{}.ResourceAttributes(),
+			Attributes: InterfacesBondingVifSVifCDhcpvsixOptions{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `DHCPv6 client settings/options
 
@@ -150,7 +328,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingVifSVifCIP{}.ResourceAttributes(),
+			Attributes: InterfacesBondingVifSVifCIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -158,7 +336,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingVifSVifCIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesBondingVifSVifCIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -166,7 +344,7 @@ func (o InterfacesBondingVifSVifC) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesBondingVifSVifCMirror{}.ResourceAttributes(),
+			Attributes: InterfacesBondingVifSVifCMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 

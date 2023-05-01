@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallNameRuleLimit describes the resource data model.
 type FirewallNameRuleLimit struct {
 	// LeafNodes
-	FirewallNameRuleLimitBurst customtypes.CustomStringValue `tfsdk:"burst" json:"burst,omitempty"`
-	FirewallNameRuleLimitRate  customtypes.CustomStringValue `tfsdk:"rate" json:"rate,omitempty"`
+	LeafFirewallNameRuleLimitBurst types.String `tfsdk:"burst"`
+	LeafFirewallNameRuleLimitRate  types.String `tfsdk:"rate"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallNameRuleLimit) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallNameRuleLimit) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallNameRuleLimitBurst.IsNull() || o.LeafFirewallNameRuleLimitBurst.IsUnknown()) {
+		vyosData["burst"] = o.LeafFirewallNameRuleLimitBurst.ValueString()
+	}
+	if !(o.LeafFirewallNameRuleLimitRate.IsNull() || o.LeafFirewallNameRuleLimitRate.IsUnknown()) {
+		vyosData["rate"] = o.LeafFirewallNameRuleLimitRate.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallNameRuleLimit) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
+
+	// Leafs
+	if value, ok := vyosData["burst"]; ok {
+		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLimitBurst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["rate"]; ok {
+		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallNameRuleLimitRate = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "name", "rule", "limit"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallNameRuleLimit) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"burst": types.StringType,
+		"rate":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallNameRuleLimit) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"burst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum number of packets to allow in excess of rate
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o FirewallNameRuleLimit) ResourceAttributes() map[string]schema.Attribute 
 		},
 
 		"rate": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum average matching rate
 
 |  Format  |  Description  |

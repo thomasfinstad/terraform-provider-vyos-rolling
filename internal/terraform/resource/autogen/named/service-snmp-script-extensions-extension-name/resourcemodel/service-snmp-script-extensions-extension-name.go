@@ -2,29 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceSnmpScrIPtExtensionsExtensionName describes the resource data model.
 type ServiceSnmpScrIPtExtensionsExtensionName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceSnmpScrIPtExtensionsExtensionNameScrIPt customtypes.CustomStringValue `tfsdk:"script" json:"script,omitempty"`
+	LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt types.String `tfsdk:"script"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceSnmpScrIPtExtensionsExtensionName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceSnmpScrIPtExtensionsExtensionName) GetVyosPath() []string {
+	return []string{
+		"service",
+		"snmp",
+		"script-extensions",
+		"extension-name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceSnmpScrIPtExtensionsExtensionName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "snmp", "script-extensions", "extension-name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.IsNull() || o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.IsUnknown()) {
+		vyosData["script"] = o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceSnmpScrIPtExtensionsExtensionName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "snmp", "script-extensions", "extension-name"}})
+
+	// Leafs
+	if value, ok := vyosData["script"]; ok {
+		o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceSnmpScrIPtExtensionsExtensionNameScrIPt = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "snmp", "script-extensions", "extension-name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceSnmpScrIPtExtensionsExtensionName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"script": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceSnmpScrIPtExtensionsExtensionName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Extension name
+
+`,
+		},
+
 		// LeafNodes
 
 		"script": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Script location and name
 
 `,

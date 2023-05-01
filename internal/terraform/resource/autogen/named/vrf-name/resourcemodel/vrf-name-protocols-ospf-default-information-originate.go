@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfDefaultInformationOriginate describes the resource data model.
 type VrfNameProtocolsOspfDefaultInformationOriginate struct {
 	// LeafNodes
-	VrfNameProtocolsOspfDefaultInformationOriginateAlways     customtypes.CustomStringValue `tfsdk:"always" json:"always,omitempty"`
-	VrfNameProtocolsOspfDefaultInformationOriginateMetric     customtypes.CustomStringValue `tfsdk:"metric" json:"metric,omitempty"`
-	VrfNameProtocolsOspfDefaultInformationOriginateMetricType customtypes.CustomStringValue `tfsdk:"metric_type" json:"metric-type,omitempty"`
-	VrfNameProtocolsOspfDefaultInformationOriginateRouteMap   customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways     types.String `tfsdk:"always"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric     types.String `tfsdk:"metric"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType types.String `tfsdk:"metric_type"`
+	LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap   types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfDefaultInformationOriginate) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.IsUnknown()) {
+		vyosData["always"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.IsUnknown()) {
+		vyosData["metric"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.IsUnknown()) {
+		vyosData["metric-type"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsNull() || o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfDefaultInformationOriginate) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
+
+	// Leafs
+	if value, ok := vyosData["always"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateAlways = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetric = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["metric-type"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateMetricType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfDefaultInformationOriginateRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "default-information", "originate"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfDefaultInformationOriginate) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"always":      types.StringType,
+		"metric":      types.StringType,
+		"metric_type": types.StringType,
+		"route_map":   types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"always": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Always advertise a default route
 
 `,
 		},
 
 		"metric": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF default metric
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceAttributes() ma
 		},
 
 		"metric_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `OSPF metric type for default routes
 
 |  Format  |  Description  |
@@ -61,8 +140,7 @@ func (o VrfNameProtocolsOspfDefaultInformationOriginate) ResourceAttributes() ma
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

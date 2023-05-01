@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive describes the resource data model.
@@ -11,13 +17,72 @@ type VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive struct {
 	// LeafNodes
 
 	// TagNodes
-	VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID types.Map `tfsdk:"key_id" json:"key-id,omitempty"`
+	TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID types.Map `tfsdk:"key_id"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.IsNull() || o.TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID)
+		diags.Append(o.TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["key-id"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["key-id"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID = data
+	} else {
+		o.TagVrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospf", "area", "virtual-link", "authentication", "md5"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"key_id": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -25,7 +90,7 @@ func (o VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfive) ResourceAttribu
 
 		"key_id": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsOspfAreaVirtualLinkAuthenticationMdfiveKeyID{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `MD5 key id

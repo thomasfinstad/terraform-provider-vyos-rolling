@@ -19,6 +19,6 @@ Firewall group
 Firewall mac-group
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

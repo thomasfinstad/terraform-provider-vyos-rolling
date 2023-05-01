@@ -2,39 +2,210 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatSourceRule describes the resource data model.
 type NatSourceRule struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	NatSourceRuleDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	NatSourceRuleDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	NatSourceRuleExclude           customtypes.CustomStringValue `tfsdk:"exclude" json:"exclude,omitempty"`
-	NatSourceRuleLog               customtypes.CustomStringValue `tfsdk:"log" json:"log,omitempty"`
-	NatSourceRulePacketType        customtypes.CustomStringValue `tfsdk:"packet_type" json:"packet-type,omitempty"`
-	NatSourceRuleProtocol          customtypes.CustomStringValue `tfsdk:"protocol" json:"protocol,omitempty"`
-	NatSourceRuleOutboundInterface customtypes.CustomStringValue `tfsdk:"outbound_interface" json:"outbound-interface,omitempty"`
+	LeafNatSourceRuleDescrIPtion       types.String `tfsdk:"description"`
+	LeafNatSourceRuleDisable           types.String `tfsdk:"disable"`
+	LeafNatSourceRuleExclude           types.String `tfsdk:"exclude"`
+	LeafNatSourceRuleLog               types.String `tfsdk:"log"`
+	LeafNatSourceRulePacketType        types.String `tfsdk:"packet_type"`
+	LeafNatSourceRuleProtocol          types.String `tfsdk:"protocol"`
+	LeafNatSourceRuleOutboundInterface types.String `tfsdk:"outbound_interface"`
 
 	// TagNodes
 
 	// Nodes
-	NatSourceRuleDestination types.Object `tfsdk:"destination" json:"destination,omitempty"`
-	NatSourceRuleSource      types.Object `tfsdk:"source" json:"source,omitempty"`
-	NatSourceRuleTranSLAtion types.Object `tfsdk:"translation" json:"translation,omitempty"`
+	NodeNatSourceRuleDestination types.Object `tfsdk:"destination"`
+	NodeNatSourceRuleSource      types.Object `tfsdk:"source"`
+	NodeNatSourceRuleTranSLAtion types.Object `tfsdk:"translation"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *NatSourceRule) GetVyosPath() []string {
+	return []string{
+		"nat",
+		"source",
+		"rule",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *NatSourceRule) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "source", "rule"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafNatSourceRuleDescrIPtion.IsNull() || o.LeafNatSourceRuleDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafNatSourceRuleDescrIPtion.ValueString()
+	}
+	if !(o.LeafNatSourceRuleDisable.IsNull() || o.LeafNatSourceRuleDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafNatSourceRuleDisable.ValueString()
+	}
+	if !(o.LeafNatSourceRuleExclude.IsNull() || o.LeafNatSourceRuleExclude.IsUnknown()) {
+		vyosData["exclude"] = o.LeafNatSourceRuleExclude.ValueString()
+	}
+	if !(o.LeafNatSourceRuleLog.IsNull() || o.LeafNatSourceRuleLog.IsUnknown()) {
+		vyosData["log"] = o.LeafNatSourceRuleLog.ValueString()
+	}
+	if !(o.LeafNatSourceRulePacketType.IsNull() || o.LeafNatSourceRulePacketType.IsUnknown()) {
+		vyosData["packet-type"] = o.LeafNatSourceRulePacketType.ValueString()
+	}
+	if !(o.LeafNatSourceRuleProtocol.IsNull() || o.LeafNatSourceRuleProtocol.IsUnknown()) {
+		vyosData["protocol"] = o.LeafNatSourceRuleProtocol.ValueString()
+	}
+	if !(o.LeafNatSourceRuleOutboundInterface.IsNull() || o.LeafNatSourceRuleOutboundInterface.IsUnknown()) {
+		vyosData["outbound-interface"] = o.LeafNatSourceRuleOutboundInterface.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeNatSourceRuleDestination.IsNull() || o.NodeNatSourceRuleDestination.IsUnknown()) {
+		var subModel NatSourceRuleDestination
+		diags.Append(o.NodeNatSourceRuleDestination.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["destination"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeNatSourceRuleSource.IsNull() || o.NodeNatSourceRuleSource.IsUnknown()) {
+		var subModel NatSourceRuleSource
+		diags.Append(o.NodeNatSourceRuleSource.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["source"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeNatSourceRuleTranSLAtion.IsNull() || o.NodeNatSourceRuleTranSLAtion.IsUnknown()) {
+		var subModel NatSourceRuleTranSLAtion
+		diags.Append(o.NodeNatSourceRuleTranSLAtion.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["translation"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *NatSourceRule) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "source", "rule"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafNatSourceRuleDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafNatSourceRuleDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["exclude"]; ok {
+		o.LeafNatSourceRuleExclude = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleExclude = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["log"]; ok {
+		o.LeafNatSourceRuleLog = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleLog = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["packet-type"]; ok {
+		o.LeafNatSourceRulePacketType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRulePacketType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["protocol"]; ok {
+		o.LeafNatSourceRuleProtocol = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleProtocol = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["outbound-interface"]; ok {
+		o.LeafNatSourceRuleOutboundInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleOutboundInterface = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["destination"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatSourceRuleDestination{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatSourceRuleDestination = data
+
+	} else {
+		o.NodeNatSourceRuleDestination = basetypes.NewObjectNull(NatSourceRuleDestination{}.AttributeTypes())
+	}
+	if value, ok := vyosData["source"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatSourceRuleSource{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatSourceRuleSource = data
+
+	} else {
+		o.NodeNatSourceRuleSource = basetypes.NewObjectNull(NatSourceRuleSource{}.AttributeTypes())
+	}
+	if value, ok := vyosData["translation"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, NatSourceRuleTranSLAtion{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeNatSourceRuleTranSLAtion = data
+
+	} else {
+		o.NodeNatSourceRuleTranSLAtion = basetypes.NewObjectNull(NatSourceRuleTranSLAtion{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "source", "rule"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o NatSourceRule) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":        types.StringType,
+		"disable":            types.StringType,
+		"exclude":            types.StringType,
+		"log":                types.StringType,
+		"packet_type":        types.StringType,
+		"protocol":           types.StringType,
+		"outbound_interface": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"destination": types.ObjectType{AttrTypes: NatSourceRuleDestination{}.AttributeTypes()},
+		"source":      types.ObjectType{AttrTypes: NatSourceRuleSource{}.AttributeTypes()},
+		"translation": types.ObjectType{AttrTypes: NatSourceRuleTranSLAtion{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o NatSourceRule) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Rule number for NAT
+
+|  Format  |  Description  |
+|----------|---------------|
+|  u32:1-999999  |  Number of NAT rule  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -45,32 +216,28 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"exclude": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Exclude packets matching this rule from NAT
 
 `,
 		},
 
 		"log": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `NAT rule logging
 
 `,
 		},
 
 		"packet_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Packet type
 
 |  Format  |  Description  |
@@ -84,8 +251,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"protocol": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Protocol to NAT
 
 |  Format  |  Description  |
@@ -157,8 +323,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"outbound_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Outbound interface of NAT traffic
 
 `,
@@ -169,7 +334,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"destination": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleDestination{}.ResourceAttributes(),
+			Attributes: NatSourceRuleDestination{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `NAT destination parameters
 
@@ -177,7 +342,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleSource{}.ResourceAttributes(),
+			Attributes: NatSourceRuleSource{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `NAT source parameters
 
@@ -185,7 +350,7 @@ func (o NatSourceRule) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"translation": schema.SingleNestedAttribute{
-			Attributes: NatSourceRuleTranSLAtion{}.ResourceAttributes(),
+			Attributes: NatSourceRuleTranSLAtion{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Outside NAT IP (source NAT only)
 

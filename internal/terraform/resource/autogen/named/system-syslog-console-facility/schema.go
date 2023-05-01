@@ -45,6 +45,6 @@ Facility for logging
 |  local7  |  Local facility 7  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

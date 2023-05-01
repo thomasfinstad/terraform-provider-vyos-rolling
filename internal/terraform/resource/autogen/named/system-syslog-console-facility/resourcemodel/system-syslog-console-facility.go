@@ -2,29 +2,129 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemSyslogConsoleFacility describes the resource data model.
 type SystemSyslogConsoleFacility struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemSyslogConsoleFacilityLevel customtypes.CustomStringValue `tfsdk:"level" json:"level,omitempty"`
+	LeafSystemSyslogConsoleFacilityLevel types.String `tfsdk:"level"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemSyslogConsoleFacility) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemSyslogConsoleFacility) GetVyosPath() []string {
+	return []string{
+		"system",
+		"syslog",
+		"console",
+		"facility",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemSyslogConsoleFacility) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "syslog", "console", "facility"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemSyslogConsoleFacilityLevel.IsNull() || o.LeafSystemSyslogConsoleFacilityLevel.IsUnknown()) {
+		vyosData["level"] = o.LeafSystemSyslogConsoleFacilityLevel.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemSyslogConsoleFacility) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "syslog", "console", "facility"}})
+
+	// Leafs
+	if value, ok := vyosData["level"]; ok {
+		o.LeafSystemSyslogConsoleFacilityLevel = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemSyslogConsoleFacilityLevel = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "syslog", "console", "facility"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemSyslogConsoleFacility) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"level": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemSyslogConsoleFacility) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Facility for logging
+
+|  Format  |  Description  |
+|----------|---------------|
+|  all  |  All facilities excluding "mark"  |
+|  auth  |  Authentication and authorization  |
+|  authpriv  |  Non-system authorization  |
+|  cron  |  Cron daemon  |
+|  daemon  |  System daemons  |
+|  kern  |  Kernel  |
+|  lpr  |  Line printer spooler  |
+|  mail  |  Mail subsystem  |
+|  mark  |  Timestamp  |
+|  news  |  USENET subsystem  |
+|  protocols  |  depricated will be set to local7  |
+|  security  |  depricated will be set to auth  |
+|  syslog  |  Authentication and authorization  |
+|  user  |  Application processes  |
+|  uucp  |  UUCP subsystem  |
+|  local0  |  Local facility 0  |
+|  local1  |  Local facility 1  |
+|  local2  |  Local facility 2  |
+|  local3  |  Local facility 3  |
+|  local4  |  Local facility 4  |
+|  local5  |  Local facility 5  |
+|  local6  |  Local facility 6  |
+|  local7  |  Local facility 7  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"level": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Logging level
 
 |  Format  |  Description  |

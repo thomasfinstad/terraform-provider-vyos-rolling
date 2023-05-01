@@ -19,6 +19,6 @@ func (r interfacesInput) Schema(ctx context.Context, req resource.SchemaRequest,
 |  ifbN  |  Input interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

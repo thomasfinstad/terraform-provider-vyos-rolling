@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceEventHandlerEventScrIPtEnvironment describes the resource data model.
 type ServiceEventHandlerEventScrIPtEnvironment struct {
 	// LeafNodes
-	ServiceEventHandlerEventScrIPtEnvironmentValue customtypes.CustomStringValue `tfsdk:"value" json:"value,omitempty"`
+	LeafServiceEventHandlerEventScrIPtEnvironmentValue types.String `tfsdk:"value"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceEventHandlerEventScrIPtEnvironment) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceEventHandlerEventScrIPtEnvironment) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script", "environment"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.IsNull() || o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.IsUnknown()) {
+		vyosData["value"] = o.LeafServiceEventHandlerEventScrIPtEnvironmentValue.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceEventHandlerEventScrIPtEnvironment) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script", "environment"}})
+
+	// Leafs
+	if value, ok := vyosData["value"]; ok {
+		o.LeafServiceEventHandlerEventScrIPtEnvironmentValue = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceEventHandlerEventScrIPtEnvironmentValue = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "event-handler", "event", "script", "environment"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceEventHandlerEventScrIPtEnvironment) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"value": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceEventHandlerEventScrIPtEnvironment) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"value": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Environment value
 
 `,

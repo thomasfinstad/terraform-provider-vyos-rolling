@@ -2,36 +2,171 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceConsoleServerDevice describes the resource data model.
 type ServiceConsoleServerDevice struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceConsoleServerDeviceDescrIPtion customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	ServiceConsoleServerDeviceAlias       customtypes.CustomStringValue `tfsdk:"alias" json:"alias,omitempty"`
-	ServiceConsoleServerDeviceSpeed       customtypes.CustomStringValue `tfsdk:"speed" json:"speed,omitempty"`
-	ServiceConsoleServerDeviceDataBits    customtypes.CustomStringValue `tfsdk:"data_bits" json:"data-bits,omitempty"`
-	ServiceConsoleServerDeviceStopBits    customtypes.CustomStringValue `tfsdk:"stop_bits" json:"stop-bits,omitempty"`
-	ServiceConsoleServerDeviceParity      customtypes.CustomStringValue `tfsdk:"parity" json:"parity,omitempty"`
+	LeafServiceConsoleServerDeviceDescrIPtion types.String `tfsdk:"description"`
+	LeafServiceConsoleServerDeviceAlias       types.String `tfsdk:"alias"`
+	LeafServiceConsoleServerDeviceSpeed       types.String `tfsdk:"speed"`
+	LeafServiceConsoleServerDeviceDataBits    types.String `tfsdk:"data_bits"`
+	LeafServiceConsoleServerDeviceStopBits    types.String `tfsdk:"stop_bits"`
+	LeafServiceConsoleServerDeviceParity      types.String `tfsdk:"parity"`
 
 	// TagNodes
 
 	// Nodes
-	ServiceConsoleServerDeviceTCP types.Object `tfsdk:"ssh" json:"ssh,omitempty"`
+	NodeServiceConsoleServerDeviceTCP types.Object `tfsdk:"ssh"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceConsoleServerDevice) GetVyosPath() []string {
+	return []string{
+		"service",
+		"console-server",
+		"device",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceConsoleServerDevice) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceConsoleServerDeviceDescrIPtion.IsNull() || o.LeafServiceConsoleServerDeviceDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafServiceConsoleServerDeviceDescrIPtion.ValueString()
+	}
+	if !(o.LeafServiceConsoleServerDeviceAlias.IsNull() || o.LeafServiceConsoleServerDeviceAlias.IsUnknown()) {
+		vyosData["alias"] = o.LeafServiceConsoleServerDeviceAlias.ValueString()
+	}
+	if !(o.LeafServiceConsoleServerDeviceSpeed.IsNull() || o.LeafServiceConsoleServerDeviceSpeed.IsUnknown()) {
+		vyosData["speed"] = o.LeafServiceConsoleServerDeviceSpeed.ValueString()
+	}
+	if !(o.LeafServiceConsoleServerDeviceDataBits.IsNull() || o.LeafServiceConsoleServerDeviceDataBits.IsUnknown()) {
+		vyosData["data-bits"] = o.LeafServiceConsoleServerDeviceDataBits.ValueString()
+	}
+	if !(o.LeafServiceConsoleServerDeviceStopBits.IsNull() || o.LeafServiceConsoleServerDeviceStopBits.IsUnknown()) {
+		vyosData["stop-bits"] = o.LeafServiceConsoleServerDeviceStopBits.ValueString()
+	}
+	if !(o.LeafServiceConsoleServerDeviceParity.IsNull() || o.LeafServiceConsoleServerDeviceParity.IsUnknown()) {
+		vyosData["parity"] = o.LeafServiceConsoleServerDeviceParity.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeServiceConsoleServerDeviceTCP.IsNull() || o.NodeServiceConsoleServerDeviceTCP.IsUnknown()) {
+		var subModel ServiceConsoleServerDeviceTCP
+		diags.Append(o.NodeServiceConsoleServerDeviceTCP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ssh"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceConsoleServerDevice) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["alias"]; ok {
+		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceAlias = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["speed"]; ok {
+		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceSpeed = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["data-bits"]; ok {
+		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceDataBits = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["stop-bits"]; ok {
+		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceStopBits = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["parity"]; ok {
+		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceConsoleServerDeviceParity = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ssh"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ServiceConsoleServerDeviceTCP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeServiceConsoleServerDeviceTCP = data
+
+	} else {
+		o.NodeServiceConsoleServerDeviceTCP = basetypes.NewObjectNull(ServiceConsoleServerDeviceTCP{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "console-server", "device"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceConsoleServerDevice) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description": types.StringType,
+		"alias":       types.StringType,
+		"speed":       types.StringType,
+		"data_bits":   types.StringType,
+		"stop_bits":   types.StringType,
+		"parity":      types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ssh": types.ObjectType{AttrTypes: ServiceConsoleServerDeviceTCP{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceConsoleServerDevice) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `System serial interface name (ttyS or ttyUSB)
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ttySxxx  |  Regular serial interface  |
+|  usbxbxpx  |  USB based serial interface  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -42,24 +177,21 @@ func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"alias": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Human-readable name for this console
 
 `,
 		},
 
 		"speed": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Serial port baud rate
 
 `,
 		},
 
 		"data_bits": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Serial port data bits
 
 `,
@@ -69,8 +201,7 @@ func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"stop_bits": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Serial port stop bits
 
 `,
@@ -80,8 +211,7 @@ func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attri
 		},
 
 		"parity": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Parity setting
 
 `,
@@ -95,7 +225,7 @@ func (o ServiceConsoleServerDevice) ResourceAttributes() map[string]schema.Attri
 		// Nodes
 
 		"ssh": schema.SingleNestedAttribute{
-			Attributes: ServiceConsoleServerDeviceTCP{}.ResourceAttributes(),
+			Attributes: ServiceConsoleServerDeviceTCP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `SSH remote access to this console
 

@@ -19,6 +19,6 @@ Client authentication methods
 Network interface for client MAC addresses
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

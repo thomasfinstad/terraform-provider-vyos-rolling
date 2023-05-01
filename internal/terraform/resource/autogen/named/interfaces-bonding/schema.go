@@ -19,6 +19,6 @@ func (r interfacesBonding) Schema(ctx context.Context, req resource.SchemaReques
 |  bondN  |  Bonding interface name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

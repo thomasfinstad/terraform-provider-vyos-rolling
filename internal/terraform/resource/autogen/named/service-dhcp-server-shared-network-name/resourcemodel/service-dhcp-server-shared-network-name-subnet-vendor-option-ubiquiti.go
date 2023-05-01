@@ -2,29 +2,83 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti describes the resource data model.
 type ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti struct {
 	// LeafNodes
-	ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController customtypes.CustomStringValue `tfsdk:"unifi_controller" json:"unifi-controller,omitempty"`
+	LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController types.String `tfsdk:"unifi_controller"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option", "ubiquiti"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController.IsNull() || o.LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController.IsUnknown()) {
+		vyosData["unifi-controller"] = o.LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option", "ubiquiti"}})
+
+	// Leafs
+	if value, ok := vyosData["unifi-controller"]; ok {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquitiUnifiController = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dhcp-server", "shared-network-name", "subnet", "vendor-option", "ubiquiti"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"unifi_controller": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDhcpServerSharedNetworkNameSubnetVendorOptionUbiquiti) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"unifi_controller": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Address of UniFi controller
 
 |  Format  |  Description  |

@@ -2,32 +2,112 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecordsMx describes the resource data model.
 type ServiceDNSForwardingAuthoritativeDomainRecordsMx struct {
 	// LeafNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     customtypes.CustomStringValue `tfsdk:"ttl" json:"ttl,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsMxDisable customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL     types.String `tfsdk:"ttl"`
+	LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable types.String `tfsdk:"disable"`
 
 	// TagNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsMxServer types.Map `tfsdk:"server" json:"server,omitempty"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer types.Map `tfsdk:"server"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.IsUnknown()) {
+		vyosData["ttl"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL.ValueString()
+	}
+	if !(o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsNull() || o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable.ValueString()
+	}
+
+	// Tags
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsMxServer)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["server"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecordsMx) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
+
+	// Leafs
+	if value, ok := vyosData["ttl"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxTTL = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSForwardingAuthoritativeDomainRecordsMxDisable = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["server"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMxServer = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records", "mx"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"ttl":     types.StringType,
+		"disable": types.StringType,
+
+		// Tags
+		"server": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"ttl": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time-to-live (TTL)
 
 |  Format  |  Description  |
@@ -41,8 +121,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceAttributes() m
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
@@ -52,7 +131,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecordsMx) ResourceAttributes() m
 
 		"server": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsMxServer{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Mail server

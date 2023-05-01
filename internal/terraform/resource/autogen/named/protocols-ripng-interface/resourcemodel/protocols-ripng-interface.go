@@ -2,23 +2,106 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsRIPngInterface describes the resource data model.
 type ProtocolsRIPngInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
 
 	// TagNodes
 
 	// Nodes
-	ProtocolsRIPngInterfaceSplitHorizon types.Object `tfsdk:"split_horizon" json:"split-horizon,omitempty"`
+	NodeProtocolsRIPngInterfaceSplitHorizon types.Object `tfsdk:"split_horizon"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsRIPngInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsRIPngInterface) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"ripng",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsRIPngInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "ripng", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsRIPngInterfaceSplitHorizon.IsNull() || o.NodeProtocolsRIPngInterfaceSplitHorizon.IsUnknown()) {
+		var subModel ProtocolsRIPngInterfaceSplitHorizon
+		diags.Append(o.NodeProtocolsRIPngInterfaceSplitHorizon.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["split-horizon"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsRIPngInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "ripng", "interface"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["split-horizon"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsRIPngInterfaceSplitHorizon{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsRIPngInterfaceSplitHorizon = data
+
+	} else {
+		o.NodeProtocolsRIPngInterfaceSplitHorizon = basetypes.NewObjectNull(ProtocolsRIPngInterfaceSplitHorizon{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "ripng", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsRIPngInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"split_horizon": types.ObjectType{AttrTypes: ProtocolsRIPngInterfaceSplitHorizon{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsRIPngInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Interface name
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		// TagNodes
@@ -26,7 +109,7 @@ func (o ProtocolsRIPngInterface) ResourceAttributes() map[string]schema.Attribut
 		// Nodes
 
 		"split_horizon": schema.SingleNestedAttribute{
-			Attributes: ProtocolsRIPngInterfaceSplitHorizon{}.ResourceAttributes(),
+			Attributes: ProtocolsRIPngInterfaceSplitHorizon{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Split horizon parameters
 

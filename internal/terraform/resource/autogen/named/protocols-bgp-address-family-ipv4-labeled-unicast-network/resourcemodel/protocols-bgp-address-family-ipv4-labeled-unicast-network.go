@@ -2,38 +2,125 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork describes the resource data model.
 type ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor customtypes.CustomStringValue `tfsdk:"backdoor" json:"backdoor,omitempty"`
-	ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap customtypes.CustomStringValue `tfsdk:"route_map" json:"route-map,omitempty"`
+	LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor types.String `tfsdk:"backdoor"`
+	LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap types.String `tfsdk:"route_map"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) GetVyosPath() []string {
+	return []string{
+		"protocols",
+		"bgp",
+		"address-family",
+		"ipv4-labeled-unicast",
+		"network",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.IsUnknown()) {
+		vyosData["backdoor"] = o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor.ValueString()
+	}
+	if !(o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsNull() || o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.IsUnknown()) {
+		vyosData["route-map"] = o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
+
+	// Leafs
+	if value, ok := vyosData["backdoor"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkBackdoor = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["route-map"]; ok {
+		o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetworkRouteMap = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "address-family", "ipv4-labeled-unicast", "network"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"backdoor":  types.StringType,
+		"route_map": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpAddressFamilyIPvfourLabeledUnicastNetwork) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Import BGP network/prefix into labeled unicast IPv4 RIB
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4net  |  Labeled Unicast IPv4 BGP network/prefix  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"backdoor": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use BGP network/prefix as a backdoor route
 
 `,
 		},
 
 		"route_map": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Specify route-map name to use
 
 |  Format  |  Description  |

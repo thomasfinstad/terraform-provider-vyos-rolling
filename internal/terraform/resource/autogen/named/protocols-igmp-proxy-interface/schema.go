@@ -17,6 +17,6 @@ func (r protocolsIgmpProxyInterface) Schema(ctx context.Context, req resource.Sc
 Interface for IGMP proxy
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

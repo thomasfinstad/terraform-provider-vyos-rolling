@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VpnOpenconnectAuthenticationLocalUsersUsernameOtp describes the resource data model.
 type VpnOpenconnectAuthenticationLocalUsersUsernameOtp struct {
 	// LeafNodes
-	VpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	VpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength customtypes.CustomStringValue `tfsdk:"otp_length" json:"otp-length,omitempty"`
-	VpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	VpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType customtypes.CustomStringValue `tfsdk:"token_type" json:"token-type,omitempty"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey       types.String `tfsdk:"key"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength types.String `tfsdk:"otp_length"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval  types.String `tfsdk:"interval"`
+	LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType types.String `tfsdk:"token_type"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.IsUnknown()) {
+		vyosData["key"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.IsUnknown()) {
+		vyosData["otp-length"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval.ValueString()
+	}
+	if !(o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsNull() || o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.IsUnknown()) {
+		vyosData["token-type"] = o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VpnOpenconnectAuthenticationLocalUsersUsernameOtp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
+
+	// Leafs
+	if value, ok := vyosData["key"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["otp-length"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpOtpLength = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["token-type"]; ok {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVpnOpenconnectAuthenticationLocalUsersUsernameOtpTokenType = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vpn", "openconnect", "authentication", "local-users", "username", "otp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"key":        types.StringType,
+		"otp_length": types.StringType,
+		"interval":   types.StringType,
+		"token_type": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Token Key Secret key for the token algorithm (see RFC 4226)
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 		},
 
 		"otp_length": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of digits in OTP code
 
 |  Format  |  Description  |
@@ -53,8 +133,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Time tokens interval in seconds
 
 |  Format  |  Description  |
@@ -68,8 +147,7 @@ func (o VpnOpenconnectAuthenticationLocalUsersUsernameOtp) ResourceAttributes() 
 		},
 
 		"token_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Token type
 
 |  Format  |  Description  |

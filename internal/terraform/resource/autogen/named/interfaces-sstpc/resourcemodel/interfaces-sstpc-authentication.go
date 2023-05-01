@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesSstpcAuthentication describes the resource data model.
 type InterfacesSstpcAuthentication struct {
 	// LeafNodes
-	InterfacesSstpcAuthenticationUsername customtypes.CustomStringValue `tfsdk:"username" json:"username,omitempty"`
-	InterfacesSstpcAuthenticationPassword customtypes.CustomStringValue `tfsdk:"password" json:"password,omitempty"`
+	LeafInterfacesSstpcAuthenticationUsername types.String `tfsdk:"username"`
+	LeafInterfacesSstpcAuthenticationPassword types.String `tfsdk:"password"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesSstpcAuthentication) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesSstpcAuthentication) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "authentication"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesSstpcAuthenticationUsername.IsNull() || o.LeafInterfacesSstpcAuthenticationUsername.IsUnknown()) {
+		vyosData["username"] = o.LeafInterfacesSstpcAuthenticationUsername.ValueString()
+	}
+	if !(o.LeafInterfacesSstpcAuthenticationPassword.IsNull() || o.LeafInterfacesSstpcAuthenticationPassword.IsUnknown()) {
+		vyosData["password"] = o.LeafInterfacesSstpcAuthenticationPassword.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesSstpcAuthentication) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "authentication"}})
+
+	// Leafs
+	if value, ok := vyosData["username"]; ok {
+		o.LeafInterfacesSstpcAuthenticationUsername = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcAuthenticationUsername = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["password"]; ok {
+		o.LeafInterfacesSstpcAuthenticationPassword = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesSstpcAuthenticationPassword = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "sstpc", "authentication"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesSstpcAuthentication) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"username": types.StringType,
+		"password": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesSstpcAuthentication) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"username": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Username used for authentication
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o InterfacesSstpcAuthentication) ResourceAttributes() map[string]schema.At
 		},
 
 		"password": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Password used for authentication
 
 |  Format  |  Description  |

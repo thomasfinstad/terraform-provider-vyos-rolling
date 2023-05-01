@@ -21,6 +21,6 @@ Add a BGP extended community list entry
 |  txt  |  BGP extended community-list name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

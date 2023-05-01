@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // NatSourceRuleTranSLAtionOptions describes the resource data model.
 type NatSourceRuleTranSLAtionOptions struct {
 	// LeafNodes
-	NatSourceRuleTranSLAtionOptionsAddressMapping customtypes.CustomStringValue `tfsdk:"address_mapping" json:"address-mapping,omitempty"`
-	NatSourceRuleTranSLAtionOptionsPortMapping    customtypes.CustomStringValue `tfsdk:"port_mapping" json:"port-mapping,omitempty"`
+	LeafNatSourceRuleTranSLAtionOptionsAddressMapping types.String `tfsdk:"address_mapping"`
+	LeafNatSourceRuleTranSLAtionOptionsPortMapping    types.String `tfsdk:"port_mapping"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o NatSourceRuleTranSLAtionOptions) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *NatSourceRuleTranSLAtionOptions) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"nat", "source", "rule", "translation", "options"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.IsNull() || o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.IsUnknown()) {
+		vyosData["address-mapping"] = o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping.ValueString()
+	}
+	if !(o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.IsNull() || o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.IsUnknown()) {
+		vyosData["port-mapping"] = o.LeafNatSourceRuleTranSLAtionOptionsPortMapping.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *NatSourceRuleTranSLAtionOptions) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"nat", "source", "rule", "translation", "options"}})
+
+	// Leafs
+	if value, ok := vyosData["address-mapping"]; ok {
+		o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleTranSLAtionOptionsAddressMapping = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port-mapping"]; ok {
+		o.LeafNatSourceRuleTranSLAtionOptionsPortMapping = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafNatSourceRuleTranSLAtionOptionsPortMapping = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"nat", "source", "rule", "translation", "options"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o NatSourceRuleTranSLAtionOptions) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address_mapping": types.StringType,
+		"port_mapping":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o NatSourceRuleTranSLAtionOptions) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address_mapping": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Address mapping options
 
 |  Format  |  Description  |
@@ -40,8 +103,7 @@ func (o NatSourceRuleTranSLAtionOptions) ResourceAttributes() map[string]schema.
 		},
 
 		"port_mapping": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Port mapping options
 
 |  Format  |  Description  |

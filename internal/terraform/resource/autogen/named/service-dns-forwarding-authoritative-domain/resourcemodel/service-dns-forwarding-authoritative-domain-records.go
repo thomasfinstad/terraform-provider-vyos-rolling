@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSForwardingAuthoritativeDomainRecords describes the resource data model.
@@ -11,21 +17,224 @@ type ServiceDNSForwardingAuthoritativeDomainRecords struct {
 	// LeafNodes
 
 	// TagNodes
-	ServiceDNSForwardingAuthoritativeDomainRecordsA     types.Map `tfsdk:"a" json:"a,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsAaaa  types.Map `tfsdk:"aaaa" json:"aaaa,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsCname types.Map `tfsdk:"cname" json:"cname,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsMx    types.Map `tfsdk:"mx" json:"mx,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsPtr   types.Map `tfsdk:"ptr" json:"ptr,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsTxt   types.Map `tfsdk:"txt" json:"txt,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsSpf   types.Map `tfsdk:"spf" json:"spf,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsSrv   types.Map `tfsdk:"srv" json:"srv,omitempty"`
-	ServiceDNSForwardingAuthoritativeDomainRecordsNaptr types.Map `tfsdk:"naptr" json:"naptr,omitempty"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsA     types.Map `tfsdk:"a"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa  types.Map `tfsdk:"aaaa"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsCname types.Map `tfsdk:"cname"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsMx    types.Map `tfsdk:"mx"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsPtr   types.Map `tfsdk:"ptr"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsTxt   types.Map `tfsdk:"txt"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsSpf   types.Map `tfsdk:"spf"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsSrv   types.Map `tfsdk:"srv"`
+	TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr types.Map `tfsdk:"naptr"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecords) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsA.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsA.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsA)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsA.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["a"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsAaaa)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["aaaa"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsCname.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsCname.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsCname)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsCname.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["cname"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMx.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsMx.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsMx)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsMx.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["mx"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsPtr.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsPtr.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsPtr)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsPtr.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["ptr"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsTxt.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsTxt.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsTxt)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsTxt.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["txt"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsSpf.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsSpf.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsSpf)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsSpf.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["spf"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsSrv.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsSrv.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsSrv)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsSrv.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["srv"] = subData
+	}
+	if !(o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr.IsNull() || o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr.IsUnknown()) {
+		subModel := make(map[string]ServiceDNSForwardingAuthoritativeDomainRecordsNaptr)
+		diags.Append(o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["naptr"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSForwardingAuthoritativeDomainRecords) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records"}})
+
+	// Leafs
+
+	// Tags
+	if value, ok := vyosData["a"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsA{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsA = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsA = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["aaaa"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsAaaa{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsAaaa = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["cname"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsCname{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsCname = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsCname = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["mx"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMx{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMx = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsMx = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["ptr"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsPtr{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsPtr = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsPtr = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["txt"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsTxt{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsTxt = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsTxt = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["spf"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsSpf{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsSpf = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsSpf = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["srv"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsSrv{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsSrv = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsSrv = basetypes.NewMapNull(types.ObjectType{})
+	}
+	if value, ok := vyosData["naptr"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptr{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr = data
+	} else {
+		o.TagServiceDNSForwardingAuthoritativeDomainRecordsNaptr = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "forwarding", "authoritative-domain", "records"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecords) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+		"a":     types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsA{}.AttributeTypes()}},
+		"aaaa":  types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsAaaa{}.AttributeTypes()}},
+		"cname": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsCname{}.AttributeTypes()}},
+		"mx":    types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsMx{}.AttributeTypes()}},
+		"ptr":   types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsPtr{}.AttributeTypes()}},
+		"txt":   types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsTxt{}.AttributeTypes()}},
+		"spf":   types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsSpf{}.AttributeTypes()}},
+		"srv":   types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsSrv{}.AttributeTypes()}},
+		"naptr": types.MapType{ElemType: types.ObjectType{AttrTypes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptr{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -33,7 +242,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"a": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsA{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsA{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"A" record
@@ -49,7 +258,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"aaaa": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsAaaa{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsAaaa{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"AAAA" record
@@ -65,7 +274,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"cname": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsCname{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsCname{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"CNAME" record
@@ -80,7 +289,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"mx": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsMx{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsMx{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"MX" record
@@ -95,7 +304,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"ptr": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsPtr{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsPtr{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"PTR" record
@@ -110,7 +319,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"txt": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsTxt{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsTxt{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"TXT" record
@@ -125,7 +334,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"spf": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsSpf{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsSpf{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"SPF" record (type=SPF)
@@ -140,7 +349,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"srv": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsSrv{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsSrv{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"SRV" record
@@ -155,7 +364,7 @@ func (o ServiceDNSForwardingAuthoritativeDomainRecords) ResourceAttributes() map
 
 		"naptr": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptr{}.ResourceAttributes(),
+				Attributes: ServiceDNSForwardingAuthoritativeDomainRecordsNaptr{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `"NAPTR" record

@@ -2,31 +2,103 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteRuleIcmp describes the resource data model.
 type PolicyRouteRuleIcmp struct {
 	// LeafNodes
-	PolicyRouteRuleIcmpCode     customtypes.CustomStringValue `tfsdk:"code" json:"code,omitempty"`
-	PolicyRouteRuleIcmpType     customtypes.CustomStringValue `tfsdk:"type" json:"type,omitempty"`
-	PolicyRouteRuleIcmpTypeName customtypes.CustomStringValue `tfsdk:"type_name" json:"type-name,omitempty"`
+	LeafPolicyRouteRuleIcmpCode     types.String `tfsdk:"code"`
+	LeafPolicyRouteRuleIcmpType     types.String `tfsdk:"type"`
+	LeafPolicyRouteRuleIcmpTypeName types.String `tfsdk:"type_name"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteRuleIcmp) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route", "rule", "icmp"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteRuleIcmpCode.IsNull() || o.LeafPolicyRouteRuleIcmpCode.IsUnknown()) {
+		vyosData["code"] = o.LeafPolicyRouteRuleIcmpCode.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleIcmpType.IsNull() || o.LeafPolicyRouteRuleIcmpType.IsUnknown()) {
+		vyosData["type"] = o.LeafPolicyRouteRuleIcmpType.ValueString()
+	}
+	if !(o.LeafPolicyRouteRuleIcmpTypeName.IsNull() || o.LeafPolicyRouteRuleIcmpTypeName.IsUnknown()) {
+		vyosData["type-name"] = o.LeafPolicyRouteRuleIcmpTypeName.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteRuleIcmp) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route", "rule", "icmp"}})
+
+	// Leafs
+	if value, ok := vyosData["code"]; ok {
+		o.LeafPolicyRouteRuleIcmpCode = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIcmpCode = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type"]; ok {
+		o.LeafPolicyRouteRuleIcmpType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIcmpType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["type-name"]; ok {
+		o.LeafPolicyRouteRuleIcmpTypeName = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteRuleIcmpTypeName = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route", "rule", "icmp"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteRuleIcmp) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"code":      types.StringType,
+		"type":      types.StringType,
+		"type_name": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteRuleIcmp) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"code": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMP code (0-255)
 
 |  Format  |  Description  |
@@ -37,8 +109,7 @@ func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMP type (0-255)
 
 |  Format  |  Description  |
@@ -49,8 +120,7 @@ func (o PolicyRouteRuleIcmp) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"type_name": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `ICMP type-name
 
 |  Format  |  Description  |

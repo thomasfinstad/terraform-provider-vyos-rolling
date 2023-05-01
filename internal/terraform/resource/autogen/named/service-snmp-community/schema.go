@@ -17,6 +17,6 @@ func (r serviceSnmpCommunity) Schema(ctx context.Context, req resource.SchemaReq
 Community name
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

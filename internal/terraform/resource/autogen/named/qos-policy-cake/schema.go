@@ -23,6 +23,6 @@ Common Applications Kept Enhanced (CAKE)
 |  txt  |  Policy name  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

@@ -2,8 +2,14 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsBgpNeighborLocalAs describes the resource data model.
@@ -13,11 +19,65 @@ type ProtocolsBgpNeighborLocalAs struct {
 	// TagNodes
 
 	// Nodes
-	ProtocolsBgpNeighborLocalAsNoPrepend types.Object `tfsdk:"no_prepend" json:"no-prepend,omitempty"`
+	NodeProtocolsBgpNeighborLocalAsNoPrepend types.Object `tfsdk:"no_prepend"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsBgpNeighborLocalAs) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsBgpNeighborLocalAs) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "local-as"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeProtocolsBgpNeighborLocalAsNoPrepend.IsNull() || o.NodeProtocolsBgpNeighborLocalAsNoPrepend.IsUnknown()) {
+		var subModel ProtocolsBgpNeighborLocalAsNoPrepend
+		diags.Append(o.NodeProtocolsBgpNeighborLocalAsNoPrepend.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["no-prepend"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsBgpNeighborLocalAs) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "local-as"}})
+
+	// Leafs
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["no-prepend"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, ProtocolsBgpNeighborLocalAsNoPrepend{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeProtocolsBgpNeighborLocalAsNoPrepend = data
+
+	} else {
+		o.NodeProtocolsBgpNeighborLocalAsNoPrepend = basetypes.NewObjectNull(ProtocolsBgpNeighborLocalAsNoPrepend{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "bgp", "neighbor", "local-as"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsBgpNeighborLocalAs) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+
+		// Tags
+
+		// Nodes
+		"no_prepend": types.ObjectType{AttrTypes: ProtocolsBgpNeighborLocalAsNoPrepend{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsBgpNeighborLocalAs) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
@@ -26,7 +86,7 @@ func (o ProtocolsBgpNeighborLocalAs) ResourceAttributes() map[string]schema.Attr
 		// Nodes
 
 		"no_prepend": schema.SingleNestedAttribute{
-			Attributes: ProtocolsBgpNeighborLocalAsNoPrepend{}.ResourceAttributes(),
+			Attributes: ProtocolsBgpNeighborLocalAsNoPrepend{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Disable prepending local-as from/to updates for eBGP peers
 

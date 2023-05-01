@@ -2,47 +2,294 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesTunnel describes the resource data model.
 type InterfacesTunnel struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	InterfacesTunnelDescrIPtion       customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	InterfacesTunnelAddress           customtypes.CustomStringValue `tfsdk:"address" json:"address,omitempty"`
-	InterfacesTunnelDisable           customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	InterfacesTunnelDisableLinkDetect customtypes.CustomStringValue `tfsdk:"disable_link_detect" json:"disable-link-detect,omitempty"`
-	InterfacesTunnelMtu               customtypes.CustomStringValue `tfsdk:"mtu" json:"mtu,omitempty"`
-	InterfacesTunnelSourceAddress     customtypes.CustomStringValue `tfsdk:"source_address" json:"source-address,omitempty"`
-	InterfacesTunnelRemote            customtypes.CustomStringValue `tfsdk:"remote" json:"remote,omitempty"`
-	InterfacesTunnelSourceInterface   customtypes.CustomStringValue `tfsdk:"source_interface" json:"source-interface,omitempty"`
-	InterfacesTunnelSixrdPrefix       customtypes.CustomStringValue `tfsdk:"6rd_prefix" json:"6rd-prefix,omitempty"`
-	InterfacesTunnelSixrdRelayPrefix  customtypes.CustomStringValue `tfsdk:"6rd_relay_prefix" json:"6rd-relay-prefix,omitempty"`
-	InterfacesTunnelEncapsulation     customtypes.CustomStringValue `tfsdk:"encapsulation" json:"encapsulation,omitempty"`
-	InterfacesTunnelEnableMulticast   customtypes.CustomStringValue `tfsdk:"enable_multicast" json:"enable-multicast,omitempty"`
-	InterfacesTunnelVrf               customtypes.CustomStringValue `tfsdk:"vrf" json:"vrf,omitempty"`
-	InterfacesTunnelRedirect          customtypes.CustomStringValue `tfsdk:"redirect" json:"redirect,omitempty"`
+	LeafInterfacesTunnelDescrIPtion       types.String `tfsdk:"description"`
+	LeafInterfacesTunnelAddress           types.String `tfsdk:"address"`
+	LeafInterfacesTunnelDisable           types.String `tfsdk:"disable"`
+	LeafInterfacesTunnelDisableLinkDetect types.String `tfsdk:"disable_link_detect"`
+	LeafInterfacesTunnelMtu               types.String `tfsdk:"mtu"`
+	LeafInterfacesTunnelSourceAddress     types.String `tfsdk:"source_address"`
+	LeafInterfacesTunnelRemote            types.String `tfsdk:"remote"`
+	LeafInterfacesTunnelSourceInterface   types.String `tfsdk:"source_interface"`
+	LeafInterfacesTunnelSixrdPrefix       types.String `tfsdk:"6rd_prefix"`
+	LeafInterfacesTunnelSixrdRelayPrefix  types.String `tfsdk:"6rd_relay_prefix"`
+	LeafInterfacesTunnelEncapsulation     types.String `tfsdk:"encapsulation"`
+	LeafInterfacesTunnelEnableMulticast   types.String `tfsdk:"enable_multicast"`
+	LeafInterfacesTunnelVrf               types.String `tfsdk:"vrf"`
+	LeafInterfacesTunnelRedirect          types.String `tfsdk:"redirect"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesTunnelIP         types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesTunnelIPvsix     types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
-	InterfacesTunnelMirror     types.Object `tfsdk:"mirror" json:"mirror,omitempty"`
-	InterfacesTunnelParameters types.Object `tfsdk:"parameters" json:"parameters,omitempty"`
+	NodeInterfacesTunnelIP         types.Object `tfsdk:"ip"`
+	NodeInterfacesTunnelIPvsix     types.Object `tfsdk:"ipv6"`
+	NodeInterfacesTunnelMirror     types.Object `tfsdk:"mirror"`
+	NodeInterfacesTunnelParameters types.Object `tfsdk:"parameters"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *InterfacesTunnel) GetVyosPath() []string {
+	return []string{
+		"interfaces",
+		"tunnel",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesTunnel) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "tunnel"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesTunnelDescrIPtion.IsNull() || o.LeafInterfacesTunnelDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafInterfacesTunnelDescrIPtion.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelAddress.IsNull() || o.LeafInterfacesTunnelAddress.IsUnknown()) {
+		vyosData["address"] = o.LeafInterfacesTunnelAddress.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelDisable.IsNull() || o.LeafInterfacesTunnelDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafInterfacesTunnelDisable.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelDisableLinkDetect.IsNull() || o.LeafInterfacesTunnelDisableLinkDetect.IsUnknown()) {
+		vyosData["disable-link-detect"] = o.LeafInterfacesTunnelDisableLinkDetect.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelMtu.IsNull() || o.LeafInterfacesTunnelMtu.IsUnknown()) {
+		vyosData["mtu"] = o.LeafInterfacesTunnelMtu.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelSourceAddress.IsNull() || o.LeafInterfacesTunnelSourceAddress.IsUnknown()) {
+		vyosData["source-address"] = o.LeafInterfacesTunnelSourceAddress.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelRemote.IsNull() || o.LeafInterfacesTunnelRemote.IsUnknown()) {
+		vyosData["remote"] = o.LeafInterfacesTunnelRemote.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelSourceInterface.IsNull() || o.LeafInterfacesTunnelSourceInterface.IsUnknown()) {
+		vyosData["source-interface"] = o.LeafInterfacesTunnelSourceInterface.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelSixrdPrefix.IsNull() || o.LeafInterfacesTunnelSixrdPrefix.IsUnknown()) {
+		vyosData["6rd-prefix"] = o.LeafInterfacesTunnelSixrdPrefix.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelSixrdRelayPrefix.IsNull() || o.LeafInterfacesTunnelSixrdRelayPrefix.IsUnknown()) {
+		vyosData["6rd-relay-prefix"] = o.LeafInterfacesTunnelSixrdRelayPrefix.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelEncapsulation.IsNull() || o.LeafInterfacesTunnelEncapsulation.IsUnknown()) {
+		vyosData["encapsulation"] = o.LeafInterfacesTunnelEncapsulation.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelEnableMulticast.IsNull() || o.LeafInterfacesTunnelEnableMulticast.IsUnknown()) {
+		vyosData["enable-multicast"] = o.LeafInterfacesTunnelEnableMulticast.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelVrf.IsNull() || o.LeafInterfacesTunnelVrf.IsUnknown()) {
+		vyosData["vrf"] = o.LeafInterfacesTunnelVrf.ValueString()
+	}
+	if !(o.LeafInterfacesTunnelRedirect.IsNull() || o.LeafInterfacesTunnelRedirect.IsUnknown()) {
+		vyosData["redirect"] = o.LeafInterfacesTunnelRedirect.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesTunnelIP.IsNull() || o.NodeInterfacesTunnelIP.IsUnknown()) {
+		var subModel InterfacesTunnelIP
+		diags.Append(o.NodeInterfacesTunnelIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesTunnelIPvsix.IsNull() || o.NodeInterfacesTunnelIPvsix.IsUnknown()) {
+		var subModel InterfacesTunnelIPvsix
+		diags.Append(o.NodeInterfacesTunnelIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesTunnelMirror.IsNull() || o.NodeInterfacesTunnelMirror.IsUnknown()) {
+		var subModel InterfacesTunnelMirror
+		diags.Append(o.NodeInterfacesTunnelMirror.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["mirror"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesTunnelParameters.IsNull() || o.NodeInterfacesTunnelParameters.IsUnknown()) {
+		var subModel InterfacesTunnelParameters
+		diags.Append(o.NodeInterfacesTunnelParameters.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["parameters"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesTunnel) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "tunnel"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafInterfacesTunnelDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["address"]; ok {
+		o.LeafInterfacesTunnelAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafInterfacesTunnelDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["disable-link-detect"]; ok {
+		o.LeafInterfacesTunnelDisableLinkDetect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelDisableLinkDetect = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu"]; ok {
+		o.LeafInterfacesTunnelMtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelMtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-address"]; ok {
+		o.LeafInterfacesTunnelSourceAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelSourceAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["remote"]; ok {
+		o.LeafInterfacesTunnelRemote = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelRemote = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["source-interface"]; ok {
+		o.LeafInterfacesTunnelSourceInterface = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelSourceInterface = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["6rd-prefix"]; ok {
+		o.LeafInterfacesTunnelSixrdPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelSixrdPrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["6rd-relay-prefix"]; ok {
+		o.LeafInterfacesTunnelSixrdRelayPrefix = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelSixrdRelayPrefix = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["encapsulation"]; ok {
+		o.LeafInterfacesTunnelEncapsulation = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelEncapsulation = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["enable-multicast"]; ok {
+		o.LeafInterfacesTunnelEnableMulticast = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelEnableMulticast = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["vrf"]; ok {
+		o.LeafInterfacesTunnelVrf = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelVrf = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["redirect"]; ok {
+		o.LeafInterfacesTunnelRedirect = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesTunnelRedirect = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesTunnelIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesTunnelIP = data
+
+	} else {
+		o.NodeInterfacesTunnelIP = basetypes.NewObjectNull(InterfacesTunnelIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesTunnelIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesTunnelIPvsix = data
+
+	} else {
+		o.NodeInterfacesTunnelIPvsix = basetypes.NewObjectNull(InterfacesTunnelIPvsix{}.AttributeTypes())
+	}
+	if value, ok := vyosData["mirror"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesTunnelMirror{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesTunnelMirror = data
+
+	} else {
+		o.NodeInterfacesTunnelMirror = basetypes.NewObjectNull(InterfacesTunnelMirror{}.AttributeTypes())
+	}
+	if value, ok := vyosData["parameters"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesTunnelParameters{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesTunnelParameters = data
+
+	} else {
+		o.NodeInterfacesTunnelParameters = basetypes.NewObjectNull(InterfacesTunnelParameters{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "tunnel"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesTunnel) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":         types.StringType,
+		"address":             types.StringType,
+		"disable":             types.StringType,
+		"disable_link_detect": types.StringType,
+		"mtu":                 types.StringType,
+		"source_address":      types.StringType,
+		"remote":              types.StringType,
+		"source_interface":    types.StringType,
+		"6rd_prefix":          types.StringType,
+		"6rd_relay_prefix":    types.StringType,
+		"encapsulation":       types.StringType,
+		"enable_multicast":    types.StringType,
+		"vrf":                 types.StringType,
+		"redirect":            types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":         types.ObjectType{AttrTypes: InterfacesTunnelIP{}.AttributeTypes()},
+		"ipv6":       types.ObjectType{AttrTypes: InterfacesTunnelIPvsix{}.AttributeTypes()},
+		"mirror":     types.ObjectType{AttrTypes: InterfacesTunnelMirror{}.AttributeTypes()},
+		"parameters": types.ObjectType{AttrTypes: InterfacesTunnelParameters{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesTunnel) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Tunnel interface
+
+|  Format  |  Description  |
+|----------|---------------|
+|  tunN  |  Tunnel interface name  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -53,8 +300,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `IP address
 
 |  Format  |  Description  |
@@ -66,24 +312,21 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Administratively disable interface
 
 `,
 		},
 
 		"disable_link_detect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Ignore link state changes
 
 `,
 		},
 
 		"mtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum Transmission Unit (MTU)
 
 |  Format  |  Description  |
@@ -97,8 +340,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Source IP address used to initiate connection
 
 |  Format  |  Description  |
@@ -110,8 +352,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"remote": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tunnel remote address
 
 |  Format  |  Description  |
@@ -123,8 +364,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"source_interface": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface used to establish connection
 
 |  Format  |  Description  |
@@ -135,8 +375,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"6rd_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `6rd network prefix
 
 |  Format  |  Description  |
@@ -147,8 +386,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"6rd_relay_prefix": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `6rd relay prefix
 
 |  Format  |  Description  |
@@ -159,8 +397,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"encapsulation": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Encapsulation of this tunnel interface
 
 |  Format  |  Description  |
@@ -180,16 +417,14 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"enable_multicast": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable multicast operation over tunnel
 
 `,
 		},
 
 		"vrf": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VRF instance name
 
 |  Format  |  Description  |
@@ -200,8 +435,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"redirect": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Redirect incoming packet to destination
 
 |  Format  |  Description  |
@@ -216,7 +450,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesTunnelIP{}.ResourceAttributes(),
+			Attributes: InterfacesTunnelIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 routing parameters
 
@@ -224,7 +458,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesTunnelIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesTunnelIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 routing parameters
 
@@ -232,7 +466,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"mirror": schema.SingleNestedAttribute{
-			Attributes: InterfacesTunnelMirror{}.ResourceAttributes(),
+			Attributes: InterfacesTunnelMirror{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Mirror ingress/egress packets
 
@@ -240,7 +474,7 @@ func (o InterfacesTunnel) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"parameters": schema.SingleNestedAttribute{
-			Attributes: InterfacesTunnelParameters{}.ResourceAttributes(),
+			Attributes: InterfacesTunnelParameters{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Tunnel parameters
 

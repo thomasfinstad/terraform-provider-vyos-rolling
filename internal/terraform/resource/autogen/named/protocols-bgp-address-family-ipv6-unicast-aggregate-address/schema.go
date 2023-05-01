@@ -25,6 +25,6 @@ BGP aggregate network
 |  ipv6net  |  Aggregate network  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

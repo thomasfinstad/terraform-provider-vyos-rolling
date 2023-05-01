@@ -2,38 +2,100 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceDNSDynamicInterfaceUseWeb describes the resource data model.
 type ServiceDNSDynamicInterfaceUseWeb struct {
 	// LeafNodes
-	ServiceDNSDynamicInterfaceUseWebSkIP customtypes.CustomStringValue `tfsdk:"skip" json:"skip,omitempty"`
-	ServiceDNSDynamicInterfaceUseWebURL  customtypes.CustomStringValue `tfsdk:"url" json:"url,omitempty"`
+	LeafServiceDNSDynamicInterfaceUseWebSkIP types.String `tfsdk:"skip"`
+	LeafServiceDNSDynamicInterfaceUseWebURL  types.String `tfsdk:"url"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceDNSDynamicInterfaceUseWeb) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceDNSDynamicInterfaceUseWeb) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "use-web"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceDNSDynamicInterfaceUseWebSkIP.IsNull() || o.LeafServiceDNSDynamicInterfaceUseWebSkIP.IsUnknown()) {
+		vyosData["skip"] = o.LeafServiceDNSDynamicInterfaceUseWebSkIP.ValueString()
+	}
+	if !(o.LeafServiceDNSDynamicInterfaceUseWebURL.IsNull() || o.LeafServiceDNSDynamicInterfaceUseWebURL.IsUnknown()) {
+		vyosData["url"] = o.LeafServiceDNSDynamicInterfaceUseWebURL.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceDNSDynamicInterfaceUseWeb) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "use-web"}})
+
+	// Leafs
+	if value, ok := vyosData["skip"]; ok {
+		o.LeafServiceDNSDynamicInterfaceUseWebSkIP = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceUseWebSkIP = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["url"]; ok {
+		o.LeafServiceDNSDynamicInterfaceUseWebURL = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceDNSDynamicInterfaceUseWebURL = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "dns", "dynamic", "interface", "use-web"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceDNSDynamicInterfaceUseWeb) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"skip": types.StringType,
+		"url":  types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceDNSDynamicInterfaceUseWeb) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"skip": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Skip everything before this on the given URL
 
 `,
 		},
 
 		"url": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `URL to obtain the current external IP address
 
 `,

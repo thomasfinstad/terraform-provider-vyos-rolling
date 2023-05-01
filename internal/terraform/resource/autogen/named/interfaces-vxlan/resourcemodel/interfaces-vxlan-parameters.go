@@ -2,32 +2,112 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // InterfacesVxlanParameters describes the resource data model.
 type InterfacesVxlanParameters struct {
 	// LeafNodes
-	InterfacesVxlanParametersNolearning customtypes.CustomStringValue `tfsdk:"nolearning" json:"nolearning,omitempty"`
+	LeafInterfacesVxlanParametersNolearning types.String `tfsdk:"nolearning"`
 
 	// TagNodes
 
 	// Nodes
-	InterfacesVxlanParametersIP     types.Object `tfsdk:"ip" json:"ip,omitempty"`
-	InterfacesVxlanParametersIPvsix types.Object `tfsdk:"ipv6" json:"ipv6,omitempty"`
+	NodeInterfacesVxlanParametersIP     types.Object `tfsdk:"ip"`
+	NodeInterfacesVxlanParametersIPvsix types.Object `tfsdk:"ipv6"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o InterfacesVxlanParameters) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *InterfacesVxlanParameters) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafInterfacesVxlanParametersNolearning.IsNull() || o.LeafInterfacesVxlanParametersNolearning.IsUnknown()) {
+		vyosData["nolearning"] = o.LeafInterfacesVxlanParametersNolearning.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeInterfacesVxlanParametersIP.IsNull() || o.NodeInterfacesVxlanParametersIP.IsUnknown()) {
+		var subModel InterfacesVxlanParametersIP
+		diags.Append(o.NodeInterfacesVxlanParametersIP.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ip"] = subModel.TerraformToVyos(ctx, diags)
+	}
+	if !(o.NodeInterfacesVxlanParametersIPvsix.IsNull() || o.NodeInterfacesVxlanParametersIPvsix.IsUnknown()) {
+		var subModel InterfacesVxlanParametersIPvsix
+		diags.Append(o.NodeInterfacesVxlanParametersIPvsix.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["ipv6"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *InterfacesVxlanParameters) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
+
+	// Leafs
+	if value, ok := vyosData["nolearning"]; ok {
+		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafInterfacesVxlanParametersNolearning = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["ip"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVxlanParametersIP{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVxlanParametersIP = data
+
+	} else {
+		o.NodeInterfacesVxlanParametersIP = basetypes.NewObjectNull(InterfacesVxlanParametersIP{}.AttributeTypes())
+	}
+	if value, ok := vyosData["ipv6"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, InterfacesVxlanParametersIPvsix{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeInterfacesVxlanParametersIPvsix = data
+
+	} else {
+		o.NodeInterfacesVxlanParametersIPvsix = basetypes.NewObjectNull(InterfacesVxlanParametersIPvsix{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"interfaces", "vxlan", "parameters"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o InterfacesVxlanParameters) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"nolearning": types.StringType,
+
+		// Tags
+
+		// Nodes
+		"ip":   types.ObjectType{AttrTypes: InterfacesVxlanParametersIP{}.AttributeTypes()},
+		"ipv6": types.ObjectType{AttrTypes: InterfacesVxlanParametersIPvsix{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o InterfacesVxlanParameters) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"nolearning": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Do not add unknown addresses into forwarding database
 
 `,
@@ -38,7 +118,7 @@ func (o InterfacesVxlanParameters) ResourceAttributes() map[string]schema.Attrib
 		// Nodes
 
 		"ip": schema.SingleNestedAttribute{
-			Attributes: InterfacesVxlanParametersIP{}.ResourceAttributes(),
+			Attributes: InterfacesVxlanParametersIP{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv4 specific tunnel parameters
 
@@ -46,7 +126,7 @@ func (o InterfacesVxlanParameters) ResourceAttributes() map[string]schema.Attrib
 		},
 
 		"ipv6": schema.SingleNestedAttribute{
-			Attributes: InterfacesVxlanParametersIPvsix{}.ResourceAttributes(),
+			Attributes: InterfacesVxlanParametersIPvsix{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `IPv6 specific tunnel parameters
 

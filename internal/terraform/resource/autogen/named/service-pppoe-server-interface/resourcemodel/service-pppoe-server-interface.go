@@ -2,29 +2,102 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServicePppoeServerInterface describes the resource data model.
 type ServicePppoeServerInterface struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServicePppoeServerInterfaceVlan customtypes.CustomStringValue `tfsdk:"vlan" json:"vlan,omitempty"`
+	LeafServicePppoeServerInterfaceVlan types.String `tfsdk:"vlan"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServicePppoeServerInterface) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServicePppoeServerInterface) GetVyosPath() []string {
+	return []string{
+		"service",
+		"pppoe-server",
+		"interface",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServicePppoeServerInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "pppoe-server", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServicePppoeServerInterfaceVlan.IsNull() || o.LeafServicePppoeServerInterfaceVlan.IsUnknown()) {
+		vyosData["vlan"] = o.LeafServicePppoeServerInterfaceVlan.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServicePppoeServerInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "pppoe-server", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["vlan"]; ok {
+		o.LeafServicePppoeServerInterfaceVlan = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServicePppoeServerInterfaceVlan = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "pppoe-server", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServicePppoeServerInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"vlan": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServicePppoeServerInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `interface(s) to listen on
+
+`,
+		},
+
 		// LeafNodes
 
 		"vlan": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `VLAN monitor for automatic creation of VLAN interfaces
 
 |  Format  |  Description  |

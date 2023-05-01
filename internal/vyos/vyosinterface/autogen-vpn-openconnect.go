@@ -14,6 +14,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -70,6 +74,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -88,6 +93,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -103,6 +109,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -136,6 +143,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -152,6 +160,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -163,6 +172,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Shared secret key"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -200,6 +210,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -215,6 +226,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -230,6 +242,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -273,6 +286,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -291,6 +305,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -306,6 +321,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -330,6 +346,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 												Node: []*interfacedefinition.Node{{
 													Parent: &interfacedefinition.TagNode{
 														Parent: &interfacedefinition.Node{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "node",
 															},
@@ -341,6 +358,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 																TagNode: []*interfacedefinition.TagNode{nil},
 															}},
 														},
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "tagNode",
 														},
@@ -352,6 +370,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 															Node: []*interfacedefinition.Node{nil},
 														}},
 													},
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -367,6 +386,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 															Local: "children",
 														},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -392,6 +412,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Key name must only include hex characters and be at least 20 characters long"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -424,6 +445,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Number of digits in OTP code must be between 6 and 8"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -456,6 +478,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 																ConstraintErrorMessage: []string{"Time token interval must be between 5 and 86400 seconds"},
 															}},
 														}, {
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -496,6 +519,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -512,6 +536,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -527,6 +552,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -542,6 +568,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -575,6 +602,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -591,6 +619,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -602,6 +631,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Shared secret key"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -636,6 +666,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -672,6 +703,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -681,6 +713,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													LeafNode: []*interfacedefinition.LeafNode{nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -694,6 +727,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -727,6 +761,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											}},
 										}, {
 											Parent: &interfacedefinition.Node{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "node",
 												},
@@ -736,6 +771,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -770,6 +806,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 													}, nil},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -784,6 +821,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -809,6 +847,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -824,6 +863,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -855,6 +895,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -888,6 +929,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -903,6 +945,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -927,6 +970,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -951,6 +995,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -971,6 +1016,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 								}},
 							}},
 						}, {
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -986,6 +1032,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -1001,6 +1048,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1033,6 +1081,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -1048,6 +1097,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1077,6 +1127,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -1111,6 +1162,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1151,6 +1203,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1196,6 +1249,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1230,6 +1284,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 										}},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -1270,6 +1325,7 @@ func vpnopenconnect() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

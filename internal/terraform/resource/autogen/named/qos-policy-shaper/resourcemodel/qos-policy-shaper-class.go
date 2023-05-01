@@ -2,42 +2,212 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyShaperClass describes the resource data model.
 type QosPolicyShaperClass struct {
 	// LeafNodes
-	QosPolicyShaperClassDescrIPtion  customtypes.CustomStringValue `tfsdk:"description" json:"description,omitempty"`
-	QosPolicyShaperClassBandwIDth    customtypes.CustomStringValue `tfsdk:"bandwidth" json:"bandwidth,omitempty"`
-	QosPolicyShaperClassBurst        customtypes.CustomStringValue `tfsdk:"burst" json:"burst,omitempty"`
-	QosPolicyShaperClassCeiling      customtypes.CustomStringValue `tfsdk:"ceiling" json:"ceiling,omitempty"`
-	QosPolicyShaperClassCodelQuantum customtypes.CustomStringValue `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
-	QosPolicyShaperClassFlows        customtypes.CustomStringValue `tfsdk:"flows" json:"flows,omitempty"`
-	QosPolicyShaperClassInterval     customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	QosPolicyShaperClassPriority     customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	QosPolicyShaperClassQueueLimit   customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
-	QosPolicyShaperClassQueueType    customtypes.CustomStringValue `tfsdk:"queue_type" json:"queue-type,omitempty"`
-	QosPolicyShaperClassSetDscp      customtypes.CustomStringValue `tfsdk:"set_dscp" json:"set-dscp,omitempty"`
-	QosPolicyShaperClassTarget       customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
+	LeafQosPolicyShaperClassDescrIPtion  types.String `tfsdk:"description"`
+	LeafQosPolicyShaperClassBandwIDth    types.String `tfsdk:"bandwidth"`
+	LeafQosPolicyShaperClassBurst        types.String `tfsdk:"burst"`
+	LeafQosPolicyShaperClassCeiling      types.String `tfsdk:"ceiling"`
+	LeafQosPolicyShaperClassCodelQuantum types.String `tfsdk:"codel_quantum"`
+	LeafQosPolicyShaperClassFlows        types.String `tfsdk:"flows"`
+	LeafQosPolicyShaperClassInterval     types.String `tfsdk:"interval"`
+	LeafQosPolicyShaperClassPriority     types.String `tfsdk:"priority"`
+	LeafQosPolicyShaperClassQueueLimit   types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyShaperClassQueueType    types.String `tfsdk:"queue_type"`
+	LeafQosPolicyShaperClassSetDscp      types.String `tfsdk:"set_dscp"`
+	LeafQosPolicyShaperClassTarget       types.String `tfsdk:"target"`
 
 	// TagNodes
-	QosPolicyShaperClassMatch types.Map `tfsdk:"match" json:"match,omitempty"`
+	TagQosPolicyShaperClassMatch types.Map `tfsdk:"match"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyShaperClass) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyShaperClassDescrIPtion.IsNull() || o.LeafQosPolicyShaperClassDescrIPtion.IsUnknown()) {
+		vyosData["description"] = o.LeafQosPolicyShaperClassDescrIPtion.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassBandwIDth.IsNull() || o.LeafQosPolicyShaperClassBandwIDth.IsUnknown()) {
+		vyosData["bandwidth"] = o.LeafQosPolicyShaperClassBandwIDth.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassBurst.IsNull() || o.LeafQosPolicyShaperClassBurst.IsUnknown()) {
+		vyosData["burst"] = o.LeafQosPolicyShaperClassBurst.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassCeiling.IsNull() || o.LeafQosPolicyShaperClassCeiling.IsUnknown()) {
+		vyosData["ceiling"] = o.LeafQosPolicyShaperClassCeiling.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassCodelQuantum.IsNull() || o.LeafQosPolicyShaperClassCodelQuantum.IsUnknown()) {
+		vyosData["codel-quantum"] = o.LeafQosPolicyShaperClassCodelQuantum.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassFlows.IsNull() || o.LeafQosPolicyShaperClassFlows.IsUnknown()) {
+		vyosData["flows"] = o.LeafQosPolicyShaperClassFlows.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassInterval.IsNull() || o.LeafQosPolicyShaperClassInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafQosPolicyShaperClassInterval.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassPriority.IsNull() || o.LeafQosPolicyShaperClassPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafQosPolicyShaperClassPriority.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassQueueLimit.IsNull() || o.LeafQosPolicyShaperClassQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyShaperClassQueueLimit.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassQueueType.IsNull() || o.LeafQosPolicyShaperClassQueueType.IsUnknown()) {
+		vyosData["queue-type"] = o.LeafQosPolicyShaperClassQueueType.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassSetDscp.IsNull() || o.LeafQosPolicyShaperClassSetDscp.IsUnknown()) {
+		vyosData["set-dscp"] = o.LeafQosPolicyShaperClassSetDscp.ValueString()
+	}
+	if !(o.LeafQosPolicyShaperClassTarget.IsNull() || o.LeafQosPolicyShaperClassTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafQosPolicyShaperClassTarget.ValueString()
+	}
+
+	// Tags
+	if !(o.TagQosPolicyShaperClassMatch.IsNull() || o.TagQosPolicyShaperClassMatch.IsUnknown()) {
+		subModel := make(map[string]QosPolicyShaperClassMatch)
+		diags.Append(o.TagQosPolicyShaperClassMatch.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["match"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyShaperClass) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class"}})
+
+	// Leafs
+	if value, ok := vyosData["description"]; ok {
+		o.LeafQosPolicyShaperClassDescrIPtion = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassDescrIPtion = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["bandwidth"]; ok {
+		o.LeafQosPolicyShaperClassBandwIDth = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassBandwIDth = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["burst"]; ok {
+		o.LeafQosPolicyShaperClassBurst = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassBurst = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ceiling"]; ok {
+		o.LeafQosPolicyShaperClassCeiling = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassCeiling = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["codel-quantum"]; ok {
+		o.LeafQosPolicyShaperClassCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassCodelQuantum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["flows"]; ok {
+		o.LeafQosPolicyShaperClassFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassFlows = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafQosPolicyShaperClassInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafQosPolicyShaperClassPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassPriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyShaperClassQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassQueueLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-type"]; ok {
+		o.LeafQosPolicyShaperClassQueueType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassQueueType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["set-dscp"]; ok {
+		o.LeafQosPolicyShaperClassSetDscp = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassSetDscp = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafQosPolicyShaperClassTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyShaperClassTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["match"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: QosPolicyShaperClassMatch{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagQosPolicyShaperClassMatch = data
+	} else {
+		o.TagQosPolicyShaperClassMatch = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "shaper", "class"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyShaperClass) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"description":   types.StringType,
+		"bandwidth":     types.StringType,
+		"burst":         types.StringType,
+		"ceiling":       types.StringType,
+		"codel_quantum": types.StringType,
+		"flows":         types.StringType,
+		"interval":      types.StringType,
+		"priority":      types.StringType,
+		"queue_limit":   types.StringType,
+		"queue_type":    types.StringType,
+		"set_dscp":      types.StringType,
+		"target":        types.StringType,
+
+		// Tags
+		"match": types.MapType{ElemType: types.ObjectType{AttrTypes: QosPolicyShaperClassMatch{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyShaperClass) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"description": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Description
 
 |  Format  |  Description  |
@@ -48,8 +218,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"bandwidth": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Available bandwidth for this policy
 
 |  Format  |  Description  |
@@ -70,8 +239,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"burst": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Burst size for this class
 
 |  Format  |  Description  |
@@ -86,8 +254,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"ceiling": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Bandwidth limit for this class
 
 |  Format  |  Description  |
@@ -103,8 +270,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"codel_quantum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
 |  Format  |  Description  |
@@ -118,8 +284,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"flows": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
 |  Format  |  Description  |
@@ -133,8 +298,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
 |  Format  |  Description  |
@@ -148,8 +312,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Priority for rule evaluation
 
 |  Format  |  Description  |
@@ -160,8 +323,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |
@@ -172,8 +334,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"queue_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
 |  Format  |  Description  |
@@ -191,8 +352,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"set_dscp": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Change the Differentiated Services (DiffServ) field in the IP header
 
 |  Format  |  Description  |
@@ -234,8 +394,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
 |  Format  |  Description  |
@@ -252,7 +411,7 @@ func (o QosPolicyShaperClass) ResourceAttributes() map[string]schema.Attribute {
 
 		"match": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: QosPolicyShaperClassMatch{}.ResourceAttributes(),
+				Attributes: QosPolicyShaperClassMatch{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Class matching rule name

@@ -2,30 +2,93 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ProtocolsStaticRoutesixBlackhole describes the resource data model.
 type ProtocolsStaticRoutesixBlackhole struct {
 	// LeafNodes
-	ProtocolsStaticRoutesixBlackholeDistance customtypes.CustomStringValue `tfsdk:"distance" json:"distance,omitempty"`
-	ProtocolsStaticRoutesixBlackholeTag      customtypes.CustomStringValue `tfsdk:"tag" json:"tag,omitempty"`
+	LeafProtocolsStaticRoutesixBlackholeDistance types.String `tfsdk:"distance"`
+	LeafProtocolsStaticRoutesixBlackholeTag      types.String `tfsdk:"tag"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ProtocolsStaticRoutesixBlackhole) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *ProtocolsStaticRoutesixBlackhole) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "blackhole"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafProtocolsStaticRoutesixBlackholeDistance.IsNull() || o.LeafProtocolsStaticRoutesixBlackholeDistance.IsUnknown()) {
+		vyosData["distance"] = o.LeafProtocolsStaticRoutesixBlackholeDistance.ValueString()
+	}
+	if !(o.LeafProtocolsStaticRoutesixBlackholeTag.IsNull() || o.LeafProtocolsStaticRoutesixBlackholeTag.IsUnknown()) {
+		vyosData["tag"] = o.LeafProtocolsStaticRoutesixBlackholeTag.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ProtocolsStaticRoutesixBlackhole) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "blackhole"}})
+
+	// Leafs
+	if value, ok := vyosData["distance"]; ok {
+		o.LeafProtocolsStaticRoutesixBlackholeDistance = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixBlackholeDistance = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["tag"]; ok {
+		o.LeafProtocolsStaticRoutesixBlackholeTag = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafProtocolsStaticRoutesixBlackholeTag = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"protocols", "static", "route6", "blackhole"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ProtocolsStaticRoutesixBlackhole) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"distance": types.StringType,
+		"tag":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ProtocolsStaticRoutesixBlackhole) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"distance": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Distance for this route
 
 |  Format  |  Description  |
@@ -36,8 +99,7 @@ func (o ProtocolsStaticRoutesixBlackhole) ResourceAttributes() map[string]schema
 		},
 
 		"tag": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Tag value for this route
 
 |  Format  |  Description  |

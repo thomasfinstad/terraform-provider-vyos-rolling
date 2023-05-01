@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpParametersDampening describes the resource data model.
 type VrfNameProtocolsBgpParametersDampening struct {
 	// LeafNodes
-	VrfNameProtocolsBgpParametersDampeningHalfLife          customtypes.CustomStringValue `tfsdk:"half_life" json:"half-life,omitempty"`
-	VrfNameProtocolsBgpParametersDampeningMaxSuppressTime   customtypes.CustomStringValue `tfsdk:"max_suppress_time" json:"max-suppress-time,omitempty"`
-	VrfNameProtocolsBgpParametersDampeningReUse             customtypes.CustomStringValue `tfsdk:"re_use" json:"re-use,omitempty"`
-	VrfNameProtocolsBgpParametersDampeningStartSuppressTime customtypes.CustomStringValue `tfsdk:"start_suppress_time" json:"start-suppress-time,omitempty"`
+	LeafVrfNameProtocolsBgpParametersDampeningHalfLife          types.String `tfsdk:"half_life"`
+	LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime   types.String `tfsdk:"max_suppress_time"`
+	LeafVrfNameProtocolsBgpParametersDampeningReUse             types.String `tfsdk:"re_use"`
+	LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime types.String `tfsdk:"start_suppress_time"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpParametersDampening) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "dampening"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.IsNull() || o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.IsUnknown()) {
+		vyosData["half-life"] = o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.IsNull() || o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.IsUnknown()) {
+		vyosData["max-suppress-time"] = o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersDampeningReUse.IsNull() || o.LeafVrfNameProtocolsBgpParametersDampeningReUse.IsUnknown()) {
+		vyosData["re-use"] = o.LeafVrfNameProtocolsBgpParametersDampeningReUse.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.IsNull() || o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.IsUnknown()) {
+		vyosData["start-suppress-time"] = o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpParametersDampening) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "dampening"}})
+
+	// Leafs
+	if value, ok := vyosData["half-life"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDampeningHalfLife = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["max-suppress-time"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDampeningMaxSuppressTime = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["re-use"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDampeningReUse = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDampeningReUse = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["start-suppress-time"]; ok {
+		o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpParametersDampeningStartSuppressTime = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "parameters", "dampening"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpParametersDampening) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"half_life":           types.StringType,
+		"max_suppress_time":   types.StringType,
+		"re_use":              types.StringType,
+		"start_suppress_time": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpParametersDampening) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"half_life": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Half-life time for dampening
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 		},
 
 		"max_suppress_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum duration to suppress a stable route
 
 |  Format  |  Description  |
@@ -50,8 +130,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 		},
 
 		"re_use": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Threshold to start reusing a route
 
 |  Format  |  Description  |
@@ -62,8 +141,7 @@ func (o VrfNameProtocolsBgpParametersDampening) ResourceAttributes() map[string]
 		},
 
 		"start_suppress_time": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `When to start suppressing a route
 
 |  Format  |  Description  |

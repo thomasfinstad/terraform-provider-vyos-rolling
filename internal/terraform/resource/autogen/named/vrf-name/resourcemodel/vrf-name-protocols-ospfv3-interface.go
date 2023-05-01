@@ -2,42 +2,207 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsOspfvthreeInterface describes the resource data model.
 type VrfNameProtocolsOspfvthreeInterface struct {
 	// LeafNodes
-	VrfNameProtocolsOspfvthreeInterfaceArea               customtypes.CustomStringValue `tfsdk:"area" json:"area,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceDeadInterval       customtypes.CustomStringValue `tfsdk:"dead_interval" json:"dead-interval,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceHelloInterval      customtypes.CustomStringValue `tfsdk:"hello_interval" json:"hello-interval,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceRetransmitInterval customtypes.CustomStringValue `tfsdk:"retransmit_interval" json:"retransmit-interval,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceTransmitDelay      customtypes.CustomStringValue `tfsdk:"transmit_delay" json:"transmit-delay,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceCost               customtypes.CustomStringValue `tfsdk:"cost" json:"cost,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceMtuIgnore          customtypes.CustomStringValue `tfsdk:"mtu_ignore" json:"mtu-ignore,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfacePriority           customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceIfmtu              customtypes.CustomStringValue `tfsdk:"ifmtu" json:"ifmtu,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceInstanceID         customtypes.CustomStringValue `tfsdk:"instance_id" json:"instance-id,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfaceNetwork            customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
-	VrfNameProtocolsOspfvthreeInterfacePassive            customtypes.CustomStringValue `tfsdk:"passive" json:"passive,omitempty"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceArea               types.String `tfsdk:"area"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval       types.String `tfsdk:"dead_interval"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval      types.String `tfsdk:"hello_interval"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval types.String `tfsdk:"retransmit_interval"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay      types.String `tfsdk:"transmit_delay"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceCost               types.String `tfsdk:"cost"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore          types.String `tfsdk:"mtu_ignore"`
+	LeafVrfNameProtocolsOspfvthreeInterfacePriority           types.String `tfsdk:"priority"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu              types.String `tfsdk:"ifmtu"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID         types.String `tfsdk:"instance_id"`
+	LeafVrfNameProtocolsOspfvthreeInterfaceNetwork            types.String `tfsdk:"network"`
+	LeafVrfNameProtocolsOspfvthreeInterfacePassive            types.String `tfsdk:"passive"`
 
 	// TagNodes
 
 	// Nodes
-	VrfNameProtocolsOspfvthreeInterfaceBfd types.Object `tfsdk:"bfd" json:"bfd,omitempty"`
+	NodeVrfNameProtocolsOspfvthreeInterfaceBfd types.Object `tfsdk:"bfd"`
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsOspfvthreeInterface) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.IsUnknown()) {
+		vyosData["area"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceArea.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.IsUnknown()) {
+		vyosData["dead-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.IsUnknown()) {
+		vyosData["hello-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.IsUnknown()) {
+		vyosData["retransmit-interval"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.IsUnknown()) {
+		vyosData["transmit-delay"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.IsUnknown()) {
+		vyosData["cost"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceCost.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.IsUnknown()) {
+		vyosData["mtu-ignore"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePriority.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.IsUnknown()) {
+		vyosData["ifmtu"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.IsUnknown()) {
+		vyosData["instance-id"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsNull() || o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.IsUnknown()) {
+		vyosData["passive"] = o.LeafVrfNameProtocolsOspfvthreeInterfacePassive.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+	if !(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.IsNull() || o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.IsUnknown()) {
+		var subModel VrfNameProtocolsOspfvthreeInterfaceBfd
+		diags.Append(o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty: true, UnhandledUnknownAsEmpty: true})...)
+		vyosData["bfd"] = subModel.TerraformToVyos(ctx, diags)
+	}
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsOspfvthreeInterface) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
+
+	// Leafs
+	if value, ok := vyosData["area"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceArea = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["dead-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceDeadInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["hello-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceHelloInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["retransmit-interval"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceRetransmitInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["transmit-delay"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceTransmitDelay = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["cost"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceCost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mtu-ignore"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceMtuIgnore = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePriority = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["ifmtu"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceIfmtu = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["instance-id"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceInstanceID = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfaceNetwork = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["passive"]; ok {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsOspfvthreeInterfacePassive = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+	if value, ok := vyosData["bfd"]; ok {
+		data, d := basetypes.NewObjectValueFrom(ctx, VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes(), value.(map[string]interface{}))
+		diags.Append(d...)
+		o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd = data
+
+	} else {
+		o.NodeVrfNameProtocolsOspfvthreeInterfaceBfd = basetypes.NewObjectNull(VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes())
+	}
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "ospfv3", "interface"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsOspfvthreeInterface) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"area":                types.StringType,
+		"dead_interval":       types.StringType,
+		"hello_interval":      types.StringType,
+		"retransmit_interval": types.StringType,
+		"transmit_delay":      types.StringType,
+		"cost":                types.StringType,
+		"mtu_ignore":          types.StringType,
+		"priority":            types.StringType,
+		"ifmtu":               types.StringType,
+		"instance_id":         types.StringType,
+		"network":             types.StringType,
+		"passive":             types.StringType,
+
+		// Tags
+
+		// Nodes
+		"bfd": types.ObjectType{AttrTypes: VrfNameProtocolsOspfvthreeInterfaceBfd{}.AttributeTypes()},
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsOspfvthreeInterface) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"area": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Enable OSPF on this interface
 
 |  Format  |  Description  |
@@ -49,8 +214,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"dead_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval after which a neighbor is declared dead
 
 |  Format  |  Description  |
@@ -64,8 +228,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"hello_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between hello packets
 
 |  Format  |  Description  |
@@ -79,8 +242,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"retransmit_interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval between retransmitting lost link state advertisements
 
 |  Format  |  Description  |
@@ -94,8 +256,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"transmit_delay": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Link state transmit delay
 
 |  Format  |  Description  |
@@ -109,8 +270,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"cost": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface cost
 
 |  Format  |  Description  |
@@ -121,16 +281,14 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"mtu_ignore": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable Maximum Transmission Unit (MTU) mismatch detection
 
 `,
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Router priority
 
 |  Format  |  Description  |
@@ -144,8 +302,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"ifmtu": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interface MTU
 
 |  Format  |  Description  |
@@ -156,8 +313,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"instance_id": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Instance ID
 
 |  Format  |  Description  |
@@ -171,8 +327,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network type
 
 |  Format  |  Description  |
@@ -184,8 +339,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		},
 
 		"passive": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Configure passive mode for interface
 
 `,
@@ -196,7 +350,7 @@ func (o VrfNameProtocolsOspfvthreeInterface) ResourceAttributes() map[string]sch
 		// Nodes
 
 		"bfd": schema.SingleNestedAttribute{
-			Attributes: VrfNameProtocolsOspfvthreeInterfaceBfd{}.ResourceAttributes(),
+			Attributes: VrfNameProtocolsOspfvthreeInterfaceBfd{}.ResourceSchemaAttributes(),
 			Optional:   true,
 			MarkdownDescription: `Enable Bidirectional Forwarding Detection (BFD)
 

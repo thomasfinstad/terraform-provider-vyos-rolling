@@ -22,6 +22,6 @@ Configures BFD peer to listen and talk to
 |  ipv6  |  BFD peer IPv6 address  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

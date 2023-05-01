@@ -14,6 +14,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 			Local: "interfaceDefinition",
 		},
 		Node: []*interfacedefinition.Node{{
+			IsBaseNode: false,
 			XMLName: xml.Name{
 				Local: "node",
 			},
@@ -23,6 +24,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 					Local: "children",
 				},
 				Node: []*interfacedefinition.Node{{
+					IsBaseNode: false,
 					XMLName: xml.Name{
 						Local: "node",
 					},
@@ -40,6 +42,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 							Local: "children",
 						},
 						Node: []*interfacedefinition.Node{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "node",
 							},
@@ -55,6 +58,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								TagNode: []*interfacedefinition.TagNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "tagNode",
 									},
@@ -99,6 +103,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -115,6 +120,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 												}},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -126,6 +132,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 												Help: []string{"Shared secret key"},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -159,6 +166,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 										}, {
 											Parent: &interfacedefinition.TagNode{
 												Parent: &interfacedefinition.Node{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -169,6 +177,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														},
 														TagNode: []*interfacedefinition.TagNode{nil},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -195,6 +204,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												},
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "tagNode",
 												},
@@ -204,6 +214,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													LeafNode: []*interfacedefinition.LeafNode{nil, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -237,6 +248,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 													}},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -271,6 +283,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 										}, {
 											Parent: &interfacedefinition.TagNode{
 												Parent: &interfacedefinition.Node{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "node",
 													},
@@ -281,6 +294,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														},
 														TagNode: []*interfacedefinition.TagNode{nil},
 														LeafNode: []*interfacedefinition.LeafNode{{
+															IsBaseNode: false,
 															XMLName: xml.Name{
 																Local: "leafNode",
 															},
@@ -307,6 +321,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												},
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "tagNode",
 												},
@@ -316,6 +331,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -350,6 +366,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 													}, nil},
 												}},
 											},
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -384,6 +401,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -436,6 +454,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 									}},
 								}, {
 									Parent: &interfacedefinition.Node{
+										IsBaseNode: false,
 										XMLName: xml.Name{
 											Local: "node",
 										},
@@ -445,6 +464,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 												Local: "children",
 											},
 											TagNode: []*interfacedefinition.TagNode{{
+												IsBaseNode: false,
 												XMLName: xml.Name{
 													Local: "tagNode",
 												},
@@ -454,6 +474,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														Local: "children",
 													},
 													LeafNode: []*interfacedefinition.LeafNode{{
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -486,6 +507,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 															ConstraintErrorMessage: []string{"Timeout must be between 1 and 30 seconds"},
 														}},
 													}, {
+														IsBaseNode: false,
 														XMLName: xml.Name{
 															Local: "leafNode",
 														},
@@ -522,6 +544,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 											LeafNode: []*interfacedefinition.LeafNode{nil},
 										}},
 									},
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -549,6 +572,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						TagNode: []*interfacedefinition.TagNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "tagNode",
 							},
@@ -571,6 +595,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 									Local: "children",
 								},
 								Node: []*interfacedefinition.Node{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "node",
 									},
@@ -586,6 +611,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 											Local: "children",
 										},
 										Node: []*interfacedefinition.Node{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "node",
 											},
@@ -601,6 +627,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -633,6 +660,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Number of login attempts must me between 1 and 10"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -665,6 +693,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Rate limit time interval must be between 15 and 600 seconds"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -697,6 +726,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														ConstraintErrorMessage: []string{"Window of concurrently valid codes must be between 1 and 21"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -725,6 +755,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										TagNode: []*interfacedefinition.TagNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "tagNode",
 											},
@@ -747,6 +778,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 													Local: "children",
 												},
 												LeafNode: []*interfacedefinition.LeafNode{{
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -769,6 +801,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														}},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -780,6 +813,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 														Help: []string{"Optional public key options"},
 													}},
 												}, {
+													IsBaseNode: false,
 													XMLName: xml.Name{
 														Local: "leafNode",
 													},
@@ -855,6 +889,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 											}},
 										}},
 										LeafNode: []*interfacedefinition.LeafNode{{
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -874,6 +909,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 												ConstraintErrorMessage: []string{"Invalid encrypted password for $VAR(../../@)."},
 											}},
 										}, {
+											IsBaseNode: false,
 											XMLName: xml.Name{
 												Local: "leafNode",
 											},
@@ -888,6 +924,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 									}},
 								}},
 								LeafNode: []*interfacedefinition.LeafNode{{
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -906,6 +943,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 										ConstraintErrorMessage: []string{"Cannot use ':' in full name"},
 									}},
 								}, {
+									IsBaseNode: false,
 									XMLName: xml.Name{
 										Local: "leafNode",
 									},
@@ -920,6 +958,7 @@ func systemlogin() interfacedefinition.InterfaceDefinition {
 							}},
 						}},
 						LeafNode: []*interfacedefinition.LeafNode{{
+							IsBaseNode: false,
 							XMLName: xml.Name{
 								Local: "leafNode",
 							},

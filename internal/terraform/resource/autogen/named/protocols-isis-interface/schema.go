@@ -17,6 +17,6 @@ func (r protocolsIsisInterface) Schema(ctx context.Context, req resource.SchemaR
 Interface params
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

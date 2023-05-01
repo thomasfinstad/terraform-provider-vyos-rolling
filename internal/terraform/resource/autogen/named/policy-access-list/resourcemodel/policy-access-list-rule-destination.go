@@ -2,40 +2,120 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyAccessListRuleDestination describes the resource data model.
 type PolicyAccessListRuleDestination struct {
 	// LeafNodes
-	PolicyAccessListRuleDestinationAny         customtypes.CustomStringValue `tfsdk:"any" json:"any,omitempty"`
-	PolicyAccessListRuleDestinationHost        customtypes.CustomStringValue `tfsdk:"host" json:"host,omitempty"`
-	PolicyAccessListRuleDestinationInverseMask customtypes.CustomStringValue `tfsdk:"inverse_mask" json:"inverse-mask,omitempty"`
-	PolicyAccessListRuleDestinationNetwork     customtypes.CustomStringValue `tfsdk:"network" json:"network,omitempty"`
+	LeafPolicyAccessListRuleDestinationAny         types.String `tfsdk:"any"`
+	LeafPolicyAccessListRuleDestinationHost        types.String `tfsdk:"host"`
+	LeafPolicyAccessListRuleDestinationInverseMask types.String `tfsdk:"inverse_mask"`
+	LeafPolicyAccessListRuleDestinationNetwork     types.String `tfsdk:"network"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyAccessListRuleDestination) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "destination"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyAccessListRuleDestinationAny.IsNull() || o.LeafPolicyAccessListRuleDestinationAny.IsUnknown()) {
+		vyosData["any"] = o.LeafPolicyAccessListRuleDestinationAny.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleDestinationHost.IsNull() || o.LeafPolicyAccessListRuleDestinationHost.IsUnknown()) {
+		vyosData["host"] = o.LeafPolicyAccessListRuleDestinationHost.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleDestinationInverseMask.IsNull() || o.LeafPolicyAccessListRuleDestinationInverseMask.IsUnknown()) {
+		vyosData["inverse-mask"] = o.LeafPolicyAccessListRuleDestinationInverseMask.ValueString()
+	}
+	if !(o.LeafPolicyAccessListRuleDestinationNetwork.IsNull() || o.LeafPolicyAccessListRuleDestinationNetwork.IsUnknown()) {
+		vyosData["network"] = o.LeafPolicyAccessListRuleDestinationNetwork.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyAccessListRuleDestination) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "destination"}})
+
+	// Leafs
+	if value, ok := vyosData["any"]; ok {
+		o.LeafPolicyAccessListRuleDestinationAny = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleDestinationAny = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["host"]; ok {
+		o.LeafPolicyAccessListRuleDestinationHost = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleDestinationHost = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["inverse-mask"]; ok {
+		o.LeafPolicyAccessListRuleDestinationInverseMask = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleDestinationInverseMask = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network"]; ok {
+		o.LeafPolicyAccessListRuleDestinationNetwork = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyAccessListRuleDestinationNetwork = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "access-list", "rule", "destination"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyAccessListRuleDestination) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"any":          types.StringType,
+		"host":         types.StringType,
+		"inverse_mask": types.StringType,
+		"network":      types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyAccessListRuleDestination) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"any": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Any IP address to match
 
 `,
 		},
 
 		"host": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Single host IP address to match
 
 |  Format  |  Description  |
@@ -46,8 +126,7 @@ func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.
 		},
 
 		"inverse_mask": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires network be defined)
 
 |  Format  |  Description  |
@@ -58,8 +137,7 @@ func (o PolicyAccessListRuleDestination) ResourceAttributes() map[string]schema.
 		},
 
 		"network": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Network/netmask to match (requires inverse-mask be defined)
 
 |  Format  |  Description  |

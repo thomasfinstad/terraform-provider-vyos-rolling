@@ -2,34 +2,133 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // QosPolicyPriorityQueueDefault describes the resource data model.
 type QosPolicyPriorityQueueDefault struct {
 	// LeafNodes
-	QosPolicyPriorityQueueDefaultCodelQuantum customtypes.CustomStringValue `tfsdk:"codel_quantum" json:"codel-quantum,omitempty"`
-	QosPolicyPriorityQueueDefaultFlows        customtypes.CustomStringValue `tfsdk:"flows" json:"flows,omitempty"`
-	QosPolicyPriorityQueueDefaultInterval     customtypes.CustomStringValue `tfsdk:"interval" json:"interval,omitempty"`
-	QosPolicyPriorityQueueDefaultQueueLimit   customtypes.CustomStringValue `tfsdk:"queue_limit" json:"queue-limit,omitempty"`
-	QosPolicyPriorityQueueDefaultQueueType    customtypes.CustomStringValue `tfsdk:"queue_type" json:"queue-type,omitempty"`
-	QosPolicyPriorityQueueDefaultTarget       customtypes.CustomStringValue `tfsdk:"target" json:"target,omitempty"`
+	LeafQosPolicyPriorityQueueDefaultCodelQuantum types.String `tfsdk:"codel_quantum"`
+	LeafQosPolicyPriorityQueueDefaultFlows        types.String `tfsdk:"flows"`
+	LeafQosPolicyPriorityQueueDefaultInterval     types.String `tfsdk:"interval"`
+	LeafQosPolicyPriorityQueueDefaultQueueLimit   types.String `tfsdk:"queue_limit"`
+	LeafQosPolicyPriorityQueueDefaultQueueType    types.String `tfsdk:"queue_type"`
+	LeafQosPolicyPriorityQueueDefaultTarget       types.String `tfsdk:"target"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *QosPolicyPriorityQueueDefault) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "default"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.IsNull() || o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.IsUnknown()) {
+		vyosData["codel-quantum"] = o.LeafQosPolicyPriorityQueueDefaultCodelQuantum.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueDefaultFlows.IsNull() || o.LeafQosPolicyPriorityQueueDefaultFlows.IsUnknown()) {
+		vyosData["flows"] = o.LeafQosPolicyPriorityQueueDefaultFlows.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueDefaultInterval.IsNull() || o.LeafQosPolicyPriorityQueueDefaultInterval.IsUnknown()) {
+		vyosData["interval"] = o.LeafQosPolicyPriorityQueueDefaultInterval.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueDefaultQueueLimit.IsNull() || o.LeafQosPolicyPriorityQueueDefaultQueueLimit.IsUnknown()) {
+		vyosData["queue-limit"] = o.LeafQosPolicyPriorityQueueDefaultQueueLimit.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueDefaultQueueType.IsNull() || o.LeafQosPolicyPriorityQueueDefaultQueueType.IsUnknown()) {
+		vyosData["queue-type"] = o.LeafQosPolicyPriorityQueueDefaultQueueType.ValueString()
+	}
+	if !(o.LeafQosPolicyPriorityQueueDefaultTarget.IsNull() || o.LeafQosPolicyPriorityQueueDefaultTarget.IsUnknown()) {
+		vyosData["target"] = o.LeafQosPolicyPriorityQueueDefaultTarget.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *QosPolicyPriorityQueueDefault) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "default"}})
+
+	// Leafs
+	if value, ok := vyosData["codel-quantum"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultCodelQuantum = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultCodelQuantum = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["flows"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultFlows = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultFlows = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["interval"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultInterval = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultInterval = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-limit"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultQueueLimit = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultQueueLimit = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["queue-type"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultQueueType = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultQueueType = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["target"]; ok {
+		o.LeafQosPolicyPriorityQueueDefaultTarget = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafQosPolicyPriorityQueueDefaultTarget = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"qos", "policy", "priority-queue", "default"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o QosPolicyPriorityQueueDefault) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"codel_quantum": types.StringType,
+		"flows":         types.StringType,
+		"interval":      types.StringType,
+		"queue_limit":   types.StringType,
+		"queue_type":    types.StringType,
+		"target":        types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o QosPolicyPriorityQueueDefault) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"codel_quantum": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Deficit in the fair queuing algorithm
 
 |  Format  |  Description  |
@@ -43,8 +142,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.At
 		},
 
 		"flows": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Number of flows into which the incoming packets are classified
 
 |  Format  |  Description  |
@@ -58,8 +156,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.At
 		},
 
 		"interval": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Interval used to measure the delay
 
 |  Format  |  Description  |
@@ -73,8 +170,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.At
 		},
 
 		"queue_limit": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Maximum queue size
 
 |  Format  |  Description  |
@@ -85,8 +181,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.At
 		},
 
 		"queue_type": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Queue type for default traffic
 
 |  Format  |  Description  |
@@ -104,8 +199,7 @@ func (o QosPolicyPriorityQueueDefault) ResourceAttributes() map[string]schema.At
 		},
 
 		"target": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Acceptable minimum standing/persistent queue delay
 
 |  Format  |  Description  |

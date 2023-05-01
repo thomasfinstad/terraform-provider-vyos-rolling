@@ -2,65 +2,151 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // FirewallIPvsixNameRuleDestinationGroup describes the resource data model.
 type FirewallIPvsixNameRuleDestinationGroup struct {
 	// LeafNodes
-	FirewallIPvsixNameRuleDestinationGroupAddressGroup customtypes.CustomStringValue `tfsdk:"address_group" json:"address-group,omitempty"`
-	FirewallIPvsixNameRuleDestinationGroupDomainGroup  customtypes.CustomStringValue `tfsdk:"domain_group" json:"domain-group,omitempty"`
-	FirewallIPvsixNameRuleDestinationGroupMacGroup     customtypes.CustomStringValue `tfsdk:"mac_group" json:"mac-group,omitempty"`
-	FirewallIPvsixNameRuleDestinationGroupNetworkGroup customtypes.CustomStringValue `tfsdk:"network_group" json:"network-group,omitempty"`
-	FirewallIPvsixNameRuleDestinationGroupPortGroup    customtypes.CustomStringValue `tfsdk:"port_group" json:"port-group,omitempty"`
+	LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup types.String `tfsdk:"address_group"`
+	LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup  types.String `tfsdk:"domain_group"`
+	LeafFirewallIPvsixNameRuleDestinationGroupMacGroup     types.String `tfsdk:"mac_group"`
+	LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup types.String `tfsdk:"network_group"`
+	LeafFirewallIPvsixNameRuleDestinationGroupPortGroup    types.String `tfsdk:"port_group"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o FirewallIPvsixNameRuleDestinationGroup) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *FirewallIPvsixNameRuleDestinationGroup) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "group"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.IsUnknown()) {
+		vyosData["address-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.IsUnknown()) {
+		vyosData["domain-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.IsUnknown()) {
+		vyosData["mac-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.IsUnknown()) {
+		vyosData["network-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup.ValueString()
+	}
+	if !(o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.IsNull() || o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.IsUnknown()) {
+		vyosData["port-group"] = o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *FirewallIPvsixNameRuleDestinationGroup) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "group"}})
+
+	// Leafs
+	if value, ok := vyosData["address-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupAddressGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["domain-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupDomainGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["mac-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupMacGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["network-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupNetworkGroup = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port-group"]; ok {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafFirewallIPvsixNameRuleDestinationGroupPortGroup = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"firewall", "ipv6-name", "rule", "destination", "group"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o FirewallIPvsixNameRuleDestinationGroup) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"address_group": types.StringType,
+		"domain_group":  types.StringType,
+		"mac_group":     types.StringType,
+		"network_group": types.StringType,
+		"port_group":    types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o FirewallIPvsixNameRuleDestinationGroup) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"address_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of addresses
 
 `,
 		},
 
 		"domain_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of domains
 
 `,
 		},
 
 		"mac_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of MAC addresses
 
 `,
 		},
 
 		"network_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of networks
 
 `,
 		},
 
 		"port_group": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Group of ports
 
 `,

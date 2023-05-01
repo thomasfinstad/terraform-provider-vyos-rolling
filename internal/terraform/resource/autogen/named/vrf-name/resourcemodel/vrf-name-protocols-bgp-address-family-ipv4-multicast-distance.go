@@ -2,33 +2,122 @@
 package resourcemodel
 
 import (
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance describes the resource data model.
 type VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance struct {
 	// LeafNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal customtypes.CustomStringValue `tfsdk:"external" json:"external,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal customtypes.CustomStringValue `tfsdk:"internal" json:"internal,omitempty"`
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal    customtypes.CustomStringValue `tfsdk:"local" json:"local,omitempty"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal types.String `tfsdk:"external"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal types.String `tfsdk:"internal"`
+	LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal    types.String `tfsdk:"local"`
 
 	// TagNodes
-	VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix types.Map `tfsdk:"prefix" json:"prefix,omitempty"`
+	TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix types.Map `tfsdk:"prefix"`
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast", "distance"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal.IsUnknown()) {
+		vyosData["external"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal.IsUnknown()) {
+		vyosData["internal"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal.ValueString()
+	}
+	if !(o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal.IsNull() || o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal.IsUnknown()) {
+		vyosData["local"] = o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal.ValueString()
+	}
+
+	// Tags
+	if !(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix.IsNull() || o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix.IsUnknown()) {
+		subModel := make(map[string]VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix)
+		diags.Append(o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix.ElementsAs(ctx, &subModel, false)...)
+
+		subData := make(map[string]interface{})
+		for k, v := range subModel {
+			subData[k] = v.TerraformToVyos(ctx, diags)
+		}
+		vyosData["prefix"] = subData
+	}
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast", "distance"}})
+
+	// Leafs
+	if value, ok := vyosData["external"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceExternal = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["internal"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceInternal = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local"]; ok {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistanceLocal = basetypes.NewStringNull()
+	}
+
+	// Tags
+	if value, ok := vyosData["prefix"]; ok {
+		data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{}.AttributeTypes()}, value.(map[string]interface{}))
+		diags.Append(d...)
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix = data
+	} else {
+		o.TagVrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix = basetypes.NewMapNull(types.ObjectType{})
+	}
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"vrf", "name", "protocols", "bgp", "address-family", "ipv4-multicast", "distance"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"external": types.StringType,
+		"internal": types.StringType,
+		"local":    types.StringType,
+
+		// Tags
+		"prefix": types.MapType{ElemType: types.ObjectType{AttrTypes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{}.AttributeTypes()}},
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"external": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `eBGP routes administrative distance
 
 |  Format  |  Description  |
@@ -39,8 +128,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 		},
 
 		"internal": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `iBGP routes administrative distance
 
 |  Format  |  Description  |
@@ -51,8 +139,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 		},
 
 		"local": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Locally originated BGP routes administrative distance
 
 |  Format  |  Description  |
@@ -66,7 +153,7 @@ func (o VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistance) ResourceAttrib
 
 		"prefix": schema.MapNestedAttribute{
 			NestedObject: schema.NestedAttributeObject{
-				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{}.ResourceAttributes(),
+				Attributes: VrfNameProtocolsBgpAddressFamilyIPvfourMulticastDistancePrefix{}.ResourceSchemaAttributes(),
 			},
 			Optional: true,
 			MarkdownDescription: `Administrative distance for a specific BGP prefix

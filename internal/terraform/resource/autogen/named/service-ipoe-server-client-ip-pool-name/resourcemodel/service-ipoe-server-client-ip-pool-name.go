@@ -2,30 +2,117 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // ServiceIPoeServerClientIPPoolName describes the resource data model.
 type ServiceIPoeServerClientIPPoolName struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	ServiceIPoeServerClientIPPoolNameGatewayAddress customtypes.CustomStringValue `tfsdk:"gateway_address" json:"gateway-address,omitempty"`
-	ServiceIPoeServerClientIPPoolNameSubnet         customtypes.CustomStringValue `tfsdk:"subnet" json:"subnet,omitempty"`
+	LeafServiceIPoeServerClientIPPoolNameGatewayAddress types.String `tfsdk:"gateway_address"`
+	LeafServiceIPoeServerClientIPPoolNameSubnet         types.String `tfsdk:"subnet"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o ServiceIPoeServerClientIPPoolName) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *ServiceIPoeServerClientIPPoolName) GetVyosPath() []string {
+	return []string{
+		"service",
+		"ipoe-server",
+		"client-ip-pool",
+		"name",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *ServiceIPoeServerClientIPPoolName) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ip-pool", "name"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.IsNull() || o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.IsUnknown()) {
+		vyosData["gateway-address"] = o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress.ValueString()
+	}
+	if !(o.LeafServiceIPoeServerClientIPPoolNameSubnet.IsNull() || o.LeafServiceIPoeServerClientIPPoolNameSubnet.IsUnknown()) {
+		vyosData["subnet"] = o.LeafServiceIPoeServerClientIPPoolNameSubnet.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *ServiceIPoeServerClientIPPoolName) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ip-pool", "name"}})
+
+	// Leafs
+	if value, ok := vyosData["gateway-address"]; ok {
+		o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerClientIPPoolNameGatewayAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["subnet"]; ok {
+		o.LeafServiceIPoeServerClientIPPoolNameSubnet = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafServiceIPoeServerClientIPPoolNameSubnet = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"service", "ipoe-server", "client-ip-pool", "name"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o ServiceIPoeServerClientIPPoolName) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"gateway_address": types.StringType,
+		"subnet":          types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o ServiceIPoeServerClientIPPoolName) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `Pool name
+
+|  Format  |  Description  |
+|----------|---------------|
+|  txt  |  Name of IP pool  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"gateway_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Gateway IP address
 
 |  Format  |  Description  |
@@ -36,8 +123,7 @@ func (o ServiceIPoeServerClientIPPoolName) ResourceAttributes() map[string]schem
 		},
 
 		"subnet": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Client IP subnet (CIDR notation)
 
 |  Format  |  Description  |

@@ -2,49 +2,162 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // SystemLoginRadiusServer describes the resource data model.
 type SystemLoginRadiusServer struct {
+	ID types.String `tfsdk:"identifier"`
+
 	// LeafNodes
-	SystemLoginRadiusServerDisable  customtypes.CustomStringValue `tfsdk:"disable" json:"disable,omitempty"`
-	SystemLoginRadiusServerKey      customtypes.CustomStringValue `tfsdk:"key" json:"key,omitempty"`
-	SystemLoginRadiusServerPort     customtypes.CustomStringValue `tfsdk:"port" json:"port,omitempty"`
-	SystemLoginRadiusServerTimeout  customtypes.CustomStringValue `tfsdk:"timeout" json:"timeout,omitempty"`
-	SystemLoginRadiusServerPriority customtypes.CustomStringValue `tfsdk:"priority" json:"priority,omitempty"`
+	LeafSystemLoginRadiusServerDisable  types.String `tfsdk:"disable"`
+	LeafSystemLoginRadiusServerKey      types.String `tfsdk:"key"`
+	LeafSystemLoginRadiusServerPort     types.String `tfsdk:"port"`
+	LeafSystemLoginRadiusServerTimeout  types.String `tfsdk:"timeout"`
+	LeafSystemLoginRadiusServerPriority types.String `tfsdk:"priority"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribute {
+// GetVyosPath returns the list of strings to use to get to the correct vyos configuration
+func (o *SystemLoginRadiusServer) GetVyosPath() []string {
+	return []string{
+		"system",
+		"login",
+		"radius",
+		"server",
+		o.ID.ValueString(),
+	}
+}
+
+// TerraformToVyos converts terraform data to vyos data
+func (o *SystemLoginRadiusServer) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafSystemLoginRadiusServerDisable.IsNull() || o.LeafSystemLoginRadiusServerDisable.IsUnknown()) {
+		vyosData["disable"] = o.LeafSystemLoginRadiusServerDisable.ValueString()
+	}
+	if !(o.LeafSystemLoginRadiusServerKey.IsNull() || o.LeafSystemLoginRadiusServerKey.IsUnknown()) {
+		vyosData["key"] = o.LeafSystemLoginRadiusServerKey.ValueString()
+	}
+	if !(o.LeafSystemLoginRadiusServerPort.IsNull() || o.LeafSystemLoginRadiusServerPort.IsUnknown()) {
+		vyosData["port"] = o.LeafSystemLoginRadiusServerPort.ValueString()
+	}
+	if !(o.LeafSystemLoginRadiusServerTimeout.IsNull() || o.LeafSystemLoginRadiusServerTimeout.IsUnknown()) {
+		vyosData["timeout"] = o.LeafSystemLoginRadiusServerTimeout.ValueString()
+	}
+	if !(o.LeafSystemLoginRadiusServerPriority.IsNull() || o.LeafSystemLoginRadiusServerPriority.IsUnknown()) {
+		vyosData["priority"] = o.LeafSystemLoginRadiusServerPriority.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *SystemLoginRadiusServer) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
+
+	// Leafs
+	if value, ok := vyosData["disable"]; ok {
+		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerDisable = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["key"]; ok {
+		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerKey = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["port"]; ok {
+		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerPort = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["timeout"]; ok {
+		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerTimeout = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["priority"]; ok {
+		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafSystemLoginRadiusServerPriority = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"system", "login", "radius", "server"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o SystemLoginRadiusServer) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"disable":  types.StringType,
+		"key":      types.StringType,
+		"port":     types.StringType,
+		"timeout":  types.StringType,
+		"priority": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o SystemLoginRadiusServer) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
+		"identifier": schema.StringAttribute{
+			Required: true,
+			MarkdownDescription: `RADIUS server configuration
+
+|  Format  |  Description  |
+|----------|---------------|
+|  ipv4  |  RADIUS server IPv4 address  |
+|  ipv6  |  RADIUS server IPv6 address  |
+
+`,
+		},
+
 		// LeafNodes
 
 		"disable": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Disable instance
 
 `,
 		},
 
 		"key": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Shared secret key
 
 `,
 		},
 
 		"port": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Authentication port
 
 |  Format  |  Description  |
@@ -58,8 +171,7 @@ func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"timeout": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Session timeout
 
 |  Format  |  Description  |
@@ -73,8 +185,7 @@ func (o SystemLoginRadiusServer) ResourceAttributes() map[string]schema.Attribut
 		},
 
 		"priority": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Server priority
 
 |  Format  |  Description  |

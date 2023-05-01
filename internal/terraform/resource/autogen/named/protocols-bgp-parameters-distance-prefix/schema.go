@@ -25,6 +25,6 @@ Administrative distance for a specific BGP prefix
 |  ipv4net  |  Administrative distance for a specific BGP prefix  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

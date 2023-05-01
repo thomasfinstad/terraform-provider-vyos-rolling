@@ -21,6 +21,6 @@ UPnP Rule
 |  u32:0-65535  |  Rule number  |
 
 `,
-		Attributes: r.model.ResourceAttributes(),
+		Attributes: r.model.ResourceSchemaAttributes(),
 	}
 }

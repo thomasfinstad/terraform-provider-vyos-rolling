@@ -2,32 +2,113 @@
 package resourcemodel
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"context"
 
-	"github.com/thomasfinstad/terraform-provider-vyos/internal/terraform/customtypes"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
+	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
 // PolicyRouteMapRuleSetIPvsixNextHop describes the resource data model.
 type PolicyRouteMapRuleSetIPvsixNextHop struct {
 	// LeafNodes
-	PolicyRouteMapRuleSetIPvsixNextHopGlobal       customtypes.CustomStringValue `tfsdk:"global" json:"global,omitempty"`
-	PolicyRouteMapRuleSetIPvsixNextHopLocal        customtypes.CustomStringValue `tfsdk:"local" json:"local,omitempty"`
-	PolicyRouteMapRuleSetIPvsixNextHopPeerAddress  customtypes.CustomStringValue `tfsdk:"peer_address" json:"peer-address,omitempty"`
-	PolicyRouteMapRuleSetIPvsixNextHopPreferGlobal customtypes.CustomStringValue `tfsdk:"prefer_global" json:"prefer-global,omitempty"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal       types.String `tfsdk:"global"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopLocal        types.String `tfsdk:"local"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress  types.String `tfsdk:"peer_address"`
+	LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal types.String `tfsdk:"prefer_global"`
 
 	// TagNodes
 
 	// Nodes
 }
 
-// ResourceAttributes generates the attributes for the resource at this level
-func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceAttributes() map[string]schema.Attribute {
+// TerraformToVyos converts terraform data to vyos data
+func (o *PolicyRouteMapRuleSetIPvsixNextHop) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) map[string]interface{} {
+	tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "ipv6-next-hop"}})
+
+	vyosData := make(map[string]interface{})
+
+	// Leafs
+	if !(o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.IsNull() || o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.IsUnknown()) {
+		vyosData["global"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.IsNull() || o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.IsUnknown()) {
+		vyosData["local"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.IsNull() || o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.IsUnknown()) {
+		vyosData["peer-address"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress.ValueString()
+	}
+	if !(o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.IsNull() || o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.IsUnknown()) {
+		vyosData["prefer-global"] = o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal.ValueString()
+	}
+
+	// Tags
+
+	// Nodes
+
+	// Return compiled data
+	return vyosData
+}
+
+// VyosToTerraform converts vyos data to terraform data
+func (o *PolicyRouteMapRuleSetIPvsixNextHop) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
+	tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "ipv6-next-hop"}})
+
+	// Leafs
+	if value, ok := vyosData["global"]; ok {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopGlobal = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["local"]; ok {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopLocal = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["peer-address"]; ok {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPeerAddress = basetypes.NewStringNull()
+	}
+	if value, ok := vyosData["prefer-global"]; ok {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal = basetypes.NewStringValue(value.(string))
+	} else {
+		o.LeafPolicyRouteMapRuleSetIPvsixNextHopPreferGlobal = basetypes.NewStringNull()
+	}
+
+	// Tags
+
+	// Nodes
+
+	tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{"policy", "route-map", "rule", "set", "ipv6-next-hop"}})
+}
+
+// AttributeTypes generates the attribute types for the resource at this level
+func (o PolicyRouteMapRuleSetIPvsixNextHop) AttributeTypes() map[string]attr.Type {
+	return map[string]attr.Type{
+		// Leafs
+		"global":        types.StringType,
+		"local":         types.StringType,
+		"peer_address":  types.StringType,
+		"prefer_global": types.StringType,
+
+		// Tags
+
+		// Nodes
+
+	}
+}
+
+// ResourceSchemaAttributes generates the schema attributes for the resource at this level
+func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceSchemaAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		// LeafNodes
 
 		"global": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 global address
 
 |  Format  |  Description  |
@@ -38,8 +119,7 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceAttributes() map[string]sche
 		},
 
 		"local": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Nexthop IPv6 local address
 
 |  Format  |  Description  |
@@ -50,16 +130,14 @@ func (o PolicyRouteMapRuleSetIPvsixNextHop) ResourceAttributes() map[string]sche
 		},
 
 		"peer_address": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Use peer address (for BGP only)
 
 `,
 		},
 
 		"prefer_global": schema.StringAttribute{
-			CustomType: customtypes.CustomStringType{},
-			Optional:   true,
+			Optional: true,
 			MarkdownDescription: `Prefer global address as the nexthop
 
 `,
