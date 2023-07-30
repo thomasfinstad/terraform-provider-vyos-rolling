@@ -19,9 +19,9 @@ Label Distribution Protocol (LDP)
 
 LDP neighbor parameters
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Neighbor IPv4 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Neighbor IPv4 address  |
 
 
 
@@ -32,21 +32,21 @@ LDP neighbor parameters
 
 - `identifier` (String) LDP neighbor parameters
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Neighbor IPv4 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Neighbor IPv4 address  |
 
 ### Optional
 
 - `password` (String) Neighbor password
 - `session_holdtime` (String) Session IPv4 hold time
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:15-65535  |  Time in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:15-65535  |  Time in seconds  |
 - `ttl_security` (String) Neighbor TTL security
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-254  |  TTL  |
-|  disable  |  Disable neighbor TTL security  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-254  |  TTL  |
+    |  disable  |  Disable neighbor TTL security  |

@@ -22,9 +22,9 @@ IPv4 BGP settings
 
 BGP aggregate network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP aggregate network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  BGP aggregate network  |
 
 
 
@@ -35,16 +35,16 @@ BGP aggregate network
 
 - `identifier` (String) BGP aggregate network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP aggregate network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  BGP aggregate network  |
 
 ### Optional
 
 - `as_set` (String) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `summary_only` (String) Announce the aggregate summary network only

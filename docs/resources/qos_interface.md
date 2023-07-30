@@ -16,9 +16,9 @@ Quality of Service (QoS)
 
 Interface to apply QoS policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 
@@ -29,19 +29,19 @@ Interface to apply QoS policy
 
 - `identifier` (String) Interface to apply QoS policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 
 - `egress` (String) Interface egress traffic policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  QoS policy to use  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  QoS policy to use  |
 - `ingress` (String) Interface ingress traffic policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  QoS policy to use  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  QoS policy to use  |

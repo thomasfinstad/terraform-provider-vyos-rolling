@@ -16,9 +16,9 @@ UDP broadcast relay service
 
 Unique ID for each UDP port to forward
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-99  |  Broadcast relay instance ID  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-99  |  Broadcast relay instance ID  |
 
 
 
@@ -29,26 +29,26 @@ Unique ID for each UDP port to forward
 
 - `identifier` (String) Unique ID for each UDP port to forward
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-99  |  Broadcast relay instance ID  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-99  |  Broadcast relay instance ID  |
 
 ### Optional
 
 - `address` (String) Set source IP of forwarded packets, otherwise original senders address is used
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Optional source address for forwarded packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Optional source address for forwarded packets  |
 - `description` (String) Description
 - `disable` (String) Disable instance
 - `interface` (String) Interface to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

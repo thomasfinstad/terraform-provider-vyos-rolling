@@ -26,7 +26,7 @@ interface(s) to listen on
 
 - `vlan` (String) VLAN monitor for automatic creation of VLAN interfaces
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4094  |  VLAN for automatic creation  |
-|  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4094  |  VLAN for automatic creation  |
+    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |

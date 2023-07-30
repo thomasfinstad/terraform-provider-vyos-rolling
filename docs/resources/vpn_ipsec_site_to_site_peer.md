@@ -22,9 +22,9 @@ Site-to-site VPN
 
 Connection name of the peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Connection name of the peer  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name of the peer  |
 
 
 
@@ -35,67 +35,62 @@ Connection name of the peer
 
 - `identifier` (String) Connection name of the peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Connection name of the peer  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Connection name of the peer  |
 
 ### Optional
 
 - `authentication` (Attributes) Peer authentication (see [below for nested schema](#nestedatt--authentication))
 - `connection_type` (String) Connection type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  initiate  |  Bring the connection up immediately  |
-|  respond  |  Wait for the peer to initiate the connection  |
-|  none  |  Load the connection only  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  initiate  |  Bring the connection up immediately  |
+    |  respond  |  Wait for the peer to initiate the connection  |
+    |  none  |  Load the connection only  |
 - `default_esp_group` (String) Defult ESP group name
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  DHCP interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  DHCP interface name  |
 - `disable` (String) Disable instance
 - `force_udp_encapsulation` (String) Force UDP encapsulation
 - `ike_group` (String) Internet Key Exchange (IKE) group name
 - `ikev2_reauth` (String) Re-authentication of the remote peer during an IKE re-key (IKEv2 only)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  yes  |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
-|  no  |  Disable remote host re-authenticaton during an IKE re-key.  |
-|  inherit  |  Inherit the reauth configuration form your IKE-group  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  yes  |  Enable remote host re-autentication during an IKE re-key. Currently broken due to a strong swan bug  |
+    |  no  |  Disable remote host re-authenticaton during an IKE re-key.  |
+    |  inherit  |  Inherit the reauth configuration form your IKE-group  |
 - `local_address` (String) IPv4 or IPv6 address of a local interface to use for VPN
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of a local interface for VPN  |
-|  ipv6  |  IPv6 address of a local interface for VPN  |
-|  any  |  Allow any IPv4 address present on the system to be used for VPN  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address of a local interface for VPN  |
+    |  ipv6  |  IPv6 address of a local interface for VPN  |
+    |  any  |  Allow any IPv4 address present on the system to be used for VPN  |
 - `remote_address` (String) IPv4 or IPv6 address of the remote peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of the remote peer  |
-|  ipv6  |  IPv6 address of the remote peer  |
-|  hostname  |  Fully qualified domain name of the remote peer  |
-|  any  |  Allow any IP address of the remote peer  |
-- `tunnel` (Attributes Map) Peer tunnel
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Peer tunnel  | (see [below for nested schema](#nestedatt--tunnel))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address of the remote peer  |
+    |  ipv6  |  IPv6 address of the remote peer  |
+    |  hostname  |  Fully qualified domain name of the remote peer  |
+    |  any  |  Allow any IP address of the remote peer  |
 - `virtual_address` (String) Initiator request virtual-address from peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Request IPv4 address from peer  |
-|  ipv6  |  Request IPv6 address from peer  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Request IPv4 address from peer  |
+    |  ipv6  |  Request IPv6 address from peer  |
 - `vti` (Attributes) Virtual tunnel interface (see [below for nested schema](#nestedatt--vti))
 
 <a id="nestedatt--authentication"></a>
@@ -105,21 +100,21 @@ Optional:
 
 - `local_id` (String) Local ID for peer authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Local ID used for peer authentication  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Local ID used for peer authentication  |
 - `mode` (String) Authentication mode
 
-|  Format  |  Description  |
-|----------|---------------|
-|  pre-shared-secret  |  Use pre-shared secret key  |
-|  rsa  |  Use RSA key  |
-|  x509  |  Use x.509 certificate  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pre-shared-secret  |  Use pre-shared secret key  |
+    |  rsa  |  Use RSA key  |
+    |  x509  |  Use x.509 certificate  |
 - `remote_id` (String) ID for remote authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  ID used for peer authentication  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  ID used for peer authentication  |
 - `rsa` (Attributes) RSA keys (see [below for nested schema](#nestedatt--authentication--rsa))
 - `use_x509_id` (String) Use certificate common name as ID
 - `x509` (Attributes) X.509 certificate (see [below for nested schema](#nestedatt--authentication--x509))
@@ -141,76 +136,19 @@ Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of CA in PKI configuration  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of CA in PKI configuration  |
 - `certificate` (String) Certificate in PKI configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of certificate in PKI configuration  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of certificate in PKI configuration  |
 - `passphrase` (String) Private key passphrase
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Passphrase to decrypt the private key  |
-
-
-
-<a id="nestedatt--tunnel"></a>
-### Nested Schema for `tunnel`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `esp_group` (String) Encapsulating Security Payloads (ESP) group name
-- `local` (Attributes) Local parameters for interesting traffic (see [below for nested schema](#nestedatt--tunnel--local))
-- `priority` (String) Priority for IPsec policy (lowest value more preferable)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-100  |  Priority for IPsec policy (lowest value more preferable)  |
-- `protocol` (String) Protocol
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Protocol name  |
-- `remote` (Attributes) Match remote addresses (see [below for nested schema](#nestedatt--tunnel--remote))
-
-<a id="nestedatt--tunnel--local"></a>
-### Nested Schema for `tunnel.local`
-
-Optional:
-
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-- `prefix` (String) Local IPv4 or IPv6 prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Local IPv4 prefix  |
-|  ipv6net  |  Local IPv6 prefix  |
-
-
-<a id="nestedatt--tunnel--remote"></a>
-### Nested Schema for `tunnel.remote`
-
-Optional:
-
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-- `prefix` (String) Remote IPv4 or IPv6 prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Remote IPv4 prefix  |
-|  ipv6net  |  Remote IPv6 prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Passphrase to decrypt the private key  |
 
 
 

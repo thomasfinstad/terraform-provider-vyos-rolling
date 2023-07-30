@@ -17,10 +17,10 @@ Trivial File Transfer Protocol (TFTP) server
 
 Local IP addresses to listen on
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to listen for incoming connections  |
-|  ipv6  |  IPv6 address to listen for incoming connections  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to listen for incoming connections  |
+    |  ipv6  |  IPv6 address to listen for incoming connections  |
 
 
 
@@ -31,15 +31,15 @@ Local IP addresses to listen on
 
 - `identifier` (String) Local IP addresses to listen on
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to listen for incoming connections  |
-|  ipv6  |  IPv6 address to listen for incoming connections  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to listen for incoming connections  |
+    |  ipv6  |  IPv6 address to listen for incoming connections  |
 
 ### Optional
 
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |

@@ -16,9 +16,9 @@ Multicast static route
 
 Configure static unicast route into MRIB for multicast RPF lookup
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |
 
 
 
@@ -29,25 +29,6 @@ Configure static unicast route into MRIB for multicast RPF lookup
 
 - `identifier` (String) Configure static unicast route into MRIB for multicast RPF lookup
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Network  |
-
-### Optional
-
-- `next_hop` (Attributes Map) Nexthop IPv4 address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Nexthop IPv4 address  | (see [below for nested schema](#nestedatt--next_hop))
-
-<a id="nestedatt--next_hop"></a>
-### Nested Schema for `next_hop`
-
-Optional:
-
-- `distance` (String) Distance value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |

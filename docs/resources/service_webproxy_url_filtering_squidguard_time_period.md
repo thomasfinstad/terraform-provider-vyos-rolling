@@ -30,29 +30,4 @@ Time period name
 
 ### Optional
 
-- `days` (Attributes Map) Time-period days
-
-|  Format  |  Description  |
-|----------|---------------|
-|  Sun  |  Sunday  |
-|  Mon  |  Monday  |
-|  Tue  |  Tuesday  |
-|  Wed  |  Wednesday  |
-|  Thu  |  Thursday  |
-|  Fri  |  Friday  |
-|  Sat  |  Saturday  |
-|  weekdays  |  Monday through Friday  |
-|  weekend  |  Saturday and Sunday  |
-|  all  |  All days of the week  | (see [below for nested schema](#nestedatt--days))
 - `description` (String) Time-period description
-
-<a id="nestedatt--days"></a>
-### Nested Schema for `days`
-
-Optional:
-
-- `time` (String) Time for time-period
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <hh:mm - hh:mm>  |  Time range in 24hr time  |

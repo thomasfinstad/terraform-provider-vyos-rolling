@@ -18,11 +18,11 @@ BGP prefix origin validation
 
 RPKI cache server address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address of RPKI server  |
-|  ipv6  |  IPv6 address of RPKI server  |
-|  hostname  |  Fully qualified domain name of RPKI server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address of RPKI server  |
+    |  ipv6  |  IPv6 address of RPKI server  |
+    |  hostname  |  Fully qualified domain name of RPKI server  |
 
 
 
@@ -33,24 +33,24 @@ RPKI cache server address
 
 - `identifier` (String) RPKI cache server address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address of RPKI server  |
-|  ipv6  |  IPv6 address of RPKI server  |
-|  hostname  |  Fully qualified domain name of RPKI server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address of RPKI server  |
+    |  ipv6  |  IPv6 address of RPKI server  |
+    |  hostname  |  Fully qualified domain name of RPKI server  |
 
 ### Optional
 
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `preference` (String) Preference of the cache server
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Preference of the cache server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Preference of the cache server  |
 - `ssh` (Attributes) RPKI SSH connection settings (see [below for nested schema](#nestedatt--ssh))
 
 <a id="nestedatt--ssh"></a>
@@ -63,6 +63,6 @@ Optional:
 - `public_key_file` (String) RPKI SSH public key file path
 - `username` (String) Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username  |

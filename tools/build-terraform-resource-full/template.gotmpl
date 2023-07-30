@@ -74,13 +74,26 @@ import (
 	}
 {{end}}
 
+{{define "resource-model-parent-hack"}}
+	{{if .Parent}}
+		{{template "resource-model-parent-hack" .Parent}}
+	{{end}}
+	{{if eq .NodeType "TagNode"}}
+		ParentID{{.BaseNameCG}} any `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},parent-id"`
+	{{end}}
+{{end}}
+
 // TODO look into using the json tags during unmarshalling,
 // or use a custom MarshalVyos function with dedicated tag
 {{define "resource-model"}}
 	// {{.BaseNameCG}} describes the resource data model.
 	type {{.BaseNameCG}} struct {
 		{{if .IsBaseNode }}
-			ID         types.String `tfsdk:"identifier"`
+			ID         types.String `tfsdk:"identifier" vyos:",self-id"`
+
+			{{if .Parent}}
+				{{template "resource-model-parent-hack" .Parent}}
+			{{end}}
 		{{end}}
 
 		{{with .GetChildren }}
@@ -94,15 +107,15 @@ import (
 											NOT IMPLEMENTED
 										{{- else -}}
 											UNKNOWN TYPE: {{.ValueType}}
-										{{- end}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+										{{- end}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 			{{end}}
-			// TagNodes
+			// TagNodes (Bools that show if child resources have been configured)
 			{{range .TagNodes -}}
-				Tag{{.BaseNameCG}} *map[string]{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+				ExistsTag{{.BaseNameCG}} bool `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},child"`
 			{{end}}
 			// Nodes
 			{{range .Nodes -}}
-				Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" json:"{{.BaseName}},omitempty"`
+				Node{{.BaseNameCG}} *{{.BaseNameCG}} `tfsdk:"{{.BaseNameS}}" vyos:"{{.BaseName}},omitempty"`
 			{{end}}
 		{{end}}
 	}
@@ -119,94 +132,7 @@ import (
 		}
 	{{end}}
 
-	{{/* // TerraformToVyos converts terraform data to vyos data
-	func (o *{{.BaseNameCG}}) TerraformToVyos(ctx context.Context, diags *diag.Diagnostics) (map[string]interface{}) {
-		tflog.Error(ctx, "TerraformToVyos", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
-
-		vyosData := make(map[string]interface{})
-
-		{{with .GetChildren}}
-			// Leafs
-			{{range .LeafNodes -}}
-				if !(o.Leaf{{.BaseNameCG}}.IsNull() || o.Leaf{{.BaseNameCG}}.IsUnknown()) {
-					vyosData["{{.BaseName}}"] = o.Leaf{{.BaseNameCG}}.ValueString()
-				}
-			{{end}}
-			// Tags
-			{{range .TagNodes -}}
-				if !(o.Tag{{.BaseNameCG}}.IsNull() || o.Tag{{.BaseNameCG}}.IsUnknown()) {
-					subModel := make(map[string]{{.BaseNameCG}})
-					diags.Append(o.Tag{{.BaseNameCG}}.ElementsAs(ctx, &subModel, false)...)
-
-					subData := make(map[string]interface{})
-					for k, v := range subModel{
-						subData[k] = v.TerraformToVyos(ctx, diags)
-					}
-					vyosData["{{.BaseName}}"] = subData
-				}
-			{{end}}
-			// Nodes
-			{{range .Nodes -}}
-				if !(o.Node{{.BaseNameCG}}.IsNull() || o.Node{{.BaseNameCG}}.IsUnknown()) {
-					var subModel {{.BaseNameCG}}
-					diags.Append(o.Node{{.BaseNameCG}}.As(ctx, &subModel, basetypes.ObjectAsOptions{UnhandledNullAsEmpty:true, UnhandledUnknownAsEmpty:true})...)
-					vyosData["{{.BaseName}}"] = subModel.TerraformToVyos(ctx, diags)
-				}
-			{{end}}
-		{{end}}
-
-		// Return compiled data
-		return vyosData
-
-	}
-
-	// VyosToTerraform converts vyos data to terraform data
-	func (o *{{.BaseNameCG}}) VyosToTerraform(ctx context.Context, diags *diag.Diagnostics, vyosData map[string]interface{}) {
-		tflog.Error(ctx, "VyosToTerraform begin", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
-
-		{{with .GetChildren}}
-			// Leafs
-			{{range .LeafNodes -}}
-				{{if eq .ValueType "string" -}}
-					if value, ok := vyosData["{{.BaseName}}"]; ok {
-						o.Leaf{{.BaseNameCG}} = basetypes.NewStringValue(value.(string))
-					} else {
-						o.Leaf{{.BaseNameCG}} = basetypes.NewStringNull()
-					}
-				{{- else  if eq .ValueType "number" -}}
-					NOT IMPLEMENTED
-				{{- else if eq .ValueType "bool" -}}
-					NOT IMPLEMENTED
-				{{- else -}}
-					UNKNOWN TYPE: {{.ValueType}}
-				{{- end}}
-			{{end}}
-			// Tags
-			{{range .TagNodes -}}
-				if value, ok := vyosData["{{.BaseName}}"]; ok {
-					data, d := types.MapValueFrom(ctx, types.ObjectType{AttrTypes:  {{.BaseNameCG}}{}.AttributeTypes()}, value.(map[string]interface{}))
-					diags.Append(d...)
-					o.Tag{{.BaseNameCG}} = data
-				} else {
-					o.Tag{{.BaseNameCG}} = basetypes.NewMapNull(types.ObjectType{})
-				}
-			{{end}}
-			// Nodes
-			{{range .Nodes -}}
-				if value, ok := vyosData["{{.BaseName}}"]; ok {
-					data, d := basetypes.NewObjectValueFrom(ctx, {{.BaseNameCG}}{}.AttributeTypes(), value.(map[string]interface{}))
-					diags.Append(d...)
-					o.Node{{.BaseNameCG}} = data
-
-				} else {
-					o.Node{{.BaseNameCG}} = basetypes.NewObjectNull({{.BaseNameCG}}{}.AttributeTypes())
-				}
-			{{end}}
-		{{end}}
-		tflog.Error(ctx, "VyosToTerraform end", map[string]interface{}{"Path": []string{ {{range .AbsName}} "{{.}}", {{end}} } })
-	}
-
-	// AttributeTypes generates the attribute types for the resource at this level
+	{{/* // AttributeTypes generates the attribute types for the resource at this level
 	func (o {{.BaseNameCG}}) AttributeTypes() map[string]attr.Type {
 		return map[string]attr.Type{
 			{{with .GetChildren}}
@@ -256,7 +182,7 @@ import (
 					},
 				{{end}}
 
-				// TagNodes
+				{{/* // TagNodes
 				{{range .TagNodes }}
 					"{{.BaseNameS}}": schema.MapNestedAttribute{
 						NestedObject: schema.NestedAttributeObject{
@@ -265,7 +191,7 @@ import (
 						Optional:            true,
 						MarkdownDescription: `{{.Description}}`,
 					},
-				{{end}}
+				{{end}} */}}
 				// Nodes
 				{{range .Nodes }}
 					"{{.BaseNameS}}": schema.SingleNestedAttribute{
@@ -290,7 +216,7 @@ import (
 				}
 			{{end}}
 
-			// Tags
+			{{/* // Tags
 			{{range .TagNodes }}
 				if ! reflect.ValueOf(o.Tag{{.BaseNameCG}}).IsZero()  {
 					subJSONStr, err := json.Marshal(o.Tag{{.BaseNameCG}})
@@ -305,7 +231,7 @@ import (
 					}
 					jsonData["{{.BaseName}}"] = subData
 				}
-			{{end}}
+			{{end}} */}}
 
 			// Nodes
 			{{range .Nodes }}
@@ -359,7 +285,7 @@ import (
 				{{- end}}
 			{{end}}
 
-			// Tags
+			{{/* // TagNodes
 			{{range .TagNodes -}}
 				if value, ok := jsonData["{{.BaseName}}"]; ok {
 					subJSONStr, err := json.Marshal(value)
@@ -374,7 +300,7 @@ import (
 						return err
 					}
 				}
-			{{end}}
+			{{end}} */}}
 			// Nodes
 			{{range .Nodes -}}
 				if value, ok := jsonData["{{.BaseName}}"]; ok {
@@ -515,15 +441,42 @@ func (r {{.BaseNameG}}) Schema(ctx context.Context, req resource.SchemaRequest, 
 			return
 		}
 
-		// If applicable, this is a great opportunity to initialize any necessary
-		// provider client data and make a call using it.
-		// httpResp, err := r.client.Do(httpReq)
-		// if err != nil {
-		//     resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to update example, got error: %s", err))
-		//     return
-		// }
+		jsonData, err := json.Marshal(data)
+		if err != nil {
+			resp.Diagnostics.AddError("Json Marshalling Error", fmt.Sprintf("%s", err))
+			return
+		}
 
-		// Save updated data into Terraform state
+		var vyosData map[string]interface{}
+		err = json.Unmarshal(jsonData, &vyosData)
+		if err != nil {
+			resp.Diagnostics.AddError("Json Unmarshalling Error", fmt.Sprintf("%s", err))
+			return
+		}
+
+		// Create vyos api ops
+		vyosOps := helpers.GenerateVyosOps(ctx, data.GetVyosPath(), vyosData)
+		tflog.Error(ctx, "Compiled vyos operations", map[string]interface{}{"vyosOps": vyosOps})
+
+		// Stage changes
+		r.client.StageSet(ctx, vyosOps)
+
+		// Commit changes
+		response, err := r.client.CommitChanges(ctx)
+		if err != nil {
+			resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create %s, got error: %s", r.ResourceName, err))
+			return
+		}
+		if response != nil {
+			tflog.Warn(ctx, "Got non-nil response from API", map[string]interface{}{"response": response})
+		}
+
+		// Save ID into the Terraform state.
+		data.ID = types.StringValue(data.ID.ValueString())
+
+		// Save data to Terraform state
+		tflog.Trace(ctx, "resource created")
+		tflog.Error(ctx, "Setting state", map[string]interface{}{"data": fmt.Sprintf("%#v", data)})
 		resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 	}
 

@@ -29,11 +29,11 @@ Firewall domain-group
 
 - `address` (String) Domain-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Domain address to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Domain address to match  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

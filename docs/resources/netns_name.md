@@ -26,6 +26,6 @@ Network namespace name
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

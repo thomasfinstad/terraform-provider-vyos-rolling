@@ -22,9 +22,9 @@ L2VPN EVPN BGP settings
 
 VXLAN Network Identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-16777215  |  VNI number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-16777215  |  VNI number  |
 
 
 
@@ -35,9 +35,9 @@ VXLAN Network Identifier
 
 - `identifier` (String) VXLAN Network Identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-16777215  |  VNI number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-16777215  |  VNI number  |
 
 ### Optional
 
@@ -45,9 +45,9 @@ VXLAN Network Identifier
 - `advertise_svi_ip` (String) Advertise svi mac-ip routes in EVPN
 - `rd` (String) Route Distinguisher
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--route_target))
 
 <a id="nestedatt--route_target"></a>
@@ -57,16 +57,16 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |

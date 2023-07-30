@@ -16,9 +16,9 @@ Point to Point over Ethernet (PPPoE) Server
 
 PADO delays
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number in ms  |
 
 
 
@@ -29,14 +29,14 @@ PADO delays
 
 - `identifier` (String) PADO delays
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number in ms  |
 
 ### Optional
 
 - `sessions` (String) Number of sessions
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number of sessions  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number of sessions  |

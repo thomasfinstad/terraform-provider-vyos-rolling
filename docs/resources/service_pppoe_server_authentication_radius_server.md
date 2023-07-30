@@ -22,9 +22,9 @@ RADIUS based user authentication
 
 RADIUS server configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  RADIUS server IPv4 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  RADIUS server IPv4 address  |
 
 
 
@@ -35,27 +35,27 @@ RADIUS server configuration
 
 - `identifier` (String) RADIUS server configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  RADIUS server IPv4 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  RADIUS server IPv4 address  |
 
 ### Optional
 
 - `acct_port` (String) Accounting port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `disable` (String) Disable instance
 - `disable_accounting` (String) Disable accounting
 - `fail_time` (String) Mark server unavailable for <n> seconds on failure
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-600  |  Fail time penalty  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-600  |  Fail time penalty  |
 - `key` (String) Shared secret key
 - `port` (String) Authentication port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

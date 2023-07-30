@@ -17,10 +17,10 @@ sFlow settings
 
 sFlow destination server
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 server to export sFlow  |
-|  ipv6  |  IPv6 server to export sFlow  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 server to export sFlow  |
+    |  ipv6  |  IPv6 server to export sFlow  |
 
 
 
@@ -31,15 +31,15 @@ sFlow destination server
 
 - `identifier` (String) sFlow destination server
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 server to export sFlow  |
-|  ipv6  |  IPv6 server to export sFlow  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 server to export sFlow  |
+    |  ipv6  |  IPv6 server to export sFlow  |
 
 ### Optional
 
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

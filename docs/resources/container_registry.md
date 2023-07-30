@@ -34,11 +34,11 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Password  |
 - `username` (String) Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username  |

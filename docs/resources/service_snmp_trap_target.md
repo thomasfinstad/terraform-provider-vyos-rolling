@@ -17,10 +17,10 @@ Simple Network Management Protocol (SNMP)
 
 Address of trap target
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-|  ipv6  |  IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address  |
+    |  ipv6  |  IPv6 address  |
 
 
 
@@ -31,16 +31,16 @@ Address of trap target
 
 - `identifier` (String) Address of trap target
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-|  ipv6  |  IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address  |
+    |  ipv6  |  IPv6 address  |
 
 ### Optional
 
 - `community` (String) Community used when sending trap information
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

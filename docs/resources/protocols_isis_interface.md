@@ -27,41 +27,41 @@ Interface params
 - `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--bfd))
 - `circuit_type` (String) Configure circuit type for interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  level-1  |  Level-1 only adjacencies are formed  |
-|  level-1-2  |  Level-1-2 adjacencies are formed  |
-|  level-2-only  |  Level-2 only adjacencies are formed  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  level-1  |  Level-1 only adjacencies are formed  |
+    |  level-1-2  |  Level-1-2 adjacencies are formed  |
+    |  level-2-only  |  Level-2 only adjacencies are formed  |
 - `hello_interval` (String) Set Hello interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-600  |  Set Hello interval  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-600  |  Set Hello interval  |
 - `hello_multiplier` (String) Set Hello interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:2-100  |  Set multiplier for Hello holding time  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:2-100  |  Set multiplier for Hello holding time  |
 - `hello_padding` (String) Add padding to IS-IS hello packets
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `network` (Attributes) Set network type (see [below for nested schema](#nestedatt--network))
 - `no_three_way_handshake` (String) Disable three-way handshake
 - `passive` (String) Configure passive mode for interface
 - `password` (Attributes) Configure the authentication password for a circuit (see [below for nested schema](#nestedatt--password))
 - `priority` (String) Set priority for Designated Router election
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-127  |  Priority value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-127  |  Priority value  |
 - `psnp_interval` (String) Set PSNP interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-127  |  PSNP interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-127  |  PSNP interval in seconds  |
 
 <a id="nestedatt--bfd"></a>
 ### Nested Schema for `bfd`
@@ -70,9 +70,9 @@ Optional:
 
 - `profile` (String) Use settings from BFD profile
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BFD profile name  |
 
 
 <a id="nestedatt--network"></a>
@@ -90,11 +90,11 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Level-wide password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Circuit password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Circuit password  |

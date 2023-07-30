@@ -19,9 +19,9 @@ Service Policy definitions
 
 Common Applications Kept Enhanced (CAKE)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 
 
@@ -32,34 +32,34 @@ Common Applications Kept Enhanced (CAKE)
 
 - `identifier` (String) Common Applications Kept Enhanced (CAKE)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Bits per second  |
-|  <number>bit  |  Bits per second  |
-|  <number>kbit  |  Kilobits per second  |
-|  <number>mbit  |  Megabits per second  |
-|  <number>gbit  |  Gigabits per second  |
-|  <number>tbit  |  Terabits per second  |
-|  <number>%  |  Percentage of interface link speed  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Bits per second  |
+    |  <number>bit  |  Bits per second  |
+    |  <number>kbit  |  Kilobits per second  |
+    |  <number>mbit  |  Megabits per second  |
+    |  <number>gbit  |  Gigabits per second  |
+    |  <number>tbit  |  Terabits per second  |
+    |  <number>%  |  Percentage of interface link speed  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `flow_isolation` (Attributes) Flow isolation settings (see [below for nested schema](#nestedatt--flow_isolation))
 - `rtt` (String) Round-Trip-Time for Active Queue Management (AQM)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-3600000  |  RTT in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-3600000  |  RTT in ms  |
 
 <a id="nestedatt--flow_isolation"></a>
 ### Nested Schema for `flow_isolation`

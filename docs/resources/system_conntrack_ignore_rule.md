@@ -19,9 +19,9 @@ Customized rules to ignore selective connection tracking
 
 Rule number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number of conntrack ignore rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number of conntrack ignore rule  |
 
 
 
@@ -32,24 +32,24 @@ Rule number
 
 - `identifier` (String) Rule number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number of conntrack ignore rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number of conntrack ignore rule  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `destination` (Attributes) Destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Interface to ignore connections tracking on
 - `protocol` (String) Protocol
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Protocol name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Protocol name  |
 - `source` (Attributes) Source parameters (see [below for nested schema](#nestedatt--source))
 
 <a id="nestedatt--destination"></a>
@@ -59,22 +59,22 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |
 
 
 <a id="nestedatt--source"></a>
@@ -84,19 +84,19 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |

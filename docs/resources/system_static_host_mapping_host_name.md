@@ -27,7 +27,7 @@ Host name for static address mapping
 - `alias` (String) Alias for this address
 - `inet` (String) IP Address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-|  ipv6  |  IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address  |
+    |  ipv6  |  IPv6 address  |

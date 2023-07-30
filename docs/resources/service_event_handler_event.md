@@ -42,12 +42,4 @@ Optional:
 Optional:
 
 - `arguments` (String) Script arguments
-- `environment` (Attributes Map) Script environment arguments (see [below for nested schema](#nestedatt--script--environment))
 - `path` (String) Path to the script
-
-<a id="nestedatt--script--environment"></a>
-### Nested Schema for `script.environment`
-
-Optional:
-
-- `value` (String) Environment value

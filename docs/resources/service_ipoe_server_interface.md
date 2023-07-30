@@ -26,28 +26,28 @@ Interface to listen dhcp or unclassified packets
 
 - `client_subnet` (String) Client address pool
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
 - `external_dhcp` (Attributes) DHCP requests will be forwarded (see [below for nested schema](#nestedatt--external_dhcp))
 - `mode` (String) Client connectivity mode
 
-|  Format  |  Description  |
-|----------|---------------|
-|  l2  |  Client located on same interface as server  |
-|  l3  |  Client located behind a router  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  l2  |  Client located on same interface as server  |
+    |  l3  |  Client located behind a router  |
 - `network` (String) Enables clients to share the same network or each client has its own vlan
 
-|  Format  |  Description  |
-|----------|---------------|
-|  shared  |  Multiple clients share the same network  |
-|  vlan  |  One VLAN per client  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  shared  |  Multiple clients share the same network  |
+    |  vlan  |  One VLAN per client  |
 - `vlan` (String) VLAN monitor for automatic creation of VLAN interfaces
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4094  |  VLAN for automatic creation  |
-|  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4094  |  VLAN for automatic creation  |
+    |  start-end  |  VLAN range for automatic creation (e.g. 1-4094)  |
 
 <a id="nestedatt--external_dhcp"></a>
 ### Nested Schema for `external_dhcp`
@@ -56,11 +56,11 @@ Optional:
 
 - `dhcp_relay` (String) DHCP Server the request will be redirected to.
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of the DHCP Server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address of the DHCP Server  |
 - `giaddr` (String) Relay Agent IPv4 Address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Gateway IP address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Gateway IP address  |

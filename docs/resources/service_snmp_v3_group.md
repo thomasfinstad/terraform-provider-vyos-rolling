@@ -29,15 +29,15 @@ Specifies the group with name groupname
 
 - `mode` (String) Define access permission
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ro  |  Read-Only  |
-|  rw  |  read write  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ro  |  Read-Only  |
+    |  rw  |  read write  |
 - `seclevel` (String) Security levels
 
-|  Format  |  Description  |
-|----------|---------------|
-|  noauth  |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
-|  auth  |  Messages are authenticated but not encrypted (authNoPriv)  |
-|  priv  |  Messages are authenticated and encrypted (authPriv)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  noauth  |  Messages not authenticated and not encrypted (noAuthNoPriv)  |
+    |  auth  |  Messages are authenticated but not encrypted (authNoPriv)  |
+    |  priv  |  Messages are authenticated and encrypted (authPriv)  |
 - `view` (String) Defines the name of view

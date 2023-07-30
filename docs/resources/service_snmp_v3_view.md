@@ -24,15 +24,3 @@ Specifies the view with name viewname
 ### Required
 
 - `identifier` (String) Specifies the view with name viewname
-
-### Optional
-
-- `oid` (Attributes Map) Specifies the oid (see [below for nested schema](#nestedatt--oid))
-
-<a id="nestedatt--oid"></a>
-### Nested Schema for `oid`
-
-Optional:
-
-- `exclude` (String) Exclude is an optional argument
-- `mask` (String) Defines a bit-mask that is indicating which subidentifiers of the associated subtree OID should be regarded as significant

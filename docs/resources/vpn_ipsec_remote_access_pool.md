@@ -32,19 +32,19 @@ IP address pool for remote access users
 
 - `exclude` (String) Local IPv4 or IPv6 pool prefix exclusions
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Local IPv4 pool prefix exclusion  |
-|  ipv6net  |  Local IPv6 pool prefix exclusion  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Local IPv4 pool prefix exclusion  |
+    |  ipv6net  |  Local IPv6 pool prefix exclusion  |
 - `name_server` (String) Domain Name Servers (DNS) addresses
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-|  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |
 - `prefix` (String) Local IPv4 or IPv6 pool prefix
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Local IPv4 pool prefix  |
-|  ipv6net  |  Local IPv6 pool prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Local IPv4 pool prefix  |
+    |  ipv6net  |  Local IPv6 pool prefix  |

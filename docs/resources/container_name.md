@@ -28,133 +28,40 @@ Container name
 - `arguments` (String) The command's arguments for this container
 - `cap_add` (String) Container capabilities/permissions
 
-|  Format  |  Description  |
-|----------|---------------|
-|  net-admin  |  Network operations (interface, firewall, routing tables)  |
-|  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)  |
-|  net-raw  |  Permission to create raw network sockets  |
-|  setpcap  |  Capability sets (from bounded or inherited set)  |
-|  sys-admin  |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
-|  sys-time  |  Permission to set system clock  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  net-admin  |  Network operations (interface, firewall, routing tables)  |
+    |  net-bind-service  |  Bind a socket to privileged ports (port numbers less than 1024)  |
+    |  net-raw  |  Permission to create raw network sockets  |
+    |  setpcap  |  Capability sets (from bounded or inherited set)  |
+    |  sys-admin  |  Administation operations (quotactl, mount, sethostname, setdomainame)  |
+    |  sys-time  |  Permission to set system clock  |
 - `command` (String) Override the default CMD from the image
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `device` (Attributes Map) Add a host device to the container (see [below for nested schema](#nestedatt--device))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Disable instance
 - `entrypoint` (String) Override the default ENTRYPOINT from the image
-- `environment` (Attributes Map) Add custom environment variables (see [below for nested schema](#nestedatt--environment))
 - `host_name` (String) Container host name
 - `image` (String) Image name in the hub-registry
 - `memory` (String) Memory (RAM) available to this container
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Unlimited  |
-|  u32:1-16384  |  Container memory in megabytes (MB)  |
-- `network` (Attributes Map) Attach user defined network to container (see [below for nested schema](#nestedatt--network))
-- `port` (Attributes Map) Publish port to the container (see [below for nested schema](#nestedatt--port))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Unlimited  |
+    |  u32:1-16384  |  Container memory in megabytes (MB)  |
 - `restart` (String) Restart options for container
 
-|  Format  |  Description  |
-|----------|---------------|
-|  no  |  Do not restart containers on exit  |
-|  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
-|  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  no  |  Do not restart containers on exit  |
+    |  on-failure  |  Restart containers when they exit with a non-zero exit code, retrying indefinitely  |
+    |  always  |  Restart containers when they exit, regardless of status, retrying indefinitely  |
 - `shared_memory` (String) Shared memory available to this container
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Unlimited  |
-|  u32:1-8192  |  Container memory in megabytes (MB)  |
-- `volume` (Attributes Map) Mount a volume into the container (see [below for nested schema](#nestedatt--volume))
-
-<a id="nestedatt--device"></a>
-### Nested Schema for `device`
-
-Optional:
-
-- `destination` (String) Destination container device (Example: "/dev/x")
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination container device  |
-- `source` (String) Source device (Example: "/dev/x")
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Source device  |
-
-
-<a id="nestedatt--environment"></a>
-### Nested Schema for `environment`
-
-Optional:
-
-- `value` (String) Set environment option value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Set environment option value  |
-
-
-<a id="nestedatt--network"></a>
-### Nested Schema for `network`
-
-Optional:
-
-- `address` (String) Assign static IP address to container
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-
-
-<a id="nestedatt--port"></a>
-### Nested Schema for `port`
-
-Optional:
-
-- `destination` (String) Destination container port
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Destination container port  |
-|  start-end  |  Destination container port range (e.g. 10025-10030)  |
-- `protocol` (String) Transport protocol used for port mapping
-
-|  Format  |  Description  |
-|----------|---------------|
-|  tcp  |  Use Transmission Control Protocol for given port  |
-|  udp  |  Use User Datagram Protocol for given port  |
-- `source` (String) Source host port
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Source host port  |
-|  start-end  |  Source host port range (e.g. 10025-10030)  |
-
-
-<a id="nestedatt--volume"></a>
-### Nested Schema for `volume`
-
-Optional:
-
-- `destination` (String) Destination container directory
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination container directory  |
-- `mode` (String) Volume access mode ro/rw
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ro  |  Volume mounted into the container as read-only  |
-|  rw  |  Volume mounted into the container as read-write  |
-- `source` (String) Source host directory
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Source host directory  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Unlimited  |
+    |  u32:1-8192  |  Container memory in megabytes (MB)  |

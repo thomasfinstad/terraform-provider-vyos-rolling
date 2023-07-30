@@ -26,70 +26,45 @@ Load-balancing virtual server address
 
 - `algorithm` (String) Schedule algorithm (default - least-connection)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  round-robin  |  Round robin  |
-|  weighted-round-robin  |  Weighted round robin  |
-|  least-connection  |  Least connection  |
-|  weighted-least-connection  |  Weighted least connection  |
-|  source-hashing  |  Source hashing  |
-|  destination-hashing  |  Destination hashing  |
-|  locality-based-least-connection  |  Locality-Based least connection  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  round-robin  |  Round robin  |
+    |  weighted-round-robin  |  Weighted round robin  |
+    |  least-connection  |  Least connection  |
+    |  weighted-least-connection  |  Weighted least connection  |
+    |  source-hashing  |  Source hashing  |
+    |  destination-hashing  |  Destination hashing  |
+    |  locality-based-least-connection  |  Locality-Based least connection  |
 - `delay_loop` (String) Interval between health-checks (in seconds)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-600  |  Interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-600  |  Interval in seconds  |
 - `forward_method` (String) Forwarding method
 
-|  Format  |  Description  |
-|----------|---------------|
-|  direct  |  Direct routing  |
-|  nat  |  NAT  |
-|  tunnel  |  Tunneling  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  direct  |  Direct routing  |
+    |  nat  |  NAT  |
+    |  tunnel  |  Tunneling  |
 - `fwmark` (String) Match fwmark value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2147483647  |  Match firewall mark value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2147483647  |  Match firewall mark value  |
 - `persistence_timeout` (String) Timeout for persistent connections
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  Timeout for persistent connections  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-86400  |  Timeout for persistent connections  |
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  Numeric IP port  |
 - `protocol` (String) Protocol for port checks
 
-|  Format  |  Description  |
-|----------|---------------|
-|  tcp  |  TCP  |
-|  udp  |  UDP  |
-- `real_server` (Attributes Map) Real server address (see [below for nested schema](#nestedatt--real_server))
-
-<a id="nestedatt--real_server"></a>
-### Nested Schema for `real_server`
-
-Optional:
-
-- `connection_timeout` (String) Server connection timeout
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  Connection timeout to remote server  |
-- `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--real_server--health_check))
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Numeric IP port  |
-
-<a id="nestedatt--real_server--health_check"></a>
-### Nested Schema for `real_server.health_check`
-
-Optional:
-
-- `script` (String) Health check script file
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  tcp  |  TCP  |
+    |  udp  |  UDP  |

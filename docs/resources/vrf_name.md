@@ -16,9 +16,9 @@ Virtual Routing and Forwarding
 
 Virtual Routing and Forwarding instance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 
 
@@ -29,31 +29,31 @@ Virtual Routing and Forwarding instance
 
 - `identifier` (String) Virtual Routing and Forwarding instance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Administratively disable interface
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `protocols` (Attributes) Routing protocol parameters (see [below for nested schema](#nestedatt--protocols))
 - `table` (String) Routing table associated with this instance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:100-65535  |  Routing table ID  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:100-65535  |  Routing table ID  |
 - `vni` (String) Virtual Network Identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  VXLAN virtual network identifier  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -90,25 +90,17 @@ Optional:
 
 - `address_family` (Attributes) BGP address-family parameters (see [below for nested schema](#nestedatt--protocols--bgp--address_family))
 - `listen` (Attributes) Listen for and accept BGP dynamic neighbors from range (see [below for nested schema](#nestedatt--protocols--bgp--listen))
-- `neighbor` (Attributes Map) BGP neighbor
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  BGP neighbor IP address  |
-|  ipv6  |  BGP neighbor IPv6 address  |
-|  txt  |  Interface name  | (see [below for nested schema](#nestedatt--protocols--bgp--neighbor))
 - `parameters` (Attributes) BGP parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters))
-- `peer_group` (Attributes Map) Name of peer-group (see [below for nested schema](#nestedatt--protocols--bgp--peer_group))
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `system_as` (String) Autonomous System Number (ASN)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Autonomous System Number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967294  |  Autonomous System Number  |
 - `timers` (Attributes) BGP protocol timers (see [below for nested schema](#nestedatt--protocols--bgp--timers))
 
 <a id="nestedatt--protocols--bgp--address_family"></a>
@@ -147,77 +139,13 @@ Optional:
 <a id="nestedatt--protocols--bgp--address_family--ipv4_labeled_unicast"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
 
-Optional:
-
-- `aggregate_address` (Attributes Map) BGP aggregate network/prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP aggregate network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
-- `network` (Attributes Map) Import BGP network/prefix into labeled unicast IPv4 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Labeled Unicast IPv4 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `backdoor` (String) Use BGP network/prefix as a backdoor route
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_multicast"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
 
 Optional:
 
-- `aggregate_address` (Attributes Map) BGP aggregate network/prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP aggregate network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
 - `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
-- `network` (Attributes Map) Import BGP network/prefix into multicast IPv4 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Multicast IPv4 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -226,49 +154,19 @@ Optional:
 
 - `external` (String) eBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  eBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  eBGP routes administrative distance  |
 - `internal` (String) iBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  iBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  iBGP routes administrative distance  |
 - `local` (String) Locally originated BGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Locally originated BGP routes administrative distance  |
-- `prefix` (Attributes Map) Administrative distance for a specific BGP prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Administrative distance for a specific BGP prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance.prefix`
-
-Optional:
-
-- `distance` (String) Administrative distance for prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
-
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `backdoor` (String) Use BGP network/prefix as a backdoor route
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
 
 
 
@@ -277,39 +175,15 @@ Optional:
 
 Optional:
 
-- `aggregate_address` (Attributes Map) BGP aggregate network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP aggregate network  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
 - `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
 - `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--export))
 - `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
 - `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
 - `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
-- `network` (Attributes Map) BGP network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP network  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
 - `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
 - `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
 - `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -318,36 +192,19 @@ Optional:
 
 - `external` (String) eBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  eBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  eBGP routes administrative distance  |
 - `internal` (String) iBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  iBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  iBGP routes administrative distance  |
 - `local` (String) Locally originated BGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Locally originated BGP routes administrative distance  |
-- `prefix` (Attributes Map) Administrative distance for a specific BGP prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Administrative distance for a specific BGP prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance.prefix`
-
-Optional:
-
-- `distance` (String) Administrative distance for prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--export"></a>
@@ -366,9 +223,9 @@ Optional:
 - `vpn` (String) to/from default instance VPN RIB
 - `vrf` (String) VRF to import from
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label"></a>
@@ -385,10 +242,10 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-|  Format  |  Description  |
-|----------|---------------|
-|  auto  |  Automatically assign a label  |
-|  u32:0-1048575  |  Label Value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  auto  |  Automatically assign a label  |
+    |  u32:0-1048575  |  Label Value  |
 
 
 
@@ -399,27 +256,14 @@ Optional:
 
 - `ebgp` (String) eBGP maximum paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-256  |  Number of paths to consider  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-256  |  Number of paths to consider  |
 - `ibgp` (String) iBGP maximum paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-256  |  Number of paths to consider  |
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `backdoor` (String) Network as a backdoor route
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-256  |  Number of paths to consider  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -436,9 +280,9 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 
 
@@ -463,14 +307,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected"></a>
@@ -480,14 +324,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--isis"></a>
@@ -497,14 +341,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel"></a>
@@ -514,14 +358,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospf"></a>
@@ -531,14 +375,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--rip"></a>
@@ -548,14 +392,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static"></a>
@@ -565,14 +409,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -590,14 +434,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -615,50 +459,25 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv4_vpn"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
-
-Optional:
-
-- `network` (Attributes Map) Import BGP network/prefix into unicast VPN IPv4 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `label` (String) MPLS label value assigned to route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1048575  |  MPLS label value  |
-- `rd` (String) Route Distinguisher
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
-
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_flowspec"></a>
@@ -680,77 +499,13 @@ Optional:
 <a id="nestedatt--protocols--bgp--address_family--ipv6_labeled_unicast"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
 
-Optional:
-
-- `aggregate_address` (Attributes Map) BGP aggregate network/prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  BGP aggregate network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
-- `network` (Attributes Map) Import BGP network/prefix into labeled unicast IPv6 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `backdoor` (String) Use BGP network/prefix as a backdoor route
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_multicast"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
 
 Optional:
 
-- `aggregate_address` (Attributes Map) BGP aggregate network/prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  BGP aggregate network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
 - `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
-- `network` (Attributes Map) Import BGP network/prefix into multicast IPv6 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Multicast IPv6 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -759,53 +514,19 @@ Optional:
 
 - `external` (String) eBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  eBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  eBGP routes administrative distance  |
 - `internal` (String) iBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  iBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  iBGP routes administrative distance  |
 - `local` (String) Locally originated BGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Locally originated BGP routes administrative distance  |
-- `prefix` (Attributes Map) Administrative distance for a specific BGP prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Administrative distance for a specific BGP prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance.prefix`
-
-Optional:
-
-- `distance` (String) Administrative distance for prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
-
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `path_limit` (String) AS-path hopcount limit
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  AS path hop count limit  |
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
 
 
 
@@ -814,39 +535,15 @@ Optional:
 
 Optional:
 
-- `aggregate_address` (Attributes Map) BGP aggregate network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Aggregate network  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address))
 - `distance` (Attributes) Administrative distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance))
 - `export` (Attributes) Export routes from this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--export))
 - `import` (Attributes) Import routes to this address-family (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--import))
 - `label` (Attributes) Label value for VRF (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--label))
 - `maximum_paths` (Attributes) Forward packets over multiple paths (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--maximum_paths))
-- `network` (Attributes Map) BGP network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Aggregate network  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
 - `rd` (Attributes) Specify route distinguisher (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd))
 - `redistribute` (Attributes) Redistribute routes from other protocols into BGP (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute))
 - `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_map))
 - `route_target` (Attributes) Specify route target list (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--aggregate_address"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.aggregate_address`
-
-Optional:
-
-- `as_set` (String) Generate AS-set path information for this aggregate address
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `summary_only` (String) Announce the aggregate summary network only
-
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance`
@@ -855,36 +552,19 @@ Optional:
 
 - `external` (String) eBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  eBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  eBGP routes administrative distance  |
 - `internal` (String) iBGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  iBGP routes administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  iBGP routes administrative distance  |
 - `local` (String) Locally originated BGP routes administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Locally originated BGP routes administrative distance  |
-- `prefix` (Attributes Map) Administrative distance for a specific BGP prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Administrative distance for a specific BGP prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--distance--prefix"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.distance.prefix`
-
-Optional:
-
-- `distance` (String) Administrative distance for prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Locally originated BGP routes administrative distance  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--export"></a>
@@ -903,9 +583,9 @@ Optional:
 - `vpn` (String) to/from default instance VPN RIB
 - `vrf` (String) VRF to import from
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--label"></a>
@@ -922,10 +602,10 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-|  Format  |  Description  |
-|----------|---------------|
-|  auto  |  Automatically assign a label  |
-|  u32:0-1048575  |  Label Value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  auto  |  Automatically assign a label  |
+    |  u32:0-1048575  |  Label Value  |
 
 
 
@@ -936,31 +616,14 @@ Optional:
 
 - `ebgp` (String) eBGP maximum paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-256  |  Number of paths to consider  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-256  |  Number of paths to consider  |
 - `ibgp` (String) iBGP maximum paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-256  |  Number of paths to consider  |
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `path_limit` (String) AS-path hopcount limit
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  AS path hop count limit  |
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-256  |  Number of paths to consider  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--rd"></a>
@@ -977,9 +640,9 @@ Optional:
 
 - `export` (String) For routes leaked from current address-family to VPN
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 
 
 
@@ -1003,14 +666,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--connected"></a>
@@ -1020,14 +683,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--kernel"></a>
@@ -1037,14 +700,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ospfv3"></a>
@@ -1054,14 +717,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--ripng"></a>
@@ -1071,14 +734,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--redistribute--static"></a>
@@ -1088,14 +751,14 @@ Optional:
 
 - `metric` (String) Metric for redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Metric for redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Metric for redistributed routes  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -1113,14 +776,14 @@ Optional:
 
 - `export` (String) Route-map to filter outgoing route updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `import` (String) Route-map to filter incoming route updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -1138,50 +801,25 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Space separated route target list (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
 
 <a id="nestedatt--protocols--bgp--address_family--ipv6_vpn"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn`
-
-Optional:
-
-- `network` (Attributes Map) Import BGP network/prefix into unicast VPN IPv6 RIB
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Unicast VPN IPv6 BGP network/prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--network))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--network"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.network`
-
-Optional:
-
-- `label` (String) MPLS label value assigned to route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1048575  |  MPLS label value  |
-- `rd` (String) Route Distinguisher
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
-
 
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn"></a>
@@ -1194,23 +832,18 @@ Optional:
 - `advertise_default_gw` (String) Advertise All default g/w mac-ip routes in EVPN
 - `advertise_pip` (String) EVPN system primary IP
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address  |
 - `advertise_svi_ip` (String) Advertise svi mac-ip routes in EVPN
 - `flooding` (Attributes) Specify handling for BUM packets (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--flooding))
 - `rd` (String) Route Distinguisher
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
 - `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--route_target))
 - `rt_auto_derive` (String) Auto derivation of Route Target (RFC8365)
-- `vni` (Attributes Map) VXLAN Network Identifier
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-16777215  |  VNI number  | (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--vni))
 
 <a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--advertise"></a>
 ### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.advertise`
@@ -1234,9 +867,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -1254,9 +887,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -1277,56 +910,19 @@ Optional:
 
 - `both` (String) Route Target both import and export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `export` (String) Route Target export
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 - `import` (String) Route Target import
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--vni"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.vni`
-
-Optional:
-
-- `advertise_default_gw` (String) Advertise All default g/w mac-ip routes in EVPN
-- `advertise_svi_ip` (String) Advertise svi mac-ip routes in EVPN
-- `rd` (String) Route Distinguisher
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
-- `route_target` (Attributes) Route Target (see [below for nested schema](#nestedatt--protocols--bgp--address_family--l2vpn_evpn--vni--route_target))
-
-<a id="nestedatt--protocols--bgp--address_family--l2vpn_evpn--vni--route_target"></a>
-### Nested Schema for `protocols.bgp.address_family.l2vpn_evpn.vni.route_target`
-
-Optional:
-
-- `both` (String) Route Target both import and export
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `export` (String) Route Target export
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-- `import` (String) Route Target import
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route target (A.B.C.D:MN|EF:OPQR|GHJK:MN)  |
 
 
 
@@ -1338,2069 +934,9 @@ Optional:
 
 - `limit` (String) Maximum number of dynamic neighbors that can be created
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-5000  |  BGP neighbor limit  |
-- `range` (Attributes Map) BGP dynamic neighbors listen range
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 dynamic neighbors listen range  |
-|  ipv6net  |  IPv6 dynamic neighbors listen range  | (see [below for nested schema](#nestedatt--protocols--bgp--listen--range))
-
-<a id="nestedatt--protocols--bgp--listen--range"></a>
-### Nested Schema for `protocols.bgp.listen.range`
-
-Optional:
-
-- `peer_group` (String) Peer group for this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Peer-group name  |
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor"></a>
-### Nested Schema for `protocols.bgp.neighbor`
-
-Optional:
-
-- `address_family` (Attributes) Address-family parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--address_family))
-- `advertisement_interval` (String) Minimum interval for sending routing updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-600  |  Advertisement interval in seconds  |
-- `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) support (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--bfd))
-- `capability` (Attributes) Advertise capabilities to this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--capability))
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `disable_capability_negotiation` (String) Disable capability negotiation with this neighbor
-- `disable_connected_check` (String) Disable check to see if eBGP peer address is a connected route
-- `ebgp_multihop` (String) Allow this EBGP neighbor to not be on a directly connected network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Number of hops  |
-- `graceful_restart` (String) BGP graceful restart functionality
-
-|  Format  |  Description  |
-|----------|---------------|
-|  enable  |  Enable BGP graceful restart at peer level  |
-|  disable  |  Disable BGP graceful restart at peer level  |
-|  restart-helper  |  Enable BGP graceful restart helper only functionality  |
-- `interface` (Attributes) Interface parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--interface))
-- `local_as` (Attributes Map) Specify alternate ASN for this BGP process
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Autonomous System Number (ASN)  | (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--local_as))
-- `local_role` (Attributes Map) Local role for BGP neighbor (RFC9234)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  customer  |  Using Transit  |
-|  peer  |  Public/Private Peering  |
-|  provider  |  Providing Transit  |
-|  rs-client  |  RS Client  |
-|  rs-server  |  Route Server  | (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--local_role))
-- `override_capability` (String) Ignore capability negotiation with specified neighbor
-- `passive` (String) Do not initiate a session with this neighbor
-- `password` (String) BGP MD5 password
-- `peer_group` (String) Peer group for this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Peer-group name  |
-- `port` (String) Neighbor BGP port
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Neighbor BGP port number  |
-- `remote_as` (String) Neighbor BGP AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Neighbor AS number  |
-|  external  |  Any AS different from the local AS  |
-|  internal  |  Neighbor AS number  |
-- `shutdown` (String) Administratively shutdown this neighbor
-- `solo` (String) Do not send back prefixes learned from the neighbor
-- `strict_capability_match` (String) Enable strict capability negotiation
-- `timers` (Attributes) Neighbor timers (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--timers))
-- `ttl_security` (Attributes) Ttl security mechanism (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--ttl_security))
-- `update_source` (String) Source IP of routing updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of route source  |
-|  ipv6  |  IPv6 address of route source  |
-|  txt  |  Interface as route source  |
-
-<a id="nestedatt--protocols--bgp--neighbor--address_family"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `ipv4_flowspec` (Attributes) IPv4 Flow Specification BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec))
-- `ipv4_labeled_unicast` (Attributes) IPv4 Labeled Unicast BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast))
-- `ipv4_multicast` (Attributes) IPv4 Multicast BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast))
-- `ipv4_unicast` (Attributes) IPv4 BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast))
-- `ipv4_vpn` (Attributes) IPv4 VPN BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn))
-- `ipv6_flowspec` (Attributes) IPv6 Flow Specification BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec))
-- `ipv6_labeled_unicast` (Attributes) IPv6 Labeled Unicast BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast))
-- `ipv6_multicast` (Attributes) IPv6 Multicast BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast))
-- `ipv6_unicast` (Attributes) IPv6 BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast))
-- `ipv6_vpn` (Attributes) IPv6 VPN BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn))
-- `l2vpn_evpn` (Attributes) L2VPN EVPN BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_flowspec`
-
-Optional:
-
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--filter_list))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--prefix_list))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--soft_reconfiguration))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_flowspec--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--nexthop_self))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_labeled_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_labeled_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--nexthop_self))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_multicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_multicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--nexthop_self))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--attribute_unchanged))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--conditionally_advertise))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--nexthop_self))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv4_vpn--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv4_vpn.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_flowspec`
-
-Optional:
-
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--filter_list))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--prefix_list))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--soft_reconfiguration))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_flowspec--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_flowspec.soft_reconfiguration`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--nexthop_local))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--nexthop_self))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--nexthop_local"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_labeled_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_labeled_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--attribute_unchanged))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--nexthop_local))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--nexthop_self))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--nexthop_local"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_multicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_multicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--nexthop_local))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--nexthop_self))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--nexthop_local"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--attribute_unchanged))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--conditionally_advertise))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--nexthop_local))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--nexthop_self))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--distribute_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--filter_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--nexthop_local"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--prefix_list"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--ipv6_vpn--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.ipv6_vpn.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn`
-
-Optional:
-
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--allowas_in))
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--attribute_unchanged))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--nexthop_self))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--soft_reconfiguration))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--allowas_in"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--route_map"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--l2vpn_evpn--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--bfd"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `check_control_plane_failure` (String) Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
-- `profile` (String) Use settings from BFD profile
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--capability"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `dynamic` (String) Advertise dynamic capability to this neighbor
-- `extended_nexthop` (String) Advertise extended-nexthop capability to this neighbor
-
-
-<a id="nestedatt--protocols--bgp--neighbor--interface"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `peer_group` (String) Peer group for this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Peer-group name  |
-- `remote_as` (String) Neighbor BGP AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Neighbor AS number  |
-|  external  |  Any AS different from the local AS  |
-|  internal  |  Neighbor AS number  |
-- `source_interface` (String) Interface used to establish connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  interface  |  Interface name  |
-- `v6only` (Attributes) Enable BGP with v6 link-local only (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--v6only))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--v6only"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.v6only`
-
-Optional:
-
-- `peer_group` (String) Peer group for this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Peer-group name  |
-- `remote_as` (String) Neighbor BGP AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Neighbor AS number  |
-|  external  |  Any AS different from the local AS  |
-|  internal  |  Neighbor AS number  |
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--local_as"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `no_prepend` (Attributes) Disable prepending local-as from/to updates for eBGP peers (see [below for nested schema](#nestedatt--protocols--bgp--neighbor--update_source--no_prepend))
-
-<a id="nestedatt--protocols--bgp--neighbor--update_source--no_prepend"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source.no_prepend`
-
-Optional:
-
-- `replace_as` (String) Prepend only local-as from/to updates for eBGP peers
-
-
-
-<a id="nestedatt--protocols--bgp--neighbor--local_role"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `strict` (String) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
-
-
-<a id="nestedatt--protocols--bgp--neighbor--timers"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `connect` (String) BGP connect timer for this neighbor
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Connect timer in seconds  |
-|  0  |  Disable connect timer  |
-- `holdtime` (String) BGP hold timer for this neighbor
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Hold timer in seconds  |
-|  0  |  Hold timer disabled  |
-- `keepalive` (String) BGP keepalive interval for this neighbor
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Keepalive interval in seconds  |
-
-
-<a id="nestedatt--protocols--bgp--neighbor--ttl_security"></a>
-### Nested Schema for `protocols.bgp.neighbor.update_source`
-
-Optional:
-
-- `hops` (String) Number of the maximum number of hops to the BGP peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-254  |  Number of hops  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-5000  |  BGP neighbor limit  |
 
 
 <a id="nestedatt--protocols--bgp--parameters"></a>
@@ -3412,9 +948,9 @@ Optional:
 - `bestpath` (Attributes) Default bestpath selection mechanism (see [below for nested schema](#nestedatt--protocols--bgp--parameters--bestpath))
 - `cluster_id` (String) Route-reflector cluster-id
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Route-reflector cluster-id  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Route-reflector cluster-id  |
 - `conditional_advertisement` (Attributes) Conditional advertisement settings (see [below for nested schema](#nestedatt--protocols--bgp--parameters--conditional_advertisement))
 - `confederation` (Attributes) AS confederation parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--confederation))
 - `dampening` (Attributes) Enable route-flap dampening (see [below for nested schema](#nestedatt--protocols--bgp--parameters--dampening))
@@ -3428,9 +964,9 @@ Optional:
 - `log_neighbor_changes` (String) Log neighbor up/down changes and reset reason
 - `minimum_holdtime` (String) BGP minimum holdtime
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Minimum holdtime in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Minimum holdtime in seconds  |
 - `network_import_check` (String) Enable IGP route check for network statements
 - `no_client_to_client_reflection` (String) Disable client to client route reflection
 - `no_fast_external_failover` (String) Disable immediate session reset on peer link down event
@@ -3439,9 +975,9 @@ Optional:
 - `route_reflector_allow_outbound_policy` (String) Route reflector client allow policy outbound
 - `router_id` (String) Override default router identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Router-ID in IP address format  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Router-ID in IP address format  |
 - `shutdown` (String) Administrative shutdown of the BGP instance
 - `suppress_fib_pending` (String) Advertise only routes that are programmed in kernel to peers
 
@@ -3453,11 +989,11 @@ Optional:
 - `as_path` (Attributes) AS-path attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--as_path))
 - `bandwidth` (String) Link Bandwidth attribute
 
-|  Format  |  Description  |
-|----------|---------------|
-|  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
-|  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
-|  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  default-weight-for-missing  |  Assign low default weight (1) to paths not having link bandwidth  |
+    |  ignore  |  Ignore link bandwidth (do regular ECMP, not weighted)  |
+    |  skip-missing  |  Ignore paths without link bandwidth for ECMP (if other paths have it)  |
 - `compare_routerid` (String) Compare the router-id for identical EBGP paths
 - `med` (Attributes) MED attribute comparison parameters (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--med))
 - `peer_type` (Attributes) Peer type (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--peer_type))
@@ -3497,9 +1033,9 @@ Optional:
 
 - `timer` (String) Set period to rescan BGP table to check if condition is met
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:5-240  |  Period to rerun the conditional advertisement scanner process  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:5-240  |  Period to rerun the conditional advertisement scanner process  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--confederation"></a>
@@ -3509,14 +1045,14 @@ Optional:
 
 - `identifier` (String) Confederation AS identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Confederation AS id  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967294  |  Confederation AS id  |
 - `peers` (String) Peer ASs in the BGP confederation
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Peer AS number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967294  |  Peer AS number  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--dampening"></a>
@@ -3526,24 +1062,24 @@ Optional:
 
 - `half_life` (String) Half-life time for dampening
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-45  |  Half-life penalty in minutes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-45  |  Half-life penalty in minutes  |
 - `max_suppress_time` (String) Maximum duration to suppress a stable route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Maximum suppress duration in minutes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Maximum suppress duration in minutes  |
 - `re_use` (String) Threshold to start reusing a route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-20000  |  Re-use penalty points  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-20000  |  Re-use penalty points  |
 - `start_suppress_time` (String) When to start suppressing a route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-20000  |  Start-suppress penalty points  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-20000  |  Start-suppress penalty points  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--default"></a>
@@ -3553,9 +1089,9 @@ Optional:
 
 - `local_pref` (String) Default local preference
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Local preference  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Local preference  |
 
 
 <a id="nestedatt--protocols--bgp--parameters--distance"></a>
@@ -3564,11 +1100,6 @@ Optional:
 Optional:
 
 - `global` (Attributes) Global administratives distances for BGP routes (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--global))
-- `prefix` (Attributes Map) Administrative distance for a specific BGP prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Administrative distance for a specific BGP prefix  | (see [below for nested schema](#nestedatt--protocols--bgp--parameters--suppress_fib_pending--prefix))
 
 <a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--global"></a>
 ### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.global`
@@ -3577,31 +1108,19 @@ Optional:
 
 - `external` (String) Administrative distance for external BGP routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Administrative distance for external BGP routes  |
 - `internal` (String) Administrative distance for internal BGP routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for internal BGP routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Administrative distance for internal BGP routes  |
 - `local` (String) Administrative distance for local BGP routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for internal BGP routes  |
-
-
-<a id="nestedatt--protocols--bgp--parameters--suppress_fib_pending--prefix"></a>
-### Nested Schema for `protocols.bgp.parameters.suppress_fib_pending.prefix`
-
-Optional:
-
-- `distance` (String) Administrative distance for prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance for external BGP routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Administrative distance for internal BGP routes  |
 
 
 
@@ -3612,639 +1131,9 @@ Optional:
 
 - `stalepath_time` (String) Maximum time to hold onto restarting neighbors stale paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-3600  |  Hold time in seconds  |
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group"></a>
-### Nested Schema for `protocols.bgp.peer_group`
-
-Optional:
-
-- `address_family` (Attributes) Address-family parameters (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--address_family))
-- `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) support (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--bfd))
-- `capability` (Attributes) Advertise capabilities to this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--capability))
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `disable_capability_negotiation` (String) Disable capability negotiation with this neighbor
-- `disable_connected_check` (String) Disable check to see if eBGP peer address is a connected route
-- `ebgp_multihop` (String) Allow this EBGP neighbor to not be on a directly connected network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Number of hops  |
-- `graceful_restart` (String) BGP graceful restart functionality
-
-|  Format  |  Description  |
-|----------|---------------|
-|  enable  |  Enable BGP graceful restart at peer level  |
-|  disable  |  Disable BGP graceful restart at peer level  |
-|  restart-helper  |  Enable BGP graceful restart helper only functionality  |
-- `local_as` (Attributes Map) Specify alternate ASN for this BGP process
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Autonomous System Number (ASN)  | (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--local_as))
-- `local_role` (Attributes Map) Local role for BGP neighbor (RFC9234)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  customer  |  Using Transit  |
-|  peer  |  Public/Private Peering  |
-|  provider  |  Providing Transit  |
-|  rs-client  |  RS Client  |
-|  rs-server  |  Route Server  | (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--local_role))
-- `override_capability` (String) Ignore capability negotiation with specified neighbor
-- `passive` (String) Do not initiate a session with this neighbor
-- `password` (String) BGP MD5 password
-- `remote_as` (String) Neighbor BGP AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967294  |  Neighbor AS number  |
-|  external  |  Any AS different from the local AS  |
-|  internal  |  Neighbor AS number  |
-- `shutdown` (String) Administratively shutdown this neighbor
-- `ttl_security` (Attributes) Ttl security mechanism (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--ttl_security))
-- `update_source` (String) Source IP of routing updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of route source  |
-|  ipv6  |  IPv6 address of route source  |
-|  txt  |  Interface as route source  |
-
-<a id="nestedatt--protocols--bgp--peer_group--address_family"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `ipv4_unicast` (Attributes) IPv4 BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast))
-- `ipv6_unicast` (Attributes) IPv6 BGP neighbor parameters (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast))
-- `l2vpn_evpn` (Attributes) L2VPN EVPN BGP settings (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv4) (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--nexthop_self))
-- `prefix_list` (Attributes) IPv4-Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) IPv4-Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-- `import` (String) IPv4-Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv4_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv4_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast`
-
-Optional:
-
-- `addpath_tx_all` (String) Use addpath to advertise all paths to a neighbor
-- `addpath_tx_per_as` (String) Use addpath to advertise the bestpath per each neighboring AS
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--allowas_in))
-- `as_override` (String) Override ASN in outbound updates to configured neighbor local-as
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--attribute_unchanged))
-- `capability` (Attributes) Advertise capabilities to this neighbor (IPv6) (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--capability))
-- `conditionally_advertise` (Attributes) Use route-map to conditionally advertise routes (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--conditionally_advertise))
-- `default_originate` (Attributes) Originate default route to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--default_originate))
-- `disable_send_community` (Attributes) Disable sending community attributes to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--disable_send_community))
-- `distribute_list` (Attributes) Access-list to filter route updates to/from this peer-group (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--distribute_list))
-- `filter_list` (Attributes) as-path-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--filter_list))
-- `maximum_prefix` (String) Maximum number of prefixes to accept from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `maximum_prefix_out` (String) Maximum number of prefixes to be sent to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Prefix limit  |
-- `nexthop_local` (Attributes) Nexthop attributes (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--nexthop_local))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--nexthop_self))
-- `prefix_list` (Attributes) Prefix-list to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--prefix_list))
-- `remove_private_as` (String) Remove private AS numbers from AS path in outbound route updates
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--soft_reconfiguration))
-- `unsuppress_map` (String) Route-map to selectively unsuppress suppressed routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `weight` (String) Default weight for routes from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Default weight  |
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--allowas_in"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--capability"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `orf` (Attributes) Advertise ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--weight--orf))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--weight--orf"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight.orf`
-
-Optional:
-
-- `prefix_list` (Attributes) Advertise prefix-list ORF capability to this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--weight--orf--prefix_list))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--weight--orf--prefix_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight.orf.prefix_list`
-
-Optional:
-
-- `receive` (String) Capability to receive the ORF
-- `send` (String) Capability to send the ORF
-
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--conditionally_advertise"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `advertise_map` (String) Route-map to conditionally advertise routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `exist_map` (String) Advertise routes only if prefixes in exist-map are installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `non_exist_map` (String) Advertise routes only if prefixes in non-exist-map are not installed in BGP table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--default_originate"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--disable_send_community"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `extended` (String) Disable sending extended community attributes to this peer
-- `standard` (String) Disable sending standard community attributes to this peer
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--distribute_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Access-list to filter outgoing route updates to this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter outgoing route updates to this peer-group  |
-- `import` (String) Access-list to filter incoming route updates from this peer-group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list to filter incoming route updates from this peer-group  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--filter_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) As-path-list to filter outgoing route updates to this peer
-- `import` (String) As-path-list to filter incoming route updates from this peer
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--nexthop_local"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `unchanged` (String) Leave link-local nexthop unchanged for this peer
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--prefix_list"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Prefix-list to filter outgoing route updates to this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-- `import` (String) Prefix-list to filter incoming route updates from this peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 prefix-list  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--route_map"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--ipv6_unicast--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.ipv6_unicast.weight`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn`
-
-Optional:
-
-- `allowas_in` (Attributes) Accept route that contains the local-as in the as-path (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--allowas_in))
-- `attribute_unchanged` (Attributes) BGP attributes are sent unchanged (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--attribute_unchanged))
-- `nexthop_self` (Attributes) Disable the next hop calculation for this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--nexthop_self))
-- `route_map` (Attributes) Route-map to filter route updates to/from this peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--route_map))
-- `route_reflector_client` (String) Peer is a route reflector client
-- `route_server_client` (String) Peer is a route server client
-- `soft_reconfiguration` (Attributes) Soft reconfiguration for peer (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--soft_reconfiguration))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--allowas_in"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `number` (String) Number of occurrences of AS number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of times AS is allowed in path  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--attribute_unchanged"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `as_path` (String) Send AS path unchanged
-- `med` (String) Send multi-exit discriminator unchanged
-- `next_hop` (String) Send nexthop unchanged
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--nexthop_self"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `force` (String) Set the next hop to self for reflected routes
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--route_map"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `export` (String) Route-map to filter outgoing route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-- `import` (String) Route-map to filter incoming route updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--l2vpn_evpn--soft_reconfiguration"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.l2vpn_evpn.soft_reconfiguration`
-
-Optional:
-
-- `inbound` (String) Enable inbound soft reconfiguration
-
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--bfd"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `check_control_plane_failure` (String) Allow to write CBIT independence in BFD outgoing packets and read both C-BIT value of BFD and lookup BGP peer status
-- `profile` (String) Use settings from BFD profile
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
-
-
-<a id="nestedatt--protocols--bgp--peer_group--capability"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `dynamic` (String) Advertise dynamic capability to this neighbor
-- `extended_nexthop` (String) Advertise extended-nexthop capability to this neighbor
-
-
-<a id="nestedatt--protocols--bgp--peer_group--local_as"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `no_prepend` (Attributes) Disable prepending local-as from/to updates for eBGP peers (see [below for nested schema](#nestedatt--protocols--bgp--peer_group--update_source--no_prepend))
-
-<a id="nestedatt--protocols--bgp--peer_group--update_source--no_prepend"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source.no_prepend`
-
-Optional:
-
-- `replace_as` (String) Prepend only local-as from/to updates for eBGP peers
-
-
-
-<a id="nestedatt--protocols--bgp--peer_group--local_role"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `strict` (String) Neighbor must send this exact capability, otherwise a role missmatch notification will be sent
-
-
-<a id="nestedatt--protocols--bgp--peer_group--ttl_security"></a>
-### Nested Schema for `protocols.bgp.peer_group.update_source`
-
-Optional:
-
-- `hops` (String) Number of the maximum number of hops to the BGP peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-254  |  Number of hops  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-3600  |  Hold time in seconds  |
 
 
 
@@ -4255,15 +1144,15 @@ Optional:
 
 - `holdtime` (String) BGP hold timer for this neighbor
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Hold timer in seconds  |
-|  0  |  Hold timer disabled  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Hold timer in seconds  |
+    |  0  |  Hold timer disabled  |
 - `keepalive` (String) BGP keepalive interval for this neighbor
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Keepalive interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Keepalive interval in seconds  |
 
 
 
@@ -4274,48 +1163,48 @@ Optional:
 
 - `local_as` (String) Autonomous System Number (ASN)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Autonomous System Number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Autonomous System Number  |
 - `maximum_paths` (String) Forward packets over multiple paths
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-32  |  Number of paths  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-32  |  Number of paths  |
 - `metric` (Attributes) Modify metrics and parameters for advertisement (see [below for nested schema](#nestedatt--protocols--eigrp--metric))
 - `network` (String) Enable routing on an IP network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  EIGRP network prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  EIGRP network prefix  |
 - `passive_interface` (String) Suppress routing updates on an interface
 - `redistribute` (String) Redistribute information from another routing protocol
 
-|  Format  |  Description  |
-|----------|---------------|
-|  bgp  |  Border Gateway Protocol (BGP)  |
-|  connected  |  Connected routes  |
-|  nhrp  |  Next Hop Resolution Protocol (NHRP)  |
-|  ospf  |  Open Shortest Path First (OSPFv2)  |
-|  rip  |  Routing Information Protocol (RIP)  |
-|  babel  |  Babel routing protocol (Babel)  |
-|  static  |  Statically configured routes  |
-|  vnc  |  Virtual Network Control (VNC)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bgp  |  Border Gateway Protocol (BGP)  |
+    |  connected  |  Connected routes  |
+    |  nhrp  |  Next Hop Resolution Protocol (NHRP)  |
+    |  ospf  |  Open Shortest Path First (OSPFv2)  |
+    |  rip  |  Routing Information Protocol (RIP)  |
+    |  babel  |  Babel routing protocol (Babel)  |
+    |  static  |  Statically configured routes  |
+    |  vnc  |  Virtual Network Control (VNC)  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `router_id` (String) Override default router identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Router-ID in IP address format  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Router-ID in IP address format  |
 - `variance` (String) Control load balancing variance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-128  |  Metric variance multiplier  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-128  |  Metric variance multiplier  |
 
 <a id="nestedatt--protocols--eigrp--metric"></a>
 ### Nested Schema for `protocols.eigrp.metric`
@@ -4324,9 +1213,9 @@ Optional:
 
 - `weights` (String) Modify metric coefficients
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  K1  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-255  |  K1  |
 
 
 
@@ -4339,63 +1228,62 @@ Optional:
 - `default_information` (Attributes) Control distribution of default information (see [below for nested schema](#nestedatt--protocols--isis--default_information))
 - `domain_password` (Attributes) Set the authentication password for a routing domain (see [below for nested schema](#nestedatt--protocols--isis--domain_password))
 - `dynamic_hostname` (String) Dynamic hostname for IS-IS
-- `interface` (Attributes Map) Interface params (see [below for nested schema](#nestedatt--protocols--isis--interface))
 - `level` (String) IS-IS level number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  level-1  |  Act as a station router  |
-|  level-1-2  |  Act as both a station and an area router  |
-|  level-2  |  Act as an area router  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  level-1  |  Act as a station router  |
+    |  level-1-2  |  Act as both a station and an area router  |
+    |  level-2  |  Act as an area router  |
 - `log_adjacency_changes` (String) Log adjacency state changes
 - `lsp_gen_interval` (String) Minimum interval between regenerating same LSP
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-120  |  Minimum interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-120  |  Minimum interval in seconds  |
 - `lsp_mtu` (String) Configure the maximum size of generated LSPs
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:128-4352  |  Maximum size of generated LSPs  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:128-4352  |  Maximum size of generated LSPs  |
 - `lsp_refresh_interval` (String) LSP refresh interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65235  |  LSP refresh interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65235  |  LSP refresh interval in seconds  |
 - `max_lsp_lifetime` (String) Maximum LSP lifetime
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:350-65535  |  LSP lifetime in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:350-65535  |  LSP lifetime in seconds  |
 - `metric_style` (String) Use old-style (ISO 10589) or new-style packet formats
 
-|  Format  |  Description  |
-|----------|---------------|
-|  narrow  |  Use old style of TLVs with narrow metric  |
-|  transition  |  Send and accept both styles of TLVs during transition  |
-|  wide  |  Use new style of TLVs to carry wider metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  narrow  |  Use old style of TLVs with narrow metric  |
+    |  transition  |  Send and accept both styles of TLVs during transition  |
+    |  wide  |  Use new style of TLVs to carry wider metric  |
 - `net` (String) A Network Entity Title for this process (ISO only)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  XX.XXXX. ... .XXX.XX  |  Network entity title (NET)  |
 - `purge_originator` (String) Use the RFC 6232 purge-originator
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--isis--redistribute))
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--isis--segment_routing))
 - `set_attached_bit` (String) Set attached bit to identify as L1/L2 router for inter-area traffic
 - `set_overload_bit` (String) Set overload bit to avoid any transit traffic
 - `spf_delay_ietf` (Attributes) IETF SPF delay algorithm (see [below for nested schema](#nestedatt--protocols--isis--spf_delay_ietf))
 - `spf_interval` (String) Minimum interval between SPF calculations
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-120  |  Interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-120  |  Interval in seconds  |
 - `traffic_engineering` (Attributes) Show IS-IS neighbor adjacencies (see [below for nested schema](#nestedatt--protocols--isis--traffic_engineering))
 
 <a id="nestedatt--protocols--isis--area_password"></a>
@@ -4405,14 +1293,14 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Level-wide password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Circuit password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Circuit password  |
 
 
 <a id="nestedatt--protocols--isis--default_information"></a>
@@ -4446,14 +1334,14 @@ Optional:
 - `always` (String) Always advertise default route
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--default_information--originate--ipv4--level_2"></a>
@@ -4464,14 +1352,14 @@ Optional:
 - `always` (String) Always advertise default route
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4491,14 +1379,14 @@ Optional:
 - `always` (String) Always advertise default route
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--default_information--originate--ipv6--level_2"></a>
@@ -4509,14 +1397,14 @@ Optional:
 - `always` (String) Always advertise default route
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4529,96 +1417,14 @@ Optional:
 
 - `md5` (String) MD5 authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Level-wide password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Level-wide password  |
 - `plaintext_password` (String) Plain-text authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Circuit password  |
-
-
-<a id="nestedatt--protocols--isis--interface"></a>
-### Nested Schema for `protocols.isis.interface`
-
-Optional:
-
-- `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--protocols--isis--interface--bfd))
-- `circuit_type` (String) Configure circuit type for interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  level-1  |  Level-1 only adjacencies are formed  |
-|  level-1-2  |  Level-1-2 adjacencies are formed  |
-|  level-2-only  |  Level-2 only adjacencies are formed  |
-- `hello_interval` (String) Set Hello interval
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-600  |  Set Hello interval  |
-- `hello_multiplier` (String) Set Hello interval
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:2-100  |  Set multiplier for Hello holding time  |
-- `hello_padding` (String) Add padding to IS-IS hello packets
-- `metric` (String) Set default metric for circuit
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
-- `network` (Attributes) Set network type (see [below for nested schema](#nestedatt--protocols--isis--interface--network))
-- `no_three_way_handshake` (String) Disable three-way handshake
-- `passive` (String) Configure passive mode for interface
-- `password` (Attributes) Configure the authentication password for a circuit (see [below for nested schema](#nestedatt--protocols--isis--interface--password))
-- `priority` (String) Set priority for Designated Router election
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-127  |  Priority value  |
-- `psnp_interval` (String) Set PSNP interval
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-127  |  PSNP interval in seconds  |
-
-<a id="nestedatt--protocols--isis--interface--bfd"></a>
-### Nested Schema for `protocols.isis.interface.psnp_interval`
-
-Optional:
-
-- `profile` (String) Use settings from BFD profile
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
-
-
-<a id="nestedatt--protocols--isis--interface--network"></a>
-### Nested Schema for `protocols.isis.interface.psnp_interval`
-
-Optional:
-
-- `point_to_point` (String) point-to-point network type
-
-
-<a id="nestedatt--protocols--isis--interface--password"></a>
-### Nested Schema for `protocols.isis.interface.psnp_interval`
-
-Optional:
-
-- `md5` (String) MD5 authentication type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Level-wide password  |
-- `plaintext_password` (String) Plain-text authentication type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Circuit password  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Circuit password  |
 
 
 <a id="nestedatt--protocols--isis--redistribute"></a>
@@ -4657,14 +1463,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--babel--level_2"></a>
@@ -4674,14 +1480,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4700,14 +1506,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2"></a>
@@ -4717,14 +1523,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4743,14 +1549,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--connected--level_2"></a>
@@ -4760,14 +1566,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4786,14 +1592,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2"></a>
@@ -4803,14 +1609,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4829,14 +1635,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ospf--level_2"></a>
@@ -4846,14 +1652,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4872,14 +1678,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--rip--level_2"></a>
@@ -4889,14 +1695,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4915,14 +1721,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--static--level_2"></a>
@@ -4932,14 +1738,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -4972,14 +1778,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--babel--level_2"></a>
@@ -4989,14 +1795,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5015,14 +1821,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--bgp--level_2"></a>
@@ -5032,14 +1838,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5058,14 +1864,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--connected--level_2"></a>
@@ -5075,14 +1881,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5101,14 +1907,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--kernel--level_2"></a>
@@ -5118,14 +1924,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5144,14 +1950,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ospf6--level_2"></a>
@@ -5161,14 +1967,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5187,14 +1993,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--ripng--level_2"></a>
@@ -5204,14 +2010,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5230,14 +2036,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--isis--redistribute--ipv6--static--level_2"></a>
@@ -5247,14 +2053,14 @@ Optional:
 
 - `metric` (String) Set default metric for circuit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Default metric value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777215  |  Default metric value  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5269,85 +2075,42 @@ Optional:
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--local_block))
 - `maximum_label_depth` (String) Maximum MPLS labels allowed for this router
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-16  |  MPLS label depth  |
-- `prefix` (Attributes Map) Static IPv4/IPv6 prefix segment/label mapping
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  |
-|  ipv6net  |  IPv6 prefix segment  | (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--prefix))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-16  |  MPLS label depth  |
 
 <a id="nestedatt--protocols--isis--segment_routing--global_block"></a>
-### Nested Schema for `protocols.isis.segment_routing.prefix`
+### Nested Schema for `protocols.isis.segment_routing.maximum_label_depth`
 
 Optional:
 
 - `high_label_value` (String) MPLS label upper bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value  |
 - `low_label_value` (String) MPLS label lower bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
 
 
 <a id="nestedatt--protocols--isis--segment_routing--local_block"></a>
-### Nested Schema for `protocols.isis.segment_routing.prefix`
+### Nested Schema for `protocols.isis.segment_routing.maximum_label_depth`
 
 Optional:
 
 - `high_label_value` (String) MPLS label upper bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value  |
 - `low_label_value` (String) MPLS label lower bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
-
-
-<a id="nestedatt--protocols--isis--segment_routing--prefix"></a>
-### Nested Schema for `protocols.isis.segment_routing.prefix`
-
-Optional:
-
-- `absolute` (Attributes) Specify the absolute value of prefix segment/label ID (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--prefix--absolute))
-- `index` (Attributes) Specify the index value of prefix segment/label ID (see [below for nested schema](#nestedatt--protocols--isis--segment_routing--prefix--index))
-
-<a id="nestedatt--protocols--isis--segment_routing--prefix--absolute"></a>
-### Nested Schema for `protocols.isis.segment_routing.prefix.absolute`
-
-Optional:
-
-- `explicit_null` (String) Request upstream neighbor to replace segment/label with explicit null label
-- `no_php_flag` (String) Do not request penultimate hop popping for segment/label
-- `value` (String) Specify the absolute value of prefix segment/label ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  The absolute segment/label ID value  |
-
-
-<a id="nestedatt--protocols--isis--segment_routing--prefix--index"></a>
-### Nested Schema for `protocols.isis.segment_routing.prefix.index`
-
-Optional:
-
-- `explicit_null` (String) Request upstream neighbor to replace segment/label with explicit null label
-- `no_php_flag` (String) Do not request penultimate hop popping for segment/label
-- `value` (String) Specify the index value of prefix segment/label ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  The index segment/label ID value  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
 
 
 
@@ -5358,29 +2121,29 @@ Optional:
 
 - `holddown` (String) Time with no received IGP events before considering IGP stable
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-60000  |  Time with no received IGP events before considering IGP stable in ms  |
 - `init_delay` (String) Delay used while in QUIET state
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-60000  |  Delay used while in QUIET state (in ms)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-60000  |  Delay used while in QUIET state (in ms)  |
 - `long_delay` (String) Delay used while in LONG_WAIT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-60000  |  Delay used while in LONG_WAIT state in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-60000  |  Delay used while in LONG_WAIT state in ms  |
 - `short_delay` (String) Delay used while in SHORT_WAIT state
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-60000  |  Delay used while in SHORT_WAIT state (in ms)  |
 - `time_to_learn` (String) Maximum duration needed to learn all the events related to a single failure
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-60000  |  Maximum duration needed to learn all the events related to a single failure in ms  |
 
 
 <a id="nestedatt--protocols--isis--traffic_engineering"></a>
@@ -5390,9 +2153,9 @@ Optional:
 
 - `address` (String) MPLS traffic engineering router ID
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address  |
 - `enable` (String) Enable MPLS traffic engineering extensions
 
 
@@ -5402,247 +2165,37 @@ Optional:
 
 Optional:
 
-- `access_list` (Attributes Map) Access list to filter networks in routing updates
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access-list number  | (see [below for nested schema](#nestedatt--protocols--ospf--access_list))
-- `area` (Attributes Map) OSPF area settings
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  OSPF area number in decimal notation  |
-|  ipv4  |  OSPF area number in dotted decimal notation  | (see [below for nested schema](#nestedatt--protocols--ospf--area))
 - `auto_cost` (Attributes) Calculate interface cost according to bandwidth (see [below for nested schema](#nestedatt--protocols--ospf--auto_cost))
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospf--default_information))
 - `default_metric` (String) Metric of redistributed routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Metric of redistributed routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Metric of redistributed routes  |
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance))
-- `interface` (Attributes Map) Interface configuration
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  | (see [below for nested schema](#nestedatt--protocols--ospf--interface))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospf--log_adjacency_changes))
 - `max_metric` (Attributes) OSPF maximum and infinite-distance metric (see [below for nested schema](#nestedatt--protocols--ospf--max_metric))
 - `maximum_paths` (String) Maximum multiple paths (ECMP)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-64  |  Maximum multiple paths (ECMP)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-64  |  Maximum multiple paths (ECMP)  |
 - `mpls_te` (Attributes) MultiProtocol Label Switching-Traffic Engineering (MPLS-TE) parameters (see [below for nested schema](#nestedatt--protocols--ospf--mpls_te))
-- `neighbor` (Attributes Map) Specify neighbor router
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Neighbor IP address  | (see [below for nested schema](#nestedatt--protocols--ospf--neighbor))
 - `parameters` (Attributes) OSPF specific parameters (see [below for nested schema](#nestedatt--protocols--ospf--parameters))
 - `passive_interface` (String) Suppress routing updates on an interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  default  |  Default to suppress routing updates on all interfaces  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  default  |  Default to suppress routing updates on all interfaces  |
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospf--redistribute))
 - `refresh` (Attributes) Adjust refresh parameters (see [below for nested schema](#nestedatt--protocols--ospf--refresh))
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `segment_routing` (Attributes) Segment-Routing (SPRING) settings (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing))
 - `timers` (Attributes) Adjust routing timers (see [below for nested schema](#nestedatt--protocols--ospf--timers))
-
-<a id="nestedatt--protocols--ospf--access_list"></a>
-### Nested Schema for `protocols.ospf.access_list`
-
-Optional:
-
-- `export` (String) Filter for outgoing routing update
-
-|  Format  |  Description  |
-|----------|---------------|
-|  bgp  |  Filter BGP routes  |
-|  connected  |  Filter connected routes  |
-|  isis  |  Filter IS-IS routes  |
-|  kernel  |  Filter Kernel routes  |
-|  rip  |  Filter RIP routes  |
-|  static  |  Filter static routes  |
-
-
-<a id="nestedatt--protocols--ospf--area"></a>
-### Nested Schema for `protocols.ospf.area`
-
-Optional:
-
-- `area_type` (Attributes) Area type (see [below for nested schema](#nestedatt--protocols--ospf--area--area_type))
-- `authentication` (String) OSPF area authentication type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  plaintext-password  |  Use plain-text authentication  |
-|  md5  |  Use MD5 authentication  |
-- `export_list` (String) Set the filter for networks announced to other areas
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access-list number  |
-- `import_list` (String) Set the filter for networks from other areas announced
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access-list number  |
-- `network` (String) OSPF network
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  OSPF network  |
-- `range` (Attributes Map) Summarize routes matching a prefix (border routers only)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Area range prefix  | (see [below for nested schema](#nestedatt--protocols--ospf--area--range))
-- `shortcut` (String) Area shortcut mode
-
-|  Format  |  Description  |
-|----------|---------------|
-|  default  |  Set default  |
-|  disable  |  Disable shortcutting mode  |
-|  enable  |  Enable shortcutting mode  |
-- `virtual_link` (Attributes Map) Virtual link
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  OSPF area in dotted decimal notation  | (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link))
-
-<a id="nestedatt--protocols--ospf--area--area_type"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link`
-
-Optional:
-
-- `normal` (String) Normal OSPF area
-- `nssa` (Attributes) Not-So-Stubby OSPF area (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link--nssa))
-- `stub` (Attributes) Stub OSPF area (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link--stub))
-
-<a id="nestedatt--protocols--ospf--area--virtual_link--nssa"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link.nssa`
-
-Optional:
-
-- `default_cost` (String) Summary-default cost of an NSSA area
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Summary default cost  |
-- `no_summary` (String) Do not inject inter-area routes into stub
-- `translate` (String) Configure NSSA-ABR
-
-|  Format  |  Description  |
-|----------|---------------|
-|  always  |  Always translate LSA types  |
-|  candidate  |  Translate for election  |
-|  never  |  Never translate LSA types  |
-
-
-<a id="nestedatt--protocols--ospf--area--virtual_link--stub"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link.stub`
-
-Optional:
-
-- `default_cost` (String) Summary-default cost
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Summary default cost  |
-- `no_summary` (String) Do not inject inter-area routes into the stub
-
-
-
-<a id="nestedatt--protocols--ospf--area--range"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link`
-
-Optional:
-
-- `cost` (String) Metric for this range
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777215  |  Metric for this range  |
-- `not_advertise` (String) Do not advertise this range
-- `substitute` (String) Advertise area range as another prefix
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Advertise area range as another prefix  |
-
-
-<a id="nestedatt--protocols--ospf--area--virtual_link"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link`
-
-Optional:
-
-- `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link--authentication))
-- `dead_interval` (String) Interval after which a neighbor is declared dead
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Neighbor dead interval (seconds)  |
-- `hello_interval` (String) Interval between hello packets
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Hello interval (seconds)  |
-- `retransmit_interval` (String) Interval between retransmitting lost link state advertisements
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Retransmit interval (seconds)  |
-- `transmit_delay` (String) Link state transmit delay
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Link state transmit delay (seconds)  |
-
-<a id="nestedatt--protocols--ospf--area--virtual_link--authentication"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link.authentication`
-
-Optional:
-
-- `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link--authentication--md5))
-- `plaintext_password` (String) Plain text password
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Plain text password (8 characters or less)  |
-
-<a id="nestedatt--protocols--ospf--area--virtual_link--authentication--md5"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link.authentication.plaintext_password`
-
-Optional:
-
-- `key_id` (Attributes Map) MD5 key id
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  MD5 key id  | (see [below for nested schema](#nestedatt--protocols--ospf--area--virtual_link--authentication--plaintext_password--key_id))
-
-<a id="nestedatt--protocols--ospf--area--virtual_link--authentication--plaintext_password--key_id"></a>
-### Nested Schema for `protocols.ospf.area.virtual_link.authentication.plaintext_password.key_id`
-
-Optional:
-
-- `md5_key` (String) MD5 authentication type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  MD5 Key (16 characters or less)  |
-
-
-
-
-
 
 <a id="nestedatt--protocols--ospf--auto_cost"></a>
 ### Nested Schema for `protocols.ospf.auto_cost`
@@ -5651,9 +2204,9 @@ Optional:
 
 - `reference_bandwidth` (String) Reference bandwidth method to assign cost
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
 
 
 <a id="nestedatt--protocols--ospf--default_information"></a>
@@ -5671,19 +2224,19 @@ Optional:
 - `always` (String) Always advertise a default route
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -5694,9 +2247,9 @@ Optional:
 
 - `global` (String) Administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Administrative distance  |
 - `ospf` (Attributes) OSPF administrative distance (see [below for nested schema](#nestedatt--protocols--ospf--distance--ospf))
 
 <a id="nestedatt--protocols--ospf--distance--ospf"></a>
@@ -5706,141 +2259,19 @@ Optional:
 
 - `external` (String) Distance for external routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for external routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for external routes  |
 - `inter_area` (String) Distance for inter-area routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for inter-area routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for inter-area routes  |
 - `intra_area` (String) Distance for intra-area routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for intra-area routes  |
-
-
-
-<a id="nestedatt--protocols--ospf--interface"></a>
-### Nested Schema for `protocols.ospf.interface`
-
-Optional:
-
-- `area` (String) Enable OSPF on this interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  OSPF area ID as decimal notation  |
-|  ipv4  |  OSPF area ID in IP address notation  |
-- `authentication` (Attributes) Authentication (see [below for nested schema](#nestedatt--protocols--ospf--interface--authentication))
-- `bandwidth` (String) Interface bandwidth (Mbit/s)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-100000  |  Bandwidth in Megabit/sec (for calculating OSPF cost)  |
-- `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--protocols--ospf--interface--bfd))
-- `cost` (String) Interface cost
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  OSPF interface cost  |
-- `dead_interval` (String) Interval after which a neighbor is declared dead
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Neighbor dead interval (seconds)  |
-- `hello_interval` (String) Interval between hello packets
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Hello interval (seconds)  |
-- `hello_multiplier` (String) Hello multiplier factor
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Number of Hellos to send each second  |
-- `mtu_ignore` (String) Disable Maximum Transmission Unit (MTU) mismatch detection
-- `network` (String) Network type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  broadcast  |  Broadcast network type  |
-|  non-broadcast  |  Non-broadcast network type  |
-|  point-to-multipoint  |  Point-to-multipoint network type  |
-|  point-to-point  |  Point-to-point network type  |
-- `passive` (Attributes) Suppress routing updates on an interface (see [below for nested schema](#nestedatt--protocols--ospf--interface--passive))
-- `priority` (String) Router priority
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  OSPF router priority cost  |
-- `retransmit_interval` (String) Interval between retransmitting lost link state advertisements
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Retransmit interval (seconds)  |
-- `transmit_delay` (String) Link state transmit delay
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Link state transmit delay (seconds)  |
-
-<a id="nestedatt--protocols--ospf--interface--authentication"></a>
-### Nested Schema for `protocols.ospf.interface.transmit_delay`
-
-Optional:
-
-- `md5` (Attributes) MD5 key id (see [below for nested schema](#nestedatt--protocols--ospf--interface--transmit_delay--md5))
-- `plaintext_password` (String) Plain text password
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Plain text password (8 characters or less)  |
-
-<a id="nestedatt--protocols--ospf--interface--transmit_delay--md5"></a>
-### Nested Schema for `protocols.ospf.interface.transmit_delay.md5`
-
-Optional:
-
-- `key_id` (Attributes Map) MD5 key id
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  MD5 key id  | (see [below for nested schema](#nestedatt--protocols--ospf--interface--transmit_delay--md5--key_id))
-
-<a id="nestedatt--protocols--ospf--interface--transmit_delay--md5--key_id"></a>
-### Nested Schema for `protocols.ospf.interface.transmit_delay.md5.key_id`
-
-Optional:
-
-- `md5_key` (String) MD5 authentication type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  MD5 Key (16 characters or less)  |
-
-
-
-
-<a id="nestedatt--protocols--ospf--interface--bfd"></a>
-### Nested Schema for `protocols.ospf.interface.transmit_delay`
-
-Optional:
-
-- `profile` (String) Use settings from BFD profile
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
-
-
-<a id="nestedatt--protocols--ospf--interface--passive"></a>
-### Nested Schema for `protocols.ospf.interface.transmit_delay`
-
-Optional:
-
-- `disable` (String) Disable instance
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for intra-area routes  |
 
 
 
@@ -5867,14 +2298,14 @@ Optional:
 - `administrative` (String) Administratively apply, for an indefinite period
 - `on_shutdown` (String) Advertise stub-router prior to full shutdown of OSPF
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:5-100  |  Time (seconds) to advertise self as stub-router  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:5-100  |  Time (seconds) to advertise self as stub-router  |
 - `on_startup` (String) Automatically advertise stub Router-LSA on startup of OSPF
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:5-86400  |  Time (seconds) to advertise self as stub-router  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:5-86400  |  Time (seconds) to advertise self as stub-router  |
 
 
 
@@ -5886,26 +2317,9 @@ Optional:
 - `enable` (String) Enable MPLS-TE functionality
 - `router_address` (String) Stable IP address of the advertising router
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Stable IP address of the advertising router  |
-
-
-<a id="nestedatt--protocols--ospf--neighbor"></a>
-### Nested Schema for `protocols.ospf.neighbor`
-
-Optional:
-
-- `poll_interval` (String) Dead neighbor polling interval
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Seconds between dead neighbor polling interval  |
-- `priority` (String) Neighbor priority in seconds
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  Neighbor priority  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Stable IP address of the advertising router  |
 
 
 <a id="nestedatt--protocols--ospf--parameters"></a>
@@ -5915,19 +2329,19 @@ Optional:
 
 - `abr_type` (String) OSPF ABR type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  cisco  |  Cisco ABR type  |
-|  ibm  |  IBM ABR type  |
-|  shortcut  |  Shortcut ABR type  |
-|  standard  |  Standard ABR type  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  cisco  |  Cisco ABR type  |
+    |  ibm  |  IBM ABR type  |
+    |  shortcut  |  Shortcut ABR type  |
+    |  standard  |  Standard ABR type  |
 - `opaque_lsa` (String) Enable the Opaque-LSA capability (rfc2370)
 - `rfc1583_compatibility` (String) Enable RFC1583 criteria for handling AS external routes
 - `router_id` (String) Override default router identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Router-ID in IP address format  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Router-ID in IP address format  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute"></a>
@@ -5942,186 +2356,159 @@ Optional:
 - `kernel` (Attributes) Redistribute Kernel routes (see [below for nested schema](#nestedatt--protocols--ospf--redistribute--kernel))
 - `rip` (Attributes) Redistribute RIP routes (see [below for nested schema](#nestedatt--protocols--ospf--redistribute--rip))
 - `static` (Attributes) Redistribute statically configured routes (see [below for nested schema](#nestedatt--protocols--ospf--redistribute--static))
-- `table` (Attributes Map) Redistribute non-main Kernel Routing Table
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-200  |  Policy route table number  | (see [below for nested schema](#nestedatt--protocols--ospf--redistribute--table))
 
 <a id="nestedatt--protocols--ospf--redistribute--babel"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--bgp"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--connected"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--isis"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--kernel"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--rip"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospf--redistribute--static"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
+### Nested Schema for `protocols.ospf.redistribute.static`
 
 Optional:
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-
-<a id="nestedatt--protocols--ospf--redistribute--table"></a>
-### Nested Schema for `protocols.ospf.redistribute.table`
-
-Optional:
-
-- `metric` (String) OSPF default metric
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
-- `metric_type` (String) OSPF metric type for default routes
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
-- `route_map` (String) Specify route-map name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -6132,9 +2519,9 @@ Optional:
 
 - `timers` (String) Refresh timer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:10-1800  |  Timer value in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:10-1800  |  Timer value in seconds  |
 
 
 <a id="nestedatt--protocols--ospf--segment_routing"></a>
@@ -6146,69 +2533,42 @@ Optional:
 - `local_block` (Attributes) Segment Routing Local Block label range (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--local_block))
 - `maximum_label_depth` (String) Maximum MPLS labels allowed for this router
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-16  |  MPLS label depth  |
-- `prefix` (Attributes Map) Static IPv4 prefix segment/label mapping
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  | (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--prefix))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-16  |  MPLS label depth  |
 
 <a id="nestedatt--protocols--ospf--segment_routing--global_block"></a>
-### Nested Schema for `protocols.ospf.segment_routing.prefix`
+### Nested Schema for `protocols.ospf.segment_routing.maximum_label_depth`
 
 Optional:
 
 - `high_label_value` (String) MPLS label upper bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value  |
 - `low_label_value` (String) MPLS label lower bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
 
 
 <a id="nestedatt--protocols--ospf--segment_routing--local_block"></a>
-### Nested Schema for `protocols.ospf.segment_routing.prefix`
+### Nested Schema for `protocols.ospf.segment_routing.maximum_label_depth`
 
 Optional:
 
 - `high_label_value` (String) MPLS label upper bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value  |
 - `low_label_value` (String) MPLS label lower bound
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
-
-
-<a id="nestedatt--protocols--ospf--segment_routing--prefix"></a>
-### Nested Schema for `protocols.ospf.segment_routing.prefix`
-
-Optional:
-
-- `index` (Attributes) Specify the index value of prefix segment/label ID (see [below for nested schema](#nestedatt--protocols--ospf--segment_routing--prefix--index))
-
-<a id="nestedatt--protocols--ospf--segment_routing--prefix--index"></a>
-### Nested Schema for `protocols.ospf.segment_routing.prefix.index`
-
-Optional:
-
-- `explicit_null` (String) Request upstream neighbor to replace segment/label with explicit null label
-- `no_php_flag` (String) Do not request penultimate hop popping for segment/label
-- `value` (String) Specify the index value of prefix segment/label ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  The index segment/label ID value  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  Label value (recommended minimum value: 300)  |
 
 
 
@@ -6233,19 +2593,19 @@ Optional:
 
 - `delay` (String) Delay from the first change received to SPF calculation
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-600000  |  Delay in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-600000  |  Delay in milliseconds  |
 - `initial_holdtime` (String) Initial hold time between consecutive SPF calculations
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-600000  |  Initial hold time in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-600000  |  Initial hold time in milliseconds  |
 - `max_holdtime` (String) Maximum hold time
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-600000  |  Max hold time in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-600000  |  Max hold time in milliseconds  |
 
 
 
@@ -6256,78 +2616,17 @@ Optional:
 
 Optional:
 
-- `area` (Attributes Map) OSPFv3 Area
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Area ID as a decimal value  |
-|  ipv4  |  Area ID in IP address forma  | (see [below for nested schema](#nestedatt--protocols--ospfv3--area))
 - `auto_cost` (Attributes) Calculate interface cost according to bandwidth (see [below for nested schema](#nestedatt--protocols--ospfv3--auto_cost))
 - `default_information` (Attributes) Default route advertisment settings (see [below for nested schema](#nestedatt--protocols--ospfv3--default_information))
 - `distance` (Attributes) Administrative distance (see [below for nested schema](#nestedatt--protocols--ospfv3--distance))
-- `interface` (Attributes Map) Enable routing on an IPv6 interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface used for routing information exchange  | (see [below for nested schema](#nestedatt--protocols--ospfv3--interface))
 - `log_adjacency_changes` (Attributes) Log adjacency state changes (see [below for nested schema](#nestedatt--protocols--ospfv3--log_adjacency_changes))
 - `parameters` (Attributes) OSPFv3 specific parameters (see [below for nested schema](#nestedatt--protocols--ospfv3--parameters))
 - `redistribute` (Attributes) Redistribute information from another routing protocol (see [below for nested schema](#nestedatt--protocols--ospfv3--redistribute))
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
-
-<a id="nestedatt--protocols--ospfv3--area"></a>
-### Nested Schema for `protocols.ospfv3.area`
-
-Optional:
-
-- `area_type` (Attributes) OSPFv3 Area type (see [below for nested schema](#nestedatt--protocols--ospfv3--area--area_type))
-- `export_list` (String) Name of export-list
-- `import_list` (String) Name of import-list
-- `range` (Attributes Map) Specify IPv6 prefix (border routers only)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Specify IPv6 prefix (border routers only)  | (see [below for nested schema](#nestedatt--protocols--ospfv3--area--range))
-
-<a id="nestedatt--protocols--ospfv3--area--area_type"></a>
-### Nested Schema for `protocols.ospfv3.area.range`
-
-Optional:
-
-- `nssa` (Attributes) NSSA OSPFv3 area (see [below for nested schema](#nestedatt--protocols--ospfv3--area--range--nssa))
-- `stub` (Attributes) Stub OSPFv3 area (see [below for nested schema](#nestedatt--protocols--ospfv3--area--range--stub))
-
-<a id="nestedatt--protocols--ospfv3--area--range--nssa"></a>
-### Nested Schema for `protocols.ospfv3.area.range.nssa`
-
-Optional:
-
-- `default_information_originate` (String) Originate Type 7 default into NSSA area
-- `no_summary` (String) Do not inject inter-area routes into the stub
-
-
-<a id="nestedatt--protocols--ospfv3--area--range--stub"></a>
-### Nested Schema for `protocols.ospfv3.area.range.stub`
-
-Optional:
-
-- `no_summary` (String) Do not inject inter-area routes into the stub
-
-
-
-<a id="nestedatt--protocols--ospfv3--area--range"></a>
-### Nested Schema for `protocols.ospfv3.area.range`
-
-Optional:
-
-- `advertise` (String) Advertise this range
-- `not_advertise` (String) Do not advertise this range
-
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 <a id="nestedatt--protocols--ospfv3--auto_cost"></a>
 ### Nested Schema for `protocols.ospfv3.auto_cost`
@@ -6336,9 +2635,9 @@ Optional:
 
 - `reference_bandwidth` (String) Reference bandwidth method to assign cost
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967  |  Reference bandwidth cost in Mbits/sec  |
 
 
 <a id="nestedatt--protocols--ospfv3--default_information"></a>
@@ -6356,19 +2655,19 @@ Optional:
 - `always` (String) Always advertise a default route
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
@@ -6379,9 +2678,9 @@ Optional:
 
 - `global` (String) Administrative distance
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Administrative distance  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Administrative distance  |
 - `ospfv3` (Attributes) OSPFv3 administrative distance (see [below for nested schema](#nestedatt--protocols--ospfv3--distance--ospfv3))
 
 <a id="nestedatt--protocols--ospfv3--distance--ospfv3"></a>
@@ -6391,93 +2690,19 @@ Optional:
 
 - `external` (String) Distance for external routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for external routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for external routes  |
 - `inter_area` (String) Distance for inter-area routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for inter-area routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for inter-area routes  |
 - `intra_area` (String) Distance for intra-area routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for intra-area routes  |
-
-
-
-<a id="nestedatt--protocols--ospfv3--interface"></a>
-### Nested Schema for `protocols.ospfv3.interface`
-
-Optional:
-
-- `area` (String) Enable OSPF on this interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  OSPF area ID as decimal notation  |
-|  ipv4  |  OSPF area ID in IP address notation  |
-- `bfd` (Attributes) Enable Bidirectional Forwarding Detection (BFD) (see [below for nested schema](#nestedatt--protocols--ospfv3--interface--bfd))
-- `cost` (String) Interface cost
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  OSPF interface cost  |
-- `dead_interval` (String) Interval after which a neighbor is declared dead
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Neighbor dead interval (seconds)  |
-- `hello_interval` (String) Interval between hello packets
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Hello interval (seconds)  |
-- `ifmtu` (String) Interface MTU
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Interface MTU  |
-- `instance_id` (String) Instance ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  Instance Id  |
-- `mtu_ignore` (String) Disable Maximum Transmission Unit (MTU) mismatch detection
-- `network` (String) Network type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  broadcast  |  Broadcast network type  |
-|  point-to-point  |  Point-to-point network type  |
-- `passive` (String) Configure passive mode for interface
-- `priority` (String) Router priority
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  OSPF router priority cost  |
-- `retransmit_interval` (String) Interval between retransmitting lost link state advertisements
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Retransmit interval (seconds)  |
-- `transmit_delay` (String) Link state transmit delay
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Link state transmit delay (seconds)  |
-
-<a id="nestedatt--protocols--ospfv3--interface--bfd"></a>
-### Nested Schema for `protocols.ospfv3.interface.transmit_delay`
-
-Optional:
-
-- `profile` (String) Use settings from BFD profile
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BFD profile name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for intra-area routes  |
 
 
 
@@ -6496,9 +2721,9 @@ Optional:
 
 - `router_id` (String) Override default router identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Router-ID in IP address format  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Router-ID in IP address format  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute"></a>
@@ -6520,9 +2745,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--bgp"></a>
@@ -6532,9 +2757,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--connected"></a>
@@ -6544,9 +2769,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--kernel"></a>
@@ -6556,9 +2781,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--ripng"></a>
@@ -6568,9 +2793,9 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 <a id="nestedatt--protocols--ospfv3--redistribute--static"></a>
@@ -6580,226 +2805,12 @@ Optional:
 
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 
 
 
 
 <a id="nestedatt--protocols--static"></a>
 ### Nested Schema for `protocols.static`
-
-Optional:
-
-- `route` (Attributes Map) Static IPv4 route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 static route  | (see [below for nested schema](#nestedatt--protocols--static--route))
-- `route6` (Attributes Map) Static IPv6 route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 static route  | (see [below for nested schema](#nestedatt--protocols--static--route6))
-
-<a id="nestedatt--protocols--static--route"></a>
-### Nested Schema for `protocols.static.route`
-
-Optional:
-
-- `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--protocols--static--route--blackhole))
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `dhcp_interface` (String) DHCP interface supplying next-hop IP address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  DHCP interface name  |
-- `interface` (Attributes Map) Next-hop IPv4 router interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  | (see [below for nested schema](#nestedatt--protocols--static--route--interface))
-- `next_hop` (Attributes Map) Next-hop IPv4 router address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Next-hop router address  | (see [below for nested schema](#nestedatt--protocols--static--route--next_hop))
-- `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--protocols--static--route--reject))
-
-<a id="nestedatt--protocols--static--route--blackhole"></a>
-### Nested Schema for `protocols.static.route.reject`
-
-Optional:
-
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |
-
-
-<a id="nestedatt--protocols--static--route--interface"></a>
-### Nested Schema for `protocols.static.route.reject`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
-
-
-<a id="nestedatt--protocols--static--route--next_hop"></a>
-### Nested Schema for `protocols.static.route.reject`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `interface` (String) Gateway interface name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
-
-
-<a id="nestedatt--protocols--static--route--reject"></a>
-### Nested Schema for `protocols.static.route.reject`
-
-Optional:
-
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |
-
-
-
-<a id="nestedatt--protocols--static--route6"></a>
-### Nested Schema for `protocols.static.route6`
-
-Optional:
-
-- `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--protocols--static--route6--blackhole))
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `interface` (Attributes Map) IPv6 gateway interface name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  | (see [below for nested schema](#nestedatt--protocols--static--route6--interface))
-- `next_hop` (Attributes Map) IPv6 gateway address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6  |  Next-hop IPv6 router  | (see [below for nested schema](#nestedatt--protocols--static--route6--next_hop))
-- `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--protocols--static--route6--reject))
-
-<a id="nestedatt--protocols--static--route6--blackhole"></a>
-### Nested Schema for `protocols.static.route6.reject`
-
-Optional:
-
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |
-
-
-<a id="nestedatt--protocols--static--route6--interface"></a>
-### Nested Schema for `protocols.static.route6.reject`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
-
-
-<a id="nestedatt--protocols--static--route6--next_hop"></a>
-### Nested Schema for `protocols.static.route6.reject`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `interface` (String) Gateway interface name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
-
-
-<a id="nestedatt--protocols--static--route6--reject"></a>
-### Nested Schema for `protocols.static.route6.reject`
-
-Optional:
-
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `tag` (String) Tag value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |

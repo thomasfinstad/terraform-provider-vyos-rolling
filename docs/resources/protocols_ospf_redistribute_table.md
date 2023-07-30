@@ -19,9 +19,9 @@ Redistribute information from another routing protocol
 
 Redistribute non-main Kernel Routing Table
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-200  |  Policy route table number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-200  |  Policy route table number  |
 
 
 
@@ -32,24 +32,24 @@ Redistribute non-main Kernel Routing Table
 
 - `identifier` (String) Redistribute non-main Kernel Routing Table
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-200  |  Policy route table number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-200  |  Policy route table number  |
 
 ### Optional
 
 - `metric` (String) OSPF default metric
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  Default metric  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  Default metric  |
 - `metric_type` (String) OSPF metric type for default routes
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2  |  Set OSPF External Type 1/2 metrics  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |

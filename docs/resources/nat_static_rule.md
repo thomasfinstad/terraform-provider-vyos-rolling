@@ -29,9 +29,9 @@ Rule number for NAT
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `inbound_interface` (String) Inbound interface of NAT traffic
 - `translation` (Attributes) Translation address or prefix (see [below for nested schema](#nestedatt--translation))
@@ -43,10 +43,10 @@ Optional:
 
 - `address` (String) IP address, prefix
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
 
 
 <a id="nestedatt--translation"></a>
@@ -56,7 +56,7 @@ Optional:
 
 - `address` (String) IP address, prefix
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |

@@ -17,10 +17,10 @@ LLDP settings
 
 Location data for interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  all  |  Location data all interfaces  |
-|  txt  |  Location data for a specific interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  all  |  Location data all interfaces  |
+    |  txt  |  Location data for a specific interface  |
 
 
 
@@ -31,10 +31,10 @@ Location data for interface
 
 - `identifier` (String) Location data for interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  all  |  Location data all interfaces  |
-|  txt  |  Location data for a specific interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  all  |  Location data all interfaces  |
+    |  txt  |  Location data for a specific interface  |
 
 ### Optional
 
@@ -49,9 +49,9 @@ Optional:
 - `coordinate_based` (Attributes) Coordinate based location (see [below for nested schema](#nestedatt--location--coordinate_based))
 - `elin` (String) ECS ELIN (Emergency location identifier number)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-9999999999  |  Emergency Call Service ELIN number (between 10-25 numbers)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-9999999999  |  Emergency Call Service ELIN number (between 10-25 numbers)  |
 
 <a id="nestedatt--location--coordinate_based"></a>
 ### Nested Schema for `location.coordinate_based`
@@ -60,24 +60,24 @@ Optional:
 
 - `altitude` (String) Altitude in meters
 
-|  Format  |  Description  |
-|----------|---------------|
-|  0  |  No altitude  |
-|  [+-]<meters>  |  Altitude in meters  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  0  |  No altitude  |
+    |  [+-]<meters>  |  Altitude in meters  |
 - `datum` (String) Coordinate datum type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  WGS84  |  WGS84  |
-|  NAD83  |  NAD83  |
-|  MLLW  |  NAD83/MLLW  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  WGS84  |  WGS84  |
+    |  NAD83  |  NAD83  |
+    |  MLLW  |  NAD83/MLLW  |
 - `latitude` (String) Latitude
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <latitude>  |  Latitude (example "37.524449N")  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <latitude>  |  Latitude (example "37.524449N")  |
 - `longitude` (String) Longitude
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <longitude>  |  Longitude (example "122.267255W")  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <longitude>  |  Longitude (example "122.267255W")  |

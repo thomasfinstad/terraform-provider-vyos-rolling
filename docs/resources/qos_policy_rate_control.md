@@ -19,9 +19,9 @@ Service Policy definitions
 
 Rate limiting policy (Token Bucket Filter)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 
 
@@ -32,36 +32,36 @@ Rate limiting policy (Token Bucket Filter)
 
 - `identifier` (String) Rate limiting policy (Token Bucket Filter)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Bits per second  |
-|  <number>bit  |  Bits per second  |
-|  <number>kbit  |  Kilobits per second  |
-|  <number>mbit  |  Megabits per second  |
-|  <number>gbit  |  Gigabits per second  |
-|  <number>tbit  |  Terabits per second  |
-|  <number>%  |  Percentage of interface link speed  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Bits per second  |
+    |  <number>bit  |  Bits per second  |
+    |  <number>kbit  |  Kilobits per second  |
+    |  <number>mbit  |  Megabits per second  |
+    |  <number>gbit  |  Gigabits per second  |
+    |  <number>tbit  |  Terabits per second  |
+    |  <number>%  |  Percentage of interface link speed  |
 - `burst` (String) Burst size for this class
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Bytes  |
-|  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Bytes  |
+    |  <number><suffix>  |  Bytes with scaling suffix (kb, mb, gb)  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `latency` (String) Maximum latency
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Time in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Time in milliseconds  |

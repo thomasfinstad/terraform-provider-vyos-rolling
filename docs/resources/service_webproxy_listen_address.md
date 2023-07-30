@@ -16,9 +16,9 @@ Webproxy service settings
 
 IPv4 listen-address for WebProxy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address listen on  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address listen on  |
 
 
 
@@ -29,15 +29,15 @@ IPv4 listen-address for WebProxy
 
 - `identifier` (String) IPv4 listen-address for WebProxy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address listen on  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address listen on  |
 
 ### Optional
 
 - `disable_transparent` (String) Disable transparent mode
 - `port` (String) Default Proxy Port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1025-65535  |  Default port number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1025-65535  |  Default port number  |

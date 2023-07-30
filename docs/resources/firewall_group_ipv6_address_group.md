@@ -29,13 +29,13 @@ Firewall ipv6-address-group
 
 - `address` (String) Address-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6  |  IPv6 address to match  |
-|  ipv6range  |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6  |  IPv6 address to match  |
+    |  ipv6range  |  IPv6 range to match (e.g. 2002::1-2002::ff)  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another ipv6-address-group

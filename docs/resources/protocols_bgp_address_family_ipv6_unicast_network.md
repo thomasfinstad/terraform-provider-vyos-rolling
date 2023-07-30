@@ -22,9 +22,9 @@ IPv6 BGP settings
 
 BGP network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Aggregate network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Aggregate network  |
 
 
 
@@ -35,19 +35,19 @@ BGP network
 
 - `identifier` (String) BGP network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Aggregate network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Aggregate network  |
 
 ### Optional
 
 - `path_limit` (String) AS-path hopcount limit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  AS path hop count limit  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-255  |  AS path hop count limit  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |

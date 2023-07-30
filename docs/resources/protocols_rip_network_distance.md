@@ -16,9 +16,9 @@ Routing Information Protocol (RIP) parameters
 
 Source network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Source network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Source network  |
 
 
 
@@ -29,19 +29,19 @@ Source network
 
 - `identifier` (String) Source network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Source network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Source network  |
 
 ### Optional
 
 - `access_list` (String) Access list
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Access list  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Access list  |
 - `distance` (String) Distance for this route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for this route  |

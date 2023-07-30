@@ -120,7 +120,7 @@ tf-resources:
 		internal/terraform/resource/autogen/named \
 		named \
 		$(GO_IMPORT_ROOT) \
-		"system-conntrack-timeout-custom-rule"
+		"system/conntrack-timeout-custom-rule"
 
 	gofumpt -w internal/terraform/resource/autogen/named/
 

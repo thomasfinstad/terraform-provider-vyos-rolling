@@ -22,9 +22,9 @@ Labeled Unicast IPv6 BGP settings
 
 Import BGP network/prefix into labeled unicast IPv6 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
 
 
 
@@ -35,15 +35,15 @@ Import BGP network/prefix into labeled unicast IPv6 RIB
 
 - `identifier` (String) Import BGP network/prefix into labeled unicast IPv6 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Labeled Unicast IPv6 BGP network/prefix  |
 
 ### Optional
 
 - `backdoor` (String) Use BGP network/prefix as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |

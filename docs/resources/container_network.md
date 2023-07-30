@@ -27,7 +27,7 @@ Network name
 - `description` (String) Network description
 - `prefix` (String) Prefix which allocated to that network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 network prefix  |
-|  ipv6net  |  IPv6 network prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 network prefix  |
+    |  ipv6net  |  IPv6 network prefix  |

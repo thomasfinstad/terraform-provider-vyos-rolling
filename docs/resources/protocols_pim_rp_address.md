@@ -19,9 +19,9 @@ Rendezvous Point
 
 Rendezvous Point address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Rendezvous Point address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Rendezvous Point address  |
 
 
 
@@ -32,14 +32,14 @@ Rendezvous Point address
 
 - `identifier` (String) Rendezvous Point address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Rendezvous Point address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Rendezvous Point address  |
 
 ### Optional
 
 - `group` (String) Group Address range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Group Address range RFC 3171  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Group Address range RFC 3171  |

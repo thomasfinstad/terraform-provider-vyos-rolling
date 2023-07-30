@@ -19,9 +19,9 @@ Service Policy definitions
 
 Network emulator policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 
 
@@ -32,55 +32,55 @@ Network emulator policy
 
 - `identifier` (String) Network emulator policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Bits per second  |
-|  <number>bit  |  Bits per second  |
-|  <number>kbit  |  Kilobits per second  |
-|  <number>mbit  |  Megabits per second  |
-|  <number>gbit  |  Gigabits per second  |
-|  <number>tbit  |  Terabits per second  |
-|  <number>%  |  Percentage of interface link speed  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Bits per second  |
+    |  <number>bit  |  Bits per second  |
+    |  <number>kbit  |  Kilobits per second  |
+    |  <number>mbit  |  Megabits per second  |
+    |  <number>gbit  |  Gigabits per second  |
+    |  <number>tbit  |  Terabits per second  |
+    |  <number>%  |  Percentage of interface link speed  |
 - `corruption` (String) Introducing error in a random position for chosen percent of packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Percentage of packets affected  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Percentage of packets affected  |
 - `delay` (String) Adds delay to packets outgoing to chosen network interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Time in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Time in milliseconds  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `duplicate` (String) Cosen percent of packets is duplicated before queuing them
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Percentage of packets affected  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Percentage of packets affected  |
 - `loss` (String) Add independent loss probability to the packets outgoing to chosen network interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Percentage of packets affected  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Percentage of packets affected  |
 - `queue_limit` (String) Maximum queue size
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Queue size in packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Queue size in packets  |
 - `reordering` (String) Emulated packet reordering percentage
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Percentage of packets affected  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <number>  |  Percentage of packets affected  |

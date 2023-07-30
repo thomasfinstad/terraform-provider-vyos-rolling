@@ -19,9 +19,9 @@ Pool of client IPv6 addresses
 
 Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 
 
 
@@ -32,14 +32,14 @@ Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
 - `identifier` (String) Subnet used to delegate prefix through DHCPv6-PD (RFC3633)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 
 ### Optional
 
 - `delegation_prefix` (String) Prefix length delegated to client
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Delegated prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:32-64  |  Delegated prefix length  |

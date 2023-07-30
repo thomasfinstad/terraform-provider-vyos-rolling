@@ -27,80 +27,62 @@ VRRP group
 
 ### Optional
 
-- `address` (Attributes Map) Virtual IP address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  | (see [below for nested schema](#nestedatt--address))
 - `advertise_interval` (String) Advertise interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Advertise interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Advertise interval in seconds  |
 - `authentication` (Attributes) VRRP authentication (see [below for nested schema](#nestedatt--authentication))
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Disable instance
 - `excluded_address` (String) Virtual address (If you need additional IPv4 and IPv6 in same group)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address  |
-|  ipv6  |  IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address  |
+    |  ipv6  |  IPv6 address  |
 - `garp` (Attributes) Gratuitous ARP parameters (see [below for nested schema](#nestedatt--garp))
 - `health_check` (Attributes) Health check script (see [below for nested schema](#nestedatt--health_check))
 - `hello_source_address` (String) VRRP hello source address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 hello source address  |
-|  ipv6  |  IPv6 hello source address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 hello source address  |
+    |  ipv6  |  IPv6 hello source address  |
 - `interface` (String) Interface Name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 - `no_preempt` (String) Disable master preemption
 - `peer_address` (String) Unicast VRRP peer address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 unicast peer address  |
-|  ipv6  |  IPv6 unicast peer address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 unicast peer address  |
+    |  ipv6  |  IPv6 unicast peer address  |
 - `preempt_delay` (String) Preempt delay (in seconds)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1000  |  preempt delay  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-1000  |  preempt delay  |
 - `priority` (String) Router priority
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Router priority  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Router priority  |
 - `rfc3768_compatibility` (String) Use VRRP virtual MAC address as per RFC3768
 - `track` (Attributes) Track settings (see [below for nested schema](#nestedatt--track))
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 - `vrid` (String) Virtual router identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Virtual router identifier  |
-
-<a id="nestedatt--address"></a>
-### Nested Schema for `address`
-
-Optional:
-
-- `interface` (String) Interface Name to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Virtual router identifier  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -109,15 +91,15 @@ Optional:
 
 - `password` (String) VRRP password
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Password string (up to 8 characters)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Password string (up to 8 characters)  |
 - `type` (String) Authentication type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  plaintext-password  |  Simple password string  |
-|  ah  |  AH - IPSEC (not recommended)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  plaintext-password  |  Simple password string  |
+    |  ah  |  AH - IPSEC (not recommended)  |
 
 
 <a id="nestedatt--garp"></a>
@@ -127,30 +109,30 @@ Optional:
 
 - `interval` (String) Interval between Gratuitous ARP
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <0.000-1000>  |  Interval in seconds, resolution microseconds  |
 - `master_delay` (String) Delay for second set of gratuitous ARPs after transition to master
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-1000  |  Delay in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-1000  |  Delay in seconds  |
 - `master_refresh` (String) Minimum time interval for refreshing gratuitous ARPs while beeing master
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  No refresh  |
-|  u32:1-255  |  Interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  No refresh  |
+    |  u32:1-255  |  Interval in seconds  |
 - `master_refresh_repeat` (String) Number of gratuitous ARP messages to send at a time while beeing master
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Number of gratuitous ARP messages  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Number of gratuitous ARP messages  |
 - `master_repeat` (String) Number of gratuitous ARP messages to send at a time after transition to master
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Number of gratuitous ARP messages  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Number of gratuitous ARP messages  |
 
 
 <a id="nestedatt--health_check"></a>
@@ -171,9 +153,9 @@ Optional:
 - `exclude_vrrp_interface` (String) Disable track state of main interface
 - `interface` (String) Interface name state check
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 <a id="nestedatt--transition_script"></a>

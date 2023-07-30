@@ -29,14 +29,14 @@ Firewall port-group
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another port-group
 - `port` (String) Port-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numbered port  |
-|  start-end  |  Numbered port range (e.g. 1001-1050)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numbered port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1050)  |

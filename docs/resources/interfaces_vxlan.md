@@ -13,9 +13,9 @@ description: |-
 
 Virtual Extensible LAN (VXLAN) Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  vxlanN  |  VXLAN interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vxlanN  |  VXLAN interface name  |
 
 
 
@@ -26,83 +26,83 @@ Virtual Extensible LAN (VXLAN) Interface
 
 - `identifier` (String) Virtual Extensible LAN (VXLAN) Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  vxlanN  |  VXLAN interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  vxlanN  |  VXLAN interface name  |
 
 ### Optional
 
 - `address` (String) IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv6net  |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Administratively disable interface
 - `external` (String) Use external control plane
 - `gpe` (String) Enable Generic Protocol extension (VXLAN-GPE)
 - `group` (String) Multicast group address for VXLAN interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Multicast IPv4 group address  |
-|  ipv6  |  Multicast IPv6 group address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Multicast IPv4 group address  |
+    |  ipv6  |  Multicast IPv6 group address  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mac` (String) Media Access Control (MAC) address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  macaddr  |  Hardware (MAC) address  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (String) Maximum Transmission Unit (MTU)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1200-16000  |  Maximum Transmission Unit in byte  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1200-16000  |  Maximum Transmission Unit in byte  |
 - `parameters` (Attributes) VXLAN tunnel parameters (see [below for nested schema](#nestedatt--parameters))
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `remote` (String) Tunnel remote address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Tunnel remote IPv4 address  |
-|  ipv6  |  Tunnel remote IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Tunnel remote IPv4 address  |
+    |  ipv6  |  Tunnel remote IPv6 address  |
 - `source_address` (String) Source IP address used to initiate connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 source address  |
-|  ipv6  |  IPv6 source address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 source address  |
+    |  ipv6  |  IPv6 source address  |
 - `source_interface` (String) Interface used to establish connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  interface  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  interface  |  Interface name  |
 - `vni` (String) Virtual Network Identifier
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-16777214  |  VXLAN virtual network identifier  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-16777214  |  VXLAN virtual network identifier  |
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -111,15 +111,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (String) ARP cache entry timeout in seconds
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-86400  |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (String) Disable ARP filter on this interface
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `enable_arp_accept` (String) Enable ARP accept on this interface
@@ -130,11 +130,11 @@ Optional:
 - `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -145,17 +145,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
+    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -165,9 +165,9 @@ Optional:
 - `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
 - `no_default_link_local` (String) Remove the default link-local address from the interface
 
 
@@ -179,14 +179,14 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 
 
 <a id="nestedatt--parameters"></a>
@@ -205,22 +205,22 @@ Optional:
 
 - `df` (String) Usage of the DF (don't Fragment) bit in outgoing packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  set  |  Always set DF (don't fragment) bit  |
-|  unset  |  Always unset DF (don't fragment) bit  |
-|  inherit  |  Copy from the original IP header  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  set  |  Always set DF (don't fragment) bit  |
+    |  unset  |  Always unset DF (don't fragment) bit  |
+    |  inherit  |  Copy from the original IP header  |
 - `tos` (String) Specifies TOS value to use in outgoing packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-99  |  Type of Service (TOS)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-99  |  Type of Service (TOS)  |
 - `ttl` (String) Specifies TTL value to use in outgoing packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Inherit - copy value from original IP header  |
-|  u32:1-255  |  Time to Live  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Inherit - copy value from original IP header  |
+    |  u32:1-255  |  Time to Live  |
 
 
 <a id="nestedatt--parameters--ipv6"></a>
@@ -230,7 +230,7 @@ Optional:
 
 - `flowlabel` (String) Specifies the flow label to use in outgoing packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  inherit  |  Copy field from original header  |
-|  0x0-0x0fffff  |  Tunnel key, or hex value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  inherit  |  Copy field from original header  |
+    |  0x0-0x0fffff  |  Tunnel key, or hex value  |

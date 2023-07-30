@@ -16,9 +16,9 @@ Open Shortest Path First (OSPF)
 
 Access list to filter networks in routing updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access-list number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Access-list number  |
 
 
 
@@ -29,19 +29,19 @@ Access list to filter networks in routing updates
 
 - `identifier` (String) Access list to filter networks in routing updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access-list number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Access-list number  |
 
 ### Optional
 
 - `export` (String) Filter for outgoing routing update
 
-|  Format  |  Description  |
-|----------|---------------|
-|  bgp  |  Filter BGP routes  |
-|  connected  |  Filter connected routes  |
-|  isis  |  Filter IS-IS routes  |
-|  kernel  |  Filter Kernel routes  |
-|  rip  |  Filter RIP routes  |
-|  static  |  Filter static routes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  bgp  |  Filter BGP routes  |
+    |  connected  |  Filter connected routes  |
+    |  isis  |  Filter IS-IS routes  |
+    |  kernel  |  Filter Kernel routes  |
+    |  rip  |  Filter RIP routes  |
+    |  static  |  Filter static routes  |

@@ -32,16 +32,16 @@ Pre-shared key name
 
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  DHCP interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  DHCP interface name  |
 - `id` (String) ID for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  ID used for authentication  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  ID used for authentication  |
 - `secret` (String) IKE pre-shared secret key
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  IKE pre-shared secret key  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  IKE pre-shared secret key  |

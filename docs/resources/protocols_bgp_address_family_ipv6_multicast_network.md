@@ -22,9 +22,9 @@ Multicast IPv6 BGP settings
 
 Import BGP network/prefix into multicast IPv6 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
 
 
 
@@ -35,19 +35,19 @@ Import BGP network/prefix into multicast IPv6 RIB
 
 - `identifier` (String) Import BGP network/prefix into multicast IPv6 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  Multicast IPv6 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  Multicast IPv6 BGP network/prefix  |
 
 ### Optional
 
 - `path_limit` (String) AS-path hopcount limit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  AS path hop count limit  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-255  |  AS path hop count limit  |
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |

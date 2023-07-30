@@ -22,9 +22,9 @@ Multicast IPv6 BGP settings
 
 BGP aggregate network/prefix
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  BGP aggregate network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  BGP aggregate network/prefix  |
 
 
 
@@ -35,16 +35,16 @@ BGP aggregate network/prefix
 
 - `identifier` (String) BGP aggregate network/prefix
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  BGP aggregate network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  BGP aggregate network/prefix  |
 
 ### Optional
 
 - `as_set` (String) Generate AS-set path information for this aggregate address
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |
 - `summary_only` (String) Announce the aggregate summary network only

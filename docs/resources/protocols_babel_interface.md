@@ -16,9 +16,9 @@ Babel Routing Protocol
 
 Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 
@@ -29,66 +29,66 @@ Interface name
 
 - `identifier` (String) Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 
 - `channel` (String) Channel number for diversity routing
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
-|  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
-|  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-254  |  Interfaces with a channel number interfere with interfering interfaces and interfaces with the same channel number  |
+    |  interfering  |  Interfering interfaces are assumed to interfere with all other channels except non-interfering channels  |
+    |  non-interfering  |  Non-interfering interfaces only interfere with themselves  |
 - `enable_timestamps` (String) Enable timestamps with each Hello and IHU message in order to compute RTT values
 - `hello_interval` (String) Time between scheduled hellos
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:20-655340  |  Milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:20-655340  |  Milliseconds  |
 - `max_rtt_penalty` (String) Maximum additional cost due to RTT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  Milliseconds (0 to disable the use of RTT-based cost)  |
 - `rtt_decay` (String) Decay factor for exponential moving average of RTT samples
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-256  |  Decay factor, in units of 1/256  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-256  |  Decay factor, in units of 1/256  |
 - `rtt_max` (String) Maximum RTT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Milliseconds  |
 - `rtt_min` (String) Minimum RTT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Milliseconds  |
 - `rxcost` (String) Base receive cost for this interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65534  |  Base receive cost  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65534  |  Base receive cost  |
 - `split_horizon` (String) Split horizon parameters
 
-|  Format  |  Description  |
-|----------|---------------|
-|  default  |  Enable on wired interfaces, and disable on wireless interfaces  |
-|  enable  |  Enable split horizon processing  |
-|  disable  |  Disable split horizon processing  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  default  |  Enable on wired interfaces, and disable on wireless interfaces  |
+    |  enable  |  Enable split horizon processing  |
+    |  disable  |  Disable split horizon processing  |
 - `type` (String) Interface type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  auto  |  Automatically detect interface type  |
-|  wired  |  Wired interface  |
-|  wireless  |  Wireless interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  auto  |  Automatically detect interface type  |
+    |  wired  |  Wired interface  |
+    |  wireless  |  Wireless interface  |
 - `update_interval` (String) Time between scheduled updates
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:20-655340  |  Milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:20-655340  |  Milliseconds  |

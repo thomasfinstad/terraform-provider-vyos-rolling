@@ -16,9 +16,9 @@ Static ARP translation
 
 Interface configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 
@@ -29,30 +29,6 @@ Interface configuration
 
 - `identifier` (String) Interface configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
-
-### Optional
-
-- `address` (Attributes Map) IP address for static ARP entry
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 destination address  | (see [below for nested schema](#nestedatt--address))
-
-<a id="nestedatt--address"></a>
-### Nested Schema for `address`
-
-Optional:
-
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `mac` (String) Media Access Control (MAC) address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |

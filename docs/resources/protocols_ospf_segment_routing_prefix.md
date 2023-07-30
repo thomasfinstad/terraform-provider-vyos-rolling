@@ -19,9 +19,9 @@ Segment-Routing (SPRING) settings
 
 Static IPv4 prefix segment/label mapping
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 prefix segment  |
 
 
 
@@ -32,9 +32,9 @@ Static IPv4 prefix segment/label mapping
 
 - `identifier` (String) Static IPv4 prefix segment/label mapping
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 prefix segment  |
 
 ### Optional
 
@@ -49,6 +49,6 @@ Optional:
 - `no_php_flag` (String) Do not request penultimate hop popping for segment/label
 - `value` (String) Specify the index value of prefix segment/label ID
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  The index segment/label ID value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  The index segment/label ID value  |

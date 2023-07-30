@@ -26,11 +26,11 @@ Interface to use for syncing conntrack entries
 
 - `peer` (String) IP address of the peer to send the UDP conntrack info too. This disable multicast.
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address to listen for incoming connections  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address to listen for incoming connections  |
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

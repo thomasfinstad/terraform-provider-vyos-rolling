@@ -16,9 +16,9 @@ Routing Information Protocol (RIPng) parameters
 
 Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 
@@ -29,9 +29,9 @@ Interface name
 
 - `identifier` (String) Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 

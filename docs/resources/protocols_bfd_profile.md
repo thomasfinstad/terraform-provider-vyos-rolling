@@ -16,9 +16,9 @@ Bidirectional Forwarding Detection (BFD)
 
 Configure BFD profile used by individual peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of BFD profile  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of BFD profile  |
 
 
 
@@ -29,9 +29,9 @@ Configure BFD profile used by individual peer
 
 - `identifier` (String) Configure BFD profile used by individual peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of BFD profile  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of BFD profile  |
 
 ### Optional
 
@@ -47,21 +47,21 @@ Optional:
 
 - `echo_interval` (String) Echo receive transmission interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:10-60000  |  The minimal echo receive transmission interval that this system is capable of handling  |
 - `multiplier` (String) Multiplier to determine packet loss
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:2-255  |  Remote transmission interval will be multiplied by this value  |
 - `receive` (String) Minimum interval of receiving control packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:10-60000  |  Interval in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:10-60000  |  Interval in milliseconds  |
 - `transmit` (String) Minimum interval of transmitting control packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:10-60000  |  Interval in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:10-60000  |  Interval in milliseconds  |

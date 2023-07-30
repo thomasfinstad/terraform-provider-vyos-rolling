@@ -20,10 +20,10 @@ Listen for and accept BGP dynamic neighbors from range
 
 BGP dynamic neighbors listen range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 dynamic neighbors listen range  |
-|  ipv6net  |  IPv6 dynamic neighbors listen range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 
 
 
@@ -34,15 +34,15 @@ BGP dynamic neighbors listen range
 
 - `identifier` (String) BGP dynamic neighbors listen range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 dynamic neighbors listen range  |
-|  ipv6net  |  IPv6 dynamic neighbors listen range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 dynamic neighbors listen range  |
+    |  ipv6net  |  IPv6 dynamic neighbors listen range  |
 
 ### Optional
 
 - `peer_group` (String) Peer group for this peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Peer-group name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Peer-group name  |

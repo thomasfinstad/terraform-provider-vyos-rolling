@@ -24,35 +24,19 @@ IGMP interface
 
 ### Optional
 
-- `join` (Attributes Map) IGMP join multicast group
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Multicast group address  | (see [below for nested schema](#nestedatt--join))
 - `query_interval` (String) IGMP host query interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-1800  |  Query interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-1800  |  Query interval in seconds  |
 - `query_max_response_time` (String) IGMP max query response time
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:10-250  |  Query response value in deci-seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:10-250  |  Query response value in deci-seconds  |
 - `version` (String) IGMP version
 
-|  Format  |  Description  |
-|----------|---------------|
-|  2  |  IGMP version 2  |
-|  3  |  IGMP version 3  |
-
-<a id="nestedatt--join"></a>
-### Nested Schema for `join`
-
-Optional:
-
-- `source` (String) Source address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Source address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  2  |  IGMP version 2  |
+    |  3  |  IGMP version 3  |

@@ -16,9 +16,9 @@ Universal Plug and Play (UPnP) service
 
 UPnP Rule
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Rule number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  Rule number  |
 
 
 
@@ -29,9 +29,9 @@ UPnP Rule
 
 - `identifier` (String) UPnP Rule
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Rule number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  Rule number  |
 
 ### Optional
 
@@ -39,19 +39,19 @@ UPnP Rule
 - `disable` (String) Disable instance
 - `external_port_range` (String) Port range (REQUIRE)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <port>  |  single port  |
-|  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <port>  |  single port  |
+    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
 - `internal_port_range` (String) Port range (REQUIRE)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <port>  |  single port  |
-|  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <port>  |  single port  |
+    |  <portN>-<portM>  |  Port range (use '-' as delimiter)  |
 - `ip` (String) The IP to which this rule applies (REQUIRE)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  The IPv4 address to which this rule applies  |
-|  ipv4net  |  The IPv4 to which this rule applies  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  The IPv4 address to which this rule applies  |
+    |  ipv4net  |  The IPv4 to which this rule applies  |

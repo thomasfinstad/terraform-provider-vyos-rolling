@@ -19,9 +19,9 @@ Service Policy definitions
 
 Priority queuing based policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 
 
@@ -32,330 +32,18 @@ Priority queuing based policy
 
 - `identifier` (String) Priority queuing based policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
-- `class` (Attributes Map) Class Handle
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-7  |  Priority  | (see [below for nested schema](#nestedatt--class))
 - `default` (Attributes) Default policy (see [below for nested schema](#nestedatt--default))
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-
-<a id="nestedatt--class"></a>
-### Nested Schema for `class`
-
-Optional:
-
-- `codel_quantum` (String) Deficit in the fair queuing algorithm
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1048576  |  Number of bytes used as 'deficit'  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `flows` (String) Number of flows into which the incoming packets are classified
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65536  |  Number of flows  |
-- `interval` (String) Interval used to measure the delay
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Interval in milliseconds  |
-- `match` (Attributes Map) Class matching rule name (see [below for nested schema](#nestedatt--class--match))
-- `queue_limit` (String) Maximum queue size
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Queue size in packets  |
-- `queue_type` (String) Queue type for default traffic
-
-|  Format  |  Description  |
-|----------|---------------|
-|  drop-tail  |  First-In-First-Out (FIFO)  |
-|  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-|  fq-codel  |  Fair Queue Codel  |
-|  priority  |  Priority queuing  |
-|  random-detect  |  Random Early Detection (RED)  |
-- `target` (String) Acceptable minimum standing/persistent queue delay
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Queue delay in milliseconds  |
-
-<a id="nestedatt--class--match"></a>
-### Nested Schema for `class.match`
-
-Optional:
-
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `ether` (Attributes) Ethernet header match (see [below for nested schema](#nestedatt--class--match--ether))
-- `interface` (String) Interface to use
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
-- `ip` (Attributes) Match IP protocol header (see [below for nested schema](#nestedatt--class--match--ip))
-- `ipv6` (Attributes) Match IPv6 protocol header (see [below for nested schema](#nestedatt--class--match--ipv6))
-- `mark` (String) Match on mark applied by firewall
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  FW mark to match  |
-- `vif` (String) Virtual Local Area Network (VLAN) ID for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4095  |  Virtual Local Area Network (VLAN) tag   |
-
-<a id="nestedatt--class--match--ether"></a>
-### Nested Schema for `class.match.ether`
-
-Optional:
-
-- `destination` (String) Ethernet destination address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  MAC address to match  |
-- `protocol` (String) Ethernet protocol for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Ethernet protocol number  |
-|  txt  |  Ethernet protocol name  |
-|  all  |  Any protocol  |
-|  ip  |  Internet IP (IPv4)  |
-|  ipv6  |  Internet IP (IPv6)  |
-|  arp  |  Address Resolution Protocol  |
-|  atalk  |  Appletalk  |
-|  ipx  |  Novell Internet Packet Exchange  |
-|  802.1Q  |  802.1Q VLAN tag  |
-- `source` (String) Ethernet source address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  MAC address to match  |
-
-
-<a id="nestedatt--class--match--ip"></a>
-### Nested Schema for `class.match.ip`
-
-Optional:
-
-- `destination` (Attributes) Match on destination port or address (see [below for nested schema](#nestedatt--class--match--ip--destination))
-- `dscp` (String) Match on Differentiated Services Codepoint (DSCP)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-63  |  Differentiated Services Codepoint (DSCP) value   |
-|  default  |  match DSCP (000000)  |
-|  reliability  |  match DSCP (000001)  |
-|  throughput  |  match DSCP (000010)  |
-|  lowdelay  |  match DSCP (000100)  |
-|  priority  |  match DSCP (001000)  |
-|  immediate  |  match DSCP (010000)  |
-|  flash  |  match DSCP (011000)  |
-|  flash-override  |  match DSCP (100000)  |
-|  critical  |  match DSCP (101000)  |
-|  internet  |  match DSCP (110000)  |
-|  network  |  match DSCP (111000)  |
-|  AF11  |  High-throughput data  |
-|  AF12  |  High-throughput data  |
-|  AF13  |  High-throughput data  |
-|  AF21  |  Low-latency data  |
-|  AF22  |  Low-latency data  |
-|  AF23  |  Low-latency data  |
-|  AF31  |  Multimedia streaming  |
-|  AF32  |  Multimedia streaming  |
-|  AF33  |  Multimedia streaming  |
-|  AF41  |  Multimedia conferencing  |
-|  AF42  |  Multimedia conferencing  |
-|  AF43  |  Multimedia conferencing  |
-|  CS1  |  Low-priority data  |
-|  CS2  |  OAM  |
-|  CS3  |  Broadcast video  |
-|  CS4  |  Real-time interactive  |
-|  CS5  |  Signaling  |
-|  CS6  |  Network control  |
-|  CS7  |    |
-|  EF  |  Expedited Forwarding  |
-- `max_length` (String) Maximum packet length
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Maximum packet/payload length  |
-- `protocol` (String) Protocol
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Protocol name  |
-- `source` (Attributes) Match on source port or address (see [below for nested schema](#nestedatt--class--match--ip--source))
-- `tcp` (Attributes) TCP Flags matching (see [below for nested schema](#nestedatt--class--match--ip--tcp))
-
-<a id="nestedatt--class--match--ip--destination"></a>
-### Nested Schema for `class.match.ip.tcp`
-
-Optional:
-
-- `address` (String) IPv4 destination address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-|  ipv4net  |  IPv4 prefix  |
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-
-
-<a id="nestedatt--class--match--ip--source"></a>
-### Nested Schema for `class.match.ip.tcp`
-
-Optional:
-
-- `address` (String) IPv4 destination address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address  |
-|  ipv4net  |  IPv4 prefix  |
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-
-
-<a id="nestedatt--class--match--ip--tcp"></a>
-### Nested Schema for `class.match.ip.tcp`
-
-Optional:
-
-- `ack` (String) Match TCP ACK
-- `syn` (String) Match TCP SYN
-
-
-
-<a id="nestedatt--class--match--ipv6"></a>
-### Nested Schema for `class.match.ipv6`
-
-Optional:
-
-- `destination` (Attributes) Match on destination port or address (see [below for nested schema](#nestedatt--class--match--ipv6--destination))
-- `dscp` (String) Match on Differentiated Services Codepoint (DSCP)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-63  |  Differentiated Services Codepoint (DSCP) value   |
-|  default  |  match DSCP (000000)  |
-|  reliability  |  match DSCP (000001)  |
-|  throughput  |  match DSCP (000010)  |
-|  lowdelay  |  match DSCP (000100)  |
-|  priority  |  match DSCP (001000)  |
-|  immediate  |  match DSCP (010000)  |
-|  flash  |  match DSCP (011000)  |
-|  flash-override  |  match DSCP (100000)  |
-|  critical  |  match DSCP (101000)  |
-|  internet  |  match DSCP (110000)  |
-|  network  |  match DSCP (111000)  |
-|  AF11  |  High-throughput data  |
-|  AF12  |  High-throughput data  |
-|  AF13  |  High-throughput data  |
-|  AF21  |  Low-latency data  |
-|  AF22  |  Low-latency data  |
-|  AF23  |  Low-latency data  |
-|  AF31  |  Multimedia streaming  |
-|  AF32  |  Multimedia streaming  |
-|  AF33  |  Multimedia streaming  |
-|  AF41  |  Multimedia conferencing  |
-|  AF42  |  Multimedia conferencing  |
-|  AF43  |  Multimedia conferencing  |
-|  CS1  |  Low-priority data  |
-|  CS2  |  OAM  |
-|  CS3  |  Broadcast video  |
-|  CS4  |  Real-time interactive  |
-|  CS5  |  Signaling  |
-|  CS6  |  Network control  |
-|  CS7  |    |
-|  EF  |  Expedited Forwarding  |
-- `max_length` (String) Maximum packet length
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Maximum packet/payload length  |
-- `protocol` (String) Protocol
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Protocol name  |
-- `source` (Attributes) Match on source port or address (see [below for nested schema](#nestedatt--class--match--ipv6--source))
-- `tcp` (Attributes) TCP Flags matching (see [below for nested schema](#nestedatt--class--match--ipv6--tcp))
-
-<a id="nestedatt--class--match--ipv6--destination"></a>
-### Nested Schema for `class.match.ipv6.tcp`
-
-Optional:
-
-- `address` (String) IPv6 destination address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-
-
-<a id="nestedatt--class--match--ipv6--source"></a>
-### Nested Schema for `class.match.ipv6.tcp`
-
-Optional:
-
-- `address` (String) IPv6 destination address for this match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-
-
-<a id="nestedatt--class--match--ipv6--tcp"></a>
-### Nested Schema for `class.match.ipv6.tcp`
-
-Optional:
-
-- `ack` (String) Match TCP ACK
-- `syn` (String) Match TCP SYN
-
-
-
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 
 <a id="nestedatt--default"></a>
 ### Nested Schema for `default`
@@ -364,35 +52,35 @@ Optional:
 
 - `codel_quantum` (String) Deficit in the fair queuing algorithm
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1048576  |  Number of bytes used as 'deficit'  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-1048576  |  Number of bytes used as 'deficit'  |
 - `flows` (String) Number of flows into which the incoming packets are classified
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65536  |  Number of flows  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65536  |  Number of flows  |
 - `interval` (String) Interval used to measure the delay
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Interval in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Interval in milliseconds  |
 - `queue_limit` (String) Maximum queue size
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Queue size in packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Queue size in packets  |
 - `queue_type` (String) Queue type for default traffic
 
-|  Format  |  Description  |
-|----------|---------------|
-|  drop-tail  |  First-In-First-Out (FIFO)  |
-|  fair-queue  |  Stochastic Fair Queue (SFQ)  |
-|  fq-codel  |  Fair Queue Codel  |
-|  priority  |  Priority queuing  |
-|  random-detect  |  Random Early Detection (RED)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  drop-tail  |  First-In-First-Out (FIFO)  |
+    |  fair-queue  |  Stochastic Fair Queue (SFQ)  |
+    |  fq-codel  |  Fair Queue Codel  |
+    |  priority  |  Priority queuing  |
+    |  random-detect  |  Random Early Detection (RED)  |
 - `target` (String) Acceptable minimum standing/persistent queue delay
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Queue delay in milliseconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Queue delay in milliseconds  |

@@ -30,16 +30,17 @@ func main() {
 
 	// Compile named TagNode based resources
 	for _, vyosInterface := range vyosInterfaces {
-		rootTagNodes, ok := vyosInterface.BaseTagNodes()
+		TagNodes, ok := vyosInterface.TagNodes()
 		if !ok {
 			continue
 		}
 
-		for _, rootTagNode := range rootTagNodes {
+		for _, tagNode := range TagNodes {
 
-			fmt.Printf("BaseTagNode: %s\n", rootTagNode.AbsName())
+			fmt.Printf("BaseTagNode: %s\n", tagNode.AbsName())
 
-			absDirName := strings.Join(rootTagNode.AbsName(), "-")
+			// Check if blacklisted
+			absDirName := fmt.Sprintf("%s/%s", tagNode.AbsName()[0], strings.Join(tagNode.AbsName()[1:], "-"))
 			shouldSkip := false
 			for _, skipDirAbsName := range skipDirAbsNames {
 				if absDirName == skipDirAbsName {
@@ -48,7 +49,7 @@ func main() {
 				}
 			}
 			if shouldSkip {
-				fmt.Printf("\nWARNING: [%s] Has been marked for skipping\n", rootTagNode.AbsName())
+				fmt.Printf("\nWARNING: [%s] Has been marked for skipping\n", tagNode.AbsName())
 				continue
 			}
 
@@ -68,49 +69,15 @@ func main() {
 
 			// Key/Value map of template-name = template-data
 			templateRuns := map[string]any{
-				"validate":                    rootTagNode,
-				"resource-tagnode-based-full": rootTagNode,
-				"metadata":                    rootTagNode,
-				"schema":                      rootTagNode,
-				"crud":                        rootTagNode,
+				"validate":                    tagNode,
+				"resource-tagnode-based-full": tagNode,
+				"metadata":                    tagNode,
+				"schema":                      tagNode,
+				"crud":                        tagNode,
 			}
 
 			for templateName, data := range templateRuns {
-				outputFile := fmt.Sprintf(
-					"%s/%s.go",
-					resourceOutputDir,
-					strings.Split(templateName, "-")[0],
-				)
-				fmt.Printf("Creating: %s\n", outputFile)
-				file, err := os.Create(outputFile)
-				if err != nil {
-					return
-				}
-				defer file.Close()
-
-				// Write Package
-				err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": strings.ToLower(rootPkgName + rootTagNode.BaseNameCG())})
-				if err != nil {
-					die(err)
-				}
-
-				// Write Imports
-				var importExtra []string
-				if templateName == "resource-tagnode-based-full" {
-					importExtra = []string{
-						fmt.Sprintf("%s/%s/%s", selfImportRoot, resourceOutputDir, resourceModelSubDir),
-					}
-				}
-				err = t.ExecuteTemplate(file, "imports", importExtra)
-				if err != nil {
-					die(err)
-				}
-
-				// Write template data
-				err = t.ExecuteTemplate(file, templateName, data)
-				if err != nil {
-					die(err)
-				}
+				resourceGeneration(resourceOutputDir, templateName, thisFilename, rootPkgName, tagNode, selfImportRoot, resourceModelSubDir, t, data)
 			}
 
 			// Create Resource model in subdir
@@ -119,50 +86,7 @@ func main() {
 				log.Fatal(err)
 			}
 
-			var resourceModelGeneration func(node interfacedefinition.NodeParent)
-			resourceModelGeneration = func(node interfacedefinition.NodeParent) {
-				outputFile := fmt.Sprintf("%s/%s.go", resourceModelOutputDir, strings.Join(node.AbsName(), "-"))
-				fmt.Printf("Creating: %s\n", outputFile)
-				file, err := os.Create(outputFile)
-				if err != nil {
-					return
-				}
-				defer file.Close()
-
-				// Write Package
-				err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": resourceModelSubDir})
-				if err != nil {
-					die(err)
-				}
-
-				// Write Imports
-				err = t.ExecuteTemplate(file, "imports", nil)
-				if err != nil {
-					die(err)
-				}
-
-				// Print template data
-				// for _, d := range node.GetChildren().LeafNodes() {
-				// 	fmt.Printf("[%T]: %v :::: %v\n", node, node, d)
-				// }
-
-				// Write the resource model
-				err = t.ExecuteTemplate(file, "resource-model", node)
-				if err != nil {
-					die(err)
-				}
-
-				// Recurse
-				c := node.GetChildren()
-				for _, n := range c.TagNodes() {
-					resourceModelGeneration(n)
-				}
-				for _, n := range c.Nodes() {
-					resourceModelGeneration(n)
-				}
-			}
-
-			resourceModelGeneration(rootTagNode)
+			resourceModelGeneration(resourceModelOutputDir, tagNode, t, thisFilename, resourceModelSubDir)
 
 			fmt.Printf("Done...\n\n")
 		}
@@ -174,5 +98,86 @@ func main() {
 func die(err error) {
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func resourceGeneration(resourceOutputDir string, templateName string, thisFilename string, rootPkgName string, rootTagNode *interfacedefinition.TagNode, selfImportRoot string, resourceModelSubDir string, t *template.Template, data any) {
+	// Format outpout file name
+	outputFile := fmt.Sprintf(
+		"%s/%s.go",
+		resourceOutputDir,
+		strings.Split(templateName, "-")[0],
+	)
+	fmt.Printf("Creating: %s\n", outputFile)
+	file, err := os.Create(outputFile)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	// Write Package
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": strings.ToLower(rootPkgName + rootTagNode.BaseNameCG())})
+	if err != nil {
+		die(err)
+	}
+
+	// Write Imports
+	var importExtra []string
+	if templateName == "resource-tagnode-based-full" {
+		importExtra = []string{
+			fmt.Sprintf("%s/%s/%s", selfImportRoot, resourceOutputDir, resourceModelSubDir),
+		}
+	}
+	err = t.ExecuteTemplate(file, "imports", importExtra)
+	if err != nil {
+		die(err)
+	}
+
+	// Write template data
+	err = t.ExecuteTemplate(file, templateName, data)
+	if err != nil {
+		die(err)
+	}
+}
+
+func resourceModelGeneration(resourceModelOutputDir string, node interfacedefinition.NodeParent, t *template.Template, thisFilename string, resourceModelSubDir string) {
+	outputFile := fmt.Sprintf("%s/%s.go", resourceModelOutputDir, strings.Join(node.AbsName(), "-"))
+	fmt.Printf("Creating: %s\n", outputFile)
+	file, err := os.Create(outputFile)
+	if err != nil {
+		return
+	}
+	defer file.Close()
+
+	// Write Package
+	err = t.ExecuteTemplate(file, "package", map[string]string{"caller": thisFilename, "pkg": resourceModelSubDir})
+	if err != nil {
+		die(err)
+	}
+
+	// Write Imports
+	err = t.ExecuteTemplate(file, "imports", nil)
+	if err != nil {
+		die(err)
+	}
+
+	// Print template data
+	// for _, d := range node.GetChildren().LeafNodes() {
+	// 	fmt.Printf("[%T]: %v :::: %v\n", node, node, d)
+	// }
+
+	// Write the resource model
+	err = t.ExecuteTemplate(file, "resource-model", node)
+	if err != nil {
+		die(err)
+	}
+
+	// Recurse
+	c := node.GetChildren()
+	// for _, n := range c.TagNodes() {
+	// 	resourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
+	// }
+	for _, n := range c.Nodes() {
+		resourceModelGeneration(resourceModelOutputDir, n, t, thisFilename, resourceModelSubDir)
 	}
 }

@@ -19,9 +19,9 @@ Configure Wide Area Network (WAN) load-balancing
 
 Rule number (1-9999)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-9999  |  Rule number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-9999  |  Rule number  |
 
 
 
@@ -32,33 +32,32 @@ Rule number (1-9999)
 
 - `identifier` (String) Rule number (1-9999)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-9999  |  Rule number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-9999  |  Rule number  |
 
 ### Optional
 
 - `description` (String) Description for this rule
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description for this rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description for this rule  |
 - `destination` (Attributes) Destination (see [below for nested schema](#nestedatt--destination))
 - `exclude` (String) Exclude packets matching this rule from WAN load balance
 - `failover` (String) Enable failover for packets matching this rule from WAN load balance
 - `inbound_interface` (String) Inbound interface name (e.g., "eth0") [REQUIRED]
-- `interface` (Attributes Map) Interface name [REQUIRED] (see [below for nested schema](#nestedatt--interface))
 - `limit` (Attributes) Enable packet limit for this rule (see [below for nested schema](#nestedatt--limit))
 - `per_packet_balancing` (String) Option to match traffic per-packet instead of the default, per-flow
 - `protocol` (String) Protocol to match (protocol name, number, or "all")
 
-|  Format  |  Description  |
-|----------|---------------|
-|  all  |  All IP protocols  |
-|  tcp_udp  |  Both TCP and UDP  |
-|  u32:0-255  |  IP protocol number  |
-|  <protocol>  |  IP protocol name  |
-|  !<protocol>  |  IP protocol name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  all  |  All IP protocols  |
+    |  tcp_udp  |  Both TCP and UDP  |
+    |  u32:0-255  |  IP protocol number  |
+    |  <protocol>  |  IP protocol name  |
+    |  !<protocol>  |  IP protocol name  |
 - `source` (Attributes) Source information (see [below for nested schema](#nestedatt--source))
 
 <a id="nestedatt--destination"></a>
@@ -68,34 +67,22 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
-
-
-<a id="nestedatt--interface"></a>
-### Nested Schema for `interface`
-
-Optional:
-
-- `weight` (String) Load-balance weight
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Interface weight  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |
 
 
 <a id="nestedatt--limit"></a>
@@ -105,27 +92,27 @@ Optional:
 
 - `burst` (String) Burst limit for matching packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4294967295  |  Burst limit for matching packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4294967295  |  Burst limit for matching packets  |
 - `period` (String) Time window for rate calculation
 
-|  Format  |  Description  |
-|----------|---------------|
-|  hour  |  hour  |
-|  minute  |  minute  |
-|  second  |  second  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  hour  |  hour  |
+    |  minute  |  minute  |
+    |  second  |  second  |
 - `rate` (String) Number of packets used for rate limit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4294967295  |  Number of packets used for rate limit  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-4294967295  |  Number of packets used for rate limit  |
 - `threshold` (String) Threshold behavior for limit
 
-|  Format  |  Description  |
-|----------|---------------|
-|  above  |  Above limit  |
-|  below  |  Below limit  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  above  |  Above limit  |
+    |  below  |  Below limit  |
 
 
 <a id="nestedatt--source"></a>
@@ -135,19 +122,19 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |

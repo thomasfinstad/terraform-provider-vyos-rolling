@@ -16,9 +16,9 @@ Failover Routing
 
 Failover IPv4 route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 failover route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 failover route  |
 
 
 
@@ -29,59 +29,6 @@ Failover IPv4 route
 
 - `identifier` (String) Failover IPv4 route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 failover route  |
-
-### Optional
-
-- `next_hop` (Attributes Map) Next-hop IPv4 router address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Next-hop router address  | (see [below for nested schema](#nestedatt--next_hop))
-
-<a id="nestedatt--next_hop"></a>
-### Nested Schema for `next_hop`
-
-Optional:
-
-- `check` (Attributes) Check target options (see [below for nested schema](#nestedatt--next_hop--check))
-- `interface` (String) Gateway interface name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  |
-- `metric` (String) Route metric for this gateway
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Route metric  |
-
-<a id="nestedatt--next_hop--check"></a>
-### Nested Schema for `next_hop.check`
-
-Optional:
-
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-- `target` (String) Check target address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Address to check  |
-- `timeout` (String) Timeout between checks
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-300  |  Timeout in seconds between checks  |
-- `type` (String) Check type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  arp  |  Check target by ARP  |
-|  icmp  |  Check target by ICMP  |
-|  tcp  |  Check target by TCP  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 failover route  |

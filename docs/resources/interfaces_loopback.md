@@ -13,9 +13,9 @@ description: |-
 
 Loopback Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  lo  |  Loopback interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  lo  |  Loopback interface  |
 
 
 
@@ -26,30 +26,30 @@ Loopback Interface
 
 - `identifier` (String) Loopback Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  lo  |  Loopback interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  lo  |  Loopback interface  |
 
 ### Optional
 
 - `address` (String) IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv6net  |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -58,11 +58,11 @@ Optional:
 
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  |  No source validation  |
 
 
 <a id="nestedatt--mirror"></a>
@@ -72,11 +72,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |

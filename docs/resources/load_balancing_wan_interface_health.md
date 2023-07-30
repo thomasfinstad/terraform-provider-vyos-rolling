@@ -29,55 +29,17 @@ Interface name
 
 - `failure_count` (String) Failure count
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Failure count  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-10  |  Failure count  |
 - `nexthop` (String) Outbound interface nexthop address. Can be 'DHCP or IPv4 address' [REQUIRED]
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Nexthop IP address  |
-|  dhcp  |  Set the nexthop via DHCP  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Nexthop IP address  |
+    |  dhcp  |  Set the nexthop via DHCP  |
 - `success_count` (String) Success count
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-10  |  Success count  |
-- `test` (Attributes Map) Rule number
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4294967295  |  Rule number  | (see [below for nested schema](#nestedatt--test))
-
-<a id="nestedatt--test"></a>
-### Nested Schema for `test`
-
-Optional:
-
-- `resp_time` (String) Ping response time (seconds)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-30  |  Response time (seconds)  |
-- `target` (String) Health target address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Health target address  |
-- `test_script` (String) Path to user-defined script
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Script in /config/scripts  |
-- `ttl_limit` (String) TTL limit (hop count)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-254  |  Number of hops  |
-- `type` (String) WLB test type
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ping  |  Test with ICMP echo response  |
-|  ttl  |  Test with UDP TTL expired response  |
-|  user-defined  |  User-defined test script  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-10  |  Success count  |

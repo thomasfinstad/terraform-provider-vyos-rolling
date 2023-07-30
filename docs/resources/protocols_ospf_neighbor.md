@@ -16,9 +16,9 @@ Open Shortest Path First (OSPF)
 
 Specify neighbor router
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Neighbor IP address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Neighbor IP address  |
 
 
 
@@ -29,19 +29,19 @@ Specify neighbor router
 
 - `identifier` (String) Specify neighbor router
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Neighbor IP address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Neighbor IP address  |
 
 ### Optional
 
 - `poll_interval` (String) Dead neighbor polling interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Seconds between dead neighbor polling interval  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Seconds between dead neighbor polling interval  |
 - `priority` (String) Neighbor priority in seconds
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  Neighbor priority  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-255  |  Neighbor priority  |

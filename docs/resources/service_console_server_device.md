@@ -17,10 +17,10 @@ Serial Console Server
 
 System serial interface name (ttyS or ttyUSB)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ttySxxx  |  Regular serial interface  |
-|  usbxbxpx  |  USB based serial interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ttySxxx  |  Regular serial interface  |
+    |  usbxbxpx  |  USB based serial interface  |
 
 
 
@@ -31,10 +31,10 @@ System serial interface name (ttyS or ttyUSB)
 
 - `identifier` (String) System serial interface name (ttyS or ttyUSB)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ttySxxx  |  Regular serial interface  |
-|  usbxbxpx  |  USB based serial interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ttySxxx  |  Regular serial interface  |
+    |  usbxbxpx  |  USB based serial interface  |
 
 ### Optional
 
@@ -42,9 +42,9 @@ System serial interface name (ttyS or ttyUSB)
 - `data_bits` (String) Serial port data bits
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `parity` (String) Parity setting
 - `speed` (String) Serial port baud rate
 - `ssh` (Attributes) SSH remote access to this console (see [below for nested schema](#nestedatt--ssh))
@@ -57,6 +57,6 @@ Optional:
 
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

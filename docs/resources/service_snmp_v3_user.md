@@ -31,10 +31,10 @@ Specifies the user with name username
 - `group` (String) Specifies group for user name
 - `mode` (String) Define access permission
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ro  |  Read-Only  |
-|  rw  |  read write  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ro  |  Read-Only  |
+    |  rw  |  read write  |
 - `privacy` (Attributes) Defines the privacy (see [below for nested schema](#nestedatt--privacy))
 
 <a id="nestedatt--auth"></a>
@@ -46,10 +46,10 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for authentication
 - `type` (String) Define used protocol
 
-|  Format  |  Description  |
-|----------|---------------|
-|  md5  |  Message Digest 5  |
-|  sha  |  Secure Hash Algorithm  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  md5  |  Message Digest 5  |
+    |  sha  |  Secure Hash Algorithm  |
 
 
 <a id="nestedatt--privacy"></a>
@@ -61,7 +61,7 @@ Optional:
 - `plaintext_password` (String) Defines the clear text key for privacy protocol
 - `type` (String) Defines the protocol for privacy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  des  |  Data Encryption Standard  |
-|  aes  |  Advanced Encryption Standard  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  des  |  Data Encryption Standard  |
+    |  aes  |  Advanced Encryption Standard  |

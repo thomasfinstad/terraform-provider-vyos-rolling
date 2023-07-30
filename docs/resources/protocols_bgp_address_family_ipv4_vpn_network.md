@@ -22,9 +22,9 @@ Unicast VPN IPv4 BGP settings
 
 Import BGP network/prefix into unicast VPN IPv4 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
 
 
 
@@ -35,19 +35,19 @@ Import BGP network/prefix into unicast VPN IPv4 RIB
 
 - `identifier` (String) Import BGP network/prefix into unicast VPN IPv4 RIB
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Unicast VPN IPv4 BGP network/prefix  |
 
 ### Optional
 
 - `label` (String) MPLS label value assigned to route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-1048575  |  MPLS label value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-1048575  |  MPLS label value  |
 - `rd` (String) Route Distinguisher
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ASN:NN_OR_IP-ADDRESS:NN  |  Route Distinguisher, (x.x.x.x:yyy|xxxx:yyyy)  |

@@ -22,9 +22,9 @@ IPv4 BGP settings
 
 BGP network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  BGP network  |
 
 
 
@@ -35,15 +35,15 @@ BGP network
 
 - `identifier` (String) BGP network
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  BGP network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  BGP network  |
 
 ### Optional
 
 - `backdoor` (String) Network as a backdoor route
 - `route_map` (String) Specify route-map name to use
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Route map name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Route map name  |

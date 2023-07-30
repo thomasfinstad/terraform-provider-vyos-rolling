@@ -16,9 +16,9 @@ Task scheduler settings
 
 Scheduled task
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Task name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Task name  |
 
 
 
@@ -29,9 +29,9 @@ Scheduled task
 
 - `identifier` (String) Scheduled task
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Task name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Task name  |
 
 ### Optional
 
@@ -39,12 +39,12 @@ Scheduled task
 - `executable` (Attributes) Executable path and arguments (see [below for nested schema](#nestedatt--executable))
 - `interval` (String) Execution interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <minutes>  |  Execution interval in minutes  |
-|  <minutes>m  |  Execution interval in minutes  |
-|  <hours>h  |  Execution interval in hours  |
-|  <days>d  |  Execution interval in days  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <minutes>  |  Execution interval in minutes  |
+    |  <minutes>m  |  Execution interval in minutes  |
+    |  <hours>h  |  Execution interval in hours  |
+    |  <days>d  |  Execution interval in days  |
 
 <a id="nestedatt--executable"></a>
 ### Nested Schema for `executable`

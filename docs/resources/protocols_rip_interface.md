@@ -16,9 +16,9 @@ Routing Information Protocol (RIP) parameters
 
 Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 
 
@@ -29,9 +29,9 @@ Interface name
 
 - `identifier` (String) Interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface name  |
 
 ### Optional
 
@@ -45,28 +45,11 @@ Interface name
 
 Optional:
 
-- `md5` (Attributes Map) MD5 key id
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  OSPF key id  | (see [below for nested schema](#nestedatt--authentication--md5))
 - `plaintext_password` (String) Plain text password
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Plain text password (16 characters or less)  |
-
-<a id="nestedatt--authentication--md5"></a>
-### Nested Schema for `authentication.md5`
-
-Optional:
-
-- `password` (String) Authentication password
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  MD5 Key (16 characters or less)  |
-
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Plain text password (16 characters or less)  |
 
 
 <a id="nestedatt--receive"></a>
@@ -76,10 +59,10 @@ Optional:
 
 - `version` (String) Limit RIP protocol version
 
-|  Format  |  Description  |
-|----------|---------------|
-|  1  |  Allow RIPv1 only  |
-|  2  |  Allow RIPv2 only  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1  |  Allow RIPv1 only  |
+    |  2  |  Allow RIPv2 only  |
 
 
 <a id="nestedatt--send"></a>
@@ -89,10 +72,10 @@ Optional:
 
 - `version` (String) Limit RIP protocol version
 
-|  Format  |  Description  |
-|----------|---------------|
-|  1  |  Allow RIPv1 only  |
-|  2  |  Allow RIPv2 only  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  1  |  Allow RIPv1 only  |
+    |  2  |  Allow RIPv2 only  |
 
 
 <a id="nestedatt--split_horizon"></a>

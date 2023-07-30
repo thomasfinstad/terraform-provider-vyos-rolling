@@ -13,9 +13,9 @@ description: |-
 
 Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  pppoeN  |  PPPoE dialer interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pppoeN  |  PPPoE dialer interface name  |
 
 
 
@@ -26,9 +26,9 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
 - `identifier` (String) Point-to-Point Protocol over Ethernet (PPPoE) Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  pppoeN  |  PPPoE dialer interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pppoeN  |  PPPoE dialer interface name  |
 
 ### Optional
 
@@ -37,62 +37,62 @@ Point-to-Point Protocol over Ethernet (PPPoE) Interface
 - `connect_on_demand` (String) Establishment connection automatically when traffic is sent
 - `default_route_distance` (String) Distance for installed default route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (String) Administratively disable interface
 - `host_uniq` (String) PPPoE RFC2516 host-uniq tag
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Host-uniq tag as byte string in HEX  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Host-uniq tag as byte string in HEX  |
 - `idle_timeout` (String) Delay before disconnecting idle session (in seconds)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-86400  |  Idle timeout in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-86400  |  Idle timeout in seconds  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `local_address` (String) IPv4 address of local end of the PPPoE link
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Address of local end of the PPPoE link  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Address of local end of the PPPoE link  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (String) Maximum Transmission Unit (MTU)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
 - `no_default_route` (String) Do not install default route to system
 - `no_peer_dns` (String) Do not use DNS servers provided by the peer
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `remote_address` (String) IPv4 address of remote end of the PPPoE link
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Address of remote end of the PPPoE link  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Address of remote end of the PPPoE link  |
 - `service_name` (String) Service name, only connect to access concentrators advertising this
 - `source_interface` (String) Interface used to establish connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  interface  |  Interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  interface  |  Interface name  |
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -101,14 +101,14 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Password  |
 - `username` (String) Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username  |
 
 
 <a id="nestedatt--dhcpv6_options"></a>
@@ -118,47 +118,12 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-|  Format  |  Description  |
-|----------|---------------|
-|  duid  |  DHCP unique identifier (DUID)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  duid  |  DHCP unique identifier (DUID)  |
 - `parameters_only` (String) Acquire only config parameters, no address
-- `pd` (Attributes Map) DHCPv6 prefix delegation interface statement
-
-|  Format  |  Description  |
-|----------|---------------|
-|  instance number  |  Prefix delegation instance (>= 0)  | (see [below for nested schema](#nestedatt--dhcpv6_options--pd))
 - `rapid_commit` (String) Wait for immediate reply instead of advertisements
 - `temporary` (String) IPv6 temporary address
-
-<a id="nestedatt--dhcpv6_options--pd"></a>
-### Nested Schema for `dhcpv6_options.pd`
-
-Optional:
-
-- `interface` (Attributes Map) Delegate IPv6 prefix from provider to this interface (see [below for nested schema](#nestedatt--dhcpv6_options--pd--interface))
-- `length` (String) Request IPv6 prefix length from peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Length of delegated prefix  |
-
-<a id="nestedatt--dhcpv6_options--pd--interface"></a>
-### Nested Schema for `dhcpv6_options.pd.interface`
-
-Optional:
-
-- `address` (String) Local interface address assigned to interface (default: EUI-64)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
-
-
 
 
 <a id="nestedatt--ip"></a>
@@ -168,18 +133,18 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -190,10 +155,10 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 
 <a id="nestedatt--ipv6--address"></a>
@@ -212,11 +177,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |

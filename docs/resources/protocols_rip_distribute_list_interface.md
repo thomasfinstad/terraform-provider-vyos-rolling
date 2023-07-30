@@ -19,9 +19,9 @@ Filter networks in routing updates
 
 Apply filtering to an interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Apply filtering to an interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Apply filtering to an interface  |
 
 
 
@@ -32,9 +32,9 @@ Apply filtering to an interface
 
 - `identifier` (String) Apply filtering to an interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Apply filtering to an interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Apply filtering to an interface  |
 
 ### Optional
 
@@ -48,14 +48,14 @@ Optional:
 
 - `in` (String) Access list to apply to input packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access list to apply to input packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Access list to apply to input packets  |
 - `out` (String) Access list to apply to output packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32  |  Access list to apply to output packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32  |  Access list to apply to output packets  |
 
 
 <a id="nestedatt--prefix_list"></a>
@@ -65,11 +65,11 @@ Optional:
 
 - `in` (String) Prefix-list to apply to input packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Prefix-list to apply to input packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Prefix-list to apply to input packets  |
 - `out` (String) Prefix-list to apply to output packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Prefix-list to apply to output packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Prefix-list to apply to output packets  |

@@ -16,9 +16,9 @@ Routing policy
 
 Add a BGP autonomous system path filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  AS path list name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  AS path list name  |
 
 
 
@@ -29,41 +29,14 @@ Add a BGP autonomous system path filter
 
 - `identifier` (String) Add a BGP autonomous system path filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  AS path list name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  AS path list name  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `rule` (Attributes Map) Rule for this as-path-list
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  AS path list rule number  | (see [below for nested schema](#nestedatt--rule))
-
-<a id="nestedatt--rule"></a>
-### Nested Schema for `rule`
-
-Optional:
-
-- `action` (String) Action to take on entries matching this rule
-
-|  Format  |  Description  |
-|----------|---------------|
-|  permit  |  Permit matching entries  |
-|  deny  |  Deny matching entries  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `regex` (String) Regular expression to match against an AS path
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  AS path regular expression (ex: "64501 64502")  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

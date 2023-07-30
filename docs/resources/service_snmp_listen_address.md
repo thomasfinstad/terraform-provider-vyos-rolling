@@ -17,10 +17,10 @@ Simple Network Management Protocol (SNMP)
 
 IP address to listen for incoming SNMP requests
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-|  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
+    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
 
 
 
@@ -31,15 +31,15 @@ IP address to listen for incoming SNMP requests
 
 - `identifier` (String) IP address to listen for incoming SNMP requests
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
-|  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to listen for incoming SNMP requests  |
+    |  ipv6  |  IPv6 address to listen for incoming SNMP requests  |
 
 ### Optional
 
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |

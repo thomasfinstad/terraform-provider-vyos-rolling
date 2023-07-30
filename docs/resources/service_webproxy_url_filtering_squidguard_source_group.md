@@ -22,9 +22,9 @@ URL filtering via squidGuard redirector
 
 Source group name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  name  |  Name of source group  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  name  |  Name of source group  |
 
 
 
@@ -35,25 +35,25 @@ Source group name
 
 - `identifier` (String) Source group name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  name  |  Name of source group  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  name  |  Name of source group  |
 
 ### Optional
 
 - `address` (String) Address for source-group
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
 - `description` (String) Description for source-group
 - `domain` (String) Domain for source-group
 
-|  Format  |  Description  |
-|----------|---------------|
-|  domain  |  Domain name for the source-group  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  domain  |  Domain name for the source-group  |
 - `ldap_ip_search` (String) LDAP search expression for an IP address list
 - `ldap_user_search` (String) LDAP search expression for a user group
 - `user` (String) List of user names

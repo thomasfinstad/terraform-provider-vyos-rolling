@@ -29,9 +29,9 @@ VRRP sync group
 
 - `member` (String) Sync group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRRP group name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRRP group name  |
 - `transition_script` (Attributes) VRRP transition scripts (see [below for nested schema](#nestedatt--transition_script))
 
 <a id="nestedatt--transition_script"></a>

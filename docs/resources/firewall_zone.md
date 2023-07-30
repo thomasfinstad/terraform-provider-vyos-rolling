@@ -16,9 +16,9 @@ Firewall
 
 Zone-policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Zone name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Zone name  |
 
 
 
@@ -29,49 +29,31 @@ Zone-policy
 
 - `identifier` (String) Zone-policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Zone name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Zone name  |
 
 ### Optional
 
 - `default_action` (String) Default-action for traffic coming into this zone
 
-|  Format  |  Description  |
-|----------|---------------|
-|  drop  |  Drop silently  |
-|  reject  |  Drop and notify source  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  drop  |  Drop silently  |
+    |  reject  |  Drop and notify source  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `enable_default_log` (String) Log packets hitting default-action
-- `from` (Attributes Map) Zone from which to filter traffic (see [below for nested schema](#nestedatt--from))
 - `interface` (String) Interface associated with zone
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Interface associated with zone  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Interface associated with zone  |
 - `intra_zone_filtering` (Attributes) Intra-zone filtering (see [below for nested schema](#nestedatt--intra_zone_filtering))
 - `local_zone` (String) Zone to be local-zone
-
-<a id="nestedatt--from"></a>
-### Nested Schema for `from`
-
-Optional:
-
-- `firewall` (Attributes) Firewall options (see [below for nested schema](#nestedatt--from--firewall))
-
-<a id="nestedatt--from--firewall"></a>
-### Nested Schema for `from.firewall`
-
-Optional:
-
-- `ipv6_name` (String) IPv6 firewall ruleset
-- `name` (String) IPv4 firewall ruleset
-
-
 
 <a id="nestedatt--intra_zone_filtering"></a>
 ### Nested Schema for `intra_zone_filtering`
@@ -80,10 +62,10 @@ Optional:
 
 - `action` (String) Action for intra-zone traffic
 
-|  Format  |  Description  |
-|----------|---------------|
-|  accept  |  Accept traffic  |
-|  drop  |  Drop silently  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  accept  |  Accept traffic  |
+    |  drop  |  Drop silently  |
 - `firewall` (Attributes) Use the specified firewall chain (see [below for nested schema](#nestedatt--intra_zone_filtering--firewall))
 
 <a id="nestedatt--intra_zone_filtering--firewall"></a>

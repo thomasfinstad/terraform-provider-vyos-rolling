@@ -26,14 +26,14 @@ Identifier for virtual host
 
 - `listen_address` (String) Address to listen for HTTPS requests
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  HTTPS IPv4 address  |
-|  ipv6  |  HTTPS IPv6 address  |
-|  '&'  |  any  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  HTTPS IPv4 address  |
+    |  ipv6  |  HTTPS IPv6 address  |
+    |  '&'  |  any  |
 - `listen_port` (String) Port to listen for HTTPS requests; default 443
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `server_name` (String) Server names: exact, wildcard, or regex

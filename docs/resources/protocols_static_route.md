@@ -19,9 +19,9 @@ Static Routing
 
 Static IPv4 route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 static route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 static route  |
 
 
 
@@ -32,33 +32,23 @@ Static IPv4 route
 
 - `identifier` (String) Static IPv4 route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 static route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 static route  |
 
 ### Optional
 
 - `blackhole` (Attributes) Silently discard pkts when matched (see [below for nested schema](#nestedatt--blackhole))
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `dhcp_interface` (String) DHCP interface supplying next-hop IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  DHCP interface name  |
-- `interface` (Attributes Map) Next-hop IPv4 router interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  | (see [below for nested schema](#nestedatt--interface))
-- `next_hop` (Attributes Map) Next-hop IPv4 router address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Next-hop router address  | (see [below for nested schema](#nestedatt--next_hop))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  DHCP interface name  |
 - `reject` (Attributes) Emit an ICMP unreachable when matched (see [below for nested schema](#nestedatt--reject))
 
 <a id="nestedatt--blackhole"></a>
@@ -68,55 +58,14 @@ Optional:
 
 - `distance` (String) Distance for this route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for this route  |
 - `tag` (String) Tag value for this route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |
-
-
-<a id="nestedatt--interface"></a>
-### Nested Schema for `interface`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
-
-
-<a id="nestedatt--next_hop"></a>
-### Nested Schema for `next_hop`
-
-Optional:
-
-- `disable` (String) Disable instance
-- `distance` (String) Distance for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
-- `interface` (String) Gateway interface name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Gateway interface name  |
-- `vrf` (String) VRF to leak route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of VRF to leak to  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Tag value for this route  |
 
 
 <a id="nestedatt--reject"></a>
@@ -126,11 +75,11 @@ Optional:
 
 - `distance` (String) Distance for this route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for this route  |
 - `tag` (String) Tag value for this route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Tag value for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Tag value for this route  |

@@ -13,9 +13,9 @@ description: |-
 
 Secure Socket Tunneling Protocol (SSTP) client Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
 
 
 
@@ -26,48 +26,48 @@ Secure Socket Tunneling Protocol (SSTP) client Interface
 
 - `identifier` (String) Secure Socket Tunneling Protocol (SSTP) client Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  sstpcN  |  Secure Socket Tunneling Protocol interface name  |
 
 ### Optional
 
 - `authentication` (Attributes) Authentication settings (see [below for nested schema](#nestedatt--authentication))
 - `default_route_distance` (String) Distance for installed default route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Administratively disable interface
 - `mtu` (String) Maximum Transmission Unit (MTU)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-1500  |  Maximum Transmission Unit in byte  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:68-1500  |  Maximum Transmission Unit in byte  |
 - `no_default_route` (String) Do not install default route to system
 - `no_peer_dns` (String) Do not use DNS servers provided by the peer
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `server` (String) Remote server to connect to
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Server IPv4 address  |
-|  hostname  |  Server hostname/FQDN  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Server IPv4 address  |
+    |  hostname  |  Server hostname/FQDN  |
 - `ssl` (Attributes) Secure Sockets Layer (SSL) configuration (see [below for nested schema](#nestedatt--ssl))
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 <a id="nestedatt--authentication"></a>
 ### Nested Schema for `authentication`
@@ -76,14 +76,14 @@ Optional:
 
 - `password` (String) Password used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Password  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Password  |
 - `username` (String) Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username  |
 
 
 <a id="nestedatt--ssl"></a>
@@ -93,6 +93,6 @@ Optional:
 
 - `ca_certificate` (String) Certificate Authority in PKI configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of CA in PKI configuration  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of CA in PKI configuration  |

@@ -16,9 +16,9 @@ Routing policy
 
 IP prefix-list filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv4 prefix-list  |
 
 
 
@@ -29,51 +29,14 @@ IP prefix-list filter
 
 - `identifier` (String) IP prefix-list filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv4 prefix-list  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv4 prefix-list  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `rule` (Attributes Map) Rule for this prefix-list
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Prefix-list rule number  | (see [below for nested schema](#nestedatt--rule))
-
-<a id="nestedatt--rule"></a>
-### Nested Schema for `rule`
-
-Optional:
-
-- `action` (String) Action to take on entries matching this rule
-
-|  Format  |  Description  |
-|----------|---------------|
-|  permit  |  Permit matching entries  |
-|  deny  |  Deny matching entries  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `ge` (String) Prefix length to match a netmask greater than or equal to it
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-32  |  Netmask greater than length  |
-- `le` (String) Prefix length to match a netmask less than or equal to it
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-32  |  Netmask less than length  |
-- `prefix` (String) Prefix to match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Prefix to match against  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

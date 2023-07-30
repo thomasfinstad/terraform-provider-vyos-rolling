@@ -19,9 +19,9 @@ VPN IP security (IPsec) parameters
 
 VPN IPsec profile
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Profile name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Profile name  |
 
 
 
@@ -32,9 +32,9 @@ VPN IPsec profile
 
 - `identifier` (String) VPN IPsec profile
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Profile name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Profile name  |
 
 ### Optional
 
@@ -51,14 +51,14 @@ Optional:
 
 - `mode` (String) Authentication mode
 
-|  Format  |  Description  |
-|----------|---------------|
-|  pre-shared-secret  |  Use a pre-shared secret key  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  pre-shared-secret  |  Use a pre-shared secret key  |
 - `pre_shared_secret` (String) Pre-shared secret key
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Pre-shared secret key  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Pre-shared secret key  |
 
 
 <a id="nestedatt--bind"></a>
@@ -68,6 +68,6 @@ Optional:
 
 - `tunnel` (String) Tunnel interface associated with this profile
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Associated interface to this profile  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Associated interface to this profile  |

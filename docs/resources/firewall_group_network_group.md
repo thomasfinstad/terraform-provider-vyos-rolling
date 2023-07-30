@@ -29,12 +29,12 @@ Firewall network-group
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another network-group
 - `network` (String) Network-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 Subnet to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 Subnet to match  |

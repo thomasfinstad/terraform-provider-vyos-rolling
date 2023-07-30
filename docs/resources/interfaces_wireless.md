@@ -13,9 +13,9 @@ description: |-
 
 Wireless (WiFi/WLAN) Network Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
 
 
 
@@ -26,38 +26,38 @@ Wireless (WiFi/WLAN) Network Interface
 
 - `identifier` (String) Wireless (WiFi/WLAN) Network Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  wlanN  |  Wireless (WiFi/WLAN) interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wlanN  |  Wireless (WiFi/WLAN) interface name  |
 
 ### Optional
 
 - `address` (String) IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
-|  dhcp  |  Dynamic Host Configuration Protocol  |
-|  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv6net  |  IPv6 address and prefix length  |
+    |  dhcp  |  Dynamic Host Configuration Protocol  |
+    |  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
 - `capabilities` (Attributes) HT and VHT capabilities for your card (see [below for nested schema](#nestedatt--capabilities))
 - `channel` (String) Wireless radio channel
 
-|  Format  |  Description  |
-|----------|---------------|
-|  0  |  Automatic Channel Selection (ACS)  |
-|  u32:1-14  |  2.4Ghz (802.11 b/g/n) Channel  |
-|  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  0  |  Automatic Channel Selection (ACS)  |
+    |  u32:1-14  |  2.4Ghz (802.11 b/g/n) Channel  |
+    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) Channel  |
 - `country_code` (String) Indicate country in which device is operating
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  ISO/IEC 3166-1 Country Code  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  ISO/IEC 3166-1 Country Code  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--dhcp_options))
 - `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--dhcpv6_options))
 - `disable` (String) Administratively disable interface
@@ -66,74 +66,64 @@ Wireless (WiFi/WLAN) Network Interface
 - `expunge_failing_stations` (String) Disassociate stations based on excessive transmission failures
 - `hw_id` (String) Associate Ethernet Interface with given Media Access Control (MAC) address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  macaddr  |  Hardware (MAC) address  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `isolate_stations` (String) Isolate stations on the AP so they cannot see each other
 - `mac` (String) Media Access Control (MAC) address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  macaddr  |  Hardware (MAC) address  |
 - `max_stations` (String) Maximum number of wireless radio stations. Excess stations will be rejected upon authentication request.
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-2007  |  Number of allowed stations  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-2007  |  Number of allowed stations  |
 - `mgmt_frame_protection` (String) Management Frame Protection (MFP) according to IEEE 802.11w
 
-|  Format  |  Description  |
-|----------|---------------|
-|  disabled  |  no MFP  |
-|  optional  |  MFP optional  |
-|  required  |  MFP enforced  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  disabled  |  no MFP  |
+    |  optional  |  MFP optional  |
+    |  required  |  MFP enforced  |
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mode` (String) Wireless radio mode
 
-|  Format  |  Description  |
-|----------|---------------|
-|  a  |  802.11a - 54 Mbits/sec  |
-|  b  |  802.11b - 11 Mbits/sec  |
-|  g  |  802.11g - 54 Mbits/sec  |
-|  n  |  802.11n - 600 Mbits/sec  |
-|  ac  |  802.11ac - 1300 Mbits/sec  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  a  |  802.11a - 54 Mbits/sec  |
+    |  b  |  802.11b - 11 Mbits/sec  |
+    |  g  |  802.11g - 54 Mbits/sec  |
+    |  n  |  802.11n - 600 Mbits/sec  |
+    |  ac  |  802.11ac - 1300 Mbits/sec  |
 - `physical_device` (String) Wireless physical device
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `reduce_transmit_power` (String) Transmission power reduction in dBm
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-255  |  TX power reduction in dBm  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-255  |  TX power reduction in dBm  |
 - `security` (Attributes) Wireless security settings (see [below for nested schema](#nestedatt--security))
 - `ssid` (String) Wireless access-point service set identifier (SSID)
 - `type` (String) Wireless device type for this interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  access-point  |  Access-point forwards packets between other nodes  |
-|  station  |  Connects to another access point  |
-|  monitor  |  Passively monitor all packets on the frequency/channel  |
-- `vif` (Attributes Map) Virtual Local Area Network (VLAN) ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4094  |  Virtual Local Area Network (VLAN) ID  | (see [below for nested schema](#nestedatt--vif))
-- `vif_s` (Attributes Map) QinQ TAG-S Virtual Local Area Network (VLAN) ID
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4094  |  QinQ Virtual Local Area Network (VLAN) ID  | (see [below for nested schema](#nestedatt--vif_s))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  access-point  |  Access-point forwards packets between other nodes  |
+    |  station  |  Connects to another access point  |
+    |  monitor  |  Passively monitor all packets on the frequency/channel  |
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 <a id="nestedatt--capabilities"></a>
 ### Nested Schema for `capabilities`
@@ -154,11 +144,11 @@ Optional:
 - `auto_powersave` (String) Enable WMM-PS unscheduled automatic power aave delivery [U-APSD]
 - `channel_set_width` (String) Supported channel set width
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ht20  |  Supported channel set width both 20 MHz only  |
-|  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
-|  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ht20  |  Supported channel set width both 20 MHz only  |
+    |  ht40+  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel above primary channel  |
+    |  ht40-  |  Supported channel set width both 20 MHz and 40 MHz with secondary channel below primary channel  |
 - `delayed_block_ack` (String) Enable HT-delayed block ack
 - `dsss_cck_40` (String) Enable DSSS_CCK-40
 - `greenfield` (String) Enable HT-greenfield
@@ -166,22 +156,22 @@ Optional:
 - `lsig_protection` (String) Enable L-SIG TXOP protection capability
 - `max_amsdu` (String) Set maximum A-MSDU length
 
-|  Format  |  Description  |
-|----------|---------------|
-|  3839  |  Set maximum A-MSDU length to 3839 octets  |
-|  7935  |  Set maximum A-MSDU length to 7935 octets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  3839  |  Set maximum A-MSDU length to 3839 octets  |
+    |  7935  |  Set maximum A-MSDU length to 7935 octets  |
 - `short_gi` (String) Short GI capabilities
 
-|  Format  |  Description  |
-|----------|---------------|
-|  20  |  Short GI for 20 MHz  |
-|  40  |  Short GI for 40 MHz  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  20  |  Short GI for 20 MHz  |
+    |  40  |  Short GI for 40 MHz  |
 - `smps` (String) Spatial Multiplexing Power Save (SMPS) settings
 
-|  Format  |  Description  |
-|----------|---------------|
-|  static  |  STATIC Spatial Multiplexing (SM) Power Save  |
-|  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  static  |  STATIC Spatial Multiplexing (SM) Power Save  |
+    |  dynamic  |  DYNAMIC Spatial Multiplexing (SM) Power Save  |
 - `stbc` (Attributes) Support for sending and receiving PPDU using STBC (Space Time Block Coding) (see [below for nested schema](#nestedatt--capabilities--ht--stbc))
 
 <a id="nestedatt--capabilities--ht--stbc"></a>
@@ -191,9 +181,9 @@ Optional:
 
 - `rx` (String) Enable receiving PPDU using STBC (Space Time Block Coding)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  [1-3]+  |  Number of spacial streams that can use RX STBC  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  [1-3]+  |  Number of spacial streams that can use RX STBC  |
 - `tx` (String) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
@@ -205,51 +195,51 @@ Optional:
 
 - `antenna_count` (String) Number of antennas on this card
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-8  |  Number of antennas for this card  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-8  |  Number of antennas for this card  |
 - `antenna_pattern_fixed` (String) Set if antenna pattern does not change during the lifetime of an association
 - `beamform` (String) Beamforming capabilities
 
-|  Format  |  Description  |
-|----------|---------------|
-|  single-user-beamformer  |  Support for operation as single user beamformer  |
-|  single-user-beamformee  |  Support for operation as single user beamformee  |
-|  multi-user-beamformer  |  Support for operation as multi user beamformer  |
-|  multi-user-beamformee  |  Support for operation as multi user beamformee  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  single-user-beamformer  |  Support for operation as single user beamformer  |
+    |  single-user-beamformee  |  Support for operation as single user beamformee  |
+    |  multi-user-beamformer  |  Support for operation as multi user beamformer  |
+    |  multi-user-beamformee  |  Support for operation as multi user beamformee  |
 - `center_channel_freq` (Attributes) VHT operating channel center frequency (see [below for nested schema](#nestedatt--capabilities--vht--center_channel_freq))
 - `channel_set_width` (String) VHT operating Channel width
 
-|  Format  |  Description  |
-|----------|---------------|
-|  0  |  20 or 40 MHz channel width  |
-|  1  |  80 MHz channel width  |
-|  2  |  160 MHz channel width  |
-|  3  |  80+80 MHz channel width  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  0  |  20 or 40 MHz channel width  |
+    |  1  |  80 MHz channel width  |
+    |  2  |  160 MHz channel width  |
+    |  3  |  80+80 MHz channel width  |
 - `ldpc` (String) Enable LDPC (Low Density Parity Check) coding capability
 - `link_adaptation` (String) VHT link adaptation capabilities
 
-|  Format  |  Description  |
-|----------|---------------|
-|  unsolicited  |  Station provides only unsolicited VHT MFB  |
-|  both  |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  unsolicited  |  Station provides only unsolicited VHT MFB  |
+    |  both  |  Station can provide VHT MFB in response to VHT MRQ and unsolicited VHT MFB  |
 - `max_mpdu` (String) Increase Maximum MPDU length to 7991 or 11454 octets (otherwise: 3895 octets)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  7991  |  ncrease Maximum MPDU length to 7991 octets  |
-|  11454  |  ncrease Maximum MPDU length to 11454 octets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  7991  |  ncrease Maximum MPDU length to 7991 octets  |
+    |  11454  |  ncrease Maximum MPDU length to 11454 octets  |
 - `max_mpdu_exp` (String) Set the maximum length of A-MPDU pre-EOF padding that the station can receive
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-7  |  Maximum length of A-MPDU pre-EOF padding = 2 pow(13 + x) -1 octets  |
 - `short_gi` (String) Short GI capabilities
 
-|  Format  |  Description  |
-|----------|---------------|
-|  80  |  Short GI for 80 MHz  |
-|  160  |  Short GI for 160 MHz  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  80  |  Short GI for 80 MHz  |
+    |  160  |  Short GI for 160 MHz  |
 - `stbc` (Attributes) Support for sending and receiving PPDU using STBC (Space Time Block Coding) (see [below for nested schema](#nestedatt--capabilities--vht--stbc))
 - `tx_powersave` (String) Enable VHT TXOP Power Save Mode
 - `vht_cf` (String) Station supports receiving VHT variant HT Control field
@@ -261,14 +251,14 @@ Optional:
 
 - `freq_1` (String) VHT operating channel center frequency - center freq 1 (for use with 80, 80+80 and 160 modes)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 42 for primary 80MHz channel 36)  |
 - `freq_2` (String) VHT operating channel center frequency - center freq 2 (for use with the 80+80 mode)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:34-173  |  5Ghz (802.11 a/h/j/n/ac) center channel index (use 58 for primary 80MHz channel 52)  |
 
 
 <a id="nestedatt--capabilities--vht--stbc"></a>
@@ -278,9 +268,9 @@ Optional:
 
 - `rx` (String) Enable receiving PPDU using STBC (Space Time Block Coding)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  [1-4]+  |  Number of spacial streams that can use RX STBC  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  [1-4]+  |  Number of spacial streams that can use RX STBC  |
 - `tx` (String) Enable sending PPDU using STBC (Space Time Block Coding)
 
 
@@ -294,18 +284,18 @@ Optional:
 - `client_id` (String) Identifier used by client to identify itself to the DHCP server
 - `default_route_distance` (String) Distance for installed default route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Distance for the default route from DHCP server  |
 - `host_name` (String) Override system host-name sent to DHCP server
 - `mtu` (String) Use MTU value from DHCP server - ignore interface setting
 - `no_default_route` (String) Do not install default route to system
 - `reject` (String) IP addresses or subnets from which to reject DHCP leases
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
 - `vendor_class_id` (String) Identify the vendor client type to the DHCP server
 
 
@@ -316,47 +306,12 @@ Optional:
 
 - `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
 
-|  Format  |  Description  |
-|----------|---------------|
-|  duid  |  DHCP unique identifier (DUID)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  duid  |  DHCP unique identifier (DUID)  |
 - `parameters_only` (String) Acquire only config parameters, no address
-- `pd` (Attributes Map) DHCPv6 prefix delegation interface statement
-
-|  Format  |  Description  |
-|----------|---------------|
-|  instance number  |  Prefix delegation instance (>= 0)  | (see [below for nested schema](#nestedatt--dhcpv6_options--pd))
 - `rapid_commit` (String) Wait for immediate reply instead of advertisements
 - `temporary` (String) IPv6 temporary address
-
-<a id="nestedatt--dhcpv6_options--pd"></a>
-### Nested Schema for `dhcpv6_options.pd`
-
-Optional:
-
-- `interface` (Attributes Map) Delegate IPv6 prefix from provider to this interface (see [below for nested schema](#nestedatt--dhcpv6_options--pd--interface))
-- `length` (String) Request IPv6 prefix length from peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Length of delegated prefix  |
-
-<a id="nestedatt--dhcpv6_options--pd--interface"></a>
-### Nested Schema for `dhcpv6_options.pd.interface`
-
-Optional:
-
-- `address` (String) Local interface address assigned to interface (default: EUI-64)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
-
-
 
 
 <a id="nestedatt--ip"></a>
@@ -366,15 +321,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (String) ARP cache entry timeout in seconds
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-86400  |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (String) Disable ARP filter on this interface
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `enable_arp_accept` (String) Enable ARP accept on this interface
@@ -385,11 +340,11 @@ Optional:
 - `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -400,17 +355,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
+    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -420,9 +375,9 @@ Optional:
 - `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
 - `no_default_link_local` (String) Remove the default link-local address from the interface
 
 
@@ -434,14 +389,14 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 
 
 <a id="nestedatt--security"></a>
@@ -459,9 +414,9 @@ Optional:
 
 - `key` (String) WEP encryption key
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Wired Equivalent Privacy key  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Wired Equivalent Privacy key  |
 
 
 <a id="nestedatt--security--wpa"></a>
@@ -471,34 +426,34 @@ Optional:
 
 - `cipher` (String) Cipher suite for WPA unicast packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-|  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-|  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-|  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-|  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 - `group_cipher` (String) Cipher suite for WPA multicast and broadcast packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
-|  GCMP  |  AES in Galois/counter mode with 128-bit key  |
-|  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
-|  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
-|  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  GCMP-256  |  AES in Galois/counter mode with 256-bit key  |
+    |  GCMP  |  AES in Galois/counter mode with 128-bit key  |
+    |  CCMP-256  |  AES in Counter mode with CBC-MAC with 256-bit key  |
+    |  CCMP  |  AES in Counter mode with CBC-MAC [RFC 3610, IEEE 802.11i/D7.0] (supported on all WPA2 APs)  |
+    |  TKIP  |  Temporal Key Integrity Protocol [IEEE 802.11i/D7.0]  |
 - `mode` (String) WPA mode
 
-|  Format  |  Description  |
-|----------|---------------|
-|  wpa  |  WPA (IEEE 802.11i/D3.0)  |
-|  wpa2  |  WPA2 (full IEEE 802.11i/RSN)  |
-|  wpa+wpa2  |  Allow both WPA and WPA2  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wpa  |  WPA (IEEE 802.11i/D3.0)  |
+    |  wpa2  |  WPA2 (full IEEE 802.11i/RSN)  |
+    |  wpa+wpa2  |  Allow both WPA and WPA2  |
 - `passphrase` (String) WPA personal shared pass phrase. If you are using special characters in the WPA passphrase then single quotes are required.
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Passphrase of at least 8 but not more than 63 printable characters  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Passphrase of at least 8 but not more than 63 printable characters  |
 - `radius` (Attributes) RADIUS based user authentication (see [below for nested schema](#nestedatt--security--wpa--radius))
 
 <a id="nestedatt--security--wpa--radius"></a>
@@ -506,660 +461,8 @@ Optional:
 
 Optional:
 
-- `server` (Attributes Map) RADIUS server configuration
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  RADIUS server IPv4 address  | (see [below for nested schema](#nestedatt--security--wpa--radius--server))
 - `source_address` (String) IPv4 source address used to initiate connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 source address  |
-
-<a id="nestedatt--security--wpa--radius--server"></a>
-### Nested Schema for `security.wpa.radius.source_address`
-
-Optional:
-
-- `accounting` (String) Enable RADIUS server to receive accounting info
-- `disable` (String) Disable instance
-- `key` (String) Shared secret key
-- `port` (String) Authentication port
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-
-
-
-
-
-<a id="nestedatt--vif"></a>
-### Nested Schema for `vif`
-
-Optional:
-
-- `address` (String) IP address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
-|  dhcp  |  Dynamic Host Configuration Protocol  |
-|  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--vif--dhcp_options))
-- `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--vif--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_link_detect` (String) Ignore link state changes
-- `egress_qos` (String) VLAN egress QoS
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
-- `ingress_qos` (String) VLAN ingress QoS
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Format for qos mapping, e.g.: '0:1 1:6 7:6'  |
-- `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--vif--ip))
-- `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--vif--ipv6))
-- `mac` (String) Media Access Control (MAC) address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
-- `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--vif--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-16000  |  Maximum Transmission Unit in byte  |
-- `redirect` (String) Redirect incoming packet to destination
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `vrf` (String) VRF instance name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
-
-<a id="nestedatt--vif--dhcp_options"></a>
-### Nested Schema for `vif.dhcp_options`
-
-Optional:
-
-- `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
-- `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-- `vendor_class_id` (String) Identify the vendor client type to the DHCP server
-
-
-<a id="nestedatt--vif--dhcpv6_options"></a>
-### Nested Schema for `vif.dhcpv6_options`
-
-Optional:
-
-- `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
-
-|  Format  |  Description  |
-|----------|---------------|
-|  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `pd` (Attributes Map) DHCPv6 prefix delegation interface statement
-
-|  Format  |  Description  |
-|----------|---------------|
-|  instance number  |  Prefix delegation instance (>= 0)  | (see [below for nested schema](#nestedatt--vif--dhcpv6_options--pd))
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
-
-<a id="nestedatt--vif--dhcpv6_options--pd"></a>
-### Nested Schema for `vif.dhcpv6_options.pd`
-
-Optional:
-
-- `interface` (Attributes Map) Delegate IPv6 prefix from provider to this interface (see [below for nested schema](#nestedatt--vif--dhcpv6_options--pd--interface))
-- `length` (String) Request IPv6 prefix length from peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Length of delegated prefix  |
-
-<a id="nestedatt--vif--dhcpv6_options--pd--interface"></a>
-### Nested Schema for `vif.dhcpv6_options.pd.length`
-
-Optional:
-
-- `address` (String) Local interface address assigned to interface (default: EUI-64)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
-
-
-
-
-<a id="nestedatt--vif--ip"></a>
-### Nested Schema for `vif.ip`
-
-Optional:
-
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
-- `source_validation` (String) Source validation by reversed path (RFC3704)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
-
-
-<a id="nestedatt--vif--ipv6"></a>
-### Nested Schema for `vif.ipv6`
-
-Optional:
-
-- `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--vif--ipv6--address))
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
-
-<a id="nestedatt--vif--ipv6--address"></a>
-### Nested Schema for `vif.ipv6.address`
-
-Optional:
-
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
-
-
-
-<a id="nestedatt--vif--mirror"></a>
-### Nested Schema for `vif.mirror`
-
-Optional:
-
-- `egress` (String) Mirror egress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `ingress` (String) Mirror ingress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-
-
-
-<a id="nestedatt--vif_s"></a>
-### Nested Schema for `vif_s`
-
-Optional:
-
-- `address` (String) IP address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
-|  dhcp  |  Dynamic Host Configuration Protocol  |
-|  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--vif_s--dhcp_options))
-- `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--vif_s--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_link_detect` (String) Ignore link state changes
-- `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--vif_s--ip))
-- `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--vif_s--ipv6))
-- `mac` (String) Media Access Control (MAC) address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
-- `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--vif_s--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-16000  |  Maximum Transmission Unit in byte  |
-- `protocol` (String) Protocol used for service VLAN (default: 802.1ad)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  802.1ad  |  Provider Bridging (IEEE 802.1ad, Q-inQ), ethertype 0x88a8  |
-|  802.1q  |  VLAN-tagged frame (IEEE 802.1q), ethertype 0x8100  |
-- `redirect` (String) Redirect incoming packet to destination
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `vif_c` (Attributes Map) QinQ TAG-C Virtual Local Area Network (VLAN) ID (see [below for nested schema](#nestedatt--vif_s--vif_c))
-- `vrf` (String) VRF instance name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
-
-<a id="nestedatt--vif_s--dhcp_options"></a>
-### Nested Schema for `vif_s.dhcp_options`
-
-Optional:
-
-- `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
-- `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-- `vendor_class_id` (String) Identify the vendor client type to the DHCP server
-
-
-<a id="nestedatt--vif_s--dhcpv6_options"></a>
-### Nested Schema for `vif_s.dhcpv6_options`
-
-Optional:
-
-- `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
-
-|  Format  |  Description  |
-|----------|---------------|
-|  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `pd` (Attributes Map) DHCPv6 prefix delegation interface statement
-
-|  Format  |  Description  |
-|----------|---------------|
-|  instance number  |  Prefix delegation instance (>= 0)  | (see [below for nested schema](#nestedatt--vif_s--dhcpv6_options--pd))
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
-
-<a id="nestedatt--vif_s--dhcpv6_options--pd"></a>
-### Nested Schema for `vif_s.dhcpv6_options.pd`
-
-Optional:
-
-- `interface` (Attributes Map) Delegate IPv6 prefix from provider to this interface (see [below for nested schema](#nestedatt--vif_s--dhcpv6_options--pd--interface))
-- `length` (String) Request IPv6 prefix length from peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Length of delegated prefix  |
-
-<a id="nestedatt--vif_s--dhcpv6_options--pd--interface"></a>
-### Nested Schema for `vif_s.dhcpv6_options.pd.length`
-
-Optional:
-
-- `address` (String) Local interface address assigned to interface (default: EUI-64)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
-
-
-
-
-<a id="nestedatt--vif_s--ip"></a>
-### Nested Schema for `vif_s.ip`
-
-Optional:
-
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
-- `source_validation` (String) Source validation by reversed path (RFC3704)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
-
-
-<a id="nestedatt--vif_s--ipv6"></a>
-### Nested Schema for `vif_s.ipv6`
-
-Optional:
-
-- `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--vif_s--ipv6--address))
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
-
-<a id="nestedatt--vif_s--ipv6--address"></a>
-### Nested Schema for `vif_s.ipv6.address`
-
-Optional:
-
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
-
-
-
-<a id="nestedatt--vif_s--mirror"></a>
-### Nested Schema for `vif_s.mirror`
-
-Optional:
-
-- `egress` (String) Mirror egress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `ingress` (String) Mirror ingress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-
-
-<a id="nestedatt--vif_s--vif_c"></a>
-### Nested Schema for `vif_s.vif_c`
-
-Optional:
-
-- `address` (String) IP address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
-|  dhcp  |  Dynamic Host Configuration Protocol  |
-|  dhcpv6  |  Dynamic Host Configuration Protocol for IPv6  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `dhcp_options` (Attributes) DHCP client settings/options (see [below for nested schema](#nestedatt--vif_s--vif_c--dhcp_options))
-- `dhcpv6_options` (Attributes) DHCPv6 client settings/options (see [below for nested schema](#nestedatt--vif_s--vif_c--dhcpv6_options))
-- `disable` (String) Administratively disable interface
-- `disable_link_detect` (String) Ignore link state changes
-- `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--vif_s--vif_c--ip))
-- `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--vif_s--vif_c--ipv6))
-- `mac` (String) Media Access Control (MAC) address
-
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  Hardware (MAC) address  |
-- `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--vif_s--vif_c--mirror))
-- `mtu` (String) Maximum Transmission Unit (MTU)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-16000  |  Maximum Transmission Unit in byte  |
-- `redirect` (String) Redirect incoming packet to destination
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `vrf` (String) VRF instance name
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
-
-<a id="nestedatt--vif_s--vif_c--dhcp_options"></a>
-### Nested Schema for `vif_s.vif_c.dhcp_options`
-
-Optional:
-
-- `client_id` (String) Identifier used by client to identify itself to the DHCP server
-- `default_route_distance` (String) Distance for installed default route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for the default route from DHCP server  |
-- `host_name` (String) Override system host-name sent to DHCP server
-- `mtu` (String) Use MTU value from DHCP server - ignore interface setting
-- `no_default_route` (String) Do not install default route to system
-- `reject` (String) IP addresses or subnets from which to reject DHCP leases
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-- `vendor_class_id` (String) Identify the vendor client type to the DHCP server
-
-
-<a id="nestedatt--vif_s--vif_c--dhcpv6_options"></a>
-### Nested Schema for `vif_s.vif_c.dhcpv6_options`
-
-Optional:
-
-- `duid` (String) DHCP unique identifier (DUID) to be sent by dhcpv6 client
-
-|  Format  |  Description  |
-|----------|---------------|
-|  duid  |  DHCP unique identifier (DUID)  |
-- `parameters_only` (String) Acquire only config parameters, no address
-- `pd` (Attributes Map) DHCPv6 prefix delegation interface statement
-
-|  Format  |  Description  |
-|----------|---------------|
-|  instance number  |  Prefix delegation instance (>= 0)  | (see [below for nested schema](#nestedatt--vif_s--vif_c--dhcpv6_options--pd))
-- `rapid_commit` (String) Wait for immediate reply instead of advertisements
-- `temporary` (String) IPv6 temporary address
-
-<a id="nestedatt--vif_s--vif_c--dhcpv6_options--pd"></a>
-### Nested Schema for `vif_s.vif_c.dhcpv6_options.temporary`
-
-Optional:
-
-- `interface` (Attributes Map) Delegate IPv6 prefix from provider to this interface (see [below for nested schema](#nestedatt--vif_s--vif_c--dhcpv6_options--temporary--interface))
-- `length` (String) Request IPv6 prefix length from peer
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:32-64  |  Length of delegated prefix  |
-
-<a id="nestedatt--vif_s--vif_c--dhcpv6_options--temporary--interface"></a>
-### Nested Schema for `vif_s.vif_c.dhcpv6_options.temporary.interface`
-
-Optional:
-
-- `address` (String) Local interface address assigned to interface (default: EUI-64)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  >0  |  Used to form IPv6 interface address  |
-- `sla_id` (String) Interface site-Level aggregator (SLA)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  Decimal integer which fits in the length of SLA IDs  |
-
-
-
-
-<a id="nestedatt--vif_s--vif_c--ip"></a>
-### Nested Schema for `vif_s.vif_c.ip`
-
-Optional:
-
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `arp_cache_timeout` (String) ARP cache entry timeout in seconds
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
-- `disable_arp_filter` (String) Disable ARP filter on this interface
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `enable_arp_accept` (String) Enable ARP accept on this interface
-- `enable_arp_announce` (String) Enable ARP announce on this interface
-- `enable_arp_ignore` (String) Enable ARP ignore on this interface
-- `enable_directed_broadcast` (String) Enable directed broadcast forwarding on this interface
-- `enable_proxy_arp` (String) Enable proxy-arp on this interface
-- `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
-- `source_validation` (String) Source validation by reversed path (RFC3704)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
-
-
-<a id="nestedatt--vif_s--vif_c--ipv6"></a>
-### Nested Schema for `vif_s.vif_c.ipv6`
-
-Optional:
-
-- `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--vif_s--vif_c--ipv6--address))
-- `adjust_mss` (String) Adjust TCP MSS value
-
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
-- `disable_forwarding` (String) Disable IP forwarding on this interface
-- `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
-
-<a id="nestedatt--vif_s--vif_c--ipv6--address"></a>
-### Nested Schema for `vif_s.vif_c.ipv6.dup_addr_detect_transmits`
-
-Optional:
-
-- `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
-- `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
-- `no_default_link_local` (String) Remove the default link-local address from the interface
-
-
-
-<a id="nestedatt--vif_s--vif_c--mirror"></a>
-### Nested Schema for `vif_s.vif_c.mirror`
-
-Optional:
-
-- `egress` (String) Mirror egress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-- `ingress` (String) Mirror ingress traffic to destination interface
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 source address  |

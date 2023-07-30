@@ -16,9 +16,9 @@ Multicast static route
 
 Multicast interface based route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |
 
 
 
@@ -29,21 +29,6 @@ Multicast interface based route
 
 - `identifier` (String) Multicast interface based route
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  Network  |
-
-### Optional
-
-- `next_hop_interface` (Attributes Map) Next-hop interface (see [below for nested schema](#nestedatt--next_hop_interface))
-
-<a id="nestedatt--next_hop_interface"></a>
-### Nested Schema for `next_hop_interface`
-
-Optional:
-
-- `distance` (String) Distance value for this route
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Distance for this route  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  Network  |

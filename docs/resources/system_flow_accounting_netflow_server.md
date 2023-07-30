@@ -20,10 +20,10 @@ NetFlow settings
 
 NetFlow destination server
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 server to export NetFlow  |
-|  ipv6  |  IPv6 server to export NetFlow  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 server to export NetFlow  |
+    |  ipv6  |  IPv6 server to export NetFlow  |
 
 
 
@@ -34,15 +34,15 @@ NetFlow destination server
 
 - `identifier` (String) NetFlow destination server
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 server to export NetFlow  |
-|  ipv6  |  IPv6 server to export NetFlow  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 server to export NetFlow  |
+    |  ipv6  |  IPv6 server to export NetFlow  |
 
 ### Optional
 
 - `port` (String) NetFlow port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1025-65535  |  NetFlow port number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1025-65535  |  NetFlow port number  |

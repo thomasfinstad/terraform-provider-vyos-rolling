@@ -20,10 +20,10 @@ Segment-Routing (SPRING) settings
 
 Static IPv4/IPv6 prefix segment/label mapping
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  |
-|  ipv6net  |  IPv6 prefix segment  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 prefix segment  |
+    |  ipv6net  |  IPv6 prefix segment  |
 
 
 
@@ -34,10 +34,10 @@ Static IPv4/IPv6 prefix segment/label mapping
 
 - `identifier` (String) Static IPv4/IPv6 prefix segment/label mapping
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 prefix segment  |
-|  ipv6net  |  IPv6 prefix segment  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 prefix segment  |
+    |  ipv6net  |  IPv6 prefix segment  |
 
 ### Optional
 
@@ -53,9 +53,9 @@ Optional:
 - `no_php_flag` (String) Do not request penultimate hop popping for segment/label
 - `value` (String) Specify the absolute value of prefix segment/label ID
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-1048575  |  The absolute segment/label ID value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:16-1048575  |  The absolute segment/label ID value  |
 
 
 <a id="nestedatt--index"></a>
@@ -67,6 +67,6 @@ Optional:
 - `no_php_flag` (String) Do not request penultimate hop popping for segment/label
 - `value` (String) Specify the index value of prefix segment/label ID
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-65535  |  The index segment/label ID value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0-65535  |  The index segment/label ID value  |

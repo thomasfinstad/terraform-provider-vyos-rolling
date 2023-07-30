@@ -22,9 +22,9 @@ URL filtering via squidGuard redirector
 
 URL filter rule for a source-group
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-1024  |  Rule Number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-1024  |  Rule Number  |
 
 
 
@@ -35,9 +35,9 @@ URL filter rule for a source-group
 
 - `identifier` (String) URL filter rule for a source-group
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-1024  |  Rule Number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-1024  |  Rule Number  |
 
 ### Optional
 
@@ -46,49 +46,49 @@ URL filter rule for a source-group
 - `block_category` (String) Category to block
 - `default_action` (String) Default action (default: allow)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  allow  |  Default filter action is allow)  |
-|  block  |  Default filter action is block  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  allow  |  Default filter action is allow)  |
+    |  block  |  Default filter action is block  |
 - `enable_safe_search` (String) Enable safe-mode search on popular search engines
 - `local_block` (String) Local site to block
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address of site to block  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address of site to block  |
 - `local_block_keyword` (String) Local keyword to block
 
-|  Format  |  Description  |
-|----------|---------------|
-|  keyword  |  Keyword (or regex) to block  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  keyword  |  Keyword (or regex) to block  |
 - `local_block_url` (String) Local URL to block
 
-|  Format  |  Description  |
-|----------|---------------|
-|  url  |  Local URL to block (without "http://")  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  url  |  Local URL to block (without "http://")  |
 - `local_ok` (String) Local site to allow
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IP address of site to allow  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IP address of site to allow  |
 - `local_ok_url` (String) Local URL to allow
 
-|  Format  |  Description  |
-|----------|---------------|
-|  url  |  Local URL to allow (without "http://")  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  url  |  Local URL to allow (without "http://")  |
 - `log` (String) Log block category
 - `redirect_url` (String) Redirect URL for filtered websites
 
-|  Format  |  Description  |
-|----------|---------------|
-|  url  |  URL for redirect  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  url  |  URL for redirect  |
 - `source_group` (String) Source-group for this rule
 
-|  Format  |  Description  |
-|----------|---------------|
-|  group  |  Source group identifier for this rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  group  |  Source group identifier for this rule  |
 - `time_period` (String) Time-period for this rule
 
-|  Format  |  Description  |
-|----------|---------------|
-|  period  |  Time period for this rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  period  |  Time period for this rule  |

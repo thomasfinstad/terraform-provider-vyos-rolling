@@ -18,7 +18,7 @@ register-python-argcomplete cz >> ~/.bashrc
 
 # Used to improve commits before they are commited
 pipx install pre-commit
-pre-commit install --hook-type pre-commit --hook-type commit-msg --hook-type pre-push
+pre-commit install --hook-type pre-commit --hook-type commit-msg
 
 # Tooling
 go install mvdan.cc/gofumpt@latest

@@ -29,12 +29,12 @@ Firewall mac-group
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another mac-group
 - `mac_address` (String) Mac-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  macaddr  |  MAC address to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  macaddr  |  MAC address to match  |

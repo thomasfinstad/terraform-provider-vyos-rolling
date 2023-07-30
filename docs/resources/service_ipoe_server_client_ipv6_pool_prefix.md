@@ -19,9 +19,9 @@ Pool of client IPv6 addresses
 
 Pool of addresses used to assign to clients
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 
 
 
@@ -32,14 +32,14 @@ Pool of addresses used to assign to clients
 
 - `identifier` (String) Pool of addresses used to assign to clients
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 address and prefix length  |
 
 ### Optional
 
 - `mask` (String) Prefix length used for individual client
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:48-128  |  Client prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:48-128  |  Client prefix length  |

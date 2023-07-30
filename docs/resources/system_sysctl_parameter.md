@@ -19,9 +19,9 @@ Configure kernel parameters at runtime
 
 Sysctl key name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Sysctl key name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Sysctl key name  |
 
 
 
@@ -32,9 +32,9 @@ Sysctl key name
 
 - `identifier` (String) Sysctl key name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Sysctl key name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Sysctl key name  |
 
 ### Optional
 

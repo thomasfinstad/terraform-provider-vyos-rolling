@@ -16,9 +16,9 @@ Routing policy
 
 IPv6 access-list filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 access-list  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv6 access-list  |
 
 
 
@@ -29,50 +29,14 @@ IPv6 access-list filter
 
 - `identifier` (String) IPv6 access-list filter
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IPv6 access-list  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IPv6 access-list  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `rule` (Attributes Map) Rule for this access-list6
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Access-list6 rule number  | (see [below for nested schema](#nestedatt--rule))
-
-<a id="nestedatt--rule"></a>
-### Nested Schema for `rule`
-
-Optional:
-
-- `action` (String) Action to take on entries matching this rule
-
-|  Format  |  Description  |
-|----------|---------------|
-|  permit  |  Permit matching entries  |
-|  deny  |  Deny matching entries  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `source` (Attributes) Source IPv6 network to match (see [below for nested schema](#nestedatt--rule--source))
-
-<a id="nestedatt--rule--source"></a>
-### Nested Schema for `rule.source`
-
-Optional:
-
-- `any` (String) Any IP address to match
-- `exact_match` (String) Exact match of the network prefixes
-- `network` (String) Network/netmask to match
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

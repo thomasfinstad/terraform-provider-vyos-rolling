@@ -19,9 +19,9 @@ Service Policy definitions
 
 Weighted Random Early Detect policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 
 
@@ -32,62 +32,26 @@ Weighted Random Early Detect policy
 
 - `identifier` (String) Weighted Random Early Detect policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Policy name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Policy name  |
 
 ### Optional
 
 - `bandwidth` (String) Available bandwidth for this policy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  auto  |  Bandwidth matches interface speed  |
-|  <number>  |  Bits per second  |
-|  <number>bit  |  Bits per second  |
-|  <number>kbit  |  Kilobits per second  |
-|  <number>mbit  |  Megabits per second  |
-|  <number>gbit  |  Gigabits per second  |
-|  <number>tbit  |  Terabits per second  |
-|  <number>%%  |  Percentage of interface link speed  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  auto  |  Bandwidth matches interface speed  |
+    |  <number>  |  Bits per second  |
+    |  <number>bit  |  Bits per second  |
+    |  <number>kbit  |  Kilobits per second  |
+    |  <number>mbit  |  Megabits per second  |
+    |  <number>gbit  |  Gigabits per second  |
+    |  <number>tbit  |  Terabits per second  |
+    |  <number>%%  |  Percentage of interface link speed  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `precedence` (Attributes Map) IP precedence
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-7  |  IP precedence value  | (see [below for nested schema](#nestedatt--precedence))
-
-<a id="nestedatt--precedence"></a>
-### Nested Schema for `precedence`
-
-Optional:
-
-- `average_packet` (String) Average packet size (bytes)
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:16-10240  |  Average packet size in bytes  |
-- `mark_probability` (String) Mark probability for this precedence
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <number>  |  Numeric value (1/N)  |
-- `maximum_threshold` (String) Maximum threshold for random detection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4096  |  Maximum Threshold in packets  |
-- `minimum_threshold` (String) Minimum  threshold for random detection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0-4096  |  Maximum Threshold in packets  |
-- `queue_limit` (String) Maximum queue size
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Queue size in packets  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

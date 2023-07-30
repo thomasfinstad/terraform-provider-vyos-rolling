@@ -20,10 +20,10 @@ RADIUS based user authentication
 
 RADIUS server configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  RADIUS server IPv4 address  |
-|  ipv6  |  RADIUS server IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv6  |  RADIUS server IPv6 address  |
 
 
 
@@ -34,10 +34,10 @@ RADIUS server configuration
 
 - `identifier` (String) RADIUS server configuration
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  RADIUS server IPv4 address  |
-|  ipv6  |  RADIUS server IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  RADIUS server IPv4 address  |
+    |  ipv6  |  RADIUS server IPv6 address  |
 
 ### Optional
 
@@ -45,16 +45,16 @@ RADIUS server configuration
 - `key` (String) Shared secret key
 - `port` (String) Authentication port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `priority` (String) Server priority
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  Server priority  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  Server priority  |
 - `timeout` (String) Session timeout
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-30  |  Session timeout in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-30  |  Session timeout in seconds  |

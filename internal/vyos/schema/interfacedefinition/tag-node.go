@@ -144,13 +144,13 @@ func (o TagNode) Description() string {
 		}
 
 		if p.ValueHelp != nil {
-			desc += "|  Format  |  Description  |\n"
-			desc += "|----------|---------------|\n"
+			desc += "    |  Format  |  Description  |\n"
+			desc += "    |----------|---------------|\n"
 			for _, vh := range p.ValueHelp {
 				if vh.Format != "" {
-					desc += fmt.Sprintf("|  %s  |", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Format, " "))
+					desc += fmt.Sprintf("    |  %s  |", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Format, " "))
 				} else {
-					desc += "|   |"
+					desc += "    |   |"
 				}
 				if vh.Format != "" {
 					desc += fmt.Sprintf("  %s  |\n", regexp.MustCompile(`\r?\n`).ReplaceAllString(vh.Description, " "))
@@ -199,4 +199,9 @@ func (o *TagNode) AncestorDescription() string {
 	desc += o.Description()
 
 	return desc
+}
+
+// NodeType returns a string of node type
+func (o *TagNode) NodeType() string {
+	return "TagNode"
 }

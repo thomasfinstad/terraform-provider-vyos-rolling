@@ -26,23 +26,23 @@ Interface for IGMP proxy
 
 - `alt_subnet` (String) Unicast source networks allowed for multicast traffic to be proxyed
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 network  |
 - `role` (String) IGMP interface role
 
-|  Format  |  Description  |
-|----------|---------------|
-|  upstream  |  Upstream interface (only 1 allowed)  |
-|  downstream  |  Downstream interface(s)  |
-|  disabled  |  Disabled interface  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  upstream  |  Upstream interface (only 1 allowed)  |
+    |  downstream  |  Downstream interface(s)  |
+    |  disabled  |  Disabled interface  |
 - `threshold` (String) TTL threshold
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-255  |  TTL threshold for the interfaces  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-255  |  TTL threshold for the interfaces  |
 - `whitelist` (String) Group to whitelist
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 network  |

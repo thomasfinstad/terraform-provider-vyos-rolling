@@ -58,3 +58,47 @@ func (i *InterfaceDefinition) BaseTagNodes() (tagNodes []*TagNode, ok bool) {
 
 	return tagNodes, ok
 }
+
+// TagNodes returns all TagNodes (recursively)
+func (i *InterfaceDefinition) TagNodes() (tagNodes []*TagNode, ok bool) {
+	var recurse func(NodeParent) []*TagNode
+	recurse = func(parent NodeParent) []*TagNode {
+		var ret []*TagNode
+		children := parent.GetChildren()
+
+		if children == nil {
+			fmt.Printf("[%s] Skipping children:nil\n", parent.BaseName())
+			return ret
+		}
+
+		// Add own tag node children
+		ret = append(ret, children.TagNode...)
+
+		// Recurse for children
+		for _, n := range children.Nodes() {
+			ret = append(ret, recurse(n)...)
+		}
+
+		for _, t := range children.TagNodes() {
+			ret = append(ret, recurse(t)...)
+		}
+
+		return ret
+	}
+
+	rootNode, err := i.GetRootNode()
+	if err != nil {
+		fmt.Printf("BaseTagNodes Skipping rootnode:nil i:%v\n", i)
+		return nil, false
+	}
+
+	tagNodes = recurse(rootNode)
+	ok = len(tagNodes) > 0
+
+	// Let tagnode know it is the basenode
+	for _, tagNode := range tagNodes {
+		tagNode.IsBaseNode = true
+	}
+
+	return tagNodes, ok
+}

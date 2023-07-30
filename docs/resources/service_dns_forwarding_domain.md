@@ -31,7 +31,7 @@ Domain to forward to a custom DNS server
 - `recursion_desired` (String) Set the "recursion desired" bit in requests to the upstream nameserver
 - `server` (String) Domain Name Server (DNS) to forward queries to
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Domain Name Server (DNS) IPv4 address  |
-|  ipv6  |  Domain Name Server (DNS) IPv6 address  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Domain Name Server (DNS) IPv4 address  |
+    |  ipv6  |  Domain Name Server (DNS) IPv6 address  |

@@ -29,13 +29,13 @@ Firewall address-group
 
 - `address` (String) Address-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4range  |  IPv4 range to match (e.g. 10.0.0.1-10.0.0.200)  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another address-group

@@ -22,9 +22,9 @@ Local user authentication
 
 Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username used for authentication  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username used for authentication  |
 
 
 
@@ -35,9 +35,9 @@ Username used for authentication
 
 - `identifier` (String) Username used for authentication
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Username used for authentication  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Username used for authentication  |
 
 ### Optional
 
@@ -52,22 +52,22 @@ Optional:
 
 - `interval` (String) Time tokens interval in seconds
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:5-86400  |  Time tokens interval in seconds.  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:5-86400  |  Time tokens interval in seconds.  |
 - `key` (String) Token Key Secret key for the token algorithm (see RFC 4226)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  OTP key in hex-encoded format  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  OTP key in hex-encoded format  |
 - `otp_length` (String) Number of digits in OTP code
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:6-8  |  Number of digits in OTP code  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:6-8  |  Number of digits in OTP code  |
 - `token_type` (String) Token type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  hotp-time  |  Time-based OTP algorithm  |
-|  hotp-event  |  Event-based OTP algorithm  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  hotp-time  |  Time-based OTP algorithm  |
+    |  hotp-event  |  Event-based OTP algorithm  |

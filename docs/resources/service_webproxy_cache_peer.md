@@ -16,9 +16,9 @@ Webproxy service settings
 
 Specify other caches in a hierarchy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  hostname  |  Cache peers FQDN  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  hostname  |  Cache peers FQDN  |
 
 
 
@@ -29,38 +29,38 @@ Specify other caches in a hierarchy
 
 - `identifier` (String) Specify other caches in a hierarchy
 
-|  Format  |  Description  |
-|----------|---------------|
-|  hostname  |  Cache peers FQDN  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  hostname  |  Cache peers FQDN  |
 
 ### Optional
 
 - `address` (String) Hostname or IP address of peer
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Squid cache-peer IPv4 address  |
-|  hostname  |  Squid cache-peer hostname  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Squid cache-peer IPv4 address  |
+    |  hostname  |  Squid cache-peer hostname  |
 - `http_port` (String) Default Proxy Port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1025-65535  |  Default port number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1025-65535  |  Default port number  |
 - `icp_port` (String) Cache peer ICP port
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Cache peer disabled  |
-|  u32:1-65535  |  Cache peer ICP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Cache peer disabled  |
+    |  u32:1-65535  |  Cache peer ICP port  |
 - `options` (String) Cache peer options
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Cache peer options  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Cache peer options  |
 - `type` (String) Squid peer type (default parent)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  parent  |  Peer is a parent  |
-|  sibling  |  Peer is a sibling  |
-|  multicast  |  Peer is a member of a multicast group  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  parent  |  Peer is a parent  |
+    |  sibling  |  Peer is a sibling  |
+    |  multicast  |  Peer is a member of a multicast group  |

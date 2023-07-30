@@ -29,12 +29,12 @@ Firewall ipv6-network-group
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `include` (String) Include another ipv6-network-group
 - `network` (String) Network-group member
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv6net  |  IPv6 address to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv6net  |  IPv6 address to match  |

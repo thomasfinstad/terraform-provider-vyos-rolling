@@ -13,9 +13,9 @@ description: |-
 
 WireGuard Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  wgN  |  WireGuard interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wgN  |  WireGuard interface name  |
 
 
 
@@ -26,54 +26,53 @@ WireGuard Interface
 
 - `identifier` (String) WireGuard Interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  wgN  |  WireGuard interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  wgN  |  WireGuard interface name  |
 
 ### Optional
 
 - `address` (String) IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
-|  ipv6net  |  IPv6 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |
+    |  ipv6net  |  IPv6 address and prefix length  |
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Administratively disable interface
 - `fwmark` (String) A 32-bit fwmark value set on all outgoing packets
 
-|  Format  |  Description  |
-|----------|---------------|
-|  number  |  value which marks the packet for QoS/shaper  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  number  |  value which marks the packet for QoS/shaper  |
 - `ip` (Attributes) IPv4 routing parameters (see [below for nested schema](#nestedatt--ip))
 - `ipv6` (Attributes) IPv6 routing parameters (see [below for nested schema](#nestedatt--ipv6))
 - `mirror` (Attributes) Mirror ingress/egress packets (see [below for nested schema](#nestedatt--mirror))
 - `mtu` (String) Maximum Transmission Unit (MTU)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:68-16000  |  Maximum Transmission Unit in byte  |
-- `peer` (Attributes Map) peer alias (see [below for nested schema](#nestedatt--peer))
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:68-16000  |  Maximum Transmission Unit in byte  |
 - `port` (String) Port number used by connection
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
 - `private_key` (String) Base64 encoded private key
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `vrf` (String) VRF instance name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  VRF instance name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  VRF instance name  |
 
 <a id="nestedatt--ip"></a>
 ### Nested Schema for `ip`
@@ -82,15 +81,15 @@ Optional:
 
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `arp_cache_timeout` (String) ARP cache entry timeout in seconds
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-86400  |  ARP cache entry timout in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-86400  |  ARP cache entry timout in seconds  |
 - `disable_arp_filter` (String) Disable ARP filter on this interface
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `enable_arp_accept` (String) Enable ARP accept on this interface
@@ -101,11 +100,11 @@ Optional:
 - `proxy_arp_pvlan` (String) Enable private VLAN proxy ARP on this interface
 - `source_validation` (String) Source validation by reversed path (RFC3704)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
-|  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
-|  disable  |  No source validation  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  strict  |  Enable Strict Reverse Path Forwarding as defined in RFC3704  |
+    |  loose  |  Enable Loose Reverse Path Forwarding as defined in RFC3704  |
+    |  disable  |  No source validation  |
 
 
 <a id="nestedatt--ipv6"></a>
@@ -116,17 +115,17 @@ Optional:
 - `address` (Attributes) IPv6 address configuration modes (see [below for nested schema](#nestedatt--ipv6--address))
 - `adjust_mss` (String) Adjust TCP MSS value
 
-|  Format  |  Description  |
-|----------|---------------|
-|  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
-|  u32:536-65535  |  TCP Maximum segment size in bytes  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  clamp-mss-to-pmtu  |  Automatically sets the MSS to the proper value  |
+    |  u32:536-65535  |  TCP Maximum segment size in bytes  |
 - `disable_forwarding` (String) Disable IP forwarding on this interface
 - `dup_addr_detect_transmits` (String) Number of NS messages to send while performing DAD (default: 1)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
-|  u32:1-n  |  Number of NS messages to send while performing DAD  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:0  |  Disable Duplicate Address Dectection (DAD)  |
+    |  u32:1-n  |  Number of NS messages to send while performing DAD  |
 
 <a id="nestedatt--ipv6--address"></a>
 ### Nested Schema for `ipv6.address`
@@ -136,9 +135,9 @@ Optional:
 - `autoconf` (String) Enable acquisition of IPv6 address using stateless autoconfig (SLAAC)
 - `eui64` (String) Prefix for IPv6 address with MAC-based EUI-64
 
-|  Format  |  Description  |
-|----------|---------------|
-|  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  <h:h:h:h:h:h:h:h/64>  |  IPv6 /64 network  |
 - `no_default_link_local` (String) Remove the default link-local address from the interface
 
 
@@ -150,38 +149,11 @@ Optional:
 
 - `egress` (String) Mirror egress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
 - `ingress` (String) Mirror ingress traffic to destination interface
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
-
-
-<a id="nestedatt--peer"></a>
-### Nested Schema for `peer`
-
-Optional:
-
-- `address` (String) IP address of tunnel endpoint
-
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address of remote tunnel endpoint  |
-|  ipv6  |  IPv6 address of remote tunnel endpoint  |
-- `allowed_ips` (String) IP addresses allowed to traverse the peer
-- `disable` (String) Disable instance
-- `persistent_keepalive` (String) Interval to send keepalive messages
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Interval in seconds  |
-- `port` (String) Port number used by connection
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-- `preshared_key` (String) base64 encoded preshared key
-- `public_key` (String) base64 encoded public key
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |

@@ -26,11 +26,11 @@ PIM interface
 
 - `dr_priority` (String) Designated Router Election Priority
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-4294967295  |  Value of the new DR Priority  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-4294967295  |  Value of the new DR Priority  |
 - `hello` (String) Hello Interval
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-180  |  Hello Interval in seconds  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-180  |  Hello Interval in seconds  |

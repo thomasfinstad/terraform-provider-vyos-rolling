@@ -19,9 +19,9 @@ Destination NAT settings
 
 Rule number for NAT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number of NAT rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number of NAT rule  |
 
 
 
@@ -32,17 +32,17 @@ Rule number for NAT
 
 - `identifier` (String) Rule number for NAT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-999999  |  Number of NAT rule  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-999999  |  Number of NAT rule  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `destination` (Attributes) NAT destination parameters (see [below for nested schema](#nestedatt--destination))
 - `disable` (String) Disable instance
 - `exclude` (String) Exclude packets matching this rule from NAT
@@ -50,75 +50,75 @@ Rule number for NAT
 - `log` (String) NAT rule logging
 - `packet_type` (String) Packet type
 
-|  Format  |  Description  |
-|----------|---------------|
-|  broadcast  |  Match broadcast packet type  |
-|  host  |  Match host packet type, addressed to local host  |
-|  multicast  |  Match multicast packet type  |
-|  other  |  Match packet addressed to another host  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  broadcast  |  Match broadcast packet type  |
+    |  host  |  Match host packet type, addressed to local host  |
+    |  multicast  |  Match multicast packet type  |
+    |  other  |  Match packet addressed to another host  |
 - `protocol` (String) Protocol to NAT
 
-|  Format  |  Description  |
-|----------|---------------|
-|  all  |  All IP protocols  |
-|  ip  |  Internet Protocol, pseudo protocol number  |
-|  hopopt  |  IPv6 Hop-by-Hop Option [RFC1883]  |
-|  icmp  |  internet control message protocol  |
-|  igmp  |  Internet Group Management  |
-|  ggp  |  gateway-gateway protocol  |
-|  ipencap  |  IP encapsulated in IP (officially IP)  |
-|  st  |  ST datagram mode  |
-|  tcp  |  transmission control protocol  |
-|  egp  |  exterior gateway protocol  |
-|  igp  |  any private interior gateway (Cisco)  |
-|  pup  |  PARC universal packet protocol  |
-|  udp  |  user datagram protocol  |
-|  tcp_udp  |  Both TCP and UDP  |
-|  hmp  |  host monitoring protocol  |
-|  xns-idp  |  Xerox NS IDP  |
-|  rdp  |  "reliable datagram" protocol  |
-|  iso-tp4  |  ISO Transport Protocol class 4 [RFC905]  |
-|  dccp  |  Datagram Congestion Control Prot. [RFC4340]  |
-|  xtp  |  Xpress Transfer Protocol  |
-|  ddp  |  Datagram Delivery Protocol  |
-|  idpr-cmtp  |  IDPR Control Message Transport  |
-|  Ipv6  |  Internet Protocol, version 6  |
-|  ipv6-route  |  Routing Header for IPv6  |
-|  ipv6-frag  |  Fragment Header for IPv6  |
-|  idrp  |  Inter-Domain Routing Protocol  |
-|  rsvp  |  Reservation Protocol  |
-|  gre  |  General Routing Encapsulation  |
-|  esp  |  Encap Security Payload [RFC2406]  |
-|  ah  |  Authentication Header [RFC2402]  |
-|  skip  |  SKIP  |
-|  ipv6-icmp  |  ICMP for IPv6  |
-|  ipv6-nonxt  |  No Next Header for IPv6  |
-|  ipv6-opts  |  Destination Options for IPv6  |
-|  rspf  |  Radio Shortest Path First (officially CPHB)  |
-|  vmtp  |  Versatile Message Transport  |
-|  eigrp  |  Enhanced Interior Routing Protocol (Cisco)  |
-|  ospf  |  Open Shortest Path First IGP  |
-|  ax.25  |  AX.25 frames  |
-|  ipip  |  IP-within-IP Encapsulation Protocol  |
-|  etherip  |  Ethernet-within-IP Encapsulation [RFC3378]  |
-|  encap  |  Yet Another IP encapsulation [RFC1241]  |
-|  99  |  Any private encryption scheme  |
-|  pim  |  Protocol Independent Multicast  |
-|  ipcomp  |  IP Payload Compression Protocol  |
-|  vrrp  |  Virtual Router Redundancy Protocol [RFC5798]  |
-|  l2tp  |  Layer Two Tunneling Protocol [RFC2661]  |
-|  isis  |  IS-IS over IPv4  |
-|  sctp  |  Stream Control Transmission Protocol  |
-|  fc  |  Fibre Channel  |
-|  mobility-header  |  Mobility Support for IPv6 [RFC3775]  |
-|  udplite  |  UDP-Lite [RFC3828]  |
-|  mpls-in-ip  |  MPLS-in-IP [RFC4023]  |
-|  manet  |  MANET Protocols [RFC5498]  |
-|  hip  |  Host Identity Protocol  |
-|  shim6  |  Shim6 Protocol  |
-|  wesp  |  Wrapped Encapsulating Security Payload  |
-|  rohc  |  Robust Header Compression  |
-|  u32:0-255  |  IP protocol number  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  all  |  All IP protocols  |
+    |  ip  |  Internet Protocol, pseudo protocol number  |
+    |  hopopt  |  IPv6 Hop-by-Hop Option [RFC1883]  |
+    |  icmp  |  internet control message protocol  |
+    |  igmp  |  Internet Group Management  |
+    |  ggp  |  gateway-gateway protocol  |
+    |  ipencap  |  IP encapsulated in IP (officially IP)  |
+    |  st  |  ST datagram mode  |
+    |  tcp  |  transmission control protocol  |
+    |  egp  |  exterior gateway protocol  |
+    |  igp  |  any private interior gateway (Cisco)  |
+    |  pup  |  PARC universal packet protocol  |
+    |  udp  |  user datagram protocol  |
+    |  tcp_udp  |  Both TCP and UDP  |
+    |  hmp  |  host monitoring protocol  |
+    |  xns-idp  |  Xerox NS IDP  |
+    |  rdp  |  "reliable datagram" protocol  |
+    |  iso-tp4  |  ISO Transport Protocol class 4 [RFC905]  |
+    |  dccp  |  Datagram Congestion Control Prot. [RFC4340]  |
+    |  xtp  |  Xpress Transfer Protocol  |
+    |  ddp  |  Datagram Delivery Protocol  |
+    |  idpr-cmtp  |  IDPR Control Message Transport  |
+    |  Ipv6  |  Internet Protocol, version 6  |
+    |  ipv6-route  |  Routing Header for IPv6  |
+    |  ipv6-frag  |  Fragment Header for IPv6  |
+    |  idrp  |  Inter-Domain Routing Protocol  |
+    |  rsvp  |  Reservation Protocol  |
+    |  gre  |  General Routing Encapsulation  |
+    |  esp  |  Encap Security Payload [RFC2406]  |
+    |  ah  |  Authentication Header [RFC2402]  |
+    |  skip  |  SKIP  |
+    |  ipv6-icmp  |  ICMP for IPv6  |
+    |  ipv6-nonxt  |  No Next Header for IPv6  |
+    |  ipv6-opts  |  Destination Options for IPv6  |
+    |  rspf  |  Radio Shortest Path First (officially CPHB)  |
+    |  vmtp  |  Versatile Message Transport  |
+    |  eigrp  |  Enhanced Interior Routing Protocol (Cisco)  |
+    |  ospf  |  Open Shortest Path First IGP  |
+    |  ax.25  |  AX.25 frames  |
+    |  ipip  |  IP-within-IP Encapsulation Protocol  |
+    |  etherip  |  Ethernet-within-IP Encapsulation [RFC3378]  |
+    |  encap  |  Yet Another IP encapsulation [RFC1241]  |
+    |  99  |  Any private encryption scheme  |
+    |  pim  |  Protocol Independent Multicast  |
+    |  ipcomp  |  IP Payload Compression Protocol  |
+    |  vrrp  |  Virtual Router Redundancy Protocol [RFC5798]  |
+    |  l2tp  |  Layer Two Tunneling Protocol [RFC2661]  |
+    |  isis  |  IS-IS over IPv4  |
+    |  sctp  |  Stream Control Transmission Protocol  |
+    |  fc  |  Fibre Channel  |
+    |  mobility-header  |  Mobility Support for IPv6 [RFC3775]  |
+    |  udplite  |  UDP-Lite [RFC3828]  |
+    |  mpls-in-ip  |  MPLS-in-IP [RFC4023]  |
+    |  manet  |  MANET Protocols [RFC5498]  |
+    |  hip  |  Host Identity Protocol  |
+    |  shim6  |  Shim6 Protocol  |
+    |  wesp  |  Wrapped Encapsulating Security Payload  |
+    |  rohc  |  Robust Header Compression  |
+    |  u32:0-255  |  IP protocol number  |
 - `source` (Attributes) NAT source parameters (see [below for nested schema](#nestedatt--source))
 - `translation` (Attributes) Inside NAT IP (destination NAT only) (see [below for nested schema](#nestedatt--translation))
 
@@ -129,23 +129,23 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--destination--group))
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |
 
 <a id="nestedatt--destination--group"></a>
 ### Nested Schema for `destination.group`
@@ -167,23 +167,23 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
-|  !ipv4  |  Match everything except the specified address  |
-|  !ipv4net  |  Match everything except the specified prefix  |
-|  !ipv4range  |  Match everything except the specified range  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
+    |  !ipv4  |  Match everything except the specified address  |
+    |  !ipv4net  |  Match everything except the specified prefix  |
+    |  !ipv4range  |  Match everything except the specified range  |
 - `group` (Attributes) Group (see [below for nested schema](#nestedatt--source--group))
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Named port (any name in /etc/services, e.g., http)  |
-|  u32:1-65535  |  Numeric IP port  |
-|  start-end  |  Numbered port range (e.g. 1001-1005)  |
-|   |   |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Named port (any name in /etc/services, e.g., http)  |
+    |  u32:1-65535  |  Numeric IP port  |
+    |  start-end  |  Numbered port range (e.g. 1001-1005)  |
+    |   |   |
 
 <a id="nestedatt--source--group"></a>
 ### Nested Schema for `source.group`
@@ -205,18 +205,18 @@ Optional:
 
 - `address` (String) IP address, subnet, or range
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  IPv4 address to match  |
-|  ipv4net  |  IPv4 prefix to match  |
-|  ipv4range  |  IPv4 address range to match  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  IPv4 address to match  |
+    |  ipv4net  |  IPv4 prefix to match  |
+    |  ipv4range  |  IPv4 address range to match  |
 - `options` (Attributes) Translation options (see [below for nested schema](#nestedatt--translation--options))
 - `port` (String) Port number
 
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Numeric IP port  |
-|  range  |  Numbered port range (e.g., 1001-1005)  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  u32:1-65535  |  Numeric IP port  |
+    |  range  |  Numbered port range (e.g., 1001-1005)  |
 
 <a id="nestedatt--translation--options"></a>
 ### Nested Schema for `translation.options`
@@ -225,14 +225,14 @@ Optional:
 
 - `address_mapping` (String) Address mapping options
 
-|  Format  |  Description  |
-|----------|---------------|
-|  persistent  |  Gives a client the same source or destination-address for each connection  |
-|  random  |  Random source or destination address allocation for each connection  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  persistent  |  Gives a client the same source or destination-address for each connection  |
+    |  random  |  Random source or destination address allocation for each connection  |
 - `port_mapping` (String) Port mapping options
 
-|  Format  |  Description  |
-|----------|---------------|
-|  random  |  Randomize source port mapping  |
-|  fully-random  |  Full port randomization  |
-|  none  |  Do not apply port randomization  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  random  |  Randomize source port mapping  |
+    |  fully-random  |  Full port randomization  |
+    |  none  |  Do not apply port randomization  |

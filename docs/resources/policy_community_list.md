@@ -16,9 +16,9 @@ Routing policy
 
 Add a BGP community list entry
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BGP community-list name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BGP community-list name  |
 
 
 
@@ -29,46 +29,14 @@ Add a BGP community list entry
 
 - `identifier` (String) Add a BGP community list entry
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  BGP community-list name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  BGP community-list name  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `rule` (Attributes Map) Rule for this BGP community list
-
-|  Format  |  Description  |
-|----------|---------------|
-|  u32:1-65535  |  Community-list rule number  | (see [below for nested schema](#nestedatt--rule))
-
-<a id="nestedatt--rule"></a>
-### Nested Schema for `rule`
-
-Optional:
-
-- `action` (String) Action to take on entries matching this rule
-
-|  Format  |  Description  |
-|----------|---------------|
-|  permit  |  Permit matching entries  |
-|  deny  |  Deny matching entries  |
-- `description` (String) Description
-
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
-- `regex` (String) Regular expression to match against a community-list
-
-|  Format  |  Description  |
-|----------|---------------|
-|  <aa:nn>  |  Community number in AA:NN format  |
-|  local-AS  |  Well-known communities value NO_EXPORT_SUBCONFED 0xFFFFFF03  |
-|  no-advertise  |  Well-known communities value NO_ADVERTISE 0xFFFFFF02  |
-|  no-export  |  Well-known communities value NO_EXPORT 0xFFFFFF01  |
-|  internet  |  Well-known communities value 0  |
-|  additive  |  New value is appended to the existing value  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |

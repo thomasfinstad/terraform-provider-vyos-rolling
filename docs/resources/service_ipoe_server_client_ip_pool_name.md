@@ -19,9 +19,9 @@ Client IP pools and gateway setting
 
 Pool name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IP pool  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IP pool  |
 
 
 
@@ -32,19 +32,19 @@ Pool name
 
 - `identifier` (String) Pool name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Name of IP pool  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Name of IP pool  |
 
 ### Optional
 
 - `gateway_address` (String) Gateway IP address
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4  |  Default Gateway send to the client  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4  |  Default Gateway send to the client  |
 - `subnet` (String) Client IP subnet (CIDR notation)
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ipv4net  |  IPv4 address and prefix length  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ipv4net  |  IPv4 address and prefix length  |

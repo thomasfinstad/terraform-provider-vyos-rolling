@@ -13,9 +13,9 @@ description: |-
 
 Input Functional Block (IFB) interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ifbN  |  Input interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ifbN  |  Input interface name  |
 
 
 
@@ -26,20 +26,20 @@ Input Functional Block (IFB) interface name
 
 - `identifier` (String) Input Functional Block (IFB) interface name
 
-|  Format  |  Description  |
-|----------|---------------|
-|  ifbN  |  Input interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  ifbN  |  Input interface name  |
 
 ### Optional
 
 - `description` (String) Description
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Description  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Description  |
 - `disable` (String) Administratively disable interface
 - `redirect` (String) Redirect incoming packet to destination
 
-|  Format  |  Description  |
-|----------|---------------|
-|  txt  |  Destination interface name  |
+    |  Format  |  Description  |
+    |----------|---------------|
+    |  txt  |  Destination interface name  |
