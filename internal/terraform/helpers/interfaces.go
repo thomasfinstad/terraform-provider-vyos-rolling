@@ -1,11 +1,14 @@
 package helpers
 
-import (
-	"github.com/hashicorp/terraform-plugin-framework/attr"
-)
+import "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 
-// CustomResourceDataModel defines common functions all models need in order to operate
-type CustomResourceDataModel interface {
-	GetValues() (values map[string]attr.Value)
+// VyosTopResourceDataModel defines common functions all models need in order to operate
+type VyosTopResourceDataModel interface {
+	VyosResourceDataModel
 	GetVyosPath() (vyosPath []string)
+}
+
+// VyosResourceDataModel defines common functions all models need in order to operate
+type VyosResourceDataModel interface {
+	ResourceSchemaAttributes() map[string]schema.Attribute
 }

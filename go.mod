@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/dave/dst v0.27.2
 	github.com/gdexlab/go-render v1.0.1
+	github.com/go-test/deep v1.1.0
 	github.com/hashicorp/go-hclog v1.4.0
 	github.com/hashicorp/terraform-plugin-docs v0.14.1
 	github.com/hashicorp/terraform-plugin-framework v1.2.0

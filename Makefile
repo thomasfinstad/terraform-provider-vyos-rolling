@@ -159,6 +159,10 @@ tf-resources:
 
 	go generate main.go
 
+test:
+	cd internal/terraform/tests; \
+	go test -v
+
 install:
 	go install .
 
